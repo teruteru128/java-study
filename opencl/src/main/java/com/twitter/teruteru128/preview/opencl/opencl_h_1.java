@@ -22,193 +22,193 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef long long int_least64_t
      * }
      */
-    public static final OfLong int_least64_t = opencl_h.C_LONG_LONG;
+    public static final OfLong int_least64_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef unsigned char uint_least8_t
      * }
      */
-    public static final OfByte uint_least8_t = opencl_h.C_CHAR;
+    public static final OfByte uint_least8_t = C_CHAR;
     /**
      * {@snippet lang=c :
      * typedef unsigned short uint_least16_t
      * }
      */
-    public static final OfShort uint_least16_t = opencl_h.C_SHORT;
+    public static final OfShort uint_least16_t = C_SHORT;
     /**
      * {@snippet lang=c :
      * typedef unsigned int uint_least32_t
      * }
      */
-    public static final OfInt uint_least32_t = opencl_h.C_INT;
+    public static final OfInt uint_least32_t = C_INT;
     /**
      * {@snippet lang=c :
      * typedef unsigned long long uint_least64_t
      * }
      */
-    public static final OfLong uint_least64_t = opencl_h.C_LONG_LONG;
+    public static final OfLong uint_least64_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef signed char int_fast8_t
      * }
      */
-    public static final OfByte int_fast8_t = opencl_h.C_CHAR;
+    public static final OfByte int_fast8_t = C_CHAR;
     /**
      * {@snippet lang=c :
      * typedef int int_fast16_t
      * }
      */
-    public static final OfInt int_fast16_t = opencl_h.C_INT;
+    public static final OfInt int_fast16_t = C_INT;
     /**
      * {@snippet lang=c :
      * typedef int int_fast32_t
      * }
      */
-    public static final OfInt int_fast32_t = opencl_h.C_INT;
+    public static final OfInt int_fast32_t = C_INT;
     /**
      * {@snippet lang=c :
      * typedef long long int_fast64_t
      * }
      */
-    public static final OfLong int_fast64_t = opencl_h.C_LONG_LONG;
+    public static final OfLong int_fast64_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef unsigned char uint_fast8_t
      * }
      */
-    public static final OfByte uint_fast8_t = opencl_h.C_CHAR;
+    public static final OfByte uint_fast8_t = C_CHAR;
     /**
      * {@snippet lang=c :
      * typedef unsigned int uint_fast16_t
      * }
      */
-    public static final OfInt uint_fast16_t = opencl_h.C_INT;
+    public static final OfInt uint_fast16_t = C_INT;
     /**
      * {@snippet lang=c :
      * typedef unsigned int uint_fast32_t
      * }
      */
-    public static final OfInt uint_fast32_t = opencl_h.C_INT;
+    public static final OfInt uint_fast32_t = C_INT;
     /**
      * {@snippet lang=c :
      * typedef unsigned long long uint_fast64_t
      * }
      */
-    public static final OfLong uint_fast64_t = opencl_h.C_LONG_LONG;
+    public static final OfLong uint_fast64_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef long long intmax_t
      * }
      */
-    public static final OfLong intmax_t = opencl_h.C_LONG_LONG;
+    public static final OfLong intmax_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef unsigned long long uintmax_t
      * }
      */
-    public static final OfLong uintmax_t = opencl_h.C_LONG_LONG;
+    public static final OfLong uintmax_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef signed char cl_char
      * }
      */
-    public static final OfByte cl_char = opencl_h.C_CHAR;
+    public static final OfByte cl_char = C_CHAR;
     /**
      * {@snippet lang=c :
      * typedef unsigned char cl_uchar
      * }
      */
-    public static final OfByte cl_uchar = opencl_h.C_CHAR;
+    public static final OfByte cl_uchar = C_CHAR;
     /**
      * {@snippet lang=c :
      * typedef short cl_short
      * }
      */
-    public static final OfShort cl_short = opencl_h.C_SHORT;
+    public static final OfShort cl_short = C_SHORT;
     /**
      * {@snippet lang=c :
      * typedef unsigned short cl_ushort
      * }
      */
-    public static final OfShort cl_ushort = opencl_h.C_SHORT;
+    public static final OfShort cl_ushort = C_SHORT;
     /**
      * {@snippet lang=c :
      * typedef int cl_int
      * }
      */
-    public static final OfInt cl_int = opencl_h.C_INT;
+    public static final OfInt cl_int = C_INT;
     /**
      * {@snippet lang=c :
      * typedef unsigned int cl_uint
      * }
      */
-    public static final OfInt cl_uint = opencl_h.C_INT;
+    public static final OfInt cl_uint = C_INT;
     /**
      * {@snippet lang=c :
      * typedef long long cl_long
      * }
      */
-    public static final OfLong cl_long = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_long = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef unsigned long long cl_ulong
      * }
      */
-    public static final OfLong cl_ulong = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_ulong = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef unsigned short cl_half
      * }
      */
-    public static final OfShort cl_half = opencl_h.C_SHORT;
+    public static final OfShort cl_half = C_SHORT;
     /**
      * {@snippet lang=c :
      * typedef float cl_float
      * }
      */
-    public static final OfFloat cl_float = opencl_h.C_FLOAT;
+    public static final OfFloat cl_float = C_FLOAT;
     /**
      * {@snippet lang=c :
      * typedef double cl_double
      * }
      */
-    public static final OfDouble cl_double = opencl_h.C_DOUBLE;
+    public static final OfDouble cl_double = C_DOUBLE;
     /**
      * {@snippet lang=c :
      * typedef double max_align_t
      * }
      */
-    public static final OfDouble max_align_t = opencl_h.C_DOUBLE;
+    public static final OfDouble max_align_t = C_DOUBLE;
     /**
      * {@snippet lang=c :
      * typedef unsigned int cl_GLuint
      * }
      */
-    public static final OfInt cl_GLuint = opencl_h.C_INT;
+    public static final OfInt cl_GLuint = C_INT;
     /**
      * {@snippet lang=c :
      * typedef int cl_GLint
      * }
      */
-    public static final OfInt cl_GLint = opencl_h.C_INT;
+    public static final OfInt cl_GLint = C_INT;
     /**
      * {@snippet lang=c :
      * typedef unsigned int cl_GLenum
      * }
      */
-    public static final OfInt cl_GLenum = opencl_h.C_INT;
+    public static final OfInt cl_GLenum = C_INT;
     /**
      * {@snippet lang=c :
      * typedef _Bool __crt_bool
      * }
      */
-    public static final OfBoolean __crt_bool = opencl_h.C_BOOL;
+    public static final OfBoolean __crt_bool = C_BOOL;
 
     private static class _invalid_parameter_noinfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_invalid_parameter_noinfo"),
+                    findOrThrow("_invalid_parameter_noinfo"),
                     DESC);
     }
 
@@ -252,7 +252,7 @@ public class opencl_h_1 extends opencl_h_2 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_invalid_parameter_noinfo_noreturn"),
+                    findOrThrow("_invalid_parameter_noinfo_noreturn"),
                     DESC);
     }
 
@@ -294,15 +294,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _invoke_watson {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_invoke_watson"),
+                    findOrThrow("_invoke_watson"),
                     DESC);
     }
 
@@ -346,59 +346,59 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef int errno_t
      * }
      */
-    public static final OfInt errno_t = opencl_h.C_INT;
+    public static final OfInt errno_t = C_INT;
     /**
      * {@snippet lang=c :
      * typedef unsigned short wint_t
      * }
      */
-    public static final OfShort wint_t = opencl_h.C_SHORT;
+    public static final OfShort wint_t = C_SHORT;
     /**
      * {@snippet lang=c :
      * typedef unsigned short wctype_t
      * }
      */
-    public static final OfShort wctype_t = opencl_h.C_SHORT;
+    public static final OfShort wctype_t = C_SHORT;
     /**
      * {@snippet lang=c :
      * typedef long __time32_t
      * }
      */
-    public static final OfInt __time32_t = opencl_h.C_LONG;
+    public static final OfInt __time32_t = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef long long __time64_t
      * }
      */
-    public static final OfLong __time64_t = opencl_h.C_LONG_LONG;
+    public static final OfLong __time64_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef __crt_locale_pointers *_locale_t
      * }
      */
-    public static final AddressLayout _locale_t = opencl_h.C_POINTER;
+    public static final AddressLayout _locale_t = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __time64_t time_t
      * }
      */
-    public static final OfLong time_t = opencl_h.C_LONG_LONG;
+    public static final OfLong time_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef size_t rsize_t
      * }
      */
-    public static final OfLong rsize_t = opencl_h.C_LONG_LONG;
+    public static final OfLong rsize_t = C_LONG_LONG;
 
     private static class _calloc_base {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_calloc_base"),
+                    findOrThrow("_calloc_base"),
                     DESC);
     }
 
@@ -440,13 +440,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class calloc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("calloc"),
+                    findOrThrow("calloc"),
                     DESC);
     }
 
@@ -488,12 +488,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _callnewh {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG
+            C_INT,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_callnewh"),
+                    findOrThrow("_callnewh"),
                     DESC);
     }
 
@@ -535,13 +535,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _expand {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_expand"),
+                    findOrThrow("_expand"),
                     DESC);
     }
 
@@ -583,11 +583,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _free_base {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_free_base"),
+                    findOrThrow("_free_base"),
                     DESC);
     }
 
@@ -629,11 +629,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class free {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("free"),
+                    findOrThrow("free"),
                     DESC);
     }
 
@@ -675,12 +675,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _malloc_base {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_malloc_base"),
+                    findOrThrow("_malloc_base"),
                     DESC);
     }
 
@@ -722,12 +722,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class malloc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("malloc"),
+                    findOrThrow("malloc"),
                     DESC);
     }
 
@@ -769,12 +769,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _msize_base {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_msize_base"),
+                    findOrThrow("_msize_base"),
                     DESC);
     }
 
@@ -816,12 +816,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _msize {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_msize"),
+                    findOrThrow("_msize"),
                     DESC);
     }
 
@@ -863,13 +863,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _realloc_base {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_realloc_base"),
+                    findOrThrow("_realloc_base"),
                     DESC);
     }
 
@@ -911,13 +911,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class realloc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("realloc"),
+                    findOrThrow("realloc"),
                     DESC);
     }
 
@@ -959,14 +959,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _recalloc_base {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_recalloc_base"),
+                    findOrThrow("_recalloc_base"),
                     DESC);
     }
 
@@ -1008,14 +1008,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _recalloc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_recalloc"),
+                    findOrThrow("_recalloc"),
                     DESC);
     }
 
@@ -1057,11 +1057,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _aligned_free {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_aligned_free"),
+                    findOrThrow("_aligned_free"),
                     DESC);
     }
 
@@ -1103,13 +1103,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _aligned_malloc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_aligned_malloc"),
+                    findOrThrow("_aligned_malloc"),
                     DESC);
     }
 
@@ -1151,14 +1151,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _aligned_offset_malloc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_aligned_offset_malloc"),
+                    findOrThrow("_aligned_offset_malloc"),
                     DESC);
     }
 
@@ -1200,14 +1200,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _aligned_msize {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_aligned_msize"),
+                    findOrThrow("_aligned_msize"),
                     DESC);
     }
 
@@ -1249,15 +1249,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _aligned_offset_realloc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_aligned_offset_realloc"),
+                    findOrThrow("_aligned_offset_realloc"),
                     DESC);
     }
 
@@ -1299,16 +1299,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _aligned_offset_recalloc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_aligned_offset_recalloc"),
+                    findOrThrow("_aligned_offset_recalloc"),
                     DESC);
     }
 
@@ -1350,14 +1350,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _aligned_realloc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_aligned_realloc"),
+                    findOrThrow("_aligned_realloc"),
                     DESC);
     }
 
@@ -1399,15 +1399,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _aligned_recalloc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_aligned_recalloc"),
+                    findOrThrow("_aligned_recalloc"),
                     DESC);
     }
 
@@ -1449,17 +1449,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class bsearch_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("bsearch_s"),
+                    findOrThrow("bsearch_s"),
                     DESC);
     }
 
@@ -1501,15 +1501,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class qsort_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("qsort_s"),
+                    findOrThrow("qsort_s"),
                     DESC);
     }
 
@@ -1551,16 +1551,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class bsearch {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("bsearch"),
+                    findOrThrow("bsearch"),
                     DESC);
     }
 
@@ -1602,14 +1602,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class qsort {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("qsort"),
+                    findOrThrow("qsort"),
                     DESC);
     }
 
@@ -1651,17 +1651,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _lfind_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_lfind_s"),
+                    findOrThrow("_lfind_s"),
                     DESC);
     }
 
@@ -1703,16 +1703,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _lfind {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_lfind"),
+                    findOrThrow("_lfind"),
                     DESC);
     }
 
@@ -1754,17 +1754,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _lsearch_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_lsearch_s"),
+                    findOrThrow("_lsearch_s"),
                     DESC);
     }
 
@@ -1806,16 +1806,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _lsearch {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_lsearch"),
+                    findOrThrow("_lsearch"),
                     DESC);
     }
 
@@ -1857,16 +1857,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class lfind {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("lfind"),
+                    findOrThrow("lfind"),
                     DESC);
     }
 
@@ -1908,16 +1908,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class lsearch {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("lsearch"),
+                    findOrThrow("lsearch"),
                     DESC);
     }
 
@@ -1959,15 +1959,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _itow_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_itow_s"),
+                    findOrThrow("_itow_s"),
                     DESC);
     }
 
@@ -2009,14 +2009,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _itow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_itow"),
+                    findOrThrow("_itow"),
                     DESC);
     }
 
@@ -2058,15 +2058,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ltow_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ltow_s"),
+                    findOrThrow("_ltow_s"),
                     DESC);
     }
 
@@ -2108,14 +2108,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ltow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ltow"),
+                    findOrThrow("_ltow"),
                     DESC);
     }
 
@@ -2157,15 +2157,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ultow_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ultow_s"),
+                    findOrThrow("_ultow_s"),
                     DESC);
     }
 
@@ -2207,14 +2207,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ultow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ultow"),
+                    findOrThrow("_ultow"),
                     DESC);
     }
 
@@ -2256,13 +2256,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class wcstod {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_DOUBLE,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_DOUBLE,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("wcstod"),
+                    findOrThrow("wcstod"),
                     DESC);
     }
 
@@ -2304,14 +2304,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wcstod_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_DOUBLE,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_DOUBLE,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wcstod_l"),
+                    findOrThrow("_wcstod_l"),
                     DESC);
     }
 
@@ -2353,14 +2353,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class wcstol {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("wcstol"),
+                    findOrThrow("wcstol"),
                     DESC);
     }
 
@@ -2402,15 +2402,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wcstol_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wcstol_l"),
+                    findOrThrow("_wcstol_l"),
                     DESC);
     }
 
@@ -2452,14 +2452,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class wcstoll {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("wcstoll"),
+                    findOrThrow("wcstoll"),
                     DESC);
     }
 
@@ -2501,15 +2501,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wcstoll_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wcstoll_l"),
+                    findOrThrow("_wcstoll_l"),
                     DESC);
     }
 
@@ -2551,14 +2551,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class wcstoul {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("wcstoul"),
+                    findOrThrow("wcstoul"),
                     DESC);
     }
 
@@ -2600,15 +2600,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wcstoul_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wcstoul_l"),
+                    findOrThrow("_wcstoul_l"),
                     DESC);
     }
 
@@ -2650,14 +2650,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class wcstoull {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("wcstoull"),
+                    findOrThrow("wcstoull"),
                     DESC);
     }
 
@@ -2699,15 +2699,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wcstoull_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wcstoull_l"),
+                    findOrThrow("_wcstoull_l"),
                     DESC);
     }
 
@@ -2749,13 +2749,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class wcstold {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_DOUBLE,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_LONG_DOUBLE,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("wcstold"),
+                    findOrThrow("wcstold"),
                     DESC);
     }
 
@@ -2797,14 +2797,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wcstold_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_DOUBLE,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_LONG_DOUBLE,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wcstold_l"),
+                    findOrThrow("_wcstold_l"),
                     DESC);
     }
 
@@ -2846,13 +2846,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class wcstof {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_FLOAT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_FLOAT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("wcstof"),
+                    findOrThrow("wcstof"),
                     DESC);
     }
 
@@ -2894,14 +2894,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wcstof_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_FLOAT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_FLOAT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wcstof_l"),
+                    findOrThrow("_wcstof_l"),
                     DESC);
     }
 
@@ -2943,12 +2943,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wtof {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_DOUBLE,
-            opencl_h.C_POINTER
+            C_DOUBLE,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wtof"),
+                    findOrThrow("_wtof"),
                     DESC);
     }
 
@@ -2990,13 +2990,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wtof_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_DOUBLE,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_DOUBLE,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wtof_l"),
+                    findOrThrow("_wtof_l"),
                     DESC);
     }
 
@@ -3038,12 +3038,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wtoi {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wtoi"),
+                    findOrThrow("_wtoi"),
                     DESC);
     }
 
@@ -3085,13 +3085,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wtoi_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wtoi_l"),
+                    findOrThrow("_wtoi_l"),
                     DESC);
     }
 
@@ -3133,12 +3133,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wtol {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wtol"),
+                    findOrThrow("_wtol"),
                     DESC);
     }
 
@@ -3180,13 +3180,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wtol_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wtol_l"),
+                    findOrThrow("_wtol_l"),
                     DESC);
     }
 
@@ -3228,12 +3228,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wtoll {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wtoll"),
+                    findOrThrow("_wtoll"),
                     DESC);
     }
 
@@ -3275,13 +3275,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wtoll_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wtoll_l"),
+                    findOrThrow("_wtoll_l"),
                     DESC);
     }
 
@@ -3323,15 +3323,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _i64tow_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_i64tow_s"),
+                    findOrThrow("_i64tow_s"),
                     DESC);
     }
 
@@ -3373,14 +3373,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _i64tow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_i64tow"),
+                    findOrThrow("_i64tow"),
                     DESC);
     }
 
@@ -3422,15 +3422,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ui64tow_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ui64tow_s"),
+                    findOrThrow("_ui64tow_s"),
                     DESC);
     }
 
@@ -3472,14 +3472,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ui64tow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ui64tow"),
+                    findOrThrow("_ui64tow"),
                     DESC);
     }
 
@@ -3521,12 +3521,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wtoi64 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wtoi64"),
+                    findOrThrow("_wtoi64"),
                     DESC);
     }
 
@@ -3568,13 +3568,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wtoi64_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wtoi64_l"),
+                    findOrThrow("_wtoi64_l"),
                     DESC);
     }
 
@@ -3616,14 +3616,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wcstoi64 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wcstoi64"),
+                    findOrThrow("_wcstoi64"),
                     DESC);
     }
 
@@ -3665,15 +3665,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wcstoi64_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wcstoi64_l"),
+                    findOrThrow("_wcstoi64_l"),
                     DESC);
     }
 
@@ -3715,14 +3715,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wcstoui64 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wcstoui64"),
+                    findOrThrow("_wcstoui64"),
                     DESC);
     }
 
@@ -3764,15 +3764,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wcstoui64_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wcstoui64_l"),
+                    findOrThrow("_wcstoui64_l"),
                     DESC);
     }
 
@@ -3814,14 +3814,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wfullpath {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wfullpath"),
+                    findOrThrow("_wfullpath"),
                     DESC);
     }
 
@@ -3863,17 +3863,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wmakepath_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wmakepath_s"),
+                    findOrThrow("_wmakepath_s"),
                     DESC);
     }
 
@@ -3915,15 +3915,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wmakepath {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wmakepath"),
+                    findOrThrow("_wmakepath"),
                     DESC);
     }
 
@@ -3965,11 +3965,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wperror {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wperror"),
+                    findOrThrow("_wperror"),
                     DESC);
     }
 
@@ -4011,15 +4011,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wsplitpath {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wsplitpath"),
+                    findOrThrow("_wsplitpath"),
                     DESC);
     }
 
@@ -4061,20 +4061,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wsplitpath_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wsplitpath_s"),
+                    findOrThrow("_wsplitpath_s"),
                     DESC);
     }
 
@@ -4116,14 +4116,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wdupenv_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wdupenv_s"),
+                    findOrThrow("_wdupenv_s"),
                     DESC);
     }
 
@@ -4165,12 +4165,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wgetenv {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wgetenv"),
+                    findOrThrow("_wgetenv"),
                     DESC);
     }
 
@@ -4212,15 +4212,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wgetenv_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wgetenv_s"),
+                    findOrThrow("_wgetenv_s"),
                     DESC);
     }
 
@@ -4262,12 +4262,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wputenv {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wputenv"),
+                    findOrThrow("_wputenv"),
                     DESC);
     }
 
@@ -4309,13 +4309,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wputenv_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wputenv_s"),
+                    findOrThrow("_wputenv_s"),
                     DESC);
     }
 
@@ -4357,15 +4357,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wsearchenv_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wsearchenv_s"),
+                    findOrThrow("_wsearchenv_s"),
                     DESC);
     }
 
@@ -4407,13 +4407,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wsearchenv {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wsearchenv"),
+                    findOrThrow("_wsearchenv"),
                     DESC);
     }
 
@@ -4455,12 +4455,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wsystem {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wsystem"),
+                    findOrThrow("_wsystem"),
                     DESC);
     }
 
@@ -4502,13 +4502,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _swab {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_swab"),
+                    findOrThrow("_swab"),
                     DESC);
     }
 
@@ -4550,11 +4550,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class exit {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_INT
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("exit"),
+                    findOrThrow("exit"),
                     DESC);
     }
 
@@ -4596,11 +4596,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _exit {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_INT
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_exit"),
+                    findOrThrow("_exit"),
                     DESC);
     }
 
@@ -4642,11 +4642,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _Exit$ {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_INT
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_Exit"),
+                    findOrThrow("_Exit"),
                     DESC);
     }
 
@@ -4688,11 +4688,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class quick_exit {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_INT
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("quick_exit"),
+                    findOrThrow("quick_exit"),
                     DESC);
     }
 
@@ -4736,7 +4736,7 @@ public class opencl_h_1 extends opencl_h_2 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("abort"),
+                    findOrThrow("abort"),
                     DESC);
     }
 
@@ -4778,13 +4778,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _set_abort_behavior {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_INT
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_set_abort_behavior"),
+                    findOrThrow("_set_abort_behavior"),
                     DESC);
     }
 
@@ -4826,12 +4826,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class atexit {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("atexit"),
+                    findOrThrow("atexit"),
                     DESC);
     }
 
@@ -4873,12 +4873,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _onexit {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_onexit"),
+                    findOrThrow("_onexit"),
                     DESC);
     }
 
@@ -4920,12 +4920,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class at_quick_exit {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("at_quick_exit"),
+                    findOrThrow("at_quick_exit"),
                     DESC);
     }
 
@@ -4967,12 +4967,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _set_purecall_handler {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_set_purecall_handler"),
+                    findOrThrow("_set_purecall_handler"),
                     DESC);
     }
 
@@ -5014,10 +5014,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _get_purecall_handler {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_get_purecall_handler"),
+                    findOrThrow("_get_purecall_handler"),
                     DESC);
     }
 
@@ -5059,12 +5059,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _set_invalid_parameter_handler {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_set_invalid_parameter_handler"),
+                    findOrThrow("_set_invalid_parameter_handler"),
                     DESC);
     }
 
@@ -5106,10 +5106,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _get_invalid_parameter_handler {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_get_invalid_parameter_handler"),
+                    findOrThrow("_get_invalid_parameter_handler"),
                     DESC);
     }
 
@@ -5151,12 +5151,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _set_thread_local_invalid_parameter_handler {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_set_thread_local_invalid_parameter_handler"),
+                    findOrThrow("_set_thread_local_invalid_parameter_handler"),
                     DESC);
     }
 
@@ -5198,10 +5198,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _get_thread_local_invalid_parameter_handler {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_get_thread_local_invalid_parameter_handler"),
+                    findOrThrow("_get_thread_local_invalid_parameter_handler"),
                     DESC);
     }
 
@@ -5243,12 +5243,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _set_error_mode {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_set_error_mode"),
+                    findOrThrow("_set_error_mode"),
                     DESC);
     }
 
@@ -5290,10 +5290,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _errno {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_errno"),
+                    findOrThrow("_errno"),
                     DESC);
     }
 
@@ -5335,12 +5335,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _set_errno {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_set_errno"),
+                    findOrThrow("_set_errno"),
                     DESC);
     }
 
@@ -5382,12 +5382,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _get_errno {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_get_errno"),
+                    findOrThrow("_get_errno"),
                     DESC);
     }
 
@@ -5429,10 +5429,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class __doserrno {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__doserrno"),
+                    findOrThrow("__doserrno"),
                     DESC);
     }
 
@@ -5474,12 +5474,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _set_doserrno {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_LONG
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_set_doserrno"),
+                    findOrThrow("_set_doserrno"),
                     DESC);
     }
 
@@ -5521,12 +5521,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _get_doserrno {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_get_doserrno"),
+                    findOrThrow("_get_doserrno"),
                     DESC);
     }
 
@@ -5568,10 +5568,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class __sys_errlist {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__sys_errlist"),
+                    findOrThrow("__sys_errlist"),
                     DESC);
     }
 
@@ -5613,10 +5613,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class __sys_nerr {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__sys_nerr"),
+                    findOrThrow("__sys_nerr"),
                     DESC);
     }
 
@@ -5658,11 +5658,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class perror {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("perror"),
+                    findOrThrow("perror"),
                     DESC);
     }
 
@@ -5704,10 +5704,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class __p__pgmptr {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__p__pgmptr"),
+                    findOrThrow("__p__pgmptr"),
                     DESC);
     }
 
@@ -5749,10 +5749,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class __p__wpgmptr {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__p__wpgmptr"),
+                    findOrThrow("__p__wpgmptr"),
                     DESC);
     }
 
@@ -5794,10 +5794,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class __p__fmode {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__p__fmode"),
+                    findOrThrow("__p__fmode"),
                     DESC);
     }
 
@@ -5839,12 +5839,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _get_pgmptr {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_get_pgmptr"),
+                    findOrThrow("_get_pgmptr"),
                     DESC);
     }
 
@@ -5886,12 +5886,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _get_wpgmptr {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_get_wpgmptr"),
+                    findOrThrow("_get_wpgmptr"),
                     DESC);
     }
 
@@ -5933,12 +5933,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _set_fmode {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_set_fmode"),
+                    findOrThrow("_set_fmode"),
                     DESC);
     }
 
@@ -5980,12 +5980,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _get_fmode {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_get_fmode"),
+                    findOrThrow("_get_fmode"),
                     DESC);
     }
 
@@ -6027,12 +6027,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class abs {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("abs"),
+                    findOrThrow("abs"),
                     DESC);
     }
 
@@ -6074,12 +6074,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class labs {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_LONG
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("labs"),
+                    findOrThrow("labs"),
                     DESC);
     }
 
@@ -6121,12 +6121,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class llabs {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("llabs"),
+                    findOrThrow("llabs"),
                     DESC);
     }
 
@@ -6168,12 +6168,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _abs64 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_abs64"),
+                    findOrThrow("_abs64"),
                     DESC);
     }
 
@@ -6215,12 +6215,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _byteswap_ushort {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_SHORT,
-            opencl_h.C_SHORT
+            C_SHORT,
+            C_SHORT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_byteswap_ushort"),
+                    findOrThrow("_byteswap_ushort"),
                     DESC);
     }
 
@@ -6262,12 +6262,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _byteswap_ulong {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_LONG
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_byteswap_ulong"),
+                    findOrThrow("_byteswap_ulong"),
                     DESC);
     }
 
@@ -6309,12 +6309,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _byteswap_uint64 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_byteswap_uint64"),
+                    findOrThrow("_byteswap_uint64"),
                     DESC);
     }
 
@@ -6357,12 +6357,12 @@ public class opencl_h_1 extends opencl_h_2 {
     private static class div {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
             _div_t.layout(),
-            opencl_h.C_INT,
-            opencl_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("div"),
+                    findOrThrow("div"),
                     DESC);
     }
 
@@ -6405,12 +6405,12 @@ public class opencl_h_1 extends opencl_h_2 {
     private static class ldiv {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
             _ldiv_t.layout(),
-            opencl_h.C_LONG,
-            opencl_h.C_LONG
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("ldiv"),
+                    findOrThrow("ldiv"),
                     DESC);
     }
 
@@ -6453,12 +6453,12 @@ public class opencl_h_1 extends opencl_h_2 {
     private static class lldiv {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
             _lldiv_t.layout(),
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("lldiv"),
+                    findOrThrow("lldiv"),
                     DESC);
     }
 
@@ -6500,13 +6500,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _rotl {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_INT
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_rotl"),
+                    findOrThrow("_rotl"),
                     DESC);
     }
 
@@ -6548,13 +6548,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _lrotl {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_LONG,
-            opencl_h.C_INT
+            C_LONG,
+            C_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_lrotl"),
+                    findOrThrow("_lrotl"),
                     DESC);
     }
 
@@ -6596,13 +6596,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _rotl64 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_rotl64"),
+                    findOrThrow("_rotl64"),
                     DESC);
     }
 
@@ -6644,13 +6644,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _rotr {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_INT
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_rotr"),
+                    findOrThrow("_rotr"),
                     DESC);
     }
 
@@ -6692,13 +6692,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _lrotr {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_LONG,
-            opencl_h.C_INT
+            C_LONG,
+            C_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_lrotr"),
+                    findOrThrow("_lrotr"),
                     DESC);
     }
 
@@ -6740,13 +6740,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _rotr64 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_rotr64"),
+                    findOrThrow("_rotr64"),
                     DESC);
     }
 
@@ -6788,11 +6788,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class srand {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_INT
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("srand"),
+                    findOrThrow("srand"),
                     DESC);
     }
 
@@ -6834,10 +6834,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class rand {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("rand"),
+                    findOrThrow("rand"),
                     DESC);
     }
 
@@ -6879,12 +6879,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class atof {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_DOUBLE,
-            opencl_h.C_POINTER
+            C_DOUBLE,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("atof"),
+                    findOrThrow("atof"),
                     DESC);
     }
 
@@ -6926,12 +6926,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class atoi {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("atoi"),
+                    findOrThrow("atoi"),
                     DESC);
     }
 
@@ -6973,12 +6973,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class atol {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("atol"),
+                    findOrThrow("atol"),
                     DESC);
     }
 
@@ -7020,12 +7020,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class atoll {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("atoll"),
+                    findOrThrow("atoll"),
                     DESC);
     }
 
@@ -7067,12 +7067,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _atoi64 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_atoi64"),
+                    findOrThrow("_atoi64"),
                     DESC);
     }
 
@@ -7114,13 +7114,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _atof_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_DOUBLE,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_DOUBLE,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_atof_l"),
+                    findOrThrow("_atof_l"),
                     DESC);
     }
 
@@ -7162,13 +7162,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _atoi_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_atoi_l"),
+                    findOrThrow("_atoi_l"),
                     DESC);
     }
 
@@ -7210,13 +7210,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _atol_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_atol_l"),
+                    findOrThrow("_atol_l"),
                     DESC);
     }
 
@@ -7258,13 +7258,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _atoll_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_atoll_l"),
+                    findOrThrow("_atoll_l"),
                     DESC);
     }
 
@@ -7306,13 +7306,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _atoi64_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_atoi64_l"),
+                    findOrThrow("_atoi64_l"),
                     DESC);
     }
 
@@ -7354,13 +7354,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _atoflt {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_atoflt"),
+                    findOrThrow("_atoflt"),
                     DESC);
     }
 
@@ -7402,13 +7402,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _atodbl {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_atodbl"),
+                    findOrThrow("_atodbl"),
                     DESC);
     }
 
@@ -7450,13 +7450,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _atoldbl {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_atoldbl"),
+                    findOrThrow("_atoldbl"),
                     DESC);
     }
 
@@ -7498,14 +7498,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _atoflt_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_atoflt_l"),
+                    findOrThrow("_atoflt_l"),
                     DESC);
     }
 
@@ -7547,14 +7547,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _atodbl_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_atodbl_l"),
+                    findOrThrow("_atodbl_l"),
                     DESC);
     }
 
@@ -7596,14 +7596,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _atoldbl_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_atoldbl_l"),
+                    findOrThrow("_atoldbl_l"),
                     DESC);
     }
 
@@ -7645,13 +7645,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class strtof {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_FLOAT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_FLOAT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("strtof"),
+                    findOrThrow("strtof"),
                     DESC);
     }
 
@@ -7693,14 +7693,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _strtof_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_FLOAT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_FLOAT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_strtof_l"),
+                    findOrThrow("_strtof_l"),
                     DESC);
     }
 
@@ -7742,13 +7742,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class strtod {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_DOUBLE,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_DOUBLE,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("strtod"),
+                    findOrThrow("strtod"),
                     DESC);
     }
 
@@ -7790,14 +7790,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _strtod_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_DOUBLE,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_DOUBLE,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_strtod_l"),
+                    findOrThrow("_strtod_l"),
                     DESC);
     }
 
@@ -7839,13 +7839,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class strtold {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_DOUBLE,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_LONG_DOUBLE,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("strtold"),
+                    findOrThrow("strtold"),
                     DESC);
     }
 
@@ -7887,14 +7887,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _strtold_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_DOUBLE,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_LONG_DOUBLE,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_strtold_l"),
+                    findOrThrow("_strtold_l"),
                     DESC);
     }
 
@@ -7936,14 +7936,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class strtol {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("strtol"),
+                    findOrThrow("strtol"),
                     DESC);
     }
 
@@ -7985,15 +7985,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _strtol_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_strtol_l"),
+                    findOrThrow("_strtol_l"),
                     DESC);
     }
 
@@ -8035,14 +8035,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class strtoll {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("strtoll"),
+                    findOrThrow("strtoll"),
                     DESC);
     }
 
@@ -8084,15 +8084,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _strtoll_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_strtoll_l"),
+                    findOrThrow("_strtoll_l"),
                     DESC);
     }
 
@@ -8134,14 +8134,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class strtoul {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("strtoul"),
+                    findOrThrow("strtoul"),
                     DESC);
     }
 
@@ -8183,15 +8183,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _strtoul_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_strtoul_l"),
+                    findOrThrow("_strtoul_l"),
                     DESC);
     }
 
@@ -8233,14 +8233,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class strtoull {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("strtoull"),
+                    findOrThrow("strtoull"),
                     DESC);
     }
 
@@ -8282,15 +8282,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _strtoull_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_strtoull_l"),
+                    findOrThrow("_strtoull_l"),
                     DESC);
     }
 
@@ -8332,14 +8332,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _strtoi64 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_strtoi64"),
+                    findOrThrow("_strtoi64"),
                     DESC);
     }
 
@@ -8381,15 +8381,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _strtoi64_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_strtoi64_l"),
+                    findOrThrow("_strtoi64_l"),
                     DESC);
     }
 
@@ -8431,14 +8431,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _strtoui64 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_strtoui64"),
+                    findOrThrow("_strtoui64"),
                     DESC);
     }
 
@@ -8480,15 +8480,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _strtoui64_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_strtoui64_l"),
+                    findOrThrow("_strtoui64_l"),
                     DESC);
     }
 
@@ -8530,15 +8530,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _itoa_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_itoa_s"),
+                    findOrThrow("_itoa_s"),
                     DESC);
     }
 
@@ -8580,14 +8580,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _itoa {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_itoa"),
+                    findOrThrow("_itoa"),
                     DESC);
     }
 
@@ -8629,15 +8629,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ltoa_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ltoa_s"),
+                    findOrThrow("_ltoa_s"),
                     DESC);
     }
 
@@ -8679,14 +8679,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ltoa {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ltoa"),
+                    findOrThrow("_ltoa"),
                     DESC);
     }
 
@@ -8728,15 +8728,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ultoa_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ultoa_s"),
+                    findOrThrow("_ultoa_s"),
                     DESC);
     }
 
@@ -8778,14 +8778,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ultoa {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ultoa"),
+                    findOrThrow("_ultoa"),
                     DESC);
     }
 
@@ -8827,15 +8827,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _i64toa_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_i64toa_s"),
+                    findOrThrow("_i64toa_s"),
                     DESC);
     }
 
@@ -8877,14 +8877,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _i64toa {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_i64toa"),
+                    findOrThrow("_i64toa"),
                     DESC);
     }
 
@@ -8926,15 +8926,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ui64toa_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ui64toa_s"),
+                    findOrThrow("_ui64toa_s"),
                     DESC);
     }
 
@@ -8976,14 +8976,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ui64toa {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ui64toa"),
+                    findOrThrow("_ui64toa"),
                     DESC);
     }
 
@@ -9025,17 +9025,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ecvt_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_DOUBLE,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_DOUBLE,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ecvt_s"),
+                    findOrThrow("_ecvt_s"),
                     DESC);
     }
 
@@ -9077,15 +9077,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _ecvt {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_DOUBLE,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_DOUBLE,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_ecvt"),
+                    findOrThrow("_ecvt"),
                     DESC);
     }
 
@@ -9127,17 +9127,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _fcvt_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_DOUBLE,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_DOUBLE,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_fcvt_s"),
+                    findOrThrow("_fcvt_s"),
                     DESC);
     }
 
@@ -9179,15 +9179,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _fcvt {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_DOUBLE,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_DOUBLE,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_fcvt"),
+                    findOrThrow("_fcvt"),
                     DESC);
     }
 
@@ -9229,15 +9229,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _gcvt_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_DOUBLE,
-            opencl_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_DOUBLE,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_gcvt_s"),
+                    findOrThrow("_gcvt_s"),
                     DESC);
     }
 
@@ -9279,14 +9279,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _gcvt {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_DOUBLE,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_DOUBLE,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_gcvt"),
+                    findOrThrow("_gcvt"),
                     DESC);
     }
 
@@ -9328,10 +9328,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class ___mb_cur_max_func {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("___mb_cur_max_func"),
+                    findOrThrow("___mb_cur_max_func"),
                     DESC);
     }
 
@@ -9373,12 +9373,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class ___mb_cur_max_l_func {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("___mb_cur_max_l_func"),
+                    findOrThrow("___mb_cur_max_l_func"),
                     DESC);
     }
 
@@ -9420,13 +9420,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class mblen {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("mblen"),
+                    findOrThrow("mblen"),
                     DESC);
     }
 
@@ -9468,14 +9468,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _mblen_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mblen_l"),
+                    findOrThrow("_mblen_l"),
                     DESC);
     }
 
@@ -9517,12 +9517,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _mbstrlen {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mbstrlen"),
+                    findOrThrow("_mbstrlen"),
                     DESC);
     }
 
@@ -9564,13 +9564,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _mbstrlen_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mbstrlen_l"),
+                    findOrThrow("_mbstrlen_l"),
                     DESC);
     }
 
@@ -9612,13 +9612,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _mbstrnlen {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mbstrnlen"),
+                    findOrThrow("_mbstrnlen"),
                     DESC);
     }
 
@@ -9660,14 +9660,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _mbstrnlen_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mbstrnlen_l"),
+                    findOrThrow("_mbstrnlen_l"),
                     DESC);
     }
 
@@ -9709,14 +9709,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class mbtowc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("mbtowc"),
+                    findOrThrow("mbtowc"),
                     DESC);
     }
 
@@ -9758,15 +9758,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _mbtowc_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mbtowc_l"),
+                    findOrThrow("_mbtowc_l"),
                     DESC);
     }
 
@@ -9808,16 +9808,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class mbstowcs_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("mbstowcs_s"),
+                    findOrThrow("mbstowcs_s"),
                     DESC);
     }
 
@@ -9859,14 +9859,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class mbstowcs {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("mbstowcs"),
+                    findOrThrow("mbstowcs"),
                     DESC);
     }
 
@@ -9908,17 +9908,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _mbstowcs_s_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mbstowcs_s_l"),
+                    findOrThrow("_mbstowcs_s_l"),
                     DESC);
     }
 
@@ -9960,15 +9960,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _mbstowcs_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mbstowcs_l"),
+                    findOrThrow("_mbstowcs_l"),
                     DESC);
     }
 
@@ -10010,13 +10010,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class wctomb {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_SHORT
+            C_INT,
+            C_POINTER,
+            C_SHORT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("wctomb"),
+                    findOrThrow("wctomb"),
                     DESC);
     }
 
@@ -10058,14 +10058,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wctomb_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_SHORT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_SHORT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wctomb_l"),
+                    findOrThrow("_wctomb_l"),
                     DESC);
     }
 
@@ -10107,15 +10107,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class wctomb_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_SHORT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_SHORT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("wctomb_s"),
+                    findOrThrow("wctomb_s"),
                     DESC);
     }
 
@@ -10157,16 +10157,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wctomb_s_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_SHORT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_SHORT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wctomb_s_l"),
+                    findOrThrow("_wctomb_s_l"),
                     DESC);
     }
 
@@ -10208,16 +10208,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class wcstombs_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("wcstombs_s"),
+                    findOrThrow("wcstombs_s"),
                     DESC);
     }
 
@@ -10259,14 +10259,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class wcstombs {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("wcstombs"),
+                    findOrThrow("wcstombs"),
                     DESC);
     }
 
@@ -10308,17 +10308,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wcstombs_s_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wcstombs_s_l"),
+                    findOrThrow("_wcstombs_s_l"),
                     DESC);
     }
 
@@ -10360,15 +10360,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _wcstombs_l {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_wcstombs_l"),
+                    findOrThrow("_wcstombs_l"),
                     DESC);
     }
 
@@ -10410,14 +10410,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _fullpath {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_fullpath"),
+                    findOrThrow("_fullpath"),
                     DESC);
     }
 
@@ -10459,17 +10459,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _makepath_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_makepath_s"),
+                    findOrThrow("_makepath_s"),
                     DESC);
     }
 
@@ -10511,15 +10511,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _makepath {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_makepath"),
+                    findOrThrow("_makepath"),
                     DESC);
     }
 
@@ -10561,15 +10561,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _splitpath {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_splitpath"),
+                    findOrThrow("_splitpath"),
                     DESC);
     }
 
@@ -10611,20 +10611,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _splitpath_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_splitpath_s"),
+                    findOrThrow("_splitpath_s"),
                     DESC);
     }
 
@@ -10666,15 +10666,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class getenv_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("getenv_s"),
+                    findOrThrow("getenv_s"),
                     DESC);
     }
 
@@ -10716,10 +10716,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class __p___argc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__p___argc"),
+                    findOrThrow("__p___argc"),
                     DESC);
     }
 
@@ -10761,10 +10761,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class __p___argv {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__p___argv"),
+                    findOrThrow("__p___argv"),
                     DESC);
     }
 
@@ -10806,10 +10806,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class __p___wargv {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__p___wargv"),
+                    findOrThrow("__p___wargv"),
                     DESC);
     }
 
@@ -10851,10 +10851,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class __p__environ {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__p__environ"),
+                    findOrThrow("__p__environ"),
                     DESC);
     }
 
@@ -10896,10 +10896,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class __p__wenviron {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__p__wenviron"),
+                    findOrThrow("__p__wenviron"),
                     DESC);
     }
 
@@ -10941,12 +10941,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class getenv {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("getenv"),
+                    findOrThrow("getenv"),
                     DESC);
     }
 
@@ -10988,14 +10988,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _dupenv_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_dupenv_s"),
+                    findOrThrow("_dupenv_s"),
                     DESC);
     }
 
@@ -11037,12 +11037,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class system {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("system"),
+                    findOrThrow("system"),
                     DESC);
     }
 
@@ -11084,12 +11084,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _putenv {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_putenv"),
+                    findOrThrow("_putenv"),
                     DESC);
     }
 
@@ -11131,13 +11131,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _putenv_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_putenv_s"),
+                    findOrThrow("_putenv_s"),
                     DESC);
     }
 
@@ -11179,15 +11179,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _searchenv_s {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_searchenv_s"),
+                    findOrThrow("_searchenv_s"),
                     DESC);
     }
 
@@ -11229,13 +11229,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _searchenv {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_searchenv"),
+                    findOrThrow("_searchenv"),
                     DESC);
     }
 
@@ -11277,11 +11277,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _seterrormode {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_INT
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_seterrormode"),
+                    findOrThrow("_seterrormode"),
                     DESC);
     }
 
@@ -11323,12 +11323,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _beep {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_INT,
-            opencl_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_beep"),
+                    findOrThrow("_beep"),
                     DESC);
     }
 
@@ -11370,11 +11370,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _sleep {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_LONG
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_sleep"),
+                    findOrThrow("_sleep"),
                     DESC);
     }
 
@@ -11416,15 +11416,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class ecvt {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_DOUBLE,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_DOUBLE,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("ecvt"),
+                    findOrThrow("ecvt"),
                     DESC);
     }
 
@@ -11466,15 +11466,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class fcvt {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_DOUBLE,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_DOUBLE,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("fcvt"),
+                    findOrThrow("fcvt"),
                     DESC);
     }
 
@@ -11516,14 +11516,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class gcvt {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_DOUBLE,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_DOUBLE,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("gcvt"),
+                    findOrThrow("gcvt"),
                     DESC);
     }
 
@@ -11565,14 +11565,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class itoa {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("itoa"),
+                    findOrThrow("itoa"),
                     DESC);
     }
 
@@ -11614,14 +11614,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class ltoa {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("ltoa"),
+                    findOrThrow("ltoa"),
                     DESC);
     }
 
@@ -11663,13 +11663,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class swab {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("swab"),
+                    findOrThrow("swab"),
                     DESC);
     }
 
@@ -11711,14 +11711,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class ultoa {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("ultoa"),
+                    findOrThrow("ultoa"),
                     DESC);
     }
 
@@ -11760,12 +11760,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class putenv {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("putenv"),
+                    findOrThrow("putenv"),
                     DESC);
     }
 
@@ -11807,12 +11807,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class onexit {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("onexit"),
+                    findOrThrow("onexit"),
                     DESC);
     }
 
@@ -11854,12 +11854,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _alloca {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_alloca"),
+                    findOrThrow("_alloca"),
                     DESC);
     }
 
@@ -11901,10 +11901,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _get_heap_handle {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_LONG_LONG    );
+            C_LONG_LONG    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_get_heap_handle"),
+                    findOrThrow("_get_heap_handle"),
                     DESC);
     }
 
@@ -11946,10 +11946,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _heapmin {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_heapmin"),
+                    findOrThrow("_heapmin"),
                     DESC);
     }
 
@@ -11991,12 +11991,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _heapwalk {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_heapwalk"),
+                    findOrThrow("_heapwalk"),
                     DESC);
     }
 
@@ -12038,10 +12038,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _heapchk {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_heapchk"),
+                    findOrThrow("_heapchk"),
                     DESC);
     }
 
@@ -12083,10 +12083,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _resetstkoflw {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_resetstkoflw"),
+                    findOrThrow("_resetstkoflw"),
                     DESC);
     }
 
@@ -12130,7 +12130,7 @@ public class opencl_h_1 extends opencl_h_2 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mm_sfence"),
+                    findOrThrow("_mm_sfence"),
                     DESC);
     }
 
@@ -12172,10 +12172,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _mm_getcsr {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mm_getcsr"),
+                    findOrThrow("_mm_getcsr"),
                     DESC);
     }
 
@@ -12217,11 +12217,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _mm_setcsr {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_INT
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mm_setcsr"),
+                    findOrThrow("_mm_setcsr"),
                     DESC);
     }
 
@@ -12263,11 +12263,11 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class _mm_clflush {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mm_clflush"),
+                    findOrThrow("_mm_clflush"),
                     DESC);
     }
 
@@ -12311,7 +12311,7 @@ public class opencl_h_1 extends opencl_h_2 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mm_lfence"),
+                    findOrThrow("_mm_lfence"),
                     DESC);
     }
 
@@ -12355,7 +12355,7 @@ public class opencl_h_1 extends opencl_h_2 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mm_mfence"),
+                    findOrThrow("_mm_mfence"),
                     DESC);
     }
 
@@ -12399,7 +12399,7 @@ public class opencl_h_1 extends opencl_h_2 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("_mm_pause"),
+                    findOrThrow("_mm_pause"),
                     DESC);
     }
 
@@ -12443,390 +12443,390 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef struct _cl_platform_id *cl_platform_id
      * }
      */
-    public static final AddressLayout cl_platform_id = opencl_h.C_POINTER;
+    public static final AddressLayout cl_platform_id = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _cl_device_id *cl_device_id
      * }
      */
-    public static final AddressLayout cl_device_id = opencl_h.C_POINTER;
+    public static final AddressLayout cl_device_id = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _cl_context *cl_context
      * }
      */
-    public static final AddressLayout cl_context = opencl_h.C_POINTER;
+    public static final AddressLayout cl_context = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _cl_command_queue *cl_command_queue
      * }
      */
-    public static final AddressLayout cl_command_queue = opencl_h.C_POINTER;
+    public static final AddressLayout cl_command_queue = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _cl_mem *cl_mem
      * }
      */
-    public static final AddressLayout cl_mem = opencl_h.C_POINTER;
+    public static final AddressLayout cl_mem = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _cl_program *cl_program
      * }
      */
-    public static final AddressLayout cl_program = opencl_h.C_POINTER;
+    public static final AddressLayout cl_program = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _cl_kernel *cl_kernel
      * }
      */
-    public static final AddressLayout cl_kernel = opencl_h.C_POINTER;
+    public static final AddressLayout cl_kernel = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _cl_event *cl_event
      * }
      */
-    public static final AddressLayout cl_event = opencl_h.C_POINTER;
+    public static final AddressLayout cl_event = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _cl_sampler *cl_sampler
      * }
      */
-    public static final AddressLayout cl_sampler = opencl_h.C_POINTER;
+    public static final AddressLayout cl_sampler = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_bool
      * }
      */
-    public static final OfInt cl_bool = opencl_h.C_INT;
+    public static final OfInt cl_bool = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_ulong cl_bitfield
      * }
      */
-    public static final OfLong cl_bitfield = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_bitfield = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_ulong cl_properties
      * }
      */
-    public static final OfLong cl_properties = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_properties = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_device_type
      * }
      */
-    public static final OfLong cl_device_type = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_type = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_platform_info
      * }
      */
-    public static final OfInt cl_platform_info = opencl_h.C_INT;
+    public static final OfInt cl_platform_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_device_info
      * }
      */
-    public static final OfInt cl_device_info = opencl_h.C_INT;
+    public static final OfInt cl_device_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_device_fp_config
      * }
      */
-    public static final OfLong cl_device_fp_config = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_fp_config = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_device_mem_cache_type
      * }
      */
-    public static final OfInt cl_device_mem_cache_type = opencl_h.C_INT;
+    public static final OfInt cl_device_mem_cache_type = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_device_local_mem_type
      * }
      */
-    public static final OfInt cl_device_local_mem_type = opencl_h.C_INT;
+    public static final OfInt cl_device_local_mem_type = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_device_exec_capabilities
      * }
      */
-    public static final OfLong cl_device_exec_capabilities = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_exec_capabilities = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_device_svm_capabilities
      * }
      */
-    public static final OfLong cl_device_svm_capabilities = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_svm_capabilities = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_command_queue_properties
      * }
      */
-    public static final OfLong cl_command_queue_properties = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_command_queue_properties = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef intptr_t cl_device_partition_property
      * }
      */
-    public static final OfLong cl_device_partition_property = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_partition_property = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_device_affinity_domain
      * }
      */
-    public static final OfLong cl_device_affinity_domain = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_affinity_domain = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef intptr_t cl_context_properties
      * }
      */
-    public static final OfLong cl_context_properties = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_context_properties = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_context_info
      * }
      */
-    public static final OfInt cl_context_info = opencl_h.C_INT;
+    public static final OfInt cl_context_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_properties cl_queue_properties
      * }
      */
-    public static final OfLong cl_queue_properties = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_queue_properties = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_command_queue_info
      * }
      */
-    public static final OfInt cl_command_queue_info = opencl_h.C_INT;
+    public static final OfInt cl_command_queue_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_channel_order
      * }
      */
-    public static final OfInt cl_channel_order = opencl_h.C_INT;
+    public static final OfInt cl_channel_order = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_channel_type
      * }
      */
-    public static final OfInt cl_channel_type = opencl_h.C_INT;
+    public static final OfInt cl_channel_type = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_mem_flags
      * }
      */
-    public static final OfLong cl_mem_flags = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_mem_flags = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_svm_mem_flags
      * }
      */
-    public static final OfLong cl_svm_mem_flags = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_svm_mem_flags = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_mem_object_type
      * }
      */
-    public static final OfInt cl_mem_object_type = opencl_h.C_INT;
+    public static final OfInt cl_mem_object_type = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_mem_info
      * }
      */
-    public static final OfInt cl_mem_info = opencl_h.C_INT;
+    public static final OfInt cl_mem_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_mem_migration_flags
      * }
      */
-    public static final OfLong cl_mem_migration_flags = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_mem_migration_flags = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_image_info
      * }
      */
-    public static final OfInt cl_image_info = opencl_h.C_INT;
+    public static final OfInt cl_image_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_buffer_create_type
      * }
      */
-    public static final OfInt cl_buffer_create_type = opencl_h.C_INT;
+    public static final OfInt cl_buffer_create_type = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_addressing_mode
      * }
      */
-    public static final OfInt cl_addressing_mode = opencl_h.C_INT;
+    public static final OfInt cl_addressing_mode = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_filter_mode
      * }
      */
-    public static final OfInt cl_filter_mode = opencl_h.C_INT;
+    public static final OfInt cl_filter_mode = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_sampler_info
      * }
      */
-    public static final OfInt cl_sampler_info = opencl_h.C_INT;
+    public static final OfInt cl_sampler_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_map_flags
      * }
      */
-    public static final OfLong cl_map_flags = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_map_flags = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef intptr_t cl_pipe_properties
      * }
      */
-    public static final OfLong cl_pipe_properties = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_pipe_properties = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_pipe_info
      * }
      */
-    public static final OfInt cl_pipe_info = opencl_h.C_INT;
+    public static final OfInt cl_pipe_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_program_info
      * }
      */
-    public static final OfInt cl_program_info = opencl_h.C_INT;
+    public static final OfInt cl_program_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_program_build_info
      * }
      */
-    public static final OfInt cl_program_build_info = opencl_h.C_INT;
+    public static final OfInt cl_program_build_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_program_binary_type
      * }
      */
-    public static final OfInt cl_program_binary_type = opencl_h.C_INT;
+    public static final OfInt cl_program_binary_type = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_int cl_build_status
      * }
      */
-    public static final OfInt cl_build_status = opencl_h.C_INT;
+    public static final OfInt cl_build_status = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_kernel_info
      * }
      */
-    public static final OfInt cl_kernel_info = opencl_h.C_INT;
+    public static final OfInt cl_kernel_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_kernel_arg_info
      * }
      */
-    public static final OfInt cl_kernel_arg_info = opencl_h.C_INT;
+    public static final OfInt cl_kernel_arg_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_kernel_arg_address_qualifier
      * }
      */
-    public static final OfInt cl_kernel_arg_address_qualifier = opencl_h.C_INT;
+    public static final OfInt cl_kernel_arg_address_qualifier = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_kernel_arg_access_qualifier
      * }
      */
-    public static final OfInt cl_kernel_arg_access_qualifier = opencl_h.C_INT;
+    public static final OfInt cl_kernel_arg_access_qualifier = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_kernel_arg_type_qualifier
      * }
      */
-    public static final OfLong cl_kernel_arg_type_qualifier = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_kernel_arg_type_qualifier = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_kernel_work_group_info
      * }
      */
-    public static final OfInt cl_kernel_work_group_info = opencl_h.C_INT;
+    public static final OfInt cl_kernel_work_group_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_kernel_sub_group_info
      * }
      */
-    public static final OfInt cl_kernel_sub_group_info = opencl_h.C_INT;
+    public static final OfInt cl_kernel_sub_group_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_event_info
      * }
      */
-    public static final OfInt cl_event_info = opencl_h.C_INT;
+    public static final OfInt cl_event_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_command_type
      * }
      */
-    public static final OfInt cl_command_type = opencl_h.C_INT;
+    public static final OfInt cl_command_type = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_profiling_info
      * }
      */
-    public static final OfInt cl_profiling_info = opencl_h.C_INT;
+    public static final OfInt cl_profiling_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_properties cl_sampler_properties
      * }
      */
-    public static final OfLong cl_sampler_properties = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_sampler_properties = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_kernel_exec_info
      * }
      */
-    public static final OfInt cl_kernel_exec_info = opencl_h.C_INT;
+    public static final OfInt cl_kernel_exec_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_device_atomic_capabilities
      * }
      */
-    public static final OfLong cl_device_atomic_capabilities = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_atomic_capabilities = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_device_device_enqueue_capabilities
      * }
      */
-    public static final OfLong cl_device_device_enqueue_capabilities = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_device_enqueue_capabilities = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_khronos_vendor_id
      * }
      */
-    public static final OfInt cl_khronos_vendor_id = opencl_h.C_INT;
+    public static final OfInt cl_khronos_vendor_id = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_properties cl_mem_properties
      * }
      */
-    public static final OfLong cl_mem_properties = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_mem_properties = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_version
      * }
      */
-    public static final OfInt cl_version = opencl_h.C_INT;
+    public static final OfInt cl_version = C_INT;
 
     private static class clGetPlatformIDs {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetPlatformIDs"),
+                    findOrThrow("clGetPlatformIDs"),
                     DESC);
     }
 
@@ -12868,16 +12868,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetPlatformInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetPlatformInfo"),
+                    findOrThrow("clGetPlatformInfo"),
                     DESC);
     }
 
@@ -12919,16 +12919,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetDeviceIDs {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetDeviceIDs"),
+                    findOrThrow("clGetDeviceIDs"),
                     DESC);
     }
 
@@ -12970,16 +12970,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetDeviceInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetDeviceInfo"),
+                    findOrThrow("clGetDeviceInfo"),
                     DESC);
     }
 
@@ -13021,16 +13021,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateSubDevices {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateSubDevices"),
+                    findOrThrow("clCreateSubDevices"),
                     DESC);
     }
 
@@ -13072,12 +13072,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clRetainDevice {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clRetainDevice"),
+                    findOrThrow("clRetainDevice"),
                     DESC);
     }
 
@@ -13119,12 +13119,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clReleaseDevice {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clReleaseDevice"),
+                    findOrThrow("clReleaseDevice"),
                     DESC);
     }
 
@@ -13166,14 +13166,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetDefaultDeviceCommandQueue {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetDefaultDeviceCommandQueue"),
+                    findOrThrow("clSetDefaultDeviceCommandQueue"),
                     DESC);
     }
 
@@ -13215,14 +13215,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetDeviceAndHostTimer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetDeviceAndHostTimer"),
+                    findOrThrow("clGetDeviceAndHostTimer"),
                     DESC);
     }
 
@@ -13264,13 +13264,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetHostTimer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetHostTimer"),
+                    findOrThrow("clGetHostTimer"),
                     DESC);
     }
 
@@ -13312,17 +13312,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateContext"),
+                    findOrThrow("clCreateContext"),
                     DESC);
     }
 
@@ -13364,16 +13364,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateContextFromType {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateContextFromType"),
+                    findOrThrow("clCreateContextFromType"),
                     DESC);
     }
 
@@ -13415,12 +13415,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clRetainContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clRetainContext"),
+                    findOrThrow("clRetainContext"),
                     DESC);
     }
 
@@ -13462,12 +13462,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clReleaseContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clReleaseContext"),
+                    findOrThrow("clReleaseContext"),
                     DESC);
     }
 
@@ -13509,16 +13509,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetContextInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetContextInfo"),
+                    findOrThrow("clGetContextInfo"),
                     DESC);
     }
 
@@ -13560,14 +13560,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetContextDestructorCallback {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetContextDestructorCallback"),
+                    findOrThrow("clSetContextDestructorCallback"),
                     DESC);
     }
 
@@ -13609,15 +13609,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateCommandQueueWithProperties {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateCommandQueueWithProperties"),
+                    findOrThrow("clCreateCommandQueueWithProperties"),
                     DESC);
     }
 
@@ -13659,12 +13659,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clRetainCommandQueue {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clRetainCommandQueue"),
+                    findOrThrow("clRetainCommandQueue"),
                     DESC);
     }
 
@@ -13706,12 +13706,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clReleaseCommandQueue {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clReleaseCommandQueue"),
+                    findOrThrow("clReleaseCommandQueue"),
                     DESC);
     }
 
@@ -13753,16 +13753,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetCommandQueueInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetCommandQueueInfo"),
+                    findOrThrow("clGetCommandQueueInfo"),
                     DESC);
     }
 
@@ -13804,16 +13804,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateBuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateBuffer"),
+                    findOrThrow("clCreateBuffer"),
                     DESC);
     }
 
@@ -13855,16 +13855,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateSubBuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateSubBuffer"),
+                    findOrThrow("clCreateSubBuffer"),
                     DESC);
     }
 
@@ -13906,17 +13906,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateImage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateImage"),
+                    findOrThrow("clCreateImage"),
                     DESC);
     }
 
@@ -13958,17 +13958,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreatePipe {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreatePipe"),
+                    findOrThrow("clCreatePipe"),
                     DESC);
     }
 
@@ -14010,17 +14010,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateBufferWithProperties {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateBufferWithProperties"),
+                    findOrThrow("clCreateBufferWithProperties"),
                     DESC);
     }
 
@@ -14062,18 +14062,18 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateImageWithProperties {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateImageWithProperties"),
+                    findOrThrow("clCreateImageWithProperties"),
                     DESC);
     }
 
@@ -14115,12 +14115,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clRetainMemObject {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clRetainMemObject"),
+                    findOrThrow("clRetainMemObject"),
                     DESC);
     }
 
@@ -14162,12 +14162,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clReleaseMemObject {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clReleaseMemObject"),
+                    findOrThrow("clReleaseMemObject"),
                     DESC);
     }
 
@@ -14209,17 +14209,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetSupportedImageFormats {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetSupportedImageFormats"),
+                    findOrThrow("clGetSupportedImageFormats"),
                     DESC);
     }
 
@@ -14261,16 +14261,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetMemObjectInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetMemObjectInfo"),
+                    findOrThrow("clGetMemObjectInfo"),
                     DESC);
     }
 
@@ -14312,16 +14312,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetImageInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetImageInfo"),
+                    findOrThrow("clGetImageInfo"),
                     DESC);
     }
 
@@ -14363,16 +14363,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetPipeInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetPipeInfo"),
+                    findOrThrow("clGetPipeInfo"),
                     DESC);
     }
 
@@ -14414,14 +14414,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetMemObjectDestructorCallback {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetMemObjectDestructorCallback"),
+                    findOrThrow("clSetMemObjectDestructorCallback"),
                     DESC);
     }
 
@@ -14463,15 +14463,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSVMAlloc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSVMAlloc"),
+                    findOrThrow("clSVMAlloc"),
                     DESC);
     }
 
@@ -14513,12 +14513,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSVMFree {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSVMFree"),
+                    findOrThrow("clSVMFree"),
                     DESC);
     }
 
@@ -14560,14 +14560,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateSamplerWithProperties {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateSamplerWithProperties"),
+                    findOrThrow("clCreateSamplerWithProperties"),
                     DESC);
     }
 
@@ -14609,12 +14609,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clRetainSampler {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clRetainSampler"),
+                    findOrThrow("clRetainSampler"),
                     DESC);
     }
 
@@ -14656,12 +14656,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clReleaseSampler {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clReleaseSampler"),
+                    findOrThrow("clReleaseSampler"),
                     DESC);
     }
 
@@ -14703,16 +14703,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetSamplerInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetSamplerInfo"),
+                    findOrThrow("clGetSamplerInfo"),
                     DESC);
     }
 
@@ -14754,16 +14754,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateProgramWithSource {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateProgramWithSource"),
+                    findOrThrow("clCreateProgramWithSource"),
                     DESC);
     }
 
@@ -14805,18 +14805,18 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateProgramWithBinary {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateProgramWithBinary"),
+                    findOrThrow("clCreateProgramWithBinary"),
                     DESC);
     }
 
@@ -14858,16 +14858,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateProgramWithBuiltInKernels {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateProgramWithBuiltInKernels"),
+                    findOrThrow("clCreateProgramWithBuiltInKernels"),
                     DESC);
     }
 
@@ -14909,15 +14909,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateProgramWithIL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateProgramWithIL"),
+                    findOrThrow("clCreateProgramWithIL"),
                     DESC);
     }
 
@@ -14959,12 +14959,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clRetainProgram {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clRetainProgram"),
+                    findOrThrow("clRetainProgram"),
                     DESC);
     }
 
@@ -15006,12 +15006,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clReleaseProgram {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clReleaseProgram"),
+                    findOrThrow("clReleaseProgram"),
                     DESC);
     }
 
@@ -15053,17 +15053,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clBuildProgram {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clBuildProgram"),
+                    findOrThrow("clBuildProgram"),
                     DESC);
     }
 
@@ -15105,20 +15105,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCompileProgram {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCompileProgram"),
+                    findOrThrow("clCompileProgram"),
                     DESC);
     }
 
@@ -15160,20 +15160,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clLinkProgram {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clLinkProgram"),
+                    findOrThrow("clLinkProgram"),
                     DESC);
     }
 
@@ -15215,14 +15215,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetProgramReleaseCallback {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetProgramReleaseCallback"),
+                    findOrThrow("clSetProgramReleaseCallback"),
                     DESC);
     }
 
@@ -15264,15 +15264,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetProgramSpecializationConstant {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetProgramSpecializationConstant"),
+                    findOrThrow("clSetProgramSpecializationConstant"),
                     DESC);
     }
 
@@ -15314,12 +15314,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clUnloadPlatformCompiler {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clUnloadPlatformCompiler"),
+                    findOrThrow("clUnloadPlatformCompiler"),
                     DESC);
     }
 
@@ -15361,16 +15361,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetProgramInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetProgramInfo"),
+                    findOrThrow("clGetProgramInfo"),
                     DESC);
     }
 
@@ -15412,17 +15412,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetProgramBuildInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetProgramBuildInfo"),
+                    findOrThrow("clGetProgramBuildInfo"),
                     DESC);
     }
 
@@ -15464,14 +15464,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateKernel {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateKernel"),
+                    findOrThrow("clCreateKernel"),
                     DESC);
     }
 
@@ -15513,15 +15513,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateKernelsInProgram {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateKernelsInProgram"),
+                    findOrThrow("clCreateKernelsInProgram"),
                     DESC);
     }
 
@@ -15563,13 +15563,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCloneKernel {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCloneKernel"),
+                    findOrThrow("clCloneKernel"),
                     DESC);
     }
 
@@ -15611,12 +15611,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clRetainKernel {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clRetainKernel"),
+                    findOrThrow("clRetainKernel"),
                     DESC);
     }
 
@@ -15658,12 +15658,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clReleaseKernel {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clReleaseKernel"),
+                    findOrThrow("clReleaseKernel"),
                     DESC);
     }
 
@@ -15705,15 +15705,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetKernelArg {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetKernelArg"),
+                    findOrThrow("clSetKernelArg"),
                     DESC);
     }
 
@@ -15755,14 +15755,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetKernelArgSVMPointer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetKernelArgSVMPointer"),
+                    findOrThrow("clSetKernelArgSVMPointer"),
                     DESC);
     }
 
@@ -15804,15 +15804,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetKernelExecInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetKernelExecInfo"),
+                    findOrThrow("clSetKernelExecInfo"),
                     DESC);
     }
 
@@ -15854,16 +15854,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetKernelInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetKernelInfo"),
+                    findOrThrow("clGetKernelInfo"),
                     DESC);
     }
 
@@ -15905,17 +15905,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetKernelArgInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetKernelArgInfo"),
+                    findOrThrow("clGetKernelArgInfo"),
                     DESC);
     }
 
@@ -15957,17 +15957,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetKernelWorkGroupInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetKernelWorkGroupInfo"),
+                    findOrThrow("clGetKernelWorkGroupInfo"),
                     DESC);
     }
 
@@ -16009,19 +16009,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetKernelSubGroupInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetKernelSubGroupInfo"),
+                    findOrThrow("clGetKernelSubGroupInfo"),
                     DESC);
     }
 
@@ -16063,13 +16063,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clWaitForEvents {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clWaitForEvents"),
+                    findOrThrow("clWaitForEvents"),
                     DESC);
     }
 
@@ -16111,16 +16111,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetEventInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetEventInfo"),
+                    findOrThrow("clGetEventInfo"),
                     DESC);
     }
 
@@ -16162,13 +16162,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateUserEvent {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateUserEvent"),
+                    findOrThrow("clCreateUserEvent"),
                     DESC);
     }
 
@@ -16210,12 +16210,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clRetainEvent {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clRetainEvent"),
+                    findOrThrow("clRetainEvent"),
                     DESC);
     }
 
@@ -16257,12 +16257,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clReleaseEvent {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clReleaseEvent"),
+                    findOrThrow("clReleaseEvent"),
                     DESC);
     }
 
@@ -16304,13 +16304,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetUserEventStatus {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetUserEventStatus"),
+                    findOrThrow("clSetUserEventStatus"),
                     DESC);
     }
 
@@ -16352,15 +16352,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetEventCallback {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetEventCallback"),
+                    findOrThrow("clSetEventCallback"),
                     DESC);
     }
 
@@ -16402,16 +16402,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetEventProfilingInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetEventProfilingInfo"),
+                    findOrThrow("clGetEventProfilingInfo"),
                     DESC);
     }
 
@@ -16453,12 +16453,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clFlush {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clFlush"),
+                    findOrThrow("clFlush"),
                     DESC);
     }
 
@@ -16500,12 +16500,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clFinish {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clFinish"),
+                    findOrThrow("clFinish"),
                     DESC);
     }
 
@@ -16547,20 +16547,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueReadBuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueReadBuffer"),
+                    findOrThrow("clEnqueueReadBuffer"),
                     DESC);
     }
 
@@ -16602,25 +16602,25 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueReadBufferRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueReadBufferRect"),
+                    findOrThrow("clEnqueueReadBufferRect"),
                     DESC);
     }
 
@@ -16662,20 +16662,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueWriteBuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueWriteBuffer"),
+                    findOrThrow("clEnqueueWriteBuffer"),
                     DESC);
     }
 
@@ -16717,25 +16717,25 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueWriteBufferRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueWriteBufferRect"),
+                    findOrThrow("clEnqueueWriteBufferRect"),
                     DESC);
     }
 
@@ -16777,20 +16777,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueFillBuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueFillBuffer"),
+                    findOrThrow("clEnqueueFillBuffer"),
                     DESC);
     }
 
@@ -16832,20 +16832,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueCopyBuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueCopyBuffer"),
+                    findOrThrow("clEnqueueCopyBuffer"),
                     DESC);
     }
 
@@ -16887,24 +16887,24 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueCopyBufferRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueCopyBufferRect"),
+                    findOrThrow("clEnqueueCopyBufferRect"),
                     DESC);
     }
 
@@ -16946,22 +16946,22 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueReadImage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueReadImage"),
+                    findOrThrow("clEnqueueReadImage"),
                     DESC);
     }
 
@@ -17003,22 +17003,22 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueWriteImage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueWriteImage"),
+                    findOrThrow("clEnqueueWriteImage"),
                     DESC);
     }
 
@@ -17060,19 +17060,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueFillImage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueFillImage"),
+                    findOrThrow("clEnqueueFillImage"),
                     DESC);
     }
 
@@ -17114,20 +17114,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueCopyImage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueCopyImage"),
+                    findOrThrow("clEnqueueCopyImage"),
                     DESC);
     }
 
@@ -17169,20 +17169,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueCopyImageToBuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueCopyImageToBuffer"),
+                    findOrThrow("clEnqueueCopyImageToBuffer"),
                     DESC);
     }
 
@@ -17224,20 +17224,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueCopyBufferToImage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueCopyBufferToImage"),
+                    findOrThrow("clEnqueueCopyBufferToImage"),
                     DESC);
     }
 
@@ -17279,21 +17279,21 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueMapBuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueMapBuffer"),
+                    findOrThrow("clEnqueueMapBuffer"),
                     DESC);
     }
 
@@ -17335,23 +17335,23 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueMapImage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueMapImage"),
+                    findOrThrow("clEnqueueMapImage"),
                     DESC);
     }
 
@@ -17393,17 +17393,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueUnmapMemObject {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueUnmapMemObject"),
+                    findOrThrow("clEnqueueUnmapMemObject"),
                     DESC);
     }
 
@@ -17445,18 +17445,18 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueMigrateMemObjects {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueMigrateMemObjects"),
+                    findOrThrow("clEnqueueMigrateMemObjects"),
                     DESC);
     }
 
@@ -17498,20 +17498,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueNDRangeKernel {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueNDRangeKernel"),
+                    findOrThrow("clEnqueueNDRangeKernel"),
                     DESC);
     }
 
@@ -17553,21 +17553,21 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueNativeKernel {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueNativeKernel"),
+                    findOrThrow("clEnqueueNativeKernel"),
                     DESC);
     }
 
@@ -17609,15 +17609,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueMarkerWithWaitList {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueMarkerWithWaitList"),
+                    findOrThrow("clEnqueueMarkerWithWaitList"),
                     DESC);
     }
 
@@ -17659,15 +17659,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueBarrierWithWaitList {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueBarrierWithWaitList"),
+                    findOrThrow("clEnqueueBarrierWithWaitList"),
                     DESC);
     }
 
@@ -17709,19 +17709,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueSVMFree {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueSVMFree"),
+                    findOrThrow("clEnqueueSVMFree"),
                     DESC);
     }
 
@@ -17763,19 +17763,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueSVMMemcpy {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueSVMMemcpy"),
+                    findOrThrow("clEnqueueSVMMemcpy"),
                     DESC);
     }
 
@@ -17817,19 +17817,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueSVMMemFill {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueSVMMemFill"),
+                    findOrThrow("clEnqueueSVMMemFill"),
                     DESC);
     }
 
@@ -17871,19 +17871,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueSVMMap {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueSVMMap"),
+                    findOrThrow("clEnqueueSVMMap"),
                     DESC);
     }
 
@@ -17925,16 +17925,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueSVMUnmap {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueSVMUnmap"),
+                    findOrThrow("clEnqueueSVMUnmap"),
                     DESC);
     }
 
@@ -17976,19 +17976,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueSVMMigrateMem {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueSVMMigrateMem"),
+                    findOrThrow("clEnqueueSVMMigrateMem"),
                     DESC);
     }
 
@@ -18030,13 +18030,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetExtensionFunctionAddressForPlatform {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetExtensionFunctionAddressForPlatform"),
+                    findOrThrow("clGetExtensionFunctionAddressForPlatform"),
                     DESC);
     }
 
@@ -18078,19 +18078,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateImage2D {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateImage2D"),
+                    findOrThrow("clCreateImage2D"),
                     DESC);
     }
 
@@ -18132,21 +18132,21 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateImage3D {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateImage3D"),
+                    findOrThrow("clCreateImage3D"),
                     DESC);
     }
 
@@ -18188,13 +18188,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueMarker {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueMarker"),
+                    findOrThrow("clEnqueueMarker"),
                     DESC);
     }
 
@@ -18236,14 +18236,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueWaitForEvents {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueWaitForEvents"),
+                    findOrThrow("clEnqueueWaitForEvents"),
                     DESC);
     }
 
@@ -18285,12 +18285,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueBarrier {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueBarrier"),
+                    findOrThrow("clEnqueueBarrier"),
                     DESC);
     }
 
@@ -18332,10 +18332,10 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clUnloadCompiler {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clUnloadCompiler"),
+                    findOrThrow("clUnloadCompiler"),
                     DESC);
     }
 
@@ -18377,12 +18377,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetExtensionFunctionAddress {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetExtensionFunctionAddress"),
+                    findOrThrow("clGetExtensionFunctionAddress"),
                     DESC);
     }
 
@@ -18424,15 +18424,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateCommandQueue {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateCommandQueue"),
+                    findOrThrow("clCreateCommandQueue"),
                     DESC);
     }
 
@@ -18474,16 +18474,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateSampler {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateSampler"),
+                    findOrThrow("clCreateSampler"),
                     DESC);
     }
 
@@ -18525,16 +18525,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueTask {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueTask"),
+                    findOrThrow("clEnqueueTask"),
                     DESC);
     }
 
@@ -18578,38 +18578,38 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_uint cl_gl_context_info
      * }
      */
-    public static final OfInt cl_gl_context_info = opencl_h.C_INT;
+    public static final OfInt cl_gl_context_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_gl_object_type
      * }
      */
-    public static final OfInt cl_gl_object_type = opencl_h.C_INT;
+    public static final OfInt cl_gl_object_type = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_gl_texture_info
      * }
      */
-    public static final OfInt cl_gl_texture_info = opencl_h.C_INT;
+    public static final OfInt cl_gl_texture_info = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_gl_platform_info
      * }
      */
-    public static final OfInt cl_gl_platform_info = opencl_h.C_INT;
+    public static final OfInt cl_gl_platform_info = C_INT;
 
     private static class clGetGLContextInfoKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetGLContextInfoKHR"),
+                    findOrThrow("clGetGLContextInfoKHR"),
                     DESC);
     }
 
@@ -18651,15 +18651,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateFromGLBuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateFromGLBuffer"),
+                    findOrThrow("clCreateFromGLBuffer"),
                     DESC);
     }
 
@@ -18701,17 +18701,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateFromGLTexture {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateFromGLTexture"),
+                    findOrThrow("clCreateFromGLTexture"),
                     DESC);
     }
 
@@ -18753,15 +18753,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateFromGLRenderbuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateFromGLRenderbuffer"),
+                    findOrThrow("clCreateFromGLRenderbuffer"),
                     DESC);
     }
 
@@ -18803,14 +18803,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetGLObjectInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetGLObjectInfo"),
+                    findOrThrow("clGetGLObjectInfo"),
                     DESC);
     }
 
@@ -18852,16 +18852,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetGLTextureInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetGLTextureInfo"),
+                    findOrThrow("clGetGLTextureInfo"),
                     DESC);
     }
 
@@ -18903,17 +18903,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueAcquireGLObjects {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueAcquireGLObjects"),
+                    findOrThrow("clEnqueueAcquireGLObjects"),
                     DESC);
     }
 
@@ -18955,17 +18955,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueReleaseGLObjects {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueReleaseGLObjects"),
+                    findOrThrow("clEnqueueReleaseGLObjects"),
                     DESC);
     }
 
@@ -19007,17 +19007,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateFromGLTexture2D {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateFromGLTexture2D"),
+                    findOrThrow("clCreateFromGLTexture2D"),
                     DESC);
     }
 
@@ -19059,17 +19059,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateFromGLTexture3D {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateFromGLTexture3D"),
+                    findOrThrow("clCreateFromGLTexture3D"),
                     DESC);
     }
 
@@ -19113,18 +19113,18 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef struct __GLsync *cl_GLsync
      * }
      */
-    public static final AddressLayout cl_GLsync = opencl_h.C_POINTER;
+    public static final AddressLayout cl_GLsync = C_POINTER;
 
     private static class clCreateEventFromGLsyncKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateEventFromGLsyncKHR"),
+                    findOrThrow("clCreateEventFromGLsyncKHR"),
                     DESC);
     }
 
@@ -19166,17 +19166,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetSupportedGLTextureFormatsINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetSupportedGLTextureFormatsINTEL"),
+                    findOrThrow("clGetSupportedGLTextureFormatsINTEL"),
                     DESC);
     }
 
@@ -19220,67 +19220,67 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_bitfield cl_device_command_buffer_capabilities_khr
      * }
      */
-    public static final OfLong cl_device_command_buffer_capabilities_khr = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_command_buffer_capabilities_khr = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef struct _cl_command_buffer_khr *cl_command_buffer_khr
      * }
      */
-    public static final AddressLayout cl_command_buffer_khr = opencl_h.C_POINTER;
+    public static final AddressLayout cl_command_buffer_khr = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_sync_point_khr
      * }
      */
-    public static final OfInt cl_sync_point_khr = opencl_h.C_INT;
+    public static final OfInt cl_sync_point_khr = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_command_buffer_info_khr
      * }
      */
-    public static final OfInt cl_command_buffer_info_khr = opencl_h.C_INT;
+    public static final OfInt cl_command_buffer_info_khr = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_command_buffer_state_khr
      * }
      */
-    public static final OfInt cl_command_buffer_state_khr = opencl_h.C_INT;
+    public static final OfInt cl_command_buffer_state_khr = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_properties cl_command_buffer_properties_khr
      * }
      */
-    public static final OfLong cl_command_buffer_properties_khr = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_command_buffer_properties_khr = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_command_buffer_flags_khr
      * }
      */
-    public static final OfLong cl_command_buffer_flags_khr = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_command_buffer_flags_khr = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_properties cl_ndrange_kernel_command_properties_khr
      * }
      */
-    public static final OfLong cl_ndrange_kernel_command_properties_khr = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_ndrange_kernel_command_properties_khr = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef struct _cl_mutable_command_khr *cl_mutable_command_khr
      * }
      */
-    public static final AddressLayout cl_mutable_command_khr = opencl_h.C_POINTER;
+    public static final AddressLayout cl_mutable_command_khr = C_POINTER;
 
     private static class clCreateCommandBufferKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateCommandBufferKHR"),
+                    findOrThrow("clCreateCommandBufferKHR"),
                     DESC);
     }
 
@@ -19322,12 +19322,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clFinalizeCommandBufferKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clFinalizeCommandBufferKHR"),
+                    findOrThrow("clFinalizeCommandBufferKHR"),
                     DESC);
     }
 
@@ -19369,12 +19369,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clRetainCommandBufferKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clRetainCommandBufferKHR"),
+                    findOrThrow("clRetainCommandBufferKHR"),
                     DESC);
     }
 
@@ -19416,12 +19416,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clReleaseCommandBufferKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clReleaseCommandBufferKHR"),
+                    findOrThrow("clReleaseCommandBufferKHR"),
                     DESC);
     }
 
@@ -19463,17 +19463,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueCommandBufferKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueCommandBufferKHR"),
+                    findOrThrow("clEnqueueCommandBufferKHR"),
                     DESC);
     }
 
@@ -19515,17 +19515,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCommandBarrierWithWaitListKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCommandBarrierWithWaitListKHR"),
+                    findOrThrow("clCommandBarrierWithWaitListKHR"),
                     DESC);
     }
 
@@ -19567,22 +19567,22 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCommandCopyBufferKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCommandCopyBufferKHR"),
+                    findOrThrow("clCommandCopyBufferKHR"),
                     DESC);
     }
 
@@ -19624,26 +19624,26 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCommandCopyBufferRectKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCommandCopyBufferRectKHR"),
+                    findOrThrow("clCommandCopyBufferRectKHR"),
                     DESC);
     }
 
@@ -19685,22 +19685,22 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCommandCopyBufferToImageKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCommandCopyBufferToImageKHR"),
+                    findOrThrow("clCommandCopyBufferToImageKHR"),
                     DESC);
     }
 
@@ -19742,22 +19742,22 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCommandCopyImageKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCommandCopyImageKHR"),
+                    findOrThrow("clCommandCopyImageKHR"),
                     DESC);
     }
 
@@ -19799,22 +19799,22 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCommandCopyImageToBufferKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCommandCopyImageToBufferKHR"),
+                    findOrThrow("clCommandCopyImageToBufferKHR"),
                     DESC);
     }
 
@@ -19856,22 +19856,22 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCommandFillBufferKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCommandFillBufferKHR"),
+                    findOrThrow("clCommandFillBufferKHR"),
                     DESC);
     }
 
@@ -19913,21 +19913,21 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCommandFillImageKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCommandFillImageKHR"),
+                    findOrThrow("clCommandFillImageKHR"),
                     DESC);
     }
 
@@ -19969,23 +19969,23 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCommandNDRangeKernelKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCommandNDRangeKernelKHR"),
+                    findOrThrow("clCommandNDRangeKernelKHR"),
                     DESC);
     }
 
@@ -20027,16 +20027,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetCommandBufferInfoKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetCommandBufferInfoKHR"),
+                    findOrThrow("clGetCommandBufferInfoKHR"),
                     DESC);
     }
 
@@ -20080,23 +20080,23 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_bitfield cl_platform_command_buffer_capabilities_khr
      * }
      */
-    public static final OfLong cl_platform_command_buffer_capabilities_khr = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_platform_command_buffer_capabilities_khr = C_LONG_LONG;
 
     private static class clRemapCommandBufferKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clRemapCommandBufferKHR"),
+                    findOrThrow("clRemapCommandBufferKHR"),
                     DESC);
     }
 
@@ -20140,29 +20140,29 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_uint cl_command_buffer_structure_type_khr
      * }
      */
-    public static final OfInt cl_command_buffer_structure_type_khr = opencl_h.C_INT;
+    public static final OfInt cl_command_buffer_structure_type_khr = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_mutable_dispatch_fields_khr
      * }
      */
-    public static final OfLong cl_mutable_dispatch_fields_khr = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_mutable_dispatch_fields_khr = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_mutable_command_info_khr
      * }
      */
-    public static final OfInt cl_mutable_command_info_khr = opencl_h.C_INT;
+    public static final OfInt cl_mutable_command_info_khr = C_INT;
 
     private static class clUpdateMutableCommandsKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clUpdateMutableCommandsKHR"),
+                    findOrThrow("clUpdateMutableCommandsKHR"),
                     DESC);
     }
 
@@ -20204,16 +20204,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetMutableCommandInfoKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetMutableCommandInfoKHR"),
+                    findOrThrow("clGetMutableCommandInfoKHR"),
                     DESC);
     }
 
@@ -20255,14 +20255,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetMemObjectDestructorAPPLE {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetMemObjectDestructorAPPLE"),
+                    findOrThrow("clSetMemObjectDestructorAPPLE"),
                     DESC);
     }
 
@@ -20304,14 +20304,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clLogMessagesToSystemLogAPPLE {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clLogMessagesToSystemLogAPPLE"),
+                    findOrThrow("clLogMessagesToSystemLogAPPLE"),
                     DESC);
     }
 
@@ -20353,14 +20353,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clLogMessagesToStdoutAPPLE {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clLogMessagesToStdoutAPPLE"),
+                    findOrThrow("clLogMessagesToStdoutAPPLE"),
                     DESC);
     }
 
@@ -20402,14 +20402,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clLogMessagesToStderrAPPLE {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clLogMessagesToStderrAPPLE"),
+                    findOrThrow("clLogMessagesToStderrAPPLE"),
                     DESC);
     }
 
@@ -20451,14 +20451,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clIcdGetPlatformIDsKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clIcdGetPlatformIDsKHR"),
+                    findOrThrow("clIcdGetPlatformIDsKHR"),
                     DESC);
     }
 
@@ -20500,15 +20500,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateProgramWithILKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateProgramWithILKHR"),
+                    findOrThrow("clCreateProgramWithILKHR"),
                     DESC);
     }
 
@@ -20552,16 +20552,16 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_bitfield cl_device_terminate_capability_khr
      * }
      */
-    public static final OfLong cl_device_terminate_capability_khr = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_terminate_capability_khr = C_LONG_LONG;
 
     private static class clTerminateContextKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clTerminateContextKHR"),
+                    findOrThrow("clTerminateContextKHR"),
                     DESC);
     }
 
@@ -20605,19 +20605,19 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_properties cl_queue_properties_khr
      * }
      */
-    public static final OfLong cl_queue_properties_khr = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_queue_properties_khr = C_LONG_LONG;
 
     private static class clCreateCommandQueueWithPropertiesKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateCommandQueueWithPropertiesKHR"),
+                    findOrThrow("clCreateCommandQueueWithPropertiesKHR"),
                     DESC);
     }
 
@@ -20661,16 +20661,16 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_ulong cl_device_partition_property_ext
      * }
      */
-    public static final OfLong cl_device_partition_property_ext = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_partition_property_ext = C_LONG_LONG;
 
     private static class clReleaseDeviceEXT {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clReleaseDeviceEXT"),
+                    findOrThrow("clReleaseDeviceEXT"),
                     DESC);
     }
 
@@ -20712,12 +20712,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clRetainDeviceEXT {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clRetainDeviceEXT"),
+                    findOrThrow("clRetainDeviceEXT"),
                     DESC);
     }
 
@@ -20759,16 +20759,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateSubDevicesEXT {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateSubDevicesEXT"),
+                    findOrThrow("clCreateSubDevicesEXT"),
                     DESC);
     }
 
@@ -20812,22 +20812,22 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_bitfield cl_mem_migration_flags_ext
      * }
      */
-    public static final OfLong cl_mem_migration_flags_ext = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_mem_migration_flags_ext = C_LONG_LONG;
 
     private static class clEnqueueMigrateMemObjectEXT {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueMigrateMemObjectEXT"),
+                    findOrThrow("clEnqueueMigrateMemObjectEXT"),
                     DESC);
     }
 
@@ -20871,23 +20871,23 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_uint cl_image_pitch_info_qcom
      * }
      */
-    public static final OfInt cl_image_pitch_info_qcom = opencl_h.C_INT;
+    public static final OfInt cl_image_pitch_info_qcom = C_INT;
 
     private static class clGetDeviceImageInfoQCOM {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetDeviceImageInfoQCOM"),
+                    findOrThrow("clGetDeviceImageInfoQCOM"),
                     DESC);
     }
 
@@ -20929,17 +20929,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueAcquireGrallocObjectsIMG {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueAcquireGrallocObjectsIMG"),
+                    findOrThrow("clEnqueueAcquireGrallocObjectsIMG"),
                     DESC);
     }
 
@@ -20981,17 +20981,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueReleaseGrallocObjectsIMG {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueReleaseGrallocObjectsIMG"),
+                    findOrThrow("clEnqueueReleaseGrallocObjectsIMG"),
                     DESC);
     }
 
@@ -21035,24 +21035,24 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_uint cl_mipmap_filter_mode_img
      * }
      */
-    public static final OfInt cl_mipmap_filter_mode_img = opencl_h.C_INT;
+    public static final OfInt cl_mipmap_filter_mode_img = C_INT;
 
     private static class clEnqueueGenerateMipmapIMG {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueGenerateMipmapIMG"),
+                    findOrThrow("clEnqueueGenerateMipmapIMG"),
                     DESC);
     }
 
@@ -21094,19 +21094,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetKernelSubGroupInfoKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetKernelSubGroupInfoKHR"),
+                    findOrThrow("clGetKernelSubGroupInfoKHR"),
                     DESC);
     }
 
@@ -21150,33 +21150,33 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_uint cl_queue_priority_khr
      * }
      */
-    public static final OfInt cl_queue_priority_khr = opencl_h.C_INT;
+    public static final OfInt cl_queue_priority_khr = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_queue_throttle_khr
      * }
      */
-    public static final OfInt cl_queue_throttle_khr = opencl_h.C_INT;
+    public static final OfInt cl_queue_throttle_khr = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_version_khr
      * }
      */
-    public static final OfInt cl_version_khr = opencl_h.C_INT;
+    public static final OfInt cl_version_khr = C_INT;
 
     private static class clGetKernelSuggestedLocalWorkSizeKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetKernelSuggestedLocalWorkSizeKHR"),
+                    findOrThrow("clGetKernelSuggestedLocalWorkSizeKHR"),
                     DESC);
     }
 
@@ -21220,27 +21220,27 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_bitfield cl_device_integer_dot_product_capabilities_khr
      * }
      */
-    public static final OfLong cl_device_integer_dot_product_capabilities_khr = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_integer_dot_product_capabilities_khr = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_external_memory_handle_type_khr
      * }
      */
-    public static final OfInt cl_external_memory_handle_type_khr = opencl_h.C_INT;
+    public static final OfInt cl_external_memory_handle_type_khr = C_INT;
 
     private static class clEnqueueAcquireExternalMemObjectsKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueAcquireExternalMemObjectsKHR"),
+                    findOrThrow("clEnqueueAcquireExternalMemObjectsKHR"),
                     DESC);
     }
 
@@ -21282,17 +21282,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueReleaseExternalMemObjectsKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueReleaseExternalMemObjectsKHR"),
+                    findOrThrow("clEnqueueReleaseExternalMemObjectsKHR"),
                     DESC);
     }
 
@@ -21336,27 +21336,27 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef struct _cl_semaphore_khr *cl_semaphore_khr
      * }
      */
-    public static final AddressLayout cl_semaphore_khr = opencl_h.C_POINTER;
+    public static final AddressLayout cl_semaphore_khr = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_external_semaphore_handle_type_khr
      * }
      */
-    public static final OfInt cl_external_semaphore_handle_type_khr = opencl_h.C_INT;
+    public static final OfInt cl_external_semaphore_handle_type_khr = C_INT;
 
     private static class clGetSemaphoreHandleForTypeKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetSemaphoreHandleForTypeKHR"),
+                    findOrThrow("clGetSemaphoreHandleForTypeKHR"),
                     DESC);
     }
 
@@ -21400,36 +21400,36 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_properties cl_semaphore_properties_khr
      * }
      */
-    public static final OfLong cl_semaphore_properties_khr = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_semaphore_properties_khr = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_semaphore_info_khr
      * }
      */
-    public static final OfInt cl_semaphore_info_khr = opencl_h.C_INT;
+    public static final OfInt cl_semaphore_info_khr = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_semaphore_type_khr
      * }
      */
-    public static final OfInt cl_semaphore_type_khr = opencl_h.C_INT;
+    public static final OfInt cl_semaphore_type_khr = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_ulong cl_semaphore_payload_khr
      * }
      */
-    public static final OfLong cl_semaphore_payload_khr = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_semaphore_payload_khr = C_LONG_LONG;
 
     private static class clCreateSemaphoreWithPropertiesKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateSemaphoreWithPropertiesKHR"),
+                    findOrThrow("clCreateSemaphoreWithPropertiesKHR"),
                     DESC);
     }
 
@@ -21471,18 +21471,18 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueWaitSemaphoresKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueWaitSemaphoresKHR"),
+                    findOrThrow("clEnqueueWaitSemaphoresKHR"),
                     DESC);
     }
 
@@ -21524,18 +21524,18 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueSignalSemaphoresKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueSignalSemaphoresKHR"),
+                    findOrThrow("clEnqueueSignalSemaphoresKHR"),
                     DESC);
     }
 
@@ -21577,16 +21577,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetSemaphoreInfoKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetSemaphoreInfoKHR"),
+                    findOrThrow("clGetSemaphoreInfoKHR"),
                     DESC);
     }
 
@@ -21628,12 +21628,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clReleaseSemaphoreKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clReleaseSemaphoreKHR"),
+                    findOrThrow("clReleaseSemaphoreKHR"),
                     DESC);
     }
 
@@ -21675,12 +21675,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clRetainSemaphoreKHR {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clRetainSemaphoreKHR"),
+                    findOrThrow("clRetainSemaphoreKHR"),
                     DESC);
     }
 
@@ -21724,21 +21724,21 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef intptr_t cl_import_properties_arm
      * }
      */
-    public static final OfLong cl_import_properties_arm = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_import_properties_arm = C_LONG_LONG;
 
     private static class clImportMemoryARM {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clImportMemoryARM"),
+                    findOrThrow("clImportMemoryARM"),
                     DESC);
     }
 
@@ -21782,31 +21782,31 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_bitfield cl_svm_mem_flags_arm
      * }
      */
-    public static final OfLong cl_svm_mem_flags_arm = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_svm_mem_flags_arm = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_kernel_exec_info_arm
      * }
      */
-    public static final OfInt cl_kernel_exec_info_arm = opencl_h.C_INT;
+    public static final OfInt cl_kernel_exec_info_arm = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_device_svm_capabilities_arm
      * }
      */
-    public static final OfLong cl_device_svm_capabilities_arm = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_svm_capabilities_arm = C_LONG_LONG;
 
     private static class clSVMAllocARM {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSVMAllocARM"),
+                    findOrThrow("clSVMAllocARM"),
                     DESC);
     }
 
@@ -21848,12 +21848,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSVMFreeARM {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSVMFreeARM"),
+                    findOrThrow("clSVMFreeARM"),
                     DESC);
     }
 
@@ -21895,19 +21895,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueSVMFreeARM {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueSVMFreeARM"),
+                    findOrThrow("clEnqueueSVMFreeARM"),
                     DESC);
     }
 
@@ -21949,19 +21949,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueSVMMemcpyARM {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueSVMMemcpyARM"),
+                    findOrThrow("clEnqueueSVMMemcpyARM"),
                     DESC);
     }
 
@@ -22003,19 +22003,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueSVMMemFillARM {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueSVMMemFillARM"),
+                    findOrThrow("clEnqueueSVMMemFillARM"),
                     DESC);
     }
 
@@ -22057,19 +22057,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueSVMMapARM {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueSVMMapARM"),
+                    findOrThrow("clEnqueueSVMMapARM"),
                     DESC);
     }
 
@@ -22111,16 +22111,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueSVMUnmapARM {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueSVMUnmapARM"),
+                    findOrThrow("clEnqueueSVMUnmapARM"),
                     DESC);
     }
 
@@ -22162,14 +22162,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetKernelArgSVMPointerARM {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetKernelArgSVMPointerARM"),
+                    findOrThrow("clSetKernelArgSVMPointerARM"),
                     DESC);
     }
 
@@ -22211,15 +22211,15 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetKernelExecInfoARM {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetKernelExecInfoARM"),
+                    findOrThrow("clSetKernelExecInfoARM"),
                     DESC);
     }
 
@@ -22263,50 +22263,50 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_bitfield cl_device_scheduling_controls_capabilities_arm
      * }
      */
-    public static final OfLong cl_device_scheduling_controls_capabilities_arm = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_scheduling_controls_capabilities_arm = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_device_controlled_termination_capabilities_arm
      * }
      */
-    public static final OfLong cl_device_controlled_termination_capabilities_arm = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_controlled_termination_capabilities_arm = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_device_feature_capabilities_intel
      * }
      */
-    public static final OfLong cl_device_feature_capabilities_intel = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_feature_capabilities_intel = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef struct _cl_accelerator_intel *cl_accelerator_intel
      * }
      */
-    public static final AddressLayout cl_accelerator_intel = opencl_h.C_POINTER;
+    public static final AddressLayout cl_accelerator_intel = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_accelerator_type_intel
      * }
      */
-    public static final OfInt cl_accelerator_type_intel = opencl_h.C_INT;
+    public static final OfInt cl_accelerator_type_intel = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_accelerator_info_intel
      * }
      */
-    public static final OfInt cl_accelerator_info_intel = opencl_h.C_INT;
+    public static final OfInt cl_accelerator_info_intel = C_INT;
 
     private static class clCreateAcceleratorINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateAcceleratorINTEL"),
+                    findOrThrow("clCreateAcceleratorINTEL"),
                     DESC);
     }
 
@@ -22348,16 +22348,16 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetAcceleratorInfoINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetAcceleratorInfoINTEL"),
+                    findOrThrow("clGetAcceleratorInfoINTEL"),
                     DESC);
     }
 
@@ -22399,12 +22399,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clRetainAcceleratorINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clRetainAcceleratorINTEL"),
+                    findOrThrow("clRetainAcceleratorINTEL"),
                     DESC);
     }
 
@@ -22446,12 +22446,12 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clReleaseAcceleratorINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clReleaseAcceleratorINTEL"),
+                    findOrThrow("clReleaseAcceleratorINTEL"),
                     DESC);
     }
 
@@ -22495,56 +22495,56 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_uint cl_diagnostics_verbose_level
      * }
      */
-    public static final OfInt cl_diagnostics_verbose_level = opencl_h.C_INT;
+    public static final OfInt cl_diagnostics_verbose_level = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_device_unified_shared_memory_capabilities_intel
      * }
      */
-    public static final OfLong cl_device_unified_shared_memory_capabilities_intel = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_unified_shared_memory_capabilities_intel = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_properties cl_mem_properties_intel
      * }
      */
-    public static final OfLong cl_mem_properties_intel = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_mem_properties_intel = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_bitfield cl_mem_alloc_flags_intel
      * }
      */
-    public static final OfLong cl_mem_alloc_flags_intel = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_mem_alloc_flags_intel = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_mem_info_intel
      * }
      */
-    public static final OfInt cl_mem_info_intel = opencl_h.C_INT;
+    public static final OfInt cl_mem_info_intel = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_unified_shared_memory_type_intel
      * }
      */
-    public static final OfInt cl_unified_shared_memory_type_intel = opencl_h.C_INT;
+    public static final OfInt cl_unified_shared_memory_type_intel = C_INT;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_mem_advice_intel
      * }
      */
-    public static final OfInt cl_mem_advice_intel = opencl_h.C_INT;
+    public static final OfInt cl_mem_advice_intel = C_INT;
 
     private static class clHostMemAllocINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clHostMemAllocINTEL"),
+                    findOrThrow("clHostMemAllocINTEL"),
                     DESC);
     }
 
@@ -22586,17 +22586,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clDeviceMemAllocINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clDeviceMemAllocINTEL"),
+                    findOrThrow("clDeviceMemAllocINTEL"),
                     DESC);
     }
 
@@ -22638,17 +22638,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSharedMemAllocINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSharedMemAllocINTEL"),
+                    findOrThrow("clSharedMemAllocINTEL"),
                     DESC);
     }
 
@@ -22690,13 +22690,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clMemFreeINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clMemFreeINTEL"),
+                    findOrThrow("clMemFreeINTEL"),
                     DESC);
     }
 
@@ -22738,13 +22738,13 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clMemBlockingFreeINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clMemBlockingFreeINTEL"),
+                    findOrThrow("clMemBlockingFreeINTEL"),
                     DESC);
     }
 
@@ -22786,17 +22786,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clGetMemAllocInfoINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetMemAllocInfoINTEL"),
+                    findOrThrow("clGetMemAllocInfoINTEL"),
                     DESC);
     }
 
@@ -22838,14 +22838,14 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clSetKernelArgMemPointerINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetKernelArgMemPointerINTEL"),
+                    findOrThrow("clSetKernelArgMemPointerINTEL"),
                     DESC);
     }
 
@@ -22887,19 +22887,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueMemFillINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueMemFillINTEL"),
+                    findOrThrow("clEnqueueMemFillINTEL"),
                     DESC);
     }
 
@@ -22941,19 +22941,19 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueMemcpyINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueMemcpyINTEL"),
+                    findOrThrow("clEnqueueMemcpyINTEL"),
                     DESC);
     }
 
@@ -22995,18 +22995,18 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueMemAdviseINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueMemAdviseINTEL"),
+                    findOrThrow("clEnqueueMemAdviseINTEL"),
                     DESC);
     }
 
@@ -23048,18 +23048,18 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueMigrateMemINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueMigrateMemINTEL"),
+                    findOrThrow("clEnqueueMigrateMemINTEL"),
                     DESC);
     }
 
@@ -23101,18 +23101,18 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueMemsetINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueMemsetINTEL"),
+                    findOrThrow("clEnqueueMemsetINTEL"),
                     DESC);
     }
 
@@ -23154,17 +23154,17 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clCreateBufferWithPropertiesINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clCreateBufferWithPropertiesINTEL"),
+                    findOrThrow("clCreateBufferWithPropertiesINTEL"),
                     DESC);
     }
 
@@ -23206,20 +23206,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueReadHostPipeINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueReadHostPipeINTEL"),
+                    findOrThrow("clEnqueueReadHostPipeINTEL"),
                     DESC);
     }
 
@@ -23261,20 +23261,20 @@ public class opencl_h_1 extends opencl_h_2 {
 
     private static class clEnqueueWriteHostPipeINTEL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clEnqueueWriteHostPipeINTEL"),
+                    findOrThrow("clEnqueueWriteHostPipeINTEL"),
                     DESC);
     }
 
@@ -23318,30 +23318,30 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_bitfield cl_command_queue_capabilities_intel
      * }
      */
-    public static final OfLong cl_command_queue_capabilities_intel = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_command_queue_capabilities_intel = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef cl_uint cl_image_requirements_info_ext
      * }
      */
-    public static final OfInt cl_image_requirements_info_ext = opencl_h.C_INT;
+    public static final OfInt cl_image_requirements_info_ext = C_INT;
 
     private static class clGetImageRequirementsInfoEXT {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetImageRequirementsInfoEXT"),
+                    findOrThrow("clGetImageRequirementsInfoEXT"),
                     DESC);
     }
 
@@ -23385,19 +23385,19 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_uint cl_icdl_info
      * }
      */
-    public static final OfInt cl_icdl_info = opencl_h.C_INT;
+    public static final OfInt cl_icdl_info = C_INT;
 
     private static class clGetICDLoaderInfoOCLICD {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_INT,
-            opencl_h.C_LONG_LONG,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clGetICDLoaderInfoOCLICD"),
+                    findOrThrow("clGetICDLoaderInfoOCLICD"),
                     DESC);
     }
 
@@ -23441,17 +23441,17 @@ public class opencl_h_1 extends opencl_h_2 {
      * typedef cl_bitfield cl_device_fp_atomic_capabilities_ext
      * }
      */
-    public static final OfLong cl_device_fp_atomic_capabilities_ext = opencl_h.C_LONG_LONG;
+    public static final OfLong cl_device_fp_atomic_capabilities_ext = C_LONG_LONG;
 
     private static class clSetContentSizeBufferPoCL {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            opencl_h.C_INT,
-            opencl_h.C_POINTER,
-            opencl_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("clSetContentSizeBufferPoCL"),
+                    findOrThrow("clSetContentSizeBufferPoCL"),
                     DESC);
     }
 
@@ -24435,7 +24435,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static float CL_M_SQRT1_2_F() {
         return CL_M_SQRT1_2_F;
     }
-    private static final float CL_NAN = Float.valueOf("NaN");
+    private static final float CL_NAN = Float.parseFloat("NaN");
     /**
      * {@snippet lang=c :
      * #define CL_NAN NaN
@@ -24444,7 +24444,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static float CL_NAN() {
         return CL_NAN;
     }
-    private static final float CL_HUGE_VALF = Float.valueOf("Infinity");
+    private static final float CL_HUGE_VALF = Float.parseFloat("Infinity");
     /**
      * {@snippet lang=c :
      * #define CL_HUGE_VALF Infinity
@@ -24453,7 +24453,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static float CL_HUGE_VALF() {
         return CL_HUGE_VALF;
     }
-    private static final double CL_HUGE_VAL = Double.valueOf("Infinity");
+    private static final double CL_HUGE_VAL = Double.parseDouble("Infinity");
     /**
      * {@snippet lang=c :
      * #define CL_HUGE_VAL Infinity
@@ -24471,7 +24471,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static float CL_MAXFLOAT() {
         return CL_MAXFLOAT;
     }
-    private static final float CL_INFINITY = Float.valueOf("Infinity");
+    private static final float CL_INFINITY = Float.parseFloat("Infinity");
     /**
      * {@snippet lang=c :
      * #define CL_INFINITY Infinity
@@ -24515,7 +24515,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment __FILEW__() {
         class Holder {
             static final MemorySegment __FILEW__
-                = opencl_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.__FILEW__;
     }
@@ -25276,7 +25276,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_PROGRAM_STRING_DEBUG_INFO() {
         class Holder {
             static final MemorySegment CL_PROGRAM_STRING_DEBUG_INFO
-                = opencl_h.LIBRARY_ARENA.allocateFrom("#line 668 \"C:\\Users\\terut\\AppData\\Local\\Temp\\jextract$12990948806193480910.h\" \n\n");
+                = LIBRARY_ARENA.allocateFrom("#line 668 \"C:\\Users\\terut\\AppData\\Local\\Temp\\jextract$12990948806193480910.h\" \n\n");
         }
         return Holder.CL_PROGRAM_STRING_DEBUG_INFO;
     }
@@ -26485,7 +26485,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_GL_SHARING_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_GL_SHARING_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_gl_sharing");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_gl_sharing");
         }
         return Holder.CL_KHR_GL_SHARING_EXTENSION_NAME;
     }
@@ -26506,7 +26506,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_GL_EVENT_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_GL_EVENT_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_gl_event");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_gl_event");
         }
         return Holder.CL_KHR_GL_EVENT_EXTENSION_NAME;
     }
@@ -26518,7 +26518,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_GL_DEPTH_IMAGES_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_GL_DEPTH_IMAGES_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_gl_depth_images");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_gl_depth_images");
         }
         return Holder.CL_KHR_GL_DEPTH_IMAGES_EXTENSION_NAME;
     }
@@ -26530,7 +26530,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_GL_MSAA_SHARING_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_GL_MSAA_SHARING_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_gl_msaa_sharing");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_gl_msaa_sharing");
         }
         return Holder.CL_KHR_GL_MSAA_SHARING_EXTENSION_NAME;
     }
@@ -26542,7 +26542,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_INTEL_SHARING_FORMAT_QUERY_GL_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_SHARING_FORMAT_QUERY_GL_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_sharing_format_query_gl");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_sharing_format_query_gl");
         }
         return Holder.CL_INTEL_SHARING_FORMAT_QUERY_GL_EXTENSION_NAME;
     }
@@ -26554,7 +26554,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_COMMAND_BUFFER_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_COMMAND_BUFFER_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_command_buffer");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_command_buffer");
         }
         return Holder.CL_KHR_COMMAND_BUFFER_EXTENSION_NAME;
     }
@@ -26638,7 +26638,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_COMMAND_BUFFER_MULTI_DEVICE_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_COMMAND_BUFFER_MULTI_DEVICE_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_command_buffer_multi_device");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_command_buffer_multi_device");
         }
         return Holder.CL_KHR_COMMAND_BUFFER_MULTI_DEVICE_EXTENSION_NAME;
     }
@@ -26695,7 +26695,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_COMMAND_BUFFER_MUTABLE_DISPATCH_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_COMMAND_BUFFER_MUTABLE_DISPATCH_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_command_buffer_mutable_dispatch");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_command_buffer_mutable_dispatch");
         }
         return Holder.CL_KHR_COMMAND_BUFFER_MUTABLE_DISPATCH_EXTENSION_NAME;
     }
@@ -26770,7 +26770,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_FP64_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_FP64_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_fp64");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_fp64");
         }
         return Holder.CL_KHR_FP64_EXTENSION_NAME;
     }
@@ -26782,7 +26782,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_FP16_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_FP16_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_fp16");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_fp16");
         }
         return Holder.CL_KHR_FP16_EXTENSION_NAME;
     }
@@ -26794,7 +26794,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_APPLE_SETMEMOBJECTDESTRUCTOR_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_APPLE_SETMEMOBJECTDESTRUCTOR_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_APPLE_SetMemObjectDestructor");
+                = LIBRARY_ARENA.allocateFrom("cl_APPLE_SetMemObjectDestructor");
         }
         return Holder.CL_APPLE_SETMEMOBJECTDESTRUCTOR_EXTENSION_NAME;
     }
@@ -26806,7 +26806,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_APPLE_CONTEXTLOGGINGFUNCTIONS_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_APPLE_CONTEXTLOGGINGFUNCTIONS_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_APPLE_ContextLoggingFunctions");
+                = LIBRARY_ARENA.allocateFrom("cl_APPLE_ContextLoggingFunctions");
         }
         return Holder.CL_APPLE_CONTEXTLOGGINGFUNCTIONS_EXTENSION_NAME;
     }
@@ -26818,7 +26818,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_ICD_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_ICD_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_icd");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_icd");
         }
         return Holder.CL_KHR_ICD_EXTENSION_NAME;
     }
@@ -26839,7 +26839,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_IL_PROGRAM_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_IL_PROGRAM_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_il_program");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_il_program");
         }
         return Holder.CL_KHR_IL_PROGRAM_EXTENSION_NAME;
     }
@@ -26851,7 +26851,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_IMAGE2D_FROM_BUFFER_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_IMAGE2D_FROM_BUFFER_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_image2d_from_buffer");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_image2d_from_buffer");
         }
         return Holder.CL_KHR_IMAGE2D_FROM_BUFFER_EXTENSION_NAME;
     }
@@ -26863,7 +26863,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_INITIALIZE_MEMORY_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_INITIALIZE_MEMORY_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_initialize_memory");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_initialize_memory");
         }
         return Holder.CL_KHR_INITIALIZE_MEMORY_EXTENSION_NAME;
     }
@@ -26875,7 +26875,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_TERMINATE_CONTEXT_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_TERMINATE_CONTEXT_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_terminate_context");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_terminate_context");
         }
         return Holder.CL_KHR_TERMINATE_CONTEXT_EXTENSION_NAME;
     }
@@ -26905,7 +26905,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_SPIR_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_SPIR_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_spir");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_spir");
         }
         return Holder.CL_KHR_SPIR_EXTENSION_NAME;
     }
@@ -26917,7 +26917,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_KHR_CREATE_COMMAND_QUEUE_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_CREATE_COMMAND_QUEUE_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_create_command_queue");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_create_command_queue");
         }
         return Holder.CL_KHR_CREATE_COMMAND_QUEUE_EXTENSION_NAME;
     }
@@ -26929,7 +26929,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_NV_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_NV_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_nv_device_attribute_query");
+                = LIBRARY_ARENA.allocateFrom("cl_nv_device_attribute_query");
         }
         return Holder.CL_NV_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME;
     }
@@ -26941,7 +26941,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_AMD_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_AMD_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_amd_device_attribute_query");
+                = LIBRARY_ARENA.allocateFrom("cl_amd_device_attribute_query");
         }
         return Holder.CL_AMD_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME;
     }
@@ -26953,7 +26953,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_ARM_PRINTF_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_ARM_PRINTF_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_printf");
+                = LIBRARY_ARENA.allocateFrom("cl_arm_printf");
         }
         return Holder.CL_ARM_PRINTF_EXTENSION_NAME;
     }
@@ -26965,7 +26965,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_EXT_DEVICE_FISSION_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_EXT_DEVICE_FISSION_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_ext_device_fission");
+                = LIBRARY_ARENA.allocateFrom("cl_ext_device_fission");
         }
         return Holder.CL_EXT_DEVICE_FISSION_EXTENSION_NAME;
     }
@@ -27031,7 +27031,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_EXT_MIGRATE_MEMOBJECT_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_EXT_MIGRATE_MEMOBJECT_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_ext_migrate_memobject");
+                = LIBRARY_ARENA.allocateFrom("cl_ext_migrate_memobject");
         }
         return Holder.CL_EXT_MIGRATE_MEMOBJECT_EXTENSION_NAME;
     }
@@ -27052,7 +27052,7 @@ public class opencl_h_1 extends opencl_h_2 {
     public static MemorySegment CL_EXT_CXX_FOR_OPENCL_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_EXT_CXX_FOR_OPENCL_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_ext_cxx_for_opencl");
+                = LIBRARY_ARENA.allocateFrom("cl_ext_cxx_for_opencl");
         }
         return Holder.CL_EXT_CXX_FOR_OPENCL_EXTENSION_NAME;
     }
