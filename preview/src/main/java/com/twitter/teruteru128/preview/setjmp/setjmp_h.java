@@ -2,292 +2,579 @@
 
 package com.twitter.teruteru128.preview.setjmp;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
-import static java.lang.foreign.ValueLayout.*;
-public class setjmp_h  {
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
-    public static final OfByte C_CHAR = JAVA_BYTE;
-    public static final OfShort C_SHORT = JAVA_SHORT;
-    public static final OfInt C_INT = JAVA_INT;
-    public static final OfInt C_LONG = JAVA_INT;
-    public static final OfLong C_LONG_LONG = JAVA_LONG;
-    public static final OfFloat C_FLOAT = JAVA_FLOAT;
-    public static final OfDouble C_DOUBLE = JAVA_DOUBLE;
-    public static final AddressLayout C_POINTER = RuntimeHelper.POINTER;
+import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
+public class setjmp_h {
+
+    setjmp_h() {
+        // Should not be called directly
+    }
+
+    static final Arena LIBRARY_ARENA = Arena.ofAuto();
+    static final boolean TRACE_DOWNCALLS = Boolean.getBoolean("jextract.trace.downcalls");
+
+    static void traceDowncall(String name, Object... args) {
+         String traceArgs = Arrays.stream(args)
+                       .map(Object::toString)
+                       .collect(Collectors.joining(", "));
+         System.out.printf("%s(%s)\n", name, traceArgs);
+    }
+
+    static MemorySegment findOrThrow(String symbol) {
+        return SYMBOL_LOOKUP.find(symbol)
+            .orElseThrow(() -> new UnsatisfiedLinkError("unresolved symbol: " + symbol));
+    }
+
+    static MethodHandle upcallHandle(Class<?> fi, String name, FunctionDescriptor fdesc) {
+        try {
+            return MethodHandles.lookup().findVirtual(fi, name, fdesc.toMethodType());
+        } catch (ReflectiveOperationException ex) {
+            throw new AssertionError(ex);
+        }
+    }
+
+    static MemoryLayout align(MemoryLayout layout, long align) {
+        return switch (layout) {
+            case PaddingLayout p -> p;
+            case ValueLayout v -> v.withByteAlignment(align);
+            case GroupLayout g -> {
+                MemoryLayout[] alignedMembers = g.memberLayouts().stream()
+                        .map(m -> align(m, align)).toArray(MemoryLayout[]::new);
+                yield g instanceof StructLayout ?
+                        MemoryLayout.structLayout(alignedMembers) : MemoryLayout.unionLayout(alignedMembers);
+            }
+            case SequenceLayout s -> MemoryLayout.sequenceLayout(s.elementCount(), align(s.elementLayout(), align));
+        };
+    }
+
+    static final SymbolLookup SYMBOL_LOOKUP = SymbolLookup.loaderLookup()
+            .or(Linker.nativeLinker().defaultLookup());
+
+    public static final ValueLayout.OfBoolean C_BOOL = ValueLayout.JAVA_BOOLEAN;
+    public static final ValueLayout.OfByte C_CHAR = ValueLayout.JAVA_BYTE;
+    public static final ValueLayout.OfShort C_SHORT = ValueLayout.JAVA_SHORT;
+    public static final ValueLayout.OfInt C_INT = ValueLayout.JAVA_INT;
+    public static final ValueLayout.OfLong C_LONG_LONG = ValueLayout.JAVA_LONG;
+    public static final ValueLayout.OfFloat C_FLOAT = ValueLayout.JAVA_FLOAT;
+    public static final ValueLayout.OfDouble C_DOUBLE = ValueLayout.JAVA_DOUBLE;
+    public static final AddressLayout C_POINTER = ValueLayout.ADDRESS
+            .withTargetLayout(MemoryLayout.sequenceLayout(java.lang.Long.MAX_VALUE, JAVA_BYTE));
+    public static final ValueLayout.OfInt C_LONG = ValueLayout.JAVA_INT;
+    public static final ValueLayout.OfDouble C_LONG_DOUBLE = ValueLayout.JAVA_DOUBLE;
+    private static final int _VCRT_COMPILER_PREPROCESSOR = (int)1L;
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * #define _VCRT_COMPILER_PREPROCESSOR 1
      * }
      */
     public static int _VCRT_COMPILER_PREPROCESSOR() {
-        return (int)1L;
+        return _VCRT_COMPILER_PREPROCESSOR;
     }
+    private static final int _SAL_VERSION = (int)20L;
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * #define _SAL_VERSION 20
      * }
      */
     public static int _SAL_VERSION() {
-        return (int)20L;
+        return _SAL_VERSION;
     }
+    private static final int __SAL_H_VERSION = (int)180000000L;
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * #define __SAL_H_VERSION 180000000
      * }
      */
     public static int __SAL_H_VERSION() {
-        return (int)180000000L;
+        return __SAL_H_VERSION;
     }
+    private static final int _USE_DECLSPECS_FOR_SAL = (int)0L;
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * #define _USE_DECLSPECS_FOR_SAL 0
      * }
      */
     public static int _USE_DECLSPECS_FOR_SAL() {
-        return (int)0L;
+        return _USE_DECLSPECS_FOR_SAL;
     }
+    private static final int _USE_ATTRIBUTES_FOR_SAL = (int)0L;
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * #define _USE_ATTRIBUTES_FOR_SAL 0
      * }
      */
     public static int _USE_ATTRIBUTES_FOR_SAL() {
-        return (int)0L;
+        return _USE_ATTRIBUTES_FOR_SAL;
     }
+    private static final int _CRT_PACKING = (int)8L;
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * #define _CRT_PACKING 8
      * }
      */
     public static int _CRT_PACKING() {
-        return (int)8L;
+        return _CRT_PACKING;
     }
+    private static final int _HAS_EXCEPTIONS = (int)1L;
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * #define _HAS_EXCEPTIONS 1
      * }
      */
     public static int _HAS_EXCEPTIONS() {
-        return (int)1L;
+        return _HAS_EXCEPTIONS;
     }
+    private static final int _HAS_CXX17 = (int)0L;
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * #define _HAS_CXX17 0
      * }
      */
     public static int _HAS_CXX17() {
-        return (int)0L;
+        return _HAS_CXX17;
     }
+    private static final int _HAS_CXX20 = (int)0L;
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * #define _HAS_CXX20 0
      * }
      */
     public static int _HAS_CXX20() {
-        return (int)0L;
+        return _HAS_CXX20;
     }
+    private static final int _HAS_CXX23 = (int)0L;
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * #define _HAS_CXX23 0
      * }
      */
     public static int _HAS_CXX23() {
-        return (int)0L;
+        return _HAS_CXX23;
     }
+    private static final int _HAS_NODISCARD = (int)0L;
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * #define _HAS_NODISCARD 0
      * }
      */
     public static int _HAS_NODISCARD() {
-        return (int)0L;
+        return _HAS_NODISCARD;
     }
+    private static final int _JBLEN = (int)16L;
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * #define _JBLEN 16
      * }
      */
     public static int _JBLEN() {
-        return (int)16L;
+        return _JBLEN;
     }
     /**
-     * {@snippet :
-     * typedef unsigned long long uintptr_t;
+     * {@snippet lang=c :
+     * typedef unsigned long long uintptr_t
      * }
      */
-    public static final OfLong uintptr_t = JAVA_LONG;
+    public static final OfLong uintptr_t = setjmp_h.C_LONG_LONG;
     /**
-     * {@snippet :
-     * typedef char* va_list;
+     * {@snippet lang=c :
+     * typedef char *va_list
      * }
      */
-    public static final AddressLayout va_list = RuntimeHelper.POINTER;
-    public static MethodHandle __va_start$MH() {
-        return RuntimeHelper.requireNonNull(constants$0.const$1,"__va_start");
-    }
+    public static final AddressLayout va_list = setjmp_h.C_POINTER;
+
     /**
-     * {@snippet :
-     * void __va_start(va_list*,...);
+     * Variadic invoker class for:
+     * {@snippet lang=c :
+     * void __va_start(va_list *, ...)
      * }
      */
-    public static void __va_start(MemorySegment x0, Object... x1) {
-        var mh$ = __va_start$MH();
-        try {
-            mh$.invokeExact(x0, x1);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static class __va_start {
+        private static final FunctionDescriptor BASE_DESC = FunctionDescriptor.ofVoid(
+                setjmp_h.C_POINTER
+            );
+        private static final MemorySegment ADDR = setjmp_h.findOrThrow("__va_start");
+
+        private final MethodHandle handle;
+        private final FunctionDescriptor descriptor;
+        private final MethodHandle spreader;
+
+        private __va_start(MethodHandle handle, FunctionDescriptor descriptor, MethodHandle spreader) {
+            this.handle = handle;
+            this.descriptor = descriptor;
+            this.spreader = spreader;
+        }
+
+        /**
+         * Variadic invoker factory for:
+         * {@snippet lang=c :
+         * void __va_start(va_list *, ...)
+         * }
+         */
+        public static __va_start makeInvoker(MemoryLayout... layouts) {
+            FunctionDescriptor desc$ = BASE_DESC.appendArgumentLayouts(layouts);
+            Linker.Option fva$ = Linker.Option.firstVariadicArg(BASE_DESC.argumentLayouts().size());
+            var mh$ = Linker.nativeLinker().downcallHandle(ADDR, desc$, fva$);
+            var spreader$ = mh$.asSpreader(Object[].class, layouts.length);
+            return new __va_start(mh$, desc$, spreader$);
+        }
+
+        /**
+         * {@return the specialized method handle}
+         */
+        public MethodHandle handle() {
+            return handle;
+        }
+
+        /**
+         * {@return the specialized descriptor}
+         */
+        public FunctionDescriptor descriptor() {
+            return descriptor;
+        }
+
+        public void apply(MemorySegment x0, Object... x1) {
+            try {
+                if (TRACE_DOWNCALLS) {
+                    traceDowncall("__va_start", x0, x1);
+                }
+                spreader.invokeExact(x0, x1);
+            } catch(IllegalArgumentException | ClassCastException ex$)  {
+                throw ex$; // rethrow IAE from passing wrong number/type of args
+            } catch (Throwable ex$) {
+               throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
     /**
-     * {@snippet :
-     * typedef unsigned long long size_t;
+     * {@snippet lang=c :
+     * typedef unsigned long long size_t
      * }
      */
-    public static final OfLong size_t = JAVA_LONG;
+    public static final OfLong size_t = setjmp_h.C_LONG_LONG;
     /**
-     * {@snippet :
-     * typedef long long ptrdiff_t;
+     * {@snippet lang=c :
+     * typedef long long ptrdiff_t
      * }
      */
-    public static final OfLong ptrdiff_t = JAVA_LONG;
+    public static final OfLong ptrdiff_t = setjmp_h.C_LONG_LONG;
     /**
-     * {@snippet :
-     * typedef long long intptr_t;
+     * {@snippet lang=c :
+     * typedef long long intptr_t
      * }
      */
-    public static final OfLong intptr_t = JAVA_LONG;
+    public static final OfLong intptr_t = setjmp_h.C_LONG_LONG;
     /**
-     * {@snippet :
-     * typedef unsigned short wchar_t;
+     * {@snippet lang=c :
+     * typedef _Bool __vcrt_bool
      * }
      */
-    public static final OfShort wchar_t = JAVA_SHORT;
-    public static MethodHandle __security_init_cookie$MH() {
-        return RuntimeHelper.requireNonNull(constants$0.const$3,"__security_init_cookie");
+    public static final OfBoolean __vcrt_bool = setjmp_h.C_BOOL;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned short wchar_t
+     * }
+     */
+    public static final OfShort wchar_t = setjmp_h.C_SHORT;
+
+    private static class __security_init_cookie {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    setjmp_h.findOrThrow("__security_init_cookie"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __security_init_cookie()
+     * }
+     */
+    public static FunctionDescriptor __security_init_cookie$descriptor() {
+        return __security_init_cookie.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __security_init_cookie()
+     * }
+     */
+    public static MethodHandle __security_init_cookie$handle() {
+        return __security_init_cookie.HANDLE;
     }
     /**
-     * {@snippet :
-     * void __security_init_cookie();
+     * {@snippet lang=c :
+     * void __security_init_cookie()
      * }
      */
     public static void __security_init_cookie() {
-        var mh$ = __security_init_cookie$MH();
+        var mh$ = __security_init_cookie.HANDLE;
         try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__security_init_cookie");
+            }
             mh$.invokeExact();
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle __security_check_cookie$MH() {
-        return RuntimeHelper.requireNonNull(constants$0.const$5,"__security_check_cookie");
+
+    private static class __security_check_cookie {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            setjmp_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    setjmp_h.findOrThrow("__security_check_cookie"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __security_check_cookie(uintptr_t _StackCookie)
+     * }
+     */
+    public static FunctionDescriptor __security_check_cookie$descriptor() {
+        return __security_check_cookie.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __security_check_cookie(uintptr_t _StackCookie)
+     * }
+     */
+    public static MethodHandle __security_check_cookie$handle() {
+        return __security_check_cookie.HANDLE;
     }
     /**
-     * {@snippet :
-     * void __security_check_cookie(uintptr_t _StackCookie);
+     * {@snippet lang=c :
+     * void __security_check_cookie(uintptr_t _StackCookie)
      * }
      */
     public static void __security_check_cookie(long _StackCookie) {
-        var mh$ = __security_check_cookie$MH();
+        var mh$ = __security_check_cookie.HANDLE;
         try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__security_check_cookie", _StackCookie);
+            }
             mh$.invokeExact(_StackCookie);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle __report_gsfailure$MH() {
-        return RuntimeHelper.requireNonNull(constants$1.const$0,"__report_gsfailure");
+
+    private static class __report_gsfailure {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            setjmp_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    setjmp_h.findOrThrow("__report_gsfailure"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __report_gsfailure(uintptr_t _StackCookie)
+     * }
+     */
+    public static FunctionDescriptor __report_gsfailure$descriptor() {
+        return __report_gsfailure.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __report_gsfailure(uintptr_t _StackCookie)
+     * }
+     */
+    public static MethodHandle __report_gsfailure$handle() {
+        return __report_gsfailure.HANDLE;
     }
     /**
-     * {@snippet :
-     * void __report_gsfailure(uintptr_t _StackCookie);
+     * {@snippet lang=c :
+     * void __report_gsfailure(uintptr_t _StackCookie)
      * }
      */
     public static void __report_gsfailure(long _StackCookie) {
-        var mh$ = __report_gsfailure$MH();
+        var mh$ = __report_gsfailure.HANDLE;
         try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__report_gsfailure", _StackCookie);
+            }
             mh$.invokeExact(_StackCookie);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MemoryLayout __security_cookie$LAYOUT() {
-        return JAVA_LONG;
+
+    private static class __security_cookie$constants {
+        public static final OfLong LAYOUT = setjmp_h.C_LONG_LONG;
+        public static final MemorySegment SEGMENT = setjmp_h.findOrThrow("__security_cookie").reinterpret(LAYOUT.byteSize());
     }
-    public static VarHandle __security_cookie$VH() {
-        return constants$1.const$1;
+
+    /**
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern uintptr_t __security_cookie
+     * }
+     */
+    public static OfLong __security_cookie$layout() {
+        return __security_cookie$constants.LAYOUT;
     }
-    public static MemorySegment __security_cookie$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$1.const$2,"__security_cookie");
+
+    /**
+     * Segment for variable:
+     * {@snippet lang=c :
+     * extern uintptr_t __security_cookie
+     * }
+     */
+    public static MemorySegment __security_cookie$segment() {
+        return __security_cookie$constants.SEGMENT;
     }
+
     /**
      * Getter for variable:
-     * {@snippet :
-     * uintptr_t __security_cookie;
+     * {@snippet lang=c :
+     * extern uintptr_t __security_cookie
      * }
      */
-    public static long __security_cookie$get() {
-        return (long) constants$1.const$1.get(RuntimeHelper.requireNonNull(constants$1.const$2, "__security_cookie"));
+    public static long __security_cookie() {
+        return __security_cookie$constants.SEGMENT.get(__security_cookie$constants.LAYOUT, 0L);
     }
+
     /**
      * Setter for variable:
-     * {@snippet :
-     * uintptr_t __security_cookie;
+     * {@snippet lang=c :
+     * extern uintptr_t __security_cookie
      * }
      */
-    public static void __security_cookie$set(long x) {
-        constants$1.const$1.set(RuntimeHelper.requireNonNull(constants$1.const$2, "__security_cookie"), x);
+    public static void __security_cookie(long varValue) {
+        __security_cookie$constants.SEGMENT.set(__security_cookie$constants.LAYOUT, 0L, varValue);
     }
-    public static MethodHandle _setjmp$MH() {
-        return RuntimeHelper.requireNonNull(constants$4.const$2,"_setjmp");
+
+    private static class _setjmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            setjmp_h.C_INT,
+            setjmp_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    setjmp_h.findOrThrow("_setjmp"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _setjmp(jmp_buf _Buf)
+     * }
+     */
+    public static FunctionDescriptor _setjmp$descriptor() {
+        return _setjmp.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _setjmp(jmp_buf _Buf)
+     * }
+     */
+    public static MethodHandle _setjmp$handle() {
+        return _setjmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * int _setjmp(jmp_buf _Buf);
+     * {@snippet lang=c :
+     * int _setjmp(jmp_buf _Buf)
      * }
      */
     public static int _setjmp(MemorySegment _Buf) {
-        var mh$ = _setjmp$MH();
+        var mh$ = _setjmp.HANDLE;
         try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_setjmp", _Buf);
+            }
             return (int)mh$.invokeExact(_Buf);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle longjmp$MH() {
-        return RuntimeHelper.requireNonNull(constants$4.const$4,"longjmp");
+
+    private static class longjmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            setjmp_h.C_POINTER,
+            setjmp_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    setjmp_h.findOrThrow("longjmp"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void longjmp(jmp_buf _Buf, int _Value)
+     * }
+     */
+    public static FunctionDescriptor longjmp$descriptor() {
+        return longjmp.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void longjmp(jmp_buf _Buf, int _Value)
+     * }
+     */
+    public static MethodHandle longjmp$handle() {
+        return longjmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * void longjmp(jmp_buf _Buf, int _Value);
+     * {@snippet lang=c :
+     * void longjmp(jmp_buf _Buf, int _Value)
      * }
      */
     public static void longjmp(MemorySegment _Buf, int _Value) {
-        var mh$ = longjmp$MH();
+        var mh$ = longjmp.HANDLE;
         try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("longjmp", _Buf, _Value);
+            }
             mh$.invokeExact(_Buf, _Value);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
+    private static final int _VCRUNTIME_DISABLED_WARNINGS = (int)4514L;
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * #define _VCRUNTIME_DISABLED_WARNINGS 4514
      * }
      */
     public static int _VCRUNTIME_DISABLED_WARNINGS() {
-        return (int)4514L;
+        return _VCRUNTIME_DISABLED_WARNINGS;
     }
+    private static final MemorySegment NULL = MemorySegment.ofAddress(0L);
     /**
-     * {@snippet :
-     * #define NULL 0
+     * {@snippet lang=c :
+     * #define NULL (void*) 0
      * }
      */
     public static MemorySegment NULL() {
-        return constants$4.const$5;
+        return NULL;
     }
 }
-
 
