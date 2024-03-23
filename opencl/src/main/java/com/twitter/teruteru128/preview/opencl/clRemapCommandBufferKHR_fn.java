@@ -2,32 +2,74 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * struct _cl_command_buffer_khr* (*clRemapCommandBufferKHR_fn)(struct _cl_command_buffer_khr* command_buffer,unsigned int automatic,unsigned int num_queues,struct _cl_command_queue** queues,unsigned int num_handles,struct _cl_mutable_command_khr** handles,struct _cl_mutable_command_khr** handles_ret,int* errcode_ret);
+ * {@snippet lang=c :
+ * typedef cl_command_buffer_khr (*clRemapCommandBufferKHR_fn)(cl_command_buffer_khr, cl_bool, cl_uint, const cl_command_queue *, cl_uint, const cl_mutable_command_khr *, cl_mutable_command_khr *, cl_int *) __attribute__((stdcall))
  * }
  */
-public interface clRemapCommandBufferKHR_fn {
+public class clRemapCommandBufferKHR_fn {
 
-    java.lang.foreign.MemorySegment apply(java.lang.foreign.MemorySegment command_buffer, int automatic, int num_queues, java.lang.foreign.MemorySegment queues, int num_handles, java.lang.foreign.MemorySegment handles, java.lang.foreign.MemorySegment handles_ret, java.lang.foreign.MemorySegment errcode_ret);
-    static MemorySegment allocate(clRemapCommandBufferKHR_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$219.const$4, fi, constants$219.const$3, scope);
+    clRemapCommandBufferKHR_fn() {
+        // Should not be called directly
     }
-    static clRemapCommandBufferKHR_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _command_buffer, int _automatic, int _num_queues, java.lang.foreign.MemorySegment _queues, int _num_handles, java.lang.foreign.MemorySegment _handles, java.lang.foreign.MemorySegment _handles_ret, java.lang.foreign.MemorySegment _errcode_ret) -> {
-            try {
-                return (java.lang.foreign.MemorySegment)constants$219.const$5.invokeExact(symbol, _command_buffer, _automatic, _num_queues, _queues, _num_handles, _handles, _handles_ret, _errcode_ret);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        MemorySegment apply(MemorySegment command_buffer, int automatic, int num_queues, MemorySegment queues, int num_handles, MemorySegment handles, MemorySegment handles_ret, MemorySegment errcode_ret);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_INT,
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clRemapCommandBufferKHR_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clRemapCommandBufferKHR_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static MemorySegment invoke(MemorySegment funcPtr,MemorySegment command_buffer, int automatic, int num_queues, MemorySegment queues, int num_handles, MemorySegment handles, MemorySegment handles_ret, MemorySegment errcode_ret) {
+        try {
+            return (MemorySegment) DOWN$MH.invokeExact(funcPtr, command_buffer, automatic, num_queues, queues, num_handles, handles, handles_ret, errcode_ret);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

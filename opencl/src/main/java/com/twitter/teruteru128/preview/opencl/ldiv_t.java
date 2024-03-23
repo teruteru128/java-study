@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _ldiv_t ldiv_t;
+ * {@snippet lang=c :
+ * typedef struct _ldiv_t {
+ *     long quot;
+ *     long rem;
+ * } ldiv_t
  * }
  */
-public final class ldiv_t extends _ldiv_t {
+public class ldiv_t extends _ldiv_t {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private ldiv_t() {}
+    ldiv_t() {
+        // Should not be called directly
+    }
 }
-
 

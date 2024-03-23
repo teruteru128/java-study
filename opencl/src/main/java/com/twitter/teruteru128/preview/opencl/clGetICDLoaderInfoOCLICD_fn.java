@@ -2,32 +2,70 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*clGetICDLoaderInfoOCLICD_fn)(unsigned int param_name,unsigned long long param_value_size,void* param_value,unsigned long long* param_value_size_ret);
+ * {@snippet lang=c :
+ * typedef cl_int (*clGetICDLoaderInfoOCLICD_fn)(cl_icdl_info, size_t, void *, size_t *) __attribute__((stdcall))
  * }
  */
-public interface clGetICDLoaderInfoOCLICD_fn {
+public class clGetICDLoaderInfoOCLICD_fn {
 
-    int apply(int param_name, long param_value_size, java.lang.foreign.MemorySegment param_value, java.lang.foreign.MemorySegment param_value_size_ret);
-    static MemorySegment allocate(clGetICDLoaderInfoOCLICD_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$256.const$3, fi, constants$256.const$2, scope);
+    clGetICDLoaderInfoOCLICD_fn() {
+        // Should not be called directly
     }
-    static clGetICDLoaderInfoOCLICD_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (int _param_name, long _param_value_size, java.lang.foreign.MemorySegment _param_value, java.lang.foreign.MemorySegment _param_value_size_ret) -> {
-            try {
-                return (int)constants$256.const$4.invokeExact(symbol, _param_name, _param_value_size, _param_value, _param_value_size_ret);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(int param_name, long param_value_size, MemorySegment param_value, MemorySegment param_value_size_ret);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_INT,
+        opencl_h.C_INT,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clGetICDLoaderInfoOCLICD_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clGetICDLoaderInfoOCLICD_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,int param_name, long param_value_size, MemorySegment param_value, MemorySegment param_value_size_ret) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, param_name, param_value_size, param_value, param_value_size_ret);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _cl_buffer_region cl_buffer_region;
+ * {@snippet lang=c :
+ * typedef struct _cl_buffer_region {
+ *     size_t origin;
+ *     size_t size;
+ * } cl_buffer_region
  * }
  */
-public final class cl_buffer_region extends _cl_buffer_region {
+public class cl_buffer_region extends _cl_buffer_region {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private cl_buffer_region() {}
+    cl_buffer_region() {
+        // Should not be called directly
+    }
 }
-
 

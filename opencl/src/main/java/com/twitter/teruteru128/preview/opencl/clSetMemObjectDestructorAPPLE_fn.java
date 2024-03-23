@@ -2,32 +2,69 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*clSetMemObjectDestructorAPPLE_fn)(struct _cl_mem* memobj,void (*pfn_notify)(struct _cl_mem*,void*),void* user_data);
+ * {@snippet lang=c :
+ * typedef cl_int (*clSetMemObjectDestructorAPPLE_fn)(cl_mem, void (*)(cl_mem, void *) __attribute__((stdcall)), void *) __attribute__((stdcall))
  * }
  */
-public interface clSetMemObjectDestructorAPPLE_fn {
+public class clSetMemObjectDestructorAPPLE_fn {
 
-    int apply(java.lang.foreign.MemorySegment memobj, java.lang.foreign.MemorySegment pfn_notify, java.lang.foreign.MemorySegment user_data);
-    static MemorySegment allocate(clSetMemObjectDestructorAPPLE_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$225.const$2, fi, constants$9.const$0, scope);
+    clSetMemObjectDestructorAPPLE_fn() {
+        // Should not be called directly
     }
-    static clSetMemObjectDestructorAPPLE_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _memobj, java.lang.foreign.MemorySegment _pfn_notify, java.lang.foreign.MemorySegment _user_data) -> {
-            try {
-                return (int)constants$9.const$2.invokeExact(symbol, _memobj, _pfn_notify, _user_data);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment memobj, MemorySegment pfn_notify, MemorySegment user_data);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clSetMemObjectDestructorAPPLE_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clSetMemObjectDestructorAPPLE_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment memobj, MemorySegment pfn_notify, MemorySegment user_data) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, memobj, pfn_notify, user_data);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

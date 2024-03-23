@@ -2,32 +2,70 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void* (*clSVMAllocARM_fn)(struct _cl_context* context,unsigned long long flags,unsigned long long size,unsigned int alignment);
+ * {@snippet lang=c :
+ * typedef void *(*clSVMAllocARM_fn)(cl_context, cl_svm_mem_flags_arm, size_t, cl_uint) __attribute__((stdcall))
  * }
  */
-public interface clSVMAllocARM_fn {
+public class clSVMAllocARM_fn {
 
-    java.lang.foreign.MemorySegment apply(java.lang.foreign.MemorySegment context, long flags, long size, int alignment);
-    static MemorySegment allocate(clSVMAllocARM_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$241.const$0, fi, constants$185.const$2, scope);
+    clSVMAllocARM_fn() {
+        // Should not be called directly
     }
-    static clSVMAllocARM_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _context, long _flags, long _size, int _alignment) -> {
-            try {
-                return (java.lang.foreign.MemorySegment)constants$241.const$1.invokeExact(symbol, _context, _flags, _size, _alignment);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        MemorySegment apply(MemorySegment context, long flags, long size, int alignment);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_INT
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clSVMAllocARM_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clSVMAllocARM_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static MemorySegment invoke(MemorySegment funcPtr,MemorySegment context, long flags, long size, int alignment) {
+        try {
+            return (MemorySegment) DOWN$MH.invokeExact(funcPtr, context, flags, size, alignment);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

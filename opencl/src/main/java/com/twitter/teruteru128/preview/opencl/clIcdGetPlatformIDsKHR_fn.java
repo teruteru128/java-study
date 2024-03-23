@@ -2,32 +2,69 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*clIcdGetPlatformIDsKHR_fn)(unsigned int num_entries,struct _cl_platform_id** platforms,unsigned int* num_platforms);
+ * {@snippet lang=c :
+ * typedef cl_int (*clIcdGetPlatformIDsKHR_fn)(cl_uint, cl_platform_id *, cl_uint *) __attribute__((stdcall))
  * }
  */
-public interface clIcdGetPlatformIDsKHR_fn {
+public class clIcdGetPlatformIDsKHR_fn {
 
-    int apply(int num_entries, java.lang.foreign.MemorySegment platforms, java.lang.foreign.MemorySegment num_platforms);
-    static MemorySegment allocate(clIcdGetPlatformIDsKHR_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$226.const$5, fi, constants$176.const$2, scope);
+    clIcdGetPlatformIDsKHR_fn() {
+        // Should not be called directly
     }
-    static clIcdGetPlatformIDsKHR_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (int _num_entries, java.lang.foreign.MemorySegment _platforms, java.lang.foreign.MemorySegment _num_platforms) -> {
-            try {
-                return (int)constants$227.const$0.invokeExact(symbol, _num_entries, _platforms, _num_platforms);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(int num_entries, MemorySegment platforms, MemorySegment num_platforms);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_INT,
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clIcdGetPlatformIDsKHR_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clIcdGetPlatformIDsKHR_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,int num_entries, MemorySegment platforms, MemorySegment num_platforms) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, num_entries, platforms, num_platforms);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

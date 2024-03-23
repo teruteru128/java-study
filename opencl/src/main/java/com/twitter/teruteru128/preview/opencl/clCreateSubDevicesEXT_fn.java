@@ -2,32 +2,71 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*clCreateSubDevicesEXT_fn)(struct _cl_device_id* in_device,unsigned long long* properties,unsigned int num_entries,struct _cl_device_id** out_devices,unsigned int* num_devices);
+ * {@snippet lang=c :
+ * typedef cl_int (*clCreateSubDevicesEXT_fn)(cl_device_id, const cl_device_partition_property_ext *, cl_uint, cl_device_id *, cl_uint *) __attribute__((stdcall))
  * }
  */
-public interface clCreateSubDevicesEXT_fn {
+public class clCreateSubDevicesEXT_fn {
 
-    int apply(java.lang.foreign.MemorySegment command_queue, java.lang.foreign.MemorySegment svm_ptr, int num_events_in_wait_list, java.lang.foreign.MemorySegment event_wait_list, java.lang.foreign.MemorySegment event);
-    static MemorySegment allocate(clCreateSubDevicesEXT_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$229.const$0, fi, constants$177.const$3, scope);
+    clCreateSubDevicesEXT_fn() {
+        // Should not be called directly
     }
-    static clCreateSubDevicesEXT_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _command_queue, java.lang.foreign.MemorySegment _svm_ptr, int _num_events_in_wait_list, java.lang.foreign.MemorySegment _event_wait_list, java.lang.foreign.MemorySegment _event) -> {
-            try {
-                return (int)constants$229.const$1.invokeExact(symbol, _command_queue, _svm_ptr, _num_events_in_wait_list, _event_wait_list, _event);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment in_device, MemorySegment properties, int num_entries, MemorySegment out_devices, MemorySegment num_devices);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clCreateSubDevicesEXT_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clCreateSubDevicesEXT_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment in_device, MemorySegment properties, int num_entries, MemorySegment out_devices, MemorySegment num_devices) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, in_device, properties, num_entries, out_devices, num_devices);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

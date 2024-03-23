@@ -2,32 +2,72 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * struct _cl_mem* (*clCreateBufferWithPropertiesINTEL_fn)(struct _cl_context* context,unsigned long long* properties,unsigned long long flags,unsigned long long size,void* host_ptr,int* errcode_ret);
+ * {@snippet lang=c :
+ * typedef cl_mem (*clCreateBufferWithPropertiesINTEL_fn)(cl_context, const cl_mem_properties_intel *, cl_mem_flags, size_t, void *, cl_int *) __attribute__((stdcall))
  * }
  */
-public interface clCreateBufferWithPropertiesINTEL_fn {
+public class clCreateBufferWithPropertiesINTEL_fn {
 
-    java.lang.foreign.MemorySegment apply(java.lang.foreign.MemorySegment context, java.lang.foreign.MemorySegment properties, long flags, long size, java.lang.foreign.MemorySegment host_ptr, java.lang.foreign.MemorySegment errcode_ret);
-    static MemorySegment allocate(clCreateBufferWithPropertiesINTEL_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$253.const$3, fi, constants$10.const$0, scope);
+    clCreateBufferWithPropertiesINTEL_fn() {
+        // Should not be called directly
     }
-    static clCreateBufferWithPropertiesINTEL_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _context, java.lang.foreign.MemorySegment _properties, long _flags, long _size, java.lang.foreign.MemorySegment _host_ptr, java.lang.foreign.MemorySegment _errcode_ret) -> {
-            try {
-                return (java.lang.foreign.MemorySegment)constants$253.const$4.invokeExact(symbol, _context, _properties, _flags, _size, _host_ptr, _errcode_ret);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        MemorySegment apply(MemorySegment context, MemorySegment properties, long flags, long size, MemorySegment host_ptr, MemorySegment errcode_ret);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clCreateBufferWithPropertiesINTEL_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clCreateBufferWithPropertiesINTEL_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static MemorySegment invoke(MemorySegment funcPtr,MemorySegment context, MemorySegment properties, long flags, long size, MemorySegment host_ptr, MemorySegment errcode_ret) {
+        try {
+            return (MemorySegment) DOWN$MH.invokeExact(funcPtr, context, properties, flags, size, host_ptr, errcode_ret);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

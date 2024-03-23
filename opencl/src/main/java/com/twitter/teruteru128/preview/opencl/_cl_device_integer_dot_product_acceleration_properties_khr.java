@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _cl_device_integer_dot_product_acceleration_properties_khr {
  *     cl_bool signed_accelerated;
  *     cl_bool unsigned_accelerated;
@@ -16,182 +21,337 @@ import static java.lang.foreign.ValueLayout.*;
  *     cl_bool accumulating_saturating_signed_accelerated;
  *     cl_bool accumulating_saturating_unsigned_accelerated;
  *     cl_bool accumulating_saturating_mixed_signedness_accelerated;
- * };
+ * }
  * }
  */
 public class _cl_device_integer_dot_product_acceleration_properties_khr {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$235.const$4;
+    _cl_device_integer_dot_product_acceleration_properties_khr() {
+        // Should not be called directly
     }
-    public static VarHandle signed_accelerated$VH() {
-        return constants$235.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_bool signed_accelerated;
-     * }
-     */
-    public static int signed_accelerated$get(MemorySegment seg) {
-        return (int)constants$235.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_bool signed_accelerated;
-     * }
-     */
-    public static void signed_accelerated$set(MemorySegment seg, int x) {
-        constants$235.const$5.set(seg, x);
-    }
-    public static int signed_accelerated$get(MemorySegment seg, long index) {
-        return (int)constants$235.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void signed_accelerated$set(MemorySegment seg, long index, int x) {
-        constants$235.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle unsigned_accelerated$VH() {
-        return constants$236.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_bool unsigned_accelerated;
-     * }
-     */
-    public static int unsigned_accelerated$get(MemorySegment seg) {
-        return (int)constants$236.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_bool unsigned_accelerated;
-     * }
-     */
-    public static void unsigned_accelerated$set(MemorySegment seg, int x) {
-        constants$236.const$0.set(seg, x);
-    }
-    public static int unsigned_accelerated$get(MemorySegment seg, long index) {
-        return (int)constants$236.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void unsigned_accelerated$set(MemorySegment seg, long index, int x) {
-        constants$236.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle mixed_signedness_accelerated$VH() {
-        return constants$236.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_bool mixed_signedness_accelerated;
-     * }
-     */
-    public static int mixed_signedness_accelerated$get(MemorySegment seg) {
-        return (int)constants$236.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_bool mixed_signedness_accelerated;
-     * }
-     */
-    public static void mixed_signedness_accelerated$set(MemorySegment seg, int x) {
-        constants$236.const$1.set(seg, x);
-    }
-    public static int mixed_signedness_accelerated$get(MemorySegment seg, long index) {
-        return (int)constants$236.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void mixed_signedness_accelerated$set(MemorySegment seg, long index, int x) {
-        constants$236.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle accumulating_saturating_signed_accelerated$VH() {
-        return constants$236.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_bool accumulating_saturating_signed_accelerated;
-     * }
-     */
-    public static int accumulating_saturating_signed_accelerated$get(MemorySegment seg) {
-        return (int)constants$236.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_bool accumulating_saturating_signed_accelerated;
-     * }
-     */
-    public static void accumulating_saturating_signed_accelerated$set(MemorySegment seg, int x) {
-        constants$236.const$2.set(seg, x);
-    }
-    public static int accumulating_saturating_signed_accelerated$get(MemorySegment seg, long index) {
-        return (int)constants$236.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void accumulating_saturating_signed_accelerated$set(MemorySegment seg, long index, int x) {
-        constants$236.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle accumulating_saturating_unsigned_accelerated$VH() {
-        return constants$236.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_bool accumulating_saturating_unsigned_accelerated;
-     * }
-     */
-    public static int accumulating_saturating_unsigned_accelerated$get(MemorySegment seg) {
-        return (int)constants$236.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_bool accumulating_saturating_unsigned_accelerated;
-     * }
-     */
-    public static void accumulating_saturating_unsigned_accelerated$set(MemorySegment seg, int x) {
-        constants$236.const$3.set(seg, x);
-    }
-    public static int accumulating_saturating_unsigned_accelerated$get(MemorySegment seg, long index) {
-        return (int)constants$236.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void accumulating_saturating_unsigned_accelerated$set(MemorySegment seg, long index, int x) {
-        constants$236.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle accumulating_saturating_mixed_signedness_accelerated$VH() {
-        return constants$236.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_bool accumulating_saturating_mixed_signedness_accelerated;
-     * }
-     */
-    public static int accumulating_saturating_mixed_signedness_accelerated$get(MemorySegment seg) {
-        return (int)constants$236.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_bool accumulating_saturating_mixed_signedness_accelerated;
-     * }
-     */
-    public static void accumulating_saturating_mixed_signedness_accelerated$set(MemorySegment seg, int x) {
-        constants$236.const$4.set(seg, x);
-    }
-    public static int accumulating_saturating_mixed_signedness_accelerated$get(MemorySegment seg, long index) {
-        return (int)constants$236.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void accumulating_saturating_mixed_signedness_accelerated$set(MemorySegment seg, long index, int x) {
-        constants$236.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        opencl_h.C_INT.withName("signed_accelerated"),
+        opencl_h.C_INT.withName("unsigned_accelerated"),
+        opencl_h.C_INT.withName("mixed_signedness_accelerated"),
+        opencl_h.C_INT.withName("accumulating_saturating_signed_accelerated"),
+        opencl_h.C_INT.withName("accumulating_saturating_unsigned_accelerated"),
+        opencl_h.C_INT.withName("accumulating_saturating_mixed_signedness_accelerated")
+    ).withName("_cl_device_integer_dot_product_acceleration_properties_khr");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt signed_accelerated$LAYOUT = (OfInt)$LAYOUT.select(groupElement("signed_accelerated"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_bool signed_accelerated
+     * }
+     */
+    public static final OfInt signed_accelerated$layout() {
+        return signed_accelerated$LAYOUT;
+    }
+
+    private static final long signed_accelerated$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_bool signed_accelerated
+     * }
+     */
+    public static final long signed_accelerated$offset() {
+        return signed_accelerated$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_bool signed_accelerated
+     * }
+     */
+    public static int signed_accelerated(MemorySegment struct) {
+        return struct.get(signed_accelerated$LAYOUT, signed_accelerated$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_bool signed_accelerated
+     * }
+     */
+    public static void signed_accelerated(MemorySegment struct, int fieldValue) {
+        struct.set(signed_accelerated$LAYOUT, signed_accelerated$OFFSET, fieldValue);
+    }
+
+    private static final OfInt unsigned_accelerated$LAYOUT = (OfInt)$LAYOUT.select(groupElement("unsigned_accelerated"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_bool unsigned_accelerated
+     * }
+     */
+    public static final OfInt unsigned_accelerated$layout() {
+        return unsigned_accelerated$LAYOUT;
+    }
+
+    private static final long unsigned_accelerated$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_bool unsigned_accelerated
+     * }
+     */
+    public static final long unsigned_accelerated$offset() {
+        return unsigned_accelerated$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_bool unsigned_accelerated
+     * }
+     */
+    public static int unsigned_accelerated(MemorySegment struct) {
+        return struct.get(unsigned_accelerated$LAYOUT, unsigned_accelerated$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_bool unsigned_accelerated
+     * }
+     */
+    public static void unsigned_accelerated(MemorySegment struct, int fieldValue) {
+        struct.set(unsigned_accelerated$LAYOUT, unsigned_accelerated$OFFSET, fieldValue);
+    }
+
+    private static final OfInt mixed_signedness_accelerated$LAYOUT = (OfInt)$LAYOUT.select(groupElement("mixed_signedness_accelerated"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_bool mixed_signedness_accelerated
+     * }
+     */
+    public static final OfInt mixed_signedness_accelerated$layout() {
+        return mixed_signedness_accelerated$LAYOUT;
+    }
+
+    private static final long mixed_signedness_accelerated$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_bool mixed_signedness_accelerated
+     * }
+     */
+    public static final long mixed_signedness_accelerated$offset() {
+        return mixed_signedness_accelerated$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_bool mixed_signedness_accelerated
+     * }
+     */
+    public static int mixed_signedness_accelerated(MemorySegment struct) {
+        return struct.get(mixed_signedness_accelerated$LAYOUT, mixed_signedness_accelerated$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_bool mixed_signedness_accelerated
+     * }
+     */
+    public static void mixed_signedness_accelerated(MemorySegment struct, int fieldValue) {
+        struct.set(mixed_signedness_accelerated$LAYOUT, mixed_signedness_accelerated$OFFSET, fieldValue);
+    }
+
+    private static final OfInt accumulating_saturating_signed_accelerated$LAYOUT = (OfInt)$LAYOUT.select(groupElement("accumulating_saturating_signed_accelerated"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_bool accumulating_saturating_signed_accelerated
+     * }
+     */
+    public static final OfInt accumulating_saturating_signed_accelerated$layout() {
+        return accumulating_saturating_signed_accelerated$LAYOUT;
+    }
+
+    private static final long accumulating_saturating_signed_accelerated$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_bool accumulating_saturating_signed_accelerated
+     * }
+     */
+    public static final long accumulating_saturating_signed_accelerated$offset() {
+        return accumulating_saturating_signed_accelerated$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_bool accumulating_saturating_signed_accelerated
+     * }
+     */
+    public static int accumulating_saturating_signed_accelerated(MemorySegment struct) {
+        return struct.get(accumulating_saturating_signed_accelerated$LAYOUT, accumulating_saturating_signed_accelerated$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_bool accumulating_saturating_signed_accelerated
+     * }
+     */
+    public static void accumulating_saturating_signed_accelerated(MemorySegment struct, int fieldValue) {
+        struct.set(accumulating_saturating_signed_accelerated$LAYOUT, accumulating_saturating_signed_accelerated$OFFSET, fieldValue);
+    }
+
+    private static final OfInt accumulating_saturating_unsigned_accelerated$LAYOUT = (OfInt)$LAYOUT.select(groupElement("accumulating_saturating_unsigned_accelerated"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_bool accumulating_saturating_unsigned_accelerated
+     * }
+     */
+    public static final OfInt accumulating_saturating_unsigned_accelerated$layout() {
+        return accumulating_saturating_unsigned_accelerated$LAYOUT;
+    }
+
+    private static final long accumulating_saturating_unsigned_accelerated$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_bool accumulating_saturating_unsigned_accelerated
+     * }
+     */
+    public static final long accumulating_saturating_unsigned_accelerated$offset() {
+        return accumulating_saturating_unsigned_accelerated$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_bool accumulating_saturating_unsigned_accelerated
+     * }
+     */
+    public static int accumulating_saturating_unsigned_accelerated(MemorySegment struct) {
+        return struct.get(accumulating_saturating_unsigned_accelerated$LAYOUT, accumulating_saturating_unsigned_accelerated$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_bool accumulating_saturating_unsigned_accelerated
+     * }
+     */
+    public static void accumulating_saturating_unsigned_accelerated(MemorySegment struct, int fieldValue) {
+        struct.set(accumulating_saturating_unsigned_accelerated$LAYOUT, accumulating_saturating_unsigned_accelerated$OFFSET, fieldValue);
+    }
+
+    private static final OfInt accumulating_saturating_mixed_signedness_accelerated$LAYOUT = (OfInt)$LAYOUT.select(groupElement("accumulating_saturating_mixed_signedness_accelerated"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_bool accumulating_saturating_mixed_signedness_accelerated
+     * }
+     */
+    public static final OfInt accumulating_saturating_mixed_signedness_accelerated$layout() {
+        return accumulating_saturating_mixed_signedness_accelerated$LAYOUT;
+    }
+
+    private static final long accumulating_saturating_mixed_signedness_accelerated$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_bool accumulating_saturating_mixed_signedness_accelerated
+     * }
+     */
+    public static final long accumulating_saturating_mixed_signedness_accelerated$offset() {
+        return accumulating_saturating_mixed_signedness_accelerated$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_bool accumulating_saturating_mixed_signedness_accelerated
+     * }
+     */
+    public static int accumulating_saturating_mixed_signedness_accelerated(MemorySegment struct) {
+        return struct.get(accumulating_saturating_mixed_signedness_accelerated$LAYOUT, accumulating_saturating_mixed_signedness_accelerated$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_bool accumulating_saturating_mixed_signedness_accelerated
+     * }
+     */
+    public static void accumulating_saturating_mixed_signedness_accelerated(MemorySegment struct, int fieldValue) {
+        struct.set(accumulating_saturating_mixed_signedness_accelerated$LAYOUT, accumulating_saturating_mixed_signedness_accelerated$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

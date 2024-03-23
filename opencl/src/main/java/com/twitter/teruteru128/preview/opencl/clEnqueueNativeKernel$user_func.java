@@ -2,32 +2,66 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void (*clEnqueueNativeKernel$user_func)(void*);
+ * {@snippet lang=c :
+ * void (*user_func)(void *) __attribute__((stdcall))
  * }
  */
-public interface clEnqueueNativeKernel$user_func {
+public class clEnqueueNativeKernel$user_func {
 
-    void apply(java.lang.foreign.MemorySegment _x0);
-    static MemorySegment allocate(clEnqueueNativeKernel$user_func fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$200.const$2, fi, constants$0.const$0, scope);
+    clEnqueueNativeKernel$user_func() {
+        // Should not be called directly
     }
-    static clEnqueueNativeKernel$user_func ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment __x0) -> {
-            try {
-                constants$200.const$3.invokeExact(symbol, __x0);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        void apply(MemorySegment _x0);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clEnqueueNativeKernel$user_func.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clEnqueueNativeKernel$user_func.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static void invoke(MemorySegment funcPtr,MemorySegment _x0) {
+        try {
+             DOWN$MH.invokeExact(funcPtr, _x0);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

@@ -2,32 +2,68 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*clMemBlockingFreeINTEL_fn)(struct _cl_context* context,void* ptr);
+ * {@snippet lang=c :
+ * typedef cl_int (*clMemBlockingFreeINTEL_fn)(cl_context, void *) __attribute__((stdcall))
  * }
  */
-public interface clMemBlockingFreeINTEL_fn {
+public class clMemBlockingFreeINTEL_fn {
 
-    int apply(java.lang.foreign.MemorySegment buffer, java.lang.foreign.MemorySegment content_size_buffer);
-    static MemorySegment allocate(clMemBlockingFreeINTEL_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$249.const$1, fi, constants$9.const$3, scope);
+    clMemBlockingFreeINTEL_fn() {
+        // Should not be called directly
     }
-    static clMemBlockingFreeINTEL_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _buffer, java.lang.foreign.MemorySegment _content_size_buffer) -> {
-            try {
-                return (int)constants$9.const$5.invokeExact(symbol, _buffer, _content_size_buffer);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment context, MemorySegment ptr);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clMemBlockingFreeINTEL_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clMemBlockingFreeINTEL_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment context, MemorySegment ptr) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, context, ptr);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

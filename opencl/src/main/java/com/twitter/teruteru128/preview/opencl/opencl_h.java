@@ -2,8030 +2,1658 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
-public class opencl_h extends opencl_h_2 {
+import static java.lang.foreign.MemoryLayout.PathElement.*;
 
-    public static final OfByte C_CHAR = JAVA_BYTE;
-    public static final OfShort C_SHORT = JAVA_SHORT;
-    public static final OfInt C_INT = JAVA_INT;
-    public static final OfInt C_LONG = JAVA_INT;
-    public static final OfLong C_LONG_LONG = JAVA_LONG;
-    public static final OfFloat C_FLOAT = JAVA_FLOAT;
-    public static final OfDouble C_DOUBLE = JAVA_DOUBLE;
-    public static final AddressLayout C_POINTER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * #define CL_TARGET_OPENCL_VERSION 300
-     * }
-     */
-    public static int CL_TARGET_OPENCL_VERSION() {
-        return (int)300L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_VERSION_3_0 1
-     * }
-     */
-    public static int CL_VERSION_3_0() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_VERSION_2_2 1
-     * }
-     */
-    public static int CL_VERSION_2_2() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_VERSION_2_1 1
-     * }
-     */
-    public static int CL_VERSION_2_1() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_VERSION_2_0 1
-     * }
-     */
-    public static int CL_VERSION_2_0() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_VERSION_1_2 1
-     * }
-     */
-    public static int CL_VERSION_1_2() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_VERSION_1_1 1
-     * }
-     */
-    public static int CL_VERSION_1_1() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_VERSION_1_0 1
-     * }
-     */
-    public static int CL_VERSION_1_0() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _VCRT_COMPILER_PREPROCESSOR 1
-     * }
-     */
-    public static int _VCRT_COMPILER_PREPROCESSOR() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _SAL_VERSION 20
-     * }
-     */
-    public static int _SAL_VERSION() {
-        return (int)20L;
-    }
-    /**
-     * {@snippet :
-     * #define __SAL_H_VERSION 180000000
-     * }
-     */
-    public static int __SAL_H_VERSION() {
-        return (int)180000000L;
-    }
-    /**
-     * {@snippet :
-     * #define _USE_DECLSPECS_FOR_SAL 0
-     * }
-     */
-    public static int _USE_DECLSPECS_FOR_SAL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define _USE_ATTRIBUTES_FOR_SAL 0
-     * }
-     */
-    public static int _USE_ATTRIBUTES_FOR_SAL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define _CRT_PACKING 8
-     * }
-     */
-    public static int _CRT_PACKING() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * #define _HAS_EXCEPTIONS 1
-     * }
-     */
-    public static int _HAS_EXCEPTIONS() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _HAS_CXX17 0
-     * }
-     */
-    public static int _HAS_CXX17() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define _HAS_CXX20 0
-     * }
-     */
-    public static int _HAS_CXX20() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define _HAS_CXX23 0
-     * }
-     */
-    public static int _HAS_CXX23() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define _HAS_NODISCARD 0
-     * }
-     */
-    public static int _HAS_NODISCARD() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define WCHAR_MIN 0
-     * }
-     */
-    public static int WCHAR_MIN() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define WCHAR_MAX 65535
-     * }
-     */
-    public static int WCHAR_MAX() {
-        return (int)65535L;
-    }
-    /**
-     * {@snippet :
-     * #define WINT_MIN 0
-     * }
-     */
-    public static int WINT_MIN() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define WINT_MAX 65535
-     * }
-     */
-    public static int WINT_MAX() {
-        return (int)65535L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_CHAR_BIT 8
-     * }
-     */
-    public static int CL_CHAR_BIT() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SCHAR_MAX 127
-     * }
-     */
-    public static int CL_SCHAR_MAX() {
-        return (int)127L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_UCHAR_MAX 255
-     * }
-     */
-    public static int CL_UCHAR_MAX() {
-        return (int)255L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SHRT_MAX 32767
-     * }
-     */
-    public static int CL_SHRT_MAX() {
-        return (int)32767L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_USHRT_MAX 65535
-     * }
-     */
-    public static int CL_USHRT_MAX() {
-        return (int)65535L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_INT_MAX 2147483647
-     * }
-     */
-    public static int CL_INT_MAX() {
-        return (int)2147483647L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_FLT_DIG 6
-     * }
-     */
-    public static int CL_FLT_DIG() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_FLT_MANT_DIG 24
-     * }
-     */
-    public static int CL_FLT_MANT_DIG() {
-        return (int)24L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_FLT_RADIX 2
-     * }
-     */
-    public static int CL_FLT_RADIX() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_HALF_DIG 3
-     * }
-     */
-    public static int CL_HALF_DIG() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_HALF_MANT_DIG 11
-     * }
-     */
-    public static int CL_HALF_MANT_DIG() {
-        return (int)11L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_HALF_RADIX 2
-     * }
-     */
-    public static int CL_HALF_RADIX() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DBL_DIG 15
-     * }
-     */
-    public static int CL_DBL_DIG() {
-        return (int)15L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DBL_MANT_DIG 53
-     * }
-     */
-    public static int CL_DBL_MANT_DIG() {
-        return (int)53L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DBL_RADIX 2
-     * }
-     */
-    public static int CL_DBL_RADIX() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define _ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE 1
-     * }
-     */
-    public static int _ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _CRT_BUILD_DESKTOP_APP 1
-     * }
-     */
-    public static int _CRT_BUILD_DESKTOP_APP() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _ARGMAX 100
-     * }
-     */
-    public static int _ARGMAX() {
-        return (int)100L;
-    }
-    /**
-     * {@snippet :
-     * #define _CRT_INT_MAX 2147483647
-     * }
-     */
-    public static int _CRT_INT_MAX() {
-        return (int)2147483647L;
-    }
-    /**
-     * {@snippet :
-     * #define _CRT_FUNCTIONS_REQUIRED 1
-     * }
-     */
-    public static int _CRT_FUNCTIONS_REQUIRED() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _CRT_HAS_CXX17 0
-     * }
-     */
-    public static int _CRT_HAS_CXX17() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define _CRT_HAS_C11 1
-     * }
-     */
-    public static int _CRT_HAS_C11() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _CRT_INTERNAL_NONSTDC_NAMES 1
-     * }
-     */
-    public static int _CRT_INTERNAL_NONSTDC_NAMES() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __STDC_WANT_SECURE_LIB__ 1
-     * }
-     */
-    public static int __STDC_WANT_SECURE_LIB__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _SECURECRT_FILL_BUFFER_PATTERN 254
-     * }
-     */
-    public static int _SECURECRT_FILL_BUFFER_PATTERN() {
-        return (int)254L;
-    }
-    /**
-     * {@snippet :
-     * #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 0
-     * }
-     */
-    public static int _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT 0
-     * }
-     */
-    public static int _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define _CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES 1
-     * }
-     */
-    public static int _CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_MEMORY 0
-     * }
-     */
-    public static int _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_MEMORY() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define _CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES_MEMORY 0
-     * }
-     */
-    public static int _CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES_MEMORY() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CHAR_BIT 8
-     * }
-     */
-    public static int CHAR_BIT() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * #define SCHAR_MAX 127
-     * }
-     */
-    public static int SCHAR_MAX() {
-        return (int)127L;
-    }
-    /**
-     * {@snippet :
-     * #define UCHAR_MAX 255
-     * }
-     */
-    public static int UCHAR_MAX() {
-        return (int)255L;
-    }
-    /**
-     * {@snippet :
-     * #define MB_LEN_MAX 5
-     * }
-     */
-    public static int MB_LEN_MAX() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * #define SHRT_MAX 32767
-     * }
-     */
-    public static int SHRT_MAX() {
-        return (int)32767L;
-    }
-    /**
-     * {@snippet :
-     * #define USHRT_MAX 65535
-     * }
-     */
-    public static int USHRT_MAX() {
-        return (int)65535L;
-    }
-    /**
-     * {@snippet :
-     * #define INT_MAX 2147483647
-     * }
-     */
-    public static int INT_MAX() {
-        return (int)2147483647L;
-    }
-    /**
-     * {@snippet :
-     * #define EXIT_SUCCESS 0
-     * }
-     */
-    public static int EXIT_SUCCESS() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define EXIT_FAILURE 1
-     * }
-     */
-    public static int EXIT_FAILURE() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _WRITE_ABORT_MSG 1
-     * }
-     */
-    public static int _WRITE_ABORT_MSG() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _CALL_REPORTFAULT 2
-     * }
-     */
-    public static int _CALL_REPORTFAULT() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define _OUT_TO_DEFAULT 0
-     * }
-     */
-    public static int _OUT_TO_DEFAULT() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define _OUT_TO_STDERR 1
-     * }
-     */
-    public static int _OUT_TO_STDERR() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _OUT_TO_MSGBOX 2
-     * }
-     */
-    public static int _OUT_TO_MSGBOX() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define _REPORT_ERRMODE 3
-     * }
-     */
-    public static int _REPORT_ERRMODE() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define RAND_MAX 32767
-     * }
-     */
-    public static int RAND_MAX() {
-        return (int)32767L;
-    }
-    /**
-     * {@snippet :
-     * #define _MAX_PATH 260
-     * }
-     */
-    public static int _MAX_PATH() {
-        return (int)260L;
-    }
-    /**
-     * {@snippet :
-     * #define _MAX_DRIVE 3
-     * }
-     */
-    public static int _MAX_DRIVE() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define _MAX_DIR 256
-     * }
-     */
-    public static int _MAX_DIR() {
-        return (int)256L;
-    }
-    /**
-     * {@snippet :
-     * #define _MAX_FNAME 256
-     * }
-     */
-    public static int _MAX_FNAME() {
-        return (int)256L;
-    }
-    /**
-     * {@snippet :
-     * #define _MAX_EXT 256
-     * }
-     */
-    public static int _MAX_EXT() {
-        return (int)256L;
-    }
-    /**
-     * {@snippet :
-     * #define _MAX_ENV 32767
-     * }
-     */
-    public static int _MAX_ENV() {
-        return (int)32767L;
-    }
-    /**
-     * {@snippet :
-     * #define _FREEENTRY 0
-     * }
-     */
-    public static int _FREEENTRY() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define _USEDENTRY 1
-     * }
-     */
-    public static int _USEDENTRY() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _ALLOCA_S_THRESHOLD 1024
-     * }
-     */
-    public static int _ALLOCA_S_THRESHOLD() {
-        return (int)1024L;
-    }
-    /**
-     * {@snippet :
-     * #define _ALLOCA_S_STACK_MARKER 52428
-     * }
-     */
-    public static int _ALLOCA_S_STACK_MARKER() {
-        return (int)52428L;
-    }
-    /**
-     * {@snippet :
-     * #define _ALLOCA_S_HEAP_MARKER 56797
-     * }
-     */
-    public static int _ALLOCA_S_HEAP_MARKER() {
-        return (int)56797L;
-    }
-    /**
-     * {@snippet :
-     * #define _ALLOCA_S_MARKER_SIZE 16
-     * }
-     */
-    public static int _ALLOCA_S_MARKER_SIZE() {
-        return (int)16L;
-    }
-    /**
-     * {@snippet :
-     * #define _MM_HINT_ET0 7
-     * }
-     */
-    public static int _MM_HINT_ET0() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * #define _MM_HINT_ET1 6
-     * }
-     */
-    public static int _MM_HINT_ET1() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * #define _MM_HINT_T0 3
-     * }
-     */
-    public static int _MM_HINT_T0() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define _MM_HINT_T1 2
-     * }
-     */
-    public static int _MM_HINT_T1() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define _MM_HINT_T2 1
-     * }
-     */
-    public static int _MM_HINT_T2() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define _MM_HINT_NTA 0
-     * }
-     */
-    public static int _MM_HINT_NTA() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_FLOAT4__ 1
-     * }
-     */
-    public static int __CL_FLOAT4__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_UCHAR16__ 1
-     * }
-     */
-    public static int __CL_UCHAR16__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_CHAR16__ 1
-     * }
-     */
-    public static int __CL_CHAR16__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_USHORT8__ 1
-     * }
-     */
-    public static int __CL_USHORT8__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_SHORT8__ 1
-     * }
-     */
-    public static int __CL_SHORT8__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_INT4__ 1
-     * }
-     */
-    public static int __CL_INT4__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_UINT4__ 1
-     * }
-     */
-    public static int __CL_UINT4__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_ULONG2__ 1
-     * }
-     */
-    public static int __CL_ULONG2__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_LONG2__ 1
-     * }
-     */
-    public static int __CL_LONG2__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_DOUBLE2__ 1
-     * }
-     */
-    public static int __CL_DOUBLE2__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_UCHAR8__ 1
-     * }
-     */
-    public static int __CL_UCHAR8__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_CHAR8__ 1
-     * }
-     */
-    public static int __CL_CHAR8__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_USHORT4__ 1
-     * }
-     */
-    public static int __CL_USHORT4__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_SHORT4__ 1
-     * }
-     */
-    public static int __CL_SHORT4__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_INT2__ 1
-     * }
-     */
-    public static int __CL_INT2__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_UINT2__ 1
-     * }
-     */
-    public static int __CL_UINT2__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_ULONG1__ 1
-     * }
-     */
-    public static int __CL_ULONG1__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_LONG1__ 1
-     * }
-     */
-    public static int __CL_LONG1__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_FLOAT2__ 1
-     * }
-     */
-    public static int __CL_FLOAT2__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define __CL_HAS_ANON_STRUCT__ 1
-     * }
-     */
-    public static int __CL_HAS_ANON_STRUCT__() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_HAS_NAMED_VECTOR_FIELDS 1
-     * }
-     */
-    public static int CL_HAS_NAMED_VECTOR_FIELDS() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_HAS_HI_LO_VECTOR_FIELDS 1
-     * }
-     */
-    public static int CL_HAS_HI_LO_VECTOR_FIELDS() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_NAME_VERSION_MAX_NAME_SIZE 64
-     * }
-     */
-    public static int CL_NAME_VERSION_MAX_NAME_SIZE() {
-        return (int)64L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SUCCESS 0
-     * }
-     */
-    public static int CL_SUCCESS() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_FALSE 0
-     * }
-     */
-    public static int CL_FALSE() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_TRUE 1
-     * }
-     */
-    public static int CL_TRUE() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_PROFILE 2304
-     * }
-     */
-    public static int CL_PLATFORM_PROFILE() {
-        return (int)2304L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_VERSION 2305
-     * }
-     */
-    public static int CL_PLATFORM_VERSION() {
-        return (int)2305L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_NAME 2306
-     * }
-     */
-    public static int CL_PLATFORM_NAME() {
-        return (int)2306L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_VENDOR 2307
-     * }
-     */
-    public static int CL_PLATFORM_VENDOR() {
-        return (int)2307L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_EXTENSIONS 2308
-     * }
-     */
-    public static int CL_PLATFORM_EXTENSIONS() {
-        return (int)2308L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_HOST_TIMER_RESOLUTION 2309
-     * }
-     */
-    public static int CL_PLATFORM_HOST_TIMER_RESOLUTION() {
-        return (int)2309L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_NUMERIC_VERSION 2310
-     * }
-     */
-    public static int CL_PLATFORM_NUMERIC_VERSION() {
-        return (int)2310L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_EXTENSIONS_WITH_VERSION 2311
-     * }
-     */
-    public static int CL_PLATFORM_EXTENSIONS_WITH_VERSION() {
-        return (int)2311L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_TYPE 4096
-     * }
-     */
-    public static int CL_DEVICE_TYPE() {
-        return (int)4096L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_VENDOR_ID 4097
-     * }
-     */
-    public static int CL_DEVICE_VENDOR_ID() {
-        return (int)4097L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_COMPUTE_UNITS 4098
-     * }
-     */
-    public static int CL_DEVICE_MAX_COMPUTE_UNITS() {
-        return (int)4098L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS 4099
-     * }
-     */
-    public static int CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS() {
-        return (int)4099L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_WORK_GROUP_SIZE 4100
-     * }
-     */
-    public static int CL_DEVICE_MAX_WORK_GROUP_SIZE() {
-        return (int)4100L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_WORK_ITEM_SIZES 4101
-     * }
-     */
-    public static int CL_DEVICE_MAX_WORK_ITEM_SIZES() {
-        return (int)4101L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR 4102
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR() {
-        return (int)4102L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT 4103
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT() {
-        return (int)4103L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT 4104
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT() {
-        return (int)4104L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG 4105
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG() {
-        return (int)4105L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT 4106
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT() {
-        return (int)4106L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE 4107
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE() {
-        return (int)4107L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_CLOCK_FREQUENCY 4108
-     * }
-     */
-    public static int CL_DEVICE_MAX_CLOCK_FREQUENCY() {
-        return (int)4108L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_ADDRESS_BITS 4109
-     * }
-     */
-    public static int CL_DEVICE_ADDRESS_BITS() {
-        return (int)4109L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_READ_IMAGE_ARGS 4110
-     * }
-     */
-    public static int CL_DEVICE_MAX_READ_IMAGE_ARGS() {
-        return (int)4110L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_WRITE_IMAGE_ARGS 4111
-     * }
-     */
-    public static int CL_DEVICE_MAX_WRITE_IMAGE_ARGS() {
-        return (int)4111L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_MEM_ALLOC_SIZE 4112
-     * }
-     */
-    public static int CL_DEVICE_MAX_MEM_ALLOC_SIZE() {
-        return (int)4112L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IMAGE2D_MAX_WIDTH 4113
-     * }
-     */
-    public static int CL_DEVICE_IMAGE2D_MAX_WIDTH() {
-        return (int)4113L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IMAGE2D_MAX_HEIGHT 4114
-     * }
-     */
-    public static int CL_DEVICE_IMAGE2D_MAX_HEIGHT() {
-        return (int)4114L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IMAGE3D_MAX_WIDTH 4115
-     * }
-     */
-    public static int CL_DEVICE_IMAGE3D_MAX_WIDTH() {
-        return (int)4115L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IMAGE3D_MAX_HEIGHT 4116
-     * }
-     */
-    public static int CL_DEVICE_IMAGE3D_MAX_HEIGHT() {
-        return (int)4116L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IMAGE3D_MAX_DEPTH 4117
-     * }
-     */
-    public static int CL_DEVICE_IMAGE3D_MAX_DEPTH() {
-        return (int)4117L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IMAGE_SUPPORT 4118
-     * }
-     */
-    public static int CL_DEVICE_IMAGE_SUPPORT() {
-        return (int)4118L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_PARAMETER_SIZE 4119
-     * }
-     */
-    public static int CL_DEVICE_MAX_PARAMETER_SIZE() {
-        return (int)4119L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_SAMPLERS 4120
-     * }
-     */
-    public static int CL_DEVICE_MAX_SAMPLERS() {
-        return (int)4120L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MEM_BASE_ADDR_ALIGN 4121
-     * }
-     */
-    public static int CL_DEVICE_MEM_BASE_ADDR_ALIGN() {
-        return (int)4121L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MIN_DATA_TYPE_ALIGN_SIZE 4122
-     * }
-     */
-    public static int CL_DEVICE_MIN_DATA_TYPE_ALIGN_SIZE() {
-        return (int)4122L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SINGLE_FP_CONFIG 4123
-     * }
-     */
-    public static int CL_DEVICE_SINGLE_FP_CONFIG() {
-        return (int)4123L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_GLOBAL_MEM_CACHE_TYPE 4124
-     * }
-     */
-    public static int CL_DEVICE_GLOBAL_MEM_CACHE_TYPE() {
-        return (int)4124L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE 4125
-     * }
-     */
-    public static int CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE() {
-        return (int)4125L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_GLOBAL_MEM_CACHE_SIZE 4126
-     * }
-     */
-    public static int CL_DEVICE_GLOBAL_MEM_CACHE_SIZE() {
-        return (int)4126L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_GLOBAL_MEM_SIZE 4127
-     * }
-     */
-    public static int CL_DEVICE_GLOBAL_MEM_SIZE() {
-        return (int)4127L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE 4128
-     * }
-     */
-    public static int CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE() {
-        return (int)4128L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_CONSTANT_ARGS 4129
-     * }
-     */
-    public static int CL_DEVICE_MAX_CONSTANT_ARGS() {
-        return (int)4129L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_LOCAL_MEM_TYPE 4130
-     * }
-     */
-    public static int CL_DEVICE_LOCAL_MEM_TYPE() {
-        return (int)4130L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_LOCAL_MEM_SIZE 4131
-     * }
-     */
-    public static int CL_DEVICE_LOCAL_MEM_SIZE() {
-        return (int)4131L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_ERROR_CORRECTION_SUPPORT 4132
-     * }
-     */
-    public static int CL_DEVICE_ERROR_CORRECTION_SUPPORT() {
-        return (int)4132L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PROFILING_TIMER_RESOLUTION 4133
-     * }
-     */
-    public static int CL_DEVICE_PROFILING_TIMER_RESOLUTION() {
-        return (int)4133L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_ENDIAN_LITTLE 4134
-     * }
-     */
-    public static int CL_DEVICE_ENDIAN_LITTLE() {
-        return (int)4134L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_AVAILABLE 4135
-     * }
-     */
-    public static int CL_DEVICE_AVAILABLE() {
-        return (int)4135L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_COMPILER_AVAILABLE 4136
-     * }
-     */
-    public static int CL_DEVICE_COMPILER_AVAILABLE() {
-        return (int)4136L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_EXECUTION_CAPABILITIES 4137
-     * }
-     */
-    public static int CL_DEVICE_EXECUTION_CAPABILITIES() {
-        return (int)4137L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_QUEUE_PROPERTIES 4138
-     * }
-     */
-    public static int CL_DEVICE_QUEUE_PROPERTIES() {
-        return (int)4138L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_QUEUE_ON_HOST_PROPERTIES 4138
-     * }
-     */
-    public static int CL_DEVICE_QUEUE_ON_HOST_PROPERTIES() {
-        return (int)4138L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NAME 4139
-     * }
-     */
-    public static int CL_DEVICE_NAME() {
-        return (int)4139L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_VENDOR 4140
-     * }
-     */
-    public static int CL_DEVICE_VENDOR() {
-        return (int)4140L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DRIVER_VERSION 4141
-     * }
-     */
-    public static int CL_DRIVER_VERSION() {
-        return (int)4141L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PROFILE 4142
-     * }
-     */
-    public static int CL_DEVICE_PROFILE() {
-        return (int)4142L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_VERSION 4143
-     * }
-     */
-    public static int CL_DEVICE_VERSION() {
-        return (int)4143L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_EXTENSIONS 4144
-     * }
-     */
-    public static int CL_DEVICE_EXTENSIONS() {
-        return (int)4144L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PLATFORM 4145
-     * }
-     */
-    public static int CL_DEVICE_PLATFORM() {
-        return (int)4145L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_DOUBLE_FP_CONFIG 4146
-     * }
-     */
-    public static int CL_DEVICE_DOUBLE_FP_CONFIG() {
-        return (int)4146L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF 4148
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF() {
-        return (int)4148L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_HOST_UNIFIED_MEMORY 4149
-     * }
-     */
-    public static int CL_DEVICE_HOST_UNIFIED_MEMORY() {
-        return (int)4149L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NATIVE_VECTOR_WIDTH_CHAR 4150
-     * }
-     */
-    public static int CL_DEVICE_NATIVE_VECTOR_WIDTH_CHAR() {
-        return (int)4150L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NATIVE_VECTOR_WIDTH_SHORT 4151
-     * }
-     */
-    public static int CL_DEVICE_NATIVE_VECTOR_WIDTH_SHORT() {
-        return (int)4151L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NATIVE_VECTOR_WIDTH_INT 4152
-     * }
-     */
-    public static int CL_DEVICE_NATIVE_VECTOR_WIDTH_INT() {
-        return (int)4152L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG 4153
-     * }
-     */
-    public static int CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG() {
-        return (int)4153L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT 4154
-     * }
-     */
-    public static int CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT() {
-        return (int)4154L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE 4155
-     * }
-     */
-    public static int CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE() {
-        return (int)4155L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF 4156
-     * }
-     */
-    public static int CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF() {
-        return (int)4156L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_OPENCL_C_VERSION 4157
-     * }
-     */
-    public static int CL_DEVICE_OPENCL_C_VERSION() {
-        return (int)4157L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_LINKER_AVAILABLE 4158
-     * }
-     */
-    public static int CL_DEVICE_LINKER_AVAILABLE() {
-        return (int)4158L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_BUILT_IN_KERNELS 4159
-     * }
-     */
-    public static int CL_DEVICE_BUILT_IN_KERNELS() {
-        return (int)4159L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IMAGE_MAX_BUFFER_SIZE 4160
-     * }
-     */
-    public static int CL_DEVICE_IMAGE_MAX_BUFFER_SIZE() {
-        return (int)4160L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IMAGE_MAX_ARRAY_SIZE 4161
-     * }
-     */
-    public static int CL_DEVICE_IMAGE_MAX_ARRAY_SIZE() {
-        return (int)4161L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARENT_DEVICE 4162
-     * }
-     */
-    public static int CL_DEVICE_PARENT_DEVICE() {
-        return (int)4162L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_MAX_SUB_DEVICES 4163
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_MAX_SUB_DEVICES() {
-        return (int)4163L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_PROPERTIES 4164
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_PROPERTIES() {
-        return (int)4164L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_AFFINITY_DOMAIN 4165
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_AFFINITY_DOMAIN() {
-        return (int)4165L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_TYPE 4166
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_TYPE() {
-        return (int)4166L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_REFERENCE_COUNT 4167
-     * }
-     */
-    public static int CL_DEVICE_REFERENCE_COUNT() {
-        return (int)4167L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_INTEROP_USER_SYNC 4168
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_INTEROP_USER_SYNC() {
-        return (int)4168L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PRINTF_BUFFER_SIZE 4169
-     * }
-     */
-    public static int CL_DEVICE_PRINTF_BUFFER_SIZE() {
-        return (int)4169L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IMAGE_PITCH_ALIGNMENT 4170
-     * }
-     */
-    public static int CL_DEVICE_IMAGE_PITCH_ALIGNMENT() {
-        return (int)4170L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT 4171
-     * }
-     */
-    public static int CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT() {
-        return (int)4171L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_READ_WRITE_IMAGE_ARGS 4172
-     * }
-     */
-    public static int CL_DEVICE_MAX_READ_WRITE_IMAGE_ARGS() {
-        return (int)4172L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_GLOBAL_VARIABLE_SIZE 4173
-     * }
-     */
-    public static int CL_DEVICE_MAX_GLOBAL_VARIABLE_SIZE() {
-        return (int)4173L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_QUEUE_ON_DEVICE_PROPERTIES 4174
-     * }
-     */
-    public static int CL_DEVICE_QUEUE_ON_DEVICE_PROPERTIES() {
-        return (int)4174L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_QUEUE_ON_DEVICE_PREFERRED_SIZE 4175
-     * }
-     */
-    public static int CL_DEVICE_QUEUE_ON_DEVICE_PREFERRED_SIZE() {
-        return (int)4175L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_QUEUE_ON_DEVICE_MAX_SIZE 4176
-     * }
-     */
-    public static int CL_DEVICE_QUEUE_ON_DEVICE_MAX_SIZE() {
-        return (int)4176L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_ON_DEVICE_QUEUES 4177
-     * }
-     */
-    public static int CL_DEVICE_MAX_ON_DEVICE_QUEUES() {
-        return (int)4177L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_ON_DEVICE_EVENTS 4178
-     * }
-     */
-    public static int CL_DEVICE_MAX_ON_DEVICE_EVENTS() {
-        return (int)4178L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SVM_CAPABILITIES 4179
-     * }
-     */
-    public static int CL_DEVICE_SVM_CAPABILITIES() {
-        return (int)4179L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE 4180
-     * }
-     */
-    public static int CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE() {
-        return (int)4180L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_PIPE_ARGS 4181
-     * }
-     */
-    public static int CL_DEVICE_MAX_PIPE_ARGS() {
-        return (int)4181L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PIPE_MAX_ACTIVE_RESERVATIONS 4182
-     * }
-     */
-    public static int CL_DEVICE_PIPE_MAX_ACTIVE_RESERVATIONS() {
-        return (int)4182L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PIPE_MAX_PACKET_SIZE 4183
-     * }
-     */
-    public static int CL_DEVICE_PIPE_MAX_PACKET_SIZE() {
-        return (int)4183L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_PLATFORM_ATOMIC_ALIGNMENT 4184
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_PLATFORM_ATOMIC_ALIGNMENT() {
-        return (int)4184L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_GLOBAL_ATOMIC_ALIGNMENT 4185
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_GLOBAL_ATOMIC_ALIGNMENT() {
-        return (int)4185L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_LOCAL_ATOMIC_ALIGNMENT 4186
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_LOCAL_ATOMIC_ALIGNMENT() {
-        return (int)4186L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IL_VERSION 4187
-     * }
-     */
-    public static int CL_DEVICE_IL_VERSION() {
-        return (int)4187L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_NUM_SUB_GROUPS 4188
-     * }
-     */
-    public static int CL_DEVICE_MAX_NUM_SUB_GROUPS() {
-        return (int)4188L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SUB_GROUP_INDEPENDENT_FORWARD_PROGRESS 4189
-     * }
-     */
-    public static int CL_DEVICE_SUB_GROUP_INDEPENDENT_FORWARD_PROGRESS() {
-        return (int)4189L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NUMERIC_VERSION 4190
-     * }
-     */
-    public static int CL_DEVICE_NUMERIC_VERSION() {
-        return (int)4190L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_EXTENSIONS_WITH_VERSION 4192
-     * }
-     */
-    public static int CL_DEVICE_EXTENSIONS_WITH_VERSION() {
-        return (int)4192L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_ILS_WITH_VERSION 4193
-     * }
-     */
-    public static int CL_DEVICE_ILS_WITH_VERSION() {
-        return (int)4193L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_BUILT_IN_KERNELS_WITH_VERSION 4194
-     * }
-     */
-    public static int CL_DEVICE_BUILT_IN_KERNELS_WITH_VERSION() {
-        return (int)4194L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_ATOMIC_MEMORY_CAPABILITIES 4195
-     * }
-     */
-    public static int CL_DEVICE_ATOMIC_MEMORY_CAPABILITIES() {
-        return (int)4195L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_ATOMIC_FENCE_CAPABILITIES 4196
-     * }
-     */
-    public static int CL_DEVICE_ATOMIC_FENCE_CAPABILITIES() {
-        return (int)4196L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NON_UNIFORM_WORK_GROUP_SUPPORT 4197
-     * }
-     */
-    public static int CL_DEVICE_NON_UNIFORM_WORK_GROUP_SUPPORT() {
-        return (int)4197L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_OPENCL_C_ALL_VERSIONS 4198
-     * }
-     */
-    public static int CL_DEVICE_OPENCL_C_ALL_VERSIONS() {
-        return (int)4198L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_WORK_GROUP_SIZE_MULTIPLE 4199
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_WORK_GROUP_SIZE_MULTIPLE() {
-        return (int)4199L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_WORK_GROUP_COLLECTIVE_FUNCTIONS_SUPPORT 4200
-     * }
-     */
-    public static int CL_DEVICE_WORK_GROUP_COLLECTIVE_FUNCTIONS_SUPPORT() {
-        return (int)4200L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_GENERIC_ADDRESS_SPACE_SUPPORT 4201
-     * }
-     */
-    public static int CL_DEVICE_GENERIC_ADDRESS_SPACE_SUPPORT() {
-        return (int)4201L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_OPENCL_C_FEATURES 4207
-     * }
-     */
-    public static int CL_DEVICE_OPENCL_C_FEATURES() {
-        return (int)4207L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_DEVICE_ENQUEUE_CAPABILITIES 4208
-     * }
-     */
-    public static int CL_DEVICE_DEVICE_ENQUEUE_CAPABILITIES() {
-        return (int)4208L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PIPE_SUPPORT 4209
-     * }
-     */
-    public static int CL_DEVICE_PIPE_SUPPORT() {
-        return (int)4209L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_LATEST_CONFORMANCE_VERSION_PASSED 4210
-     * }
-     */
-    public static int CL_DEVICE_LATEST_CONFORMANCE_VERSION_PASSED() {
-        return (int)4210L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_NONE 0
-     * }
-     */
-    public static int CL_NONE() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_READ_ONLY_CACHE 1
-     * }
-     */
-    public static int CL_READ_ONLY_CACHE() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_READ_WRITE_CACHE 2
-     * }
-     */
-    public static int CL_READ_WRITE_CACHE() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_LOCAL 1
-     * }
-     */
-    public static int CL_LOCAL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GLOBAL 2
-     * }
-     */
-    public static int CL_GLOBAL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_CONTEXT_REFERENCE_COUNT 4224
-     * }
-     */
-    public static int CL_CONTEXT_REFERENCE_COUNT() {
-        return (int)4224L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_CONTEXT_DEVICES 4225
-     * }
-     */
-    public static int CL_CONTEXT_DEVICES() {
-        return (int)4225L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_CONTEXT_PROPERTIES 4226
-     * }
-     */
-    public static int CL_CONTEXT_PROPERTIES() {
-        return (int)4226L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_CONTEXT_NUM_DEVICES 4227
-     * }
-     */
-    public static int CL_CONTEXT_NUM_DEVICES() {
-        return (int)4227L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_CONTEXT_PLATFORM 4228
-     * }
-     */
-    public static int CL_CONTEXT_PLATFORM() {
-        return (int)4228L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_CONTEXT_INTEROP_USER_SYNC 4229
-     * }
-     */
-    public static int CL_CONTEXT_INTEROP_USER_SYNC() {
-        return (int)4229L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_EQUALLY 4230
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_EQUALLY() {
-        return (int)4230L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_BY_COUNTS 4231
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_BY_COUNTS() {
-        return (int)4231L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_BY_COUNTS_LIST_END 0
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_BY_COUNTS_LIST_END() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN 4232
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN() {
-        return (int)4232L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_CONTEXT 4240
-     * }
-     */
-    public static int CL_QUEUE_CONTEXT() {
-        return (int)4240L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_DEVICE 4241
-     * }
-     */
-    public static int CL_QUEUE_DEVICE() {
-        return (int)4241L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_REFERENCE_COUNT 4242
-     * }
-     */
-    public static int CL_QUEUE_REFERENCE_COUNT() {
-        return (int)4242L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_PROPERTIES 4243
-     * }
-     */
-    public static int CL_QUEUE_PROPERTIES() {
-        return (int)4243L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_SIZE 4244
-     * }
-     */
-    public static int CL_QUEUE_SIZE() {
-        return (int)4244L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_DEVICE_DEFAULT 4245
-     * }
-     */
-    public static int CL_QUEUE_DEVICE_DEFAULT() {
-        return (int)4245L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_PROPERTIES_ARRAY 4248
-     * }
-     */
-    public static int CL_QUEUE_PROPERTIES_ARRAY() {
-        return (int)4248L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_R 4272
-     * }
-     */
-    public static int CL_R() {
-        return (int)4272L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_A 4273
-     * }
-     */
-    public static int CL_A() {
-        return (int)4273L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_RG 4274
-     * }
-     */
-    public static int CL_RG() {
-        return (int)4274L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_RA 4275
-     * }
-     */
-    public static int CL_RA() {
-        return (int)4275L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_RGB 4276
-     * }
-     */
-    public static int CL_RGB() {
-        return (int)4276L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_RGBA 4277
-     * }
-     */
-    public static int CL_RGBA() {
-        return (int)4277L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_BGRA 4278
-     * }
-     */
-    public static int CL_BGRA() {
-        return (int)4278L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ARGB 4279
-     * }
-     */
-    public static int CL_ARGB() {
-        return (int)4279L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_INTENSITY 4280
-     * }
-     */
-    public static int CL_INTENSITY() {
-        return (int)4280L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_LUMINANCE 4281
-     * }
-     */
-    public static int CL_LUMINANCE() {
-        return (int)4281L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_Rx 4282
-     * }
-     */
-    public static int CL_Rx() {
-        return (int)4282L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_RGx 4283
-     * }
-     */
-    public static int CL_RGx() {
-        return (int)4283L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_RGBx 4284
-     * }
-     */
-    public static int CL_RGBx() {
-        return (int)4284L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEPTH 4285
-     * }
-     */
-    public static int CL_DEPTH() {
-        return (int)4285L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEPTH_STENCIL 4286
-     * }
-     */
-    public static int CL_DEPTH_STENCIL() {
-        return (int)4286L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_sRGB 4287
-     * }
-     */
-    public static int CL_sRGB() {
-        return (int)4287L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_sRGBx 4288
-     * }
-     */
-    public static int CL_sRGBx() {
-        return (int)4288L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_sRGBA 4289
-     * }
-     */
-    public static int CL_sRGBA() {
-        return (int)4289L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_sBGRA 4290
-     * }
-     */
-    public static int CL_sBGRA() {
-        return (int)4290L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ABGR 4291
-     * }
-     */
-    public static int CL_ABGR() {
-        return (int)4291L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SNORM_INT8 4304
-     * }
-     */
-    public static int CL_SNORM_INT8() {
-        return (int)4304L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SNORM_INT16 4305
-     * }
-     */
-    public static int CL_SNORM_INT16() {
-        return (int)4305L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_UNORM_INT8 4306
-     * }
-     */
-    public static int CL_UNORM_INT8() {
-        return (int)4306L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_UNORM_INT16 4307
-     * }
-     */
-    public static int CL_UNORM_INT16() {
-        return (int)4307L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_UNORM_SHORT_565 4308
-     * }
-     */
-    public static int CL_UNORM_SHORT_565() {
-        return (int)4308L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_UNORM_SHORT_555 4309
-     * }
-     */
-    public static int CL_UNORM_SHORT_555() {
-        return (int)4309L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_UNORM_INT_101010 4310
-     * }
-     */
-    public static int CL_UNORM_INT_101010() {
-        return (int)4310L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SIGNED_INT8 4311
-     * }
-     */
-    public static int CL_SIGNED_INT8() {
-        return (int)4311L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SIGNED_INT16 4312
-     * }
-     */
-    public static int CL_SIGNED_INT16() {
-        return (int)4312L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SIGNED_INT32 4313
-     * }
-     */
-    public static int CL_SIGNED_INT32() {
-        return (int)4313L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_UNSIGNED_INT8 4314
-     * }
-     */
-    public static int CL_UNSIGNED_INT8() {
-        return (int)4314L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_UNSIGNED_INT16 4315
-     * }
-     */
-    public static int CL_UNSIGNED_INT16() {
-        return (int)4315L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_UNSIGNED_INT32 4316
-     * }
-     */
-    public static int CL_UNSIGNED_INT32() {
-        return (int)4316L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_HALF_FLOAT 4317
-     * }
-     */
-    public static int CL_HALF_FLOAT() {
-        return (int)4317L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_FLOAT 4318
-     * }
-     */
-    public static int CL_FLOAT() {
-        return (int)4318L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_UNORM_INT24 4319
-     * }
-     */
-    public static int CL_UNORM_INT24() {
-        return (int)4319L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_UNORM_INT_101010_2 4320
-     * }
-     */
-    public static int CL_UNORM_INT_101010_2() {
-        return (int)4320L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_OBJECT_BUFFER 4336
-     * }
-     */
-    public static int CL_MEM_OBJECT_BUFFER() {
-        return (int)4336L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_OBJECT_IMAGE2D 4337
-     * }
-     */
-    public static int CL_MEM_OBJECT_IMAGE2D() {
-        return (int)4337L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_OBJECT_IMAGE3D 4338
-     * }
-     */
-    public static int CL_MEM_OBJECT_IMAGE3D() {
-        return (int)4338L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_OBJECT_IMAGE2D_ARRAY 4339
-     * }
-     */
-    public static int CL_MEM_OBJECT_IMAGE2D_ARRAY() {
-        return (int)4339L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_OBJECT_IMAGE1D 4340
-     * }
-     */
-    public static int CL_MEM_OBJECT_IMAGE1D() {
-        return (int)4340L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_OBJECT_IMAGE1D_ARRAY 4341
-     * }
-     */
-    public static int CL_MEM_OBJECT_IMAGE1D_ARRAY() {
-        return (int)4341L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_OBJECT_IMAGE1D_BUFFER 4342
-     * }
-     */
-    public static int CL_MEM_OBJECT_IMAGE1D_BUFFER() {
-        return (int)4342L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_OBJECT_PIPE 4343
-     * }
-     */
-    public static int CL_MEM_OBJECT_PIPE() {
-        return (int)4343L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_TYPE 4352
-     * }
-     */
-    public static int CL_MEM_TYPE() {
-        return (int)4352L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_FLAGS 4353
-     * }
-     */
-    public static int CL_MEM_FLAGS() {
-        return (int)4353L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_SIZE 4354
-     * }
-     */
-    public static int CL_MEM_SIZE() {
-        return (int)4354L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_HOST_PTR 4355
-     * }
-     */
-    public static int CL_MEM_HOST_PTR() {
-        return (int)4355L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_MAP_COUNT 4356
-     * }
-     */
-    public static int CL_MEM_MAP_COUNT() {
-        return (int)4356L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_REFERENCE_COUNT 4357
-     * }
-     */
-    public static int CL_MEM_REFERENCE_COUNT() {
-        return (int)4357L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_CONTEXT 4358
-     * }
-     */
-    public static int CL_MEM_CONTEXT() {
-        return (int)4358L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_ASSOCIATED_MEMOBJECT 4359
-     * }
-     */
-    public static int CL_MEM_ASSOCIATED_MEMOBJECT() {
-        return (int)4359L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_OFFSET 4360
-     * }
-     */
-    public static int CL_MEM_OFFSET() {
-        return (int)4360L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_USES_SVM_POINTER 4361
-     * }
-     */
-    public static int CL_MEM_USES_SVM_POINTER() {
-        return (int)4361L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_PROPERTIES 4362
-     * }
-     */
-    public static int CL_MEM_PROPERTIES() {
-        return (int)4362L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_FORMAT 4368
-     * }
-     */
-    public static int CL_IMAGE_FORMAT() {
-        return (int)4368L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_ELEMENT_SIZE 4369
-     * }
-     */
-    public static int CL_IMAGE_ELEMENT_SIZE() {
-        return (int)4369L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_ROW_PITCH 4370
-     * }
-     */
-    public static int CL_IMAGE_ROW_PITCH() {
-        return (int)4370L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_SLICE_PITCH 4371
-     * }
-     */
-    public static int CL_IMAGE_SLICE_PITCH() {
-        return (int)4371L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_WIDTH 4372
-     * }
-     */
-    public static int CL_IMAGE_WIDTH() {
-        return (int)4372L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_HEIGHT 4373
-     * }
-     */
-    public static int CL_IMAGE_HEIGHT() {
-        return (int)4373L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_DEPTH 4374
-     * }
-     */
-    public static int CL_IMAGE_DEPTH() {
-        return (int)4374L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_ARRAY_SIZE 4375
-     * }
-     */
-    public static int CL_IMAGE_ARRAY_SIZE() {
-        return (int)4375L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_BUFFER 4376
-     * }
-     */
-    public static int CL_IMAGE_BUFFER() {
-        return (int)4376L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_NUM_MIP_LEVELS 4377
-     * }
-     */
-    public static int CL_IMAGE_NUM_MIP_LEVELS() {
-        return (int)4377L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_NUM_SAMPLES 4378
-     * }
-     */
-    public static int CL_IMAGE_NUM_SAMPLES() {
-        return (int)4378L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PIPE_PACKET_SIZE 4384
-     * }
-     */
-    public static int CL_PIPE_PACKET_SIZE() {
-        return (int)4384L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PIPE_MAX_PACKETS 4385
-     * }
-     */
-    public static int CL_PIPE_MAX_PACKETS() {
-        return (int)4385L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PIPE_PROPERTIES 4386
-     * }
-     */
-    public static int CL_PIPE_PROPERTIES() {
-        return (int)4386L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ADDRESS_NONE 4400
-     * }
-     */
-    public static int CL_ADDRESS_NONE() {
-        return (int)4400L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ADDRESS_CLAMP_TO_EDGE 4401
-     * }
-     */
-    public static int CL_ADDRESS_CLAMP_TO_EDGE() {
-        return (int)4401L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ADDRESS_CLAMP 4402
-     * }
-     */
-    public static int CL_ADDRESS_CLAMP() {
-        return (int)4402L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ADDRESS_REPEAT 4403
-     * }
-     */
-    public static int CL_ADDRESS_REPEAT() {
-        return (int)4403L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ADDRESS_MIRRORED_REPEAT 4404
-     * }
-     */
-    public static int CL_ADDRESS_MIRRORED_REPEAT() {
-        return (int)4404L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_FILTER_NEAREST 4416
-     * }
-     */
-    public static int CL_FILTER_NEAREST() {
-        return (int)4416L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_FILTER_LINEAR 4417
-     * }
-     */
-    public static int CL_FILTER_LINEAR() {
-        return (int)4417L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SAMPLER_REFERENCE_COUNT 4432
-     * }
-     */
-    public static int CL_SAMPLER_REFERENCE_COUNT() {
-        return (int)4432L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SAMPLER_CONTEXT 4433
-     * }
-     */
-    public static int CL_SAMPLER_CONTEXT() {
-        return (int)4433L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SAMPLER_NORMALIZED_COORDS 4434
-     * }
-     */
-    public static int CL_SAMPLER_NORMALIZED_COORDS() {
-        return (int)4434L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SAMPLER_ADDRESSING_MODE 4435
-     * }
-     */
-    public static int CL_SAMPLER_ADDRESSING_MODE() {
-        return (int)4435L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SAMPLER_FILTER_MODE 4436
-     * }
-     */
-    public static int CL_SAMPLER_FILTER_MODE() {
-        return (int)4436L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SAMPLER_MIP_FILTER_MODE 4437
-     * }
-     */
-    public static int CL_SAMPLER_MIP_FILTER_MODE() {
-        return (int)4437L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SAMPLER_LOD_MIN 4438
-     * }
-     */
-    public static int CL_SAMPLER_LOD_MIN() {
-        return (int)4438L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SAMPLER_LOD_MAX 4439
-     * }
-     */
-    public static int CL_SAMPLER_LOD_MAX() {
-        return (int)4439L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SAMPLER_PROPERTIES 4440
-     * }
-     */
-    public static int CL_SAMPLER_PROPERTIES() {
-        return (int)4440L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_REFERENCE_COUNT 4448
-     * }
-     */
-    public static int CL_PROGRAM_REFERENCE_COUNT() {
-        return (int)4448L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_CONTEXT 4449
-     * }
-     */
-    public static int CL_PROGRAM_CONTEXT() {
-        return (int)4449L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_NUM_DEVICES 4450
-     * }
-     */
-    public static int CL_PROGRAM_NUM_DEVICES() {
-        return (int)4450L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_DEVICES 4451
-     * }
-     */
-    public static int CL_PROGRAM_DEVICES() {
-        return (int)4451L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_SOURCE 4452
-     * }
-     */
-    public static int CL_PROGRAM_SOURCE() {
-        return (int)4452L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_BINARY_SIZES 4453
-     * }
-     */
-    public static int CL_PROGRAM_BINARY_SIZES() {
-        return (int)4453L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_BINARIES 4454
-     * }
-     */
-    public static int CL_PROGRAM_BINARIES() {
-        return (int)4454L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_NUM_KERNELS 4455
-     * }
-     */
-    public static int CL_PROGRAM_NUM_KERNELS() {
-        return (int)4455L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_KERNEL_NAMES 4456
-     * }
-     */
-    public static int CL_PROGRAM_KERNEL_NAMES() {
-        return (int)4456L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_IL 4457
-     * }
-     */
-    public static int CL_PROGRAM_IL() {
-        return (int)4457L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_SCOPE_GLOBAL_CTORS_PRESENT 4458
-     * }
-     */
-    public static int CL_PROGRAM_SCOPE_GLOBAL_CTORS_PRESENT() {
-        return (int)4458L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_SCOPE_GLOBAL_DTORS_PRESENT 4459
-     * }
-     */
-    public static int CL_PROGRAM_SCOPE_GLOBAL_DTORS_PRESENT() {
-        return (int)4459L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_BUILD_STATUS 4481
-     * }
-     */
-    public static int CL_PROGRAM_BUILD_STATUS() {
-        return (int)4481L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_BUILD_OPTIONS 4482
-     * }
-     */
-    public static int CL_PROGRAM_BUILD_OPTIONS() {
-        return (int)4482L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_BUILD_LOG 4483
-     * }
-     */
-    public static int CL_PROGRAM_BUILD_LOG() {
-        return (int)4483L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_BINARY_TYPE 4484
-     * }
-     */
-    public static int CL_PROGRAM_BINARY_TYPE() {
-        return (int)4484L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_BUILD_GLOBAL_VARIABLE_TOTAL_SIZE 4485
-     * }
-     */
-    public static int CL_PROGRAM_BUILD_GLOBAL_VARIABLE_TOTAL_SIZE() {
-        return (int)4485L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_BINARY_TYPE_NONE 0
-     * }
-     */
-    public static int CL_PROGRAM_BINARY_TYPE_NONE() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_BINARY_TYPE_COMPILED_OBJECT 1
-     * }
-     */
-    public static int CL_PROGRAM_BINARY_TYPE_COMPILED_OBJECT() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_BINARY_TYPE_LIBRARY 2
-     * }
-     */
-    public static int CL_PROGRAM_BINARY_TYPE_LIBRARY() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_BINARY_TYPE_EXECUTABLE 4
-     * }
-     */
-    public static int CL_PROGRAM_BINARY_TYPE_EXECUTABLE() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_BUILD_SUCCESS 0
-     * }
-     */
-    public static int CL_BUILD_SUCCESS() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_FUNCTION_NAME 4496
-     * }
-     */
-    public static int CL_KERNEL_FUNCTION_NAME() {
-        return (int)4496L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_NUM_ARGS 4497
-     * }
-     */
-    public static int CL_KERNEL_NUM_ARGS() {
-        return (int)4497L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_REFERENCE_COUNT 4498
-     * }
-     */
-    public static int CL_KERNEL_REFERENCE_COUNT() {
-        return (int)4498L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_CONTEXT 4499
-     * }
-     */
-    public static int CL_KERNEL_CONTEXT() {
-        return (int)4499L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_PROGRAM 4500
-     * }
-     */
-    public static int CL_KERNEL_PROGRAM() {
-        return (int)4500L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ATTRIBUTES 4501
-     * }
-     */
-    public static int CL_KERNEL_ATTRIBUTES() {
-        return (int)4501L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_ADDRESS_QUALIFIER 4502
-     * }
-     */
-    public static int CL_KERNEL_ARG_ADDRESS_QUALIFIER() {
-        return (int)4502L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_ACCESS_QUALIFIER 4503
-     * }
-     */
-    public static int CL_KERNEL_ARG_ACCESS_QUALIFIER() {
-        return (int)4503L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_TYPE_NAME 4504
-     * }
-     */
-    public static int CL_KERNEL_ARG_TYPE_NAME() {
-        return (int)4504L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_TYPE_QUALIFIER 4505
-     * }
-     */
-    public static int CL_KERNEL_ARG_TYPE_QUALIFIER() {
-        return (int)4505L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_NAME 4506
-     * }
-     */
-    public static int CL_KERNEL_ARG_NAME() {
-        return (int)4506L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_ADDRESS_GLOBAL 4507
-     * }
-     */
-    public static int CL_KERNEL_ARG_ADDRESS_GLOBAL() {
-        return (int)4507L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_ADDRESS_LOCAL 4508
-     * }
-     */
-    public static int CL_KERNEL_ARG_ADDRESS_LOCAL() {
-        return (int)4508L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_ADDRESS_CONSTANT 4509
-     * }
-     */
-    public static int CL_KERNEL_ARG_ADDRESS_CONSTANT() {
-        return (int)4509L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_ADDRESS_PRIVATE 4510
-     * }
-     */
-    public static int CL_KERNEL_ARG_ADDRESS_PRIVATE() {
-        return (int)4510L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_ACCESS_READ_ONLY 4512
-     * }
-     */
-    public static int CL_KERNEL_ARG_ACCESS_READ_ONLY() {
-        return (int)4512L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_ACCESS_WRITE_ONLY 4513
-     * }
-     */
-    public static int CL_KERNEL_ARG_ACCESS_WRITE_ONLY() {
-        return (int)4513L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_ACCESS_READ_WRITE 4514
-     * }
-     */
-    public static int CL_KERNEL_ARG_ACCESS_READ_WRITE() {
-        return (int)4514L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_ACCESS_NONE 4515
-     * }
-     */
-    public static int CL_KERNEL_ARG_ACCESS_NONE() {
-        return (int)4515L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_ARG_TYPE_NONE 0
-     * }
-     */
-    public static int CL_KERNEL_ARG_TYPE_NONE() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_WORK_GROUP_SIZE 4528
-     * }
-     */
-    public static int CL_KERNEL_WORK_GROUP_SIZE() {
-        return (int)4528L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_COMPILE_WORK_GROUP_SIZE 4529
-     * }
-     */
-    public static int CL_KERNEL_COMPILE_WORK_GROUP_SIZE() {
-        return (int)4529L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_LOCAL_MEM_SIZE 4530
-     * }
-     */
-    public static int CL_KERNEL_LOCAL_MEM_SIZE() {
-        return (int)4530L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE 4531
-     * }
-     */
-    public static int CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE() {
-        return (int)4531L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_PRIVATE_MEM_SIZE 4532
-     * }
-     */
-    public static int CL_KERNEL_PRIVATE_MEM_SIZE() {
-        return (int)4532L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_GLOBAL_WORK_SIZE 4533
-     * }
-     */
-    public static int CL_KERNEL_GLOBAL_WORK_SIZE() {
-        return (int)4533L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE 8243
-     * }
-     */
-    public static int CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE() {
-        return (int)8243L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_SUB_GROUP_COUNT_FOR_NDRANGE 8244
-     * }
-     */
-    public static int CL_KERNEL_SUB_GROUP_COUNT_FOR_NDRANGE() {
-        return (int)8244L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_LOCAL_SIZE_FOR_SUB_GROUP_COUNT 4536
-     * }
-     */
-    public static int CL_KERNEL_LOCAL_SIZE_FOR_SUB_GROUP_COUNT() {
-        return (int)4536L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_MAX_NUM_SUB_GROUPS 4537
-     * }
-     */
-    public static int CL_KERNEL_MAX_NUM_SUB_GROUPS() {
-        return (int)4537L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_COMPILE_NUM_SUB_GROUPS 4538
-     * }
-     */
-    public static int CL_KERNEL_COMPILE_NUM_SUB_GROUPS() {
-        return (int)4538L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_EXEC_INFO_SVM_PTRS 4534
-     * }
-     */
-    public static int CL_KERNEL_EXEC_INFO_SVM_PTRS() {
-        return (int)4534L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM 4535
-     * }
-     */
-    public static int CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM() {
-        return (int)4535L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EVENT_COMMAND_QUEUE 4560
-     * }
-     */
-    public static int CL_EVENT_COMMAND_QUEUE() {
-        return (int)4560L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EVENT_COMMAND_TYPE 4561
-     * }
-     */
-    public static int CL_EVENT_COMMAND_TYPE() {
-        return (int)4561L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EVENT_REFERENCE_COUNT 4562
-     * }
-     */
-    public static int CL_EVENT_REFERENCE_COUNT() {
-        return (int)4562L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EVENT_COMMAND_EXECUTION_STATUS 4563
-     * }
-     */
-    public static int CL_EVENT_COMMAND_EXECUTION_STATUS() {
-        return (int)4563L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EVENT_CONTEXT 4564
-     * }
-     */
-    public static int CL_EVENT_CONTEXT() {
-        return (int)4564L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_NDRANGE_KERNEL 4592
-     * }
-     */
-    public static int CL_COMMAND_NDRANGE_KERNEL() {
-        return (int)4592L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_TASK 4593
-     * }
-     */
-    public static int CL_COMMAND_TASK() {
-        return (int)4593L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_NATIVE_KERNEL 4594
-     * }
-     */
-    public static int CL_COMMAND_NATIVE_KERNEL() {
-        return (int)4594L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_READ_BUFFER 4595
-     * }
-     */
-    public static int CL_COMMAND_READ_BUFFER() {
-        return (int)4595L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_WRITE_BUFFER 4596
-     * }
-     */
-    public static int CL_COMMAND_WRITE_BUFFER() {
-        return (int)4596L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_COPY_BUFFER 4597
-     * }
-     */
-    public static int CL_COMMAND_COPY_BUFFER() {
-        return (int)4597L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_READ_IMAGE 4598
-     * }
-     */
-    public static int CL_COMMAND_READ_IMAGE() {
-        return (int)4598L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_WRITE_IMAGE 4599
-     * }
-     */
-    public static int CL_COMMAND_WRITE_IMAGE() {
-        return (int)4599L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_COPY_IMAGE 4600
-     * }
-     */
-    public static int CL_COMMAND_COPY_IMAGE() {
-        return (int)4600L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_COPY_IMAGE_TO_BUFFER 4601
-     * }
-     */
-    public static int CL_COMMAND_COPY_IMAGE_TO_BUFFER() {
-        return (int)4601L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_COPY_BUFFER_TO_IMAGE 4602
-     * }
-     */
-    public static int CL_COMMAND_COPY_BUFFER_TO_IMAGE() {
-        return (int)4602L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_MAP_BUFFER 4603
-     * }
-     */
-    public static int CL_COMMAND_MAP_BUFFER() {
-        return (int)4603L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_MAP_IMAGE 4604
-     * }
-     */
-    public static int CL_COMMAND_MAP_IMAGE() {
-        return (int)4604L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_UNMAP_MEM_OBJECT 4605
-     * }
-     */
-    public static int CL_COMMAND_UNMAP_MEM_OBJECT() {
-        return (int)4605L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_MARKER 4606
-     * }
-     */
-    public static int CL_COMMAND_MARKER() {
-        return (int)4606L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_ACQUIRE_GL_OBJECTS 4607
-     * }
-     */
-    public static int CL_COMMAND_ACQUIRE_GL_OBJECTS() {
-        return (int)4607L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_RELEASE_GL_OBJECTS 4608
-     * }
-     */
-    public static int CL_COMMAND_RELEASE_GL_OBJECTS() {
-        return (int)4608L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_READ_BUFFER_RECT 4609
-     * }
-     */
-    public static int CL_COMMAND_READ_BUFFER_RECT() {
-        return (int)4609L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_WRITE_BUFFER_RECT 4610
-     * }
-     */
-    public static int CL_COMMAND_WRITE_BUFFER_RECT() {
-        return (int)4610L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_COPY_BUFFER_RECT 4611
-     * }
-     */
-    public static int CL_COMMAND_COPY_BUFFER_RECT() {
-        return (int)4611L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_USER 4612
-     * }
-     */
-    public static int CL_COMMAND_USER() {
-        return (int)4612L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_BARRIER 4613
-     * }
-     */
-    public static int CL_COMMAND_BARRIER() {
-        return (int)4613L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_MIGRATE_MEM_OBJECTS 4614
-     * }
-     */
-    public static int CL_COMMAND_MIGRATE_MEM_OBJECTS() {
-        return (int)4614L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_FILL_BUFFER 4615
-     * }
-     */
-    public static int CL_COMMAND_FILL_BUFFER() {
-        return (int)4615L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_FILL_IMAGE 4616
-     * }
-     */
-    public static int CL_COMMAND_FILL_IMAGE() {
-        return (int)4616L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_SVM_FREE 4617
-     * }
-     */
-    public static int CL_COMMAND_SVM_FREE() {
-        return (int)4617L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_SVM_MEMCPY 4618
-     * }
-     */
-    public static int CL_COMMAND_SVM_MEMCPY() {
-        return (int)4618L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_SVM_MEMFILL 4619
-     * }
-     */
-    public static int CL_COMMAND_SVM_MEMFILL() {
-        return (int)4619L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_SVM_MAP 4620
-     * }
-     */
-    public static int CL_COMMAND_SVM_MAP() {
-        return (int)4620L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_SVM_UNMAP 4621
-     * }
-     */
-    public static int CL_COMMAND_SVM_UNMAP() {
-        return (int)4621L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_SVM_MIGRATE_MEM 4622
-     * }
-     */
-    public static int CL_COMMAND_SVM_MIGRATE_MEM() {
-        return (int)4622L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMPLETE 0
-     * }
-     */
-    public static int CL_COMPLETE() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_RUNNING 1
-     * }
-     */
-    public static int CL_RUNNING() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SUBMITTED 2
-     * }
-     */
-    public static int CL_SUBMITTED() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUED 3
-     * }
-     */
-    public static int CL_QUEUED() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_BUFFER_CREATE_TYPE_REGION 4640
-     * }
-     */
-    public static int CL_BUFFER_CREATE_TYPE_REGION() {
-        return (int)4640L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROFILING_COMMAND_QUEUED 4736
-     * }
-     */
-    public static int CL_PROFILING_COMMAND_QUEUED() {
-        return (int)4736L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROFILING_COMMAND_SUBMIT 4737
-     * }
-     */
-    public static int CL_PROFILING_COMMAND_SUBMIT() {
-        return (int)4737L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROFILING_COMMAND_START 4738
-     * }
-     */
-    public static int CL_PROFILING_COMMAND_START() {
-        return (int)4738L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROFILING_COMMAND_END 4739
-     * }
-     */
-    public static int CL_PROFILING_COMMAND_END() {
-        return (int)4739L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROFILING_COMMAND_COMPLETE 4740
-     * }
-     */
-    public static int CL_PROFILING_COMMAND_COMPLETE() {
-        return (int)4740L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KHRONOS_VENDOR_ID_CODEPLAY 65540
-     * }
-     */
-    public static int CL_KHRONOS_VENDOR_ID_CODEPLAY() {
-        return (int)65540L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_gl_sharing 1
-     * }
-     */
-    public static int cl_khr_gl_sharing() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_CURRENT_DEVICE_FOR_GL_CONTEXT_KHR 8198
-     * }
-     */
-    public static int CL_CURRENT_DEVICE_FOR_GL_CONTEXT_KHR() {
-        return (int)8198L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICES_FOR_GL_CONTEXT_KHR 8199
-     * }
-     */
-    public static int CL_DEVICES_FOR_GL_CONTEXT_KHR() {
-        return (int)8199L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GL_CONTEXT_KHR 8200
-     * }
-     */
-    public static int CL_GL_CONTEXT_KHR() {
-        return (int)8200L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EGL_DISPLAY_KHR 8201
-     * }
-     */
-    public static int CL_EGL_DISPLAY_KHR() {
-        return (int)8201L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GLX_DISPLAY_KHR 8202
-     * }
-     */
-    public static int CL_GLX_DISPLAY_KHR() {
-        return (int)8202L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_WGL_HDC_KHR 8203
-     * }
-     */
-    public static int CL_WGL_HDC_KHR() {
-        return (int)8203L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_CGL_SHAREGROUP_KHR 8204
-     * }
-     */
-    public static int CL_CGL_SHAREGROUP_KHR() {
-        return (int)8204L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GL_OBJECT_BUFFER 8192
-     * }
-     */
-    public static int CL_GL_OBJECT_BUFFER() {
-        return (int)8192L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GL_OBJECT_TEXTURE2D 8193
-     * }
-     */
-    public static int CL_GL_OBJECT_TEXTURE2D() {
-        return (int)8193L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GL_OBJECT_TEXTURE3D 8194
-     * }
-     */
-    public static int CL_GL_OBJECT_TEXTURE3D() {
-        return (int)8194L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GL_OBJECT_RENDERBUFFER 8195
-     * }
-     */
-    public static int CL_GL_OBJECT_RENDERBUFFER() {
-        return (int)8195L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GL_OBJECT_TEXTURE2D_ARRAY 8206
-     * }
-     */
-    public static int CL_GL_OBJECT_TEXTURE2D_ARRAY() {
-        return (int)8206L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GL_OBJECT_TEXTURE1D 8207
-     * }
-     */
-    public static int CL_GL_OBJECT_TEXTURE1D() {
-        return (int)8207L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GL_OBJECT_TEXTURE1D_ARRAY 8208
-     * }
-     */
-    public static int CL_GL_OBJECT_TEXTURE1D_ARRAY() {
-        return (int)8208L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GL_OBJECT_TEXTURE_BUFFER 8209
-     * }
-     */
-    public static int CL_GL_OBJECT_TEXTURE_BUFFER() {
-        return (int)8209L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GL_TEXTURE_TARGET 8196
-     * }
-     */
-    public static int CL_GL_TEXTURE_TARGET() {
-        return (int)8196L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GL_MIPMAP_LEVEL 8197
-     * }
-     */
-    public static int CL_GL_MIPMAP_LEVEL() {
-        return (int)8197L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_gl_event 1
-     * }
-     */
-    public static int cl_khr_gl_event() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_GL_FENCE_SYNC_OBJECT_KHR 8205
-     * }
-     */
-    public static int CL_COMMAND_GL_FENCE_SYNC_OBJECT_KHR() {
-        return (int)8205L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_gl_depth_images 1
-     * }
-     */
-    public static int cl_khr_gl_depth_images() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_gl_msaa_sharing 1
-     * }
-     */
-    public static int cl_khr_gl_msaa_sharing() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GL_NUM_SAMPLES 8210
-     * }
-     */
-    public static int CL_GL_NUM_SAMPLES() {
-        return (int)8210L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_sharing_format_query_gl 1
-     * }
-     */
-    public static int cl_intel_sharing_format_query_gl() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_command_buffer 1
-     * }
-     */
-    public static int cl_khr_command_buffer() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_COMMAND_BUFFER_CAPABILITIES_KHR 4777
-     * }
-     */
-    public static int CL_DEVICE_COMMAND_BUFFER_CAPABILITIES_KHR() {
-        return (int)4777L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_COMMAND_BUFFER_REQUIRED_QUEUE_PROPERTIES_KHR 4778
-     * }
-     */
-    public static int CL_DEVICE_COMMAND_BUFFER_REQUIRED_QUEUE_PROPERTIES_KHR() {
-        return (int)4778L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_BUFFER_FLAGS_KHR 4755
-     * }
-     */
-    public static int CL_COMMAND_BUFFER_FLAGS_KHR() {
-        return (int)4755L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_BUFFER_QUEUES_KHR 4756
-     * }
-     */
-    public static int CL_COMMAND_BUFFER_QUEUES_KHR() {
-        return (int)4756L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_BUFFER_NUM_QUEUES_KHR 4757
-     * }
-     */
-    public static int CL_COMMAND_BUFFER_NUM_QUEUES_KHR() {
-        return (int)4757L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_BUFFER_REFERENCE_COUNT_KHR 4758
-     * }
-     */
-    public static int CL_COMMAND_BUFFER_REFERENCE_COUNT_KHR() {
-        return (int)4758L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_BUFFER_STATE_KHR 4759
-     * }
-     */
-    public static int CL_COMMAND_BUFFER_STATE_KHR() {
-        return (int)4759L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_BUFFER_PROPERTIES_ARRAY_KHR 4760
-     * }
-     */
-    public static int CL_COMMAND_BUFFER_PROPERTIES_ARRAY_KHR() {
-        return (int)4760L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_BUFFER_CONTEXT_KHR 4761
-     * }
-     */
-    public static int CL_COMMAND_BUFFER_CONTEXT_KHR() {
-        return (int)4761L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_BUFFER_STATE_RECORDING_KHR 0
-     * }
-     */
-    public static int CL_COMMAND_BUFFER_STATE_RECORDING_KHR() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_BUFFER_STATE_EXECUTABLE_KHR 1
-     * }
-     */
-    public static int CL_COMMAND_BUFFER_STATE_EXECUTABLE_KHR() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_BUFFER_STATE_PENDING_KHR 2
-     * }
-     */
-    public static int CL_COMMAND_BUFFER_STATE_PENDING_KHR() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_BUFFER_STATE_INVALID_KHR 3
-     * }
-     */
-    public static int CL_COMMAND_BUFFER_STATE_INVALID_KHR() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_COMMAND_BUFFER_KHR 4776
-     * }
-     */
-    public static int CL_COMMAND_COMMAND_BUFFER_KHR() {
-        return (int)4776L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_command_buffer_multi_device 1
-     * }
-     */
-    public static int cl_khr_command_buffer_multi_device() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_COMMAND_BUFFER_CAPABILITIES_KHR 2312
-     * }
-     */
-    public static int CL_PLATFORM_COMMAND_BUFFER_CAPABILITIES_KHR() {
-        return (int)2312L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_COMMAND_BUFFER_NUM_SYNC_DEVICES_KHR 4779
-     * }
-     */
-    public static int CL_DEVICE_COMMAND_BUFFER_NUM_SYNC_DEVICES_KHR() {
-        return (int)4779L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_COMMAND_BUFFER_SYNC_DEVICES_KHR 4780
-     * }
-     */
-    public static int CL_DEVICE_COMMAND_BUFFER_SYNC_DEVICES_KHR() {
-        return (int)4780L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_command_buffer_mutable_dispatch 1
-     * }
-     */
-    public static int cl_khr_command_buffer_mutable_dispatch() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MUTABLE_DISPATCH_CAPABILITIES_KHR 4784
-     * }
-     */
-    public static int CL_DEVICE_MUTABLE_DISPATCH_CAPABILITIES_KHR() {
-        return (int)4784L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MUTABLE_DISPATCH_UPDATABLE_FIELDS_KHR 4785
-     * }
-     */
-    public static int CL_MUTABLE_DISPATCH_UPDATABLE_FIELDS_KHR() {
-        return (int)4785L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MUTABLE_COMMAND_COMMAND_QUEUE_KHR 4768
-     * }
-     */
-    public static int CL_MUTABLE_COMMAND_COMMAND_QUEUE_KHR() {
-        return (int)4768L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MUTABLE_COMMAND_COMMAND_BUFFER_KHR 4769
-     * }
-     */
-    public static int CL_MUTABLE_COMMAND_COMMAND_BUFFER_KHR() {
-        return (int)4769L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MUTABLE_COMMAND_COMMAND_TYPE_KHR 4781
-     * }
-     */
-    public static int CL_MUTABLE_COMMAND_COMMAND_TYPE_KHR() {
-        return (int)4781L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MUTABLE_DISPATCH_PROPERTIES_ARRAY_KHR 4770
-     * }
-     */
-    public static int CL_MUTABLE_DISPATCH_PROPERTIES_ARRAY_KHR() {
-        return (int)4770L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MUTABLE_DISPATCH_KERNEL_KHR 4771
-     * }
-     */
-    public static int CL_MUTABLE_DISPATCH_KERNEL_KHR() {
-        return (int)4771L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MUTABLE_DISPATCH_DIMENSIONS_KHR 4772
-     * }
-     */
-    public static int CL_MUTABLE_DISPATCH_DIMENSIONS_KHR() {
-        return (int)4772L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MUTABLE_DISPATCH_GLOBAL_WORK_OFFSET_KHR 4773
-     * }
-     */
-    public static int CL_MUTABLE_DISPATCH_GLOBAL_WORK_OFFSET_KHR() {
-        return (int)4773L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MUTABLE_DISPATCH_GLOBAL_WORK_SIZE_KHR 4774
-     * }
-     */
-    public static int CL_MUTABLE_DISPATCH_GLOBAL_WORK_SIZE_KHR() {
-        return (int)4774L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MUTABLE_DISPATCH_LOCAL_WORK_SIZE_KHR 4775
-     * }
-     */
-    public static int CL_MUTABLE_DISPATCH_LOCAL_WORK_SIZE_KHR() {
-        return (int)4775L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_STRUCTURE_TYPE_MUTABLE_BASE_CONFIG_KHR 0
-     * }
-     */
-    public static int CL_STRUCTURE_TYPE_MUTABLE_BASE_CONFIG_KHR() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_STRUCTURE_TYPE_MUTABLE_DISPATCH_CONFIG_KHR 1
-     * }
-     */
-    public static int CL_STRUCTURE_TYPE_MUTABLE_DISPATCH_CONFIG_KHR() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_fp64 1
-     * }
-     */
-    public static int cl_khr_fp64() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_fp16 1
-     * }
-     */
-    public static int cl_khr_fp16() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_HALF_FP_CONFIG 4147
-     * }
-     */
-    public static int CL_DEVICE_HALF_FP_CONFIG() {
-        return (int)4147L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_APPLE_SetMemObjectDestructor 1
-     * }
-     */
-    public static int cl_APPLE_SetMemObjectDestructor() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_APPLE_ContextLoggingFunctions 1
-     * }
-     */
-    public static int cl_APPLE_ContextLoggingFunctions() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_icd 1
-     * }
-     */
-    public static int cl_khr_icd() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_ICD_SUFFIX_KHR 2336
-     * }
-     */
-    public static int CL_PLATFORM_ICD_SUFFIX_KHR() {
-        return (int)2336L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_il_program 1
-     * }
-     */
-    public static int cl_khr_il_program() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IL_VERSION_KHR 4187
-     * }
-     */
-    public static int CL_DEVICE_IL_VERSION_KHR() {
-        return (int)4187L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_IL_KHR 4457
-     * }
-     */
-    public static int CL_PROGRAM_IL_KHR() {
-        return (int)4457L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_image2d_from_buffer 1
-     * }
-     */
-    public static int cl_khr_image2d_from_buffer() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IMAGE_PITCH_ALIGNMENT_KHR 4170
-     * }
-     */
-    public static int CL_DEVICE_IMAGE_PITCH_ALIGNMENT_KHR() {
-        return (int)4170L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT_KHR 4171
-     * }
-     */
-    public static int CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT_KHR() {
-        return (int)4171L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_initialize_memory 1
-     * }
-     */
-    public static int cl_khr_initialize_memory() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_CONTEXT_MEMORY_INITIALIZE_KHR 8240
-     * }
-     */
-    public static int CL_CONTEXT_MEMORY_INITIALIZE_KHR() {
-        return (int)8240L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_terminate_context 1
-     * }
-     */
-    public static int cl_khr_terminate_context() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_TERMINATE_CAPABILITY_KHR 8241
-     * }
-     */
-    public static int CL_DEVICE_TERMINATE_CAPABILITY_KHR() {
-        return (int)8241L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_CONTEXT_TERMINATE_KHR 8242
-     * }
-     */
-    public static int CL_CONTEXT_TERMINATE_KHR() {
-        return (int)8242L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_spir 1
-     * }
-     */
-    public static int cl_khr_spir() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SPIR_VERSIONS 16608
-     * }
-     */
-    public static int CL_DEVICE_SPIR_VERSIONS() {
-        return (int)16608L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_BINARY_TYPE_INTERMEDIATE 16609
-     * }
-     */
-    public static int CL_PROGRAM_BINARY_TYPE_INTERMEDIATE() {
-        return (int)16609L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_create_command_queue 1
-     * }
-     */
-    public static int cl_khr_create_command_queue() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_nv_device_attribute_query 1
-     * }
-     */
-    public static int cl_nv_device_attribute_query() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_COMPUTE_CAPABILITY_MAJOR_NV 16384
-     * }
-     */
-    public static int CL_DEVICE_COMPUTE_CAPABILITY_MAJOR_NV() {
-        return (int)16384L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_COMPUTE_CAPABILITY_MINOR_NV 16385
-     * }
-     */
-    public static int CL_DEVICE_COMPUTE_CAPABILITY_MINOR_NV() {
-        return (int)16385L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_REGISTERS_PER_BLOCK_NV 16386
-     * }
-     */
-    public static int CL_DEVICE_REGISTERS_PER_BLOCK_NV() {
-        return (int)16386L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_WARP_SIZE_NV 16387
-     * }
-     */
-    public static int CL_DEVICE_WARP_SIZE_NV() {
-        return (int)16387L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_GPU_OVERLAP_NV 16388
-     * }
-     */
-    public static int CL_DEVICE_GPU_OVERLAP_NV() {
-        return (int)16388L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_KERNEL_EXEC_TIMEOUT_NV 16389
-     * }
-     */
-    public static int CL_DEVICE_KERNEL_EXEC_TIMEOUT_NV() {
-        return (int)16389L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_INTEGRATED_MEMORY_NV 16390
-     * }
-     */
-    public static int CL_DEVICE_INTEGRATED_MEMORY_NV() {
-        return (int)16390L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_amd_device_attribute_query 1
-     * }
-     */
-    public static int cl_amd_device_attribute_query() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PROFILING_TIMER_OFFSET_AMD 16438
-     * }
-     */
-    public static int CL_DEVICE_PROFILING_TIMER_OFFSET_AMD() {
-        return (int)16438L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_TOPOLOGY_AMD 16439
-     * }
-     */
-    public static int CL_DEVICE_TOPOLOGY_AMD() {
-        return (int)16439L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_BOARD_NAME_AMD 16440
-     * }
-     */
-    public static int CL_DEVICE_BOARD_NAME_AMD() {
-        return (int)16440L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_GLOBAL_FREE_MEMORY_AMD 16441
-     * }
-     */
-    public static int CL_DEVICE_GLOBAL_FREE_MEMORY_AMD() {
-        return (int)16441L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SIMD_PER_COMPUTE_UNIT_AMD 16448
-     * }
-     */
-    public static int CL_DEVICE_SIMD_PER_COMPUTE_UNIT_AMD() {
-        return (int)16448L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SIMD_WIDTH_AMD 16449
-     * }
-     */
-    public static int CL_DEVICE_SIMD_WIDTH_AMD() {
-        return (int)16449L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SIMD_INSTRUCTION_WIDTH_AMD 16450
-     * }
-     */
-    public static int CL_DEVICE_SIMD_INSTRUCTION_WIDTH_AMD() {
-        return (int)16450L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_WAVEFRONT_WIDTH_AMD 16451
-     * }
-     */
-    public static int CL_DEVICE_WAVEFRONT_WIDTH_AMD() {
-        return (int)16451L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_GLOBAL_MEM_CHANNELS_AMD 16452
-     * }
-     */
-    public static int CL_DEVICE_GLOBAL_MEM_CHANNELS_AMD() {
-        return (int)16452L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_GLOBAL_MEM_CHANNEL_BANKS_AMD 16453
-     * }
-     */
-    public static int CL_DEVICE_GLOBAL_MEM_CHANNEL_BANKS_AMD() {
-        return (int)16453L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_GLOBAL_MEM_CHANNEL_BANK_WIDTH_AMD 16454
-     * }
-     */
-    public static int CL_DEVICE_GLOBAL_MEM_CHANNEL_BANK_WIDTH_AMD() {
-        return (int)16454L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_LOCAL_MEM_SIZE_PER_COMPUTE_UNIT_AMD 16455
-     * }
-     */
-    public static int CL_DEVICE_LOCAL_MEM_SIZE_PER_COMPUTE_UNIT_AMD() {
-        return (int)16455L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_LOCAL_MEM_BANKS_AMD 16456
-     * }
-     */
-    public static int CL_DEVICE_LOCAL_MEM_BANKS_AMD() {
-        return (int)16456L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_THREAD_TRACE_SUPPORTED_AMD 16457
-     * }
-     */
-    public static int CL_DEVICE_THREAD_TRACE_SUPPORTED_AMD() {
-        return (int)16457L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_GFXIP_MAJOR_AMD 16458
-     * }
-     */
-    public static int CL_DEVICE_GFXIP_MAJOR_AMD() {
-        return (int)16458L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_GFXIP_MINOR_AMD 16459
-     * }
-     */
-    public static int CL_DEVICE_GFXIP_MINOR_AMD() {
-        return (int)16459L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_AVAILABLE_ASYNC_QUEUES_AMD 16460
-     * }
-     */
-    public static int CL_DEVICE_AVAILABLE_ASYNC_QUEUES_AMD() {
-        return (int)16460L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_WORK_GROUP_SIZE_AMD 16432
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_WORK_GROUP_SIZE_AMD() {
-        return (int)16432L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_WORK_GROUP_SIZE_AMD 16433
-     * }
-     */
-    public static int CL_DEVICE_MAX_WORK_GROUP_SIZE_AMD() {
-        return (int)16433L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PREFERRED_CONSTANT_BUFFER_SIZE_AMD 16435
-     * }
-     */
-    public static int CL_DEVICE_PREFERRED_CONSTANT_BUFFER_SIZE_AMD() {
-        return (int)16435L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PCIE_ID_AMD 16436
-     * }
-     */
-    public static int CL_DEVICE_PCIE_ID_AMD() {
-        return (int)16436L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_arm_printf 1
-     * }
-     */
-    public static int cl_arm_printf() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PRINTF_CALLBACK_ARM 16560
-     * }
-     */
-    public static int CL_PRINTF_CALLBACK_ARM() {
-        return (int)16560L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PRINTF_BUFFERSIZE_ARM 16561
-     * }
-     */
-    public static int CL_PRINTF_BUFFERSIZE_ARM() {
-        return (int)16561L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_ext_device_fission 1
-     * }
-     */
-    public static int cl_ext_device_fission() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARENT_DEVICE_EXT 16468
-     * }
-     */
-    public static int CL_DEVICE_PARENT_DEVICE_EXT() {
-        return (int)16468L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_TYPES_EXT 16469
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_TYPES_EXT() {
-        return (int)16469L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_AFFINITY_DOMAINS_EXT 16470
-     * }
-     */
-    public static int CL_DEVICE_AFFINITY_DOMAINS_EXT() {
-        return (int)16470L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_REFERENCE_COUNT_EXT 16471
-     * }
-     */
-    public static int CL_DEVICE_REFERENCE_COUNT_EXT() {
-        return (int)16471L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_STYLE_EXT 16472
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_STYLE_EXT() {
-        return (int)16472L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_EQUALLY_EXT 16464
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_EQUALLY_EXT() {
-        return (int)16464L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_BY_COUNTS_EXT 16465
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_BY_COUNTS_EXT() {
-        return (int)16465L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_BY_NAMES_EXT 16466
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_BY_NAMES_EXT() {
-        return (int)16466L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT 16467
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT() {
-        return (int)16467L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AFFINITY_DOMAIN_L1_CACHE_EXT 1
-     * }
-     */
-    public static int CL_AFFINITY_DOMAIN_L1_CACHE_EXT() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AFFINITY_DOMAIN_L2_CACHE_EXT 2
-     * }
-     */
-    public static int CL_AFFINITY_DOMAIN_L2_CACHE_EXT() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AFFINITY_DOMAIN_L3_CACHE_EXT 3
-     * }
-     */
-    public static int CL_AFFINITY_DOMAIN_L3_CACHE_EXT() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AFFINITY_DOMAIN_L4_CACHE_EXT 4
-     * }
-     */
-    public static int CL_AFFINITY_DOMAIN_L4_CACHE_EXT() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AFFINITY_DOMAIN_NUMA_EXT 16
-     * }
-     */
-    public static int CL_AFFINITY_DOMAIN_NUMA_EXT() {
-        return (int)16L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AFFINITY_DOMAIN_NEXT_FISSIONABLE_EXT 256
-     * }
-     */
-    public static int CL_AFFINITY_DOMAIN_NEXT_FISSIONABLE_EXT() {
-        return (int)256L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_ext_migrate_memobject 1
-     * }
-     */
-    public static int cl_ext_migrate_memobject() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_MIGRATE_MEM_OBJECT_EXT 16448
-     * }
-     */
-    public static int CL_COMMAND_MIGRATE_MEM_OBJECT_EXT() {
-        return (int)16448L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_ext_cxx_for_opencl 1
-     * }
-     */
-    public static int cl_ext_cxx_for_opencl() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_CXX_FOR_OPENCL_NUMERIC_VERSION_EXT 16944
-     * }
-     */
-    public static int CL_DEVICE_CXX_FOR_OPENCL_NUMERIC_VERSION_EXT() {
-        return (int)16944L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_qcom_ext_host_ptr 1
-     * }
-     */
-    public static int cl_qcom_ext_host_ptr() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_EXT_MEM_PADDING_IN_BYTES_QCOM 16544
-     * }
-     */
-    public static int CL_DEVICE_EXT_MEM_PADDING_IN_BYTES_QCOM() {
-        return (int)16544L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PAGE_SIZE_QCOM 16545
-     * }
-     */
-    public static int CL_DEVICE_PAGE_SIZE_QCOM() {
-        return (int)16545L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_ROW_ALIGNMENT_QCOM 16546
-     * }
-     */
-    public static int CL_IMAGE_ROW_ALIGNMENT_QCOM() {
-        return (int)16546L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_SLICE_ALIGNMENT_QCOM 16547
-     * }
-     */
-    public static int CL_IMAGE_SLICE_ALIGNMENT_QCOM() {
-        return (int)16547L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_HOST_UNCACHED_QCOM 16548
-     * }
-     */
-    public static int CL_MEM_HOST_UNCACHED_QCOM() {
-        return (int)16548L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_HOST_WRITEBACK_QCOM 16549
-     * }
-     */
-    public static int CL_MEM_HOST_WRITEBACK_QCOM() {
-        return (int)16549L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_HOST_WRITETHROUGH_QCOM 16550
-     * }
-     */
-    public static int CL_MEM_HOST_WRITETHROUGH_QCOM() {
-        return (int)16550L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_HOST_WRITE_COMBINING_QCOM 16551
-     * }
-     */
-    public static int CL_MEM_HOST_WRITE_COMBINING_QCOM() {
-        return (int)16551L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_qcom_ext_host_ptr_iocoherent 1
-     * }
-     */
-    public static int cl_qcom_ext_host_ptr_iocoherent() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_HOST_IOCOHERENT_QCOM 16553
-     * }
-     */
-    public static int CL_MEM_HOST_IOCOHERENT_QCOM() {
-        return (int)16553L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_qcom_ion_host_ptr 1
-     * }
-     */
-    public static int cl_qcom_ion_host_ptr() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_ION_HOST_PTR_QCOM 16552
-     * }
-     */
-    public static int CL_MEM_ION_HOST_PTR_QCOM() {
-        return (int)16552L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_qcom_android_native_buffer_host_ptr 1
-     * }
-     */
-    public static int cl_qcom_android_native_buffer_host_ptr() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_ANDROID_NATIVE_BUFFER_HOST_PTR_QCOM 16582
-     * }
-     */
-    public static int CL_MEM_ANDROID_NATIVE_BUFFER_HOST_PTR_QCOM() {
-        return (int)16582L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_img_yuv_image 1
-     * }
-     */
-    public static int cl_img_yuv_image() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_NV21_IMG 16592
-     * }
-     */
-    public static int CL_NV21_IMG() {
-        return (int)16592L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_YV12_IMG 16593
-     * }
-     */
-    public static int CL_YV12_IMG() {
-        return (int)16593L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_img_cached_allocations 1
-     * }
-     */
-    public static int cl_img_cached_allocations() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_img_use_gralloc_ptr 1
-     * }
-     */
-    public static int cl_img_use_gralloc_ptr() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_GRALLOC_RESOURCE_NOT_ACQUIRED_IMG 16596
-     * }
-     */
-    public static int CL_GRALLOC_RESOURCE_NOT_ACQUIRED_IMG() {
-        return (int)16596L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_INVALID_GRALLOC_OBJECT_IMG 16597
-     * }
-     */
-    public static int CL_INVALID_GRALLOC_OBJECT_IMG() {
-        return (int)16597L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_ACQUIRE_GRALLOC_OBJECTS_IMG 16594
-     * }
-     */
-    public static int CL_COMMAND_ACQUIRE_GRALLOC_OBJECTS_IMG() {
-        return (int)16594L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_RELEASE_GRALLOC_OBJECTS_IMG 16595
-     * }
-     */
-    public static int CL_COMMAND_RELEASE_GRALLOC_OBJECTS_IMG() {
-        return (int)16595L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_img_generate_mipmap 1
-     * }
-     */
-    public static int cl_img_generate_mipmap() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MIPMAP_FILTER_ANY_IMG 0
-     * }
-     */
-    public static int CL_MIPMAP_FILTER_ANY_IMG() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MIPMAP_FILTER_BOX_IMG 1
-     * }
-     */
-    public static int CL_MIPMAP_FILTER_BOX_IMG() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_GENERATE_MIPMAP_IMG 16598
-     * }
-     */
-    public static int CL_COMMAND_GENERATE_MIPMAP_IMG() {
-        return (int)16598L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_img_mem_properties 1
-     * }
-     */
-    public static int cl_img_mem_properties() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_ALLOC_FLAGS_IMG 16599
-     * }
-     */
-    public static int CL_MEM_ALLOC_FLAGS_IMG() {
-        return (int)16599L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_subgroups 1
-     * }
-     */
-    public static int cl_khr_subgroups() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE_KHR 8243
-     * }
-     */
-    public static int CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE_KHR() {
-        return (int)8243L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_SUB_GROUP_COUNT_FOR_NDRANGE_KHR 8244
-     * }
-     */
-    public static int CL_KERNEL_SUB_GROUP_COUNT_FOR_NDRANGE_KHR() {
-        return (int)8244L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_mipmap_image 1
-     * }
-     */
-    public static int cl_khr_mipmap_image() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SAMPLER_MIP_FILTER_MODE_KHR 4437
-     * }
-     */
-    public static int CL_SAMPLER_MIP_FILTER_MODE_KHR() {
-        return (int)4437L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SAMPLER_LOD_MIN_KHR 4438
-     * }
-     */
-    public static int CL_SAMPLER_LOD_MIN_KHR() {
-        return (int)4438L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SAMPLER_LOD_MAX_KHR 4439
-     * }
-     */
-    public static int CL_SAMPLER_LOD_MAX_KHR() {
-        return (int)4439L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_priority_hints 1
-     * }
-     */
-    public static int cl_khr_priority_hints() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_PRIORITY_KHR 4246
-     * }
-     */
-    public static int CL_QUEUE_PRIORITY_KHR() {
-        return (int)4246L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_throttle_hints 1
-     * }
-     */
-    public static int cl_khr_throttle_hints() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_THROTTLE_KHR 4247
-     * }
-     */
-    public static int CL_QUEUE_THROTTLE_KHR() {
-        return (int)4247L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_subgroup_named_barrier 1
-     * }
-     */
-    public static int cl_khr_subgroup_named_barrier() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_NAMED_BARRIER_COUNT_KHR 8245
-     * }
-     */
-    public static int CL_DEVICE_MAX_NAMED_BARRIER_COUNT_KHR() {
-        return (int)8245L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_extended_versioning 1
-     * }
-     */
-    public static int cl_khr_extended_versioning() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_VERSION_MAJOR_BITS_KHR 10
-     * }
-     */
-    public static int CL_VERSION_MAJOR_BITS_KHR() {
-        return (int)10L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_VERSION_MINOR_BITS_KHR 10
-     * }
-     */
-    public static int CL_VERSION_MINOR_BITS_KHR() {
-        return (int)10L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_VERSION_PATCH_BITS_KHR 12
-     * }
-     */
-    public static int CL_VERSION_PATCH_BITS_KHR() {
-        return (int)12L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_NAME_VERSION_MAX_NAME_SIZE_KHR 64
-     * }
-     */
-    public static int CL_NAME_VERSION_MAX_NAME_SIZE_KHR() {
-        return (int)64L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_NUMERIC_VERSION_KHR 2310
-     * }
-     */
-    public static int CL_PLATFORM_NUMERIC_VERSION_KHR() {
-        return (int)2310L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_EXTENSIONS_WITH_VERSION_KHR 2311
-     * }
-     */
-    public static int CL_PLATFORM_EXTENSIONS_WITH_VERSION_KHR() {
-        return (int)2311L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NUMERIC_VERSION_KHR 4190
-     * }
-     */
-    public static int CL_DEVICE_NUMERIC_VERSION_KHR() {
-        return (int)4190L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_OPENCL_C_NUMERIC_VERSION_KHR 4191
-     * }
-     */
-    public static int CL_DEVICE_OPENCL_C_NUMERIC_VERSION_KHR() {
-        return (int)4191L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_EXTENSIONS_WITH_VERSION_KHR 4192
-     * }
-     */
-    public static int CL_DEVICE_EXTENSIONS_WITH_VERSION_KHR() {
-        return (int)4192L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_ILS_WITH_VERSION_KHR 4193
-     * }
-     */
-    public static int CL_DEVICE_ILS_WITH_VERSION_KHR() {
-        return (int)4193L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_BUILT_IN_KERNELS_WITH_VERSION_KHR 4194
-     * }
-     */
-    public static int CL_DEVICE_BUILT_IN_KERNELS_WITH_VERSION_KHR() {
-        return (int)4194L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_device_uuid 1
-     * }
-     */
-    public static int cl_khr_device_uuid() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_UUID_SIZE_KHR 16
-     * }
-     */
-    public static int CL_UUID_SIZE_KHR() {
-        return (int)16L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_LUID_SIZE_KHR 8
-     * }
-     */
-    public static int CL_LUID_SIZE_KHR() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_UUID_KHR 4202
-     * }
-     */
-    public static int CL_DEVICE_UUID_KHR() {
-        return (int)4202L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DRIVER_UUID_KHR 4203
-     * }
-     */
-    public static int CL_DRIVER_UUID_KHR() {
-        return (int)4203L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_LUID_VALID_KHR 4204
-     * }
-     */
-    public static int CL_DEVICE_LUID_VALID_KHR() {
-        return (int)4204L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_LUID_KHR 4205
-     * }
-     */
-    public static int CL_DEVICE_LUID_KHR() {
-        return (int)4205L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NODE_MASK_KHR 4206
-     * }
-     */
-    public static int CL_DEVICE_NODE_MASK_KHR() {
-        return (int)4206L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_pci_bus_info 1
-     * }
-     */
-    public static int cl_khr_pci_bus_info() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PCI_BUS_INFO_KHR 16655
-     * }
-     */
-    public static int CL_DEVICE_PCI_BUS_INFO_KHR() {
-        return (int)16655L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_suggested_local_work_size 1
-     * }
-     */
-    public static int cl_khr_suggested_local_work_size() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_integer_dot_product 1
-     * }
-     */
-    public static int cl_khr_integer_dot_product() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_INTEGER_DOT_PRODUCT_CAPABILITIES_KHR 4211
-     * }
-     */
-    public static int CL_DEVICE_INTEGER_DOT_PRODUCT_CAPABILITIES_KHR() {
-        return (int)4211L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_INTEGER_DOT_PRODUCT_ACCELERATION_PROPERTIES_8BIT_KHR 4212
-     * }
-     */
-    public static int CL_DEVICE_INTEGER_DOT_PRODUCT_ACCELERATION_PROPERTIES_8BIT_KHR() {
-        return (int)4212L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_INTEGER_DOT_PRODUCT_ACCELERATION_PROPERTIES_4x8BIT_PACKED_KHR 4213
-     * }
-     */
-    public static int CL_DEVICE_INTEGER_DOT_PRODUCT_ACCELERATION_PROPERTIES_4x8BIT_PACKED_KHR() {
-        return (int)4213L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_external_memory 1
-     * }
-     */
-    public static int cl_khr_external_memory() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_EXTERNAL_MEMORY_IMPORT_HANDLE_TYPES_KHR 8260
-     * }
-     */
-    public static int CL_PLATFORM_EXTERNAL_MEMORY_IMPORT_HANDLE_TYPES_KHR() {
-        return (int)8260L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_EXTERNAL_MEMORY_IMPORT_HANDLE_TYPES_KHR 8271
-     * }
-     */
-    public static int CL_DEVICE_EXTERNAL_MEMORY_IMPORT_HANDLE_TYPES_KHR() {
-        return (int)8271L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_HANDLE_LIST_KHR 8273
-     * }
-     */
-    public static int CL_DEVICE_HANDLE_LIST_KHR() {
-        return (int)8273L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_HANDLE_LIST_END_KHR 0
-     * }
-     */
-    public static int CL_DEVICE_HANDLE_LIST_END_KHR() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_ACQUIRE_EXTERNAL_MEM_OBJECTS_KHR 8263
-     * }
-     */
-    public static int CL_COMMAND_ACQUIRE_EXTERNAL_MEM_OBJECTS_KHR() {
-        return (int)8263L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_RELEASE_EXTERNAL_MEM_OBJECTS_KHR 8264
-     * }
-     */
-    public static int CL_COMMAND_RELEASE_EXTERNAL_MEM_OBJECTS_KHR() {
-        return (int)8264L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_external_memory_dma_buf 1
-     * }
-     */
-    public static int cl_khr_external_memory_dma_buf() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EXTERNAL_MEMORY_HANDLE_DMA_BUF_KHR 8295
-     * }
-     */
-    public static int CL_EXTERNAL_MEMORY_HANDLE_DMA_BUF_KHR() {
-        return (int)8295L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_external_memory_dx 1
-     * }
-     */
-    public static int cl_khr_external_memory_dx() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EXTERNAL_MEMORY_HANDLE_D3D11_TEXTURE_KHR 8291
-     * }
-     */
-    public static int CL_EXTERNAL_MEMORY_HANDLE_D3D11_TEXTURE_KHR() {
-        return (int)8291L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EXTERNAL_MEMORY_HANDLE_D3D11_TEXTURE_KMT_KHR 8292
-     * }
-     */
-    public static int CL_EXTERNAL_MEMORY_HANDLE_D3D11_TEXTURE_KMT_KHR() {
-        return (int)8292L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EXTERNAL_MEMORY_HANDLE_D3D12_HEAP_KHR 8293
-     * }
-     */
-    public static int CL_EXTERNAL_MEMORY_HANDLE_D3D12_HEAP_KHR() {
-        return (int)8293L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EXTERNAL_MEMORY_HANDLE_D3D12_RESOURCE_KHR 8294
-     * }
-     */
-    public static int CL_EXTERNAL_MEMORY_HANDLE_D3D12_RESOURCE_KHR() {
-        return (int)8294L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_external_memory_opaque_fd 1
-     * }
-     */
-    public static int cl_khr_external_memory_opaque_fd() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_FD_KHR 8288
-     * }
-     */
-    public static int CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_FD_KHR() {
-        return (int)8288L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_external_memory_win32 1
-     * }
-     */
-    public static int cl_khr_external_memory_win32() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_WIN32_KHR 8289
-     * }
-     */
-    public static int CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_WIN32_KHR() {
-        return (int)8289L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_WIN32_KMT_KHR 8290
-     * }
-     */
-    public static int CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_WIN32_KMT_KHR() {
-        return (int)8290L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_external_semaphore 1
-     * }
-     */
-    public static int cl_khr_external_semaphore() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_SEMAPHORE_IMPORT_HANDLE_TYPES_KHR 8247
-     * }
-     */
-    public static int CL_PLATFORM_SEMAPHORE_IMPORT_HANDLE_TYPES_KHR() {
-        return (int)8247L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_SEMAPHORE_EXPORT_HANDLE_TYPES_KHR 8248
-     * }
-     */
-    public static int CL_PLATFORM_SEMAPHORE_EXPORT_HANDLE_TYPES_KHR() {
-        return (int)8248L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SEMAPHORE_IMPORT_HANDLE_TYPES_KHR 8269
-     * }
-     */
-    public static int CL_DEVICE_SEMAPHORE_IMPORT_HANDLE_TYPES_KHR() {
-        return (int)8269L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SEMAPHORE_EXPORT_HANDLE_TYPES_KHR 8270
-     * }
-     */
-    public static int CL_DEVICE_SEMAPHORE_EXPORT_HANDLE_TYPES_KHR() {
-        return (int)8270L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SEMAPHORE_EXPORT_HANDLE_TYPES_KHR 8255
-     * }
-     */
-    public static int CL_SEMAPHORE_EXPORT_HANDLE_TYPES_KHR() {
-        return (int)8255L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SEMAPHORE_EXPORT_HANDLE_TYPES_LIST_END_KHR 0
-     * }
-     */
-    public static int CL_SEMAPHORE_EXPORT_HANDLE_TYPES_LIST_END_KHR() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_external_semaphore_dx_fence 1
-     * }
-     */
-    public static int cl_khr_external_semaphore_dx_fence() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SEMAPHORE_HANDLE_D3D12_FENCE_KHR 8281
-     * }
-     */
-    public static int CL_SEMAPHORE_HANDLE_D3D12_FENCE_KHR() {
-        return (int)8281L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_external_semaphore_opaque_fd 1
-     * }
-     */
-    public static int cl_khr_external_semaphore_opaque_fd() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SEMAPHORE_HANDLE_OPAQUE_FD_KHR 8277
-     * }
-     */
-    public static int CL_SEMAPHORE_HANDLE_OPAQUE_FD_KHR() {
-        return (int)8277L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_external_semaphore_sync_fd 1
-     * }
-     */
-    public static int cl_khr_external_semaphore_sync_fd() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SEMAPHORE_HANDLE_SYNC_FD_KHR 8280
-     * }
-     */
-    public static int CL_SEMAPHORE_HANDLE_SYNC_FD_KHR() {
-        return (int)8280L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_external_semaphore_win32 1
-     * }
-     */
-    public static int cl_khr_external_semaphore_win32() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SEMAPHORE_HANDLE_OPAQUE_WIN32_KHR 8278
-     * }
-     */
-    public static int CL_SEMAPHORE_HANDLE_OPAQUE_WIN32_KHR() {
-        return (int)8278L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SEMAPHORE_HANDLE_OPAQUE_WIN32_KMT_KHR 8279
-     * }
-     */
-    public static int CL_SEMAPHORE_HANDLE_OPAQUE_WIN32_KMT_KHR() {
-        return (int)8279L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_semaphore 1
-     * }
-     */
-    public static int cl_khr_semaphore() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SEMAPHORE_TYPE_BINARY_KHR 1
-     * }
-     */
-    public static int CL_SEMAPHORE_TYPE_BINARY_KHR() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PLATFORM_SEMAPHORE_TYPES_KHR 8246
-     * }
-     */
-    public static int CL_PLATFORM_SEMAPHORE_TYPES_KHR() {
-        return (int)8246L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SEMAPHORE_TYPES_KHR 8268
-     * }
-     */
-    public static int CL_DEVICE_SEMAPHORE_TYPES_KHR() {
-        return (int)8268L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SEMAPHORE_CONTEXT_KHR 8249
-     * }
-     */
-    public static int CL_SEMAPHORE_CONTEXT_KHR() {
-        return (int)8249L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SEMAPHORE_REFERENCE_COUNT_KHR 8250
-     * }
-     */
-    public static int CL_SEMAPHORE_REFERENCE_COUNT_KHR() {
-        return (int)8250L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SEMAPHORE_PROPERTIES_KHR 8251
-     * }
-     */
-    public static int CL_SEMAPHORE_PROPERTIES_KHR() {
-        return (int)8251L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SEMAPHORE_PAYLOAD_KHR 8252
-     * }
-     */
-    public static int CL_SEMAPHORE_PAYLOAD_KHR() {
-        return (int)8252L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_SEMAPHORE_TYPE_KHR 8253
-     * }
-     */
-    public static int CL_SEMAPHORE_TYPE_KHR() {
-        return (int)8253L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_SEMAPHORE_WAIT_KHR 8258
-     * }
-     */
-    public static int CL_COMMAND_SEMAPHORE_WAIT_KHR() {
-        return (int)8258L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_SEMAPHORE_SIGNAL_KHR 8259
-     * }
-     */
-    public static int CL_COMMAND_SEMAPHORE_SIGNAL_KHR() {
-        return (int)8259L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_arm_import_memory 1
-     * }
-     */
-    public static int cl_arm_import_memory() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMPORT_TYPE_ARM 16562
-     * }
-     */
-    public static int CL_IMPORT_TYPE_ARM() {
-        return (int)16562L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMPORT_TYPE_HOST_ARM 16563
-     * }
-     */
-    public static int CL_IMPORT_TYPE_HOST_ARM() {
-        return (int)16563L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMPORT_TYPE_DMA_BUF_ARM 16564
-     * }
-     */
-    public static int CL_IMPORT_TYPE_DMA_BUF_ARM() {
-        return (int)16564L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMPORT_TYPE_PROTECTED_ARM 16565
-     * }
-     */
-    public static int CL_IMPORT_TYPE_PROTECTED_ARM() {
-        return (int)16565L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMPORT_TYPE_ANDROID_HARDWARE_BUFFER_ARM 16866
-     * }
-     */
-    public static int CL_IMPORT_TYPE_ANDROID_HARDWARE_BUFFER_ARM() {
-        return (int)16866L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMPORT_DMA_BUF_DATA_CONSISTENCY_WITH_HOST_ARM 16867
-     * }
-     */
-    public static int CL_IMPORT_DMA_BUF_DATA_CONSISTENCY_WITH_HOST_ARM() {
-        return (int)16867L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMPORT_ANDROID_HARDWARE_BUFFER_PLANE_INDEX_ARM 16879
-     * }
-     */
-    public static int CL_IMPORT_ANDROID_HARDWARE_BUFFER_PLANE_INDEX_ARM() {
-        return (int)16879L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMPORT_ANDROID_HARDWARE_BUFFER_LAYER_INDEX_ARM 16880
-     * }
-     */
-    public static int CL_IMPORT_ANDROID_HARDWARE_BUFFER_LAYER_INDEX_ARM() {
-        return (int)16880L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_arm_shared_virtual_memory 1
-     * }
-     */
-    public static int cl_arm_shared_virtual_memory() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SVM_CAPABILITIES_ARM 16566
-     * }
-     */
-    public static int CL_DEVICE_SVM_CAPABILITIES_ARM() {
-        return (int)16566L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_USES_SVM_POINTER_ARM 16567
-     * }
-     */
-    public static int CL_MEM_USES_SVM_POINTER_ARM() {
-        return (int)16567L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_EXEC_INFO_SVM_PTRS_ARM 16568
-     * }
-     */
-    public static int CL_KERNEL_EXEC_INFO_SVM_PTRS_ARM() {
-        return (int)16568L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM_ARM 16569
-     * }
-     */
-    public static int CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM_ARM() {
-        return (int)16569L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_SVM_FREE_ARM 16570
-     * }
-     */
-    public static int CL_COMMAND_SVM_FREE_ARM() {
-        return (int)16570L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_SVM_MEMCPY_ARM 16571
-     * }
-     */
-    public static int CL_COMMAND_SVM_MEMCPY_ARM() {
-        return (int)16571L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_SVM_MEMFILL_ARM 16572
-     * }
-     */
-    public static int CL_COMMAND_SVM_MEMFILL_ARM() {
-        return (int)16572L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_SVM_MAP_ARM 16573
-     * }
-     */
-    public static int CL_COMMAND_SVM_MAP_ARM() {
-        return (int)16573L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_SVM_UNMAP_ARM 16574
-     * }
-     */
-    public static int CL_COMMAND_SVM_UNMAP_ARM() {
-        return (int)16574L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_arm_get_core_id 1
-     * }
-     */
-    public static int cl_arm_get_core_id() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_COMPUTE_UNITS_BITFIELD_ARM 16575
-     * }
-     */
-    public static int CL_DEVICE_COMPUTE_UNITS_BITFIELD_ARM() {
-        return (int)16575L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_arm_job_slot_selection 1
-     * }
-     */
-    public static int cl_arm_job_slot_selection() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_JOB_SLOTS_ARM 16864
-     * }
-     */
-    public static int CL_DEVICE_JOB_SLOTS_ARM() {
-        return (int)16864L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_JOB_SLOT_ARM 16865
-     * }
-     */
-    public static int CL_QUEUE_JOB_SLOT_ARM() {
-        return (int)16865L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_arm_scheduling_controls 1
-     * }
-     */
-    public static int cl_arm_scheduling_controls() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SCHEDULING_CONTROLS_CAPABILITIES_ARM 16868
-     * }
-     */
-    public static int CL_DEVICE_SCHEDULING_CONTROLS_CAPABILITIES_ARM() {
-        return (int)16868L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SUPPORTED_REGISTER_ALLOCATIONS_ARM 16875
-     * }
-     */
-    public static int CL_DEVICE_SUPPORTED_REGISTER_ALLOCATIONS_ARM() {
-        return (int)16875L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_MAX_WARP_COUNT_ARM 16874
-     * }
-     */
-    public static int CL_DEVICE_MAX_WARP_COUNT_ARM() {
-        return (int)16874L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_ARM 16869
-     * }
-     */
-    public static int CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_ARM() {
-        return (int)16869L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_MODIFIER_ARM 16870
-     * }
-     */
-    public static int CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_MODIFIER_ARM() {
-        return (int)16870L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_EXEC_INFO_WARP_COUNT_LIMIT_ARM 16872
-     * }
-     */
-    public static int CL_KERNEL_EXEC_INFO_WARP_COUNT_LIMIT_ARM() {
-        return (int)16872L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_EXEC_INFO_COMPUTE_UNIT_MAX_QUEUED_BATCHES_ARM 16881
-     * }
-     */
-    public static int CL_KERNEL_EXEC_INFO_COMPUTE_UNIT_MAX_QUEUED_BATCHES_ARM() {
-        return (int)16881L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_MAX_WARP_COUNT_ARM 16873
-     * }
-     */
-    public static int CL_KERNEL_MAX_WARP_COUNT_ARM() {
-        return (int)16873L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_KERNEL_BATCHING_ARM 16871
-     * }
-     */
-    public static int CL_QUEUE_KERNEL_BATCHING_ARM() {
-        return (int)16871L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_DEFERRED_FLUSH_ARM 16876
-     * }
-     */
-    public static int CL_QUEUE_DEFERRED_FLUSH_ARM() {
-        return (int)16876L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_arm_controlled_kernel_termination 1
-     * }
-     */
-    public static int cl_arm_controlled_kernel_termination() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_CONTROLLED_TERMINATION_CAPABILITIES_ARM 16878
-     * }
-     */
-    public static int CL_DEVICE_CONTROLLED_TERMINATION_CAPABILITIES_ARM() {
-        return (int)16878L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EVENT_COMMAND_TERMINATION_REASON_ARM 16877
-     * }
-     */
-    public static int CL_EVENT_COMMAND_TERMINATION_REASON_ARM() {
-        return (int)16877L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_TERMINATION_COMPLETION_ARM 0
-     * }
-     */
-    public static int CL_COMMAND_TERMINATION_COMPLETION_ARM() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_TERMINATION_CONTROLLED_SUCCESS_ARM 1
-     * }
-     */
-    public static int CL_COMMAND_TERMINATION_CONTROLLED_SUCCESS_ARM() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_TERMINATION_CONTROLLED_FAILURE_ARM 2
-     * }
-     */
-    public static int CL_COMMAND_TERMINATION_CONTROLLED_FAILURE_ARM() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_TERMINATION_ERROR_ARM 3
-     * }
-     */
-    public static int CL_COMMAND_TERMINATION_ERROR_ARM() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_arm_protected_memory_allocation 1
-     * }
-     */
-    public static int cl_arm_protected_memory_allocation() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_exec_by_local_thread 1
-     * }
-     */
-    public static int cl_intel_exec_by_local_thread() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_device_attribute_query 1
-     * }
-     */
-    public static int cl_intel_device_attribute_query() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_IP_VERSION_INTEL 16976
-     * }
-     */
-    public static int CL_DEVICE_IP_VERSION_INTEL() {
-        return (int)16976L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_ID_INTEL 16977
-     * }
-     */
-    public static int CL_DEVICE_ID_INTEL() {
-        return (int)16977L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NUM_SLICES_INTEL 16978
-     * }
-     */
-    public static int CL_DEVICE_NUM_SLICES_INTEL() {
-        return (int)16978L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NUM_SUB_SLICES_PER_SLICE_INTEL 16979
-     * }
-     */
-    public static int CL_DEVICE_NUM_SUB_SLICES_PER_SLICE_INTEL() {
-        return (int)16979L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NUM_EUS_PER_SUB_SLICE_INTEL 16980
-     * }
-     */
-    public static int CL_DEVICE_NUM_EUS_PER_SUB_SLICE_INTEL() {
-        return (int)16980L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NUM_THREADS_PER_EU_INTEL 16981
-     * }
-     */
-    public static int CL_DEVICE_NUM_THREADS_PER_EU_INTEL() {
-        return (int)16981L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_FEATURE_CAPABILITIES_INTEL 16982
-     * }
-     */
-    public static int CL_DEVICE_FEATURE_CAPABILITIES_INTEL() {
-        return (int)16982L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_device_partition_by_names 1
-     * }
-     */
-    public static int cl_intel_device_partition_by_names() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PARTITION_BY_NAMES_INTEL 16466
-     * }
-     */
-    public static int CL_DEVICE_PARTITION_BY_NAMES_INTEL() {
-        return (int)16466L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_accelerator 1
-     * }
-     */
-    public static int cl_intel_accelerator() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ACCELERATOR_DESCRIPTOR_INTEL 16528
-     * }
-     */
-    public static int CL_ACCELERATOR_DESCRIPTOR_INTEL() {
-        return (int)16528L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ACCELERATOR_REFERENCE_COUNT_INTEL 16529
-     * }
-     */
-    public static int CL_ACCELERATOR_REFERENCE_COUNT_INTEL() {
-        return (int)16529L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ACCELERATOR_CONTEXT_INTEL 16530
-     * }
-     */
-    public static int CL_ACCELERATOR_CONTEXT_INTEL() {
-        return (int)16530L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ACCELERATOR_TYPE_INTEL 16531
-     * }
-     */
-    public static int CL_ACCELERATOR_TYPE_INTEL() {
-        return (int)16531L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_motion_estimation 1
-     * }
-     */
-    public static int cl_intel_motion_estimation() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ACCELERATOR_TYPE_MOTION_ESTIMATION_INTEL 0
-     * }
-     */
-    public static int CL_ACCELERATOR_TYPE_MOTION_ESTIMATION_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_MB_TYPE_16x16_INTEL 0
-     * }
-     */
-    public static int CL_ME_MB_TYPE_16x16_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_MB_TYPE_8x8_INTEL 1
-     * }
-     */
-    public static int CL_ME_MB_TYPE_8x8_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_MB_TYPE_4x4_INTEL 2
-     * }
-     */
-    public static int CL_ME_MB_TYPE_4x4_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_SUBPIXEL_MODE_INTEGER_INTEL 0
-     * }
-     */
-    public static int CL_ME_SUBPIXEL_MODE_INTEGER_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_SUBPIXEL_MODE_HPEL_INTEL 1
-     * }
-     */
-    public static int CL_ME_SUBPIXEL_MODE_HPEL_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_SUBPIXEL_MODE_QPEL_INTEL 2
-     * }
-     */
-    public static int CL_ME_SUBPIXEL_MODE_QPEL_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_SAD_ADJUST_MODE_NONE_INTEL 0
-     * }
-     */
-    public static int CL_ME_SAD_ADJUST_MODE_NONE_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_SAD_ADJUST_MODE_HAAR_INTEL 1
-     * }
-     */
-    public static int CL_ME_SAD_ADJUST_MODE_HAAR_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_SEARCH_PATH_RADIUS_2_2_INTEL 0
-     * }
-     */
-    public static int CL_ME_SEARCH_PATH_RADIUS_2_2_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_SEARCH_PATH_RADIUS_4_4_INTEL 1
-     * }
-     */
-    public static int CL_ME_SEARCH_PATH_RADIUS_4_4_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_SEARCH_PATH_RADIUS_16_12_INTEL 5
-     * }
-     */
-    public static int CL_ME_SEARCH_PATH_RADIUS_16_12_INTEL() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_advanced_motion_estimation 1
-     * }
-     */
-    public static int cl_intel_advanced_motion_estimation() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_ME_VERSION_INTEL 16510
-     * }
-     */
-    public static int CL_DEVICE_ME_VERSION_INTEL() {
-        return (int)16510L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_VERSION_LEGACY_INTEL 0
-     * }
-     */
-    public static int CL_ME_VERSION_LEGACY_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_VERSION_ADVANCED_VER_1_INTEL 1
-     * }
-     */
-    public static int CL_ME_VERSION_ADVANCED_VER_1_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_VERSION_ADVANCED_VER_2_INTEL 2
-     * }
-     */
-    public static int CL_ME_VERSION_ADVANCED_VER_2_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_CHROMA_INTRA_PREDICT_ENABLED_INTEL 1
-     * }
-     */
-    public static int CL_ME_CHROMA_INTRA_PREDICT_ENABLED_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_LUMA_INTRA_PREDICT_ENABLED_INTEL 2
-     * }
-     */
-    public static int CL_ME_LUMA_INTRA_PREDICT_ENABLED_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_SKIP_BLOCK_TYPE_16x16_INTEL 0
-     * }
-     */
-    public static int CL_ME_SKIP_BLOCK_TYPE_16x16_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_SKIP_BLOCK_TYPE_8x8_INTEL 1
-     * }
-     */
-    public static int CL_ME_SKIP_BLOCK_TYPE_8x8_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_COST_PENALTY_NONE_INTEL 0
-     * }
-     */
-    public static int CL_ME_COST_PENALTY_NONE_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_COST_PENALTY_LOW_INTEL 1
-     * }
-     */
-    public static int CL_ME_COST_PENALTY_LOW_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_COST_PENALTY_NORMAL_INTEL 2
-     * }
-     */
-    public static int CL_ME_COST_PENALTY_NORMAL_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_COST_PENALTY_HIGH_INTEL 3
-     * }
-     */
-    public static int CL_ME_COST_PENALTY_HIGH_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_COST_PRECISION_QPEL_INTEL 0
-     * }
-     */
-    public static int CL_ME_COST_PRECISION_QPEL_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_COST_PRECISION_HPEL_INTEL 1
-     * }
-     */
-    public static int CL_ME_COST_PRECISION_HPEL_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_COST_PRECISION_PEL_INTEL 2
-     * }
-     */
-    public static int CL_ME_COST_PRECISION_PEL_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_COST_PRECISION_DPEL_INTEL 3
-     * }
-     */
-    public static int CL_ME_COST_PRECISION_DPEL_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_INTEL 0
-     * }
-     */
-    public static int CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_INTEL 1
-     * }
-     */
-    public static int CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_LUMA_PREDICTOR_MODE_DC_INTEL 2
-     * }
-     */
-    public static int CL_ME_LUMA_PREDICTOR_MODE_DC_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_LEFT_INTEL 3
-     * }
-     */
-    public static int CL_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_LEFT_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_RIGHT_INTEL 4
-     * }
-     */
-    public static int CL_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_RIGHT_INTEL() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_LUMA_PREDICTOR_MODE_PLANE_INTEL 4
-     * }
-     */
-    public static int CL_ME_LUMA_PREDICTOR_MODE_PLANE_INTEL() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_RIGHT_INTEL 5
-     * }
-     */
-    public static int CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_RIGHT_INTEL() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_DOWN_INTEL 6
-     * }
-     */
-    public static int CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_DOWN_INTEL() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_LEFT_INTEL 7
-     * }
-     */
-    public static int CL_ME_LUMA_PREDICTOR_MODE_VERTICAL_LEFT_INTEL() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_UP_INTEL 8
-     * }
-     */
-    public static int CL_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_UP_INTEL() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_CHROMA_PREDICTOR_MODE_DC_INTEL 0
-     * }
-     */
-    public static int CL_ME_CHROMA_PREDICTOR_MODE_DC_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_CHROMA_PREDICTOR_MODE_HORIZONTAL_INTEL 1
-     * }
-     */
-    public static int CL_ME_CHROMA_PREDICTOR_MODE_HORIZONTAL_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_CHROMA_PREDICTOR_MODE_VERTICAL_INTEL 2
-     * }
-     */
-    public static int CL_ME_CHROMA_PREDICTOR_MODE_VERTICAL_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_CHROMA_PREDICTOR_MODE_PLANE_INTEL 3
-     * }
-     */
-    public static int CL_ME_CHROMA_PREDICTOR_MODE_PLANE_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_FORWARD_INPUT_MODE_INTEL 1
-     * }
-     */
-    public static int CL_ME_FORWARD_INPUT_MODE_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_BACKWARD_INPUT_MODE_INTEL 2
-     * }
-     */
-    public static int CL_ME_BACKWARD_INPUT_MODE_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_BIDIRECTION_INPUT_MODE_INTEL 3
-     * }
-     */
-    public static int CL_ME_BIDIRECTION_INPUT_MODE_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_BIDIR_WEIGHT_QUARTER_INTEL 16
-     * }
-     */
-    public static int CL_ME_BIDIR_WEIGHT_QUARTER_INTEL() {
-        return (int)16L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_BIDIR_WEIGHT_THIRD_INTEL 21
-     * }
-     */
-    public static int CL_ME_BIDIR_WEIGHT_THIRD_INTEL() {
-        return (int)21L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_BIDIR_WEIGHT_HALF_INTEL 32
-     * }
-     */
-    public static int CL_ME_BIDIR_WEIGHT_HALF_INTEL() {
-        return (int)32L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_BIDIR_WEIGHT_TWO_THIRD_INTEL 43
-     * }
-     */
-    public static int CL_ME_BIDIR_WEIGHT_TWO_THIRD_INTEL() {
-        return (int)43L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ME_BIDIR_WEIGHT_THREE_QUARTER_INTEL 48
-     * }
-     */
-    public static int CL_ME_BIDIR_WEIGHT_THREE_QUARTER_INTEL() {
-        return (int)48L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_simultaneous_sharing 1
-     * }
-     */
-    public static int cl_intel_simultaneous_sharing() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SIMULTANEOUS_INTEROPS_INTEL 16644
-     * }
-     */
-    public static int CL_DEVICE_SIMULTANEOUS_INTEROPS_INTEL() {
-        return (int)16644L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_NUM_SIMULTANEOUS_INTEROPS_INTEL 16645
-     * }
-     */
-    public static int CL_DEVICE_NUM_SIMULTANEOUS_INTEROPS_INTEL() {
-        return (int)16645L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_egl_image_yuv 1
-     * }
-     */
-    public static int cl_intel_egl_image_yuv() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_EGL_YUV_PLANE_INTEL 16647
-     * }
-     */
-    public static int CL_EGL_YUV_PLANE_INTEL() {
-        return (int)16647L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_packed_yuv 1
-     * }
-     */
-    public static int cl_intel_packed_yuv() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_YUYV_INTEL 16502
-     * }
-     */
-    public static int CL_YUYV_INTEL() {
-        return (int)16502L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_UYVY_INTEL 16503
-     * }
-     */
-    public static int CL_UYVY_INTEL() {
-        return (int)16503L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_YVYU_INTEL 16504
-     * }
-     */
-    public static int CL_YVYU_INTEL() {
-        return (int)16504L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_VYUY_INTEL 16505
-     * }
-     */
-    public static int CL_VYUY_INTEL() {
-        return (int)16505L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_required_subgroup_size 1
-     * }
-     */
-    public static int cl_intel_required_subgroup_size() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SUB_GROUP_SIZES_INTEL 16648
-     * }
-     */
-    public static int CL_DEVICE_SUB_GROUP_SIZES_INTEL() {
-        return (int)16648L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_SPILL_MEM_SIZE_INTEL 16649
-     * }
-     */
-    public static int CL_KERNEL_SPILL_MEM_SIZE_INTEL() {
-        return (int)16649L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_COMPILE_SUB_GROUP_SIZE_INTEL 16650
-     * }
-     */
-    public static int CL_KERNEL_COMPILE_SUB_GROUP_SIZE_INTEL() {
-        return (int)16650L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_driver_diagnostics 1
-     * }
-     */
-    public static int cl_intel_driver_diagnostics() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_CONTEXT_SHOW_DIAGNOSTICS_INTEL 16646
-     * }
-     */
-    public static int CL_CONTEXT_SHOW_DIAGNOSTICS_INTEL() {
-        return (int)16646L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_CONTEXT_DIAGNOSTICS_LEVEL_ALL_INTEL 255
-     * }
-     */
-    public static int CL_CONTEXT_DIAGNOSTICS_LEVEL_ALL_INTEL() {
-        return (int)255L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_planar_yuv 1
-     * }
-     */
-    public static int cl_intel_planar_yuv() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_NV12_INTEL 16654
-     * }
-     */
-    public static int CL_NV12_INTEL() {
-        return (int)16654L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PLANAR_YUV_MAX_WIDTH_INTEL 16766
-     * }
-     */
-    public static int CL_DEVICE_PLANAR_YUV_MAX_WIDTH_INTEL() {
-        return (int)16766L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_PLANAR_YUV_MAX_HEIGHT_INTEL 16767
-     * }
-     */
-    public static int CL_DEVICE_PLANAR_YUV_MAX_HEIGHT_INTEL() {
-        return (int)16767L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_device_side_avc_motion_estimation 1
-     * }
-     */
-    public static int cl_intel_device_side_avc_motion_estimation() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_AVC_ME_VERSION_INTEL 16651
-     * }
-     */
-    public static int CL_DEVICE_AVC_ME_VERSION_INTEL() {
-        return (int)16651L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_AVC_ME_SUPPORTS_TEXTURE_SAMPLER_USE_INTEL 16652
-     * }
-     */
-    public static int CL_DEVICE_AVC_ME_SUPPORTS_TEXTURE_SAMPLER_USE_INTEL() {
-        return (int)16652L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_AVC_ME_SUPPORTS_PREEMPTION_INTEL 16653
-     * }
-     */
-    public static int CL_DEVICE_AVC_ME_SUPPORTS_PREEMPTION_INTEL() {
-        return (int)16653L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_VERSION_0_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_VERSION_0_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_VERSION_1_INTEL 1
-     * }
-     */
-    public static int CL_AVC_ME_VERSION_1_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_MAJOR_16x16_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_MAJOR_16x16_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_MAJOR_16x8_INTEL 1
-     * }
-     */
-    public static int CL_AVC_ME_MAJOR_16x8_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_MAJOR_8x16_INTEL 2
-     * }
-     */
-    public static int CL_AVC_ME_MAJOR_8x16_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_MAJOR_8x8_INTEL 3
-     * }
-     */
-    public static int CL_AVC_ME_MAJOR_8x8_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_MINOR_8x8_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_MINOR_8x8_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_MINOR_8x4_INTEL 1
-     * }
-     */
-    public static int CL_AVC_ME_MINOR_8x4_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_MINOR_4x8_INTEL 2
-     * }
-     */
-    public static int CL_AVC_ME_MINOR_4x8_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_MINOR_4x4_INTEL 3
-     * }
-     */
-    public static int CL_AVC_ME_MINOR_4x4_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_MAJOR_FORWARD_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_MAJOR_FORWARD_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_MAJOR_BACKWARD_INTEL 1
-     * }
-     */
-    public static int CL_AVC_ME_MAJOR_BACKWARD_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_MAJOR_BIDIRECTIONAL_INTEL 2
-     * }
-     */
-    public static int CL_AVC_ME_MAJOR_BIDIRECTIONAL_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_PARTITION_MASK_ALL_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_PARTITION_MASK_ALL_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_PARTITION_MASK_16x16_INTEL 126
-     * }
-     */
-    public static int CL_AVC_ME_PARTITION_MASK_16x16_INTEL() {
-        return (int)126L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_PARTITION_MASK_16x8_INTEL 125
-     * }
-     */
-    public static int CL_AVC_ME_PARTITION_MASK_16x8_INTEL() {
-        return (int)125L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_PARTITION_MASK_8x16_INTEL 123
-     * }
-     */
-    public static int CL_AVC_ME_PARTITION_MASK_8x16_INTEL() {
-        return (int)123L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_PARTITION_MASK_8x8_INTEL 119
-     * }
-     */
-    public static int CL_AVC_ME_PARTITION_MASK_8x8_INTEL() {
-        return (int)119L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_PARTITION_MASK_8x4_INTEL 111
-     * }
-     */
-    public static int CL_AVC_ME_PARTITION_MASK_8x4_INTEL() {
-        return (int)111L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_PARTITION_MASK_4x8_INTEL 95
-     * }
-     */
-    public static int CL_AVC_ME_PARTITION_MASK_4x8_INTEL() {
-        return (int)95L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_PARTITION_MASK_4x4_INTEL 63
-     * }
-     */
-    public static int CL_AVC_ME_PARTITION_MASK_4x4_INTEL() {
-        return (int)63L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SEARCH_WINDOW_EXHAUSTIVE_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_SEARCH_WINDOW_EXHAUSTIVE_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SEARCH_WINDOW_SMALL_INTEL 1
-     * }
-     */
-    public static int CL_AVC_ME_SEARCH_WINDOW_SMALL_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SEARCH_WINDOW_TINY_INTEL 2
-     * }
-     */
-    public static int CL_AVC_ME_SEARCH_WINDOW_TINY_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SEARCH_WINDOW_EXTRA_TINY_INTEL 3
-     * }
-     */
-    public static int CL_AVC_ME_SEARCH_WINDOW_EXTRA_TINY_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SEARCH_WINDOW_DIAMOND_INTEL 4
-     * }
-     */
-    public static int CL_AVC_ME_SEARCH_WINDOW_DIAMOND_INTEL() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SEARCH_WINDOW_LARGE_DIAMOND_INTEL 5
-     * }
-     */
-    public static int CL_AVC_ME_SEARCH_WINDOW_LARGE_DIAMOND_INTEL() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SEARCH_WINDOW_RESERVED0_INTEL 6
-     * }
-     */
-    public static int CL_AVC_ME_SEARCH_WINDOW_RESERVED0_INTEL() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SEARCH_WINDOW_RESERVED1_INTEL 7
-     * }
-     */
-    public static int CL_AVC_ME_SEARCH_WINDOW_RESERVED1_INTEL() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SEARCH_WINDOW_CUSTOM_INTEL 8
-     * }
-     */
-    public static int CL_AVC_ME_SEARCH_WINDOW_CUSTOM_INTEL() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SEARCH_WINDOW_16x12_RADIUS_INTEL 9
-     * }
-     */
-    public static int CL_AVC_ME_SEARCH_WINDOW_16x12_RADIUS_INTEL() {
-        return (int)9L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SEARCH_WINDOW_4x4_RADIUS_INTEL 2
-     * }
-     */
-    public static int CL_AVC_ME_SEARCH_WINDOW_4x4_RADIUS_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SEARCH_WINDOW_2x2_RADIUS_INTEL 10
-     * }
-     */
-    public static int CL_AVC_ME_SEARCH_WINDOW_2x2_RADIUS_INTEL() {
-        return (int)10L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SAD_ADJUST_MODE_NONE_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_SAD_ADJUST_MODE_NONE_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SAD_ADJUST_MODE_HAAR_INTEL 2
-     * }
-     */
-    public static int CL_AVC_ME_SAD_ADJUST_MODE_HAAR_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SUBPIXEL_MODE_INTEGER_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_SUBPIXEL_MODE_INTEGER_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SUBPIXEL_MODE_HPEL_INTEL 1
-     * }
-     */
-    public static int CL_AVC_ME_SUBPIXEL_MODE_HPEL_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SUBPIXEL_MODE_QPEL_INTEL 3
-     * }
-     */
-    public static int CL_AVC_ME_SUBPIXEL_MODE_QPEL_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_COST_PRECISION_QPEL_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_COST_PRECISION_QPEL_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_COST_PRECISION_HPEL_INTEL 1
-     * }
-     */
-    public static int CL_AVC_ME_COST_PRECISION_HPEL_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_COST_PRECISION_PEL_INTEL 2
-     * }
-     */
-    public static int CL_AVC_ME_COST_PRECISION_PEL_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_COST_PRECISION_DPEL_INTEL 3
-     * }
-     */
-    public static int CL_AVC_ME_COST_PRECISION_DPEL_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_BIDIR_WEIGHT_QUARTER_INTEL 16
-     * }
-     */
-    public static int CL_AVC_ME_BIDIR_WEIGHT_QUARTER_INTEL() {
-        return (int)16L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_BIDIR_WEIGHT_THIRD_INTEL 21
-     * }
-     */
-    public static int CL_AVC_ME_BIDIR_WEIGHT_THIRD_INTEL() {
-        return (int)21L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_BIDIR_WEIGHT_HALF_INTEL 32
-     * }
-     */
-    public static int CL_AVC_ME_BIDIR_WEIGHT_HALF_INTEL() {
-        return (int)32L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_BIDIR_WEIGHT_TWO_THIRD_INTEL 43
-     * }
-     */
-    public static int CL_AVC_ME_BIDIR_WEIGHT_TWO_THIRD_INTEL() {
-        return (int)43L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_BIDIR_WEIGHT_THREE_QUARTER_INTEL 48
-     * }
-     */
-    public static int CL_AVC_ME_BIDIR_WEIGHT_THREE_QUARTER_INTEL() {
-        return (int)48L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_BORDER_REACHED_LEFT_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_BORDER_REACHED_LEFT_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_BORDER_REACHED_RIGHT_INTEL 2
-     * }
-     */
-    public static int CL_AVC_ME_BORDER_REACHED_RIGHT_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_BORDER_REACHED_TOP_INTEL 4
-     * }
-     */
-    public static int CL_AVC_ME_BORDER_REACHED_TOP_INTEL() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_BORDER_REACHED_BOTTOM_INTEL 8
-     * }
-     */
-    public static int CL_AVC_ME_BORDER_REACHED_BOTTOM_INTEL() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SKIP_BLOCK_PARTITION_16x16_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_SKIP_BLOCK_PARTITION_16x16_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SKIP_BLOCK_PARTITION_8x8_INTEL 16384
-     * }
-     */
-    public static int CL_AVC_ME_SKIP_BLOCK_PARTITION_8x8_INTEL() {
-        return (int)16384L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_BLOCK_BASED_SKIP_4x4_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_BLOCK_BASED_SKIP_4x4_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_BLOCK_BASED_SKIP_8x8_INTEL 128
-     * }
-     */
-    public static int CL_AVC_ME_BLOCK_BASED_SKIP_8x8_INTEL() {
-        return (int)128L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_INTRA_16x16_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_INTRA_16x16_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_INTRA_8x8_INTEL 1
-     * }
-     */
-    public static int CL_AVC_ME_INTRA_8x8_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_INTRA_4x4_INTEL 2
-     * }
-     */
-    public static int CL_AVC_ME_INTRA_4x4_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_INTRA_LUMA_PARTITION_MASK_16x16_INTEL 6
-     * }
-     */
-    public static int CL_AVC_ME_INTRA_LUMA_PARTITION_MASK_16x16_INTEL() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_INTRA_LUMA_PARTITION_MASK_8x8_INTEL 5
-     * }
-     */
-    public static int CL_AVC_ME_INTRA_LUMA_PARTITION_MASK_8x8_INTEL() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_INTRA_LUMA_PARTITION_MASK_4x4_INTEL 3
-     * }
-     */
-    public static int CL_AVC_ME_INTRA_LUMA_PARTITION_MASK_4x4_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_INTRA_NEIGHBOR_LEFT_MASK_ENABLE_INTEL 96
-     * }
-     */
-    public static int CL_AVC_ME_INTRA_NEIGHBOR_LEFT_MASK_ENABLE_INTEL() {
-        return (int)96L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_INTRA_NEIGHBOR_UPPER_MASK_ENABLE_INTEL 16
-     * }
-     */
-    public static int CL_AVC_ME_INTRA_NEIGHBOR_UPPER_MASK_ENABLE_INTEL() {
-        return (int)16L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_INTRA_NEIGHBOR_UPPER_RIGHT_MASK_ENABLE_INTEL 8
-     * }
-     */
-    public static int CL_AVC_ME_INTRA_NEIGHBOR_UPPER_RIGHT_MASK_ENABLE_INTEL() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_INTRA_NEIGHBOR_UPPER_LEFT_MASK_ENABLE_INTEL 4
-     * }
-     */
-    public static int CL_AVC_ME_INTRA_NEIGHBOR_UPPER_LEFT_MASK_ENABLE_INTEL() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_LUMA_PREDICTOR_MODE_VERTICAL_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_LUMA_PREDICTOR_MODE_VERTICAL_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_INTEL 1
-     * }
-     */
-    public static int CL_AVC_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_LUMA_PREDICTOR_MODE_DC_INTEL 2
-     * }
-     */
-    public static int CL_AVC_ME_LUMA_PREDICTOR_MODE_DC_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_LEFT_INTEL 3
-     * }
-     */
-    public static int CL_AVC_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_LEFT_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_RIGHT_INTEL 4
-     * }
-     */
-    public static int CL_AVC_ME_LUMA_PREDICTOR_MODE_DIAGONAL_DOWN_RIGHT_INTEL() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_LUMA_PREDICTOR_MODE_PLANE_INTEL 4
-     * }
-     */
-    public static int CL_AVC_ME_LUMA_PREDICTOR_MODE_PLANE_INTEL() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_LUMA_PREDICTOR_MODE_VERTICAL_RIGHT_INTEL 5
-     * }
-     */
-    public static int CL_AVC_ME_LUMA_PREDICTOR_MODE_VERTICAL_RIGHT_INTEL() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_DOWN_INTEL 6
-     * }
-     */
-    public static int CL_AVC_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_DOWN_INTEL() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_LUMA_PREDICTOR_MODE_VERTICAL_LEFT_INTEL 7
-     * }
-     */
-    public static int CL_AVC_ME_LUMA_PREDICTOR_MODE_VERTICAL_LEFT_INTEL() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_UP_INTEL 8
-     * }
-     */
-    public static int CL_AVC_ME_LUMA_PREDICTOR_MODE_HORIZONTAL_UP_INTEL() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_CHROMA_PREDICTOR_MODE_DC_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_CHROMA_PREDICTOR_MODE_DC_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_CHROMA_PREDICTOR_MODE_HORIZONTAL_INTEL 1
-     * }
-     */
-    public static int CL_AVC_ME_CHROMA_PREDICTOR_MODE_HORIZONTAL_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_CHROMA_PREDICTOR_MODE_VERTICAL_INTEL 2
-     * }
-     */
-    public static int CL_AVC_ME_CHROMA_PREDICTOR_MODE_VERTICAL_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_CHROMA_PREDICTOR_MODE_PLANE_INTEL 3
-     * }
-     */
-    public static int CL_AVC_ME_CHROMA_PREDICTOR_MODE_PLANE_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_FRAME_FORWARD_INTEL 1
-     * }
-     */
-    public static int CL_AVC_ME_FRAME_FORWARD_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_FRAME_BACKWARD_INTEL 2
-     * }
-     */
-    public static int CL_AVC_ME_FRAME_BACKWARD_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_FRAME_DUAL_INTEL 3
-     * }
-     */
-    public static int CL_AVC_ME_FRAME_DUAL_INTEL() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SLICE_TYPE_PRED_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_SLICE_TYPE_PRED_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SLICE_TYPE_BPRED_INTEL 1
-     * }
-     */
-    public static int CL_AVC_ME_SLICE_TYPE_BPRED_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_SLICE_TYPE_INTRA_INTEL 2
-     * }
-     */
-    public static int CL_AVC_ME_SLICE_TYPE_INTRA_INTEL() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_INTERLACED_SCAN_TOP_FIELD_INTEL 0
-     * }
-     */
-    public static int CL_AVC_ME_INTERLACED_SCAN_TOP_FIELD_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_AVC_ME_INTERLACED_SCAN_BOTTOM_FIELD_INTEL 1
-     * }
-     */
-    public static int CL_AVC_ME_INTERLACED_SCAN_BOTTOM_FIELD_INTEL() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_unified_shared_memory 1
-     * }
-     */
-    public static int cl_intel_unified_shared_memory() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_HOST_MEM_CAPABILITIES_INTEL 16784
-     * }
-     */
-    public static int CL_DEVICE_HOST_MEM_CAPABILITIES_INTEL() {
-        return (int)16784L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_DEVICE_MEM_CAPABILITIES_INTEL 16785
-     * }
-     */
-    public static int CL_DEVICE_DEVICE_MEM_CAPABILITIES_INTEL() {
-        return (int)16785L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SINGLE_DEVICE_SHARED_MEM_CAPABILITIES_INTEL 16786
-     * }
-     */
-    public static int CL_DEVICE_SINGLE_DEVICE_SHARED_MEM_CAPABILITIES_INTEL() {
-        return (int)16786L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_CROSS_DEVICE_SHARED_MEM_CAPABILITIES_INTEL 16787
-     * }
-     */
-    public static int CL_DEVICE_CROSS_DEVICE_SHARED_MEM_CAPABILITIES_INTEL() {
-        return (int)16787L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SHARED_SYSTEM_MEM_CAPABILITIES_INTEL 16788
-     * }
-     */
-    public static int CL_DEVICE_SHARED_SYSTEM_MEM_CAPABILITIES_INTEL() {
-        return (int)16788L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_ALLOC_FLAGS_INTEL 16789
-     * }
-     */
-    public static int CL_MEM_ALLOC_FLAGS_INTEL() {
-        return (int)16789L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_ALLOC_TYPE_INTEL 16794
-     * }
-     */
-    public static int CL_MEM_ALLOC_TYPE_INTEL() {
-        return (int)16794L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_ALLOC_BASE_PTR_INTEL 16795
-     * }
-     */
-    public static int CL_MEM_ALLOC_BASE_PTR_INTEL() {
-        return (int)16795L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_ALLOC_SIZE_INTEL 16796
-     * }
-     */
-    public static int CL_MEM_ALLOC_SIZE_INTEL() {
-        return (int)16796L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_ALLOC_DEVICE_INTEL 16797
-     * }
-     */
-    public static int CL_MEM_ALLOC_DEVICE_INTEL() {
-        return (int)16797L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_TYPE_UNKNOWN_INTEL 16790
-     * }
-     */
-    public static int CL_MEM_TYPE_UNKNOWN_INTEL() {
-        return (int)16790L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_TYPE_HOST_INTEL 16791
-     * }
-     */
-    public static int CL_MEM_TYPE_HOST_INTEL() {
-        return (int)16791L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_TYPE_DEVICE_INTEL 16792
-     * }
-     */
-    public static int CL_MEM_TYPE_DEVICE_INTEL() {
-        return (int)16792L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_TYPE_SHARED_INTEL 16793
-     * }
-     */
-    public static int CL_MEM_TYPE_SHARED_INTEL() {
-        return (int)16793L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_EXEC_INFO_INDIRECT_HOST_ACCESS_INTEL 16896
-     * }
-     */
-    public static int CL_KERNEL_EXEC_INFO_INDIRECT_HOST_ACCESS_INTEL() {
-        return (int)16896L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_EXEC_INFO_INDIRECT_DEVICE_ACCESS_INTEL 16897
-     * }
-     */
-    public static int CL_KERNEL_EXEC_INFO_INDIRECT_DEVICE_ACCESS_INTEL() {
-        return (int)16897L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_EXEC_INFO_INDIRECT_SHARED_ACCESS_INTEL 16898
-     * }
-     */
-    public static int CL_KERNEL_EXEC_INFO_INDIRECT_SHARED_ACCESS_INTEL() {
-        return (int)16898L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_KERNEL_EXEC_INFO_USM_PTRS_INTEL 16899
-     * }
-     */
-    public static int CL_KERNEL_EXEC_INFO_USM_PTRS_INTEL() {
-        return (int)16899L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_MEMFILL_INTEL 16900
-     * }
-     */
-    public static int CL_COMMAND_MEMFILL_INTEL() {
-        return (int)16900L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_MEMCPY_INTEL 16901
-     * }
-     */
-    public static int CL_COMMAND_MEMCPY_INTEL() {
-        return (int)16901L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_MIGRATEMEM_INTEL 16902
-     * }
-     */
-    public static int CL_COMMAND_MIGRATEMEM_INTEL() {
-        return (int)16902L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_MEMADVISE_INTEL 16903
-     * }
-     */
-    public static int CL_COMMAND_MEMADVISE_INTEL() {
-        return (int)16903L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_mem_alloc_buffer_location 1
-     * }
-     */
-    public static int cl_intel_mem_alloc_buffer_location() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_ALLOC_BUFFER_LOCATION_INTEL 16798
-     * }
-     */
-    public static int CL_MEM_ALLOC_BUFFER_LOCATION_INTEL() {
-        return (int)16798L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_create_buffer_with_properties 1
-     * }
-     */
-    public static int cl_intel_create_buffer_with_properties() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_program_scope_host_pipe 1
-     * }
-     */
-    public static int cl_intel_program_scope_host_pipe() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_READ_HOST_PIPE_INTEL 16916
-     * }
-     */
-    public static int CL_COMMAND_READ_HOST_PIPE_INTEL() {
-        return (int)16916L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_COMMAND_WRITE_HOST_PIPE_INTEL 16917
-     * }
-     */
-    public static int CL_COMMAND_WRITE_HOST_PIPE_INTEL() {
-        return (int)16917L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_NUM_HOST_PIPES_INTEL 16918
-     * }
-     */
-    public static int CL_PROGRAM_NUM_HOST_PIPES_INTEL() {
-        return (int)16918L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_PROGRAM_HOST_PIPE_NAMES_INTEL 16919
-     * }
-     */
-    public static int CL_PROGRAM_HOST_PIPE_NAMES_INTEL() {
-        return (int)16919L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_mem_channel_property 1
-     * }
-     */
-    public static int cl_intel_mem_channel_property() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_CHANNEL_INTEL 16915
-     * }
-     */
-    public static int CL_MEM_CHANNEL_INTEL() {
-        return (int)16915L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_mem_force_host_memory 1
-     * }
-     */
-    public static int cl_intel_mem_force_host_memory() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_command_queue_families 1
-     * }
-     */
-    public static int cl_intel_command_queue_families() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_FAMILY_MAX_NAME_SIZE_INTEL 64
-     * }
-     */
-    public static int CL_QUEUE_FAMILY_MAX_NAME_SIZE_INTEL() {
-        return (int)64L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_QUEUE_FAMILY_PROPERTIES_INTEL 16779
-     * }
-     */
-    public static int CL_DEVICE_QUEUE_FAMILY_PROPERTIES_INTEL() {
-        return (int)16779L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_FAMILY_INTEL 16780
-     * }
-     */
-    public static int CL_QUEUE_FAMILY_INTEL() {
-        return (int)16780L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_INDEX_INTEL 16781
-     * }
-     */
-    public static int CL_QUEUE_INDEX_INTEL() {
-        return (int)16781L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_QUEUE_DEFAULT_CAPABILITIES_INTEL 0
-     * }
-     */
-    public static int CL_QUEUE_DEFAULT_CAPABILITIES_INTEL() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_queue_no_sync_operations 1
-     * }
-     */
-    public static int cl_intel_queue_no_sync_operations() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_sharing_format_query 1
-     * }
-     */
-    public static int cl_intel_sharing_format_query() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_ext_image_requirements_info 1
-     * }
-     */
-    public static int cl_ext_image_requirements_info() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_REQUIREMENTS_BASE_ADDRESS_ALIGNMENT_EXT 4754
-     * }
-     */
-    public static int CL_IMAGE_REQUIREMENTS_BASE_ADDRESS_ALIGNMENT_EXT() {
-        return (int)4754L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_REQUIREMENTS_ROW_PITCH_ALIGNMENT_EXT 4752
-     * }
-     */
-    public static int CL_IMAGE_REQUIREMENTS_ROW_PITCH_ALIGNMENT_EXT() {
-        return (int)4752L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_REQUIREMENTS_SIZE_EXT 4786
-     * }
-     */
-    public static int CL_IMAGE_REQUIREMENTS_SIZE_EXT() {
-        return (int)4786L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_REQUIREMENTS_MAX_WIDTH_EXT 4787
-     * }
-     */
-    public static int CL_IMAGE_REQUIREMENTS_MAX_WIDTH_EXT() {
-        return (int)4787L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_REQUIREMENTS_MAX_HEIGHT_EXT 4788
-     * }
-     */
-    public static int CL_IMAGE_REQUIREMENTS_MAX_HEIGHT_EXT() {
-        return (int)4788L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_REQUIREMENTS_MAX_DEPTH_EXT 4789
-     * }
-     */
-    public static int CL_IMAGE_REQUIREMENTS_MAX_DEPTH_EXT() {
-        return (int)4789L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_REQUIREMENTS_MAX_ARRAY_SIZE_EXT 4790
-     * }
-     */
-    public static int CL_IMAGE_REQUIREMENTS_MAX_ARRAY_SIZE_EXT() {
-        return (int)4790L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_ext_image_from_buffer 1
-     * }
-     */
-    public static int cl_ext_image_from_buffer() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_IMAGE_REQUIREMENTS_SLICE_PITCH_ALIGNMENT_EXT 4753
-     * }
-     */
-    public static int CL_IMAGE_REQUIREMENTS_SLICE_PITCH_ALIGNMENT_EXT() {
-        return (int)4753L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_loader_info 1
-     * }
-     */
-    public static int cl_loader_info() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ICDL_OCL_VERSION 1
-     * }
-     */
-    public static int CL_ICDL_OCL_VERSION() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ICDL_VERSION 2
-     * }
-     */
-    public static int CL_ICDL_VERSION() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ICDL_NAME 3
-     * }
-     */
-    public static int CL_ICDL_NAME() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_ICDL_VENDOR 4
-     * }
-     */
-    public static int CL_ICDL_VENDOR() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_khr_depth_images 1
-     * }
-     */
-    public static int cl_khr_depth_images() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_ext_float_atomics 1
-     * }
-     */
-    public static int cl_ext_float_atomics() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_SINGLE_FP_ATOMIC_CAPABILITIES_EXT 16945
-     * }
-     */
-    public static int CL_DEVICE_SINGLE_FP_ATOMIC_CAPABILITIES_EXT() {
-        return (int)16945L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_DOUBLE_FP_ATOMIC_CAPABILITIES_EXT 16946
-     * }
-     */
-    public static int CL_DEVICE_DOUBLE_FP_ATOMIC_CAPABILITIES_EXT() {
-        return (int)16946L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_DEVICE_HALF_FP_ATOMIC_CAPABILITIES_EXT 16947
-     * }
-     */
-    public static int CL_DEVICE_HALF_FP_ATOMIC_CAPABILITIES_EXT() {
-        return (int)16947L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_intel_create_mem_object_properties 1
-     * }
-     */
-    public static int cl_intel_create_mem_object_properties() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_LOCALLY_UNCACHED_RESOURCE_INTEL 16920
-     * }
-     */
-    public static int CL_MEM_LOCALLY_UNCACHED_RESOURCE_INTEL() {
-        return (int)16920L;
-    }
-    /**
-     * {@snippet :
-     * #define CL_MEM_DEVICE_ID_INTEL 16921
-     * }
-     */
-    public static int CL_MEM_DEVICE_ID_INTEL() {
-        return (int)16921L;
-    }
-    /**
-     * {@snippet :
-     * #define cl_pocl_content_size 1
-     * }
-     */
-    public static int cl_pocl_content_size() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * typedef unsigned long long uintptr_t;
-     * }
-     */
-    public static final OfLong uintptr_t = JAVA_LONG;
-    /**
-     * {@snippet :
-     * typedef char* va_list;
-     * }
-     */
-    public static final AddressLayout va_list = RuntimeHelper.POINTER;
-    public static MethodHandle __va_start$MH() {
-        return RuntimeHelper.requireNonNull(constants$0.const$1,"__va_start");
+public class opencl_h extends opencl_h_1 {
+
+    opencl_h() {
+        // Should not be called directly
     }
     /**
-     * {@snippet :
-     * void __va_start(va_list*,...);
+     * {@snippet lang=c :
+     * #define CL_QCOM_EXT_HOST_PTR_EXTENSION_NAME "cl_qcom_ext_host_ptr"
      * }
      */
-    public static void __va_start(MemorySegment x0, Object... x1) {
-        var mh$ = __va_start$MH();
-        try {
-            mh$.invokeExact(x0, x1);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment CL_QCOM_EXT_HOST_PTR_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_QCOM_EXT_HOST_PTR_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_qcom_ext_host_ptr");
         }
+        return Holder.CL_QCOM_EXT_HOST_PTR_EXTENSION_NAME;
+    }
+    private static final int CL_MEM_EXT_HOST_PTR_QCOM = (int)536870912L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_MEM_EXT_HOST_PTR_QCOM 536870912
+     * }
+     */
+    public static int CL_MEM_EXT_HOST_PTR_QCOM() {
+        return CL_MEM_EXT_HOST_PTR_QCOM;
     }
     /**
-     * {@snippet :
-     * typedef unsigned long long size_t;
+     * {@snippet lang=c :
+     * #define CL_QCOM_EXT_HOST_PTR_IOCOHERENT_EXTENSION_NAME "cl_qcom_ext_host_ptr_iocoherent"
      * }
      */
-    public static final OfLong size_t = JAVA_LONG;
-    /**
-     * {@snippet :
-     * typedef long long ptrdiff_t;
-     * }
-     */
-    public static final OfLong ptrdiff_t = JAVA_LONG;
-    /**
-     * {@snippet :
-     * typedef long long intptr_t;
-     * }
-     */
-    public static final OfLong intptr_t = JAVA_LONG;
-    /**
-     * {@snippet :
-     * typedef unsigned short wchar_t;
-     * }
-     */
-    public static final OfShort wchar_t = JAVA_SHORT;
-    public static MethodHandle __security_init_cookie$MH() {
-        return RuntimeHelper.requireNonNull(constants$0.const$3,"__security_init_cookie");
-    }
-    /**
-     * {@snippet :
-     * void __security_init_cookie();
-     * }
-     */
-    public static void __security_init_cookie() {
-        var mh$ = __security_init_cookie$MH();
-        try {
-            mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment CL_QCOM_EXT_HOST_PTR_IOCOHERENT_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_QCOM_EXT_HOST_PTR_IOCOHERENT_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_qcom_ext_host_ptr_iocoherent");
         }
-    }
-    public static MethodHandle __security_check_cookie$MH() {
-        return RuntimeHelper.requireNonNull(constants$0.const$5,"__security_check_cookie");
+        return Holder.CL_QCOM_EXT_HOST_PTR_IOCOHERENT_EXTENSION_NAME;
     }
     /**
-     * {@snippet :
-     * void __security_check_cookie(uintptr_t _StackCookie);
+     * {@snippet lang=c :
+     * #define CL_QCOM_ION_HOST_PTR_EXTENSION_NAME "cl_qcom_ion_host_ptr"
      * }
      */
-    public static void __security_check_cookie(long _StackCookie) {
-        var mh$ = __security_check_cookie$MH();
-        try {
-            mh$.invokeExact(_StackCookie);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment CL_QCOM_ION_HOST_PTR_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_QCOM_ION_HOST_PTR_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_qcom_ion_host_ptr");
         }
-    }
-    public static MethodHandle __report_gsfailure$MH() {
-        return RuntimeHelper.requireNonNull(constants$1.const$0,"__report_gsfailure");
+        return Holder.CL_QCOM_ION_HOST_PTR_EXTENSION_NAME;
     }
     /**
-     * {@snippet :
-     * void __report_gsfailure(uintptr_t _StackCookie);
+     * {@snippet lang=c :
+     * #define CL_QCOM_ANDROID_NATIVE_BUFFER_HOST_PTR_EXTENSION_NAME "cl_qcom_android_native_buffer_host_ptr"
      * }
      */
-    public static void __report_gsfailure(long _StackCookie) {
-        var mh$ = __report_gsfailure$MH();
-        try {
-            mh$.invokeExact(_StackCookie);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment CL_QCOM_ANDROID_NATIVE_BUFFER_HOST_PTR_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_QCOM_ANDROID_NATIVE_BUFFER_HOST_PTR_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_qcom_android_native_buffer_host_ptr");
         }
-    }
-    public static MemoryLayout __security_cookie$LAYOUT() {
-        return JAVA_LONG;
-    }
-    public static VarHandle __security_cookie$VH() {
-        return constants$1.const$1;
-    }
-    public static MemorySegment __security_cookie$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$1.const$2,"__security_cookie");
+        return Holder.CL_QCOM_ANDROID_NATIVE_BUFFER_HOST_PTR_EXTENSION_NAME;
     }
     /**
-     * Getter for variable:
-     * {@snippet :
-     * uintptr_t __security_cookie;
+     * {@snippet lang=c :
+     * #define CL_IMG_YUV_IMAGE_EXTENSION_NAME "cl_img_yuv_image"
      * }
      */
-    public static long __security_cookie$get() {
-        return (long) constants$1.const$1.get(RuntimeHelper.requireNonNull(constants$1.const$2, "__security_cookie"));
+    public static MemorySegment CL_IMG_YUV_IMAGE_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_IMG_YUV_IMAGE_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_img_yuv_image");
+        }
+        return Holder.CL_IMG_YUV_IMAGE_EXTENSION_NAME;
     }
     /**
-     * Setter for variable:
-     * {@snippet :
-     * uintptr_t __security_cookie;
+     * {@snippet lang=c :
+     * #define CL_IMG_CACHED_ALLOCATIONS_EXTENSION_NAME "cl_img_cached_allocations"
      * }
      */
-    public static void __security_cookie$set(long x) {
-        constants$1.const$1.set(RuntimeHelper.requireNonNull(constants$1.const$2, "__security_cookie"), x);
+    public static MemorySegment CL_IMG_CACHED_ALLOCATIONS_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_IMG_CACHED_ALLOCATIONS_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_img_cached_allocations");
+        }
+        return Holder.CL_IMG_CACHED_ALLOCATIONS_EXTENSION_NAME;
+    }
+    private static final int CL_MEM_USE_UNCACHED_CPU_MEMORY_IMG = (int)67108864L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_MEM_USE_UNCACHED_CPU_MEMORY_IMG 67108864
+     * }
+     */
+    public static int CL_MEM_USE_UNCACHED_CPU_MEMORY_IMG() {
+        return CL_MEM_USE_UNCACHED_CPU_MEMORY_IMG;
+    }
+    private static final int CL_MEM_USE_CACHED_CPU_MEMORY_IMG = (int)134217728L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_MEM_USE_CACHED_CPU_MEMORY_IMG 134217728
+     * }
+     */
+    public static int CL_MEM_USE_CACHED_CPU_MEMORY_IMG() {
+        return CL_MEM_USE_CACHED_CPU_MEMORY_IMG;
     }
     /**
-     * {@snippet :
-     * typedef signed char int8_t;
+     * {@snippet lang=c :
+     * #define CL_IMG_USE_GRALLOC_PTR_EXTENSION_NAME "cl_img_use_gralloc_ptr"
      * }
      */
-    public static final OfByte int8_t = JAVA_BYTE;
+    public static MemorySegment CL_IMG_USE_GRALLOC_PTR_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_IMG_USE_GRALLOC_PTR_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_img_use_gralloc_ptr");
+        }
+        return Holder.CL_IMG_USE_GRALLOC_PTR_EXTENSION_NAME;
+    }
+    private static final int CL_MEM_USE_GRALLOC_PTR_IMG = (int)268435456L;
     /**
-     * {@snippet :
-     * typedef short int16_t;
+     * {@snippet lang=c :
+     * #define CL_MEM_USE_GRALLOC_PTR_IMG 268435456
      * }
      */
-    public static final OfShort int16_t = JAVA_SHORT;
+    public static int CL_MEM_USE_GRALLOC_PTR_IMG() {
+        return CL_MEM_USE_GRALLOC_PTR_IMG;
+    }
     /**
-     * {@snippet :
-     * typedef int int32_t;
+     * {@snippet lang=c :
+     * #define CL_IMG_GENERATE_MIPMAP_EXTENSION_NAME "cl_img_generate_mipmap"
      * }
      */
-    public static final OfInt int32_t = JAVA_INT;
+    public static MemorySegment CL_IMG_GENERATE_MIPMAP_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_IMG_GENERATE_MIPMAP_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_img_generate_mipmap");
+        }
+        return Holder.CL_IMG_GENERATE_MIPMAP_EXTENSION_NAME;
+    }
     /**
-     * {@snippet :
-     * typedef long long int64_t;
+     * {@snippet lang=c :
+     * #define CL_IMG_MEM_PROPERTIES_EXTENSION_NAME "cl_img_mem_properties"
      * }
      */
-    public static final OfLong int64_t = JAVA_LONG;
+    public static MemorySegment CL_IMG_MEM_PROPERTIES_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_IMG_MEM_PROPERTIES_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_img_mem_properties");
+        }
+        return Holder.CL_IMG_MEM_PROPERTIES_EXTENSION_NAME;
+    }
+    private static final int CL_MEM_ALLOC_RELAX_REQUIREMENTS_IMG = (int)1L;
     /**
-     * {@snippet :
-     * typedef unsigned char uint8_t;
+     * {@snippet lang=c :
+     * #define CL_MEM_ALLOC_RELAX_REQUIREMENTS_IMG 1
      * }
      */
-    public static final OfByte uint8_t = JAVA_BYTE;
+    public static int CL_MEM_ALLOC_RELAX_REQUIREMENTS_IMG() {
+        return CL_MEM_ALLOC_RELAX_REQUIREMENTS_IMG;
+    }
     /**
-     * {@snippet :
-     * typedef unsigned short uint16_t;
+     * {@snippet lang=c :
+     * #define CL_KHR_SUBGROUPS_EXTENSION_NAME "cl_khr_subgroups"
      * }
      */
-    public static final OfShort uint16_t = JAVA_SHORT;
+    public static MemorySegment CL_KHR_SUBGROUPS_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_SUBGROUPS_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_subgroups");
+        }
+        return Holder.CL_KHR_SUBGROUPS_EXTENSION_NAME;
+    }
     /**
-     * {@snippet :
-     * typedef unsigned int uint32_t;
+     * {@snippet lang=c :
+     * #define CL_KHR_MIPMAP_IMAGE_EXTENSION_NAME "cl_khr_mipmap_image"
      * }
      */
-    public static final OfInt uint32_t = JAVA_INT;
+    public static MemorySegment CL_KHR_MIPMAP_IMAGE_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_MIPMAP_IMAGE_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_mipmap_image");
+        }
+        return Holder.CL_KHR_MIPMAP_IMAGE_EXTENSION_NAME;
+    }
     /**
-     * {@snippet :
-     * typedef unsigned long long uint64_t;
+     * {@snippet lang=c :
+     * #define CL_KHR_PRIORITY_HINTS_EXTENSION_NAME "cl_khr_priority_hints"
      * }
      */
-    public static final OfLong uint64_t = JAVA_LONG;
+    public static MemorySegment CL_KHR_PRIORITY_HINTS_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_PRIORITY_HINTS_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_priority_hints");
+        }
+        return Holder.CL_KHR_PRIORITY_HINTS_EXTENSION_NAME;
+    }
+    private static final int CL_QUEUE_PRIORITY_HIGH_KHR = (int)1L;
     /**
-     * {@snippet :
-     * typedef signed char int_least8_t;
+     * {@snippet lang=c :
+     * #define CL_QUEUE_PRIORITY_HIGH_KHR 1
      * }
      */
-    public static final OfByte int_least8_t = JAVA_BYTE;
+    public static int CL_QUEUE_PRIORITY_HIGH_KHR() {
+        return CL_QUEUE_PRIORITY_HIGH_KHR;
+    }
+    private static final int CL_QUEUE_PRIORITY_MED_KHR = (int)2L;
     /**
-     * {@snippet :
-     * typedef short int_least16_t;
+     * {@snippet lang=c :
+     * #define CL_QUEUE_PRIORITY_MED_KHR 2
      * }
      */
-    public static final OfShort int_least16_t = JAVA_SHORT;
+    public static int CL_QUEUE_PRIORITY_MED_KHR() {
+        return CL_QUEUE_PRIORITY_MED_KHR;
+    }
+    private static final int CL_QUEUE_PRIORITY_LOW_KHR = (int)4L;
     /**
-     * {@snippet :
-     * typedef int int_least32_t;
+     * {@snippet lang=c :
+     * #define CL_QUEUE_PRIORITY_LOW_KHR 4
      * }
      */
-    public static final OfInt int_least32_t = JAVA_INT;
+    public static int CL_QUEUE_PRIORITY_LOW_KHR() {
+        return CL_QUEUE_PRIORITY_LOW_KHR;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_THROTTLE_HINTS_EXTENSION_NAME "cl_khr_throttle_hints"
+     * }
+     */
+    public static MemorySegment CL_KHR_THROTTLE_HINTS_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_THROTTLE_HINTS_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_throttle_hints");
+        }
+        return Holder.CL_KHR_THROTTLE_HINTS_EXTENSION_NAME;
+    }
+    private static final int CL_QUEUE_THROTTLE_HIGH_KHR = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_THROTTLE_HIGH_KHR 1
+     * }
+     */
+    public static int CL_QUEUE_THROTTLE_HIGH_KHR() {
+        return CL_QUEUE_THROTTLE_HIGH_KHR;
+    }
+    private static final int CL_QUEUE_THROTTLE_MED_KHR = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_THROTTLE_MED_KHR 2
+     * }
+     */
+    public static int CL_QUEUE_THROTTLE_MED_KHR() {
+        return CL_QUEUE_THROTTLE_MED_KHR;
+    }
+    private static final int CL_QUEUE_THROTTLE_LOW_KHR = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_THROTTLE_LOW_KHR 4
+     * }
+     */
+    public static int CL_QUEUE_THROTTLE_LOW_KHR() {
+        return CL_QUEUE_THROTTLE_LOW_KHR;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_SUBGROUP_NAMED_BARRIER_EXTENSION_NAME "cl_khr_subgroup_named_barrier"
+     * }
+     */
+    public static MemorySegment CL_KHR_SUBGROUP_NAMED_BARRIER_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_SUBGROUP_NAMED_BARRIER_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_subgroup_named_barrier");
+        }
+        return Holder.CL_KHR_SUBGROUP_NAMED_BARRIER_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_EXTENDED_VERSIONING_EXTENSION_NAME "cl_khr_extended_versioning"
+     * }
+     */
+    public static MemorySegment CL_KHR_EXTENDED_VERSIONING_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_EXTENDED_VERSIONING_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_extended_versioning");
+        }
+        return Holder.CL_KHR_EXTENDED_VERSIONING_EXTENSION_NAME;
+    }
+    private static final int CL_VERSION_MAJOR_MASK_KHR = (int)1023L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_VERSION_MAJOR_MASK_KHR 1023
+     * }
+     */
+    public static int CL_VERSION_MAJOR_MASK_KHR() {
+        return CL_VERSION_MAJOR_MASK_KHR;
+    }
+    private static final int CL_VERSION_MINOR_MASK_KHR = (int)1023L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_VERSION_MINOR_MASK_KHR 1023
+     * }
+     */
+    public static int CL_VERSION_MINOR_MASK_KHR() {
+        return CL_VERSION_MINOR_MASK_KHR;
+    }
+    private static final int CL_VERSION_PATCH_MASK_KHR = (int)4095L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_VERSION_PATCH_MASK_KHR 4095
+     * }
+     */
+    public static int CL_VERSION_PATCH_MASK_KHR() {
+        return CL_VERSION_PATCH_MASK_KHR;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_DEVICE_UUID_EXTENSION_NAME "cl_khr_device_uuid"
+     * }
+     */
+    public static MemorySegment CL_KHR_DEVICE_UUID_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_DEVICE_UUID_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_device_uuid");
+        }
+        return Holder.CL_KHR_DEVICE_UUID_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_PCI_BUS_INFO_EXTENSION_NAME "cl_khr_pci_bus_info"
+     * }
+     */
+    public static MemorySegment CL_KHR_PCI_BUS_INFO_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_PCI_BUS_INFO_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_pci_bus_info");
+        }
+        return Holder.CL_KHR_PCI_BUS_INFO_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_SUGGESTED_LOCAL_WORK_SIZE_EXTENSION_NAME "cl_khr_suggested_local_work_size"
+     * }
+     */
+    public static MemorySegment CL_KHR_SUGGESTED_LOCAL_WORK_SIZE_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_SUGGESTED_LOCAL_WORK_SIZE_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_suggested_local_work_size");
+        }
+        return Holder.CL_KHR_SUGGESTED_LOCAL_WORK_SIZE_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_INTEGER_DOT_PRODUCT_EXTENSION_NAME "cl_khr_integer_dot_product"
+     * }
+     */
+    public static MemorySegment CL_KHR_INTEGER_DOT_PRODUCT_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_INTEGER_DOT_PRODUCT_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_integer_dot_product");
+        }
+        return Holder.CL_KHR_INTEGER_DOT_PRODUCT_EXTENSION_NAME;
+    }
+    private static final int CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_PACKED_KHR = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_PACKED_KHR 1
+     * }
+     */
+    public static int CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_PACKED_KHR() {
+        return CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_PACKED_KHR;
+    }
+    private static final int CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_KHR = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_KHR 2
+     * }
+     */
+    public static int CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_KHR() {
+        return CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_KHR;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_EXTERNAL_MEMORY_EXTENSION_NAME "cl_khr_external_memory"
+     * }
+     */
+    public static MemorySegment CL_KHR_EXTERNAL_MEMORY_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_EXTERNAL_MEMORY_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_memory");
+        }
+        return Holder.CL_KHR_EXTERNAL_MEMORY_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_EXTERNAL_MEMORY_DMA_BUF_EXTENSION_NAME "cl_khr_external_memory_dma_buf"
+     * }
+     */
+    public static MemorySegment CL_KHR_EXTERNAL_MEMORY_DMA_BUF_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_EXTERNAL_MEMORY_DMA_BUF_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_memory_dma_buf");
+        }
+        return Holder.CL_KHR_EXTERNAL_MEMORY_DMA_BUF_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_EXTERNAL_MEMORY_DX_EXTENSION_NAME "cl_khr_external_memory_dx"
+     * }
+     */
+    public static MemorySegment CL_KHR_EXTERNAL_MEMORY_DX_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_EXTERNAL_MEMORY_DX_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_memory_dx");
+        }
+        return Holder.CL_KHR_EXTERNAL_MEMORY_DX_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_EXTERNAL_MEMORY_OPAQUE_FD_EXTENSION_NAME "cl_khr_external_memory_opaque_fd"
+     * }
+     */
+    public static MemorySegment CL_KHR_EXTERNAL_MEMORY_OPAQUE_FD_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_EXTERNAL_MEMORY_OPAQUE_FD_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_memory_opaque_fd");
+        }
+        return Holder.CL_KHR_EXTERNAL_MEMORY_OPAQUE_FD_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_EXTERNAL_MEMORY_WIN32_EXTENSION_NAME "cl_khr_external_memory_win32"
+     * }
+     */
+    public static MemorySegment CL_KHR_EXTERNAL_MEMORY_WIN32_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_EXTERNAL_MEMORY_WIN32_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_memory_win32");
+        }
+        return Holder.CL_KHR_EXTERNAL_MEMORY_WIN32_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_EXTERNAL_SEMAPHORE_EXTENSION_NAME "cl_khr_external_semaphore"
+     * }
+     */
+    public static MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore");
+        }
+        return Holder.CL_KHR_EXTERNAL_SEMAPHORE_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_EXTERNAL_SEMAPHORE_DX_FENCE_EXTENSION_NAME "cl_khr_external_semaphore_dx_fence"
+     * }
+     */
+    public static MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_DX_FENCE_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_DX_FENCE_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore_dx_fence");
+        }
+        return Holder.CL_KHR_EXTERNAL_SEMAPHORE_DX_FENCE_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_EXTERNAL_SEMAPHORE_OPAQUE_FD_EXTENSION_NAME "cl_khr_external_semaphore_opaque_fd"
+     * }
+     */
+    public static MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_OPAQUE_FD_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_OPAQUE_FD_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore_opaque_fd");
+        }
+        return Holder.CL_KHR_EXTERNAL_SEMAPHORE_OPAQUE_FD_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_EXTERNAL_SEMAPHORE_SYNC_FD_EXTENSION_NAME "cl_khr_external_semaphore_sync_fd"
+     * }
+     */
+    public static MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_SYNC_FD_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_SYNC_FD_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore_sync_fd");
+        }
+        return Holder.CL_KHR_EXTERNAL_SEMAPHORE_SYNC_FD_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_EXTERNAL_SEMAPHORE_WIN32_EXTENSION_NAME "cl_khr_external_semaphore_win32"
+     * }
+     */
+    public static MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_WIN32_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_WIN32_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore_win32");
+        }
+        return Holder.CL_KHR_EXTERNAL_SEMAPHORE_WIN32_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_SEMAPHORE_EXTENSION_NAME "cl_khr_semaphore"
+     * }
+     */
+    public static MemorySegment CL_KHR_SEMAPHORE_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_SEMAPHORE_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_semaphore");
+        }
+        return Holder.CL_KHR_SEMAPHORE_EXTENSION_NAME;
+    }
+    private static final int CL_INVALID_SEMAPHORE_KHR = (int)-1142L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_INVALID_SEMAPHORE_KHR -1142
+     * }
+     */
+    public static int CL_INVALID_SEMAPHORE_KHR() {
+        return CL_INVALID_SEMAPHORE_KHR;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_ARM_IMPORT_MEMORY_EXTENSION_NAME "cl_arm_import_memory"
+     * }
+     */
+    public static MemorySegment CL_ARM_IMPORT_MEMORY_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_ARM_IMPORT_MEMORY_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_import_memory");
+        }
+        return Holder.CL_ARM_IMPORT_MEMORY_EXTENSION_NAME;
+    }
+    private static final long CL_IMPORT_MEMORY_WHOLE_ALLOCATION_ARM = -1L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_IMPORT_MEMORY_WHOLE_ALLOCATION_ARM -1
+     * }
+     */
+    public static long CL_IMPORT_MEMORY_WHOLE_ALLOCATION_ARM() {
+        return CL_IMPORT_MEMORY_WHOLE_ALLOCATION_ARM;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_ARM_SHARED_VIRTUAL_MEMORY_EXTENSION_NAME "cl_arm_shared_virtual_memory"
+     * }
+     */
+    public static MemorySegment CL_ARM_SHARED_VIRTUAL_MEMORY_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_ARM_SHARED_VIRTUAL_MEMORY_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_shared_virtual_memory");
+        }
+        return Holder.CL_ARM_SHARED_VIRTUAL_MEMORY_EXTENSION_NAME;
+    }
+    private static final int CL_DEVICE_SVM_COARSE_GRAIN_BUFFER_ARM = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_SVM_COARSE_GRAIN_BUFFER_ARM 1
+     * }
+     */
+    public static int CL_DEVICE_SVM_COARSE_GRAIN_BUFFER_ARM() {
+        return CL_DEVICE_SVM_COARSE_GRAIN_BUFFER_ARM;
+    }
+    private static final int CL_DEVICE_SVM_FINE_GRAIN_BUFFER_ARM = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_SVM_FINE_GRAIN_BUFFER_ARM 2
+     * }
+     */
+    public static int CL_DEVICE_SVM_FINE_GRAIN_BUFFER_ARM() {
+        return CL_DEVICE_SVM_FINE_GRAIN_BUFFER_ARM;
+    }
+    private static final int CL_DEVICE_SVM_FINE_GRAIN_SYSTEM_ARM = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_SVM_FINE_GRAIN_SYSTEM_ARM 4
+     * }
+     */
+    public static int CL_DEVICE_SVM_FINE_GRAIN_SYSTEM_ARM() {
+        return CL_DEVICE_SVM_FINE_GRAIN_SYSTEM_ARM;
+    }
+    private static final int CL_DEVICE_SVM_ATOMICS_ARM = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_SVM_ATOMICS_ARM 8
+     * }
+     */
+    public static int CL_DEVICE_SVM_ATOMICS_ARM() {
+        return CL_DEVICE_SVM_ATOMICS_ARM;
+    }
+    private static final int CL_MEM_SVM_FINE_GRAIN_BUFFER_ARM = (int)1024L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_MEM_SVM_FINE_GRAIN_BUFFER_ARM 1024
+     * }
+     */
+    public static int CL_MEM_SVM_FINE_GRAIN_BUFFER_ARM() {
+        return CL_MEM_SVM_FINE_GRAIN_BUFFER_ARM;
+    }
+    private static final int CL_MEM_SVM_ATOMICS_ARM = (int)2048L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_MEM_SVM_ATOMICS_ARM 2048
+     * }
+     */
+    public static int CL_MEM_SVM_ATOMICS_ARM() {
+        return CL_MEM_SVM_ATOMICS_ARM;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_ARM_GET_CORE_ID_EXTENSION_NAME "cl_arm_get_core_id"
+     * }
+     */
+    public static MemorySegment CL_ARM_GET_CORE_ID_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_ARM_GET_CORE_ID_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_get_core_id");
+        }
+        return Holder.CL_ARM_GET_CORE_ID_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_ARM_JOB_SLOT_SELECTION_EXTENSION_NAME "cl_arm_job_slot_selection"
+     * }
+     */
+    public static MemorySegment CL_ARM_JOB_SLOT_SELECTION_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_ARM_JOB_SLOT_SELECTION_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_job_slot_selection");
+        }
+        return Holder.CL_ARM_JOB_SLOT_SELECTION_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_ARM_SCHEDULING_CONTROLS_EXTENSION_NAME "cl_arm_scheduling_controls"
+     * }
+     */
+    public static MemorySegment CL_ARM_SCHEDULING_CONTROLS_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_ARM_SCHEDULING_CONTROLS_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_scheduling_controls");
+        }
+        return Holder.CL_ARM_SCHEDULING_CONTROLS_EXTENSION_NAME;
+    }
+    private static final int CL_DEVICE_SCHEDULING_KERNEL_BATCHING_ARM = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_SCHEDULING_KERNEL_BATCHING_ARM 1
+     * }
+     */
+    public static int CL_DEVICE_SCHEDULING_KERNEL_BATCHING_ARM() {
+        return CL_DEVICE_SCHEDULING_KERNEL_BATCHING_ARM;
+    }
+    private static final int CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_ARM = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_ARM 2
+     * }
+     */
+    public static int CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_ARM() {
+        return CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_ARM;
+    }
+    private static final int CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_MODIFIER_ARM = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_MODIFIER_ARM 4
+     * }
+     */
+    public static int CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_MODIFIER_ARM() {
+        return CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_MODIFIER_ARM;
+    }
+    private static final int CL_DEVICE_SCHEDULING_DEFERRED_FLUSH_ARM = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_SCHEDULING_DEFERRED_FLUSH_ARM 8
+     * }
+     */
+    public static int CL_DEVICE_SCHEDULING_DEFERRED_FLUSH_ARM() {
+        return CL_DEVICE_SCHEDULING_DEFERRED_FLUSH_ARM;
+    }
+    private static final int CL_DEVICE_SCHEDULING_REGISTER_ALLOCATION_ARM = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_SCHEDULING_REGISTER_ALLOCATION_ARM 16
+     * }
+     */
+    public static int CL_DEVICE_SCHEDULING_REGISTER_ALLOCATION_ARM() {
+        return CL_DEVICE_SCHEDULING_REGISTER_ALLOCATION_ARM;
+    }
+    private static final int CL_DEVICE_SCHEDULING_WARP_THROTTLING_ARM = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_SCHEDULING_WARP_THROTTLING_ARM 32
+     * }
+     */
+    public static int CL_DEVICE_SCHEDULING_WARP_THROTTLING_ARM() {
+        return CL_DEVICE_SCHEDULING_WARP_THROTTLING_ARM;
+    }
+    private static final int CL_DEVICE_SCHEDULING_COMPUTE_UNIT_BATCH_QUEUE_SIZE_ARM = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_SCHEDULING_COMPUTE_UNIT_BATCH_QUEUE_SIZE_ARM 64
+     * }
+     */
+    public static int CL_DEVICE_SCHEDULING_COMPUTE_UNIT_BATCH_QUEUE_SIZE_ARM() {
+        return CL_DEVICE_SCHEDULING_COMPUTE_UNIT_BATCH_QUEUE_SIZE_ARM;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_ARM_CONTROLLED_KERNEL_TERMINATION_EXTENSION_NAME "cl_arm_controlled_kernel_termination"
+     * }
+     */
+    public static MemorySegment CL_ARM_CONTROLLED_KERNEL_TERMINATION_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_ARM_CONTROLLED_KERNEL_TERMINATION_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_controlled_kernel_termination");
+        }
+        return Holder.CL_ARM_CONTROLLED_KERNEL_TERMINATION_EXTENSION_NAME;
+    }
+    private static final int CL_COMMAND_TERMINATED_ITSELF_WITH_FAILURE_ARM = (int)-1108L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_COMMAND_TERMINATED_ITSELF_WITH_FAILURE_ARM -1108
+     * }
+     */
+    public static int CL_COMMAND_TERMINATED_ITSELF_WITH_FAILURE_ARM() {
+        return CL_COMMAND_TERMINATED_ITSELF_WITH_FAILURE_ARM;
+    }
+    private static final int CL_DEVICE_CONTROLLED_TERMINATION_SUCCESS_ARM = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_CONTROLLED_TERMINATION_SUCCESS_ARM 1
+     * }
+     */
+    public static int CL_DEVICE_CONTROLLED_TERMINATION_SUCCESS_ARM() {
+        return CL_DEVICE_CONTROLLED_TERMINATION_SUCCESS_ARM;
+    }
+    private static final int CL_DEVICE_CONTROLLED_TERMINATION_FAILURE_ARM = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_CONTROLLED_TERMINATION_FAILURE_ARM 2
+     * }
+     */
+    public static int CL_DEVICE_CONTROLLED_TERMINATION_FAILURE_ARM() {
+        return CL_DEVICE_CONTROLLED_TERMINATION_FAILURE_ARM;
+    }
+    private static final int CL_DEVICE_CONTROLLED_TERMINATION_QUERY_ARM = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_CONTROLLED_TERMINATION_QUERY_ARM 4
+     * }
+     */
+    public static int CL_DEVICE_CONTROLLED_TERMINATION_QUERY_ARM() {
+        return CL_DEVICE_CONTROLLED_TERMINATION_QUERY_ARM;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_ARM_PROTECTED_MEMORY_ALLOCATION_EXTENSION_NAME "cl_arm_protected_memory_allocation"
+     * }
+     */
+    public static MemorySegment CL_ARM_PROTECTED_MEMORY_ALLOCATION_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_ARM_PROTECTED_MEMORY_ALLOCATION_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_protected_memory_allocation");
+        }
+        return Holder.CL_ARM_PROTECTED_MEMORY_ALLOCATION_EXTENSION_NAME;
+    }
+    private static final long CL_MEM_PROTECTED_ALLOC_ARM = 68719476736L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_MEM_PROTECTED_ALLOC_ARM 68719476736
+     * }
+     */
+    public static long CL_MEM_PROTECTED_ALLOC_ARM() {
+        return CL_MEM_PROTECTED_ALLOC_ARM;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_EXEC_BY_LOCAL_THREAD_EXTENSION_NAME "cl_intel_exec_by_local_thread"
+     * }
+     */
+    public static MemorySegment CL_INTEL_EXEC_BY_LOCAL_THREAD_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_EXEC_BY_LOCAL_THREAD_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_exec_by_local_thread");
+        }
+        return Holder.CL_INTEL_EXEC_BY_LOCAL_THREAD_EXTENSION_NAME;
+    }
+    private static final long CL_QUEUE_THREAD_LOCAL_EXEC_ENABLE_INTEL = 2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_THREAD_LOCAL_EXEC_ENABLE_INTEL 2147483648
+     * }
+     */
+    public static long CL_QUEUE_THREAD_LOCAL_EXEC_ENABLE_INTEL() {
+        return CL_QUEUE_THREAD_LOCAL_EXEC_ENABLE_INTEL;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME "cl_intel_device_attribute_query"
+     * }
+     */
+    public static MemorySegment CL_INTEL_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_device_attribute_query");
+        }
+        return Holder.CL_INTEL_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME;
+    }
+    private static final int CL_DEVICE_FEATURE_FLAG_DP4A_INTEL = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_FEATURE_FLAG_DP4A_INTEL 1
+     * }
+     */
+    public static int CL_DEVICE_FEATURE_FLAG_DP4A_INTEL() {
+        return CL_DEVICE_FEATURE_FLAG_DP4A_INTEL;
+    }
+    private static final int CL_DEVICE_FEATURE_FLAG_DPAS_INTEL = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_FEATURE_FLAG_DPAS_INTEL 2
+     * }
+     */
+    public static int CL_DEVICE_FEATURE_FLAG_DPAS_INTEL() {
+        return CL_DEVICE_FEATURE_FLAG_DPAS_INTEL;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_DEVICE_PARTITION_BY_NAMES_EXTENSION_NAME "cl_intel_device_partition_by_names"
+     * }
+     */
+    public static MemorySegment CL_INTEL_DEVICE_PARTITION_BY_NAMES_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_DEVICE_PARTITION_BY_NAMES_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_device_partition_by_names");
+        }
+        return Holder.CL_INTEL_DEVICE_PARTITION_BY_NAMES_EXTENSION_NAME;
+    }
+    private static final int CL_PARTITION_BY_NAMES_LIST_END_INTEL = (int)-1L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_PARTITION_BY_NAMES_LIST_END_INTEL -1
+     * }
+     */
+    public static int CL_PARTITION_BY_NAMES_LIST_END_INTEL() {
+        return CL_PARTITION_BY_NAMES_LIST_END_INTEL;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_ACCELERATOR_EXTENSION_NAME "cl_intel_accelerator"
+     * }
+     */
+    public static MemorySegment CL_INTEL_ACCELERATOR_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_ACCELERATOR_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_accelerator");
+        }
+        return Holder.CL_INTEL_ACCELERATOR_EXTENSION_NAME;
+    }
+    private static final int CL_INVALID_ACCELERATOR_INTEL = (int)-1094L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_INVALID_ACCELERATOR_INTEL -1094
+     * }
+     */
+    public static int CL_INVALID_ACCELERATOR_INTEL() {
+        return CL_INVALID_ACCELERATOR_INTEL;
+    }
+    private static final int CL_INVALID_ACCELERATOR_TYPE_INTEL = (int)-1095L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_INVALID_ACCELERATOR_TYPE_INTEL -1095
+     * }
+     */
+    public static int CL_INVALID_ACCELERATOR_TYPE_INTEL() {
+        return CL_INVALID_ACCELERATOR_TYPE_INTEL;
+    }
+    private static final int CL_INVALID_ACCELERATOR_DESCRIPTOR_INTEL = (int)-1096L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_INVALID_ACCELERATOR_DESCRIPTOR_INTEL -1096
+     * }
+     */
+    public static int CL_INVALID_ACCELERATOR_DESCRIPTOR_INTEL() {
+        return CL_INVALID_ACCELERATOR_DESCRIPTOR_INTEL;
+    }
+    private static final int CL_ACCELERATOR_TYPE_NOT_SUPPORTED_INTEL = (int)-1097L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_ACCELERATOR_TYPE_NOT_SUPPORTED_INTEL -1097
+     * }
+     */
+    public static int CL_ACCELERATOR_TYPE_NOT_SUPPORTED_INTEL() {
+        return CL_ACCELERATOR_TYPE_NOT_SUPPORTED_INTEL;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_MOTION_ESTIMATION_EXTENSION_NAME "cl_intel_motion_estimation"
+     * }
+     */
+    public static MemorySegment CL_INTEL_MOTION_ESTIMATION_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_MOTION_ESTIMATION_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_motion_estimation");
+        }
+        return Holder.CL_INTEL_MOTION_ESTIMATION_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_ADVANCED_MOTION_ESTIMATION_EXTENSION_NAME "cl_intel_advanced_motion_estimation"
+     * }
+     */
+    public static MemorySegment CL_INTEL_ADVANCED_MOTION_ESTIMATION_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_ADVANCED_MOTION_ESTIMATION_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_advanced_motion_estimation");
+        }
+        return Holder.CL_INTEL_ADVANCED_MOTION_ESTIMATION_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_SIMULTANEOUS_SHARING_EXTENSION_NAME "cl_intel_simultaneous_sharing"
+     * }
+     */
+    public static MemorySegment CL_INTEL_SIMULTANEOUS_SHARING_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_SIMULTANEOUS_SHARING_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_simultaneous_sharing");
+        }
+        return Holder.CL_INTEL_SIMULTANEOUS_SHARING_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_EGL_IMAGE_YUV_EXTENSION_NAME "cl_intel_egl_image_yuv"
+     * }
+     */
+    public static MemorySegment CL_INTEL_EGL_IMAGE_YUV_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_EGL_IMAGE_YUV_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_egl_image_yuv");
+        }
+        return Holder.CL_INTEL_EGL_IMAGE_YUV_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_PACKED_YUV_EXTENSION_NAME "cl_intel_packed_yuv"
+     * }
+     */
+    public static MemorySegment CL_INTEL_PACKED_YUV_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_PACKED_YUV_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_packed_yuv");
+        }
+        return Holder.CL_INTEL_PACKED_YUV_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_REQUIRED_SUBGROUP_SIZE_EXTENSION_NAME "cl_intel_required_subgroup_size"
+     * }
+     */
+    public static MemorySegment CL_INTEL_REQUIRED_SUBGROUP_SIZE_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_REQUIRED_SUBGROUP_SIZE_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_required_subgroup_size");
+        }
+        return Holder.CL_INTEL_REQUIRED_SUBGROUP_SIZE_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_DRIVER_DIAGNOSTICS_EXTENSION_NAME "cl_intel_driver_diagnostics"
+     * }
+     */
+    public static MemorySegment CL_INTEL_DRIVER_DIAGNOSTICS_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_DRIVER_DIAGNOSTICS_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_driver_diagnostics");
+        }
+        return Holder.CL_INTEL_DRIVER_DIAGNOSTICS_EXTENSION_NAME;
+    }
+    private static final int CL_CONTEXT_DIAGNOSTICS_LEVEL_GOOD_INTEL = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_CONTEXT_DIAGNOSTICS_LEVEL_GOOD_INTEL 1
+     * }
+     */
+    public static int CL_CONTEXT_DIAGNOSTICS_LEVEL_GOOD_INTEL() {
+        return CL_CONTEXT_DIAGNOSTICS_LEVEL_GOOD_INTEL;
+    }
+    private static final int CL_CONTEXT_DIAGNOSTICS_LEVEL_BAD_INTEL = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_CONTEXT_DIAGNOSTICS_LEVEL_BAD_INTEL 2
+     * }
+     */
+    public static int CL_CONTEXT_DIAGNOSTICS_LEVEL_BAD_INTEL() {
+        return CL_CONTEXT_DIAGNOSTICS_LEVEL_BAD_INTEL;
+    }
+    private static final int CL_CONTEXT_DIAGNOSTICS_LEVEL_NEUTRAL_INTEL = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_CONTEXT_DIAGNOSTICS_LEVEL_NEUTRAL_INTEL 4
+     * }
+     */
+    public static int CL_CONTEXT_DIAGNOSTICS_LEVEL_NEUTRAL_INTEL() {
+        return CL_CONTEXT_DIAGNOSTICS_LEVEL_NEUTRAL_INTEL;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_PLANAR_YUV_EXTENSION_NAME "cl_intel_planar_yuv"
+     * }
+     */
+    public static MemorySegment CL_INTEL_PLANAR_YUV_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_PLANAR_YUV_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_planar_yuv");
+        }
+        return Holder.CL_INTEL_PLANAR_YUV_EXTENSION_NAME;
+    }
+    private static final int CL_MEM_NO_ACCESS_INTEL = (int)16777216L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_MEM_NO_ACCESS_INTEL 16777216
+     * }
+     */
+    public static int CL_MEM_NO_ACCESS_INTEL() {
+        return CL_MEM_NO_ACCESS_INTEL;
+    }
+    private static final int CL_MEM_ACCESS_FLAGS_UNRESTRICTED_INTEL = (int)33554432L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_MEM_ACCESS_FLAGS_UNRESTRICTED_INTEL 33554432
+     * }
+     */
+    public static int CL_MEM_ACCESS_FLAGS_UNRESTRICTED_INTEL() {
+        return CL_MEM_ACCESS_FLAGS_UNRESTRICTED_INTEL;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_DEVICE_SIDE_AVC_MOTION_ESTIMATION_EXTENSION_NAME "cl_intel_device_side_avc_motion_estimation"
+     * }
+     */
+    public static MemorySegment CL_INTEL_DEVICE_SIDE_AVC_MOTION_ESTIMATION_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_DEVICE_SIDE_AVC_MOTION_ESTIMATION_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_device_side_avc_motion_estimation");
+        }
+        return Holder.CL_INTEL_DEVICE_SIDE_AVC_MOTION_ESTIMATION_EXTENSION_NAME;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_16x16_FORWARD_ENABLE_INTEL = (int)16777216L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_16x16_FORWARD_ENABLE_INTEL 16777216
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_16x16_FORWARD_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_16x16_FORWARD_ENABLE_INTEL;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_16x16_BACKWARD_ENABLE_INTEL = (int)33554432L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_16x16_BACKWARD_ENABLE_INTEL 33554432
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_16x16_BACKWARD_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_16x16_BACKWARD_ENABLE_INTEL;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_16x16_DUAL_ENABLE_INTEL = (int)50331648L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_16x16_DUAL_ENABLE_INTEL 50331648
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_16x16_DUAL_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_16x16_DUAL_ENABLE_INTEL;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_8x8_FORWARD_ENABLE_INTEL = (int)1426063360L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_8x8_FORWARD_ENABLE_INTEL 1426063360
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_8x8_FORWARD_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_8x8_FORWARD_ENABLE_INTEL;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_8x8_BACKWARD_ENABLE_INTEL = (int)-1442840576L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_8x8_BACKWARD_ENABLE_INTEL -1442840576
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_8x8_BACKWARD_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_8x8_BACKWARD_ENABLE_INTEL;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_8x8_DUAL_ENABLE_INTEL = (int)-16777216L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_8x8_DUAL_ENABLE_INTEL -16777216
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_8x8_DUAL_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_8x8_DUAL_ENABLE_INTEL;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_8x8_0_FORWARD_ENABLE_INTEL = (int)16777216L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_8x8_0_FORWARD_ENABLE_INTEL 16777216
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_8x8_0_FORWARD_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_8x8_0_FORWARD_ENABLE_INTEL;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_8x8_0_BACKWARD_ENABLE_INTEL = (int)33554432L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_8x8_0_BACKWARD_ENABLE_INTEL 33554432
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_8x8_0_BACKWARD_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_8x8_0_BACKWARD_ENABLE_INTEL;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_8x8_1_FORWARD_ENABLE_INTEL = (int)67108864L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_8x8_1_FORWARD_ENABLE_INTEL 67108864
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_8x8_1_FORWARD_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_8x8_1_FORWARD_ENABLE_INTEL;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_8x8_1_BACKWARD_ENABLE_INTEL = (int)134217728L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_8x8_1_BACKWARD_ENABLE_INTEL 134217728
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_8x8_1_BACKWARD_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_8x8_1_BACKWARD_ENABLE_INTEL;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_8x8_2_FORWARD_ENABLE_INTEL = (int)268435456L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_8x8_2_FORWARD_ENABLE_INTEL 268435456
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_8x8_2_FORWARD_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_8x8_2_FORWARD_ENABLE_INTEL;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_8x8_2_BACKWARD_ENABLE_INTEL = (int)536870912L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_8x8_2_BACKWARD_ENABLE_INTEL 536870912
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_8x8_2_BACKWARD_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_8x8_2_BACKWARD_ENABLE_INTEL;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_8x8_3_FORWARD_ENABLE_INTEL = (int)1073741824L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_8x8_3_FORWARD_ENABLE_INTEL 1073741824
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_8x8_3_FORWARD_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_8x8_3_FORWARD_ENABLE_INTEL;
+    }
+    private static final int CL_AVC_ME_SKIP_BLOCK_8x8_3_BACKWARD_ENABLE_INTEL = (int)-2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_AVC_ME_SKIP_BLOCK_8x8_3_BACKWARD_ENABLE_INTEL -2147483648
+     * }
+     */
+    public static int CL_AVC_ME_SKIP_BLOCK_8x8_3_BACKWARD_ENABLE_INTEL() {
+        return CL_AVC_ME_SKIP_BLOCK_8x8_3_BACKWARD_ENABLE_INTEL;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_UNIFIED_SHARED_MEMORY_EXTENSION_NAME "cl_intel_unified_shared_memory"
+     * }
+     */
+    public static MemorySegment CL_INTEL_UNIFIED_SHARED_MEMORY_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_UNIFIED_SHARED_MEMORY_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_unified_shared_memory");
+        }
+        return Holder.CL_INTEL_UNIFIED_SHARED_MEMORY_EXTENSION_NAME;
+    }
+    private static final int CL_UNIFIED_SHARED_MEMORY_ACCESS_INTEL = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_UNIFIED_SHARED_MEMORY_ACCESS_INTEL 1
+     * }
+     */
+    public static int CL_UNIFIED_SHARED_MEMORY_ACCESS_INTEL() {
+        return CL_UNIFIED_SHARED_MEMORY_ACCESS_INTEL;
+    }
+    private static final int CL_UNIFIED_SHARED_MEMORY_ATOMIC_ACCESS_INTEL = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_UNIFIED_SHARED_MEMORY_ATOMIC_ACCESS_INTEL 2
+     * }
+     */
+    public static int CL_UNIFIED_SHARED_MEMORY_ATOMIC_ACCESS_INTEL() {
+        return CL_UNIFIED_SHARED_MEMORY_ATOMIC_ACCESS_INTEL;
+    }
+    private static final int CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ACCESS_INTEL = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ACCESS_INTEL 4
+     * }
+     */
+    public static int CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ACCESS_INTEL() {
+        return CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ACCESS_INTEL;
+    }
+    private static final int CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ATOMIC_ACCESS_INTEL = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ATOMIC_ACCESS_INTEL 8
+     * }
+     */
+    public static int CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ATOMIC_ACCESS_INTEL() {
+        return CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ATOMIC_ACCESS_INTEL;
+    }
+    private static final int CL_MEM_ALLOC_WRITE_COMBINED_INTEL = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_MEM_ALLOC_WRITE_COMBINED_INTEL 1
+     * }
+     */
+    public static int CL_MEM_ALLOC_WRITE_COMBINED_INTEL() {
+        return CL_MEM_ALLOC_WRITE_COMBINED_INTEL;
+    }
+    private static final int CL_MEM_ALLOC_INITIAL_PLACEMENT_DEVICE_INTEL = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_MEM_ALLOC_INITIAL_PLACEMENT_DEVICE_INTEL 2
+     * }
+     */
+    public static int CL_MEM_ALLOC_INITIAL_PLACEMENT_DEVICE_INTEL() {
+        return CL_MEM_ALLOC_INITIAL_PLACEMENT_DEVICE_INTEL;
+    }
+    private static final int CL_MEM_ALLOC_INITIAL_PLACEMENT_HOST_INTEL = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_MEM_ALLOC_INITIAL_PLACEMENT_HOST_INTEL 4
+     * }
+     */
+    public static int CL_MEM_ALLOC_INITIAL_PLACEMENT_HOST_INTEL() {
+        return CL_MEM_ALLOC_INITIAL_PLACEMENT_HOST_INTEL;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_MEM_ALLOC_BUFFER_LOCATION_EXTENSION_NAME "cl_intel_mem_alloc_buffer_location"
+     * }
+     */
+    public static MemorySegment CL_INTEL_MEM_ALLOC_BUFFER_LOCATION_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_MEM_ALLOC_BUFFER_LOCATION_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_mem_alloc_buffer_location");
+        }
+        return Holder.CL_INTEL_MEM_ALLOC_BUFFER_LOCATION_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_CREATE_BUFFER_WITH_PROPERTIES_EXTENSION_NAME "cl_intel_create_buffer_with_properties"
+     * }
+     */
+    public static MemorySegment CL_INTEL_CREATE_BUFFER_WITH_PROPERTIES_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_CREATE_BUFFER_WITH_PROPERTIES_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_create_buffer_with_properties");
+        }
+        return Holder.CL_INTEL_CREATE_BUFFER_WITH_PROPERTIES_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_PROGRAM_SCOPE_HOST_PIPE_EXTENSION_NAME "cl_intel_program_scope_host_pipe"
+     * }
+     */
+    public static MemorySegment CL_INTEL_PROGRAM_SCOPE_HOST_PIPE_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_PROGRAM_SCOPE_HOST_PIPE_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_program_scope_host_pipe");
+        }
+        return Holder.CL_INTEL_PROGRAM_SCOPE_HOST_PIPE_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_MEM_CHANNEL_PROPERTY_EXTENSION_NAME "cl_intel_mem_channel_property"
+     * }
+     */
+    public static MemorySegment CL_INTEL_MEM_CHANNEL_PROPERTY_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_MEM_CHANNEL_PROPERTY_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_mem_channel_property");
+        }
+        return Holder.CL_INTEL_MEM_CHANNEL_PROPERTY_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_MEM_FORCE_HOST_MEMORY_EXTENSION_NAME "cl_intel_mem_force_host_memory"
+     * }
+     */
+    public static MemorySegment CL_INTEL_MEM_FORCE_HOST_MEMORY_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_MEM_FORCE_HOST_MEMORY_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_mem_force_host_memory");
+        }
+        return Holder.CL_INTEL_MEM_FORCE_HOST_MEMORY_EXTENSION_NAME;
+    }
+    private static final int CL_MEM_FORCE_HOST_MEMORY_INTEL = (int)1048576L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_MEM_FORCE_HOST_MEMORY_INTEL 1048576
+     * }
+     */
+    public static int CL_MEM_FORCE_HOST_MEMORY_INTEL() {
+        return CL_MEM_FORCE_HOST_MEMORY_INTEL;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_COMMAND_QUEUE_FAMILIES_EXTENSION_NAME "cl_intel_command_queue_families"
+     * }
+     */
+    public static MemorySegment CL_INTEL_COMMAND_QUEUE_FAMILIES_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_COMMAND_QUEUE_FAMILIES_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_command_queue_families");
+        }
+        return Holder.CL_INTEL_COMMAND_QUEUE_FAMILIES_EXTENSION_NAME;
+    }
+    private static final int CL_QUEUE_CAPABILITY_CREATE_SINGLE_QUEUE_EVENTS_INTEL = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_CREATE_SINGLE_QUEUE_EVENTS_INTEL 1
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_CREATE_SINGLE_QUEUE_EVENTS_INTEL() {
+        return CL_QUEUE_CAPABILITY_CREATE_SINGLE_QUEUE_EVENTS_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_CREATE_CROSS_QUEUE_EVENTS_INTEL = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_CREATE_CROSS_QUEUE_EVENTS_INTEL 2
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_CREATE_CROSS_QUEUE_EVENTS_INTEL() {
+        return CL_QUEUE_CAPABILITY_CREATE_CROSS_QUEUE_EVENTS_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_SINGLE_QUEUE_EVENT_WAIT_LIST_INTEL = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_SINGLE_QUEUE_EVENT_WAIT_LIST_INTEL 4
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_SINGLE_QUEUE_EVENT_WAIT_LIST_INTEL() {
+        return CL_QUEUE_CAPABILITY_SINGLE_QUEUE_EVENT_WAIT_LIST_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_CROSS_QUEUE_EVENT_WAIT_LIST_INTEL = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_CROSS_QUEUE_EVENT_WAIT_LIST_INTEL 8
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_CROSS_QUEUE_EVENT_WAIT_LIST_INTEL() {
+        return CL_QUEUE_CAPABILITY_CROSS_QUEUE_EVENT_WAIT_LIST_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_INTEL = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_INTEL 256
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_INTEL() {
+        return CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_RECT_INTEL = (int)512L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_RECT_INTEL 512
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_RECT_INTEL() {
+        return CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_RECT_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_MAP_BUFFER_INTEL = (int)1024L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_MAP_BUFFER_INTEL 1024
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_MAP_BUFFER_INTEL() {
+        return CL_QUEUE_CAPABILITY_MAP_BUFFER_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_FILL_BUFFER_INTEL = (int)2048L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_FILL_BUFFER_INTEL 2048
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_FILL_BUFFER_INTEL() {
+        return CL_QUEUE_CAPABILITY_FILL_BUFFER_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_TRANSFER_IMAGE_INTEL = (int)4096L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_TRANSFER_IMAGE_INTEL 4096
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_TRANSFER_IMAGE_INTEL() {
+        return CL_QUEUE_CAPABILITY_TRANSFER_IMAGE_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_MAP_IMAGE_INTEL = (int)8192L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_MAP_IMAGE_INTEL 8192
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_MAP_IMAGE_INTEL() {
+        return CL_QUEUE_CAPABILITY_MAP_IMAGE_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_FILL_IMAGE_INTEL = (int)16384L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_FILL_IMAGE_INTEL 16384
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_FILL_IMAGE_INTEL() {
+        return CL_QUEUE_CAPABILITY_FILL_IMAGE_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_IMAGE_INTEL = (int)32768L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_IMAGE_INTEL 32768
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_IMAGE_INTEL() {
+        return CL_QUEUE_CAPABILITY_TRANSFER_BUFFER_IMAGE_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_TRANSFER_IMAGE_BUFFER_INTEL = (int)65536L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_TRANSFER_IMAGE_BUFFER_INTEL 65536
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_TRANSFER_IMAGE_BUFFER_INTEL() {
+        return CL_QUEUE_CAPABILITY_TRANSFER_IMAGE_BUFFER_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_MARKER_INTEL = (int)16777216L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_MARKER_INTEL 16777216
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_MARKER_INTEL() {
+        return CL_QUEUE_CAPABILITY_MARKER_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_BARRIER_INTEL = (int)33554432L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_BARRIER_INTEL 33554432
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_BARRIER_INTEL() {
+        return CL_QUEUE_CAPABILITY_BARRIER_INTEL;
+    }
+    private static final int CL_QUEUE_CAPABILITY_KERNEL_INTEL = (int)67108864L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_CAPABILITY_KERNEL_INTEL 67108864
+     * }
+     */
+    public static int CL_QUEUE_CAPABILITY_KERNEL_INTEL() {
+        return CL_QUEUE_CAPABILITY_KERNEL_INTEL;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_QUEUE_NO_SYNC_OPERATIONS_EXTENSION_NAME "cl_intel_queue_no_sync_operations"
+     * }
+     */
+    public static MemorySegment CL_INTEL_QUEUE_NO_SYNC_OPERATIONS_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_QUEUE_NO_SYNC_OPERATIONS_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_queue_no_sync_operations");
+        }
+        return Holder.CL_INTEL_QUEUE_NO_SYNC_OPERATIONS_EXTENSION_NAME;
+    }
+    private static final int CL_QUEUE_NO_SYNC_OPERATIONS_INTEL = (int)536870912L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_QUEUE_NO_SYNC_OPERATIONS_INTEL 536870912
+     * }
+     */
+    public static int CL_QUEUE_NO_SYNC_OPERATIONS_INTEL() {
+        return CL_QUEUE_NO_SYNC_OPERATIONS_INTEL;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_SHARING_FORMAT_QUERY_EXTENSION_NAME "cl_intel_sharing_format_query"
+     * }
+     */
+    public static MemorySegment CL_INTEL_SHARING_FORMAT_QUERY_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_SHARING_FORMAT_QUERY_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_sharing_format_query");
+        }
+        return Holder.CL_INTEL_SHARING_FORMAT_QUERY_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_EXT_IMAGE_REQUIREMENTS_INFO_EXTENSION_NAME "cl_ext_image_requirements_info"
+     * }
+     */
+    public static MemorySegment CL_EXT_IMAGE_REQUIREMENTS_INFO_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_EXT_IMAGE_REQUIREMENTS_INFO_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_ext_image_requirements_info");
+        }
+        return Holder.CL_EXT_IMAGE_REQUIREMENTS_INFO_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_EXT_IMAGE_FROM_BUFFER_EXTENSION_NAME "cl_ext_image_from_buffer"
+     * }
+     */
+    public static MemorySegment CL_EXT_IMAGE_FROM_BUFFER_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_EXT_IMAGE_FROM_BUFFER_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_ext_image_from_buffer");
+        }
+        return Holder.CL_EXT_IMAGE_FROM_BUFFER_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_LOADER_INFO_EXTENSION_NAME "cl_loader_info"
+     * }
+     */
+    public static MemorySegment CL_LOADER_INFO_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_LOADER_INFO_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_loader_info");
+        }
+        return Holder.CL_LOADER_INFO_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_KHR_DEPTH_IMAGES_EXTENSION_NAME "cl_khr_depth_images"
+     * }
+     */
+    public static MemorySegment CL_KHR_DEPTH_IMAGES_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_KHR_DEPTH_IMAGES_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_depth_images");
+        }
+        return Holder.CL_KHR_DEPTH_IMAGES_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_EXT_FLOAT_ATOMICS_EXTENSION_NAME "cl_ext_float_atomics"
+     * }
+     */
+    public static MemorySegment CL_EXT_FLOAT_ATOMICS_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_EXT_FLOAT_ATOMICS_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_ext_float_atomics");
+        }
+        return Holder.CL_EXT_FLOAT_ATOMICS_EXTENSION_NAME;
+    }
+    private static final int CL_DEVICE_GLOBAL_FP_ATOMIC_LOAD_STORE_EXT = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_GLOBAL_FP_ATOMIC_LOAD_STORE_EXT 1
+     * }
+     */
+    public static int CL_DEVICE_GLOBAL_FP_ATOMIC_LOAD_STORE_EXT() {
+        return CL_DEVICE_GLOBAL_FP_ATOMIC_LOAD_STORE_EXT;
+    }
+    private static final int CL_DEVICE_GLOBAL_FP_ATOMIC_ADD_EXT = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_GLOBAL_FP_ATOMIC_ADD_EXT 2
+     * }
+     */
+    public static int CL_DEVICE_GLOBAL_FP_ATOMIC_ADD_EXT() {
+        return CL_DEVICE_GLOBAL_FP_ATOMIC_ADD_EXT;
+    }
+    private static final int CL_DEVICE_GLOBAL_FP_ATOMIC_MIN_MAX_EXT = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_GLOBAL_FP_ATOMIC_MIN_MAX_EXT 4
+     * }
+     */
+    public static int CL_DEVICE_GLOBAL_FP_ATOMIC_MIN_MAX_EXT() {
+        return CL_DEVICE_GLOBAL_FP_ATOMIC_MIN_MAX_EXT;
+    }
+    private static final int CL_DEVICE_LOCAL_FP_ATOMIC_LOAD_STORE_EXT = (int)65536L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_LOCAL_FP_ATOMIC_LOAD_STORE_EXT 65536
+     * }
+     */
+    public static int CL_DEVICE_LOCAL_FP_ATOMIC_LOAD_STORE_EXT() {
+        return CL_DEVICE_LOCAL_FP_ATOMIC_LOAD_STORE_EXT;
+    }
+    private static final int CL_DEVICE_LOCAL_FP_ATOMIC_ADD_EXT = (int)131072L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_LOCAL_FP_ATOMIC_ADD_EXT 131072
+     * }
+     */
+    public static int CL_DEVICE_LOCAL_FP_ATOMIC_ADD_EXT() {
+        return CL_DEVICE_LOCAL_FP_ATOMIC_ADD_EXT;
+    }
+    private static final int CL_DEVICE_LOCAL_FP_ATOMIC_MIN_MAX_EXT = (int)262144L;
+    /**
+     * {@snippet lang=c :
+     * #define CL_DEVICE_LOCAL_FP_ATOMIC_MIN_MAX_EXT 262144
+     * }
+     */
+    public static int CL_DEVICE_LOCAL_FP_ATOMIC_MIN_MAX_EXT() {
+        return CL_DEVICE_LOCAL_FP_ATOMIC_MIN_MAX_EXT;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_INTEL_CREATE_MEM_OBJECT_PROPERTIES_EXTENSION_NAME "cl_intel_create_mem_object_properties"
+     * }
+     */
+    public static MemorySegment CL_INTEL_CREATE_MEM_OBJECT_PROPERTIES_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_INTEL_CREATE_MEM_OBJECT_PROPERTIES_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_create_mem_object_properties");
+        }
+        return Holder.CL_INTEL_CREATE_MEM_OBJECT_PROPERTIES_EXTENSION_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define CL_POCL_CONTENT_SIZE_EXTENSION_NAME "cl_pocl_content_size"
+     * }
+     */
+    public static MemorySegment CL_POCL_CONTENT_SIZE_EXTENSION_NAME() {
+        class Holder {
+            static final MemorySegment CL_POCL_CONTENT_SIZE_EXTENSION_NAME
+                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_pocl_content_size");
+        }
+        return Holder.CL_POCL_CONTENT_SIZE_EXTENSION_NAME;
+    }
 }
-
 

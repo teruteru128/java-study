@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _cl_image_format cl_image_format;
+ * {@snippet lang=c :
+ * typedef struct _cl_image_format {
+ *     cl_channel_order image_channel_order;
+ *     cl_channel_type image_channel_data_type;
+ * } cl_image_format
  * }
  */
-public final class cl_image_format extends _cl_image_format {
+public class cl_image_format extends _cl_image_format {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private cl_image_format() {}
+    cl_image_format() {
+        // Should not be called directly
+    }
 }
-
 

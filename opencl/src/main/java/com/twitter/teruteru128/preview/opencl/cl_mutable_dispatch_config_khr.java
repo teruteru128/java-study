@@ -2,20 +2,39 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _cl_mutable_dispatch_config_khr cl_mutable_dispatch_config_khr;
+ * {@snippet lang=c :
+ * typedef struct _cl_mutable_dispatch_config_khr {
+ *     cl_command_buffer_structure_type_khr type;
+ *     const void *next;
+ *     cl_mutable_command_khr command;
+ *     cl_uint num_args;
+ *     cl_uint num_svm_args;
+ *     cl_uint num_exec_infos;
+ *     cl_uint work_dim;
+ *     const cl_mutable_dispatch_arg_khr *arg_list;
+ *     const cl_mutable_dispatch_arg_khr *arg_svm_list;
+ *     const cl_mutable_dispatch_exec_info_khr *exec_info_list;
+ *     const size_t *global_work_offset;
+ *     const size_t *global_work_size;
+ *     const size_t *local_work_size;
+ * } cl_mutable_dispatch_config_khr
  * }
  */
-public final class cl_mutable_dispatch_config_khr extends _cl_mutable_dispatch_config_khr {
+public class cl_mutable_dispatch_config_khr extends _cl_mutable_dispatch_config_khr {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private cl_mutable_dispatch_config_khr() {}
+    cl_mutable_dispatch_config_khr() {
+        // Should not be called directly
+    }
 }
-
 

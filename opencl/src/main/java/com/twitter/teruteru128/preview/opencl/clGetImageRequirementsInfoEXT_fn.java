@@ -2,32 +2,75 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*clGetImageRequirementsInfoEXT_fn)(struct _cl_context* context,unsigned long long* properties,unsigned long long flags,struct _cl_image_format* image_format,struct _cl_image_desc* image_desc,unsigned int param_name,unsigned long long param_value_size,void* param_value,unsigned long long* param_value_size_ret);
+ * {@snippet lang=c :
+ * typedef cl_int (*clGetImageRequirementsInfoEXT_fn)(cl_context, const cl_mem_properties *, cl_mem_flags, const cl_image_format *, const cl_image_desc *, cl_image_requirements_info_ext, size_t, void *, size_t *) __attribute__((stdcall))
  * }
  */
-public interface clGetImageRequirementsInfoEXT_fn {
+public class clGetImageRequirementsInfoEXT_fn {
 
-    int apply(java.lang.foreign.MemorySegment context, java.lang.foreign.MemorySegment properties, long flags, java.lang.foreign.MemorySegment image_format, java.lang.foreign.MemorySegment image_desc, int param_name, long param_value_size, java.lang.foreign.MemorySegment param_value, java.lang.foreign.MemorySegment param_value_size_ret);
-    static MemorySegment allocate(clGetImageRequirementsInfoEXT_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$255.const$5, fi, constants$255.const$4, scope);
+    clGetImageRequirementsInfoEXT_fn() {
+        // Should not be called directly
     }
-    static clGetImageRequirementsInfoEXT_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _context, java.lang.foreign.MemorySegment _properties, long _flags, java.lang.foreign.MemorySegment _image_format, java.lang.foreign.MemorySegment _image_desc, int _param_name, long _param_value_size, java.lang.foreign.MemorySegment _param_value, java.lang.foreign.MemorySegment _param_value_size_ret) -> {
-            try {
-                return (int)constants$256.const$0.invokeExact(symbol, _context, _properties, _flags, _image_format, _image_desc, _param_name, _param_value_size, _param_value, _param_value_size_ret);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment context, MemorySegment properties, long flags, MemorySegment image_format, MemorySegment image_desc, int param_name, long param_value_size, MemorySegment param_value, MemorySegment param_value_size_ret);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_INT,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clGetImageRequirementsInfoEXT_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clGetImageRequirementsInfoEXT_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment context, MemorySegment properties, long flags, MemorySegment image_format, MemorySegment image_desc, int param_name, long param_value_size, MemorySegment param_value, MemorySegment param_value_size_ret) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, context, properties, flags, image_format, image_desc, param_name, param_value_size, param_value, param_value_size_ret);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

@@ -2,140 +2,266 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _cl_mutable_base_config_khr {
  *     cl_command_buffer_structure_type_khr type;
- *     void* next;
+ *     const void *next;
  *     cl_uint num_mutable_dispatch;
- *     const cl_mutable_dispatch_config_khr* mutable_dispatch_list;
- * };
+ *     const cl_mutable_dispatch_config_khr *mutable_dispatch_list;
+ * }
  * }
  */
 public class _cl_mutable_base_config_khr {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$223.const$5;
+    _cl_mutable_base_config_khr() {
+        // Should not be called directly
     }
-    public static VarHandle type$VH() {
-        return constants$224.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_command_buffer_structure_type_khr type;
-     * }
-     */
-    public static int type$get(MemorySegment seg) {
-        return (int)constants$224.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_command_buffer_structure_type_khr type;
-     * }
-     */
-    public static void type$set(MemorySegment seg, int x) {
-        constants$224.const$0.set(seg, x);
-    }
-    public static int type$get(MemorySegment seg, long index) {
-        return (int)constants$224.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void type$set(MemorySegment seg, long index, int x) {
-        constants$224.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle next$VH() {
-        return constants$224.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * void* next;
-     * }
-     */
-    public static MemorySegment next$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$224.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * void* next;
-     * }
-     */
-    public static void next$set(MemorySegment seg, MemorySegment x) {
-        constants$224.const$1.set(seg, x);
-    }
-    public static MemorySegment next$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$224.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void next$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$224.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle num_mutable_dispatch$VH() {
-        return constants$224.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_uint num_mutable_dispatch;
-     * }
-     */
-    public static int num_mutable_dispatch$get(MemorySegment seg) {
-        return (int)constants$224.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_uint num_mutable_dispatch;
-     * }
-     */
-    public static void num_mutable_dispatch$set(MemorySegment seg, int x) {
-        constants$224.const$2.set(seg, x);
-    }
-    public static int num_mutable_dispatch$get(MemorySegment seg, long index) {
-        return (int)constants$224.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void num_mutable_dispatch$set(MemorySegment seg, long index, int x) {
-        constants$224.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle mutable_dispatch_list$VH() {
-        return constants$224.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * const cl_mutable_dispatch_config_khr* mutable_dispatch_list;
-     * }
-     */
-    public static MemorySegment mutable_dispatch_list$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$224.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * const cl_mutable_dispatch_config_khr* mutable_dispatch_list;
-     * }
-     */
-    public static void mutable_dispatch_list$set(MemorySegment seg, MemorySegment x) {
-        constants$224.const$3.set(seg, x);
-    }
-    public static MemorySegment mutable_dispatch_list$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$224.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void mutable_dispatch_list$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$224.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        opencl_h.C_INT.withName("type"),
+        MemoryLayout.paddingLayout(4),
+        opencl_h.C_POINTER.withName("next"),
+        opencl_h.C_INT.withName("num_mutable_dispatch"),
+        MemoryLayout.paddingLayout(4),
+        opencl_h.C_POINTER.withName("mutable_dispatch_list")
+    ).withName("_cl_mutable_base_config_khr");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt type$LAYOUT = (OfInt)$LAYOUT.select(groupElement("type"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_command_buffer_structure_type_khr type
+     * }
+     */
+    public static final OfInt type$layout() {
+        return type$LAYOUT;
+    }
+
+    private static final long type$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_command_buffer_structure_type_khr type
+     * }
+     */
+    public static final long type$offset() {
+        return type$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_command_buffer_structure_type_khr type
+     * }
+     */
+    public static int type(MemorySegment struct) {
+        return struct.get(type$LAYOUT, type$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_command_buffer_structure_type_khr type
+     * }
+     */
+    public static void type(MemorySegment struct, int fieldValue) {
+        struct.set(type$LAYOUT, type$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout next$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("next"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * const void *next
+     * }
+     */
+    public static final AddressLayout next$layout() {
+        return next$LAYOUT;
+    }
+
+    private static final long next$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * const void *next
+     * }
+     */
+    public static final long next$offset() {
+        return next$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * const void *next
+     * }
+     */
+    public static MemorySegment next(MemorySegment struct) {
+        return struct.get(next$LAYOUT, next$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * const void *next
+     * }
+     */
+    public static void next(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(next$LAYOUT, next$OFFSET, fieldValue);
+    }
+
+    private static final OfInt num_mutable_dispatch$LAYOUT = (OfInt)$LAYOUT.select(groupElement("num_mutable_dispatch"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_uint num_mutable_dispatch
+     * }
+     */
+    public static final OfInt num_mutable_dispatch$layout() {
+        return num_mutable_dispatch$LAYOUT;
+    }
+
+    private static final long num_mutable_dispatch$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_uint num_mutable_dispatch
+     * }
+     */
+    public static final long num_mutable_dispatch$offset() {
+        return num_mutable_dispatch$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_uint num_mutable_dispatch
+     * }
+     */
+    public static int num_mutable_dispatch(MemorySegment struct) {
+        return struct.get(num_mutable_dispatch$LAYOUT, num_mutable_dispatch$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_uint num_mutable_dispatch
+     * }
+     */
+    public static void num_mutable_dispatch(MemorySegment struct, int fieldValue) {
+        struct.set(num_mutable_dispatch$LAYOUT, num_mutable_dispatch$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout mutable_dispatch_list$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("mutable_dispatch_list"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_config_khr *mutable_dispatch_list
+     * }
+     */
+    public static final AddressLayout mutable_dispatch_list$layout() {
+        return mutable_dispatch_list$LAYOUT;
+    }
+
+    private static final long mutable_dispatch_list$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_config_khr *mutable_dispatch_list
+     * }
+     */
+    public static final long mutable_dispatch_list$offset() {
+        return mutable_dispatch_list$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_config_khr *mutable_dispatch_list
+     * }
+     */
+    public static MemorySegment mutable_dispatch_list(MemorySegment struct) {
+        return struct.get(mutable_dispatch_list$LAYOUT, mutable_dispatch_list$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_config_khr *mutable_dispatch_list
+     * }
+     */
+    public static void mutable_dispatch_list(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(mutable_dispatch_list$LAYOUT, mutable_dispatch_list$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

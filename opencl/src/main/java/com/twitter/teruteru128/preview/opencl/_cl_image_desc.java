@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _cl_image_desc {
  *     cl_mem_object_type image_type;
  *     size_t image_width;
@@ -23,317 +28,565 @@ import static java.lang.foreign.ValueLayout.*;
  *         cl_mem buffer;
  *         cl_mem mem_object;
  *     };
- * };
+ * }
  * }
  */
 public class _cl_image_desc {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$173.const$3;
+    _cl_image_desc() {
+        // Should not be called directly
     }
-    public static VarHandle image_type$VH() {
-        return constants$173.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_mem_object_type image_type;
-     * }
-     */
-    public static int image_type$get(MemorySegment seg) {
-        return (int)constants$173.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_mem_object_type image_type;
-     * }
-     */
-    public static void image_type$set(MemorySegment seg, int x) {
-        constants$173.const$4.set(seg, x);
-    }
-    public static int image_type$get(MemorySegment seg, long index) {
-        return (int)constants$173.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void image_type$set(MemorySegment seg, long index, int x) {
-        constants$173.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle image_width$VH() {
-        return constants$173.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * size_t image_width;
-     * }
-     */
-    public static long image_width$get(MemorySegment seg) {
-        return (long)constants$173.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * size_t image_width;
-     * }
-     */
-    public static void image_width$set(MemorySegment seg, long x) {
-        constants$173.const$5.set(seg, x);
-    }
-    public static long image_width$get(MemorySegment seg, long index) {
-        return (long)constants$173.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void image_width$set(MemorySegment seg, long index, long x) {
-        constants$173.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle image_height$VH() {
-        return constants$174.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * size_t image_height;
-     * }
-     */
-    public static long image_height$get(MemorySegment seg) {
-        return (long)constants$174.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * size_t image_height;
-     * }
-     */
-    public static void image_height$set(MemorySegment seg, long x) {
-        constants$174.const$0.set(seg, x);
-    }
-    public static long image_height$get(MemorySegment seg, long index) {
-        return (long)constants$174.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void image_height$set(MemorySegment seg, long index, long x) {
-        constants$174.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle image_depth$VH() {
-        return constants$174.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * size_t image_depth;
-     * }
-     */
-    public static long image_depth$get(MemorySegment seg) {
-        return (long)constants$174.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * size_t image_depth;
-     * }
-     */
-    public static void image_depth$set(MemorySegment seg, long x) {
-        constants$174.const$1.set(seg, x);
-    }
-    public static long image_depth$get(MemorySegment seg, long index) {
-        return (long)constants$174.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void image_depth$set(MemorySegment seg, long index, long x) {
-        constants$174.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle image_array_size$VH() {
-        return constants$174.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * size_t image_array_size;
-     * }
-     */
-    public static long image_array_size$get(MemorySegment seg) {
-        return (long)constants$174.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * size_t image_array_size;
-     * }
-     */
-    public static void image_array_size$set(MemorySegment seg, long x) {
-        constants$174.const$2.set(seg, x);
-    }
-    public static long image_array_size$get(MemorySegment seg, long index) {
-        return (long)constants$174.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void image_array_size$set(MemorySegment seg, long index, long x) {
-        constants$174.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle image_row_pitch$VH() {
-        return constants$174.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * size_t image_row_pitch;
-     * }
-     */
-    public static long image_row_pitch$get(MemorySegment seg) {
-        return (long)constants$174.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * size_t image_row_pitch;
-     * }
-     */
-    public static void image_row_pitch$set(MemorySegment seg, long x) {
-        constants$174.const$3.set(seg, x);
-    }
-    public static long image_row_pitch$get(MemorySegment seg, long index) {
-        return (long)constants$174.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void image_row_pitch$set(MemorySegment seg, long index, long x) {
-        constants$174.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle image_slice_pitch$VH() {
-        return constants$174.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * size_t image_slice_pitch;
-     * }
-     */
-    public static long image_slice_pitch$get(MemorySegment seg) {
-        return (long)constants$174.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * size_t image_slice_pitch;
-     * }
-     */
-    public static void image_slice_pitch$set(MemorySegment seg, long x) {
-        constants$174.const$4.set(seg, x);
-    }
-    public static long image_slice_pitch$get(MemorySegment seg, long index) {
-        return (long)constants$174.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void image_slice_pitch$set(MemorySegment seg, long index, long x) {
-        constants$174.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle num_mip_levels$VH() {
-        return constants$174.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_uint num_mip_levels;
-     * }
-     */
-    public static int num_mip_levels$get(MemorySegment seg) {
-        return (int)constants$174.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_uint num_mip_levels;
-     * }
-     */
-    public static void num_mip_levels$set(MemorySegment seg, int x) {
-        constants$174.const$5.set(seg, x);
-    }
-    public static int num_mip_levels$get(MemorySegment seg, long index) {
-        return (int)constants$174.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void num_mip_levels$set(MemorySegment seg, long index, int x) {
-        constants$174.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle num_samples$VH() {
-        return constants$175.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_uint num_samples;
-     * }
-     */
-    public static int num_samples$get(MemorySegment seg) {
-        return (int)constants$175.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_uint num_samples;
-     * }
-     */
-    public static void num_samples$set(MemorySegment seg, int x) {
-        constants$175.const$0.set(seg, x);
-    }
-    public static int num_samples$get(MemorySegment seg, long index) {
-        return (int)constants$175.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void num_samples$set(MemorySegment seg, long index, int x) {
-        constants$175.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle buffer$VH() {
-        return constants$175.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_mem buffer;
-     * }
-     */
-    public static MemorySegment buffer$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$175.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_mem buffer;
-     * }
-     */
-    public static void buffer$set(MemorySegment seg, MemorySegment x) {
-        constants$175.const$1.set(seg, x);
-    }
-    public static MemorySegment buffer$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$175.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void buffer$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$175.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle mem_object$VH() {
-        return constants$175.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_mem mem_object;
-     * }
-     */
-    public static MemorySegment mem_object$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$175.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_mem mem_object;
-     * }
-     */
-    public static void mem_object$set(MemorySegment seg, MemorySegment x) {
-        constants$175.const$2.set(seg, x);
-    }
-    public static MemorySegment mem_object$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$175.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void mem_object$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$175.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        opencl_h.C_INT.withName("image_type"),
+        MemoryLayout.paddingLayout(4),
+        opencl_h.C_LONG_LONG.withName("image_width"),
+        opencl_h.C_LONG_LONG.withName("image_height"),
+        opencl_h.C_LONG_LONG.withName("image_depth"),
+        opencl_h.C_LONG_LONG.withName("image_array_size"),
+        opencl_h.C_LONG_LONG.withName("image_row_pitch"),
+        opencl_h.C_LONG_LONG.withName("image_slice_pitch"),
+        opencl_h.C_INT.withName("num_mip_levels"),
+        opencl_h.C_INT.withName("num_samples"),
+        MemoryLayout.unionLayout(
+            opencl_h.C_POINTER.withName("buffer"),
+            opencl_h.C_POINTER.withName("mem_object")
+        ).withName("$anon$151:5")
+    ).withName("_cl_image_desc");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt image_type$LAYOUT = (OfInt)$LAYOUT.select(groupElement("image_type"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_mem_object_type image_type
+     * }
+     */
+    public static final OfInt image_type$layout() {
+        return image_type$LAYOUT;
+    }
+
+    private static final long image_type$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_mem_object_type image_type
+     * }
+     */
+    public static final long image_type$offset() {
+        return image_type$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_mem_object_type image_type
+     * }
+     */
+    public static int image_type(MemorySegment struct) {
+        return struct.get(image_type$LAYOUT, image_type$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_mem_object_type image_type
+     * }
+     */
+    public static void image_type(MemorySegment struct, int fieldValue) {
+        struct.set(image_type$LAYOUT, image_type$OFFSET, fieldValue);
+    }
+
+    private static final OfLong image_width$LAYOUT = (OfLong)$LAYOUT.select(groupElement("image_width"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * size_t image_width
+     * }
+     */
+    public static final OfLong image_width$layout() {
+        return image_width$LAYOUT;
+    }
+
+    private static final long image_width$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * size_t image_width
+     * }
+     */
+    public static final long image_width$offset() {
+        return image_width$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * size_t image_width
+     * }
+     */
+    public static long image_width(MemorySegment struct) {
+        return struct.get(image_width$LAYOUT, image_width$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * size_t image_width
+     * }
+     */
+    public static void image_width(MemorySegment struct, long fieldValue) {
+        struct.set(image_width$LAYOUT, image_width$OFFSET, fieldValue);
+    }
+
+    private static final OfLong image_height$LAYOUT = (OfLong)$LAYOUT.select(groupElement("image_height"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * size_t image_height
+     * }
+     */
+    public static final OfLong image_height$layout() {
+        return image_height$LAYOUT;
+    }
+
+    private static final long image_height$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * size_t image_height
+     * }
+     */
+    public static final long image_height$offset() {
+        return image_height$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * size_t image_height
+     * }
+     */
+    public static long image_height(MemorySegment struct) {
+        return struct.get(image_height$LAYOUT, image_height$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * size_t image_height
+     * }
+     */
+    public static void image_height(MemorySegment struct, long fieldValue) {
+        struct.set(image_height$LAYOUT, image_height$OFFSET, fieldValue);
+    }
+
+    private static final OfLong image_depth$LAYOUT = (OfLong)$LAYOUT.select(groupElement("image_depth"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * size_t image_depth
+     * }
+     */
+    public static final OfLong image_depth$layout() {
+        return image_depth$LAYOUT;
+    }
+
+    private static final long image_depth$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * size_t image_depth
+     * }
+     */
+    public static final long image_depth$offset() {
+        return image_depth$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * size_t image_depth
+     * }
+     */
+    public static long image_depth(MemorySegment struct) {
+        return struct.get(image_depth$LAYOUT, image_depth$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * size_t image_depth
+     * }
+     */
+    public static void image_depth(MemorySegment struct, long fieldValue) {
+        struct.set(image_depth$LAYOUT, image_depth$OFFSET, fieldValue);
+    }
+
+    private static final OfLong image_array_size$LAYOUT = (OfLong)$LAYOUT.select(groupElement("image_array_size"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * size_t image_array_size
+     * }
+     */
+    public static final OfLong image_array_size$layout() {
+        return image_array_size$LAYOUT;
+    }
+
+    private static final long image_array_size$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * size_t image_array_size
+     * }
+     */
+    public static final long image_array_size$offset() {
+        return image_array_size$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * size_t image_array_size
+     * }
+     */
+    public static long image_array_size(MemorySegment struct) {
+        return struct.get(image_array_size$LAYOUT, image_array_size$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * size_t image_array_size
+     * }
+     */
+    public static void image_array_size(MemorySegment struct, long fieldValue) {
+        struct.set(image_array_size$LAYOUT, image_array_size$OFFSET, fieldValue);
+    }
+
+    private static final OfLong image_row_pitch$LAYOUT = (OfLong)$LAYOUT.select(groupElement("image_row_pitch"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * size_t image_row_pitch
+     * }
+     */
+    public static final OfLong image_row_pitch$layout() {
+        return image_row_pitch$LAYOUT;
+    }
+
+    private static final long image_row_pitch$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * size_t image_row_pitch
+     * }
+     */
+    public static final long image_row_pitch$offset() {
+        return image_row_pitch$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * size_t image_row_pitch
+     * }
+     */
+    public static long image_row_pitch(MemorySegment struct) {
+        return struct.get(image_row_pitch$LAYOUT, image_row_pitch$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * size_t image_row_pitch
+     * }
+     */
+    public static void image_row_pitch(MemorySegment struct, long fieldValue) {
+        struct.set(image_row_pitch$LAYOUT, image_row_pitch$OFFSET, fieldValue);
+    }
+
+    private static final OfLong image_slice_pitch$LAYOUT = (OfLong)$LAYOUT.select(groupElement("image_slice_pitch"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * size_t image_slice_pitch
+     * }
+     */
+    public static final OfLong image_slice_pitch$layout() {
+        return image_slice_pitch$LAYOUT;
+    }
+
+    private static final long image_slice_pitch$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * size_t image_slice_pitch
+     * }
+     */
+    public static final long image_slice_pitch$offset() {
+        return image_slice_pitch$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * size_t image_slice_pitch
+     * }
+     */
+    public static long image_slice_pitch(MemorySegment struct) {
+        return struct.get(image_slice_pitch$LAYOUT, image_slice_pitch$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * size_t image_slice_pitch
+     * }
+     */
+    public static void image_slice_pitch(MemorySegment struct, long fieldValue) {
+        struct.set(image_slice_pitch$LAYOUT, image_slice_pitch$OFFSET, fieldValue);
+    }
+
+    private static final OfInt num_mip_levels$LAYOUT = (OfInt)$LAYOUT.select(groupElement("num_mip_levels"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_uint num_mip_levels
+     * }
+     */
+    public static final OfInt num_mip_levels$layout() {
+        return num_mip_levels$LAYOUT;
+    }
+
+    private static final long num_mip_levels$OFFSET = 56;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_uint num_mip_levels
+     * }
+     */
+    public static final long num_mip_levels$offset() {
+        return num_mip_levels$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_uint num_mip_levels
+     * }
+     */
+    public static int num_mip_levels(MemorySegment struct) {
+        return struct.get(num_mip_levels$LAYOUT, num_mip_levels$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_uint num_mip_levels
+     * }
+     */
+    public static void num_mip_levels(MemorySegment struct, int fieldValue) {
+        struct.set(num_mip_levels$LAYOUT, num_mip_levels$OFFSET, fieldValue);
+    }
+
+    private static final OfInt num_samples$LAYOUT = (OfInt)$LAYOUT.select(groupElement("num_samples"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_uint num_samples
+     * }
+     */
+    public static final OfInt num_samples$layout() {
+        return num_samples$LAYOUT;
+    }
+
+    private static final long num_samples$OFFSET = 60;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_uint num_samples
+     * }
+     */
+    public static final long num_samples$offset() {
+        return num_samples$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_uint num_samples
+     * }
+     */
+    public static int num_samples(MemorySegment struct) {
+        return struct.get(num_samples$LAYOUT, num_samples$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_uint num_samples
+     * }
+     */
+    public static void num_samples(MemorySegment struct, int fieldValue) {
+        struct.set(num_samples$LAYOUT, num_samples$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout buffer$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$151:5"), groupElement("buffer"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_mem buffer
+     * }
+     */
+    public static final AddressLayout buffer$layout() {
+        return buffer$LAYOUT;
+    }
+
+    private static final long buffer$OFFSET = 64;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_mem buffer
+     * }
+     */
+    public static final long buffer$offset() {
+        return buffer$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_mem buffer
+     * }
+     */
+    public static MemorySegment buffer(MemorySegment struct) {
+        return struct.get(buffer$LAYOUT, buffer$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_mem buffer
+     * }
+     */
+    public static void buffer(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(buffer$LAYOUT, buffer$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout mem_object$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$151:5"), groupElement("mem_object"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_mem mem_object
+     * }
+     */
+    public static final AddressLayout mem_object$layout() {
+        return mem_object$LAYOUT;
+    }
+
+    private static final long mem_object$OFFSET = 64;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_mem mem_object
+     * }
+     */
+    public static final long mem_object$offset() {
+        return mem_object$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_mem mem_object
+     * }
+     */
+    public static MemorySegment mem_object(MemorySegment struct) {
+        return struct.get(mem_object$LAYOUT, mem_object$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_mem mem_object
+     * }
+     */
+    public static void mem_object(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(mem_object$LAYOUT, mem_object$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

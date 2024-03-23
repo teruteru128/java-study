@@ -2,32 +2,69 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * struct _cl_event* (*clCreateEventFromGLsyncKHR_fn)(struct _cl_context* context,struct __GLsync* sync,int* errcode_ret);
+ * {@snippet lang=c :
+ * typedef cl_event (*clCreateEventFromGLsyncKHR_fn)(cl_context, cl_GLsync, cl_int *) __attribute__((stdcall))
  * }
  */
-public interface clCreateEventFromGLsyncKHR_fn {
+public class clCreateEventFromGLsyncKHR_fn {
 
-    java.lang.foreign.MemorySegment apply(java.lang.foreign.MemorySegment context, java.lang.foreign.MemorySegment sema_props, java.lang.foreign.MemorySegment errcode_ret);
-    static MemorySegment allocate(clCreateEventFromGLsyncKHR_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$210.const$0, fi, constants$185.const$5, scope);
+    clCreateEventFromGLsyncKHR_fn() {
+        // Should not be called directly
     }
-    static clCreateEventFromGLsyncKHR_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _context, java.lang.foreign.MemorySegment _sema_props, java.lang.foreign.MemorySegment _errcode_ret) -> {
-            try {
-                return (java.lang.foreign.MemorySegment)constants$210.const$1.invokeExact(symbol, _context, _sema_props, _errcode_ret);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        MemorySegment apply(MemorySegment context, MemorySegment sync, MemorySegment errcode_ret);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clCreateEventFromGLsyncKHR_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clCreateEventFromGLsyncKHR_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static MemorySegment invoke(MemorySegment funcPtr,MemorySegment context, MemorySegment sync, MemorySegment errcode_ret) {
+        try {
+            return (MemorySegment) DOWN$MH.invokeExact(funcPtr, context, sync, errcode_ret);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

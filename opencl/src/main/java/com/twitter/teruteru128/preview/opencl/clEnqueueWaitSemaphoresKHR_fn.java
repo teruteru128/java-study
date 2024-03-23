@@ -2,32 +2,73 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*clEnqueueWaitSemaphoresKHR_fn)(struct _cl_command_queue* command_queue,unsigned int num_sema_objects,struct _cl_semaphore_khr** sema_objects,unsigned long long* sema_payload_list,unsigned int num_events_in_wait_list,struct _cl_event** event_wait_list,struct _cl_event** event);
+ * {@snippet lang=c :
+ * typedef cl_int (*clEnqueueWaitSemaphoresKHR_fn)(cl_command_queue, cl_uint, const cl_semaphore_khr *, const cl_semaphore_payload_khr *, cl_uint, const cl_event *, cl_event *) __attribute__((stdcall))
  * }
  */
-public interface clEnqueueWaitSemaphoresKHR_fn {
+public class clEnqueueWaitSemaphoresKHR_fn {
 
-    int apply(java.lang.foreign.MemorySegment command_queue, int num_sema_objects, java.lang.foreign.MemorySegment sema_objects, java.lang.foreign.MemorySegment sema_payload_list, int num_events_in_wait_list, java.lang.foreign.MemorySegment event_wait_list, java.lang.foreign.MemorySegment event);
-    static MemorySegment allocate(clEnqueueWaitSemaphoresKHR_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$238.const$2, fi, constants$238.const$1, scope);
+    clEnqueueWaitSemaphoresKHR_fn() {
+        // Should not be called directly
     }
-    static clEnqueueWaitSemaphoresKHR_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _command_queue, int _num_sema_objects, java.lang.foreign.MemorySegment _sema_objects, java.lang.foreign.MemorySegment _sema_payload_list, int _num_events_in_wait_list, java.lang.foreign.MemorySegment _event_wait_list, java.lang.foreign.MemorySegment _event) -> {
-            try {
-                return (int)constants$238.const$3.invokeExact(symbol, _command_queue, _num_sema_objects, _sema_objects, _sema_payload_list, _num_events_in_wait_list, _event_wait_list, _event);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment command_queue, int num_sema_objects, MemorySegment sema_objects, MemorySegment sema_payload_list, int num_events_in_wait_list, MemorySegment event_wait_list, MemorySegment event);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clEnqueueWaitSemaphoresKHR_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clEnqueueWaitSemaphoresKHR_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment command_queue, int num_sema_objects, MemorySegment sema_objects, MemorySegment sema_payload_list, int num_events_in_wait_list, MemorySegment event_wait_list, MemorySegment event) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, command_queue, num_sema_objects, sema_objects, sema_payload_list, num_events_in_wait_list, event_wait_list, event);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

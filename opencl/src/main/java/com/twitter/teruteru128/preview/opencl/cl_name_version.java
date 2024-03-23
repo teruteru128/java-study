@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _cl_name_version cl_name_version;
+ * {@snippet lang=c :
+ * typedef struct _cl_name_version {
+ *     cl_version version;
+ *     char name[64];
+ * } cl_name_version
  * }
  */
-public final class cl_name_version extends _cl_name_version {
+public class cl_name_version extends _cl_name_version {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private cl_name_version() {}
+    cl_name_version() {
+        // Should not be called directly
+    }
 }
-
 

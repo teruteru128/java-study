@@ -2,32 +2,70 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * struct _cl_command_buffer_khr* (*clCreateCommandBufferKHR_fn)(unsigned int num_queues,struct _cl_command_queue** queues,unsigned long long* properties,int* errcode_ret);
+ * {@snippet lang=c :
+ * typedef cl_command_buffer_khr (*clCreateCommandBufferKHR_fn)(cl_uint, const cl_command_queue *, const cl_command_buffer_properties_khr *, cl_int *) __attribute__((stdcall))
  * }
  */
-public interface clCreateCommandBufferKHR_fn {
+public class clCreateCommandBufferKHR_fn {
 
-    java.lang.foreign.MemorySegment apply(int num_queues, java.lang.foreign.MemorySegment queues, java.lang.foreign.MemorySegment properties, java.lang.foreign.MemorySegment errcode_ret);
-    static MemorySegment allocate(clCreateCommandBufferKHR_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$211.const$1, fi, constants$211.const$0, scope);
+    clCreateCommandBufferKHR_fn() {
+        // Should not be called directly
     }
-    static clCreateCommandBufferKHR_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (int _num_queues, java.lang.foreign.MemorySegment _queues, java.lang.foreign.MemorySegment _properties, java.lang.foreign.MemorySegment _errcode_ret) -> {
-            try {
-                return (java.lang.foreign.MemorySegment)constants$211.const$2.invokeExact(symbol, _num_queues, _queues, _properties, _errcode_ret);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        MemorySegment apply(int num_queues, MemorySegment queues, MemorySegment properties, MemorySegment errcode_ret);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_POINTER,
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clCreateCommandBufferKHR_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clCreateCommandBufferKHR_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static MemorySegment invoke(MemorySegment funcPtr,int num_queues, MemorySegment queues, MemorySegment properties, MemorySegment errcode_ret) {
+        try {
+            return (MemorySegment) DOWN$MH.invokeExact(funcPtr, num_queues, queues, properties, errcode_ret);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

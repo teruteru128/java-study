@@ -2,392 +2,679 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _cl_mutable_dispatch_config_khr {
  *     cl_command_buffer_structure_type_khr type;
- *     void* next;
+ *     const void *next;
  *     cl_mutable_command_khr command;
  *     cl_uint num_args;
  *     cl_uint num_svm_args;
  *     cl_uint num_exec_infos;
  *     cl_uint work_dim;
- *     const cl_mutable_dispatch_arg_khr* arg_list;
- *     const cl_mutable_dispatch_arg_khr* arg_svm_list;
- *     const cl_mutable_dispatch_exec_info_khr* exec_info_list;
- *     const size_t* global_work_offset;
- *     const size_t* global_work_size;
- *     const size_t* local_work_size;
- * };
+ *     const cl_mutable_dispatch_arg_khr *arg_list;
+ *     const cl_mutable_dispatch_arg_khr *arg_svm_list;
+ *     const cl_mutable_dispatch_exec_info_khr *exec_info_list;
+ *     const size_t *global_work_offset;
+ *     const size_t *global_work_size;
+ *     const size_t *local_work_size;
+ * }
  * }
  */
 public class _cl_mutable_dispatch_config_khr {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$221.const$3;
+    _cl_mutable_dispatch_config_khr() {
+        // Should not be called directly
     }
-    public static VarHandle type$VH() {
-        return constants$221.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_command_buffer_structure_type_khr type;
-     * }
-     */
-    public static int type$get(MemorySegment seg) {
-        return (int)constants$221.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_command_buffer_structure_type_khr type;
-     * }
-     */
-    public static void type$set(MemorySegment seg, int x) {
-        constants$221.const$4.set(seg, x);
-    }
-    public static int type$get(MemorySegment seg, long index) {
-        return (int)constants$221.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void type$set(MemorySegment seg, long index, int x) {
-        constants$221.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle next$VH() {
-        return constants$221.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * void* next;
-     * }
-     */
-    public static MemorySegment next$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$221.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * void* next;
-     * }
-     */
-    public static void next$set(MemorySegment seg, MemorySegment x) {
-        constants$221.const$5.set(seg, x);
-    }
-    public static MemorySegment next$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$221.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void next$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$221.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle command$VH() {
-        return constants$222.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_mutable_command_khr command;
-     * }
-     */
-    public static MemorySegment command$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$222.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_mutable_command_khr command;
-     * }
-     */
-    public static void command$set(MemorySegment seg, MemorySegment x) {
-        constants$222.const$0.set(seg, x);
-    }
-    public static MemorySegment command$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$222.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void command$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$222.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle num_args$VH() {
-        return constants$222.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_uint num_args;
-     * }
-     */
-    public static int num_args$get(MemorySegment seg) {
-        return (int)constants$222.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_uint num_args;
-     * }
-     */
-    public static void num_args$set(MemorySegment seg, int x) {
-        constants$222.const$1.set(seg, x);
-    }
-    public static int num_args$get(MemorySegment seg, long index) {
-        return (int)constants$222.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void num_args$set(MemorySegment seg, long index, int x) {
-        constants$222.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle num_svm_args$VH() {
-        return constants$222.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_uint num_svm_args;
-     * }
-     */
-    public static int num_svm_args$get(MemorySegment seg) {
-        return (int)constants$222.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_uint num_svm_args;
-     * }
-     */
-    public static void num_svm_args$set(MemorySegment seg, int x) {
-        constants$222.const$2.set(seg, x);
-    }
-    public static int num_svm_args$get(MemorySegment seg, long index) {
-        return (int)constants$222.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void num_svm_args$set(MemorySegment seg, long index, int x) {
-        constants$222.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle num_exec_infos$VH() {
-        return constants$222.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_uint num_exec_infos;
-     * }
-     */
-    public static int num_exec_infos$get(MemorySegment seg) {
-        return (int)constants$222.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_uint num_exec_infos;
-     * }
-     */
-    public static void num_exec_infos$set(MemorySegment seg, int x) {
-        constants$222.const$3.set(seg, x);
-    }
-    public static int num_exec_infos$get(MemorySegment seg, long index) {
-        return (int)constants$222.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void num_exec_infos$set(MemorySegment seg, long index, int x) {
-        constants$222.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle work_dim$VH() {
-        return constants$222.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * cl_uint work_dim;
-     * }
-     */
-    public static int work_dim$get(MemorySegment seg) {
-        return (int)constants$222.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * cl_uint work_dim;
-     * }
-     */
-    public static void work_dim$set(MemorySegment seg, int x) {
-        constants$222.const$4.set(seg, x);
-    }
-    public static int work_dim$get(MemorySegment seg, long index) {
-        return (int)constants$222.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void work_dim$set(MemorySegment seg, long index, int x) {
-        constants$222.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle arg_list$VH() {
-        return constants$222.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * const cl_mutable_dispatch_arg_khr* arg_list;
-     * }
-     */
-    public static MemorySegment arg_list$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$222.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * const cl_mutable_dispatch_arg_khr* arg_list;
-     * }
-     */
-    public static void arg_list$set(MemorySegment seg, MemorySegment x) {
-        constants$222.const$5.set(seg, x);
-    }
-    public static MemorySegment arg_list$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$222.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void arg_list$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$222.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle arg_svm_list$VH() {
-        return constants$223.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * const cl_mutable_dispatch_arg_khr* arg_svm_list;
-     * }
-     */
-    public static MemorySegment arg_svm_list$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$223.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * const cl_mutable_dispatch_arg_khr* arg_svm_list;
-     * }
-     */
-    public static void arg_svm_list$set(MemorySegment seg, MemorySegment x) {
-        constants$223.const$0.set(seg, x);
-    }
-    public static MemorySegment arg_svm_list$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$223.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void arg_svm_list$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$223.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle exec_info_list$VH() {
-        return constants$223.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * const cl_mutable_dispatch_exec_info_khr* exec_info_list;
-     * }
-     */
-    public static MemorySegment exec_info_list$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$223.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * const cl_mutable_dispatch_exec_info_khr* exec_info_list;
-     * }
-     */
-    public static void exec_info_list$set(MemorySegment seg, MemorySegment x) {
-        constants$223.const$1.set(seg, x);
-    }
-    public static MemorySegment exec_info_list$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$223.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void exec_info_list$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$223.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle global_work_offset$VH() {
-        return constants$223.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * const size_t* global_work_offset;
-     * }
-     */
-    public static MemorySegment global_work_offset$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$223.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * const size_t* global_work_offset;
-     * }
-     */
-    public static void global_work_offset$set(MemorySegment seg, MemorySegment x) {
-        constants$223.const$2.set(seg, x);
-    }
-    public static MemorySegment global_work_offset$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$223.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void global_work_offset$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$223.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle global_work_size$VH() {
-        return constants$223.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * const size_t* global_work_size;
-     * }
-     */
-    public static MemorySegment global_work_size$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$223.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * const size_t* global_work_size;
-     * }
-     */
-    public static void global_work_size$set(MemorySegment seg, MemorySegment x) {
-        constants$223.const$3.set(seg, x);
-    }
-    public static MemorySegment global_work_size$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$223.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void global_work_size$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$223.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle local_work_size$VH() {
-        return constants$223.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * const size_t* local_work_size;
-     * }
-     */
-    public static MemorySegment local_work_size$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$223.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * const size_t* local_work_size;
-     * }
-     */
-    public static void local_work_size$set(MemorySegment seg, MemorySegment x) {
-        constants$223.const$4.set(seg, x);
-    }
-    public static MemorySegment local_work_size$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$223.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void local_work_size$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$223.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        opencl_h.C_INT.withName("type"),
+        MemoryLayout.paddingLayout(4),
+        opencl_h.C_POINTER.withName("next"),
+        opencl_h.C_POINTER.withName("command"),
+        opencl_h.C_INT.withName("num_args"),
+        opencl_h.C_INT.withName("num_svm_args"),
+        opencl_h.C_INT.withName("num_exec_infos"),
+        opencl_h.C_INT.withName("work_dim"),
+        opencl_h.C_POINTER.withName("arg_list"),
+        opencl_h.C_POINTER.withName("arg_svm_list"),
+        opencl_h.C_POINTER.withName("exec_info_list"),
+        opencl_h.C_POINTER.withName("global_work_offset"),
+        opencl_h.C_POINTER.withName("global_work_size"),
+        opencl_h.C_POINTER.withName("local_work_size")
+    ).withName("_cl_mutable_dispatch_config_khr");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt type$LAYOUT = (OfInt)$LAYOUT.select(groupElement("type"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_command_buffer_structure_type_khr type
+     * }
+     */
+    public static final OfInt type$layout() {
+        return type$LAYOUT;
+    }
+
+    private static final long type$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_command_buffer_structure_type_khr type
+     * }
+     */
+    public static final long type$offset() {
+        return type$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_command_buffer_structure_type_khr type
+     * }
+     */
+    public static int type(MemorySegment struct) {
+        return struct.get(type$LAYOUT, type$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_command_buffer_structure_type_khr type
+     * }
+     */
+    public static void type(MemorySegment struct, int fieldValue) {
+        struct.set(type$LAYOUT, type$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout next$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("next"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * const void *next
+     * }
+     */
+    public static final AddressLayout next$layout() {
+        return next$LAYOUT;
+    }
+
+    private static final long next$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * const void *next
+     * }
+     */
+    public static final long next$offset() {
+        return next$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * const void *next
+     * }
+     */
+    public static MemorySegment next(MemorySegment struct) {
+        return struct.get(next$LAYOUT, next$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * const void *next
+     * }
+     */
+    public static void next(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(next$LAYOUT, next$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout command$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("command"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_mutable_command_khr command
+     * }
+     */
+    public static final AddressLayout command$layout() {
+        return command$LAYOUT;
+    }
+
+    private static final long command$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_mutable_command_khr command
+     * }
+     */
+    public static final long command$offset() {
+        return command$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_mutable_command_khr command
+     * }
+     */
+    public static MemorySegment command(MemorySegment struct) {
+        return struct.get(command$LAYOUT, command$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_mutable_command_khr command
+     * }
+     */
+    public static void command(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(command$LAYOUT, command$OFFSET, fieldValue);
+    }
+
+    private static final OfInt num_args$LAYOUT = (OfInt)$LAYOUT.select(groupElement("num_args"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_uint num_args
+     * }
+     */
+    public static final OfInt num_args$layout() {
+        return num_args$LAYOUT;
+    }
+
+    private static final long num_args$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_uint num_args
+     * }
+     */
+    public static final long num_args$offset() {
+        return num_args$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_uint num_args
+     * }
+     */
+    public static int num_args(MemorySegment struct) {
+        return struct.get(num_args$LAYOUT, num_args$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_uint num_args
+     * }
+     */
+    public static void num_args(MemorySegment struct, int fieldValue) {
+        struct.set(num_args$LAYOUT, num_args$OFFSET, fieldValue);
+    }
+
+    private static final OfInt num_svm_args$LAYOUT = (OfInt)$LAYOUT.select(groupElement("num_svm_args"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_uint num_svm_args
+     * }
+     */
+    public static final OfInt num_svm_args$layout() {
+        return num_svm_args$LAYOUT;
+    }
+
+    private static final long num_svm_args$OFFSET = 28;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_uint num_svm_args
+     * }
+     */
+    public static final long num_svm_args$offset() {
+        return num_svm_args$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_uint num_svm_args
+     * }
+     */
+    public static int num_svm_args(MemorySegment struct) {
+        return struct.get(num_svm_args$LAYOUT, num_svm_args$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_uint num_svm_args
+     * }
+     */
+    public static void num_svm_args(MemorySegment struct, int fieldValue) {
+        struct.set(num_svm_args$LAYOUT, num_svm_args$OFFSET, fieldValue);
+    }
+
+    private static final OfInt num_exec_infos$LAYOUT = (OfInt)$LAYOUT.select(groupElement("num_exec_infos"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_uint num_exec_infos
+     * }
+     */
+    public static final OfInt num_exec_infos$layout() {
+        return num_exec_infos$LAYOUT;
+    }
+
+    private static final long num_exec_infos$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_uint num_exec_infos
+     * }
+     */
+    public static final long num_exec_infos$offset() {
+        return num_exec_infos$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_uint num_exec_infos
+     * }
+     */
+    public static int num_exec_infos(MemorySegment struct) {
+        return struct.get(num_exec_infos$LAYOUT, num_exec_infos$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_uint num_exec_infos
+     * }
+     */
+    public static void num_exec_infos(MemorySegment struct, int fieldValue) {
+        struct.set(num_exec_infos$LAYOUT, num_exec_infos$OFFSET, fieldValue);
+    }
+
+    private static final OfInt work_dim$LAYOUT = (OfInt)$LAYOUT.select(groupElement("work_dim"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * cl_uint work_dim
+     * }
+     */
+    public static final OfInt work_dim$layout() {
+        return work_dim$LAYOUT;
+    }
+
+    private static final long work_dim$OFFSET = 36;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * cl_uint work_dim
+     * }
+     */
+    public static final long work_dim$offset() {
+        return work_dim$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * cl_uint work_dim
+     * }
+     */
+    public static int work_dim(MemorySegment struct) {
+        return struct.get(work_dim$LAYOUT, work_dim$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * cl_uint work_dim
+     * }
+     */
+    public static void work_dim(MemorySegment struct, int fieldValue) {
+        struct.set(work_dim$LAYOUT, work_dim$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout arg_list$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("arg_list"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_arg_khr *arg_list
+     * }
+     */
+    public static final AddressLayout arg_list$layout() {
+        return arg_list$LAYOUT;
+    }
+
+    private static final long arg_list$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_arg_khr *arg_list
+     * }
+     */
+    public static final long arg_list$offset() {
+        return arg_list$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_arg_khr *arg_list
+     * }
+     */
+    public static MemorySegment arg_list(MemorySegment struct) {
+        return struct.get(arg_list$LAYOUT, arg_list$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_arg_khr *arg_list
+     * }
+     */
+    public static void arg_list(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(arg_list$LAYOUT, arg_list$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout arg_svm_list$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("arg_svm_list"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_arg_khr *arg_svm_list
+     * }
+     */
+    public static final AddressLayout arg_svm_list$layout() {
+        return arg_svm_list$LAYOUT;
+    }
+
+    private static final long arg_svm_list$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_arg_khr *arg_svm_list
+     * }
+     */
+    public static final long arg_svm_list$offset() {
+        return arg_svm_list$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_arg_khr *arg_svm_list
+     * }
+     */
+    public static MemorySegment arg_svm_list(MemorySegment struct) {
+        return struct.get(arg_svm_list$LAYOUT, arg_svm_list$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_arg_khr *arg_svm_list
+     * }
+     */
+    public static void arg_svm_list(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(arg_svm_list$LAYOUT, arg_svm_list$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout exec_info_list$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("exec_info_list"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_exec_info_khr *exec_info_list
+     * }
+     */
+    public static final AddressLayout exec_info_list$layout() {
+        return exec_info_list$LAYOUT;
+    }
+
+    private static final long exec_info_list$OFFSET = 56;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_exec_info_khr *exec_info_list
+     * }
+     */
+    public static final long exec_info_list$offset() {
+        return exec_info_list$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_exec_info_khr *exec_info_list
+     * }
+     */
+    public static MemorySegment exec_info_list(MemorySegment struct) {
+        return struct.get(exec_info_list$LAYOUT, exec_info_list$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * const cl_mutable_dispatch_exec_info_khr *exec_info_list
+     * }
+     */
+    public static void exec_info_list(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(exec_info_list$LAYOUT, exec_info_list$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout global_work_offset$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("global_work_offset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * const size_t *global_work_offset
+     * }
+     */
+    public static final AddressLayout global_work_offset$layout() {
+        return global_work_offset$LAYOUT;
+    }
+
+    private static final long global_work_offset$OFFSET = 64;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * const size_t *global_work_offset
+     * }
+     */
+    public static final long global_work_offset$offset() {
+        return global_work_offset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * const size_t *global_work_offset
+     * }
+     */
+    public static MemorySegment global_work_offset(MemorySegment struct) {
+        return struct.get(global_work_offset$LAYOUT, global_work_offset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * const size_t *global_work_offset
+     * }
+     */
+    public static void global_work_offset(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(global_work_offset$LAYOUT, global_work_offset$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout global_work_size$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("global_work_size"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * const size_t *global_work_size
+     * }
+     */
+    public static final AddressLayout global_work_size$layout() {
+        return global_work_size$LAYOUT;
+    }
+
+    private static final long global_work_size$OFFSET = 72;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * const size_t *global_work_size
+     * }
+     */
+    public static final long global_work_size$offset() {
+        return global_work_size$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * const size_t *global_work_size
+     * }
+     */
+    public static MemorySegment global_work_size(MemorySegment struct) {
+        return struct.get(global_work_size$LAYOUT, global_work_size$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * const size_t *global_work_size
+     * }
+     */
+    public static void global_work_size(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(global_work_size$LAYOUT, global_work_size$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout local_work_size$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("local_work_size"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * const size_t *local_work_size
+     * }
+     */
+    public static final AddressLayout local_work_size$layout() {
+        return local_work_size$LAYOUT;
+    }
+
+    private static final long local_work_size$OFFSET = 80;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * const size_t *local_work_size
+     * }
+     */
+    public static final long local_work_size$offset() {
+        return local_work_size$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * const size_t *local_work_size
+     * }
+     */
+    public static MemorySegment local_work_size(MemorySegment struct) {
+        return struct.get(local_work_size$LAYOUT, local_work_size$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * const size_t *local_work_size
+     * }
+     */
+    public static void local_work_size(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(local_work_size$LAYOUT, local_work_size$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

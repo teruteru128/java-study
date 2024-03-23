@@ -2,32 +2,78 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*clCommandNDRangeKernelKHR_fn)(struct _cl_command_buffer_khr* command_buffer,struct _cl_command_queue* command_queue,unsigned long long* properties,struct _cl_kernel* kernel,unsigned int work_dim,unsigned long long* global_work_offset,unsigned long long* global_work_size,unsigned long long* local_work_size,unsigned int num_sync_points_in_wait_list,unsigned int* sync_point_wait_list,unsigned int* sync_point,struct _cl_mutable_command_khr** mutable_handle);
+ * {@snippet lang=c :
+ * typedef cl_int (*clCommandNDRangeKernelKHR_fn)(cl_command_buffer_khr, cl_command_queue, const cl_ndrange_kernel_command_properties_khr *, cl_kernel, cl_uint, const size_t *, const size_t *, const size_t *, cl_uint, const cl_sync_point_khr *, cl_sync_point_khr *, cl_mutable_command_khr *) __attribute__((stdcall))
  * }
  */
-public interface clCommandNDRangeKernelKHR_fn {
+public class clCommandNDRangeKernelKHR_fn {
 
-    int apply(java.lang.foreign.MemorySegment command_buffer, java.lang.foreign.MemorySegment command_queue, java.lang.foreign.MemorySegment properties, java.lang.foreign.MemorySegment kernel, int work_dim, java.lang.foreign.MemorySegment global_work_offset, java.lang.foreign.MemorySegment global_work_size, java.lang.foreign.MemorySegment local_work_size, int num_sync_points_in_wait_list, java.lang.foreign.MemorySegment sync_point_wait_list, java.lang.foreign.MemorySegment sync_point, java.lang.foreign.MemorySegment mutable_handle);
-    static MemorySegment allocate(clCommandNDRangeKernelKHR_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$216.const$3, fi, constants$216.const$2, scope);
+    clCommandNDRangeKernelKHR_fn() {
+        // Should not be called directly
     }
-    static clCommandNDRangeKernelKHR_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _command_buffer, java.lang.foreign.MemorySegment _command_queue, java.lang.foreign.MemorySegment _properties, java.lang.foreign.MemorySegment _kernel, int _work_dim, java.lang.foreign.MemorySegment _global_work_offset, java.lang.foreign.MemorySegment _global_work_size, java.lang.foreign.MemorySegment _local_work_size, int _num_sync_points_in_wait_list, java.lang.foreign.MemorySegment _sync_point_wait_list, java.lang.foreign.MemorySegment _sync_point, java.lang.foreign.MemorySegment _mutable_handle) -> {
-            try {
-                return (int)constants$216.const$4.invokeExact(symbol, _command_buffer, _command_queue, _properties, _kernel, _work_dim, _global_work_offset, _global_work_size, _local_work_size, _num_sync_points_in_wait_list, _sync_point_wait_list, _sync_point, _mutable_handle);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment command_buffer, MemorySegment command_queue, MemorySegment properties, MemorySegment kernel, int work_dim, MemorySegment global_work_offset, MemorySegment global_work_size, MemorySegment local_work_size, int num_sync_points_in_wait_list, MemorySegment sync_point_wait_list, MemorySegment sync_point, MemorySegment mutable_handle);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clCommandNDRangeKernelKHR_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clCommandNDRangeKernelKHR_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment command_buffer, MemorySegment command_queue, MemorySegment properties, MemorySegment kernel, int work_dim, MemorySegment global_work_offset, MemorySegment global_work_size, MemorySegment local_work_size, int num_sync_points_in_wait_list, MemorySegment sync_point_wait_list, MemorySegment sync_point, MemorySegment mutable_handle) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, command_buffer, command_queue, properties, kernel, work_dim, global_work_offset, global_work_size, local_work_size, num_sync_points_in_wait_list, sync_point_wait_list, sync_point, mutable_handle);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

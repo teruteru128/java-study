@@ -2,32 +2,69 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void (*clCreateContextFromType$pfn_notify)(char*,void*,size_t,void*);
+ * {@snippet lang=c :
+ * void (*pfn_notify)(const char *, const void *, size_t, void *) __attribute__((stdcall))
  * }
  */
-public interface clCreateContextFromType$pfn_notify {
+public class clCreateContextFromType$pfn_notify {
 
-    void apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1, long _x2, java.lang.foreign.MemorySegment _x3);
-    static MemorySegment allocate(clCreateContextFromType$pfn_notify fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$179.const$3, fi, constants$178.const$4, scope);
+    clCreateContextFromType$pfn_notify() {
+        // Should not be called directly
     }
-    static clCreateContextFromType$pfn_notify ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1, long __x2, java.lang.foreign.MemorySegment __x3) -> {
-            try {
-                constants$179.const$0.invokeExact(symbol, __x0, __x1, __x2, __x3);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        void apply(MemorySegment _x0, MemorySegment _x1, long _x2, MemorySegment _x3);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clCreateContextFromType$pfn_notify.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clCreateContextFromType$pfn_notify.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static void invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, long _x2, MemorySegment _x3) {
+        try {
+             DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

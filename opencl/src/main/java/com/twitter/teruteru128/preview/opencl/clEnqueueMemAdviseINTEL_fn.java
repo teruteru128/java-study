@@ -2,32 +2,73 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*clEnqueueMemAdviseINTEL_fn)(struct _cl_command_queue* command_queue,void* ptr,unsigned long long size,unsigned int advice,unsigned int num_events_in_wait_list,struct _cl_event** event_wait_list,struct _cl_event** event);
+ * {@snippet lang=c :
+ * typedef cl_int (*clEnqueueMemAdviseINTEL_fn)(cl_command_queue, const void *, size_t, cl_mem_advice_intel, cl_uint, const cl_event *, cl_event *) __attribute__((stdcall))
  * }
  */
-public interface clEnqueueMemAdviseINTEL_fn {
+public class clEnqueueMemAdviseINTEL_fn {
 
-    int apply(java.lang.foreign.MemorySegment command_queue, java.lang.foreign.MemorySegment ptr, long size, int advice, int num_events_in_wait_list, java.lang.foreign.MemorySegment event_wait_list, java.lang.foreign.MemorySegment event);
-    static MemorySegment allocate(clEnqueueMemAdviseINTEL_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$250.const$1, fi, constants$250.const$0, scope);
+    clEnqueueMemAdviseINTEL_fn() {
+        // Should not be called directly
     }
-    static clEnqueueMemAdviseINTEL_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _command_queue, java.lang.foreign.MemorySegment _ptr, long _size, int _advice, int _num_events_in_wait_list, java.lang.foreign.MemorySegment _event_wait_list, java.lang.foreign.MemorySegment _event) -> {
-            try {
-                return (int)constants$250.const$2.invokeExact(symbol, _command_queue, _ptr, _size, _advice, _num_events_in_wait_list, _event_wait_list, _event);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment command_queue, MemorySegment ptr, long size, int advice, int num_events_in_wait_list, MemorySegment event_wait_list, MemorySegment event);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_INT,
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clEnqueueMemAdviseINTEL_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clEnqueueMemAdviseINTEL_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment command_queue, MemorySegment ptr, long size, int advice, int num_events_in_wait_list, MemorySegment event_wait_list, MemorySegment event) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, command_queue, ptr, size, advice, num_events_in_wait_list, event_wait_list, event);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

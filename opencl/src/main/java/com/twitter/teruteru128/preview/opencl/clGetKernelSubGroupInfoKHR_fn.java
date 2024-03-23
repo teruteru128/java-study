@@ -2,32 +2,74 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*clGetKernelSubGroupInfoKHR_fn)(struct _cl_kernel* in_kernel,struct _cl_device_id* in_device,unsigned int param_name,unsigned long long input_value_size,void* input_value,unsigned long long param_value_size,void* param_value,unsigned long long* param_value_size_ret);
+ * {@snippet lang=c :
+ * typedef cl_int (*clGetKernelSubGroupInfoKHR_fn)(cl_kernel, cl_device_id, cl_kernel_sub_group_info, size_t, const void *, size_t, void *, size_t *) __attribute__((stdcall))
  * }
  */
-public interface clGetKernelSubGroupInfoKHR_fn {
+public class clGetKernelSubGroupInfoKHR_fn {
 
-    int apply(java.lang.foreign.MemorySegment in_kernel, java.lang.foreign.MemorySegment in_device, int param_name, long input_value_size, java.lang.foreign.MemorySegment input_value, long param_value_size, java.lang.foreign.MemorySegment param_value, java.lang.foreign.MemorySegment param_value_size_ret);
-    static MemorySegment allocate(clGetKernelSubGroupInfoKHR_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$233.const$4, fi, constants$192.const$5, scope);
+    clGetKernelSubGroupInfoKHR_fn() {
+        // Should not be called directly
     }
-    static clGetKernelSubGroupInfoKHR_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _in_kernel, java.lang.foreign.MemorySegment _in_device, int _param_name, long _input_value_size, java.lang.foreign.MemorySegment _input_value, long _param_value_size, java.lang.foreign.MemorySegment _param_value, java.lang.foreign.MemorySegment _param_value_size_ret) -> {
-            try {
-                return (int)constants$233.const$5.invokeExact(symbol, _in_kernel, _in_device, _param_name, _input_value_size, _input_value, _param_value_size, _param_value, _param_value_size_ret);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment in_kernel, MemorySegment in_device, int param_name, long input_value_size, MemorySegment input_value, long param_value_size, MemorySegment param_value, MemorySegment param_value_size_ret);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_INT,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_POINTER,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clGetKernelSubGroupInfoKHR_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clGetKernelSubGroupInfoKHR_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment in_kernel, MemorySegment in_device, int param_name, long input_value_size, MemorySegment input_value, long param_value_size, MemorySegment param_value, MemorySegment param_value_size_ret) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, in_kernel, in_device, param_name, input_value_size, input_value, param_value_size, param_value, param_value_size_ret);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

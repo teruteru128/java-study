@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _cl_device_integer_dot_product_acceleration_properties_khr cl_device_integer_dot_product_acceleration_properties_khr;
+ * {@snippet lang=c :
+ * typedef struct _cl_device_integer_dot_product_acceleration_properties_khr {
+ *     cl_bool signed_accelerated;
+ *     cl_bool unsigned_accelerated;
+ *     cl_bool mixed_signedness_accelerated;
+ *     cl_bool accumulating_saturating_signed_accelerated;
+ *     cl_bool accumulating_saturating_unsigned_accelerated;
+ *     cl_bool accumulating_saturating_mixed_signedness_accelerated;
+ * } cl_device_integer_dot_product_acceleration_properties_khr
  * }
  */
-public final class cl_device_integer_dot_product_acceleration_properties_khr extends _cl_device_integer_dot_product_acceleration_properties_khr {
+public class cl_device_integer_dot_product_acceleration_properties_khr extends _cl_device_integer_dot_product_acceleration_properties_khr {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private cl_device_integer_dot_product_acceleration_properties_khr() {}
+    cl_device_integer_dot_product_acceleration_properties_khr() {
+        // Should not be called directly
+    }
 }
-
 

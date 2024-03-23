@@ -2,32 +2,77 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*clCommandCopyBufferToImageKHR_fn)(struct _cl_command_buffer_khr* command_buffer,struct _cl_command_queue* command_queue,struct _cl_mem* src_buffer,struct _cl_mem* dst_image,unsigned long long src_offset,unsigned long long* dst_origin,unsigned long long* region,unsigned int num_sync_points_in_wait_list,unsigned int* sync_point_wait_list,unsigned int* sync_point,struct _cl_mutable_command_khr** mutable_handle);
+ * {@snippet lang=c :
+ * typedef cl_int (*clCommandCopyBufferToImageKHR_fn)(cl_command_buffer_khr, cl_command_queue, cl_mem, cl_mem, size_t, const size_t *, const size_t *, cl_uint, const cl_sync_point_khr *, cl_sync_point_khr *, cl_mutable_command_khr *) __attribute__((stdcall))
  * }
  */
-public interface clCommandCopyBufferToImageKHR_fn {
+public class clCommandCopyBufferToImageKHR_fn {
 
-    int apply(java.lang.foreign.MemorySegment command_buffer, java.lang.foreign.MemorySegment command_queue, java.lang.foreign.MemorySegment src_buffer, java.lang.foreign.MemorySegment dst_image, long src_offset, java.lang.foreign.MemorySegment dst_origin, java.lang.foreign.MemorySegment region, int num_sync_points_in_wait_list, java.lang.foreign.MemorySegment sync_point_wait_list, java.lang.foreign.MemorySegment sync_point, java.lang.foreign.MemorySegment mutable_handle);
-    static MemorySegment allocate(clCommandCopyBufferToImageKHR_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$214.const$2, fi, constants$214.const$1, scope);
+    clCommandCopyBufferToImageKHR_fn() {
+        // Should not be called directly
     }
-    static clCommandCopyBufferToImageKHR_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _command_buffer, java.lang.foreign.MemorySegment _command_queue, java.lang.foreign.MemorySegment _src_buffer, java.lang.foreign.MemorySegment _dst_image, long _src_offset, java.lang.foreign.MemorySegment _dst_origin, java.lang.foreign.MemorySegment _region, int _num_sync_points_in_wait_list, java.lang.foreign.MemorySegment _sync_point_wait_list, java.lang.foreign.MemorySegment _sync_point, java.lang.foreign.MemorySegment _mutable_handle) -> {
-            try {
-                return (int)constants$214.const$3.invokeExact(symbol, _command_buffer, _command_queue, _src_buffer, _dst_image, _src_offset, _dst_origin, _region, _num_sync_points_in_wait_list, _sync_point_wait_list, _sync_point, _mutable_handle);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment command_buffer, MemorySegment command_queue, MemorySegment src_buffer, MemorySegment dst_image, long src_offset, MemorySegment dst_origin, MemorySegment region, int num_sync_points_in_wait_list, MemorySegment sync_point_wait_list, MemorySegment sync_point, MemorySegment mutable_handle);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clCommandCopyBufferToImageKHR_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clCommandCopyBufferToImageKHR_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment command_buffer, MemorySegment command_queue, MemorySegment src_buffer, MemorySegment dst_image, long src_offset, MemorySegment dst_origin, MemorySegment region, int num_sync_points_in_wait_list, MemorySegment sync_point_wait_list, MemorySegment sync_point, MemorySegment mutable_handle) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, command_buffer, command_queue, src_buffer, dst_image, src_offset, dst_origin, region, num_sync_points_in_wait_list, sync_point_wait_list, sync_point, mutable_handle);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

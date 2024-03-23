@@ -2,32 +2,72 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*clGetSupportedGLTextureFormatsINTEL_fn)(struct _cl_context* context,unsigned long long flags,unsigned int image_type,unsigned int num_entries,unsigned int* gl_formats,unsigned int* num_texture_formats);
+ * {@snippet lang=c :
+ * typedef cl_int (*clGetSupportedGLTextureFormatsINTEL_fn)(cl_context, cl_mem_flags, cl_mem_object_type, cl_uint, cl_GLenum *, cl_uint *) __attribute__((stdcall))
  * }
  */
-public interface clGetSupportedGLTextureFormatsINTEL_fn {
+public class clGetSupportedGLTextureFormatsINTEL_fn {
 
-    int apply(java.lang.foreign.MemorySegment context, long flags, int image_type, int num_entries, java.lang.foreign.MemorySegment gl_formats, java.lang.foreign.MemorySegment num_texture_formats);
-    static MemorySegment allocate(clGetSupportedGLTextureFormatsINTEL_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$210.const$3, fi, constants$184.const$1, scope);
+    clGetSupportedGLTextureFormatsINTEL_fn() {
+        // Should not be called directly
     }
-    static clGetSupportedGLTextureFormatsINTEL_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _context, long _flags, int _image_type, int _num_entries, java.lang.foreign.MemorySegment _gl_formats, java.lang.foreign.MemorySegment _num_texture_formats) -> {
-            try {
-                return (int)constants$210.const$4.invokeExact(symbol, _context, _flags, _image_type, _num_entries, _gl_formats, _num_texture_formats);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment context, long flags, int image_type, int num_entries, MemorySegment gl_formats, MemorySegment num_texture_formats);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_INT,
+        opencl_h.C_INT,
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clGetSupportedGLTextureFormatsINTEL_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clGetSupportedGLTextureFormatsINTEL_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment context, long flags, int image_type, int num_entries, MemorySegment gl_formats, MemorySegment num_texture_formats) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, context, flags, image_type, num_entries, gl_formats, num_texture_formats);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

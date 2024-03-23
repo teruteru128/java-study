@@ -2,32 +2,72 @@
 
 package com.twitter.teruteru128.preview.opencl;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * struct _cl_mem* (*clCreateFromGLTexture3D_fn)(struct _cl_context* context,unsigned long long flags,unsigned int target,int miplevel,unsigned int texture,int* errcode_ret);
+ * {@snippet lang=c :
+ * typedef cl_mem (*clCreateFromGLTexture3D_fn)(cl_context, cl_mem_flags, cl_GLenum, cl_GLint, cl_GLuint, cl_int *) __attribute__((stdcall))
  * }
  */
-public interface clCreateFromGLTexture3D_fn {
+public class clCreateFromGLTexture3D_fn {
 
-    java.lang.foreign.MemorySegment apply(java.lang.foreign.MemorySegment context, long flags, int target, int miplevel, int texture, java.lang.foreign.MemorySegment errcode_ret);
-    static MemorySegment allocate(clCreateFromGLTexture3D_fn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$209.const$3, fi, constants$206.const$4, scope);
+    clCreateFromGLTexture3D_fn() {
+        // Should not be called directly
     }
-    static clCreateFromGLTexture3D_fn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _context, long _flags, int _target, int _miplevel, int _texture, java.lang.foreign.MemorySegment _errcode_ret) -> {
-            try {
-                return (java.lang.foreign.MemorySegment)constants$207.const$0.invokeExact(symbol, _context, _flags, _target, _miplevel, _texture, _errcode_ret);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        MemorySegment apply(MemorySegment context, long flags, int target, int miplevel, int texture, MemorySegment errcode_ret);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        opencl_h.C_POINTER,
+        opencl_h.C_POINTER,
+        opencl_h.C_LONG_LONG,
+        opencl_h.C_INT,
+        opencl_h.C_INT,
+        opencl_h.C_INT,
+        opencl_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = opencl_h.upcallHandle(clCreateFromGLTexture3D_fn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(clCreateFromGLTexture3D_fn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static MemorySegment invoke(MemorySegment funcPtr,MemorySegment context, long flags, int target, int miplevel, int texture, MemorySegment errcode_ret) {
+        try {
+            return (MemorySegment) DOWN$MH.invokeExact(funcPtr, context, flags, target, miplevel, texture, errcode_ret);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 
