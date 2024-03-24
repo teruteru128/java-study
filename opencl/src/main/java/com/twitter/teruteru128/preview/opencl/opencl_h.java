@@ -25,7 +25,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_QCOM_EXT_HOST_PTR_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_QCOM_EXT_HOST_PTR_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_qcom_ext_host_ptr");
+                = LIBRARY_ARENA.allocateFrom("cl_qcom_ext_host_ptr");
         }
         return Holder.CL_QCOM_EXT_HOST_PTR_EXTENSION_NAME;
     }
@@ -46,7 +46,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_QCOM_EXT_HOST_PTR_IOCOHERENT_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_QCOM_EXT_HOST_PTR_IOCOHERENT_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_qcom_ext_host_ptr_iocoherent");
+                = LIBRARY_ARENA.allocateFrom("cl_qcom_ext_host_ptr_iocoherent");
         }
         return Holder.CL_QCOM_EXT_HOST_PTR_IOCOHERENT_EXTENSION_NAME;
     }
@@ -58,7 +58,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_QCOM_ION_HOST_PTR_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_QCOM_ION_HOST_PTR_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_qcom_ion_host_ptr");
+                = LIBRARY_ARENA.allocateFrom("cl_qcom_ion_host_ptr");
         }
         return Holder.CL_QCOM_ION_HOST_PTR_EXTENSION_NAME;
     }
@@ -70,7 +70,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_QCOM_ANDROID_NATIVE_BUFFER_HOST_PTR_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_QCOM_ANDROID_NATIVE_BUFFER_HOST_PTR_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_qcom_android_native_buffer_host_ptr");
+                = LIBRARY_ARENA.allocateFrom("cl_qcom_android_native_buffer_host_ptr");
         }
         return Holder.CL_QCOM_ANDROID_NATIVE_BUFFER_HOST_PTR_EXTENSION_NAME;
     }
@@ -82,7 +82,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_IMG_YUV_IMAGE_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_IMG_YUV_IMAGE_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_img_yuv_image");
+                = LIBRARY_ARENA.allocateFrom("cl_img_yuv_image");
         }
         return Holder.CL_IMG_YUV_IMAGE_EXTENSION_NAME;
     }
@@ -94,7 +94,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_IMG_CACHED_ALLOCATIONS_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_IMG_CACHED_ALLOCATIONS_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_img_cached_allocations");
+                = LIBRARY_ARENA.allocateFrom("cl_img_cached_allocations");
         }
         return Holder.CL_IMG_CACHED_ALLOCATIONS_EXTENSION_NAME;
     }
@@ -124,7 +124,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_IMG_USE_GRALLOC_PTR_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_IMG_USE_GRALLOC_PTR_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_img_use_gralloc_ptr");
+                = LIBRARY_ARENA.allocateFrom("cl_img_use_gralloc_ptr");
         }
         return Holder.CL_IMG_USE_GRALLOC_PTR_EXTENSION_NAME;
     }
@@ -145,7 +145,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_IMG_GENERATE_MIPMAP_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_IMG_GENERATE_MIPMAP_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_img_generate_mipmap");
+                = LIBRARY_ARENA.allocateFrom("cl_img_generate_mipmap");
         }
         return Holder.CL_IMG_GENERATE_MIPMAP_EXTENSION_NAME;
     }
@@ -157,7 +157,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_IMG_MEM_PROPERTIES_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_IMG_MEM_PROPERTIES_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_img_mem_properties");
+                = LIBRARY_ARENA.allocateFrom("cl_img_mem_properties");
         }
         return Holder.CL_IMG_MEM_PROPERTIES_EXTENSION_NAME;
     }
@@ -178,7 +178,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_SUBGROUPS_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_SUBGROUPS_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_subgroups");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_subgroups");
         }
         return Holder.CL_KHR_SUBGROUPS_EXTENSION_NAME;
     }
@@ -190,7 +190,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_MIPMAP_IMAGE_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_MIPMAP_IMAGE_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_mipmap_image");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_mipmap_image");
         }
         return Holder.CL_KHR_MIPMAP_IMAGE_EXTENSION_NAME;
     }
@@ -202,7 +202,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_PRIORITY_HINTS_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_PRIORITY_HINTS_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_priority_hints");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_priority_hints");
         }
         return Holder.CL_KHR_PRIORITY_HINTS_EXTENSION_NAME;
     }
@@ -241,7 +241,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_THROTTLE_HINTS_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_THROTTLE_HINTS_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_throttle_hints");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_throttle_hints");
         }
         return Holder.CL_KHR_THROTTLE_HINTS_EXTENSION_NAME;
     }
@@ -280,7 +280,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_SUBGROUP_NAMED_BARRIER_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_SUBGROUP_NAMED_BARRIER_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_subgroup_named_barrier");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_subgroup_named_barrier");
         }
         return Holder.CL_KHR_SUBGROUP_NAMED_BARRIER_EXTENSION_NAME;
     }
@@ -292,7 +292,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_EXTENDED_VERSIONING_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_EXTENDED_VERSIONING_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_extended_versioning");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_extended_versioning");
         }
         return Holder.CL_KHR_EXTENDED_VERSIONING_EXTENSION_NAME;
     }
@@ -331,7 +331,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_DEVICE_UUID_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_DEVICE_UUID_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_device_uuid");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_device_uuid");
         }
         return Holder.CL_KHR_DEVICE_UUID_EXTENSION_NAME;
     }
@@ -343,7 +343,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_PCI_BUS_INFO_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_PCI_BUS_INFO_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_pci_bus_info");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_pci_bus_info");
         }
         return Holder.CL_KHR_PCI_BUS_INFO_EXTENSION_NAME;
     }
@@ -355,7 +355,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_SUGGESTED_LOCAL_WORK_SIZE_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_SUGGESTED_LOCAL_WORK_SIZE_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_suggested_local_work_size");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_suggested_local_work_size");
         }
         return Holder.CL_KHR_SUGGESTED_LOCAL_WORK_SIZE_EXTENSION_NAME;
     }
@@ -367,7 +367,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_INTEGER_DOT_PRODUCT_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_INTEGER_DOT_PRODUCT_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_integer_dot_product");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_integer_dot_product");
         }
         return Holder.CL_KHR_INTEGER_DOT_PRODUCT_EXTENSION_NAME;
     }
@@ -397,7 +397,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_EXTERNAL_MEMORY_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_EXTERNAL_MEMORY_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_memory");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_external_memory");
         }
         return Holder.CL_KHR_EXTERNAL_MEMORY_EXTENSION_NAME;
     }
@@ -409,7 +409,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_EXTERNAL_MEMORY_DMA_BUF_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_EXTERNAL_MEMORY_DMA_BUF_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_memory_dma_buf");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_external_memory_dma_buf");
         }
         return Holder.CL_KHR_EXTERNAL_MEMORY_DMA_BUF_EXTENSION_NAME;
     }
@@ -421,7 +421,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_EXTERNAL_MEMORY_DX_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_EXTERNAL_MEMORY_DX_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_memory_dx");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_external_memory_dx");
         }
         return Holder.CL_KHR_EXTERNAL_MEMORY_DX_EXTENSION_NAME;
     }
@@ -433,7 +433,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_EXTERNAL_MEMORY_OPAQUE_FD_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_EXTERNAL_MEMORY_OPAQUE_FD_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_memory_opaque_fd");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_external_memory_opaque_fd");
         }
         return Holder.CL_KHR_EXTERNAL_MEMORY_OPAQUE_FD_EXTENSION_NAME;
     }
@@ -445,7 +445,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_EXTERNAL_MEMORY_WIN32_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_EXTERNAL_MEMORY_WIN32_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_memory_win32");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_external_memory_win32");
         }
         return Holder.CL_KHR_EXTERNAL_MEMORY_WIN32_EXTENSION_NAME;
     }
@@ -457,7 +457,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore");
         }
         return Holder.CL_KHR_EXTERNAL_SEMAPHORE_EXTENSION_NAME;
     }
@@ -469,7 +469,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_DX_FENCE_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_DX_FENCE_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore_dx_fence");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore_dx_fence");
         }
         return Holder.CL_KHR_EXTERNAL_SEMAPHORE_DX_FENCE_EXTENSION_NAME;
     }
@@ -481,7 +481,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_OPAQUE_FD_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_OPAQUE_FD_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore_opaque_fd");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore_opaque_fd");
         }
         return Holder.CL_KHR_EXTERNAL_SEMAPHORE_OPAQUE_FD_EXTENSION_NAME;
     }
@@ -493,7 +493,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_SYNC_FD_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_SYNC_FD_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore_sync_fd");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore_sync_fd");
         }
         return Holder.CL_KHR_EXTERNAL_SEMAPHORE_SYNC_FD_EXTENSION_NAME;
     }
@@ -505,7 +505,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_WIN32_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_EXTERNAL_SEMAPHORE_WIN32_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore_win32");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_external_semaphore_win32");
         }
         return Holder.CL_KHR_EXTERNAL_SEMAPHORE_WIN32_EXTENSION_NAME;
     }
@@ -517,7 +517,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_SEMAPHORE_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_SEMAPHORE_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_semaphore");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_semaphore");
         }
         return Holder.CL_KHR_SEMAPHORE_EXTENSION_NAME;
     }
@@ -538,7 +538,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_ARM_IMPORT_MEMORY_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_ARM_IMPORT_MEMORY_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_import_memory");
+                = LIBRARY_ARENA.allocateFrom("cl_arm_import_memory");
         }
         return Holder.CL_ARM_IMPORT_MEMORY_EXTENSION_NAME;
     }
@@ -559,7 +559,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_ARM_SHARED_VIRTUAL_MEMORY_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_ARM_SHARED_VIRTUAL_MEMORY_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_shared_virtual_memory");
+                = LIBRARY_ARENA.allocateFrom("cl_arm_shared_virtual_memory");
         }
         return Holder.CL_ARM_SHARED_VIRTUAL_MEMORY_EXTENSION_NAME;
     }
@@ -625,7 +625,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_ARM_GET_CORE_ID_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_ARM_GET_CORE_ID_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_get_core_id");
+                = LIBRARY_ARENA.allocateFrom("cl_arm_get_core_id");
         }
         return Holder.CL_ARM_GET_CORE_ID_EXTENSION_NAME;
     }
@@ -637,7 +637,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_ARM_JOB_SLOT_SELECTION_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_ARM_JOB_SLOT_SELECTION_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_job_slot_selection");
+                = LIBRARY_ARENA.allocateFrom("cl_arm_job_slot_selection");
         }
         return Holder.CL_ARM_JOB_SLOT_SELECTION_EXTENSION_NAME;
     }
@@ -649,7 +649,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_ARM_SCHEDULING_CONTROLS_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_ARM_SCHEDULING_CONTROLS_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_scheduling_controls");
+                = LIBRARY_ARENA.allocateFrom("cl_arm_scheduling_controls");
         }
         return Holder.CL_ARM_SCHEDULING_CONTROLS_EXTENSION_NAME;
     }
@@ -724,7 +724,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_ARM_CONTROLLED_KERNEL_TERMINATION_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_ARM_CONTROLLED_KERNEL_TERMINATION_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_controlled_kernel_termination");
+                = LIBRARY_ARENA.allocateFrom("cl_arm_controlled_kernel_termination");
         }
         return Holder.CL_ARM_CONTROLLED_KERNEL_TERMINATION_EXTENSION_NAME;
     }
@@ -772,7 +772,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_ARM_PROTECTED_MEMORY_ALLOCATION_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_ARM_PROTECTED_MEMORY_ALLOCATION_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_arm_protected_memory_allocation");
+                = LIBRARY_ARENA.allocateFrom("cl_arm_protected_memory_allocation");
         }
         return Holder.CL_ARM_PROTECTED_MEMORY_ALLOCATION_EXTENSION_NAME;
     }
@@ -793,7 +793,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_EXEC_BY_LOCAL_THREAD_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_EXEC_BY_LOCAL_THREAD_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_exec_by_local_thread");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_exec_by_local_thread");
         }
         return Holder.CL_INTEL_EXEC_BY_LOCAL_THREAD_EXTENSION_NAME;
     }
@@ -814,7 +814,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_device_attribute_query");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_device_attribute_query");
         }
         return Holder.CL_INTEL_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME;
     }
@@ -844,7 +844,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_DEVICE_PARTITION_BY_NAMES_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_DEVICE_PARTITION_BY_NAMES_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_device_partition_by_names");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_device_partition_by_names");
         }
         return Holder.CL_INTEL_DEVICE_PARTITION_BY_NAMES_EXTENSION_NAME;
     }
@@ -865,7 +865,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_ACCELERATOR_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_ACCELERATOR_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_accelerator");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_accelerator");
         }
         return Holder.CL_INTEL_ACCELERATOR_EXTENSION_NAME;
     }
@@ -913,7 +913,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_MOTION_ESTIMATION_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_MOTION_ESTIMATION_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_motion_estimation");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_motion_estimation");
         }
         return Holder.CL_INTEL_MOTION_ESTIMATION_EXTENSION_NAME;
     }
@@ -925,7 +925,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_ADVANCED_MOTION_ESTIMATION_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_ADVANCED_MOTION_ESTIMATION_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_advanced_motion_estimation");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_advanced_motion_estimation");
         }
         return Holder.CL_INTEL_ADVANCED_MOTION_ESTIMATION_EXTENSION_NAME;
     }
@@ -937,7 +937,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_SIMULTANEOUS_SHARING_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_SIMULTANEOUS_SHARING_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_simultaneous_sharing");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_simultaneous_sharing");
         }
         return Holder.CL_INTEL_SIMULTANEOUS_SHARING_EXTENSION_NAME;
     }
@@ -949,7 +949,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_EGL_IMAGE_YUV_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_EGL_IMAGE_YUV_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_egl_image_yuv");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_egl_image_yuv");
         }
         return Holder.CL_INTEL_EGL_IMAGE_YUV_EXTENSION_NAME;
     }
@@ -961,7 +961,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_PACKED_YUV_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_PACKED_YUV_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_packed_yuv");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_packed_yuv");
         }
         return Holder.CL_INTEL_PACKED_YUV_EXTENSION_NAME;
     }
@@ -973,7 +973,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_REQUIRED_SUBGROUP_SIZE_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_REQUIRED_SUBGROUP_SIZE_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_required_subgroup_size");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_required_subgroup_size");
         }
         return Holder.CL_INTEL_REQUIRED_SUBGROUP_SIZE_EXTENSION_NAME;
     }
@@ -985,7 +985,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_DRIVER_DIAGNOSTICS_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_DRIVER_DIAGNOSTICS_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_driver_diagnostics");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_driver_diagnostics");
         }
         return Holder.CL_INTEL_DRIVER_DIAGNOSTICS_EXTENSION_NAME;
     }
@@ -1024,7 +1024,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_PLANAR_YUV_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_PLANAR_YUV_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_planar_yuv");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_planar_yuv");
         }
         return Holder.CL_INTEL_PLANAR_YUV_EXTENSION_NAME;
     }
@@ -1054,7 +1054,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_DEVICE_SIDE_AVC_MOTION_ESTIMATION_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_DEVICE_SIDE_AVC_MOTION_ESTIMATION_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_device_side_avc_motion_estimation");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_device_side_avc_motion_estimation");
         }
         return Holder.CL_INTEL_DEVICE_SIDE_AVC_MOTION_ESTIMATION_EXTENSION_NAME;
     }
@@ -1192,7 +1192,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_UNIFIED_SHARED_MEMORY_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_UNIFIED_SHARED_MEMORY_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_unified_shared_memory");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_unified_shared_memory");
         }
         return Holder.CL_INTEL_UNIFIED_SHARED_MEMORY_EXTENSION_NAME;
     }
@@ -1267,7 +1267,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_MEM_ALLOC_BUFFER_LOCATION_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_MEM_ALLOC_BUFFER_LOCATION_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_mem_alloc_buffer_location");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_mem_alloc_buffer_location");
         }
         return Holder.CL_INTEL_MEM_ALLOC_BUFFER_LOCATION_EXTENSION_NAME;
     }
@@ -1279,7 +1279,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_CREATE_BUFFER_WITH_PROPERTIES_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_CREATE_BUFFER_WITH_PROPERTIES_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_create_buffer_with_properties");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_create_buffer_with_properties");
         }
         return Holder.CL_INTEL_CREATE_BUFFER_WITH_PROPERTIES_EXTENSION_NAME;
     }
@@ -1291,7 +1291,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_PROGRAM_SCOPE_HOST_PIPE_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_PROGRAM_SCOPE_HOST_PIPE_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_program_scope_host_pipe");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_program_scope_host_pipe");
         }
         return Holder.CL_INTEL_PROGRAM_SCOPE_HOST_PIPE_EXTENSION_NAME;
     }
@@ -1303,7 +1303,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_MEM_CHANNEL_PROPERTY_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_MEM_CHANNEL_PROPERTY_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_mem_channel_property");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_mem_channel_property");
         }
         return Holder.CL_INTEL_MEM_CHANNEL_PROPERTY_EXTENSION_NAME;
     }
@@ -1315,7 +1315,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_MEM_FORCE_HOST_MEMORY_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_MEM_FORCE_HOST_MEMORY_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_mem_force_host_memory");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_mem_force_host_memory");
         }
         return Holder.CL_INTEL_MEM_FORCE_HOST_MEMORY_EXTENSION_NAME;
     }
@@ -1336,7 +1336,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_COMMAND_QUEUE_FAMILIES_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_COMMAND_QUEUE_FAMILIES_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_command_queue_families");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_command_queue_families");
         }
         return Holder.CL_INTEL_COMMAND_QUEUE_FAMILIES_EXTENSION_NAME;
     }
@@ -1492,7 +1492,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_QUEUE_NO_SYNC_OPERATIONS_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_QUEUE_NO_SYNC_OPERATIONS_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_queue_no_sync_operations");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_queue_no_sync_operations");
         }
         return Holder.CL_INTEL_QUEUE_NO_SYNC_OPERATIONS_EXTENSION_NAME;
     }
@@ -1513,7 +1513,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_SHARING_FORMAT_QUERY_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_SHARING_FORMAT_QUERY_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_sharing_format_query");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_sharing_format_query");
         }
         return Holder.CL_INTEL_SHARING_FORMAT_QUERY_EXTENSION_NAME;
     }
@@ -1525,7 +1525,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_EXT_IMAGE_REQUIREMENTS_INFO_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_EXT_IMAGE_REQUIREMENTS_INFO_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_ext_image_requirements_info");
+                = LIBRARY_ARENA.allocateFrom("cl_ext_image_requirements_info");
         }
         return Holder.CL_EXT_IMAGE_REQUIREMENTS_INFO_EXTENSION_NAME;
     }
@@ -1537,7 +1537,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_EXT_IMAGE_FROM_BUFFER_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_EXT_IMAGE_FROM_BUFFER_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_ext_image_from_buffer");
+                = LIBRARY_ARENA.allocateFrom("cl_ext_image_from_buffer");
         }
         return Holder.CL_EXT_IMAGE_FROM_BUFFER_EXTENSION_NAME;
     }
@@ -1549,7 +1549,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_LOADER_INFO_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_LOADER_INFO_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_loader_info");
+                = LIBRARY_ARENA.allocateFrom("cl_loader_info");
         }
         return Holder.CL_LOADER_INFO_EXTENSION_NAME;
     }
@@ -1561,7 +1561,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_KHR_DEPTH_IMAGES_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_KHR_DEPTH_IMAGES_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_khr_depth_images");
+                = LIBRARY_ARENA.allocateFrom("cl_khr_depth_images");
         }
         return Holder.CL_KHR_DEPTH_IMAGES_EXTENSION_NAME;
     }
@@ -1573,7 +1573,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_EXT_FLOAT_ATOMICS_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_EXT_FLOAT_ATOMICS_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_ext_float_atomics");
+                = LIBRARY_ARENA.allocateFrom("cl_ext_float_atomics");
         }
         return Holder.CL_EXT_FLOAT_ATOMICS_EXTENSION_NAME;
     }
@@ -1639,7 +1639,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_INTEL_CREATE_MEM_OBJECT_PROPERTIES_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_INTEL_CREATE_MEM_OBJECT_PROPERTIES_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_intel_create_mem_object_properties");
+                = LIBRARY_ARENA.allocateFrom("cl_intel_create_mem_object_properties");
         }
         return Holder.CL_INTEL_CREATE_MEM_OBJECT_PROPERTIES_EXTENSION_NAME;
     }
@@ -1651,7 +1651,7 @@ public class opencl_h extends opencl_h_1 {
     public static MemorySegment CL_POCL_CONTENT_SIZE_EXTENSION_NAME() {
         class Holder {
             static final MemorySegment CL_POCL_CONTENT_SIZE_EXTENSION_NAME
-                = opencl_h.LIBRARY_ARENA.allocateFrom("cl_pocl_content_size");
+                = LIBRARY_ARENA.allocateFrom("cl_pocl_content_size");
         }
         return Holder.CL_POCL_CONTENT_SIZE_EXTENSION_NAME;
     }

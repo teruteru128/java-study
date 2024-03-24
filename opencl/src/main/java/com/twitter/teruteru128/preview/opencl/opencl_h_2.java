@@ -8868,13 +8868,13 @@ public class opencl_h_2 {
      * typedef unsigned long long uintptr_t
      * }
      */
-    public static final OfLong uintptr_t = opencl_h.C_LONG_LONG;
+    public static final OfLong uintptr_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef char *va_list
      * }
      */
-    public static final AddressLayout va_list = opencl_h.C_POINTER;
+    public static final AddressLayout va_list = C_POINTER;
 
     /**
      * Variadic invoker class for:
@@ -8884,9 +8884,9 @@ public class opencl_h_2 {
      */
     public static class __va_start {
         private static final FunctionDescriptor BASE_DESC = FunctionDescriptor.ofVoid(
-                opencl_h.C_POINTER
+                C_POINTER
             );
-        private static final MemorySegment ADDR = opencl_h.findOrThrow("__va_start");
+        private static final MemorySegment ADDR = findOrThrow("__va_start");
 
         private final MethodHandle handle;
         private final FunctionDescriptor descriptor;
@@ -8944,37 +8944,37 @@ public class opencl_h_2 {
      * typedef unsigned long long size_t
      * }
      */
-    public static final OfLong size_t = opencl_h.C_LONG_LONG;
+    public static final OfLong size_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef long long ptrdiff_t
      * }
      */
-    public static final OfLong ptrdiff_t = opencl_h.C_LONG_LONG;
+    public static final OfLong ptrdiff_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef long long intptr_t
      * }
      */
-    public static final OfLong intptr_t = opencl_h.C_LONG_LONG;
+    public static final OfLong intptr_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef _Bool __vcrt_bool
      * }
      */
-    public static final OfBoolean __vcrt_bool = opencl_h.C_BOOL;
+    public static final OfBoolean __vcrt_bool = C_BOOL;
     /**
      * {@snippet lang=c :
      * typedef unsigned short wchar_t
      * }
      */
-    public static final OfShort wchar_t = opencl_h.C_SHORT;
+    public static final OfShort wchar_t = C_SHORT;
 
     private static class __security_init_cookie {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__security_init_cookie"),
+                    findOrThrow("__security_init_cookie"),
                     DESC);
     }
 
@@ -9016,11 +9016,11 @@ public class opencl_h_2 {
 
     private static class __security_check_cookie {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_LONG_LONG
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__security_check_cookie"),
+                    findOrThrow("__security_check_cookie"),
                     DESC);
     }
 
@@ -9062,11 +9062,11 @@ public class opencl_h_2 {
 
     private static class __report_gsfailure {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            opencl_h.C_LONG_LONG
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    opencl_h.findOrThrow("__report_gsfailure"),
+                    findOrThrow("__report_gsfailure"),
                     DESC);
     }
 
@@ -9107,8 +9107,8 @@ public class opencl_h_2 {
     }
 
     private static class __security_cookie$constants {
-        public static final OfLong LAYOUT = opencl_h.C_LONG_LONG;
-        public static final MemorySegment SEGMENT = opencl_h.findOrThrow("__security_cookie").reinterpret(LAYOUT.byteSize());
+        public static final OfLong LAYOUT = C_LONG_LONG;
+        public static final MemorySegment SEGMENT = findOrThrow("__security_cookie").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9155,66 +9155,66 @@ public class opencl_h_2 {
      * typedef signed char int8_t
      * }
      */
-    public static final OfByte int8_t = opencl_h.C_CHAR;
+    public static final OfByte int8_t = C_CHAR;
     /**
      * {@snippet lang=c :
      * typedef short int16_t
      * }
      */
-    public static final OfShort int16_t = opencl_h.C_SHORT;
+    public static final OfShort int16_t = C_SHORT;
     /**
      * {@snippet lang=c :
      * typedef int int32_t
      * }
      */
-    public static final OfInt int32_t = opencl_h.C_INT;
+    public static final OfInt int32_t = C_INT;
     /**
      * {@snippet lang=c :
      * typedef long long int64_t
      * }
      */
-    public static final OfLong int64_t = opencl_h.C_LONG_LONG;
+    public static final OfLong int64_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef unsigned char uint8_t
      * }
      */
-    public static final OfByte uint8_t = opencl_h.C_CHAR;
+    public static final OfByte uint8_t = C_CHAR;
     /**
      * {@snippet lang=c :
      * typedef unsigned short uint16_t
      * }
      */
-    public static final OfShort uint16_t = opencl_h.C_SHORT;
+    public static final OfShort uint16_t = C_SHORT;
     /**
      * {@snippet lang=c :
      * typedef unsigned int uint32_t
      * }
      */
-    public static final OfInt uint32_t = opencl_h.C_INT;
+    public static final OfInt uint32_t = C_INT;
     /**
      * {@snippet lang=c :
      * typedef unsigned long long uint64_t
      * }
      */
-    public static final OfLong uint64_t = opencl_h.C_LONG_LONG;
+    public static final OfLong uint64_t = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef signed char int_least8_t
      * }
      */
-    public static final OfByte int_least8_t = opencl_h.C_CHAR;
+    public static final OfByte int_least8_t = C_CHAR;
     /**
      * {@snippet lang=c :
      * typedef short int_least16_t
      * }
      */
-    public static final OfShort int_least16_t = opencl_h.C_SHORT;
+    public static final OfShort int_least16_t = C_SHORT;
     /**
      * {@snippet lang=c :
      * typedef int int_least32_t
      * }
      */
-    public static final OfInt int_least32_t = opencl_h.C_INT;
+    public static final OfInt int_least32_t = C_INT;
 }
 
