@@ -116,7 +116,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_INFORMATION_CLASS
      * }
      */
-    public static final AddressLayout PTOKEN_INFORMATION_CLASS = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_INFORMATION_CLASS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_USER {
@@ -124,7 +124,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_USER
      * }
      */
-    public static final AddressLayout PTOKEN_USER = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_USER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_GROUPS {
@@ -133,7 +133,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_GROUPS
      * }
      */
-    public static final AddressLayout PTOKEN_GROUPS = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_GROUPS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_PRIVILEGES {
@@ -142,7 +142,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_PRIVILEGES
      * }
      */
-    public static final AddressLayout PTOKEN_PRIVILEGES = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_PRIVILEGES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_OWNER {
@@ -150,7 +150,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_OWNER
      * }
      */
-    public static final AddressLayout PTOKEN_OWNER = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_OWNER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_PRIMARY_GROUP {
@@ -158,7 +158,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_PRIMARY_GROUP
      * }
      */
-    public static final AddressLayout PTOKEN_PRIMARY_GROUP = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_PRIMARY_GROUP = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_DEFAULT_DACL {
@@ -166,7 +166,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_DEFAULT_DACL
      * }
      */
-    public static final AddressLayout PTOKEN_DEFAULT_DACL = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_DEFAULT_DACL = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_USER_CLAIMS {
@@ -174,7 +174,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_USER_CLAIMS
      * }
      */
-    public static final AddressLayout PTOKEN_USER_CLAIMS = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_USER_CLAIMS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_DEVICE_CLAIMS {
@@ -182,7 +182,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_DEVICE_CLAIMS
      * }
      */
-    public static final AddressLayout PTOKEN_DEVICE_CLAIMS = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_DEVICE_CLAIMS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_GROUPS_AND_PRIVILEGES {
@@ -199,7 +199,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_GROUPS_AND_PRIVILEGES
      * }
      */
-    public static final AddressLayout PTOKEN_GROUPS_AND_PRIVILEGES = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_GROUPS_AND_PRIVILEGES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_LINKED_TOKEN {
@@ -207,7 +207,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_LINKED_TOKEN
      * }
      */
-    public static final AddressLayout PTOKEN_LINKED_TOKEN = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_LINKED_TOKEN = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_ELEVATION {
@@ -215,7 +215,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_ELEVATION
      * }
      */
-    public static final AddressLayout PTOKEN_ELEVATION = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_ELEVATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_MANDATORY_LABEL {
@@ -223,7 +223,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_MANDATORY_LABEL
      * }
      */
-    public static final AddressLayout PTOKEN_MANDATORY_LABEL = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_MANDATORY_LABEL = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_MANDATORY_POLICY {
@@ -231,13 +231,13 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_MANDATORY_POLICY
      * }
      */
-    public static final AddressLayout PTOKEN_MANDATORY_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_MANDATORY_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PVOID PSECURITY_ATTRIBUTES_OPAQUE
      * }
      */
-    public static final AddressLayout PSECURITY_ATTRIBUTES_OPAQUE = Windows_h.C_POINTER;
+    public static final AddressLayout PSECURITY_ATTRIBUTES_OPAQUE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_ACCESS_INFORMATION {
@@ -257,7 +257,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_ACCESS_INFORMATION
      * }
      */
-    public static final AddressLayout PTOKEN_ACCESS_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_ACCESS_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_AUDIT_POLICY {
@@ -265,7 +265,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_AUDIT_POLICY
      * }
      */
-    public static final AddressLayout PTOKEN_AUDIT_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_AUDIT_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_SOURCE {
@@ -274,7 +274,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_SOURCE
      * }
      */
-    public static final AddressLayout PTOKEN_SOURCE = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_SOURCE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_STATISTICS {
@@ -291,7 +291,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_STATISTICS
      * }
      */
-    public static final AddressLayout PTOKEN_STATISTICS = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_STATISTICS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_CONTROL {
@@ -302,7 +302,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_CONTROL
      * }
      */
-    public static final AddressLayout PTOKEN_CONTROL = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_CONTROL = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_ORIGIN {
@@ -310,7 +310,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_ORIGIN
      * }
      */
-    public static final AddressLayout PTOKEN_ORIGIN = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_ORIGIN = C_POINTER;
     private static final int MandatoryLevelUntrusted = (int)0L;
     /**
      * {@snippet lang=c :
@@ -387,7 +387,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMANDATORY_LEVEL
      * }
      */
-    public static final AddressLayout PMANDATORY_LEVEL = Windows_h.C_POINTER;
+    public static final AddressLayout PMANDATORY_LEVEL = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_APPCONTAINER_INFORMATION {
@@ -395,7 +395,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_APPCONTAINER_INFORMATION
      * }
      */
-    public static final AddressLayout PTOKEN_APPCONTAINER_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_APPCONTAINER_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_SID_INFORMATION {
@@ -403,7 +403,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_SID_INFORMATION
      * }
      */
-    public static final AddressLayout PTOKEN_SID_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_SID_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TOKEN_BNO_ISOLATION_INFORMATION {
@@ -412,7 +412,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PTOKEN_BNO_ISOLATION_INFORMATION
      * }
      */
-    public static final AddressLayout PTOKEN_BNO_ISOLATION_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PTOKEN_BNO_ISOLATION_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE {
@@ -421,7 +421,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PCLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE
      * }
      */
-    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE = Windows_h.C_POINTER;
+    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE {
@@ -430,7 +430,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PCLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE
      * }
      */
-    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE = Windows_h.C_POINTER;
+    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CLAIM_SECURITY_ATTRIBUTE_V1 {
@@ -449,7 +449,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PCLAIM_SECURITY_ATTRIBUTE_V1
      * }
      */
-    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 {
@@ -468,7 +468,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PCLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1
      * }
      */
-    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CLAIM_SECURITY_ATTRIBUTES_INFORMATION {
@@ -481,19 +481,19 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PCLAIM_SECURITY_ATTRIBUTES_INFORMATION
      * }
      */
-    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTES_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTES_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef BOOLEAN SECURITY_CONTEXT_TRACKING_MODE
      * }
      */
-    public static final OfByte SECURITY_CONTEXT_TRACKING_MODE = Windows_h.C_CHAR;
+    public static final OfByte SECURITY_CONTEXT_TRACKING_MODE = C_CHAR;
     /**
      * {@snippet lang=c :
      * typedef BOOLEAN *PSECURITY_CONTEXT_TRACKING_MODE
      * }
      */
-    public static final AddressLayout PSECURITY_CONTEXT_TRACKING_MODE = Windows_h.C_POINTER;
+    public static final AddressLayout PSECURITY_CONTEXT_TRACKING_MODE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SECURITY_QUALITY_OF_SERVICE {
@@ -504,7 +504,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSECURITY_QUALITY_OF_SERVICE
      * }
      */
-    public static final AddressLayout PSECURITY_QUALITY_OF_SERVICE = Windows_h.C_POINTER;
+    public static final AddressLayout PSECURITY_QUALITY_OF_SERVICE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SE_IMPERSONATION_STATE {
@@ -515,31 +515,31 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSE_IMPERSONATION_STATE
      * }
      */
-    public static final AddressLayout PSE_IMPERSONATION_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PSE_IMPERSONATION_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef DWORD SECURITY_INFORMATION
      * }
      */
-    public static final OfInt SECURITY_INFORMATION = Windows_h.C_LONG;
+    public static final OfInt SECURITY_INFORMATION = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef DWORD *PSECURITY_INFORMATION
      * }
      */
-    public static final AddressLayout PSECURITY_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PSECURITY_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef BYTE SE_SIGNING_LEVEL
      * }
      */
-    public static final OfByte SE_SIGNING_LEVEL = Windows_h.C_CHAR;
+    public static final OfByte SE_SIGNING_LEVEL = C_CHAR;
     /**
      * {@snippet lang=c :
      * typedef BYTE *PSE_SIGNING_LEVEL
      * }
      */
-    public static final AddressLayout PSE_SIGNING_LEVEL = Windows_h.C_POINTER;
+    public static final AddressLayout PSE_SIGNING_LEVEL = C_POINTER;
     private static final int SeImageSignatureNone = (int)0L;
     /**
      * {@snippet lang=c :
@@ -626,7 +626,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSE_IMAGE_SIGNATURE_TYPE
      * }
      */
-    public static final AddressLayout PSE_IMAGE_SIGNATURE_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PSE_IMAGE_SIGNATURE_TYPE = C_POINTER;
     private static final int SeLearningModeInvalidType = (int)0L;
     /**
      * {@snippet lang=c :
@@ -664,7 +664,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSECURITY_CAPABILITIES
      * }
      */
-    public static final AddressLayout PSECURITY_CAPABILITIES = Windows_h.C_POINTER;
+    public static final AddressLayout PSECURITY_CAPABILITIES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SECURITY_CAPABILITIES {
@@ -675,7 +675,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *LPSECURITY_CAPABILITIES
      * }
      */
-    public static final AddressLayout LPSECURITY_CAPABILITIES = Windows_h.C_POINTER;
+    public static final AddressLayout LPSECURITY_CAPABILITIES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_SET_ARRAY {
@@ -685,19 +685,19 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOB_SET_ARRAY
      * }
      */
-    public static final AddressLayout PJOB_SET_ARRAY = Windows_h.C_POINTER;
+    public static final AddressLayout PJOB_SET_ARRAY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef EXCEPTION_REGISTRATION_RECORD *PEXCEPTION_REGISTRATION_RECORD
      * }
      */
-    public static final AddressLayout PEXCEPTION_REGISTRATION_RECORD = Windows_h.C_POINTER;
+    public static final AddressLayout PEXCEPTION_REGISTRATION_RECORD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef NT_TIB *PNT_TIB
      * }
      */
-    public static final AddressLayout PNT_TIB = Windows_h.C_POINTER;
+    public static final AddressLayout PNT_TIB = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _NT_TIB32 {
@@ -714,7 +714,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PNT_TIB32
      * }
      */
-    public static final AddressLayout PNT_TIB32 = Windows_h.C_POINTER;
+    public static final AddressLayout PNT_TIB32 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _NT_TIB64 {
@@ -731,7 +731,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PNT_TIB64
      * }
      */
-    public static final AddressLayout PNT_TIB64 = Windows_h.C_POINTER;
+    public static final AddressLayout PNT_TIB64 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _UMS_CREATE_THREAD_ATTRIBUTES {
@@ -741,7 +741,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PUMS_CREATE_THREAD_ATTRIBUTES
      * }
      */
-    public static final AddressLayout PUMS_CREATE_THREAD_ATTRIBUTES = Windows_h.C_POINTER;
+    public static final AddressLayout PUMS_CREATE_THREAD_ATTRIBUTES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _COMPONENT_FILTER {
@@ -749,7 +749,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PCOMPONENT_FILTER
      * }
      */
-    public static final AddressLayout PCOMPONENT_FILTER = Windows_h.C_POINTER;
+    public static final AddressLayout PCOMPONENT_FILTER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_DYNAMIC_EH_CONTINUATION_TARGET {
@@ -758,7 +758,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_DYNAMIC_EH_CONTINUATION_TARGET
      * }
      */
-    public static final AddressLayout PPROCESS_DYNAMIC_EH_CONTINUATION_TARGET = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_DYNAMIC_EH_CONTINUATION_TARGET = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION {
@@ -769,7 +769,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION
      * }
      */
-    public static final AddressLayout PPROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE {
@@ -779,7 +779,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE
      * }
      */
-    public static final AddressLayout PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION {
@@ -790,7 +790,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION
      * }
      */
-    public static final AddressLayout PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _QUOTA_LIMITS {
@@ -803,7 +803,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PQUOTA_LIMITS
      * }
      */
-    public static final AddressLayout PQUOTA_LIMITS = Windows_h.C_POINTER;
+    public static final AddressLayout PQUOTA_LIMITS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef union _RATE_QUOTA_LIMIT {
@@ -815,7 +815,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PRATE_QUOTA_LIMIT
      * }
      */
-    public static final AddressLayout PRATE_QUOTA_LIMIT = Windows_h.C_POINTER;
+    public static final AddressLayout PRATE_QUOTA_LIMIT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _QUOTA_LIMITS_EX {
@@ -834,13 +834,13 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PQUOTA_LIMITS_EX
      * }
      */
-    public static final AddressLayout PQUOTA_LIMITS_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PQUOTA_LIMITS_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef IO_COUNTERS *PIO_COUNTERS
      * }
      */
-    public static final AddressLayout PIO_COUNTERS = Windows_h.C_POINTER;
+    public static final AddressLayout PIO_COUNTERS = C_POINTER;
     private static final int PMCCounter = (int)0L;
     /**
      * {@snippet lang=c :
@@ -867,7 +867,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PHARDWARE_COUNTER_TYPE
      * }
      */
-    public static final AddressLayout PHARDWARE_COUNTER_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PHARDWARE_COUNTER_TYPE = C_POINTER;
     private static final int ProcessDEPPolicy = (int)0L;
     /**
      * {@snippet lang=c :
@@ -1054,7 +1054,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_ASLR_POLICY {
@@ -1071,7 +1071,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_ASLR_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_ASLR_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_ASLR_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_DEP_POLICY {
@@ -1087,7 +1087,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_DEP_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_DEP_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_DEP_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY {
@@ -1102,7 +1102,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY {
@@ -1117,7 +1117,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY {
@@ -1131,7 +1131,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_DYNAMIC_CODE_POLICY {
@@ -1148,7 +1148,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_DYNAMIC_CODE_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_DYNAMIC_CODE_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_DYNAMIC_CODE_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY {
@@ -1166,7 +1166,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY {
@@ -1184,7 +1184,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_BINARY_SIGNATURE_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_BINARY_SIGNATURE_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_BINARY_SIGNATURE_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_FONT_DISABLE_POLICY {
@@ -1199,7 +1199,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_FONT_DISABLE_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_FONT_DISABLE_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_FONT_DISABLE_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_IMAGE_LOAD_POLICY {
@@ -1217,7 +1217,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_IMAGE_LOAD_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_IMAGE_LOAD_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_IMAGE_LOAD_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY {
@@ -1231,7 +1231,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY {
@@ -1256,7 +1256,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_CHILD_PROCESS_POLICY {
@@ -1272,7 +1272,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_CHILD_PROCESS_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_CHILD_PROCESS_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_CHILD_PROCESS_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY {
@@ -1289,7 +1289,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY {
@@ -1312,7 +1312,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_USER_SHADOW_STACK_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_USER_SHADOW_STACK_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_USER_SHADOW_STACK_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESS_MITIGATION_REDIRECTION_TRUST_POLICY {
@@ -1327,7 +1327,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESS_MITIGATION_REDIRECTION_TRUST_POLICY
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_REDIRECTION_TRUST_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESS_MITIGATION_REDIRECTION_TRUST_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_BASIC_ACCOUNTING_INFORMATION {
@@ -1342,7 +1342,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_BASIC_ACCOUNTING_INFORMATION
      * }
      */
-    public static final AddressLayout PJOBOBJECT_BASIC_ACCOUNTING_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_BASIC_ACCOUNTING_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_BASIC_LIMIT_INFORMATION {
@@ -1358,7 +1358,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_BASIC_LIMIT_INFORMATION
      * }
      */
-    public static final AddressLayout PJOBOBJECT_BASIC_LIMIT_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_BASIC_LIMIT_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_EXTENDED_LIMIT_INFORMATION {
@@ -1371,7 +1371,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_EXTENDED_LIMIT_INFORMATION
      * }
      */
-    public static final AddressLayout PJOBOBJECT_EXTENDED_LIMIT_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_EXTENDED_LIMIT_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_BASIC_PROCESS_ID_LIST {
@@ -1381,7 +1381,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_BASIC_PROCESS_ID_LIST
      * }
      */
-    public static final AddressLayout PJOBOBJECT_BASIC_PROCESS_ID_LIST = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_BASIC_PROCESS_ID_LIST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_BASIC_UI_RESTRICTIONS {
@@ -1389,7 +1389,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_BASIC_UI_RESTRICTIONS
      * }
      */
-    public static final AddressLayout PJOBOBJECT_BASIC_UI_RESTRICTIONS = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_BASIC_UI_RESTRICTIONS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_SECURITY_LIMIT_INFORMATION {
@@ -1401,7 +1401,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_SECURITY_LIMIT_INFORMATION
      * }
      */
-    public static final AddressLayout PJOBOBJECT_SECURITY_LIMIT_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_SECURITY_LIMIT_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_END_OF_JOB_TIME_INFORMATION {
@@ -1409,7 +1409,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_END_OF_JOB_TIME_INFORMATION
      * }
      */
-    public static final AddressLayout PJOBOBJECT_END_OF_JOB_TIME_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_END_OF_JOB_TIME_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_ASSOCIATE_COMPLETION_PORT {
@@ -1418,7 +1418,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_ASSOCIATE_COMPLETION_PORT
      * }
      */
-    public static final AddressLayout PJOBOBJECT_ASSOCIATE_COMPLETION_PORT = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_ASSOCIATE_COMPLETION_PORT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION {
@@ -1427,7 +1427,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION
      * }
      */
-    public static final AddressLayout PJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_JOBSET_INFORMATION {
@@ -1435,7 +1435,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_JOBSET_INFORMATION
      * }
      */
-    public static final AddressLayout PJOBOBJECT_JOBSET_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_JOBSET_INFORMATION = C_POINTER;
     private static final int ToleranceLow = (int)1L;
     /**
      * {@snippet lang=c :
@@ -1472,7 +1472,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_RATE_CONTROL_TOLERANCE
      * }
      */
-    public static final AddressLayout PJOBOBJECT_RATE_CONTROL_TOLERANCE = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_RATE_CONTROL_TOLERANCE = C_POINTER;
     private static final int ToleranceIntervalShort = (int)1L;
     /**
      * {@snippet lang=c :
@@ -1509,7 +1509,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
      * }
      */
-    public static final AddressLayout PJOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION {
@@ -1523,7 +1523,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION
      * }
      */
-    public static final AddressLayout PJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_LIMIT_VIOLATION_INFORMATION {
@@ -1542,7 +1542,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_LIMIT_VIOLATION_INFORMATION
      * }
      */
-    public static final AddressLayout PJOBOBJECT_LIMIT_VIOLATION_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_LIMIT_VIOLATION_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_CPU_RATE_CONTROL_INFORMATION {
@@ -1558,7 +1558,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_CPU_RATE_CONTROL_INFORMATION
      * }
      */
-    public static final AddressLayout PJOBOBJECT_CPU_RATE_CONTROL_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_CPU_RATE_CONTROL_INFORMATION = C_POINTER;
     private static final int JOB_OBJECT_NET_RATE_CONTROL_ENABLE = (int)1L;
     /**
      * {@snippet lang=c :
@@ -1677,7 +1677,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_IO_ATTRIBUTION_STATS
      * }
      */
-    public static final AddressLayout PJOBOBJECT_IO_ATTRIBUTION_STATS = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_IO_ATTRIBUTION_STATS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOBOBJECT_IO_ATTRIBUTION_INFORMATION {
@@ -1687,7 +1687,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PJOBOBJECT_IO_ATTRIBUTION_INFORMATION
      * }
      */
-    public static final AddressLayout PJOBOBJECT_IO_ATTRIBUTION_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PJOBOBJECT_IO_ATTRIBUTION_INFORMATION = C_POINTER;
     private static final int JobObjectBasicAccountingInformation = (int)1L;
     /**
      * {@snippet lang=c :
@@ -2131,7 +2131,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSILOOBJECT_BASIC_INFORMATION
      * }
      */
-    public static final AddressLayout PSILOOBJECT_BASIC_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PSILOOBJECT_BASIC_INFORMATION = C_POINTER;
     private static final int SERVERSILO_INITING = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2188,7 +2188,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSERVERSILO_STATE
      * }
      */
-    public static final AddressLayout PSERVERSILO_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PSERVERSILO_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SERVERSILO_BASIC_INFORMATION {
@@ -2201,7 +2201,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSERVERSILO_BASIC_INFORMATION
      * }
      */
-    public static final AddressLayout PSERVERSILO_BASIC_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PSERVERSILO_BASIC_INFORMATION = C_POINTER;
     private static final int FirmwareTypeUnknown = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2248,7 +2248,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PFIRMWARE_TYPE
      * }
      */
-    public static final AddressLayout PFIRMWARE_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PFIRMWARE_TYPE = C_POINTER;
     private static final int RelationProcessorCore = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2377,7 +2377,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PCACHE_DESCRIPTOR
      * }
      */
-    public static final AddressLayout PCACHE_DESCRIPTOR = Windows_h.C_POINTER;
+    public static final AddressLayout PCACHE_DESCRIPTOR = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SYSTEM_LOGICAL_PROCESSOR_INFORMATION {
@@ -2396,7 +2396,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSYSTEM_LOGICAL_PROCESSOR_INFORMATION
      * }
      */
-    public static final AddressLayout PSYSTEM_LOGICAL_PROCESSOR_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PSYSTEM_LOGICAL_PROCESSOR_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESSOR_RELATIONSHIP {
@@ -2408,7 +2408,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESSOR_RELATIONSHIP
      * }
      */
-    public static final AddressLayout PPROCESSOR_RELATIONSHIP = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESSOR_RELATIONSHIP = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _NUMA_NODE_RELATIONSHIP {
@@ -2422,7 +2422,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PNUMA_NODE_RELATIONSHIP
      * }
      */
-    public static final AddressLayout PNUMA_NODE_RELATIONSHIP = Windows_h.C_POINTER;
+    public static final AddressLayout PNUMA_NODE_RELATIONSHIP = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CACHE_RELATIONSHIP {
@@ -2440,7 +2440,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PCACHE_RELATIONSHIP
      * }
      */
-    public static final AddressLayout PCACHE_RELATIONSHIP = Windows_h.C_POINTER;
+    public static final AddressLayout PCACHE_RELATIONSHIP = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESSOR_GROUP_INFO {
@@ -2451,7 +2451,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESSOR_GROUP_INFO
      * }
      */
-    public static final AddressLayout PPROCESSOR_GROUP_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESSOR_GROUP_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _GROUP_RELATIONSHIP {
@@ -2462,7 +2462,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PGROUP_RELATIONSHIP
      * }
      */
-    public static final AddressLayout PGROUP_RELATIONSHIP = Windows_h.C_POINTER;
+    public static final AddressLayout PGROUP_RELATIONSHIP = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX {
@@ -2477,7 +2477,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX
      * }
      */
-    public static final AddressLayout PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX = C_POINTER;
     private static final int CpuSetInformation = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2494,7 +2494,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PCPU_SET_INFORMATION_TYPE
      * }
      */
-    public static final AddressLayout PCPU_SET_INFORMATION_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PCPU_SET_INFORMATION_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SYSTEM_CPU_SET_INFORMATION {
@@ -2529,7 +2529,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSYSTEM_CPU_SET_INFORMATION
      * }
      */
-    public static final AddressLayout PSYSTEM_CPU_SET_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PSYSTEM_CPU_SET_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SYSTEM_POOL_ZEROING_INFORMATION {
@@ -2537,7 +2537,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSYSTEM_POOL_ZEROING_INFORMATION
      * }
      */
-    public static final AddressLayout PSYSTEM_POOL_ZEROING_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PSYSTEM_POOL_ZEROING_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION {
@@ -2545,7 +2545,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION
      * }
      */
-    public static final AddressLayout PSYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PSYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _XSTATE_FEATURE {
@@ -2554,7 +2554,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PXSTATE_FEATURE
      * }
      */
-    public static final AddressLayout PXSTATE_FEATURE = Windows_h.C_POINTER;
+    public static final AddressLayout PXSTATE_FEATURE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _XSTATE_CONFIGURATION {
@@ -2581,7 +2581,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PXSTATE_CONFIGURATION
      * }
      */
-    public static final AddressLayout PXSTATE_CONFIGURATION = Windows_h.C_POINTER;
+    public static final AddressLayout PXSTATE_CONFIGURATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _MEMORY_BASIC_INFORMATION {
@@ -2596,7 +2596,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMEMORY_BASIC_INFORMATION
      * }
      */
-    public static final AddressLayout PMEMORY_BASIC_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PMEMORY_BASIC_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _MEMORY_BASIC_INFORMATION32 {
@@ -2610,7 +2610,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMEMORY_BASIC_INFORMATION32
      * }
      */
-    public static final AddressLayout PMEMORY_BASIC_INFORMATION32 = Windows_h.C_POINTER;
+    public static final AddressLayout PMEMORY_BASIC_INFORMATION32 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _MEMORY_BASIC_INFORMATION64 {
@@ -2626,7 +2626,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMEMORY_BASIC_INFORMATION64
      * }
      */
-    public static final AddressLayout PMEMORY_BASIC_INFORMATION64 = Windows_h.C_POINTER;
+    public static final AddressLayout PMEMORY_BASIC_INFORMATION64 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CFG_CALL_TARGET_INFO {
@@ -2635,7 +2635,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PCFG_CALL_TARGET_INFO
      * }
      */
-    public static final AddressLayout PCFG_CALL_TARGET_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PCFG_CALL_TARGET_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _MEM_ADDRESS_REQUIREMENTS {
@@ -2645,7 +2645,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMEM_ADDRESS_REQUIREMENTS
      * }
      */
-    public static final AddressLayout PMEM_ADDRESS_REQUIREMENTS = Windows_h.C_POINTER;
+    public static final AddressLayout PMEM_ADDRESS_REQUIREMENTS = C_POINTER;
     private static final int MemExtendedParameterInvalidType = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2732,7 +2732,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMEM_EXTENDED_PARAMETER_TYPE
      * }
      */
-    public static final AddressLayout PMEM_EXTENDED_PARAMETER_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PMEM_EXTENDED_PARAMETER_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct MEM_EXTENDED_PARAMETER {
@@ -2750,7 +2750,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMEM_EXTENDED_PARAMETER
      * }
      */
-    public static final AddressLayout PMEM_EXTENDED_PARAMETER = Windows_h.C_POINTER;
+    public static final AddressLayout PMEM_EXTENDED_PARAMETER = C_POINTER;
     private static final int MemDedicatedAttributeReadBandwidth = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2807,7 +2807,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMEM_DEDICATED_ATTRIBUTE_TYPE
      * }
      */
-    public static final AddressLayout PMEM_DEDICATED_ATTRIBUTE_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PMEM_DEDICATED_ATTRIBUTE_TYPE = C_POINTER;
     private static final int MemSectionExtendedParameterInvalidType = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2864,7 +2864,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMEM_SECTION_EXTENDED_PARAMETER_TYPE
      * }
      */
-    public static final AddressLayout PMEM_SECTION_EXTENDED_PARAMETER_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PMEM_SECTION_EXTENDED_PARAMETER_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ENCLAVE_CREATE_INFO_SGX {
@@ -2872,7 +2872,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PENCLAVE_CREATE_INFO_SGX
      * }
      */
-    public static final AddressLayout PENCLAVE_CREATE_INFO_SGX = Windows_h.C_POINTER;
+    public static final AddressLayout PENCLAVE_CREATE_INFO_SGX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ENCLAVE_INIT_INFO_SGX {
@@ -2883,7 +2883,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PENCLAVE_INIT_INFO_SGX
      * }
      */
-    public static final AddressLayout PENCLAVE_INIT_INFO_SGX = Windows_h.C_POINTER;
+    public static final AddressLayout PENCLAVE_INIT_INFO_SGX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ENCLAVE_CREATE_INFO_VBS {
@@ -2892,7 +2892,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PENCLAVE_CREATE_INFO_VBS
      * }
      */
-    public static final AddressLayout PENCLAVE_CREATE_INFO_VBS = Windows_h.C_POINTER;
+    public static final AddressLayout PENCLAVE_CREATE_INFO_VBS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ENCLAVE_CREATE_INFO_VBS_BASIC {
@@ -2901,7 +2901,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PENCLAVE_CREATE_INFO_VBS_BASIC
      * }
      */
-    public static final AddressLayout PENCLAVE_CREATE_INFO_VBS_BASIC = Windows_h.C_POINTER;
+    public static final AddressLayout PENCLAVE_CREATE_INFO_VBS_BASIC = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ENCLAVE_LOAD_DATA_VBS_BASIC {
@@ -2909,7 +2909,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PENCLAVE_LOAD_DATA_VBS_BASIC
      * }
      */
-    public static final AddressLayout PENCLAVE_LOAD_DATA_VBS_BASIC = Windows_h.C_POINTER;
+    public static final AddressLayout PENCLAVE_LOAD_DATA_VBS_BASIC = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ENCLAVE_INIT_INFO_VBS_BASIC {
@@ -2925,7 +2925,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PENCLAVE_INIT_INFO_VBS_BASIC
      * }
      */
-    public static final AddressLayout PENCLAVE_INIT_INFO_VBS_BASIC = Windows_h.C_POINTER;
+    public static final AddressLayout PENCLAVE_INIT_INFO_VBS_BASIC = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ENCLAVE_INIT_INFO_VBS {
@@ -2934,7 +2934,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PENCLAVE_INIT_INFO_VBS
      * }
      */
-    public static final AddressLayout PENCLAVE_INIT_INFO_VBS = Windows_h.C_POINTER;
+    public static final AddressLayout PENCLAVE_INIT_INFO_VBS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE {
@@ -2944,7 +2944,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE
      * }
      */
-    public static final AddressLayout PMEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE = Windows_h.C_POINTER;
+    public static final AddressLayout PMEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION {
@@ -2958,7 +2958,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION
      * }
      */
-    public static final AddressLayout PMEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PMEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_ID_128 {
@@ -2966,7 +2966,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PFILE_ID_128
      * }
      */
-    public static final AddressLayout PFILE_ID_128 = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_ID_128 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_NOTIFY_INFORMATION {
@@ -2977,7 +2977,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PFILE_NOTIFY_INFORMATION
      * }
      */
-    public static final AddressLayout PFILE_NOTIFY_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_NOTIFY_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_NOTIFY_EXTENDED_INFORMATION {
@@ -2998,7 +2998,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PFILE_NOTIFY_EXTENDED_INFORMATION
      * }
      */
-    public static final AddressLayout PFILE_NOTIFY_EXTENDED_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_NOTIFY_EXTENDED_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef union _FILE_SEGMENT_ELEMENT {
@@ -3007,7 +3007,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PFILE_SEGMENT_ELEMENT
      * }
      */
-    public static final AddressLayout PFILE_SEGMENT_ELEMENT = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_SEGMENT_ELEMENT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _REPARSE_GUID_DATA_BUFFER {
@@ -3021,7 +3021,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PREPARSE_GUID_DATA_BUFFER
      * }
      */
-    public static final AddressLayout PREPARSE_GUID_DATA_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PREPARSE_GUID_DATA_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCRUB_DATA_INPUT {
@@ -3034,7 +3034,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSCRUB_DATA_INPUT
      * }
      */
-    public static final AddressLayout PSCRUB_DATA_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSCRUB_DATA_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCRUB_PARITY_EXTENT {
@@ -3043,7 +3043,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSCRUB_PARITY_EXTENT
      * }
      */
-    public static final AddressLayout PSCRUB_PARITY_EXTENT = Windows_h.C_POINTER;
+    public static final AddressLayout PSCRUB_PARITY_EXTENT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCRUB_PARITY_EXTENT_DATA {
@@ -3055,7 +3055,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSCRUB_PARITY_EXTENT_DATA
      * }
      */
-    public static final AddressLayout PSCRUB_PARITY_EXTENT_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PSCRUB_PARITY_EXTENT_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCRUB_DATA_OUTPUT {
@@ -3086,7 +3086,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSCRUB_DATA_OUTPUT
      * }
      */
-    public static final AddressLayout PSCRUB_DATA_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSCRUB_DATA_OUTPUT = C_POINTER;
     private static final int SharedVirtualDisksUnsupported = (int)0L;
     /**
      * {@snippet lang=c :
@@ -3158,7 +3158,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSHARED_VIRTUAL_DISK_SUPPORT
      * }
      */
-    public static final AddressLayout PSHARED_VIRTUAL_DISK_SUPPORT = Windows_h.C_POINTER;
+    public static final AddressLayout PSHARED_VIRTUAL_DISK_SUPPORT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _REARRANGE_FILE_DATA {
@@ -3170,7 +3170,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PREARRANGE_FILE_DATA
      * }
      */
-    public static final AddressLayout PREARRANGE_FILE_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PREARRANGE_FILE_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _REARRANGE_FILE_DATA32 {
@@ -3182,7 +3182,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PREARRANGE_FILE_DATA32
      * }
      */
-    public static final AddressLayout PREARRANGE_FILE_DATA32 = Windows_h.C_POINTER;
+    public static final AddressLayout PREARRANGE_FILE_DATA32 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SHUFFLE_FILE_DATA {
@@ -3192,7 +3192,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSHUFFLE_FILE_DATA
      * }
      */
-    public static final AddressLayout PSHUFFLE_FILE_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PSHUFFLE_FILE_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _NETWORK_APP_INSTANCE_EA {
@@ -3201,11 +3201,11 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PNETWORK_APP_INSTANCE_EA
      * }
      */
-    public static final AddressLayout PNETWORK_APP_INSTANCE_EA = Windows_h.C_POINTER;
+    public static final AddressLayout PNETWORK_APP_INSTANCE_EA = C_POINTER;
 
     private static class GUID_MAX_POWER_SAVINGS$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_MAX_POWER_SAVINGS").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_MAX_POWER_SAVINGS").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3240,7 +3240,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_MIN_POWER_SAVINGS$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_MIN_POWER_SAVINGS").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_MIN_POWER_SAVINGS").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3275,7 +3275,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_TYPICAL_POWER_SAVINGS$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_TYPICAL_POWER_SAVINGS").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_TYPICAL_POWER_SAVINGS").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3310,7 +3310,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class NO_SUBGROUP_GUID$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("NO_SUBGROUP_GUID").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("NO_SUBGROUP_GUID").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3345,7 +3345,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class ALL_POWERSCHEMES_GUID$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("ALL_POWERSCHEMES_GUID").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("ALL_POWERSCHEMES_GUID").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3380,7 +3380,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_POWERSCHEME_PERSONALITY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_POWERSCHEME_PERSONALITY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_POWERSCHEME_PERSONALITY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3415,7 +3415,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ACTIVE_POWERSCHEME$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ACTIVE_POWERSCHEME").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ACTIVE_POWERSCHEME").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3450,7 +3450,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_IDLE_RESILIENCY_SUBGROUP$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_IDLE_RESILIENCY_SUBGROUP").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_IDLE_RESILIENCY_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3485,7 +3485,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_IDLE_RESILIENCY_PERIOD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_IDLE_RESILIENCY_PERIOD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_IDLE_RESILIENCY_PERIOD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3520,7 +3520,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DEEP_SLEEP_ENABLED$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DEEP_SLEEP_ENABLED").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DEEP_SLEEP_ENABLED").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3555,7 +3555,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DEEP_SLEEP_PLATFORM_STATE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DEEP_SLEEP_PLATFORM_STATE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DEEP_SLEEP_PLATFORM_STATE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3590,7 +3590,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DISK_COALESCING_POWERDOWN_TIMEOUT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_COALESCING_POWERDOWN_TIMEOUT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DISK_COALESCING_POWERDOWN_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3625,7 +3625,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3660,7 +3660,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_VIDEO_SUBGROUP$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_SUBGROUP").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_VIDEO_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3695,7 +3695,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_VIDEO_POWERDOWN_TIMEOUT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_POWERDOWN_TIMEOUT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_VIDEO_POWERDOWN_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3730,7 +3730,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_VIDEO_ANNOYANCE_TIMEOUT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_ANNOYANCE_TIMEOUT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_VIDEO_ANNOYANCE_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3765,7 +3765,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3800,7 +3800,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_VIDEO_DIM_TIMEOUT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_DIM_TIMEOUT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_VIDEO_DIM_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3835,7 +3835,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_VIDEO_ADAPTIVE_POWERDOWN$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_ADAPTIVE_POWERDOWN").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_VIDEO_ADAPTIVE_POWERDOWN").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3870,7 +3870,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_MONITOR_POWER_ON$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_MONITOR_POWER_ON").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_MONITOR_POWER_ON").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3905,7 +3905,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3940,7 +3940,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -3975,7 +3975,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4010,7 +4010,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4045,7 +4045,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_CONSOLE_DISPLAY_STATE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_CONSOLE_DISPLAY_STATE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_CONSOLE_DISPLAY_STATE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4080,7 +4080,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ALLOW_DISPLAY_REQUIRED$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ALLOW_DISPLAY_REQUIRED").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ALLOW_DISPLAY_REQUIRED").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4115,7 +4115,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_VIDEO_CONSOLE_LOCK_TIMEOUT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_CONSOLE_LOCK_TIMEOUT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_VIDEO_CONSOLE_LOCK_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4150,7 +4150,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ADVANCED_COLOR_QUALITY_BIAS$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ADVANCED_COLOR_QUALITY_BIAS").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ADVANCED_COLOR_QUALITY_BIAS").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4185,7 +4185,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4220,7 +4220,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_NON_ADAPTIVE_INPUT_TIMEOUT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_NON_ADAPTIVE_INPUT_TIMEOUT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_NON_ADAPTIVE_INPUT_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4255,7 +4255,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ADAPTIVE_INPUT_CONTROLLER_STATE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ADAPTIVE_INPUT_CONTROLLER_STATE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ADAPTIVE_INPUT_CONTROLLER_STATE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4290,7 +4290,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DISK_SUBGROUP$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_SUBGROUP").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DISK_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4325,7 +4325,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DISK_MAX_POWER$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_MAX_POWER").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DISK_MAX_POWER").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4360,7 +4360,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DISK_POWERDOWN_TIMEOUT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_POWERDOWN_TIMEOUT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DISK_POWERDOWN_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4395,7 +4395,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DISK_IDLE_TIMEOUT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_IDLE_TIMEOUT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DISK_IDLE_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4430,7 +4430,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DISK_BURST_IGNORE_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_BURST_IGNORE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DISK_BURST_IGNORE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4465,7 +4465,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DISK_ADAPTIVE_POWERDOWN$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_ADAPTIVE_POWERDOWN").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DISK_ADAPTIVE_POWERDOWN").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4500,7 +4500,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DISK_NVME_NOPPME$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_NVME_NOPPME").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DISK_NVME_NOPPME").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4535,7 +4535,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_SLEEP_SUBGROUP$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SLEEP_SUBGROUP").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_SLEEP_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4570,7 +4570,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_SLEEP_IDLE_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SLEEP_IDLE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_SLEEP_IDLE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4605,7 +4605,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_STANDBY_TIMEOUT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_STANDBY_TIMEOUT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_STANDBY_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4640,7 +4640,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_UNATTEND_SLEEP_TIMEOUT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_UNATTEND_SLEEP_TIMEOUT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_UNATTEND_SLEEP_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4675,7 +4675,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_HIBERNATE_TIMEOUT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_HIBERNATE_TIMEOUT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_HIBERNATE_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4710,7 +4710,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_HIBERNATE_FASTS4_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_HIBERNATE_FASTS4_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_HIBERNATE_FASTS4_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4745,7 +4745,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_CRITICAL_POWER_TRANSITION$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_CRITICAL_POWER_TRANSITION").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_CRITICAL_POWER_TRANSITION").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4780,7 +4780,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_SYSTEM_AWAYMODE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SYSTEM_AWAYMODE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_SYSTEM_AWAYMODE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4815,7 +4815,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ALLOW_AWAYMODE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ALLOW_AWAYMODE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ALLOW_AWAYMODE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4850,7 +4850,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_USER_PRESENCE_PREDICTION$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_USER_PRESENCE_PREDICTION").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_USER_PRESENCE_PREDICTION").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4885,7 +4885,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_STANDBY_BUDGET_GRACE_PERIOD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_STANDBY_BUDGET_GRACE_PERIOD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_STANDBY_BUDGET_GRACE_PERIOD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4920,7 +4920,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_STANDBY_BUDGET_PERCENT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_STANDBY_BUDGET_PERCENT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_STANDBY_BUDGET_PERCENT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4955,7 +4955,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_STANDBY_RESERVE_GRACE_PERIOD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_STANDBY_RESERVE_GRACE_PERIOD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_STANDBY_RESERVE_GRACE_PERIOD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -4990,7 +4990,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_STANDBY_RESERVE_TIME$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_STANDBY_RESERVE_TIME").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_STANDBY_RESERVE_TIME").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5025,7 +5025,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_STANDBY_RESET_PERCENT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_STANDBY_RESET_PERCENT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_STANDBY_RESET_PERCENT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5060,7 +5060,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5095,7 +5095,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ALLOW_STANDBY_STATES$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ALLOW_STANDBY_STATES").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ALLOW_STANDBY_STATES").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5130,7 +5130,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ALLOW_RTC_WAKE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ALLOW_RTC_WAKE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ALLOW_RTC_WAKE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5165,7 +5165,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_LEGACY_RTC_MITIGATION$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_LEGACY_RTC_MITIGATION").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_LEGACY_RTC_MITIGATION").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5200,7 +5200,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ALLOW_SYSTEM_REQUIRED$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ALLOW_SYSTEM_REQUIRED").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ALLOW_SYSTEM_REQUIRED").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5235,7 +5235,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_POWER_SAVING_STATUS$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_POWER_SAVING_STATUS").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_POWER_SAVING_STATUS").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5270,7 +5270,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ENERGY_SAVER_SUBGROUP$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ENERGY_SAVER_SUBGROUP").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ENERGY_SAVER_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5305,7 +5305,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ENERGY_SAVER_BATTERY_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ENERGY_SAVER_BATTERY_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ENERGY_SAVER_BATTERY_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5340,7 +5340,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ENERGY_SAVER_BRIGHTNESS$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ENERGY_SAVER_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ENERGY_SAVER_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5375,7 +5375,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ENERGY_SAVER_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ENERGY_SAVER_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ENERGY_SAVER_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5410,7 +5410,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_SYSTEM_BUTTON_SUBGROUP$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SYSTEM_BUTTON_SUBGROUP").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_SYSTEM_BUTTON_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5445,7 +5445,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_POWERBUTTON_ACTION$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_POWERBUTTON_ACTION").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_POWERBUTTON_ACTION").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5480,7 +5480,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_SLEEPBUTTON_ACTION$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SLEEPBUTTON_ACTION").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_SLEEPBUTTON_ACTION").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5515,7 +5515,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_USERINTERFACEBUTTON_ACTION$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_USERINTERFACEBUTTON_ACTION").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_USERINTERFACEBUTTON_ACTION").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5550,7 +5550,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_LIDCLOSE_ACTION$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_LIDCLOSE_ACTION").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_LIDCLOSE_ACTION").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5585,7 +5585,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_LIDOPEN_POWERSTATE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_LIDOPEN_POWERSTATE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_LIDOPEN_POWERSTATE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5620,7 +5620,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_SUBGROUP$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_SUBGROUP").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5655,7 +5655,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_DISCHARGE_ACTION_0$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_ACTION_0").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_DISCHARGE_ACTION_0").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5690,7 +5690,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_DISCHARGE_LEVEL_0$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_LEVEL_0").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_DISCHARGE_LEVEL_0").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5725,7 +5725,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_DISCHARGE_FLAGS_0$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_FLAGS_0").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_DISCHARGE_FLAGS_0").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5760,7 +5760,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_DISCHARGE_ACTION_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_ACTION_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_DISCHARGE_ACTION_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5795,7 +5795,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_DISCHARGE_LEVEL_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_LEVEL_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_DISCHARGE_LEVEL_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5830,7 +5830,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_DISCHARGE_FLAGS_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_FLAGS_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_DISCHARGE_FLAGS_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5865,7 +5865,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_DISCHARGE_ACTION_2$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_ACTION_2").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_DISCHARGE_ACTION_2").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5900,7 +5900,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_DISCHARGE_LEVEL_2$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_LEVEL_2").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_DISCHARGE_LEVEL_2").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5935,7 +5935,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_DISCHARGE_FLAGS_2$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_FLAGS_2").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_DISCHARGE_FLAGS_2").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -5970,7 +5970,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_DISCHARGE_ACTION_3$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_ACTION_3").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_DISCHARGE_ACTION_3").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6005,7 +6005,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_DISCHARGE_LEVEL_3$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_LEVEL_3").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_DISCHARGE_LEVEL_3").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6040,7 +6040,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_DISCHARGE_FLAGS_3$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_FLAGS_3").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_DISCHARGE_FLAGS_3").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6075,7 +6075,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_SETTINGS_SUBGROUP$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_SETTINGS_SUBGROUP").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_SETTINGS_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6110,7 +6110,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_THROTTLE_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_THROTTLE_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_THROTTLE_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6145,7 +6145,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_THROTTLE_MAXIMUM$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_THROTTLE_MAXIMUM").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_THROTTLE_MAXIMUM").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6180,7 +6180,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_THROTTLE_MAXIMUM_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_THROTTLE_MAXIMUM_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_THROTTLE_MAXIMUM_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6215,7 +6215,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_THROTTLE_MINIMUM$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_THROTTLE_MINIMUM").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_THROTTLE_MINIMUM").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6250,7 +6250,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_THROTTLE_MINIMUM_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_THROTTLE_MINIMUM_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_THROTTLE_MINIMUM_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6285,7 +6285,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_FREQUENCY_LIMIT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_FREQUENCY_LIMIT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_FREQUENCY_LIMIT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6320,7 +6320,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_FREQUENCY_LIMIT_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_FREQUENCY_LIMIT_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_FREQUENCY_LIMIT_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6355,7 +6355,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_ALLOW_THROTTLING$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_ALLOW_THROTTLING").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_ALLOW_THROTTLING").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6390,7 +6390,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_IDLESTATE_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLESTATE_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_IDLESTATE_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6425,7 +6425,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERFSTATE_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERFSTATE_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERFSTATE_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6460,7 +6460,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_INCREASE_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_INCREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6495,7 +6495,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6530,7 +6530,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_DECREASE_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_DECREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6565,7 +6565,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6600,7 +6600,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_INCREASE_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_INCREASE_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6635,7 +6635,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_INCREASE_POLICY_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_POLICY_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_INCREASE_POLICY_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6670,7 +6670,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_DECREASE_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_DECREASE_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6705,7 +6705,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_DECREASE_POLICY_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_POLICY_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_DECREASE_POLICY_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6740,7 +6740,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_INCREASE_TIME$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_TIME").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_INCREASE_TIME").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6775,7 +6775,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_INCREASE_TIME_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_TIME_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_INCREASE_TIME_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6810,7 +6810,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_DECREASE_TIME$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_TIME").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_DECREASE_TIME").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6845,7 +6845,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_DECREASE_TIME_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_TIME_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_DECREASE_TIME_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6880,7 +6880,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_TIME_CHECK$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_TIME_CHECK").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_TIME_CHECK").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6915,7 +6915,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_BOOST_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_BOOST_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_BOOST_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6950,7 +6950,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_BOOST_MODE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_BOOST_MODE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_BOOST_MODE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6985,7 +6985,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_AUTONOMOUS_MODE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_AUTONOMOUS_MODE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_AUTONOMOUS_MODE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7020,7 +7020,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7055,7 +7055,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7090,7 +7090,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7125,7 +7125,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_DUTY_CYCLING$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_DUTY_CYCLING").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_DUTY_CYCLING").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7160,7 +7160,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_IDLE_ALLOW_SCALING$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLE_ALLOW_SCALING").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_IDLE_ALLOW_SCALING").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7195,7 +7195,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_IDLE_DISABLE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLE_DISABLE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_IDLE_DISABLE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7230,7 +7230,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_IDLE_STATE_MAXIMUM$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLE_STATE_MAXIMUM").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_IDLE_STATE_MAXIMUM").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7265,7 +7265,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_IDLE_TIME_CHECK$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLE_TIME_CHECK").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_IDLE_TIME_CHECK").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7300,7 +7300,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7335,7 +7335,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7370,7 +7370,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7405,7 +7405,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7440,7 +7440,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7475,7 +7475,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7510,7 +7510,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_MAX_CORES$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_MAX_CORES").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_MAX_CORES").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7545,7 +7545,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7580,7 +7580,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_MIN_CORES$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_MIN_CORES").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_MIN_CORES").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7615,7 +7615,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7650,7 +7650,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7685,7 +7685,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7720,7 +7720,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7755,7 +7755,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7790,7 +7790,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7825,7 +7825,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7860,7 +7860,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7895,7 +7895,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7930,7 +7930,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -7965,7 +7965,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PARKING_CORE_OVERRIDE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PARKING_CORE_OVERRIDE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PARKING_CORE_OVERRIDE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8000,7 +8000,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PARKING_PERF_STATE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PARKING_PERF_STATE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PARKING_PERF_STATE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8035,7 +8035,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PARKING_PERF_STATE_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PARKING_PERF_STATE_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PARKING_PERF_STATE_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8070,7 +8070,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8105,7 +8105,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8140,7 +8140,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8175,7 +8175,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_SOFT_PARKING_LATENCY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_SOFT_PARKING_LATENCY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_SOFT_PARKING_LATENCY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8210,7 +8210,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_HISTORY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_HISTORY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_HISTORY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8245,7 +8245,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_HISTORY_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_HISTORY_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_HISTORY_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8280,7 +8280,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_INCREASE_HISTORY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_HISTORY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_INCREASE_HISTORY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8315,7 +8315,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_DECREASE_HISTORY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_HISTORY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_DECREASE_HISTORY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8350,7 +8350,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8385,7 +8385,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_LATENCY_HINT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_LATENCY_HINT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_LATENCY_HINT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8420,7 +8420,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_LATENCY_HINT_PERF$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_LATENCY_HINT_PERF").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_LATENCY_HINT_PERF").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8455,7 +8455,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8490,7 +8490,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8525,7 +8525,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8560,7 +8560,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_DISTRIBUTE_UTILITY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_DISTRIBUTE_UTILITY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_DISTRIBUTE_UTILITY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8595,7 +8595,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_HETEROGENEOUS_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_HETEROGENEOUS_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_HETEROGENEOUS_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8630,7 +8630,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_HETERO_DECREASE_TIME$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_HETERO_DECREASE_TIME").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_HETERO_DECREASE_TIME").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8665,7 +8665,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_HETERO_INCREASE_TIME$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_HETERO_INCREASE_TIME").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_HETERO_INCREASE_TIME").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8700,7 +8700,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8735,7 +8735,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8770,7 +8770,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CLASS0_FLOOR_PERF$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CLASS0_FLOOR_PERF").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CLASS0_FLOOR_PERF").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8805,7 +8805,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_CLASS1_INITIAL_PERF$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CLASS1_INITIAL_PERF").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_CLASS1_INITIAL_PERF").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8840,7 +8840,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_THREAD_SCHEDULING_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_THREAD_SCHEDULING_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_THREAD_SCHEDULING_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8875,7 +8875,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8910,7 +8910,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8945,7 +8945,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_SYSTEM_COOLING_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SYSTEM_COOLING_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_SYSTEM_COOLING_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8980,7 +8980,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9015,7 +9015,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9050,7 +9050,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9085,7 +9085,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9120,7 +9120,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9155,7 +9155,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9190,7 +9190,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9225,7 +9225,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9260,7 +9260,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9295,7 +9295,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9330,7 +9330,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9365,7 +9365,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9400,7 +9400,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_LOCK_CONSOLE_ON_WAKE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_LOCK_CONSOLE_ON_WAKE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_LOCK_CONSOLE_ON_WAKE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9435,7 +9435,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DEVICE_IDLE_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DEVICE_IDLE_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DEVICE_IDLE_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9470,7 +9470,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_CONNECTIVITY_IN_STANDBY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_CONNECTIVITY_IN_STANDBY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_CONNECTIVITY_IN_STANDBY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9505,7 +9505,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_DISCONNECTED_STANDBY_MODE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISCONNECTED_STANDBY_MODE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DISCONNECTED_STANDBY_MODE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9540,7 +9540,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ACDC_POWER_SOURCE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ACDC_POWER_SOURCE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ACDC_POWER_SOURCE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9575,7 +9575,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_LIDSWITCH_STATE_CHANGE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_LIDSWITCH_STATE_CHANGE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_LIDSWITCH_STATE_CHANGE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9610,7 +9610,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_LIDSWITCH_STATE_RELIABILITY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_LIDSWITCH_STATE_RELIABILITY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_LIDSWITCH_STATE_RELIABILITY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9645,7 +9645,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_PERCENTAGE_REMAINING$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_PERCENTAGE_REMAINING").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_PERCENTAGE_REMAINING").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9680,7 +9680,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BATTERY_COUNT$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_COUNT").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BATTERY_COUNT").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9715,7 +9715,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_GLOBAL_USER_PRESENCE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_GLOBAL_USER_PRESENCE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_GLOBAL_USER_PRESENCE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9750,7 +9750,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_SESSION_DISPLAY_STATUS$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SESSION_DISPLAY_STATUS").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_SESSION_DISPLAY_STATUS").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9785,7 +9785,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_SESSION_USER_PRESENCE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SESSION_USER_PRESENCE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_SESSION_USER_PRESENCE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9820,7 +9820,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_IDLE_BACKGROUND_TASK$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_IDLE_BACKGROUND_TASK").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_IDLE_BACKGROUND_TASK").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9855,7 +9855,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_BACKGROUND_TASK_NOTIFICATION$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BACKGROUND_TASK_NOTIFICATION").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_BACKGROUND_TASK_NOTIFICATION").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9890,7 +9890,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_APPLAUNCH_BUTTON$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_APPLAUNCH_BUTTON").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_APPLAUNCH_BUTTON").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9925,7 +9925,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PCIEXPRESS_SETTINGS_SUBGROUP$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PCIEXPRESS_SETTINGS_SUBGROUP").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PCIEXPRESS_SETTINGS_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9960,7 +9960,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_PCIEXPRESS_ASPM_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PCIEXPRESS_ASPM_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_PCIEXPRESS_ASPM_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -9995,7 +9995,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_ENABLE_SWITCH_FORCED_SHUTDOWN$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ENABLE_SWITCH_FORCED_SHUTDOWN").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_ENABLE_SWITCH_FORCED_SHUTDOWN").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -10030,7 +10030,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_INTSTEER_SUBGROUP$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_INTSTEER_SUBGROUP").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_INTSTEER_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -10065,7 +10065,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_INTSTEER_MODE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_INTSTEER_MODE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_INTSTEER_MODE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -10100,7 +10100,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_INTSTEER_LOAD_PER_PROC_TRIGGER$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_INTSTEER_LOAD_PER_PROC_TRIGGER").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_INTSTEER_LOAD_PER_PROC_TRIGGER").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -10135,7 +10135,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_INTSTEER_TIME_UNPARK_TRIGGER$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_INTSTEER_TIME_UNPARK_TRIGGER").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_INTSTEER_TIME_UNPARK_TRIGGER").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -10170,7 +10170,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_GRAPHICS_SUBGROUP$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_GRAPHICS_SUBGROUP").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_GRAPHICS_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -10205,7 +10205,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_GPU_PREFERENCE_POLICY$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_GPU_PREFERENCE_POLICY").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_GPU_PREFERENCE_POLICY").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -10240,7 +10240,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_MIXED_REALITY_MODE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_MIXED_REALITY_MODE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_MIXED_REALITY_MODE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -10275,7 +10275,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class GUID_SPR_ACTIVE_SESSION_CHANGE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SPR_ACTIVE_SESSION_CHANGE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_SPR_ACTIVE_SESSION_CHANGE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -10393,7 +10393,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSYSTEM_POWER_STATE
      * }
      */
-    public static final AddressLayout PSYSTEM_POWER_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PSYSTEM_POWER_STATE = C_POINTER;
     private static final int PowerActionNone = (int)0L;
     /**
      * {@snippet lang=c :
@@ -10490,7 +10490,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_ACTION
      * }
      */
-    public static final AddressLayout PPOWER_ACTION = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_ACTION = C_POINTER;
     private static final int PowerDeviceUnspecified = (int)0L;
     /**
      * {@snippet lang=c :
@@ -10557,7 +10557,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PDEVICE_POWER_STATE
      * }
      */
-    public static final AddressLayout PDEVICE_POWER_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_POWER_STATE = C_POINTER;
     private static final int PowerMonitorOff = (int)0L;
     /**
      * {@snippet lang=c :
@@ -10594,7 +10594,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMONITOR_DISPLAY_STATE
      * }
      */
-    public static final AddressLayout PMONITOR_DISPLAY_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PMONITOR_DISPLAY_STATE = C_POINTER;
     private static final int PowerUserPresent = (int)0L;
     /**
      * {@snippet lang=c :
@@ -10651,19 +10651,19 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PUSER_ACTIVITY_PRESENCE
      * }
      */
-    public static final AddressLayout PUSER_ACTIVITY_PRESENCE = Windows_h.C_POINTER;
+    public static final AddressLayout PUSER_ACTIVITY_PRESENCE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef DWORD EXECUTION_STATE
      * }
      */
-    public static final OfInt EXECUTION_STATE = Windows_h.C_LONG;
+    public static final OfInt EXECUTION_STATE = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef DWORD *PEXECUTION_STATE
      * }
      */
-    public static final AddressLayout PEXECUTION_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PEXECUTION_STATE = C_POINTER;
     private static final int LT_DONT_CARE = (int)0L;
     /**
      * {@snippet lang=c :
@@ -10728,7 +10728,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_REQUEST_TYPE
      * }
      */
-    public static final AddressLayout PPOWER_REQUEST_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_REQUEST_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct CM_Power_Data_s {
@@ -10743,7 +10743,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PCM_POWER_DATA
      * }
      */
-    public static final AddressLayout PCM_POWER_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PCM_POWER_DATA = C_POINTER;
     private static final int SystemPowerPolicyAc = (int)0L;
     /**
      * {@snippet lang=c :
@@ -11662,7 +11662,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_USER_PRESENCE_TYPE
      * }
      */
-    public static final AddressLayout PPOWER_USER_PRESENCE_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_USER_PRESENCE_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _POWER_USER_PRESENCE {
@@ -11670,7 +11670,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_USER_PRESENCE
      * }
      */
-    public static final AddressLayout PPOWER_USER_PRESENCE = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_USER_PRESENCE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _POWER_SESSION_CONNECT {
@@ -11679,7 +11679,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_SESSION_CONNECT
      * }
      */
-    public static final AddressLayout PPOWER_SESSION_CONNECT = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_SESSION_CONNECT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _POWER_SESSION_TIMEOUTS {
@@ -11688,7 +11688,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_SESSION_TIMEOUTS
      * }
      */
-    public static final AddressLayout PPOWER_SESSION_TIMEOUTS = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_SESSION_TIMEOUTS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _POWER_SESSION_RIT_STATE {
@@ -11697,7 +11697,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_SESSION_RIT_STATE
      * }
      */
-    public static final AddressLayout PPOWER_SESSION_RIT_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_SESSION_RIT_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _POWER_SESSION_WINLOGON {
@@ -11707,7 +11707,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_SESSION_WINLOGON
      * }
      */
-    public static final AddressLayout PPOWER_SESSION_WINLOGON = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_SESSION_WINLOGON = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES {
@@ -11715,7 +11715,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES
      * }
      */
-    public static final AddressLayout PPOWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _POWER_IDLE_RESILIENCY {
@@ -11724,7 +11724,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_IDLE_RESILIENCY
      * }
      */
-    public static final AddressLayout PPOWER_IDLE_RESILIENCY = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_IDLE_RESILIENCY = C_POINTER;
     private static final int MonitorRequestReasonUnknown = (int)0L;
     /**
      * {@snippet lang=c :
@@ -12264,7 +12264,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_MONITOR_INVOCATION
      * }
      */
-    public static final AddressLayout PPOWER_MONITOR_INVOCATION = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_MONITOR_INVOCATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _RESUME_PERFORMANCE {
@@ -12274,7 +12274,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PRESUME_PERFORMANCE
      * }
      */
-    public static final AddressLayout PRESUME_PERFORMANCE = Windows_h.C_POINTER;
+    public static final AddressLayout PRESUME_PERFORMANCE = C_POINTER;
     private static final int PoAc = (int)0L;
     /**
      * {@snippet lang=c :
@@ -12322,7 +12322,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSET_POWER_SETTING_VALUE
      * }
      */
-    public static final AddressLayout PSET_POWER_SETTING_VALUE = Windows_h.C_POINTER;
+    public static final AddressLayout PSET_POWER_SETTING_VALUE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12330,7 +12330,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PNOTIFY_USER_POWER_SETTING
      * }
      */
-    public static final AddressLayout PNOTIFY_USER_POWER_SETTING = Windows_h.C_POINTER;
+    public static final AddressLayout PNOTIFY_USER_POWER_SETTING = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _APPLICATIONLAUNCH_SETTING_VALUE {
@@ -12340,7 +12340,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PAPPLICATIONLAUNCH_SETTING_VALUE
      * }
      */
-    public static final AddressLayout PAPPLICATIONLAUNCH_SETTING_VALUE = Windows_h.C_POINTER;
+    public static final AddressLayout PAPPLICATIONLAUNCH_SETTING_VALUE = C_POINTER;
     private static final int PlatformRoleUnspecified = (int)0L;
     /**
      * {@snippet lang=c :
@@ -12447,7 +12447,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_PLATFORM_ROLE
      * }
      */
-    public static final AddressLayout PPOWER_PLATFORM_ROLE = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_PLATFORM_ROLE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _POWER_PLATFORM_INFORMATION {
@@ -12455,7 +12455,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_PLATFORM_INFORMATION
      * }
      */
-    public static final AddressLayout PPOWER_PLATFORM_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_PLATFORM_INFORMATION = C_POINTER;
     private static final int ALTITUDE_GROUP_POLICY = (int)0L;
     /**
      * {@snippet lang=c :
@@ -12532,7 +12532,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_SETTING_ALTITUDE
      * }
      */
-    public static final AddressLayout PPOWER_SETTING_ALTITUDE = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_SETTING_ALTITUDE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12541,7 +12541,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PBATTERY_REPORTING_SCALE
      * }
      */
-    public static final AddressLayout PBATTERY_REPORTING_SCALE = Windows_h.C_POINTER;
+    public static final AddressLayout PBATTERY_REPORTING_SCALE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12551,7 +12551,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_WMI_LEGACY_PERFSTATE
      * }
      */
-    public static final AddressLayout PPPM_WMI_LEGACY_PERFSTATE = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_WMI_LEGACY_PERFSTATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12569,7 +12569,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_WMI_IDLE_STATE
      * }
      */
-    public static final AddressLayout PPPM_WMI_IDLE_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_WMI_IDLE_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12582,7 +12582,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_WMI_IDLE_STATES
      * }
      */
-    public static final AddressLayout PPPM_WMI_IDLE_STATES = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_WMI_IDLE_STATES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12595,7 +12595,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_WMI_IDLE_STATES_EX
      * }
      */
-    public static final AddressLayout PPPM_WMI_IDLE_STATES_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_WMI_IDLE_STATES_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12616,7 +12616,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_WMI_PERF_STATE
      * }
      */
-    public static final AddressLayout PPPM_WMI_PERF_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_WMI_PERF_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12644,7 +12644,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_WMI_PERF_STATES
      * }
      */
-    public static final AddressLayout PPPM_WMI_PERF_STATES = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_WMI_PERF_STATES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12672,7 +12672,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_WMI_PERF_STATES_EX
      * }
      */
-    public static final AddressLayout PPPM_WMI_PERF_STATES_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_WMI_PERF_STATES_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12684,7 +12684,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_IDLE_STATE_ACCOUNTING
      * }
      */
-    public static final AddressLayout PPPM_IDLE_STATE_ACCOUNTING = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_IDLE_STATE_ACCOUNTING = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12696,7 +12696,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_IDLE_ACCOUNTING
      * }
      */
-    public static final AddressLayout PPPM_IDLE_ACCOUNTING = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_IDLE_ACCOUNTING = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12707,7 +12707,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_IDLE_STATE_BUCKET_EX
      * }
      */
-    public static final AddressLayout PPPM_IDLE_STATE_BUCKET_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_IDLE_STATE_BUCKET_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12722,7 +12722,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_IDLE_STATE_ACCOUNTING_EX
      * }
      */
-    public static final AddressLayout PPPM_IDLE_STATE_ACCOUNTING_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_IDLE_STATE_ACCOUNTING_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -12735,11 +12735,11 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_IDLE_ACCOUNTING_EX
      * }
      */
-    public static final AddressLayout PPPM_IDLE_ACCOUNTING_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_IDLE_ACCOUNTING_EX = C_POINTER;
 
     private static class PPM_PERFSTATE_CHANGE_GUID$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_PERFSTATE_CHANGE_GUID").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("PPM_PERFSTATE_CHANGE_GUID").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -12774,7 +12774,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class PPM_PERFSTATE_DOMAIN_CHANGE_GUID$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_PERFSTATE_DOMAIN_CHANGE_GUID").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("PPM_PERFSTATE_DOMAIN_CHANGE_GUID").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -12809,7 +12809,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class PPM_IDLESTATE_CHANGE_GUID$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_IDLESTATE_CHANGE_GUID").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("PPM_IDLESTATE_CHANGE_GUID").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -12844,7 +12844,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class PPM_PERFSTATES_DATA_GUID$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_PERFSTATES_DATA_GUID").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("PPM_PERFSTATES_DATA_GUID").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -12879,7 +12879,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class PPM_IDLESTATES_DATA_GUID$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_IDLESTATES_DATA_GUID").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("PPM_IDLESTATES_DATA_GUID").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -12914,7 +12914,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class PPM_IDLE_ACCOUNTING_GUID$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_IDLE_ACCOUNTING_GUID").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("PPM_IDLE_ACCOUNTING_GUID").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -12949,7 +12949,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class PPM_IDLE_ACCOUNTING_EX_GUID$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_IDLE_ACCOUNTING_EX_GUID").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("PPM_IDLE_ACCOUNTING_EX_GUID").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -12984,7 +12984,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class PPM_THERMALCONSTRAINT_GUID$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_THERMALCONSTRAINT_GUID").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("PPM_THERMALCONSTRAINT_GUID").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -13019,7 +13019,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class PPM_PERFMON_PERFSTATE_GUID$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_PERFMON_PERFSTATE_GUID").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("PPM_PERFMON_PERFSTATE_GUID").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -13054,7 +13054,7 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class PPM_THERMAL_POLICY_CHANGE_GUID$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_THERMAL_POLICY_CHANGE_GUID").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("PPM_THERMAL_POLICY_CHANGE_GUID").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -13097,7 +13097,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_PERFSTATE_EVENT
      * }
      */
-    public static final AddressLayout PPPM_PERFSTATE_EVENT = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_PERFSTATE_EVENT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -13108,7 +13108,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_PERFSTATE_DOMAIN_EVENT
      * }
      */
-    public static final AddressLayout PPPM_PERFSTATE_DOMAIN_EVENT = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_PERFSTATE_DOMAIN_EVENT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -13118,7 +13118,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_IDLESTATE_EVENT
      * }
      */
-    public static final AddressLayout PPPM_IDLESTATE_EVENT = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_IDLESTATE_EVENT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -13127,7 +13127,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_THERMALCHANGE_EVENT
      * }
      */
-    public static final AddressLayout PPPM_THERMALCHANGE_EVENT = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_THERMALCHANGE_EVENT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -13136,7 +13136,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPPM_THERMAL_POLICY_EVENT
      * }
      */
-    public static final AddressLayout PPPM_THERMAL_POLICY_EVENT = Windows_h.C_POINTER;
+    public static final AddressLayout PPPM_THERMAL_POLICY_EVENT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -13146,7 +13146,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPOWER_ACTION_POLICY
      * }
      */
-    public static final AddressLayout PPOWER_ACTION_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPOWER_ACTION_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -13158,7 +13158,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSYSTEM_POWER_LEVEL
      * }
      */
-    public static final AddressLayout PSYSTEM_POWER_LEVEL = Windows_h.C_POINTER;
+    public static final AddressLayout PSYSTEM_POWER_LEVEL = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SYSTEM_POWER_POLICY {
@@ -13193,7 +13193,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSYSTEM_POWER_POLICY
      * }
      */
-    public static final AddressLayout PSYSTEM_POWER_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PSYSTEM_POWER_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -13204,7 +13204,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESSOR_IDLESTATE_INFO
      * }
      */
-    public static final AddressLayout PPROCESSOR_IDLESTATE_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESSOR_IDLESTATE_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -13222,7 +13222,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESSOR_IDLESTATE_POLICY
      * }
      */
-    public static final AddressLayout PPROCESSOR_IDLESTATE_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESSOR_IDLESTATE_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESSOR_POWER_POLICY_INFO {
@@ -13238,7 +13238,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESSOR_POWER_POLICY_INFO
      * }
      */
-    public static final AddressLayout PPROCESSOR_POWER_POLICY_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESSOR_POWER_POLICY_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROCESSOR_POWER_POLICY {
@@ -13252,7 +13252,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESSOR_POWER_POLICY
      * }
      */
-    public static final AddressLayout PPROCESSOR_POWER_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESSOR_POWER_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -13280,7 +13280,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PPROCESSOR_PERFSTATE_POLICY
      * }
      */
-    public static final AddressLayout PPROCESSOR_PERFSTATE_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PPROCESSOR_PERFSTATE_POLICY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ADMINISTRATOR_POWER_POLICY {
@@ -13293,7 +13293,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PADMINISTRATOR_POWER_POLICY
      * }
      */
-    public static final AddressLayout PADMINISTRATOR_POWER_POLICY = Windows_h.C_POINTER;
+    public static final AddressLayout PADMINISTRATOR_POWER_POLICY = C_POINTER;
     private static final int HiberFileBucket1GB = (int)0L;
     /**
      * {@snippet lang=c :
@@ -13380,7 +13380,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PHIBERFILE_BUCKET_SIZE
      * }
      */
-    public static final AddressLayout PHIBERFILE_BUCKET_SIZE = Windows_h.C_POINTER;
+    public static final AddressLayout PHIBERFILE_BUCKET_SIZE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _HIBERFILE_BUCKET {
@@ -13389,7 +13389,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PHIBERFILE_BUCKET
      * }
      */
-    public static final AddressLayout PHIBERFILE_BUCKET = Windows_h.C_POINTER;
+    public static final AddressLayout PHIBERFILE_BUCKET = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -13429,7 +13429,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSYSTEM_POWER_CAPABILITIES
      * }
      */
-    public static final AddressLayout PSYSTEM_POWER_CAPABILITIES = Windows_h.C_POINTER;
+    public static final AddressLayout PSYSTEM_POWER_CAPABILITIES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -13448,7 +13448,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSYSTEM_BATTERY_STATE
      * }
      */
-    public static final AddressLayout PSYSTEM_BATTERY_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PSYSTEM_BATTERY_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_DOS_HEADER {
@@ -13474,7 +13474,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_DOS_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_DOS_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_DOS_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_OS2_HEADER {
@@ -13511,7 +13511,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_OS2_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_OS2_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_OS2_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_VXD_HEADER {
@@ -13569,7 +13569,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_VXD_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_VXD_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_VXD_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_FILE_HEADER {
@@ -13583,7 +13583,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_FILE_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_FILE_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_FILE_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_DATA_DIRECTORY {
@@ -13592,7 +13592,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_DATA_DIRECTORY
      * }
      */
-    public static final AddressLayout PIMAGE_DATA_DIRECTORY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_DATA_DIRECTORY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_OPTIONAL_HEADER {
@@ -13630,7 +13630,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_OPTIONAL_HEADER32
      * }
      */
-    public static final AddressLayout PIMAGE_OPTIONAL_HEADER32 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_OPTIONAL_HEADER32 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_ROM_OPTIONAL_HEADER {
@@ -13650,7 +13650,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_ROM_OPTIONAL_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_ROM_OPTIONAL_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_ROM_OPTIONAL_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_OPTIONAL_HEADER64 {
@@ -13687,13 +13687,13 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_OPTIONAL_HEADER64
      * }
      */
-    public static final AddressLayout PIMAGE_OPTIONAL_HEADER64 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_OPTIONAL_HEADER64 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PIMAGE_OPTIONAL_HEADER64 PIMAGE_OPTIONAL_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_OPTIONAL_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_OPTIONAL_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_NT_HEADERS64 {
@@ -13703,7 +13703,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_NT_HEADERS64
      * }
      */
-    public static final AddressLayout PIMAGE_NT_HEADERS64 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_NT_HEADERS64 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_NT_HEADERS {
@@ -13713,7 +13713,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_NT_HEADERS32
      * }
      */
-    public static final AddressLayout PIMAGE_NT_HEADERS32 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_NT_HEADERS32 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_ROM_HEADERS {
@@ -13722,13 +13722,13 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_ROM_HEADERS
      * }
      */
-    public static final AddressLayout PIMAGE_ROM_HEADERS = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_ROM_HEADERS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PIMAGE_NT_HEADERS64 PIMAGE_NT_HEADERS
      * }
      */
-    public static final AddressLayout PIMAGE_NT_HEADERS = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_NT_HEADERS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_SECTION_HEADER {
@@ -13748,37 +13748,37 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_SECTION_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_SECTION_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_SECTION_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __unaligned IMAGE_SYMBOL *PIMAGE_SYMBOL
      * }
      */
-    public static final AddressLayout PIMAGE_SYMBOL = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_SYMBOL = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __unaligned IMAGE_SYMBOL_EX *PIMAGE_SYMBOL_EX
      * }
      */
-    public static final AddressLayout PIMAGE_SYMBOL_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_SYMBOL_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __unaligned IMAGE_AUX_SYMBOL_TOKEN_DEF *PIMAGE_AUX_SYMBOL_TOKEN_DEF
      * }
      */
-    public static final AddressLayout PIMAGE_AUX_SYMBOL_TOKEN_DEF = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_AUX_SYMBOL_TOKEN_DEF = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __unaligned IMAGE_AUX_SYMBOL *PIMAGE_AUX_SYMBOL
      * }
      */
-    public static final AddressLayout PIMAGE_AUX_SYMBOL = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_AUX_SYMBOL = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __unaligned IMAGE_AUX_SYMBOL_EX *PIMAGE_AUX_SYMBOL_EX
      * }
      */
-    public static final AddressLayout PIMAGE_AUX_SYMBOL_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_AUX_SYMBOL_EX = C_POINTER;
     private static final int IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF = (int)1L;
     /**
      * {@snippet lang=c :
@@ -13793,19 +13793,19 @@ public class Windows_h_26 extends Windows_h_27 {
      * typedef __unaligned IMAGE_RELOCATION *PIMAGE_RELOCATION
      * }
      */
-    public static final AddressLayout PIMAGE_RELOCATION = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_RELOCATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __unaligned IMAGE_LINENUMBER *PIMAGE_LINENUMBER
      * }
      */
-    public static final AddressLayout PIMAGE_LINENUMBER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_LINENUMBER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __unaligned IMAGE_BASE_RELOCATION *PIMAGE_BASE_RELOCATION
      * }
      */
-    public static final AddressLayout PIMAGE_BASE_RELOCATION = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_BASE_RELOCATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_ARCHIVE_MEMBER_HEADER {
@@ -13819,7 +13819,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_ARCHIVE_MEMBER_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_ARCHIVE_MEMBER_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_ARCHIVE_MEMBER_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_EXPORT_DIRECTORY {
@@ -13837,7 +13837,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_EXPORT_DIRECTORY
      * }
      */
-    public static final AddressLayout PIMAGE_EXPORT_DIRECTORY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_EXPORT_DIRECTORY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_IMPORT_BY_NAME {
@@ -13846,49 +13846,49 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_IMPORT_BY_NAME
      * }
      */
-    public static final AddressLayout PIMAGE_IMPORT_BY_NAME = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_IMPORT_BY_NAME = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef IMAGE_THUNK_DATA64 *PIMAGE_THUNK_DATA64
      * }
      */
-    public static final AddressLayout PIMAGE_THUNK_DATA64 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_THUNK_DATA64 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef IMAGE_THUNK_DATA32 *PIMAGE_THUNK_DATA32
      * }
      */
-    public static final AddressLayout PIMAGE_THUNK_DATA32 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_THUNK_DATA32 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef IMAGE_TLS_DIRECTORY64 *PIMAGE_TLS_DIRECTORY64
      * }
      */
-    public static final AddressLayout PIMAGE_TLS_DIRECTORY64 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_TLS_DIRECTORY64 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef IMAGE_TLS_DIRECTORY32 *PIMAGE_TLS_DIRECTORY32
      * }
      */
-    public static final AddressLayout PIMAGE_TLS_DIRECTORY32 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_TLS_DIRECTORY32 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PIMAGE_THUNK_DATA64 PIMAGE_THUNK_DATA
      * }
      */
-    public static final AddressLayout PIMAGE_THUNK_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_THUNK_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PIMAGE_TLS_DIRECTORY64 PIMAGE_TLS_DIRECTORY
      * }
      */
-    public static final AddressLayout PIMAGE_TLS_DIRECTORY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_TLS_DIRECTORY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __unaligned IMAGE_IMPORT_DESCRIPTOR *PIMAGE_IMPORT_DESCRIPTOR
      * }
      */
-    public static final AddressLayout PIMAGE_IMPORT_DESCRIPTOR = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_IMPORT_DESCRIPTOR = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_BOUND_IMPORT_DESCRIPTOR {
@@ -13898,7 +13898,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_BOUND_IMPORT_DESCRIPTOR
      * }
      */
-    public static final AddressLayout PIMAGE_BOUND_IMPORT_DESCRIPTOR = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_BOUND_IMPORT_DESCRIPTOR = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_BOUND_FORWARDER_REF {
@@ -13908,7 +13908,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_BOUND_FORWARDER_REF
      * }
      */
-    public static final AddressLayout PIMAGE_BOUND_FORWARDER_REF = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_BOUND_FORWARDER_REF = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_DELAYLOAD_DESCRIPTOR {
@@ -13929,13 +13929,13 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_DELAYLOAD_DESCRIPTOR
      * }
      */
-    public static final AddressLayout PIMAGE_DELAYLOAD_DESCRIPTOR = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_DELAYLOAD_DESCRIPTOR = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const IMAGE_DELAYLOAD_DESCRIPTOR *PCIMAGE_DELAYLOAD_DESCRIPTOR
      * }
      */
-    public static final AddressLayout PCIMAGE_DELAYLOAD_DESCRIPTOR = Windows_h.C_POINTER;
+    public static final AddressLayout PCIMAGE_DELAYLOAD_DESCRIPTOR = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_RESOURCE_DIRECTORY {
@@ -13948,7 +13948,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_RESOURCE_DIRECTORY
      * }
      */
-    public static final AddressLayout PIMAGE_RESOURCE_DIRECTORY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_RESOURCE_DIRECTORY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_RESOURCE_DIRECTORY_ENTRY {
@@ -13970,7 +13970,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_RESOURCE_DIRECTORY_ENTRY
      * }
      */
-    public static final AddressLayout PIMAGE_RESOURCE_DIRECTORY_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_RESOURCE_DIRECTORY_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_RESOURCE_DIRECTORY_STRING {
@@ -13979,7 +13979,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_RESOURCE_DIRECTORY_STRING
      * }
      */
-    public static final AddressLayout PIMAGE_RESOURCE_DIRECTORY_STRING = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_RESOURCE_DIRECTORY_STRING = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_RESOURCE_DIR_STRING_U {
@@ -13988,7 +13988,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_RESOURCE_DIR_STRING_U
      * }
      */
-    public static final AddressLayout PIMAGE_RESOURCE_DIR_STRING_U = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_RESOURCE_DIR_STRING_U = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_RESOURCE_DATA_ENTRY {
@@ -13999,7 +13999,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_RESOURCE_DATA_ENTRY
      * }
      */
-    public static final AddressLayout PIMAGE_RESOURCE_DATA_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_RESOURCE_DATA_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_LOAD_CONFIG_CODE_INTEGRITY {
@@ -14010,7 +14010,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_LOAD_CONFIG_CODE_INTEGRITY
      * }
      */
-    public static final AddressLayout PIMAGE_LOAD_CONFIG_CODE_INTEGRITY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_LOAD_CONFIG_CODE_INTEGRITY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_DYNAMIC_RELOCATION_TABLE {
@@ -14019,7 +14019,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_DYNAMIC_RELOCATION_TABLE
      * }
      */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION_TABLE = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION_TABLE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_DYNAMIC_RELOCATION32 {
@@ -14028,7 +14028,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_DYNAMIC_RELOCATION32
      * }
      */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION32 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION32 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_DYNAMIC_RELOCATION64 {
@@ -14037,7 +14037,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_DYNAMIC_RELOCATION64
      * }
      */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION64 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION64 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_DYNAMIC_RELOCATION32_V2 {
@@ -14049,7 +14049,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_DYNAMIC_RELOCATION32_V2
      * }
      */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION32_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION32_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_DYNAMIC_RELOCATION64_V2 {
@@ -14061,49 +14061,49 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_DYNAMIC_RELOCATION64_V2
      * }
      */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION64_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION64_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PIMAGE_DYNAMIC_RELOCATION64 PIMAGE_DYNAMIC_RELOCATION
      * }
      */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PIMAGE_DYNAMIC_RELOCATION64_V2 PIMAGE_DYNAMIC_RELOCATION_V2
      * }
      */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __unaligned IMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER *PIMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __unaligned IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER *PIMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __unaligned IMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION *PIMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION
      * }
      */
-    public static final AddressLayout PIMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __unaligned IMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION *PIMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION
      * }
      */
-    public static final AddressLayout PIMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef __unaligned IMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION *PIMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION
      * }
      */
-    public static final AddressLayout PIMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_LOAD_CONFIG_DIRECTORY32 {
@@ -14158,7 +14158,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_LOAD_CONFIG_DIRECTORY32
      * }
      */
-    public static final AddressLayout PIMAGE_LOAD_CONFIG_DIRECTORY32 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_LOAD_CONFIG_DIRECTORY32 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_LOAD_CONFIG_DIRECTORY64 {
@@ -14213,13 +14213,13 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_LOAD_CONFIG_DIRECTORY64
      * }
      */
-    public static final AddressLayout PIMAGE_LOAD_CONFIG_DIRECTORY64 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_LOAD_CONFIG_DIRECTORY64 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PIMAGE_LOAD_CONFIG_DIRECTORY64 PIMAGE_LOAD_CONFIG_DIRECTORY
      * }
      */
-    public static final AddressLayout PIMAGE_LOAD_CONFIG_DIRECTORY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_LOAD_CONFIG_DIRECTORY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_HOT_PATCH_INFO {
@@ -14233,7 +14233,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_HOT_PATCH_INFO
      * }
      */
-    public static final AddressLayout PIMAGE_HOT_PATCH_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_HOT_PATCH_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_HOT_PATCH_BASE {
@@ -14248,7 +14248,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_HOT_PATCH_BASE
      * }
      */
-    public static final AddressLayout PIMAGE_HOT_PATCH_BASE = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_HOT_PATCH_BASE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_HOT_PATCH_HASHES {
@@ -14257,7 +14257,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_HOT_PATCH_HASHES
      * }
      */
-    public static final AddressLayout PIMAGE_HOT_PATCH_HASHES = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_HOT_PATCH_HASHES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_CE_RUNTIME_FUNCTION_ENTRY {
@@ -14269,7 +14269,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_CE_RUNTIME_FUNCTION_ENTRY
      * }
      */
-    public static final AddressLayout PIMAGE_CE_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_CE_RUNTIME_FUNCTION_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_ARM_RUNTIME_FUNCTION_ENTRY {
@@ -14291,7 +14291,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_ARM_RUNTIME_FUNCTION_ENTRY
      * }
      */
-    public static final AddressLayout PIMAGE_ARM_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_ARM_RUNTIME_FUNCTION_ENTRY = C_POINTER;
     private static final int PdataRefToFullXdata = (int)0L;
     /**
      * {@snippet lang=c :
@@ -14374,7 +14374,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_ARM64_RUNTIME_FUNCTION_ENTRY
      * }
      */
-    public static final AddressLayout PIMAGE_ARM64_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_ARM64_RUNTIME_FUNCTION_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY {
@@ -14386,7 +14386,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY
      * }
      */
-    public static final AddressLayout PIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY {
@@ -14398,7 +14398,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY
      * }
      */
-    public static final AddressLayout PIMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_RUNTIME_FUNCTION_ENTRY {
@@ -14411,25 +14411,25 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *_PIMAGE_RUNTIME_FUNCTION_ENTRY
      * }
      */
-    public static final AddressLayout _PIMAGE_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout _PIMAGE_RUNTIME_FUNCTION_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef _PIMAGE_RUNTIME_FUNCTION_ENTRY PIMAGE_IA64_RUNTIME_FUNCTION_ENTRY
      * }
      */
-    public static final AddressLayout PIMAGE_IA64_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_IA64_RUNTIME_FUNCTION_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef _PIMAGE_RUNTIME_FUNCTION_ENTRY PIMAGE_AMD64_RUNTIME_FUNCTION_ENTRY
      * }
      */
-    public static final AddressLayout PIMAGE_AMD64_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_AMD64_RUNTIME_FUNCTION_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef _PIMAGE_RUNTIME_FUNCTION_ENTRY PIMAGE_RUNTIME_FUNCTION_ENTRY
      * }
      */
-    public static final AddressLayout PIMAGE_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_RUNTIME_FUNCTION_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_ENCLAVE_CONFIG32 {
@@ -14449,7 +14449,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_ENCLAVE_CONFIG32
      * }
      */
-    public static final AddressLayout PIMAGE_ENCLAVE_CONFIG32 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_ENCLAVE_CONFIG32 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_ENCLAVE_CONFIG64 {
@@ -14469,13 +14469,13 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_ENCLAVE_CONFIG64
      * }
      */
-    public static final AddressLayout PIMAGE_ENCLAVE_CONFIG64 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_ENCLAVE_CONFIG64 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PIMAGE_ENCLAVE_CONFIG64 PIMAGE_ENCLAVE_CONFIG
      * }
      */
-    public static final AddressLayout PIMAGE_ENCLAVE_CONFIG = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_ENCLAVE_CONFIG = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_ENCLAVE_IMPORT {
@@ -14489,7 +14489,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_ENCLAVE_IMPORT
      * }
      */
-    public static final AddressLayout PIMAGE_ENCLAVE_IMPORT = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_ENCLAVE_IMPORT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_DEBUG_DIRECTORY {
@@ -14504,7 +14504,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_DEBUG_DIRECTORY
      * }
      */
-    public static final AddressLayout PIMAGE_DEBUG_DIRECTORY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_DEBUG_DIRECTORY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_COFF_SYMBOLS_HEADER {
@@ -14519,7 +14519,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_COFF_SYMBOLS_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_COFF_SYMBOLS_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_COFF_SYMBOLS_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FPO_DATA {
@@ -14536,7 +14536,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PFPO_DATA
      * }
      */
-    public static final AddressLayout PFPO_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PFPO_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_DEBUG_MISC {
@@ -14548,7 +14548,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_DEBUG_MISC
      * }
      */
-    public static final AddressLayout PIMAGE_DEBUG_MISC = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_DEBUG_MISC = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_FUNCTION_ENTRY {
@@ -14558,7 +14558,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_FUNCTION_ENTRY
      * }
      */
-    public static final AddressLayout PIMAGE_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_FUNCTION_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_FUNCTION_ENTRY64 {
@@ -14571,7 +14571,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_FUNCTION_ENTRY64
      * }
      */
-    public static final AddressLayout PIMAGE_FUNCTION_ENTRY64 = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_FUNCTION_ENTRY64 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IMAGE_SEPARATE_DEBUG_HEADER {
@@ -14591,7 +14591,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_SEPARATE_DEBUG_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_SEPARATE_DEBUG_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_SEPARATE_DEBUG_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _NON_PAGED_DEBUG_INFO {
@@ -14607,7 +14607,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PNON_PAGED_DEBUG_INFO
      * }
      */
-    public static final AddressLayout PNON_PAGED_DEBUG_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PNON_PAGED_DEBUG_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ImageArchitectureHeader {
@@ -14619,7 +14619,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_ARCHITECTURE_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_ARCHITECTURE_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_ARCHITECTURE_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ImageArchitectureEntry {
@@ -14628,7 +14628,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_ARCHITECTURE_ENTRY
      * }
      */
-    public static final AddressLayout PIMAGE_ARCHITECTURE_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_ARCHITECTURE_ENTRY = C_POINTER;
     private static final int IMPORT_OBJECT_CODE = (int)0L;
     /**
      * {@snippet lang=c :
@@ -14947,19 +14947,19 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PIMAGE_COR20_HEADER
      * }
      */
-    public static final AddressLayout PIMAGE_COR20_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIMAGE_COR20_HEADER = C_POINTER;
 
     private static class RtlCaptureStackBackTrace {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_SHORT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlCaptureStackBackTrace"),
+                    findOrThrow("RtlCaptureStackBackTrace"),
                     DESC);
     }
 
@@ -15001,11 +15001,11 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlCaptureContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlCaptureContext"),
+                    findOrThrow("RtlCaptureContext"),
                     DESC);
     }
 
@@ -15047,11 +15047,11 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlCaptureContext2 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlCaptureContext2"),
+                    findOrThrow("RtlCaptureContext2"),
                     DESC);
     }
 
@@ -15098,7 +15098,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PUNWIND_HISTORY_TABLE_ENTRY
      * }
      */
-    public static final AddressLayout PUNWIND_HISTORY_TABLE_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PUNWIND_HISTORY_TABLE_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _UNWIND_HISTORY_TABLE {
@@ -15113,18 +15113,18 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PUNWIND_HISTORY_TABLE
      * }
      */
-    public static final AddressLayout PUNWIND_HISTORY_TABLE = Windows_h.C_POINTER;
+    public static final AddressLayout PUNWIND_HISTORY_TABLE = C_POINTER;
 
     private static class RtlUnwind {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlUnwind"),
+                    findOrThrow("RtlUnwind"),
                     DESC);
     }
 
@@ -15166,14 +15166,14 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlAddFunctionTable {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_CHAR,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_CHAR,
+            C_POINTER,
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlAddFunctionTable"),
+                    findOrThrow("RtlAddFunctionTable"),
                     DESC);
     }
 
@@ -15215,12 +15215,12 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlDeleteFunctionTable {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_CHAR,
-            Windows_h.C_POINTER
+            C_CHAR,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlDeleteFunctionTable"),
+                    findOrThrow("RtlDeleteFunctionTable"),
                     DESC);
     }
 
@@ -15262,17 +15262,17 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlInstallFunctionTableCallback {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_CHAR,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_CHAR,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlInstallFunctionTableCallback"),
+                    findOrThrow("RtlInstallFunctionTableCallback"),
                     DESC);
     }
 
@@ -15314,17 +15314,17 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlAddGrowableFunctionTable {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlAddGrowableFunctionTable"),
+                    findOrThrow("RtlAddGrowableFunctionTable"),
                     DESC);
     }
 
@@ -15366,12 +15366,12 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlGrowFunctionTable {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlGrowFunctionTable"),
+                    findOrThrow("RtlGrowFunctionTable"),
                     DESC);
     }
 
@@ -15413,11 +15413,11 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlDeleteGrowableFunctionTable {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlDeleteGrowableFunctionTable"),
+                    findOrThrow("RtlDeleteGrowableFunctionTable"),
                     DESC);
     }
 
@@ -15459,14 +15459,14 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlLookupFunctionEntry {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlLookupFunctionEntry"),
+                    findOrThrow("RtlLookupFunctionEntry"),
                     DESC);
     }
 
@@ -15508,12 +15508,12 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlRestoreContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlRestoreContext"),
+                    findOrThrow("RtlRestoreContext"),
                     DESC);
     }
 
@@ -15555,16 +15555,16 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlUnwindEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlUnwindEx"),
+                    findOrThrow("RtlUnwindEx"),
                     DESC);
     }
 
@@ -15606,19 +15606,19 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlVirtualUnwind {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_LONG,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlVirtualUnwind"),
+                    findOrThrow("RtlVirtualUnwind"),
                     DESC);
     }
 
@@ -15660,11 +15660,11 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlRaiseException {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlRaiseException"),
+                    findOrThrow("RtlRaiseException"),
                     DESC);
     }
 
@@ -15706,13 +15706,13 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlPcToFileHeader {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlPcToFileHeader"),
+                    findOrThrow("RtlPcToFileHeader"),
                     DESC);
     }
 
@@ -15754,14 +15754,14 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlCompareMemory {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlCompareMemory"),
+                    findOrThrow("RtlCompareMemory"),
                     DESC);
     }
 
@@ -15807,7 +15807,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSLIST_ENTRY
      * }
      */
-    public static final AddressLayout PSLIST_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PSLIST_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef union _SLIST_HEADER {
@@ -15824,15 +15824,15 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PSLIST_HEADER
      * }
      */
-    public static final AddressLayout PSLIST_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PSLIST_HEADER = C_POINTER;
 
     private static class RtlInitializeSListHead {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlInitializeSListHead"),
+                    findOrThrow("RtlInitializeSListHead"),
                     DESC);
     }
 
@@ -15874,12 +15874,12 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlFirstEntrySList {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlFirstEntrySList"),
+                    findOrThrow("RtlFirstEntrySList"),
                     DESC);
     }
 
@@ -15921,12 +15921,12 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlInterlockedPopEntrySList {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlInterlockedPopEntrySList"),
+                    findOrThrow("RtlInterlockedPopEntrySList"),
                     DESC);
     }
 
@@ -15968,13 +15968,13 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlInterlockedPushEntrySList {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlInterlockedPushEntrySList"),
+                    findOrThrow("RtlInterlockedPushEntrySList"),
                     DESC);
     }
 
@@ -16016,15 +16016,15 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlInterlockedPushListSListEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlInterlockedPushListSListEx"),
+                    findOrThrow("RtlInterlockedPushListSListEx"),
                     DESC);
     }
 
@@ -16066,12 +16066,12 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlInterlockedFlushSList {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlInterlockedFlushSList"),
+                    findOrThrow("RtlInterlockedFlushSList"),
                     DESC);
     }
 
@@ -16113,12 +16113,12 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlQueryDepthSList {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT,
-            Windows_h.C_POINTER
+            C_SHORT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlQueryDepthSList"),
+                    findOrThrow("RtlQueryDepthSList"),
                     DESC);
     }
 
@@ -16160,10 +16160,10 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlGetReturnAddressHijackTarget {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG    );
+            C_LONG_LONG    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlGetReturnAddressHijackTarget"),
+                    findOrThrow("RtlGetReturnAddressHijackTarget"),
                     DESC);
     }
 
@@ -16209,7 +16209,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PRTL_RUN_ONCE
      * }
      */
-    public static final AddressLayout PRTL_RUN_ONCE = Windows_h.C_POINTER;
+    public static final AddressLayout PRTL_RUN_ONCE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _RTL_BARRIER {
@@ -16221,15 +16221,15 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PRTL_BARRIER
      * }
      */
-    public static final AddressLayout PRTL_BARRIER = Windows_h.C_POINTER;
+    public static final AddressLayout PRTL_BARRIER = C_POINTER;
 
     private static class __fastfail {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_INT
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("__fastfail"),
+                    findOrThrow("__fastfail"),
                     DESC);
     }
 
@@ -16277,7 +16277,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMESSAGE_RESOURCE_ENTRY
      * }
      */
-    public static final AddressLayout PMESSAGE_RESOURCE_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PMESSAGE_RESOURCE_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _MESSAGE_RESOURCE_BLOCK {
@@ -16287,7 +16287,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMESSAGE_RESOURCE_BLOCK
      * }
      */
-    public static final AddressLayout PMESSAGE_RESOURCE_BLOCK = Windows_h.C_POINTER;
+    public static final AddressLayout PMESSAGE_RESOURCE_BLOCK = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _MESSAGE_RESOURCE_DATA {
@@ -16296,7 +16296,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PMESSAGE_RESOURCE_DATA
      * }
      */
-    public static final AddressLayout PMESSAGE_RESOURCE_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PMESSAGE_RESOURCE_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _OSVERSIONINFOA {
@@ -16309,7 +16309,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *POSVERSIONINFOA
      * }
      */
-    public static final AddressLayout POSVERSIONINFOA = Windows_h.C_POINTER;
+    public static final AddressLayout POSVERSIONINFOA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _OSVERSIONINFOA {
@@ -16322,7 +16322,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *LPOSVERSIONINFOA
      * }
      */
-    public static final AddressLayout LPOSVERSIONINFOA = Windows_h.C_POINTER;
+    public static final AddressLayout LPOSVERSIONINFOA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _OSVERSIONINFOW {
@@ -16335,7 +16335,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *POSVERSIONINFOW
      * }
      */
-    public static final AddressLayout POSVERSIONINFOW = Windows_h.C_POINTER;
+    public static final AddressLayout POSVERSIONINFOW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _OSVERSIONINFOW {
@@ -16348,7 +16348,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *LPOSVERSIONINFOW
      * }
      */
-    public static final AddressLayout LPOSVERSIONINFOW = Windows_h.C_POINTER;
+    public static final AddressLayout LPOSVERSIONINFOW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _OSVERSIONINFOW {
@@ -16361,19 +16361,19 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PRTL_OSVERSIONINFOW
      * }
      */
-    public static final AddressLayout PRTL_OSVERSIONINFOW = Windows_h.C_POINTER;
+    public static final AddressLayout PRTL_OSVERSIONINFOW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef POSVERSIONINFOA POSVERSIONINFO
      * }
      */
-    public static final AddressLayout POSVERSIONINFO = Windows_h.C_POINTER;
+    public static final AddressLayout POSVERSIONINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPOSVERSIONINFOA LPOSVERSIONINFO
      * }
      */
-    public static final AddressLayout LPOSVERSIONINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPOSVERSIONINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _OSVERSIONINFOEXA {
@@ -16391,7 +16391,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *POSVERSIONINFOEXA
      * }
      */
-    public static final AddressLayout POSVERSIONINFOEXA = Windows_h.C_POINTER;
+    public static final AddressLayout POSVERSIONINFOEXA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _OSVERSIONINFOEXA {
@@ -16409,7 +16409,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *LPOSVERSIONINFOEXA
      * }
      */
-    public static final AddressLayout LPOSVERSIONINFOEXA = Windows_h.C_POINTER;
+    public static final AddressLayout LPOSVERSIONINFOEXA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _OSVERSIONINFOEXW {
@@ -16427,7 +16427,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *POSVERSIONINFOEXW
      * }
      */
-    public static final AddressLayout POSVERSIONINFOEXW = Windows_h.C_POINTER;
+    public static final AddressLayout POSVERSIONINFOEXW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _OSVERSIONINFOEXW {
@@ -16445,7 +16445,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *LPOSVERSIONINFOEXW
      * }
      */
-    public static final AddressLayout LPOSVERSIONINFOEXW = Windows_h.C_POINTER;
+    public static final AddressLayout LPOSVERSIONINFOEXW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _OSVERSIONINFOEXW {
@@ -16463,30 +16463,30 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PRTL_OSVERSIONINFOEXW
      * }
      */
-    public static final AddressLayout PRTL_OSVERSIONINFOEXW = Windows_h.C_POINTER;
+    public static final AddressLayout PRTL_OSVERSIONINFOEXW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef POSVERSIONINFOEXA POSVERSIONINFOEX
      * }
      */
-    public static final AddressLayout POSVERSIONINFOEX = Windows_h.C_POINTER;
+    public static final AddressLayout POSVERSIONINFOEX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPOSVERSIONINFOEXA LPOSVERSIONINFOEX
      * }
      */
-    public static final AddressLayout LPOSVERSIONINFOEX = Windows_h.C_POINTER;
+    public static final AddressLayout LPOSVERSIONINFOEX = C_POINTER;
 
     private static class VerSetConditionMask {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_CHAR
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_LONG,
+            C_CHAR
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("VerSetConditionMask"),
+                    findOrThrow("VerSetConditionMask"),
                     DESC);
     }
 
@@ -16528,16 +16528,16 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlGetProductInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_CHAR,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_CHAR,
+            C_LONG,
+            C_LONG,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlGetProductInfo"),
+                    findOrThrow("RtlGetProductInfo"),
                     DESC);
     }
 
@@ -16662,7 +16662,7 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PRTL_UMS_THREAD_INFO_CLASS
      * }
      */
-    public static final AddressLayout PRTL_UMS_THREAD_INFO_CLASS = Windows_h.C_POINTER;
+    public static final AddressLayout PRTL_UMS_THREAD_INFO_CLASS = C_POINTER;
     private static final int UmsSchedulerStartup = (int)0L;
     /**
      * {@snippet lang=c :
@@ -16699,18 +16699,18 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PRTL_UMS_SCHEDULER_REASON
      * }
      */
-    public static final AddressLayout PRTL_UMS_SCHEDULER_REASON = Windows_h.C_POINTER;
+    public static final AddressLayout PRTL_UMS_SCHEDULER_REASON = C_POINTER;
 
     private static class RtlCrc32 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlCrc32"),
+                    findOrThrow("RtlCrc32"),
                     DESC);
     }
 
@@ -16752,14 +16752,14 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlCrc64 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlCrc64"),
+                    findOrThrow("RtlCrc64"),
                     DESC);
     }
 
@@ -16819,12 +16819,12 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlOsDeploymentState {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlOsDeploymentState"),
+                    findOrThrow("RtlOsDeploymentState"),
                     DESC);
     }
 
@@ -16871,18 +16871,18 @@ public class Windows_h_26 extends Windows_h_27 {
      * } *PNV_MEMORY_RANGE
      * }
      */
-    public static final AddressLayout PNV_MEMORY_RANGE = Windows_h.C_POINTER;
+    public static final AddressLayout PNV_MEMORY_RANGE = C_POINTER;
 
     private static class RtlGetNonVolatileToken {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlGetNonVolatileToken"),
+                    findOrThrow("RtlGetNonVolatileToken"),
                     DESC);
     }
 
@@ -16924,12 +16924,12 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlFreeNonVolatileToken {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlFreeNonVolatileToken"),
+                    findOrThrow("RtlFreeNonVolatileToken"),
                     DESC);
     }
 
@@ -16971,15 +16971,15 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlFlushNonVolatileMemory {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlFlushNonVolatileMemory"),
+                    findOrThrow("RtlFlushNonVolatileMemory"),
                     DESC);
     }
 
@@ -17021,12 +17021,12 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlDrainNonVolatileFlush {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlDrainNonVolatileFlush"),
+                    findOrThrow("RtlDrainNonVolatileFlush"),
                     DESC);
     }
 
@@ -17068,16 +17068,16 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlWriteNonVolatileMemory {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlWriteNonVolatileMemory"),
+                    findOrThrow("RtlWriteNonVolatileMemory"),
                     DESC);
     }
 
@@ -17119,16 +17119,16 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlFillNonVolatileMemory {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_CHAR,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_CHAR,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlFillNonVolatileMemory"),
+                    findOrThrow("RtlFillNonVolatileMemory"),
                     DESC);
     }
 
@@ -17170,15 +17170,15 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlFlushNonVolatileMemoryRanges {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlFlushNonVolatileMemoryRanges"),
+                    findOrThrow("RtlFlushNonVolatileMemoryRanges"),
                     DESC);
     }
 
@@ -17222,18 +17222,18 @@ public class Windows_h_26 extends Windows_h_27 {
      * typedef CORRELATION_VECTOR *PCORRELATION_VECTOR
      * }
      */
-    public static final AddressLayout PCORRELATION_VECTOR = Windows_h.C_POINTER;
+    public static final AddressLayout PCORRELATION_VECTOR = C_POINTER;
 
     private static class RtlInitializeCorrelationVector {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlInitializeCorrelationVector"),
+                    findOrThrow("RtlInitializeCorrelationVector"),
                     DESC);
     }
 
@@ -17275,12 +17275,12 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlIncrementCorrelationVector {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlIncrementCorrelationVector"),
+                    findOrThrow("RtlIncrementCorrelationVector"),
                     DESC);
     }
 
@@ -17322,12 +17322,12 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlExtendCorrelationVector {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlExtendCorrelationVector"),
+                    findOrThrow("RtlExtendCorrelationVector"),
                     DESC);
     }
 
@@ -17369,12 +17369,12 @@ public class Windows_h_26 extends Windows_h_27 {
 
     private static class RtlValidateCorrelationVector {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RtlValidateCorrelationVector"),
+                    findOrThrow("RtlValidateCorrelationVector"),
                     DESC);
     }
 

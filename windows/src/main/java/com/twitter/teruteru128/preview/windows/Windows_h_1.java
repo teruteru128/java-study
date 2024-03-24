@@ -4372,7 +4372,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SCARD_ALL_READERS() {
         class Holder {
             static final MemorySegment SCARD_ALL_READERS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SCard$AllReaders");
+                = LIBRARY_ARENA.allocateFrom("SCard$AllReaders");
         }
         return Holder.SCARD_ALL_READERS;
     }
@@ -4384,7 +4384,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SCARD_DEFAULT_READERS() {
         class Holder {
             static final MemorySegment SCARD_DEFAULT_READERS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SCard$DefaultReaders");
+                = LIBRARY_ARENA.allocateFrom("SCard$DefaultReaders");
         }
         return Holder.SCARD_DEFAULT_READERS;
     }
@@ -4396,7 +4396,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SCARD_LOCAL_READERS() {
         class Holder {
             static final MemorySegment SCARD_LOCAL_READERS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SCard$LocalReaders");
+                = LIBRARY_ARENA.allocateFrom("SCard$LocalReaders");
         }
         return Holder.SCARD_LOCAL_READERS;
     }
@@ -4408,7 +4408,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SCARD_SYSTEM_READERS() {
         class Holder {
             static final MemorySegment SCARD_SYSTEM_READERS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SCard$SystemReaders");
+                = LIBRARY_ARENA.allocateFrom("SCard$SystemReaders");
         }
         return Holder.SCARD_SYSTEM_READERS;
     }
@@ -5221,7 +5221,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment BIDI_ACTION_ENUM_SCHEMA() {
         class Holder {
             static final MemorySegment BIDI_ACTION_ENUM_SCHEMA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BIDI_ACTION_ENUM_SCHEMA;
     }
@@ -5233,7 +5233,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment BIDI_ACTION_GET() {
         class Holder {
             static final MemorySegment BIDI_ACTION_GET
-                = Windows_h.LIBRARY_ARENA.allocateFrom("G");
+                = LIBRARY_ARENA.allocateFrom("G");
         }
         return Holder.BIDI_ACTION_GET;
     }
@@ -5245,7 +5245,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment BIDI_ACTION_SET() {
         class Holder {
             static final MemorySegment BIDI_ACTION_SET
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.BIDI_ACTION_SET;
     }
@@ -5257,7 +5257,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment BIDI_ACTION_GET_ALL() {
         class Holder {
             static final MemorySegment BIDI_ACTION_GET_ALL
-                = Windows_h.LIBRARY_ARENA.allocateFrom("G");
+                = LIBRARY_ARENA.allocateFrom("G");
         }
         return Holder.BIDI_ACTION_GET_ALL;
     }
@@ -5269,7 +5269,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment BIDI_ACTION_GET_WITH_ARGUMENT() {
         class Holder {
             static final MemorySegment BIDI_ACTION_GET_WITH_ARGUMENT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("G");
+                = LIBRARY_ARENA.allocateFrom("G");
         }
         return Holder.BIDI_ACTION_GET_WITH_ARGUMENT;
     }
@@ -5470,7 +5470,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_DEFAULT_SPOOL_DIRECTORY() {
         class Holder {
             static final MemorySegment SPLREG_DEFAULT_SPOOL_DIRECTORY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("DefaultSpoolDirectory");
+                = LIBRARY_ARENA.allocateFrom("DefaultSpoolDirectory");
         }
         return Holder.SPLREG_DEFAULT_SPOOL_DIRECTORY;
     }
@@ -5482,7 +5482,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_PORT_THREAD_PRIORITY_DEFAULT() {
         class Holder {
             static final MemorySegment SPLREG_PORT_THREAD_PRIORITY_DEFAULT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("PortThreadPriorityDefault");
+                = LIBRARY_ARENA.allocateFrom("PortThreadPriorityDefault");
         }
         return Holder.SPLREG_PORT_THREAD_PRIORITY_DEFAULT;
     }
@@ -5494,7 +5494,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_PORT_THREAD_PRIORITY() {
         class Holder {
             static final MemorySegment SPLREG_PORT_THREAD_PRIORITY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("PortThreadPriority");
+                = LIBRARY_ARENA.allocateFrom("PortThreadPriority");
         }
         return Holder.SPLREG_PORT_THREAD_PRIORITY;
     }
@@ -5506,7 +5506,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_SCHEDULER_THREAD_PRIORITY_DEFAULT() {
         class Holder {
             static final MemorySegment SPLREG_SCHEDULER_THREAD_PRIORITY_DEFAULT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SchedulerThreadPriorityDefault");
+                = LIBRARY_ARENA.allocateFrom("SchedulerThreadPriorityDefault");
         }
         return Holder.SPLREG_SCHEDULER_THREAD_PRIORITY_DEFAULT;
     }
@@ -5518,7 +5518,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_SCHEDULER_THREAD_PRIORITY() {
         class Holder {
             static final MemorySegment SPLREG_SCHEDULER_THREAD_PRIORITY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SchedulerThreadPriority");
+                = LIBRARY_ARENA.allocateFrom("SchedulerThreadPriority");
         }
         return Holder.SPLREG_SCHEDULER_THREAD_PRIORITY;
     }
@@ -5530,7 +5530,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_BEEP_ENABLED() {
         class Holder {
             static final MemorySegment SPLREG_BEEP_ENABLED
-                = Windows_h.LIBRARY_ARENA.allocateFrom("BeepEnabled");
+                = LIBRARY_ARENA.allocateFrom("BeepEnabled");
         }
         return Holder.SPLREG_BEEP_ENABLED;
     }
@@ -5542,7 +5542,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_NET_POPUP() {
         class Holder {
             static final MemorySegment SPLREG_NET_POPUP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("NetPopup");
+                = LIBRARY_ARENA.allocateFrom("NetPopup");
         }
         return Holder.SPLREG_NET_POPUP;
     }
@@ -5554,7 +5554,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_RETRY_POPUP() {
         class Holder {
             static final MemorySegment SPLREG_RETRY_POPUP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("RetryPopup");
+                = LIBRARY_ARENA.allocateFrom("RetryPopup");
         }
         return Holder.SPLREG_RETRY_POPUP;
     }
@@ -5566,7 +5566,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_NET_POPUP_TO_COMPUTER() {
         class Holder {
             static final MemorySegment SPLREG_NET_POPUP_TO_COMPUTER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("NetPopupToComputer");
+                = LIBRARY_ARENA.allocateFrom("NetPopupToComputer");
         }
         return Holder.SPLREG_NET_POPUP_TO_COMPUTER;
     }
@@ -5578,7 +5578,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_EVENT_LOG() {
         class Holder {
             static final MemorySegment SPLREG_EVENT_LOG
-                = Windows_h.LIBRARY_ARENA.allocateFrom("EventLog");
+                = LIBRARY_ARENA.allocateFrom("EventLog");
         }
         return Holder.SPLREG_EVENT_LOG;
     }
@@ -5590,7 +5590,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_MAJOR_VERSION() {
         class Holder {
             static final MemorySegment SPLREG_MAJOR_VERSION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("MajorVersion");
+                = LIBRARY_ARENA.allocateFrom("MajorVersion");
         }
         return Holder.SPLREG_MAJOR_VERSION;
     }
@@ -5602,7 +5602,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_MINOR_VERSION() {
         class Holder {
             static final MemorySegment SPLREG_MINOR_VERSION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("MinorVersion");
+                = LIBRARY_ARENA.allocateFrom("MinorVersion");
         }
         return Holder.SPLREG_MINOR_VERSION;
     }
@@ -5614,7 +5614,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_ARCHITECTURE() {
         class Holder {
             static final MemorySegment SPLREG_ARCHITECTURE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Architecture");
+                = LIBRARY_ARENA.allocateFrom("Architecture");
         }
         return Holder.SPLREG_ARCHITECTURE;
     }
@@ -5626,7 +5626,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_OS_VERSION() {
         class Holder {
             static final MemorySegment SPLREG_OS_VERSION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("OSVersion");
+                = LIBRARY_ARENA.allocateFrom("OSVersion");
         }
         return Holder.SPLREG_OS_VERSION;
     }
@@ -5638,7 +5638,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_OS_VERSIONEX() {
         class Holder {
             static final MemorySegment SPLREG_OS_VERSIONEX
-                = Windows_h.LIBRARY_ARENA.allocateFrom("OSVersionEx");
+                = LIBRARY_ARENA.allocateFrom("OSVersionEx");
         }
         return Holder.SPLREG_OS_VERSIONEX;
     }
@@ -5650,7 +5650,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_DS_PRESENT() {
         class Holder {
             static final MemorySegment SPLREG_DS_PRESENT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("DsPresent");
+                = LIBRARY_ARENA.allocateFrom("DsPresent");
         }
         return Holder.SPLREG_DS_PRESENT;
     }
@@ -5662,7 +5662,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_DS_PRESENT_FOR_USER() {
         class Holder {
             static final MemorySegment SPLREG_DS_PRESENT_FOR_USER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("DsPresentForUser");
+                = LIBRARY_ARENA.allocateFrom("DsPresentForUser");
         }
         return Holder.SPLREG_DS_PRESENT_FOR_USER;
     }
@@ -5674,7 +5674,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_REMOTE_FAX() {
         class Holder {
             static final MemorySegment SPLREG_REMOTE_FAX
-                = Windows_h.LIBRARY_ARENA.allocateFrom("RemoteFax");
+                = LIBRARY_ARENA.allocateFrom("RemoteFax");
         }
         return Holder.SPLREG_REMOTE_FAX;
     }
@@ -5686,7 +5686,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_RESTART_JOB_ON_POOL_ERROR() {
         class Holder {
             static final MemorySegment SPLREG_RESTART_JOB_ON_POOL_ERROR
-                = Windows_h.LIBRARY_ARENA.allocateFrom("RestartJobOnPoolError");
+                = LIBRARY_ARENA.allocateFrom("RestartJobOnPoolError");
         }
         return Holder.SPLREG_RESTART_JOB_ON_POOL_ERROR;
     }
@@ -5698,7 +5698,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_RESTART_JOB_ON_POOL_ENABLED() {
         class Holder {
             static final MemorySegment SPLREG_RESTART_JOB_ON_POOL_ENABLED
-                = Windows_h.LIBRARY_ARENA.allocateFrom("RestartJobOnPoolEnabled");
+                = LIBRARY_ARENA.allocateFrom("RestartJobOnPoolEnabled");
         }
         return Holder.SPLREG_RESTART_JOB_ON_POOL_ENABLED;
     }
@@ -5710,7 +5710,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_DNS_MACHINE_NAME() {
         class Holder {
             static final MemorySegment SPLREG_DNS_MACHINE_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("DNSMachineName");
+                = LIBRARY_ARENA.allocateFrom("DNSMachineName");
         }
         return Holder.SPLREG_DNS_MACHINE_NAME;
     }
@@ -5722,7 +5722,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_ALLOW_USER_MANAGEFORMS() {
         class Holder {
             static final MemorySegment SPLREG_ALLOW_USER_MANAGEFORMS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("AllowUserManageForms");
+                = LIBRARY_ARENA.allocateFrom("AllowUserManageForms");
         }
         return Holder.SPLREG_ALLOW_USER_MANAGEFORMS;
     }
@@ -5734,7 +5734,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_WEBSHAREMGMT() {
         class Holder {
             static final MemorySegment SPLREG_WEBSHAREMGMT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("WebShareMgmt");
+                = LIBRARY_ARENA.allocateFrom("WebShareMgmt");
         }
         return Holder.SPLREG_WEBSHAREMGMT;
     }
@@ -5755,7 +5755,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_GROUPS() {
         class Holder {
             static final MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_GROUPS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintDriverIsolationGroups");
+                = LIBRARY_ARENA.allocateFrom("PrintDriverIsolationGroups");
         }
         return Holder.SPLREG_PRINT_DRIVER_ISOLATION_GROUPS;
     }
@@ -5767,7 +5767,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_TIME_BEFORE_RECYCLE() {
         class Holder {
             static final MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_TIME_BEFORE_RECYCLE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintDriverIsolationTimeBeforeRecycle");
+                = LIBRARY_ARENA.allocateFrom("PrintDriverIsolationTimeBeforeRecycle");
         }
         return Holder.SPLREG_PRINT_DRIVER_ISOLATION_TIME_BEFORE_RECYCLE;
     }
@@ -5779,7 +5779,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_MAX_OBJECTS_BEFORE_RECYCLE() {
         class Holder {
             static final MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_MAX_OBJECTS_BEFORE_RECYCLE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintDriverIsolationMaxobjsBeforeRecycle");
+                = LIBRARY_ARENA.allocateFrom("PrintDriverIsolationMaxobjsBeforeRecycle");
         }
         return Holder.SPLREG_PRINT_DRIVER_ISOLATION_MAX_OBJECTS_BEFORE_RECYCLE;
     }
@@ -5791,7 +5791,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_IDLE_TIMEOUT() {
         class Holder {
             static final MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_IDLE_TIMEOUT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintDriverIsolationIdleTimeout");
+                = LIBRARY_ARENA.allocateFrom("PrintDriverIsolationIdleTimeout");
         }
         return Holder.SPLREG_PRINT_DRIVER_ISOLATION_IDLE_TIMEOUT;
     }
@@ -5803,7 +5803,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_EXECUTION_POLICY() {
         class Holder {
             static final MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_EXECUTION_POLICY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintDriverIsolationExecutionPolicy");
+                = LIBRARY_ARENA.allocateFrom("PrintDriverIsolationExecutionPolicy");
         }
         return Holder.SPLREG_PRINT_DRIVER_ISOLATION_EXECUTION_POLICY;
     }
@@ -5815,7 +5815,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_OVERRIDE_POLICY() {
         class Holder {
             static final MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_OVERRIDE_POLICY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintDriverIsolationOverrideCompat");
+                = LIBRARY_ARENA.allocateFrom("PrintDriverIsolationOverrideCompat");
         }
         return Holder.SPLREG_PRINT_DRIVER_ISOLATION_OVERRIDE_POLICY;
     }
@@ -5827,7 +5827,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLREG_PRINT_QUEUE_V4_DRIVER_DIRECTORY() {
         class Holder {
             static final MemorySegment SPLREG_PRINT_QUEUE_V4_DRIVER_DIRECTORY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintQueueV4DriverDirectory");
+                = LIBRARY_ARENA.allocateFrom("PrintQueueV4DriverDirectory");
         }
         return Holder.SPLREG_PRINT_QUEUE_V4_DRIVER_DIRECTORY;
     }
@@ -5947,7 +5947,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_SPOOLER_KEY() {
         class Holder {
             static final MemorySegment SPLDS_SPOOLER_KEY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("DsSpooler");
+                = LIBRARY_ARENA.allocateFrom("DsSpooler");
         }
         return Holder.SPLDS_SPOOLER_KEY;
     }
@@ -5959,7 +5959,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_DRIVER_KEY() {
         class Holder {
             static final MemorySegment SPLDS_DRIVER_KEY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("DsDriver");
+                = LIBRARY_ARENA.allocateFrom("DsDriver");
         }
         return Holder.SPLDS_DRIVER_KEY;
     }
@@ -5971,7 +5971,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_USER_KEY() {
         class Holder {
             static final MemorySegment SPLDS_USER_KEY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("DsUser");
+                = LIBRARY_ARENA.allocateFrom("DsUser");
         }
         return Holder.SPLDS_USER_KEY;
     }
@@ -5983,7 +5983,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_ASSET_NUMBER() {
         class Holder {
             static final MemorySegment SPLDS_ASSET_NUMBER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("assetNumber");
+                = LIBRARY_ARENA.allocateFrom("assetNumber");
         }
         return Holder.SPLDS_ASSET_NUMBER;
     }
@@ -5995,7 +5995,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_BYTES_PER_MINUTE() {
         class Holder {
             static final MemorySegment SPLDS_BYTES_PER_MINUTE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("bytesPerMinute");
+                = LIBRARY_ARENA.allocateFrom("bytesPerMinute");
         }
         return Holder.SPLDS_BYTES_PER_MINUTE;
     }
@@ -6007,7 +6007,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_DESCRIPTION() {
         class Holder {
             static final MemorySegment SPLDS_DESCRIPTION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("description");
+                = LIBRARY_ARENA.allocateFrom("description");
         }
         return Holder.SPLDS_DESCRIPTION;
     }
@@ -6019,7 +6019,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_DRIVER_NAME() {
         class Holder {
             static final MemorySegment SPLDS_DRIVER_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("driverName");
+                = LIBRARY_ARENA.allocateFrom("driverName");
         }
         return Holder.SPLDS_DRIVER_NAME;
     }
@@ -6031,7 +6031,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_DRIVER_VERSION() {
         class Holder {
             static final MemorySegment SPLDS_DRIVER_VERSION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("driverVersion");
+                = LIBRARY_ARENA.allocateFrom("driverVersion");
         }
         return Holder.SPLDS_DRIVER_VERSION;
     }
@@ -6043,7 +6043,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_LOCATION() {
         class Holder {
             static final MemorySegment SPLDS_LOCATION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("location");
+                = LIBRARY_ARENA.allocateFrom("location");
         }
         return Holder.SPLDS_LOCATION;
     }
@@ -6055,7 +6055,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PORT_NAME() {
         class Holder {
             static final MemorySegment SPLDS_PORT_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("portName");
+                = LIBRARY_ARENA.allocateFrom("portName");
         }
         return Holder.SPLDS_PORT_NAME;
     }
@@ -6067,7 +6067,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_ATTRIBUTES() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_ATTRIBUTES
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printAttributes");
+                = LIBRARY_ARENA.allocateFrom("printAttributes");
         }
         return Holder.SPLDS_PRINT_ATTRIBUTES;
     }
@@ -6079,7 +6079,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_BIN_NAMES() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_BIN_NAMES
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printBinNames");
+                = LIBRARY_ARENA.allocateFrom("printBinNames");
         }
         return Holder.SPLDS_PRINT_BIN_NAMES;
     }
@@ -6091,7 +6091,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_COLLATE() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_COLLATE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printCollate");
+                = LIBRARY_ARENA.allocateFrom("printCollate");
         }
         return Holder.SPLDS_PRINT_COLLATE;
     }
@@ -6103,7 +6103,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_COLOR() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_COLOR
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printColor");
+                = LIBRARY_ARENA.allocateFrom("printColor");
         }
         return Holder.SPLDS_PRINT_COLOR;
     }
@@ -6115,7 +6115,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_DUPLEX_SUPPORTED() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_DUPLEX_SUPPORTED
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printDuplexSupported");
+                = LIBRARY_ARENA.allocateFrom("printDuplexSupported");
         }
         return Holder.SPLDS_PRINT_DUPLEX_SUPPORTED;
     }
@@ -6127,7 +6127,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_END_TIME() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_END_TIME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printEndTime");
+                = LIBRARY_ARENA.allocateFrom("printEndTime");
         }
         return Holder.SPLDS_PRINT_END_TIME;
     }
@@ -6139,7 +6139,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINTER_CLASS() {
         class Holder {
             static final MemorySegment SPLDS_PRINTER_CLASS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printQueue");
+                = LIBRARY_ARENA.allocateFrom("printQueue");
         }
         return Holder.SPLDS_PRINTER_CLASS;
     }
@@ -6151,7 +6151,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINTER_NAME() {
         class Holder {
             static final MemorySegment SPLDS_PRINTER_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printerName");
+                = LIBRARY_ARENA.allocateFrom("printerName");
         }
         return Holder.SPLDS_PRINTER_NAME;
     }
@@ -6163,7 +6163,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_KEEP_PRINTED_JOBS() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_KEEP_PRINTED_JOBS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printKeepPrintedJobs");
+                = LIBRARY_ARENA.allocateFrom("printKeepPrintedJobs");
         }
         return Holder.SPLDS_PRINT_KEEP_PRINTED_JOBS;
     }
@@ -6175,7 +6175,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_LANGUAGE() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_LANGUAGE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printLanguage");
+                = LIBRARY_ARENA.allocateFrom("printLanguage");
         }
         return Holder.SPLDS_PRINT_LANGUAGE;
     }
@@ -6187,7 +6187,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_MAC_ADDRESS() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_MAC_ADDRESS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printMACAddress");
+                = LIBRARY_ARENA.allocateFrom("printMACAddress");
         }
         return Holder.SPLDS_PRINT_MAC_ADDRESS;
     }
@@ -6199,7 +6199,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_MAX_X_EXTENT() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_MAX_X_EXTENT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printMaxXExtent");
+                = LIBRARY_ARENA.allocateFrom("printMaxXExtent");
         }
         return Holder.SPLDS_PRINT_MAX_X_EXTENT;
     }
@@ -6211,7 +6211,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_MAX_Y_EXTENT() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_MAX_Y_EXTENT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printMaxYExtent");
+                = LIBRARY_ARENA.allocateFrom("printMaxYExtent");
         }
         return Holder.SPLDS_PRINT_MAX_Y_EXTENT;
     }
@@ -6223,7 +6223,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_MAX_RESOLUTION_SUPPORTED() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_MAX_RESOLUTION_SUPPORTED
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printMaxResolutionSupported");
+                = LIBRARY_ARENA.allocateFrom("printMaxResolutionSupported");
         }
         return Holder.SPLDS_PRINT_MAX_RESOLUTION_SUPPORTED;
     }
@@ -6235,7 +6235,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_MEDIA_READY() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_MEDIA_READY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printMediaReady");
+                = LIBRARY_ARENA.allocateFrom("printMediaReady");
         }
         return Holder.SPLDS_PRINT_MEDIA_READY;
     }
@@ -6247,7 +6247,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_MEDIA_SUPPORTED() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_MEDIA_SUPPORTED
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printMediaSupported");
+                = LIBRARY_ARENA.allocateFrom("printMediaSupported");
         }
         return Holder.SPLDS_PRINT_MEDIA_SUPPORTED;
     }
@@ -6259,7 +6259,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_MEMORY() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_MEMORY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printMemory");
+                = LIBRARY_ARENA.allocateFrom("printMemory");
         }
         return Holder.SPLDS_PRINT_MEMORY;
     }
@@ -6271,7 +6271,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_MIN_X_EXTENT() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_MIN_X_EXTENT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printMinXExtent");
+                = LIBRARY_ARENA.allocateFrom("printMinXExtent");
         }
         return Holder.SPLDS_PRINT_MIN_X_EXTENT;
     }
@@ -6283,7 +6283,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_MIN_Y_EXTENT() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_MIN_Y_EXTENT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printMinYExtent");
+                = LIBRARY_ARENA.allocateFrom("printMinYExtent");
         }
         return Holder.SPLDS_PRINT_MIN_Y_EXTENT;
     }
@@ -6295,7 +6295,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_NETWORK_ADDRESS() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_NETWORK_ADDRESS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printNetworkAddress");
+                = LIBRARY_ARENA.allocateFrom("printNetworkAddress");
         }
         return Holder.SPLDS_PRINT_NETWORK_ADDRESS;
     }
@@ -6307,7 +6307,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_NOTIFY() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_NOTIFY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printNotify");
+                = LIBRARY_ARENA.allocateFrom("printNotify");
         }
         return Holder.SPLDS_PRINT_NOTIFY;
     }
@@ -6319,7 +6319,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_NUMBER_UP() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_NUMBER_UP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printNumberUp");
+                = LIBRARY_ARENA.allocateFrom("printNumberUp");
         }
         return Holder.SPLDS_PRINT_NUMBER_UP;
     }
@@ -6331,7 +6331,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_ORIENTATIONS_SUPPORTED() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_ORIENTATIONS_SUPPORTED
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printOrientationsSupported");
+                = LIBRARY_ARENA.allocateFrom("printOrientationsSupported");
         }
         return Holder.SPLDS_PRINT_ORIENTATIONS_SUPPORTED;
     }
@@ -6343,7 +6343,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_OWNER() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_OWNER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printOwner");
+                = LIBRARY_ARENA.allocateFrom("printOwner");
         }
         return Holder.SPLDS_PRINT_OWNER;
     }
@@ -6355,7 +6355,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_PAGES_PER_MINUTE() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_PAGES_PER_MINUTE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printPagesPerMinute");
+                = LIBRARY_ARENA.allocateFrom("printPagesPerMinute");
         }
         return Holder.SPLDS_PRINT_PAGES_PER_MINUTE;
     }
@@ -6367,7 +6367,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_RATE() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_RATE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printRate");
+                = LIBRARY_ARENA.allocateFrom("printRate");
         }
         return Holder.SPLDS_PRINT_RATE;
     }
@@ -6379,7 +6379,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_RATE_UNIT() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_RATE_UNIT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printRateUnit");
+                = LIBRARY_ARENA.allocateFrom("printRateUnit");
         }
         return Holder.SPLDS_PRINT_RATE_UNIT;
     }
@@ -6391,7 +6391,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_SEPARATOR_FILE() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_SEPARATOR_FILE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printSeparatorFile");
+                = LIBRARY_ARENA.allocateFrom("printSeparatorFile");
         }
         return Holder.SPLDS_PRINT_SEPARATOR_FILE;
     }
@@ -6403,7 +6403,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_SHARE_NAME() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_SHARE_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printShareName");
+                = LIBRARY_ARENA.allocateFrom("printShareName");
         }
         return Holder.SPLDS_PRINT_SHARE_NAME;
     }
@@ -6415,7 +6415,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_SPOOLING() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_SPOOLING
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printSpooling");
+                = LIBRARY_ARENA.allocateFrom("printSpooling");
         }
         return Holder.SPLDS_PRINT_SPOOLING;
     }
@@ -6427,7 +6427,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_STAPLING_SUPPORTED() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_STAPLING_SUPPORTED
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printStaplingSupported");
+                = LIBRARY_ARENA.allocateFrom("printStaplingSupported");
         }
         return Holder.SPLDS_PRINT_STAPLING_SUPPORTED;
     }
@@ -6439,7 +6439,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_START_TIME() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_START_TIME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printStartTime");
+                = LIBRARY_ARENA.allocateFrom("printStartTime");
         }
         return Holder.SPLDS_PRINT_START_TIME;
     }
@@ -6451,7 +6451,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINT_STATUS() {
         class Holder {
             static final MemorySegment SPLDS_PRINT_STATUS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printStatus");
+                = LIBRARY_ARENA.allocateFrom("printStatus");
         }
         return Holder.SPLDS_PRINT_STATUS;
     }
@@ -6463,7 +6463,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRIORITY() {
         class Holder {
             static final MemorySegment SPLDS_PRIORITY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("priority");
+                = LIBRARY_ARENA.allocateFrom("priority");
         }
         return Holder.SPLDS_PRIORITY;
     }
@@ -6475,7 +6475,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_SERVER_NAME() {
         class Holder {
             static final MemorySegment SPLDS_SERVER_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("serverName");
+                = LIBRARY_ARENA.allocateFrom("serverName");
         }
         return Holder.SPLDS_SERVER_NAME;
     }
@@ -6487,7 +6487,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_SHORT_SERVER_NAME() {
         class Holder {
             static final MemorySegment SPLDS_SHORT_SERVER_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("shortServerName");
+                = LIBRARY_ARENA.allocateFrom("shortServerName");
         }
         return Holder.SPLDS_SHORT_SERVER_NAME;
     }
@@ -6499,7 +6499,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_UNC_NAME() {
         class Holder {
             static final MemorySegment SPLDS_UNC_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("uNCName");
+                = LIBRARY_ARENA.allocateFrom("uNCName");
         }
         return Holder.SPLDS_UNC_NAME;
     }
@@ -6511,7 +6511,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_URL() {
         class Holder {
             static final MemorySegment SPLDS_URL
-                = Windows_h.LIBRARY_ARENA.allocateFrom("url");
+                = LIBRARY_ARENA.allocateFrom("url");
         }
         return Holder.SPLDS_URL;
     }
@@ -6523,7 +6523,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_FLAGS() {
         class Holder {
             static final MemorySegment SPLDS_FLAGS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("flags");
+                = LIBRARY_ARENA.allocateFrom("flags");
         }
         return Holder.SPLDS_FLAGS;
     }
@@ -6535,7 +6535,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_VERSION_NUMBER() {
         class Holder {
             static final MemorySegment SPLDS_VERSION_NUMBER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("versionNumber");
+                = LIBRARY_ARENA.allocateFrom("versionNumber");
         }
         return Holder.SPLDS_VERSION_NUMBER;
     }
@@ -6547,7 +6547,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINTER_NAME_ALIASES() {
         class Holder {
             static final MemorySegment SPLDS_PRINTER_NAME_ALIASES
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printerNameAliases");
+                = LIBRARY_ARENA.allocateFrom("printerNameAliases");
         }
         return Holder.SPLDS_PRINTER_NAME_ALIASES;
     }
@@ -6559,7 +6559,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINTER_LOCATIONS() {
         class Holder {
             static final MemorySegment SPLDS_PRINTER_LOCATIONS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printerLocations");
+                = LIBRARY_ARENA.allocateFrom("printerLocations");
         }
         return Holder.SPLDS_PRINTER_LOCATIONS;
     }
@@ -6571,7 +6571,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SPLDS_PRINTER_MODEL() {
         class Holder {
             static final MemorySegment SPLDS_PRINTER_MODEL
-                = Windows_h.LIBRARY_ARENA.allocateFrom("printerModel");
+                = LIBRARY_ARENA.allocateFrom("printerModel");
         }
         return Holder.SPLDS_PRINTER_MODEL;
     }
@@ -6583,7 +6583,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment MS_PRINT_JOB_OUTPUT_FILE() {
         class Holder {
             static final MemorySegment MS_PRINT_JOB_OUTPUT_FILE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_PRINT_JOB_OUTPUT_FILE;
     }
@@ -7090,7 +7090,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment _CRT_INTERNAL_COMBASE_SYMBOL_PREFIX() {
         class Holder {
             static final MemorySegment _CRT_INTERNAL_COMBASE_SYMBOL_PREFIX
-                = Windows_h.LIBRARY_ARENA.allocateFrom("");
+                = LIBRARY_ARENA.allocateFrom("");
         }
         return Holder._CRT_INTERNAL_COMBASE_SYMBOL_PREFIX;
     }
@@ -8065,7 +8065,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SZ_URLCONTEXT() {
         class Holder {
             static final MemorySegment SZ_URLCONTEXT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("U");
+                = LIBRARY_ARENA.allocateFrom("U");
         }
         return Holder.SZ_URLCONTEXT;
     }
@@ -8077,7 +8077,7 @@ public class Windows_h_1 extends Windows_h_2 {
     public static MemorySegment SZ_ASYNC_CALLEE() {
         class Holder {
             static final MemorySegment SZ_ASYNC_CALLEE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+                = LIBRARY_ARENA.allocateFrom("A");
         }
         return Holder.SZ_ASYNC_CALLEE;
     }

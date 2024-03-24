@@ -8980,7 +8980,7 @@ public class Windows_h_5 extends Windows_h_6 {
     public static MemorySegment LOCALE_NAME_INVARIANT() {
         class Holder {
             static final MemorySegment LOCALE_NAME_INVARIANT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("");
+                = LIBRARY_ARENA.allocateFrom("");
         }
         return Holder.LOCALE_NAME_INVARIANT;
     }
@@ -8992,7 +8992,7 @@ public class Windows_h_5 extends Windows_h_6 {
     public static MemorySegment LOCALE_NAME_SYSTEM_DEFAULT() {
         class Holder {
             static final MemorySegment LOCALE_NAME_SYSTEM_DEFAULT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("!");
+                = LIBRARY_ARENA.allocateFrom("!");
         }
         return Holder.LOCALE_NAME_SYSTEM_DEFAULT;
     }

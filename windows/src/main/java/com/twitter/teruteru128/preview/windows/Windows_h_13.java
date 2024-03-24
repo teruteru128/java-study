@@ -1933,7 +1933,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment ACCESS_DS_SOURCE_A() {
         class Holder {
             static final MemorySegment ACCESS_DS_SOURCE_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("DS");
+                = LIBRARY_ARENA.allocateFrom("DS");
         }
         return Holder.ACCESS_DS_SOURCE_A;
     }
@@ -1945,7 +1945,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment ACCESS_DS_SOURCE_W() {
         class Holder {
             static final MemorySegment ACCESS_DS_SOURCE_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.ACCESS_DS_SOURCE_W;
     }
@@ -1957,7 +1957,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment ACCESS_DS_OBJECT_TYPE_NAME_A() {
         class Holder {
             static final MemorySegment ACCESS_DS_OBJECT_TYPE_NAME_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Directory Service Object");
+                = LIBRARY_ARENA.allocateFrom("Directory Service Object");
         }
         return Holder.ACCESS_DS_OBJECT_TYPE_NAME_A;
     }
@@ -1969,7 +1969,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment ACCESS_DS_OBJECT_TYPE_NAME_W() {
         class Holder {
             static final MemorySegment ACCESS_DS_OBJECT_TYPE_NAME_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.ACCESS_DS_OBJECT_TYPE_NAME_W;
     }
@@ -2044,7 +2044,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_CREATE_TOKEN_NAME() {
         class Holder {
             static final MemorySegment SE_CREATE_TOKEN_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeCreateTokenPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeCreateTokenPrivilege");
         }
         return Holder.SE_CREATE_TOKEN_NAME;
     }
@@ -2056,7 +2056,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_ASSIGNPRIMARYTOKEN_NAME() {
         class Holder {
             static final MemorySegment SE_ASSIGNPRIMARYTOKEN_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeAssignPrimaryTokenPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeAssignPrimaryTokenPrivilege");
         }
         return Holder.SE_ASSIGNPRIMARYTOKEN_NAME;
     }
@@ -2068,7 +2068,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_LOCK_MEMORY_NAME() {
         class Holder {
             static final MemorySegment SE_LOCK_MEMORY_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeLockMemoryPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeLockMemoryPrivilege");
         }
         return Holder.SE_LOCK_MEMORY_NAME;
     }
@@ -2080,7 +2080,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_INCREASE_QUOTA_NAME() {
         class Holder {
             static final MemorySegment SE_INCREASE_QUOTA_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeIncreaseQuotaPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeIncreaseQuotaPrivilege");
         }
         return Holder.SE_INCREASE_QUOTA_NAME;
     }
@@ -2092,7 +2092,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_UNSOLICITED_INPUT_NAME() {
         class Holder {
             static final MemorySegment SE_UNSOLICITED_INPUT_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeUnsolicitedInputPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeUnsolicitedInputPrivilege");
         }
         return Holder.SE_UNSOLICITED_INPUT_NAME;
     }
@@ -2104,7 +2104,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_MACHINE_ACCOUNT_NAME() {
         class Holder {
             static final MemorySegment SE_MACHINE_ACCOUNT_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeMachineAccountPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeMachineAccountPrivilege");
         }
         return Holder.SE_MACHINE_ACCOUNT_NAME;
     }
@@ -2116,7 +2116,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_TCB_NAME() {
         class Holder {
             static final MemorySegment SE_TCB_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeTcbPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeTcbPrivilege");
         }
         return Holder.SE_TCB_NAME;
     }
@@ -2128,7 +2128,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_SECURITY_NAME() {
         class Holder {
             static final MemorySegment SE_SECURITY_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeSecurityPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeSecurityPrivilege");
         }
         return Holder.SE_SECURITY_NAME;
     }
@@ -2140,7 +2140,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_TAKE_OWNERSHIP_NAME() {
         class Holder {
             static final MemorySegment SE_TAKE_OWNERSHIP_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeTakeOwnershipPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeTakeOwnershipPrivilege");
         }
         return Holder.SE_TAKE_OWNERSHIP_NAME;
     }
@@ -2152,7 +2152,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_LOAD_DRIVER_NAME() {
         class Holder {
             static final MemorySegment SE_LOAD_DRIVER_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeLoadDriverPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeLoadDriverPrivilege");
         }
         return Holder.SE_LOAD_DRIVER_NAME;
     }
@@ -2164,7 +2164,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_SYSTEM_PROFILE_NAME() {
         class Holder {
             static final MemorySegment SE_SYSTEM_PROFILE_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeSystemProfilePrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeSystemProfilePrivilege");
         }
         return Holder.SE_SYSTEM_PROFILE_NAME;
     }
@@ -2176,7 +2176,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_SYSTEMTIME_NAME() {
         class Holder {
             static final MemorySegment SE_SYSTEMTIME_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeSystemtimePrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeSystemtimePrivilege");
         }
         return Holder.SE_SYSTEMTIME_NAME;
     }
@@ -2188,7 +2188,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_PROF_SINGLE_PROCESS_NAME() {
         class Holder {
             static final MemorySegment SE_PROF_SINGLE_PROCESS_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeProfileSingleProcessPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeProfileSingleProcessPrivilege");
         }
         return Holder.SE_PROF_SINGLE_PROCESS_NAME;
     }
@@ -2200,7 +2200,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_INC_BASE_PRIORITY_NAME() {
         class Holder {
             static final MemorySegment SE_INC_BASE_PRIORITY_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeIncreaseBasePriorityPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeIncreaseBasePriorityPrivilege");
         }
         return Holder.SE_INC_BASE_PRIORITY_NAME;
     }
@@ -2212,7 +2212,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_CREATE_PAGEFILE_NAME() {
         class Holder {
             static final MemorySegment SE_CREATE_PAGEFILE_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeCreatePagefilePrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeCreatePagefilePrivilege");
         }
         return Holder.SE_CREATE_PAGEFILE_NAME;
     }
@@ -2224,7 +2224,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_CREATE_PERMANENT_NAME() {
         class Holder {
             static final MemorySegment SE_CREATE_PERMANENT_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeCreatePermanentPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeCreatePermanentPrivilege");
         }
         return Holder.SE_CREATE_PERMANENT_NAME;
     }
@@ -2236,7 +2236,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_BACKUP_NAME() {
         class Holder {
             static final MemorySegment SE_BACKUP_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeBackupPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeBackupPrivilege");
         }
         return Holder.SE_BACKUP_NAME;
     }
@@ -2248,7 +2248,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_RESTORE_NAME() {
         class Holder {
             static final MemorySegment SE_RESTORE_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeRestorePrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeRestorePrivilege");
         }
         return Holder.SE_RESTORE_NAME;
     }
@@ -2260,7 +2260,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_SHUTDOWN_NAME() {
         class Holder {
             static final MemorySegment SE_SHUTDOWN_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeShutdownPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeShutdownPrivilege");
         }
         return Holder.SE_SHUTDOWN_NAME;
     }
@@ -2272,7 +2272,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_DEBUG_NAME() {
         class Holder {
             static final MemorySegment SE_DEBUG_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeDebugPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeDebugPrivilege");
         }
         return Holder.SE_DEBUG_NAME;
     }
@@ -2284,7 +2284,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_AUDIT_NAME() {
         class Holder {
             static final MemorySegment SE_AUDIT_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeAuditPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeAuditPrivilege");
         }
         return Holder.SE_AUDIT_NAME;
     }
@@ -2296,7 +2296,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_SYSTEM_ENVIRONMENT_NAME() {
         class Holder {
             static final MemorySegment SE_SYSTEM_ENVIRONMENT_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeSystemEnvironmentPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeSystemEnvironmentPrivilege");
         }
         return Holder.SE_SYSTEM_ENVIRONMENT_NAME;
     }
@@ -2308,7 +2308,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_CHANGE_NOTIFY_NAME() {
         class Holder {
             static final MemorySegment SE_CHANGE_NOTIFY_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeChangeNotifyPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeChangeNotifyPrivilege");
         }
         return Holder.SE_CHANGE_NOTIFY_NAME;
     }
@@ -2320,7 +2320,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_REMOTE_SHUTDOWN_NAME() {
         class Holder {
             static final MemorySegment SE_REMOTE_SHUTDOWN_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeRemoteShutdownPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeRemoteShutdownPrivilege");
         }
         return Holder.SE_REMOTE_SHUTDOWN_NAME;
     }
@@ -2332,7 +2332,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_UNDOCK_NAME() {
         class Holder {
             static final MemorySegment SE_UNDOCK_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeUndockPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeUndockPrivilege");
         }
         return Holder.SE_UNDOCK_NAME;
     }
@@ -2344,7 +2344,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_SYNC_AGENT_NAME() {
         class Holder {
             static final MemorySegment SE_SYNC_AGENT_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeSyncAgentPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeSyncAgentPrivilege");
         }
         return Holder.SE_SYNC_AGENT_NAME;
     }
@@ -2356,7 +2356,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_ENABLE_DELEGATION_NAME() {
         class Holder {
             static final MemorySegment SE_ENABLE_DELEGATION_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeEnableDelegationPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeEnableDelegationPrivilege");
         }
         return Holder.SE_ENABLE_DELEGATION_NAME;
     }
@@ -2368,7 +2368,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_MANAGE_VOLUME_NAME() {
         class Holder {
             static final MemorySegment SE_MANAGE_VOLUME_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeManageVolumePrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeManageVolumePrivilege");
         }
         return Holder.SE_MANAGE_VOLUME_NAME;
     }
@@ -2380,7 +2380,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_IMPERSONATE_NAME() {
         class Holder {
             static final MemorySegment SE_IMPERSONATE_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeImpersonatePrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeImpersonatePrivilege");
         }
         return Holder.SE_IMPERSONATE_NAME;
     }
@@ -2392,7 +2392,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_CREATE_GLOBAL_NAME() {
         class Holder {
             static final MemorySegment SE_CREATE_GLOBAL_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeCreateGlobalPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeCreateGlobalPrivilege");
         }
         return Holder.SE_CREATE_GLOBAL_NAME;
     }
@@ -2404,7 +2404,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_TRUSTED_CREDMAN_ACCESS_NAME() {
         class Holder {
             static final MemorySegment SE_TRUSTED_CREDMAN_ACCESS_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeTrustedCredManAccessPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeTrustedCredManAccessPrivilege");
         }
         return Holder.SE_TRUSTED_CREDMAN_ACCESS_NAME;
     }
@@ -2416,7 +2416,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_RELABEL_NAME() {
         class Holder {
             static final MemorySegment SE_RELABEL_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeRelabelPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeRelabelPrivilege");
         }
         return Holder.SE_RELABEL_NAME;
     }
@@ -2428,7 +2428,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_INC_WORKING_SET_NAME() {
         class Holder {
             static final MemorySegment SE_INC_WORKING_SET_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeIncreaseWorkingSetPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeIncreaseWorkingSetPrivilege");
         }
         return Holder.SE_INC_WORKING_SET_NAME;
     }
@@ -2440,7 +2440,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_TIME_ZONE_NAME() {
         class Holder {
             static final MemorySegment SE_TIME_ZONE_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeTimeZonePrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeTimeZonePrivilege");
         }
         return Holder.SE_TIME_ZONE_NAME;
     }
@@ -2452,7 +2452,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_CREATE_SYMBOLIC_LINK_NAME() {
         class Holder {
             static final MemorySegment SE_CREATE_SYMBOLIC_LINK_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeCreateSymbolicLinkPrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeCreateSymbolicLinkPrivilege");
         }
         return Holder.SE_CREATE_SYMBOLIC_LINK_NAME;
     }
@@ -2464,7 +2464,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_DELEGATE_SESSION_USER_IMPERSONATE_NAME() {
         class Holder {
             static final MemorySegment SE_DELEGATE_SESSION_USER_IMPERSONATE_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SeDelegateSessionUserImpersonatePrivilege");
+                = LIBRARY_ARENA.allocateFrom("SeDelegateSessionUserImpersonatePrivilege");
         }
         return Holder.SE_DELEGATE_SESSION_USER_IMPERSONATE_NAME;
     }
@@ -2476,7 +2476,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_ACTIVATE_AS_USER_CAPABILITY() {
         class Holder {
             static final MemorySegment SE_ACTIVATE_AS_USER_CAPABILITY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("a");
+                = LIBRARY_ARENA.allocateFrom("a");
         }
         return Holder.SE_ACTIVATE_AS_USER_CAPABILITY;
     }
@@ -2488,7 +2488,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_CONSTRAINED_IMPERSONATION_CAPABILITY() {
         class Holder {
             static final MemorySegment SE_CONSTRAINED_IMPERSONATION_CAPABILITY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("c");
+                = LIBRARY_ARENA.allocateFrom("c");
         }
         return Holder.SE_CONSTRAINED_IMPERSONATION_CAPABILITY;
     }
@@ -2500,7 +2500,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_SESSION_IMPERSONATION_CAPABILITY() {
         class Holder {
             static final MemorySegment SE_SESSION_IMPERSONATION_CAPABILITY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+                = LIBRARY_ARENA.allocateFrom("s");
         }
         return Holder.SE_SESSION_IMPERSONATION_CAPABILITY;
     }
@@ -2512,7 +2512,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_MUMA_CAPABILITY() {
         class Holder {
             static final MemorySegment SE_MUMA_CAPABILITY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("m");
+                = LIBRARY_ARENA.allocateFrom("m");
         }
         return Holder.SE_MUMA_CAPABILITY;
     }
@@ -2524,7 +2524,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_DEVELOPMENT_MODE_NETWORK_CAPABILITY() {
         class Holder {
             static final MemorySegment SE_DEVELOPMENT_MODE_NETWORK_CAPABILITY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("d");
+                = LIBRARY_ARENA.allocateFrom("d");
         }
         return Holder.SE_DEVELOPMENT_MODE_NETWORK_CAPABILITY;
     }
@@ -2536,7 +2536,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SE_PERMISSIVE_LEARNING_MODE_CAPABILITY() {
         class Holder {
             static final MemorySegment SE_PERMISSIVE_LEARNING_MODE_CAPABILITY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("p");
+                = LIBRARY_ARENA.allocateFrom("p");
         }
         return Holder.SE_PERMISSIVE_LEARNING_MODE_CAPABILITY;
     }
@@ -4690,7 +4690,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment SMB_CCF_APP_INSTANCE_EA_NAME() {
         class Holder {
             static final MemorySegment SMB_CCF_APP_INSTANCE_EA_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("ClusteredApplicationInstance");
+                = LIBRARY_ARENA.allocateFrom("ClusteredApplicationInstance");
         }
         return Holder.SMB_CCF_APP_INSTANCE_EA_NAME;
     }
@@ -4991,7 +4991,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment IMAGE_ARCHIVE_START() {
         class Holder {
             static final MemorySegment IMAGE_ARCHIVE_START
-                = Windows_h.LIBRARY_ARENA.allocateFrom("!<arch>\n");
+                = LIBRARY_ARENA.allocateFrom("!<arch>\n");
         }
         return Holder.IMAGE_ARCHIVE_START;
     }
@@ -5004,7 +5004,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment IMAGE_ARCHIVE_END() {
         class Holder {
             static final MemorySegment IMAGE_ARCHIVE_END
-                = Windows_h.LIBRARY_ARENA.allocateFrom("`\n");
+                = LIBRARY_ARENA.allocateFrom("`\n");
         }
         return Holder.IMAGE_ARCHIVE_END;
     }
@@ -5017,7 +5017,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment IMAGE_ARCHIVE_PAD() {
         class Holder {
             static final MemorySegment IMAGE_ARCHIVE_PAD
-                = Windows_h.LIBRARY_ARENA.allocateFrom("\n");
+                = LIBRARY_ARENA.allocateFrom("\n");
         }
         return Holder.IMAGE_ARCHIVE_PAD;
     }
@@ -5029,7 +5029,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment IMAGE_ARCHIVE_LINKER_MEMBER() {
         class Holder {
             static final MemorySegment IMAGE_ARCHIVE_LINKER_MEMBER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("/               ");
+                = LIBRARY_ARENA.allocateFrom("/               ");
         }
         return Holder.IMAGE_ARCHIVE_LINKER_MEMBER;
     }
@@ -5041,7 +5041,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment IMAGE_ARCHIVE_LONGNAMES_MEMBER() {
         class Holder {
             static final MemorySegment IMAGE_ARCHIVE_LONGNAMES_MEMBER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("//              ");
+                = LIBRARY_ARENA.allocateFrom("//              ");
         }
         return Holder.IMAGE_ARCHIVE_LONGNAMES_MEMBER;
     }
@@ -5053,7 +5053,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment IMAGE_ARCHIVE_HYBRIDMAP_MEMBER() {
         class Holder {
             static final MemorySegment IMAGE_ARCHIVE_HYBRIDMAP_MEMBER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("/<HYBRIDMAP>/   ");
+                = LIBRARY_ARENA.allocateFrom("/<HYBRIDMAP>/   ");
         }
         return Holder.IMAGE_ARCHIVE_HYBRIDMAP_MEMBER;
     }
@@ -5506,7 +5506,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment IMAGE_POLICY_SECTION_NAME() {
         class Holder {
             static final MemorySegment IMAGE_POLICY_SECTION_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom(".tPolicy");
+                = LIBRARY_ARENA.allocateFrom(".tPolicy");
         }
         return Holder.IMAGE_POLICY_SECTION_NAME;
     }
@@ -5581,7 +5581,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment UNIFIEDBUILDREVISION_KEY() {
         class Holder {
             static final MemorySegment UNIFIEDBUILDREVISION_KEY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("\\");
+                = LIBRARY_ARENA.allocateFrom("\\");
         }
         return Holder.UNIFIEDBUILDREVISION_KEY;
     }
@@ -5593,7 +5593,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment UNIFIEDBUILDREVISION_VALUE() {
         class Holder {
             static final MemorySegment UNIFIEDBUILDREVISION_VALUE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("U");
+                = LIBRARY_ARENA.allocateFrom("U");
         }
         return Holder.UNIFIEDBUILDREVISION_VALUE;
     }
@@ -5605,7 +5605,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment DEVICEFAMILYDEVICEFORM_KEY() {
         class Holder {
             static final MemorySegment DEVICEFAMILYDEVICEFORM_KEY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("\\");
+                = LIBRARY_ARENA.allocateFrom("\\");
         }
         return Holder.DEVICEFAMILYDEVICEFORM_KEY;
     }
@@ -5617,7 +5617,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment DEVICEFAMILYDEVICEFORM_VALUE() {
         class Holder {
             static final MemorySegment DEVICEFAMILYDEVICEFORM_VALUE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.DEVICEFAMILYDEVICEFORM_VALUE;
     }
@@ -6835,7 +6835,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment TRANSACTIONMANAGER_OBJECT_PATH() {
         class Holder {
             static final MemorySegment TRANSACTIONMANAGER_OBJECT_PATH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("\\");
+                = LIBRARY_ARENA.allocateFrom("\\");
         }
         return Holder.TRANSACTIONMANAGER_OBJECT_PATH;
     }
@@ -6847,7 +6847,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment TRANSACTION_OBJECT_PATH() {
         class Holder {
             static final MemorySegment TRANSACTION_OBJECT_PATH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("\\");
+                = LIBRARY_ARENA.allocateFrom("\\");
         }
         return Holder.TRANSACTION_OBJECT_PATH;
     }
@@ -6859,7 +6859,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment ENLISTMENT_OBJECT_PATH() {
         class Holder {
             static final MemorySegment ENLISTMENT_OBJECT_PATH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("\\");
+                = LIBRARY_ARENA.allocateFrom("\\");
         }
         return Holder.ENLISTMENT_OBJECT_PATH;
     }
@@ -6871,7 +6871,7 @@ public class Windows_h_13 extends Windows_h_14 {
     public static MemorySegment RESOURCE_MANAGER_OBJECT_PATH() {
         class Holder {
             static final MemorySegment RESOURCE_MANAGER_OBJECT_PATH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("\\");
+                = LIBRARY_ARENA.allocateFrom("\\");
         }
         return Holder.RESOURCE_MANAGER_OBJECT_PATH;
     }

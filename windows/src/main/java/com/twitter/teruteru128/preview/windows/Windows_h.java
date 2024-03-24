@@ -5,6 +5,7 @@ package com.twitter.teruteru128.preview.windows;
 import java.lang.invoke.*;
 import java.lang.foreign.*;
 import java.nio.ByteOrder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
@@ -439,7 +440,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment LBSELCHSTRINGA() {
         class Holder {
             static final MemorySegment LBSELCHSTRINGA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_LBSelChangedNotify");
+                = LIBRARY_ARENA.allocateFrom("commdlg_LBSelChangedNotify");
         }
         return Holder.LBSELCHSTRINGA;
     }
@@ -451,7 +452,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment SHAREVISTRINGA() {
         class Holder {
             static final MemorySegment SHAREVISTRINGA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_ShareViolation");
+                = LIBRARY_ARENA.allocateFrom("commdlg_ShareViolation");
         }
         return Holder.SHAREVISTRINGA;
     }
@@ -463,7 +464,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment FILEOKSTRINGA() {
         class Holder {
             static final MemorySegment FILEOKSTRINGA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_FileNameOK");
+                = LIBRARY_ARENA.allocateFrom("commdlg_FileNameOK");
         }
         return Holder.FILEOKSTRINGA;
     }
@@ -475,7 +476,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment COLOROKSTRINGA() {
         class Holder {
             static final MemorySegment COLOROKSTRINGA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_ColorOK");
+                = LIBRARY_ARENA.allocateFrom("commdlg_ColorOK");
         }
         return Holder.COLOROKSTRINGA;
     }
@@ -487,7 +488,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment SETRGBSTRINGA() {
         class Holder {
             static final MemorySegment SETRGBSTRINGA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_SetRGBColor");
+                = LIBRARY_ARENA.allocateFrom("commdlg_SetRGBColor");
         }
         return Holder.SETRGBSTRINGA;
     }
@@ -499,7 +500,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment HELPMSGSTRINGA() {
         class Holder {
             static final MemorySegment HELPMSGSTRINGA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_help");
+                = LIBRARY_ARENA.allocateFrom("commdlg_help");
         }
         return Holder.HELPMSGSTRINGA;
     }
@@ -511,7 +512,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment FINDMSGSTRINGA() {
         class Holder {
             static final MemorySegment FINDMSGSTRINGA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_FindReplace");
+                = LIBRARY_ARENA.allocateFrom("commdlg_FindReplace");
         }
         return Holder.FINDMSGSTRINGA;
     }
@@ -523,7 +524,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment LBSELCHSTRINGW() {
         class Holder {
             static final MemorySegment LBSELCHSTRINGW
-                = Windows_h.LIBRARY_ARENA.allocateFrom("c");
+                = LIBRARY_ARENA.allocateFrom("c");
         }
         return Holder.LBSELCHSTRINGW;
     }
@@ -535,7 +536,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment SHAREVISTRINGW() {
         class Holder {
             static final MemorySegment SHAREVISTRINGW
-                = Windows_h.LIBRARY_ARENA.allocateFrom("c");
+                = LIBRARY_ARENA.allocateFrom("c");
         }
         return Holder.SHAREVISTRINGW;
     }
@@ -547,7 +548,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment FILEOKSTRINGW() {
         class Holder {
             static final MemorySegment FILEOKSTRINGW
-                = Windows_h.LIBRARY_ARENA.allocateFrom("c");
+                = LIBRARY_ARENA.allocateFrom("c");
         }
         return Holder.FILEOKSTRINGW;
     }
@@ -559,7 +560,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment COLOROKSTRINGW() {
         class Holder {
             static final MemorySegment COLOROKSTRINGW
-                = Windows_h.LIBRARY_ARENA.allocateFrom("c");
+                = LIBRARY_ARENA.allocateFrom("c");
         }
         return Holder.COLOROKSTRINGW;
     }
@@ -571,7 +572,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment SETRGBSTRINGW() {
         class Holder {
             static final MemorySegment SETRGBSTRINGW
-                = Windows_h.LIBRARY_ARENA.allocateFrom("c");
+                = LIBRARY_ARENA.allocateFrom("c");
         }
         return Holder.SETRGBSTRINGW;
     }
@@ -583,7 +584,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment HELPMSGSTRINGW() {
         class Holder {
             static final MemorySegment HELPMSGSTRINGW
-                = Windows_h.LIBRARY_ARENA.allocateFrom("c");
+                = LIBRARY_ARENA.allocateFrom("c");
         }
         return Holder.HELPMSGSTRINGW;
     }
@@ -595,7 +596,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment FINDMSGSTRINGW() {
         class Holder {
             static final MemorySegment FINDMSGSTRINGW
-                = Windows_h.LIBRARY_ARENA.allocateFrom("c");
+                = LIBRARY_ARENA.allocateFrom("c");
         }
         return Holder.FINDMSGSTRINGW;
     }
@@ -607,7 +608,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment LBSELCHSTRING() {
         class Holder {
             static final MemorySegment LBSELCHSTRING
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_LBSelChangedNotify");
+                = LIBRARY_ARENA.allocateFrom("commdlg_LBSelChangedNotify");
         }
         return Holder.LBSELCHSTRING;
     }
@@ -619,7 +620,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment SHAREVISTRING() {
         class Holder {
             static final MemorySegment SHAREVISTRING
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_ShareViolation");
+                = LIBRARY_ARENA.allocateFrom("commdlg_ShareViolation");
         }
         return Holder.SHAREVISTRING;
     }
@@ -631,7 +632,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment FILEOKSTRING() {
         class Holder {
             static final MemorySegment FILEOKSTRING
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_FileNameOK");
+                = LIBRARY_ARENA.allocateFrom("commdlg_FileNameOK");
         }
         return Holder.FILEOKSTRING;
     }
@@ -643,7 +644,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment COLOROKSTRING() {
         class Holder {
             static final MemorySegment COLOROKSTRING
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_ColorOK");
+                = LIBRARY_ARENA.allocateFrom("commdlg_ColorOK");
         }
         return Holder.COLOROKSTRING;
     }
@@ -655,7 +656,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment SETRGBSTRING() {
         class Holder {
             static final MemorySegment SETRGBSTRING
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_SetRGBColor");
+                = LIBRARY_ARENA.allocateFrom("commdlg_SetRGBColor");
         }
         return Holder.SETRGBSTRING;
     }
@@ -667,7 +668,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment HELPMSGSTRING() {
         class Holder {
             static final MemorySegment HELPMSGSTRING
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_help");
+                = LIBRARY_ARENA.allocateFrom("commdlg_help");
         }
         return Holder.HELPMSGSTRING;
     }
@@ -679,7 +680,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment FINDMSGSTRING() {
         class Holder {
             static final MemorySegment FINDMSGSTRING
-                = Windows_h.LIBRARY_ARENA.allocateFrom("commdlg_FindReplace");
+                = LIBRARY_ARENA.allocateFrom("commdlg_FindReplace");
         }
         return Holder.FINDMSGSTRING;
     }
@@ -781,7 +782,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment SERVICES_ACTIVE_DATABASEW() {
         class Holder {
             static final MemorySegment SERVICES_ACTIVE_DATABASEW
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.SERVICES_ACTIVE_DATABASEW;
     }
@@ -793,7 +794,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment SERVICES_FAILED_DATABASEW() {
         class Holder {
             static final MemorySegment SERVICES_FAILED_DATABASEW
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.SERVICES_FAILED_DATABASEW;
     }
@@ -805,7 +806,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment SERVICES_ACTIVE_DATABASEA() {
         class Holder {
             static final MemorySegment SERVICES_ACTIVE_DATABASEA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("ServicesActive");
+                = LIBRARY_ARENA.allocateFrom("ServicesActive");
         }
         return Holder.SERVICES_ACTIVE_DATABASEA;
     }
@@ -817,7 +818,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment SERVICES_FAILED_DATABASEA() {
         class Holder {
             static final MemorySegment SERVICES_FAILED_DATABASEA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("ServicesFailed");
+                = LIBRARY_ARENA.allocateFrom("ServicesFailed");
         }
         return Holder.SERVICES_FAILED_DATABASEA;
     }
@@ -847,7 +848,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment SERVICES_ACTIVE_DATABASE() {
         class Holder {
             static final MemorySegment SERVICES_ACTIVE_DATABASE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("ServicesActive");
+                = LIBRARY_ARENA.allocateFrom("ServicesActive");
         }
         return Holder.SERVICES_ACTIVE_DATABASE;
     }
@@ -859,7 +860,7 @@ public class Windows_h extends Windows_h_1 {
     public static MemorySegment SERVICES_FAILED_DATABASE() {
         class Holder {
             static final MemorySegment SERVICES_FAILED_DATABASE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("ServicesFailed");
+                = LIBRARY_ARENA.allocateFrom("ServicesFailed");
         }
         return Holder.SERVICES_FAILED_DATABASE;
     }
@@ -937,25 +938,25 @@ public class Windows_h extends Windows_h_1 {
     }
     /**
      * {@snippet lang=c :
-     * #define SERVICE_TRIGGER_STARTED_ARGUMENT "T"
+     * #define SERVICE_TRIGGER_STARTED_ARGUMENT L"TriggerStarted"
      * }
      */
     public static MemorySegment SERVICE_TRIGGER_STARTED_ARGUMENT() {
         class Holder {
             static final MemorySegment SERVICE_TRIGGER_STARTED_ARGUMENT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("T");
+                = LIBRARY_ARENA.allocateFrom("TriggerStarted", StandardCharsets.UTF_16LE);
         }
         return Holder.SERVICE_TRIGGER_STARTED_ARGUMENT;
     }
     /**
      * {@snippet lang=c :
-     * #define SC_AGGREGATE_STORAGE_KEY "S"
+     * #define SC_AGGREGATE_STORAGE_KEY L"System\\CurrentControlSet\\Control\\ServiceAggregatedEvents"
      * }
      */
     public static MemorySegment SC_AGGREGATE_STORAGE_KEY() {
         class Holder {
             static final MemorySegment SC_AGGREGATE_STORAGE_KEY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("System\\CurrentControlSet\\Control\\ServiceAggregatedEvents", StandardCharsets.UTF_16LE);
         }
         return Holder.SC_AGGREGATE_STORAGE_KEY;
     }

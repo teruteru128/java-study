@@ -737,7 +737,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_PROV_A() {
         class Holder {
             static final MemorySegment MS_DEF_PROV_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base Cryptographic Provider v1.0");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Base Cryptographic Provider v1.0");
         }
         return Holder.MS_DEF_PROV_A;
     }
@@ -749,7 +749,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_PROV_W() {
         class Holder {
             static final MemorySegment MS_DEF_PROV_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_DEF_PROV_W;
     }
@@ -761,7 +761,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_PROV() {
         class Holder {
             static final MemorySegment MS_DEF_PROV
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base Cryptographic Provider v1.0");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Base Cryptographic Provider v1.0");
         }
         return Holder.MS_DEF_PROV;
     }
@@ -773,7 +773,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_ENHANCED_PROV_A() {
         class Holder {
             static final MemorySegment MS_ENHANCED_PROV_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced Cryptographic Provider v1.0");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Enhanced Cryptographic Provider v1.0");
         }
         return Holder.MS_ENHANCED_PROV_A;
     }
@@ -785,7 +785,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_ENHANCED_PROV_W() {
         class Holder {
             static final MemorySegment MS_ENHANCED_PROV_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_ENHANCED_PROV_W;
     }
@@ -797,7 +797,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_ENHANCED_PROV() {
         class Holder {
             static final MemorySegment MS_ENHANCED_PROV
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced Cryptographic Provider v1.0");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Enhanced Cryptographic Provider v1.0");
         }
         return Holder.MS_ENHANCED_PROV;
     }
@@ -809,7 +809,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_STRONG_PROV_A() {
         class Holder {
             static final MemorySegment MS_STRONG_PROV_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Strong Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Strong Cryptographic Provider");
         }
         return Holder.MS_STRONG_PROV_A;
     }
@@ -821,7 +821,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_STRONG_PROV_W() {
         class Holder {
             static final MemorySegment MS_STRONG_PROV_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_STRONG_PROV_W;
     }
@@ -833,7 +833,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_STRONG_PROV() {
         class Holder {
             static final MemorySegment MS_STRONG_PROV
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Strong Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Strong Cryptographic Provider");
         }
         return Holder.MS_STRONG_PROV;
     }
@@ -845,7 +845,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_RSA_SIG_PROV_A() {
         class Holder {
             static final MemorySegment MS_DEF_RSA_SIG_PROV_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft RSA Signature Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft RSA Signature Cryptographic Provider");
         }
         return Holder.MS_DEF_RSA_SIG_PROV_A;
     }
@@ -857,7 +857,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_RSA_SIG_PROV_W() {
         class Holder {
             static final MemorySegment MS_DEF_RSA_SIG_PROV_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_DEF_RSA_SIG_PROV_W;
     }
@@ -869,7 +869,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_RSA_SIG_PROV() {
         class Holder {
             static final MemorySegment MS_DEF_RSA_SIG_PROV
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft RSA Signature Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft RSA Signature Cryptographic Provider");
         }
         return Holder.MS_DEF_RSA_SIG_PROV;
     }
@@ -881,7 +881,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_RSA_SCHANNEL_PROV_A() {
         class Holder {
             static final MemorySegment MS_DEF_RSA_SCHANNEL_PROV_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft RSA SChannel Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft RSA SChannel Cryptographic Provider");
         }
         return Holder.MS_DEF_RSA_SCHANNEL_PROV_A;
     }
@@ -893,7 +893,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_RSA_SCHANNEL_PROV_W() {
         class Holder {
             static final MemorySegment MS_DEF_RSA_SCHANNEL_PROV_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_DEF_RSA_SCHANNEL_PROV_W;
     }
@@ -905,7 +905,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_RSA_SCHANNEL_PROV() {
         class Holder {
             static final MemorySegment MS_DEF_RSA_SCHANNEL_PROV
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft RSA SChannel Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft RSA SChannel Cryptographic Provider");
         }
         return Holder.MS_DEF_RSA_SCHANNEL_PROV;
     }
@@ -917,7 +917,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_DSS_PROV_A() {
         class Holder {
             static final MemorySegment MS_DEF_DSS_PROV_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base DSS Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Base DSS Cryptographic Provider");
         }
         return Holder.MS_DEF_DSS_PROV_A;
     }
@@ -929,7 +929,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_DSS_PROV_W() {
         class Holder {
             static final MemorySegment MS_DEF_DSS_PROV_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_DEF_DSS_PROV_W;
     }
@@ -941,7 +941,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_DSS_PROV() {
         class Holder {
             static final MemorySegment MS_DEF_DSS_PROV
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base DSS Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Base DSS Cryptographic Provider");
         }
         return Holder.MS_DEF_DSS_PROV;
     }
@@ -953,7 +953,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_DSS_DH_PROV_A() {
         class Holder {
             static final MemorySegment MS_DEF_DSS_DH_PROV_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base DSS and Diffie-Hellman Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Base DSS and Diffie-Hellman Cryptographic Provider");
         }
         return Holder.MS_DEF_DSS_DH_PROV_A;
     }
@@ -965,7 +965,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_DSS_DH_PROV_W() {
         class Holder {
             static final MemorySegment MS_DEF_DSS_DH_PROV_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_DEF_DSS_DH_PROV_W;
     }
@@ -977,7 +977,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_DSS_DH_PROV() {
         class Holder {
             static final MemorySegment MS_DEF_DSS_DH_PROV
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base DSS and Diffie-Hellman Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Base DSS and Diffie-Hellman Cryptographic Provider");
         }
         return Holder.MS_DEF_DSS_DH_PROV;
     }
@@ -989,7 +989,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_ENH_DSS_DH_PROV_A() {
         class Holder {
             static final MemorySegment MS_ENH_DSS_DH_PROV_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider");
         }
         return Holder.MS_ENH_DSS_DH_PROV_A;
     }
@@ -1001,7 +1001,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_ENH_DSS_DH_PROV_W() {
         class Holder {
             static final MemorySegment MS_ENH_DSS_DH_PROV_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_ENH_DSS_DH_PROV_W;
     }
@@ -1013,7 +1013,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_ENH_DSS_DH_PROV() {
         class Holder {
             static final MemorySegment MS_ENH_DSS_DH_PROV
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider");
         }
         return Holder.MS_ENH_DSS_DH_PROV;
     }
@@ -1025,7 +1025,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_DH_SCHANNEL_PROV_A() {
         class Holder {
             static final MemorySegment MS_DEF_DH_SCHANNEL_PROV_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft DH SChannel Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft DH SChannel Cryptographic Provider");
         }
         return Holder.MS_DEF_DH_SCHANNEL_PROV_A;
     }
@@ -1037,7 +1037,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_DH_SCHANNEL_PROV_W() {
         class Holder {
             static final MemorySegment MS_DEF_DH_SCHANNEL_PROV_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_DEF_DH_SCHANNEL_PROV_W;
     }
@@ -1049,7 +1049,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_DEF_DH_SCHANNEL_PROV() {
         class Holder {
             static final MemorySegment MS_DEF_DH_SCHANNEL_PROV
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft DH SChannel Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft DH SChannel Cryptographic Provider");
         }
         return Holder.MS_DEF_DH_SCHANNEL_PROV;
     }
@@ -1061,7 +1061,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_SCARD_PROV_A() {
         class Holder {
             static final MemorySegment MS_SCARD_PROV_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base Smart Card Crypto Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Base Smart Card Crypto Provider");
         }
         return Holder.MS_SCARD_PROV_A;
     }
@@ -1073,7 +1073,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_SCARD_PROV_W() {
         class Holder {
             static final MemorySegment MS_SCARD_PROV_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_SCARD_PROV_W;
     }
@@ -1085,7 +1085,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_SCARD_PROV() {
         class Holder {
             static final MemorySegment MS_SCARD_PROV
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base Smart Card Crypto Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Base Smart Card Crypto Provider");
         }
         return Holder.MS_SCARD_PROV;
     }
@@ -1097,7 +1097,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_ENH_RSA_AES_PROV_A() {
         class Holder {
             static final MemorySegment MS_ENH_RSA_AES_PROV_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced RSA and AES Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Enhanced RSA and AES Cryptographic Provider");
         }
         return Holder.MS_ENH_RSA_AES_PROV_A;
     }
@@ -1109,7 +1109,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_ENH_RSA_AES_PROV_W() {
         class Holder {
             static final MemorySegment MS_ENH_RSA_AES_PROV_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_ENH_RSA_AES_PROV_W;
     }
@@ -1121,7 +1121,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_ENH_RSA_AES_PROV_XP_A() {
         class Holder {
             static final MemorySegment MS_ENH_RSA_AES_PROV_XP_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced RSA and AES Cryptographic Provider (Prototype)");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Enhanced RSA and AES Cryptographic Provider (Prototype)");
         }
         return Holder.MS_ENH_RSA_AES_PROV_XP_A;
     }
@@ -1133,7 +1133,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_ENH_RSA_AES_PROV_XP_W() {
         class Holder {
             static final MemorySegment MS_ENH_RSA_AES_PROV_XP_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_ENH_RSA_AES_PROV_XP_W;
     }
@@ -1145,7 +1145,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_ENH_RSA_AES_PROV_XP() {
         class Holder {
             static final MemorySegment MS_ENH_RSA_AES_PROV_XP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced RSA and AES Cryptographic Provider (Prototype)");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Enhanced RSA and AES Cryptographic Provider (Prototype)");
         }
         return Holder.MS_ENH_RSA_AES_PROV_XP;
     }
@@ -1157,7 +1157,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_ENH_RSA_AES_PROV() {
         class Holder {
             static final MemorySegment MS_ENH_RSA_AES_PROV
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced RSA and AES Cryptographic Provider");
+                = LIBRARY_ARENA.allocateFrom("Microsoft Enhanced RSA and AES Cryptographic Provider");
         }
         return Holder.MS_ENH_RSA_AES_PROV;
     }
@@ -1169,7 +1169,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment EXPO_OFFLOAD_REG_VALUE() {
         class Holder {
             static final MemorySegment EXPO_OFFLOAD_REG_VALUE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("ExpoOffload");
+                = LIBRARY_ARENA.allocateFrom("ExpoOffload");
         }
         return Holder.EXPO_OFFLOAD_REG_VALUE;
     }
@@ -1181,7 +1181,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment EXPO_OFFLOAD_FUNC_NAME() {
         class Holder {
             static final MemorySegment EXPO_OFFLOAD_FUNC_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("OffloadModExpo");
+                = LIBRARY_ARENA.allocateFrom("OffloadModExpo");
         }
         return Holder.EXPO_OFFLOAD_FUNC_NAME;
     }
@@ -1193,7 +1193,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szKEY_CRYPTOAPI_PRIVATE_KEY_OPTIONS() {
         class Holder {
             static final MemorySegment szKEY_CRYPTOAPI_PRIVATE_KEY_OPTIONS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Software\\Policies\\Microsoft\\Cryptography");
+                = LIBRARY_ARENA.allocateFrom("Software\\Policies\\Microsoft\\Cryptography");
         }
         return Holder.szKEY_CRYPTOAPI_PRIVATE_KEY_OPTIONS;
     }
@@ -1205,7 +1205,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szKEY_CACHE_ENABLED() {
         class Holder {
             static final MemorySegment szKEY_CACHE_ENABLED
-                = Windows_h.LIBRARY_ARENA.allocateFrom("CachePrivateKeys");
+                = LIBRARY_ARENA.allocateFrom("CachePrivateKeys");
         }
         return Holder.szKEY_CACHE_ENABLED;
     }
@@ -1217,7 +1217,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szKEY_CACHE_SECONDS() {
         class Holder {
             static final MemorySegment szKEY_CACHE_SECONDS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("PrivateKeyLifetimeSeconds");
+                = LIBRARY_ARENA.allocateFrom("PrivateKeyLifetimeSeconds");
         }
         return Holder.szKEY_CACHE_SECONDS;
     }
@@ -1229,7 +1229,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szPRIV_KEY_CACHE_MAX_ITEMS() {
         class Holder {
             static final MemorySegment szPRIV_KEY_CACHE_MAX_ITEMS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("PrivKeyCacheMaxItems");
+                = LIBRARY_ARENA.allocateFrom("PrivKeyCacheMaxItems");
         }
         return Holder.szPRIV_KEY_CACHE_MAX_ITEMS;
     }
@@ -1241,7 +1241,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szPRIV_KEY_CACHE_PURGE_INTERVAL_SECONDS() {
         class Holder {
             static final MemorySegment szPRIV_KEY_CACHE_PURGE_INTERVAL_SECONDS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("PrivKeyCachePurgeIntervalSeconds");
+                = LIBRARY_ARENA.allocateFrom("PrivKeyCachePurgeIntervalSeconds");
         }
         return Holder.szPRIV_KEY_CACHE_PURGE_INTERVAL_SECONDS;
     }
@@ -1253,7 +1253,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_KDF_HASH() {
         class Holder {
             static final MemorySegment BCRYPT_KDF_HASH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+                = LIBRARY_ARENA.allocateFrom("H");
         }
         return Holder.BCRYPT_KDF_HASH;
     }
@@ -1265,7 +1265,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_KDF_HMAC() {
         class Holder {
             static final MemorySegment BCRYPT_KDF_HMAC
-                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+                = LIBRARY_ARENA.allocateFrom("H");
         }
         return Holder.BCRYPT_KDF_HMAC;
     }
@@ -1277,7 +1277,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_KDF_TLS_PRF() {
         class Holder {
             static final MemorySegment BCRYPT_KDF_TLS_PRF
-                = Windows_h.LIBRARY_ARENA.allocateFrom("T");
+                = LIBRARY_ARENA.allocateFrom("T");
         }
         return Holder.BCRYPT_KDF_TLS_PRF;
     }
@@ -1289,7 +1289,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_KDF_SP80056A_CONCAT() {
         class Holder {
             static final MemorySegment BCRYPT_KDF_SP80056A_CONCAT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.BCRYPT_KDF_SP80056A_CONCAT;
     }
@@ -1301,7 +1301,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_KDF_RAW_SECRET() {
         class Holder {
             static final MemorySegment BCRYPT_KDF_RAW_SECRET
-                = Windows_h.LIBRARY_ARENA.allocateFrom("T");
+                = LIBRARY_ARENA.allocateFrom("T");
         }
         return Holder.BCRYPT_KDF_RAW_SECRET;
     }
@@ -1313,7 +1313,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_KDF_HKDF() {
         class Holder {
             static final MemorySegment BCRYPT_KDF_HKDF
-                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+                = LIBRARY_ARENA.allocateFrom("H");
         }
         return Holder.BCRYPT_KDF_HKDF;
     }
@@ -1325,7 +1325,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_OPAQUE_KEY_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_OPAQUE_KEY_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("O");
+                = LIBRARY_ARENA.allocateFrom("O");
         }
         return Holder.BCRYPT_OPAQUE_KEY_BLOB;
     }
@@ -1337,7 +1337,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_KEY_DATA_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_KEY_DATA_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+                = LIBRARY_ARENA.allocateFrom("K");
         }
         return Holder.BCRYPT_KEY_DATA_BLOB;
     }
@@ -1349,19 +1349,19 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_AES_WRAP_KEY_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_AES_WRAP_KEY_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("R");
         }
         return Holder.BCRYPT_AES_WRAP_KEY_BLOB;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_OBJECT_LENGTH "O"
+     * #define BCRYPT_OBJECT_LENGTH L"ObjectLength"
      * }
      */
     public static MemorySegment BCRYPT_OBJECT_LENGTH() {
         class Holder {
             static final MemorySegment BCRYPT_OBJECT_LENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("O");
+                = LIBRARY_ARENA.allocateFrom("ObjectLength", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_OBJECT_LENGTH;
     }
@@ -1373,7 +1373,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ALGORITHM_NAME() {
         class Holder {
             static final MemorySegment BCRYPT_ALGORITHM_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+                = LIBRARY_ARENA.allocateFrom("A");
         }
         return Holder.BCRYPT_ALGORITHM_NAME;
     }
@@ -1385,7 +1385,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_PROVIDER_HANDLE() {
         class Holder {
             static final MemorySegment BCRYPT_PROVIDER_HANDLE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.BCRYPT_PROVIDER_HANDLE;
     }
@@ -1397,7 +1397,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_CHAINING_MODE() {
         class Holder {
             static final MemorySegment BCRYPT_CHAINING_MODE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.BCRYPT_CHAINING_MODE;
     }
@@ -1409,7 +1409,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_BLOCK_LENGTH() {
         class Holder {
             static final MemorySegment BCRYPT_BLOCK_LENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("B");
+                = LIBRARY_ARENA.allocateFrom("B");
         }
         return Holder.BCRYPT_BLOCK_LENGTH;
     }
@@ -1421,7 +1421,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_KEY_LENGTH() {
         class Holder {
             static final MemorySegment BCRYPT_KEY_LENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+                = LIBRARY_ARENA.allocateFrom("K");
         }
         return Holder.BCRYPT_KEY_LENGTH;
     }
@@ -1433,7 +1433,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_KEY_OBJECT_LENGTH() {
         class Holder {
             static final MemorySegment BCRYPT_KEY_OBJECT_LENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+                = LIBRARY_ARENA.allocateFrom("K");
         }
         return Holder.BCRYPT_KEY_OBJECT_LENGTH;
     }
@@ -1445,7 +1445,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_KEY_STRENGTH() {
         class Holder {
             static final MemorySegment BCRYPT_KEY_STRENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+                = LIBRARY_ARENA.allocateFrom("K");
         }
         return Holder.BCRYPT_KEY_STRENGTH;
     }
@@ -1457,7 +1457,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_KEY_LENGTHS() {
         class Holder {
             static final MemorySegment BCRYPT_KEY_LENGTHS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+                = LIBRARY_ARENA.allocateFrom("K");
         }
         return Holder.BCRYPT_KEY_LENGTHS;
     }
@@ -1469,7 +1469,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_BLOCK_SIZE_LIST() {
         class Holder {
             static final MemorySegment BCRYPT_BLOCK_SIZE_LIST
-                = Windows_h.LIBRARY_ARENA.allocateFrom("B");
+                = LIBRARY_ARENA.allocateFrom("B");
         }
         return Holder.BCRYPT_BLOCK_SIZE_LIST;
     }
@@ -1481,7 +1481,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_EFFECTIVE_KEY_LENGTH() {
         class Holder {
             static final MemorySegment BCRYPT_EFFECTIVE_KEY_LENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_EFFECTIVE_KEY_LENGTH;
     }
@@ -1493,7 +1493,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_HASH_LENGTH() {
         class Holder {
             static final MemorySegment BCRYPT_HASH_LENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+                = LIBRARY_ARENA.allocateFrom("H");
         }
         return Holder.BCRYPT_HASH_LENGTH;
     }
@@ -1505,7 +1505,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_HASH_OID_LIST() {
         class Holder {
             static final MemorySegment BCRYPT_HASH_OID_LIST
-                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+                = LIBRARY_ARENA.allocateFrom("H");
         }
         return Holder.BCRYPT_HASH_OID_LIST;
     }
@@ -1517,7 +1517,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_PADDING_SCHEMES() {
         class Holder {
             static final MemorySegment BCRYPT_PADDING_SCHEMES
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.BCRYPT_PADDING_SCHEMES;
     }
@@ -1529,7 +1529,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_SIGNATURE_LENGTH() {
         class Holder {
             static final MemorySegment BCRYPT_SIGNATURE_LENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.BCRYPT_SIGNATURE_LENGTH;
     }
@@ -1541,7 +1541,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_HASH_BLOCK_LENGTH() {
         class Holder {
             static final MemorySegment BCRYPT_HASH_BLOCK_LENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+                = LIBRARY_ARENA.allocateFrom("H");
         }
         return Holder.BCRYPT_HASH_BLOCK_LENGTH;
     }
@@ -1553,7 +1553,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_AUTH_TAG_LENGTH() {
         class Holder {
             static final MemorySegment BCRYPT_AUTH_TAG_LENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+                = LIBRARY_ARENA.allocateFrom("A");
         }
         return Holder.BCRYPT_AUTH_TAG_LENGTH;
     }
@@ -1565,7 +1565,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_PRIMITIVE_TYPE() {
         class Holder {
             static final MemorySegment BCRYPT_PRIMITIVE_TYPE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.BCRYPT_PRIMITIVE_TYPE;
     }
@@ -1577,7 +1577,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_IS_KEYED_HASH() {
         class Holder {
             static final MemorySegment BCRYPT_IS_KEYED_HASH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+                = LIBRARY_ARENA.allocateFrom("I");
         }
         return Holder.BCRYPT_IS_KEYED_HASH;
     }
@@ -1589,7 +1589,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_IS_REUSABLE_HASH() {
         class Holder {
             static final MemorySegment BCRYPT_IS_REUSABLE_HASH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+                = LIBRARY_ARENA.allocateFrom("I");
         }
         return Holder.BCRYPT_IS_REUSABLE_HASH;
     }
@@ -1601,7 +1601,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_MESSAGE_BLOCK_LENGTH() {
         class Holder {
             static final MemorySegment BCRYPT_MESSAGE_BLOCK_LENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.BCRYPT_MESSAGE_BLOCK_LENGTH;
     }
@@ -1613,7 +1613,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_PUBLIC_KEY_LENGTH() {
         class Holder {
             static final MemorySegment BCRYPT_PUBLIC_KEY_LENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.BCRYPT_PUBLIC_KEY_LENGTH;
     }
@@ -1625,7 +1625,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_PCP_PLATFORM_TYPE_PROPERTY() {
         class Holder {
             static final MemorySegment BCRYPT_PCP_PLATFORM_TYPE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.BCRYPT_PCP_PLATFORM_TYPE_PROPERTY;
     }
@@ -1637,7 +1637,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_PCP_PROVIDER_VERSION_PROPERTY() {
         class Holder {
             static final MemorySegment BCRYPT_PCP_PROVIDER_VERSION_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.BCRYPT_PCP_PROVIDER_VERSION_PROPERTY;
     }
@@ -1649,7 +1649,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_MULTI_OBJECT_LENGTH() {
         class Holder {
             static final MemorySegment BCRYPT_MULTI_OBJECT_LENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.BCRYPT_MULTI_OBJECT_LENGTH;
     }
@@ -1661,7 +1661,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_IS_IFX_TPM_WEAK_KEY() {
         class Holder {
             static final MemorySegment BCRYPT_IS_IFX_TPM_WEAK_KEY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+                = LIBRARY_ARENA.allocateFrom("I");
         }
         return Holder.BCRYPT_IS_IFX_TPM_WEAK_KEY;
     }
@@ -1673,7 +1673,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_HKDF_HASH_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_HKDF_HASH_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+                = LIBRARY_ARENA.allocateFrom("H");
         }
         return Holder.BCRYPT_HKDF_HASH_ALGORITHM;
     }
@@ -1685,7 +1685,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_HKDF_SALT_AND_FINALIZE() {
         class Holder {
             static final MemorySegment BCRYPT_HKDF_SALT_AND_FINALIZE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+                = LIBRARY_ARENA.allocateFrom("H");
         }
         return Holder.BCRYPT_HKDF_SALT_AND_FINALIZE;
     }
@@ -1697,7 +1697,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_HKDF_PRK_AND_FINALIZE() {
         class Holder {
             static final MemorySegment BCRYPT_HKDF_PRK_AND_FINALIZE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+                = LIBRARY_ARENA.allocateFrom("H");
         }
         return Holder.BCRYPT_HKDF_PRK_AND_FINALIZE;
     }
@@ -1709,7 +1709,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_INITIALIZATION_VECTOR() {
         class Holder {
             static final MemorySegment BCRYPT_INITIALIZATION_VECTOR
-                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+                = LIBRARY_ARENA.allocateFrom("I");
         }
         return Holder.BCRYPT_INITIALIZATION_VECTOR;
     }
@@ -1721,7 +1721,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_CHAIN_MODE_NA() {
         class Holder {
             static final MemorySegment BCRYPT_CHAIN_MODE_NA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.BCRYPT_CHAIN_MODE_NA;
     }
@@ -1733,7 +1733,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_CHAIN_MODE_CBC() {
         class Holder {
             static final MemorySegment BCRYPT_CHAIN_MODE_CBC
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.BCRYPT_CHAIN_MODE_CBC;
     }
@@ -1745,7 +1745,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_CHAIN_MODE_ECB() {
         class Holder {
             static final MemorySegment BCRYPT_CHAIN_MODE_ECB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.BCRYPT_CHAIN_MODE_ECB;
     }
@@ -1757,7 +1757,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_CHAIN_MODE_CFB() {
         class Holder {
             static final MemorySegment BCRYPT_CHAIN_MODE_CFB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.BCRYPT_CHAIN_MODE_CFB;
     }
@@ -1769,7 +1769,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_CHAIN_MODE_CCM() {
         class Holder {
             static final MemorySegment BCRYPT_CHAIN_MODE_CCM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.BCRYPT_CHAIN_MODE_CCM;
     }
@@ -1781,7 +1781,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_CHAIN_MODE_GCM() {
         class Holder {
             static final MemorySegment BCRYPT_CHAIN_MODE_GCM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.BCRYPT_CHAIN_MODE_GCM;
     }
@@ -1793,7 +1793,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_PUBLIC_KEY_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_PUBLIC_KEY_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.BCRYPT_PUBLIC_KEY_BLOB;
     }
@@ -1805,7 +1805,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_PRIVATE_KEY_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_PRIVATE_KEY_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.BCRYPT_PRIVATE_KEY_BLOB;
     }
@@ -1817,7 +1817,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_RSAPUBLIC_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_RSAPUBLIC_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("R");
         }
         return Holder.BCRYPT_RSAPUBLIC_BLOB;
     }
@@ -1829,7 +1829,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_RSAPRIVATE_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_RSAPRIVATE_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("R");
         }
         return Holder.BCRYPT_RSAPRIVATE_BLOB;
     }
@@ -1841,7 +1841,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment LEGACY_RSAPUBLIC_BLOB() {
         class Holder {
             static final MemorySegment LEGACY_RSAPUBLIC_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.LEGACY_RSAPUBLIC_BLOB;
     }
@@ -1853,7 +1853,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment LEGACY_RSAPRIVATE_BLOB() {
         class Holder {
             static final MemorySegment LEGACY_RSAPRIVATE_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.LEGACY_RSAPRIVATE_BLOB;
     }
@@ -1865,7 +1865,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_RSAFULLPRIVATE_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_RSAFULLPRIVATE_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("R");
         }
         return Holder.BCRYPT_RSAFULLPRIVATE_BLOB;
     }
@@ -1877,7 +1877,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_GLOBAL_PARAMETERS() {
         class Holder {
             static final MemorySegment BCRYPT_GLOBAL_PARAMETERS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.BCRYPT_GLOBAL_PARAMETERS;
     }
@@ -1889,7 +1889,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_PRIVATE_KEY() {
         class Holder {
             static final MemorySegment BCRYPT_PRIVATE_KEY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.BCRYPT_PRIVATE_KEY;
     }
@@ -1901,7 +1901,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECCPUBLIC_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_ECCPUBLIC_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECCPUBLIC_BLOB;
     }
@@ -1913,7 +1913,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECCPRIVATE_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_ECCPRIVATE_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECCPRIVATE_BLOB;
     }
@@ -1925,7 +1925,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECCFULLPUBLIC_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_ECCFULLPUBLIC_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECCFULLPUBLIC_BLOB;
     }
@@ -1937,7 +1937,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECCFULLPRIVATE_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_ECCFULLPRIVATE_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECCFULLPRIVATE_BLOB;
     }
@@ -1949,7 +1949,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment SSL_ECCPUBLIC_BLOB() {
         class Holder {
             static final MemorySegment SSL_ECCPUBLIC_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.SSL_ECCPUBLIC_BLOB;
     }
@@ -1961,7 +1961,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_DH_PUBLIC_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_DH_PUBLIC_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.BCRYPT_DH_PUBLIC_BLOB;
     }
@@ -1973,7 +1973,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_DH_PRIVATE_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_DH_PRIVATE_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.BCRYPT_DH_PRIVATE_BLOB;
     }
@@ -1985,7 +1985,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment LEGACY_DH_PUBLIC_BLOB() {
         class Holder {
             static final MemorySegment LEGACY_DH_PUBLIC_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.LEGACY_DH_PUBLIC_BLOB;
     }
@@ -1997,7 +1997,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment LEGACY_DH_PRIVATE_BLOB() {
         class Holder {
             static final MemorySegment LEGACY_DH_PRIVATE_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.LEGACY_DH_PRIVATE_BLOB;
     }
@@ -2009,7 +2009,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_DH_PARAMETERS() {
         class Holder {
             static final MemorySegment BCRYPT_DH_PARAMETERS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.BCRYPT_DH_PARAMETERS;
     }
@@ -2021,7 +2021,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_DSA_PUBLIC_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_DSA_PUBLIC_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.BCRYPT_DSA_PUBLIC_BLOB;
     }
@@ -2033,7 +2033,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_DSA_PRIVATE_BLOB() {
         class Holder {
             static final MemorySegment BCRYPT_DSA_PRIVATE_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.BCRYPT_DSA_PRIVATE_BLOB;
     }
@@ -2045,7 +2045,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment LEGACY_DSA_PUBLIC_BLOB() {
         class Holder {
             static final MemorySegment LEGACY_DSA_PUBLIC_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.LEGACY_DSA_PUBLIC_BLOB;
     }
@@ -2057,7 +2057,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment LEGACY_DSA_PRIVATE_BLOB() {
         class Holder {
             static final MemorySegment LEGACY_DSA_PRIVATE_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.LEGACY_DSA_PRIVATE_BLOB;
     }
@@ -2069,7 +2069,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment LEGACY_DSA_V2_PUBLIC_BLOB() {
         class Holder {
             static final MemorySegment LEGACY_DSA_V2_PUBLIC_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("V");
+                = LIBRARY_ARENA.allocateFrom("V");
         }
         return Holder.LEGACY_DSA_V2_PUBLIC_BLOB;
     }
@@ -2081,7 +2081,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment LEGACY_DSA_V2_PRIVATE_BLOB() {
         class Holder {
             static final MemorySegment LEGACY_DSA_V2_PRIVATE_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("V");
+                = LIBRARY_ARENA.allocateFrom("V");
         }
         return Holder.LEGACY_DSA_V2_PRIVATE_BLOB;
     }
@@ -2093,7 +2093,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_DSA_PARAMETERS() {
         class Holder {
             static final MemorySegment BCRYPT_DSA_PARAMETERS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.BCRYPT_DSA_PARAMETERS;
     }
@@ -2105,7 +2105,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_PARAMETERS() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_PARAMETERS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECC_PARAMETERS;
     }
@@ -2117,7 +2117,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_NAME() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECC_CURVE_NAME;
     }
@@ -2129,7 +2129,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_NAME_LIST() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_NAME_LIST
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECC_CURVE_NAME_LIST;
     }
@@ -2141,7 +2141,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP160R1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP160R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP160R1;
     }
@@ -2153,7 +2153,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP160T1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP160T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP160T1;
     }
@@ -2165,7 +2165,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP192R1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP192R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP192R1;
     }
@@ -2177,7 +2177,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP192T1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP192T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP192T1;
     }
@@ -2189,7 +2189,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP224R1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP224R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP224R1;
     }
@@ -2201,7 +2201,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP224T1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP224T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP224T1;
     }
@@ -2213,7 +2213,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP256R1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP256R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP256R1;
     }
@@ -2225,7 +2225,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP256T1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP256T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP256T1;
     }
@@ -2237,7 +2237,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP320R1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP320R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP320R1;
     }
@@ -2249,7 +2249,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP320T1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP320T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP320T1;
     }
@@ -2261,7 +2261,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP384R1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP384R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP384R1;
     }
@@ -2273,7 +2273,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP384T1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP384T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP384T1;
     }
@@ -2285,7 +2285,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP512R1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP512R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP512R1;
     }
@@ -2297,7 +2297,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP512T1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP512T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+                = LIBRARY_ARENA.allocateFrom("b");
         }
         return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP512T1;
     }
@@ -2309,7 +2309,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_25519() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_25519
-                = Windows_h.LIBRARY_ARENA.allocateFrom("c");
+                = LIBRARY_ARENA.allocateFrom("c");
         }
         return Holder.BCRYPT_ECC_CURVE_25519;
     }
@@ -2321,7 +2321,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_EC192WAPI() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_EC192WAPI
-                = Windows_h.LIBRARY_ARENA.allocateFrom("e");
+                = LIBRARY_ARENA.allocateFrom("e");
         }
         return Holder.BCRYPT_ECC_CURVE_EC192WAPI;
     }
@@ -2333,7 +2333,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_NISTP192() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_NISTP192
-                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+                = LIBRARY_ARENA.allocateFrom("n");
         }
         return Holder.BCRYPT_ECC_CURVE_NISTP192;
     }
@@ -2345,7 +2345,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_NISTP224() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_NISTP224
-                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+                = LIBRARY_ARENA.allocateFrom("n");
         }
         return Holder.BCRYPT_ECC_CURVE_NISTP224;
     }
@@ -2357,7 +2357,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_NISTP256() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_NISTP256
-                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+                = LIBRARY_ARENA.allocateFrom("n");
         }
         return Holder.BCRYPT_ECC_CURVE_NISTP256;
     }
@@ -2369,7 +2369,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_NISTP384() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_NISTP384
-                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+                = LIBRARY_ARENA.allocateFrom("n");
         }
         return Holder.BCRYPT_ECC_CURVE_NISTP384;
     }
@@ -2381,7 +2381,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_NISTP521() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_NISTP521
-                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+                = LIBRARY_ARENA.allocateFrom("n");
         }
         return Holder.BCRYPT_ECC_CURVE_NISTP521;
     }
@@ -2393,7 +2393,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_NUMSP256T1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_NUMSP256T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+                = LIBRARY_ARENA.allocateFrom("n");
         }
         return Holder.BCRYPT_ECC_CURVE_NUMSP256T1;
     }
@@ -2405,7 +2405,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_NUMSP384T1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_NUMSP384T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+                = LIBRARY_ARENA.allocateFrom("n");
         }
         return Holder.BCRYPT_ECC_CURVE_NUMSP384T1;
     }
@@ -2417,7 +2417,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_NUMSP512T1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_NUMSP512T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+                = LIBRARY_ARENA.allocateFrom("n");
         }
         return Holder.BCRYPT_ECC_CURVE_NUMSP512T1;
     }
@@ -2429,7 +2429,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_SECP160K1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_SECP160K1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+                = LIBRARY_ARENA.allocateFrom("s");
         }
         return Holder.BCRYPT_ECC_CURVE_SECP160K1;
     }
@@ -2441,7 +2441,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_SECP160R1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_SECP160R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+                = LIBRARY_ARENA.allocateFrom("s");
         }
         return Holder.BCRYPT_ECC_CURVE_SECP160R1;
     }
@@ -2453,7 +2453,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_SECP160R2() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_SECP160R2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+                = LIBRARY_ARENA.allocateFrom("s");
         }
         return Holder.BCRYPT_ECC_CURVE_SECP160R2;
     }
@@ -2465,7 +2465,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_SECP192K1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_SECP192K1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+                = LIBRARY_ARENA.allocateFrom("s");
         }
         return Holder.BCRYPT_ECC_CURVE_SECP192K1;
     }
@@ -2477,7 +2477,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_SECP192R1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_SECP192R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+                = LIBRARY_ARENA.allocateFrom("s");
         }
         return Holder.BCRYPT_ECC_CURVE_SECP192R1;
     }
@@ -2489,7 +2489,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_SECP224K1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_SECP224K1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+                = LIBRARY_ARENA.allocateFrom("s");
         }
         return Holder.BCRYPT_ECC_CURVE_SECP224K1;
     }
@@ -2501,7 +2501,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_SECP224R1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_SECP224R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+                = LIBRARY_ARENA.allocateFrom("s");
         }
         return Holder.BCRYPT_ECC_CURVE_SECP224R1;
     }
@@ -2513,7 +2513,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_SECP256K1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_SECP256K1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+                = LIBRARY_ARENA.allocateFrom("s");
         }
         return Holder.BCRYPT_ECC_CURVE_SECP256K1;
     }
@@ -2525,7 +2525,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_SECP256R1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_SECP256R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+                = LIBRARY_ARENA.allocateFrom("s");
         }
         return Holder.BCRYPT_ECC_CURVE_SECP256R1;
     }
@@ -2537,7 +2537,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_SECP384R1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_SECP384R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+                = LIBRARY_ARENA.allocateFrom("s");
         }
         return Holder.BCRYPT_ECC_CURVE_SECP384R1;
     }
@@ -2549,7 +2549,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_SECP521R1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_SECP521R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+                = LIBRARY_ARENA.allocateFrom("s");
         }
         return Holder.BCRYPT_ECC_CURVE_SECP521R1;
     }
@@ -2561,7 +2561,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_WTLS7() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_WTLS7
-                = Windows_h.LIBRARY_ARENA.allocateFrom("w");
+                = LIBRARY_ARENA.allocateFrom("w");
         }
         return Holder.BCRYPT_ECC_CURVE_WTLS7;
     }
@@ -2573,7 +2573,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_WTLS9() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_WTLS9
-                = Windows_h.LIBRARY_ARENA.allocateFrom("w");
+                = LIBRARY_ARENA.allocateFrom("w");
         }
         return Holder.BCRYPT_ECC_CURVE_WTLS9;
     }
@@ -2585,7 +2585,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_WTLS12() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_WTLS12
-                = Windows_h.LIBRARY_ARENA.allocateFrom("w");
+                = LIBRARY_ARENA.allocateFrom("w");
         }
         return Holder.BCRYPT_ECC_CURVE_WTLS12;
     }
@@ -2597,7 +2597,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_X962P192V1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_X962P192V1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+                = LIBRARY_ARENA.allocateFrom("x");
         }
         return Holder.BCRYPT_ECC_CURVE_X962P192V1;
     }
@@ -2609,7 +2609,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_X962P192V2() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_X962P192V2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+                = LIBRARY_ARENA.allocateFrom("x");
         }
         return Holder.BCRYPT_ECC_CURVE_X962P192V2;
     }
@@ -2621,7 +2621,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_X962P192V3() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_X962P192V3
-                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+                = LIBRARY_ARENA.allocateFrom("x");
         }
         return Holder.BCRYPT_ECC_CURVE_X962P192V3;
     }
@@ -2633,7 +2633,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_X962P239V1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_X962P239V1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+                = LIBRARY_ARENA.allocateFrom("x");
         }
         return Holder.BCRYPT_ECC_CURVE_X962P239V1;
     }
@@ -2645,7 +2645,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_X962P239V2() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_X962P239V2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+                = LIBRARY_ARENA.allocateFrom("x");
         }
         return Holder.BCRYPT_ECC_CURVE_X962P239V2;
     }
@@ -2657,7 +2657,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_X962P239V3() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_X962P239V3
-                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+                = LIBRARY_ARENA.allocateFrom("x");
         }
         return Holder.BCRYPT_ECC_CURVE_X962P239V3;
     }
@@ -2669,7 +2669,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECC_CURVE_X962P256V1() {
         class Holder {
             static final MemorySegment BCRYPT_ECC_CURVE_X962P256V1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+                = LIBRARY_ARENA.allocateFrom("x");
         }
         return Holder.BCRYPT_ECC_CURVE_X962P256V1;
     }
@@ -2681,7 +2681,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_PRIMITIVE_PROVIDER() {
         class Holder {
             static final MemorySegment MS_PRIMITIVE_PROVIDER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_PRIMITIVE_PROVIDER;
     }
@@ -2693,187 +2693,187 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_PLATFORM_CRYPTO_PROVIDER() {
         class Holder {
             static final MemorySegment MS_PLATFORM_CRYPTO_PROVIDER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_PLATFORM_CRYPTO_PROVIDER;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_RSA_ALGORITHM "R"
+     * #define BCRYPT_RSA_ALGORITHM L"RSA"
      * }
      */
     public static MemorySegment BCRYPT_RSA_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_RSA_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("RSA", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_RSA_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_RSA_SIGN_ALGORITHM "R"
+     * #define BCRYPT_RSA_SIGN_ALGORITHM L"RSA_SIGN"
      * }
      */
     public static MemorySegment BCRYPT_RSA_SIGN_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_RSA_SIGN_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("RSA_SIGN", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_RSA_SIGN_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_DH_ALGORITHM "D"
+     * #define BCRYPT_DH_ALGORITHM "DH"
      * }
      */
     public static MemorySegment BCRYPT_DH_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_DH_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("DH", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_DH_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_DSA_ALGORITHM "D"
+     * #define BCRYPT_DSA_ALGORITHM L"DSA"
      * }
      */
     public static MemorySegment BCRYPT_DSA_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_DSA_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("DSA", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_DSA_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_RC2_ALGORITHM "R"
+     * #define BCRYPT_RC2_ALGORITHM L"RC2"
      * }
      */
     public static MemorySegment BCRYPT_RC2_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_RC2_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("RC2", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_RC2_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_RC4_ALGORITHM "R"
+     * #define BCRYPT_RC4_ALGORITHM L"RC4"
      * }
      */
     public static MemorySegment BCRYPT_RC4_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_RC4_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("RC4", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_RC4_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_AES_ALGORITHM "A"
+     * #define BCRYPT_AES_ALGORITHM L"AES"
      * }
      */
     public static MemorySegment BCRYPT_AES_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_AES_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+                = LIBRARY_ARENA.allocateFrom("AES", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_AES_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_DES_ALGORITHM "D"
+     * #define BCRYPT_DES_ALGORITHM L"DES"
      * }
      */
     public static MemorySegment BCRYPT_DES_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_DES_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("DES", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_DES_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_DESX_ALGORITHM "D"
+     * #define BCRYPT_DESX_ALGORITHM L"DESX"
      * }
      */
     public static MemorySegment BCRYPT_DESX_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_DESX_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("DESX", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_DESX_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_3DES_ALGORITHM "3"
+     * #define BCRYPT_3DES_ALGORITHM L"3DES"
      * }
      */
     public static MemorySegment BCRYPT_3DES_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_3DES_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("3");
+                = LIBRARY_ARENA.allocateFrom("3DES", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_3DES_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_3DES_112_ALGORITHM "3"
+     * #define BCRYPT_3DES_112_ALGORITHM L"3DES_112"
      * }
      */
     public static MemorySegment BCRYPT_3DES_112_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_3DES_112_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("3");
+                = LIBRARY_ARENA.allocateFrom("3DES_112", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_3DES_112_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_MD2_ALGORITHM "M"
+     * #define BCRYPT_MD2_ALGORITHM L"MD2"
      * }
      */
     public static MemorySegment BCRYPT_MD2_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_MD2_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("MD2", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_MD2_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_MD4_ALGORITHM "M"
+     * #define BCRYPT_MD4_ALGORITHM L"MD4"
      * }
      */
     public static MemorySegment BCRYPT_MD4_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_MD4_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("MD4", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_MD4_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_MD5_ALGORITHM "M"
+     * #define BCRYPT_MD5_ALGORITHM L"MD5"
      * }
      */
     public static MemorySegment BCRYPT_MD5_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_MD5_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("MD5", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_MD5_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_SHA1_ALGORITHM "S"
+     * #define BCRYPT_SHA1_ALGORITHM L"SHA1"
      * }
      */
     public static MemorySegment BCRYPT_SHA1_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_SHA1_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("SHA1", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_SHA1_ALGORITHM;
     }
@@ -2885,7 +2885,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_SHA256_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_SHA256_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SHA256", StandardCharsets.UTF_16LE);
+                = LIBRARY_ARENA.allocateFrom("SHA256", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_SHA256_ALGORITHM;
     }
@@ -2897,7 +2897,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_SHA384_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_SHA384_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SHA384", StandardCharsets.UTF_16LE);
+                = LIBRARY_ARENA.allocateFrom("SHA384", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_SHA384_ALGORITHM;
     }
@@ -2909,31 +2909,31 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_SHA512_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_SHA512_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SHA512", StandardCharsets.UTF_16LE);
+                = LIBRARY_ARENA.allocateFrom("SHA512", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_SHA512_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_AES_GMAC_ALGORITHM "A"
+     * #define BCRYPT_AES_GMAC_ALGORITHM L"AES-GMAC"
      * }
      */
     public static MemorySegment BCRYPT_AES_GMAC_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_AES_GMAC_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+                = LIBRARY_ARENA.allocateFrom("AES-GMAC", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_AES_GMAC_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_AES_CMAC_ALGORITHM "A"
+     * #define BCRYPT_AES_CMAC_ALGORITHM "AES-CMAC"
      * }
      */
     public static MemorySegment BCRYPT_AES_CMAC_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_AES_CMAC_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+                = LIBRARY_ARENA.allocateFrom("AES-CMAC", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_AES_CMAC_ALGORITHM;
     }
@@ -2945,7 +2945,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECDSA_P256_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_ECDSA_P256_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECDSA_P256_ALGORITHM;
     }
@@ -2957,7 +2957,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECDSA_P384_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_ECDSA_P384_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECDSA_P384_ALGORITHM;
     }
@@ -2969,7 +2969,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECDSA_P521_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_ECDSA_P521_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECDSA_P521_ALGORITHM;
     }
@@ -2981,7 +2981,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECDH_P256_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_ECDH_P256_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECDH_P256_ALGORITHM;
     }
@@ -2993,7 +2993,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECDH_P384_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_ECDH_P384_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECDH_P384_ALGORITHM;
     }
@@ -3005,7 +3005,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECDH_P521_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_ECDH_P521_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECDH_P521_ALGORITHM;
     }
@@ -3017,7 +3017,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_RNG_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_RNG_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("R");
         }
         return Holder.BCRYPT_RNG_ALGORITHM;
     }
@@ -3029,7 +3029,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_RNG_FIPS186_DSA_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_RNG_FIPS186_DSA_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("F");
+                = LIBRARY_ARENA.allocateFrom("F");
         }
         return Holder.BCRYPT_RNG_FIPS186_DSA_ALGORITHM;
     }
@@ -3041,7 +3041,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_RNG_DUAL_EC_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_RNG_DUAL_EC_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.BCRYPT_RNG_DUAL_EC_ALGORITHM;
     }
@@ -3053,7 +3053,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_SP800108_CTR_HMAC_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_SP800108_CTR_HMAC_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.BCRYPT_SP800108_CTR_HMAC_ALGORITHM;
     }
@@ -3065,7 +3065,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_SP80056A_CONCAT_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_SP80056A_CONCAT_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.BCRYPT_SP80056A_CONCAT_ALGORITHM;
     }
@@ -3077,7 +3077,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_PBKDF2_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_PBKDF2_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.BCRYPT_PBKDF2_ALGORITHM;
     }
@@ -3089,7 +3089,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_CAPI_KDF_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_CAPI_KDF_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.BCRYPT_CAPI_KDF_ALGORITHM;
     }
@@ -3101,7 +3101,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_TLS1_1_KDF_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_TLS1_1_KDF_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("T");
+                = LIBRARY_ARENA.allocateFrom("T");
         }
         return Holder.BCRYPT_TLS1_1_KDF_ALGORITHM;
     }
@@ -3113,7 +3113,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_TLS1_2_KDF_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_TLS1_2_KDF_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("T");
+                = LIBRARY_ARENA.allocateFrom("T");
         }
         return Holder.BCRYPT_TLS1_2_KDF_ALGORITHM;
     }
@@ -3125,7 +3125,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECDSA_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_ECDSA_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECDSA_ALGORITHM;
     }
@@ -3137,7 +3137,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_ECDH_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_ECDH_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.BCRYPT_ECDH_ALGORITHM;
     }
@@ -3149,7 +3149,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_XTS_AES_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_XTS_AES_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("X");
+                = LIBRARY_ARENA.allocateFrom("X");
         }
         return Holder.BCRYPT_XTS_AES_ALGORITHM;
     }
@@ -3161,7 +3161,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_HKDF_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_HKDF_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+                = LIBRARY_ARENA.allocateFrom("H");
         }
         return Holder.BCRYPT_HKDF_ALGORITHM;
     }
@@ -3173,7 +3173,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment BCRYPT_CHACHA20_POLY1305_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_CHACHA20_POLY1305_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.BCRYPT_CHACHA20_POLY1305_ALGORITHM;
     }
@@ -3851,7 +3851,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment CRYPT_DEFAULT_CONTEXT() {
         class Holder {
             static final MemorySegment CRYPT_DEFAULT_CONTEXT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.CRYPT_DEFAULT_CONTEXT;
     }
@@ -3863,7 +3863,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_KEY_STORAGE_PROVIDER() {
         class Holder {
             static final MemorySegment MS_KEY_STORAGE_PROVIDER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_KEY_STORAGE_PROVIDER;
     }
@@ -3875,7 +3875,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_SMART_CARD_KEY_STORAGE_PROVIDER() {
         class Holder {
             static final MemorySegment MS_SMART_CARD_KEY_STORAGE_PROVIDER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_SMART_CARD_KEY_STORAGE_PROVIDER;
     }
@@ -3887,7 +3887,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_PLATFORM_KEY_STORAGE_PROVIDER() {
         class Holder {
             static final MemorySegment MS_PLATFORM_KEY_STORAGE_PROVIDER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_PLATFORM_KEY_STORAGE_PROVIDER;
     }
@@ -3899,7 +3899,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment MS_NGC_KEY_STORAGE_PROVIDER() {
         class Holder {
             static final MemorySegment MS_NGC_KEY_STORAGE_PROVIDER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.MS_NGC_KEY_STORAGE_PROVIDER;
     }
@@ -3911,7 +3911,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment TPM_RSA_SRK_SEAL_KEY() {
         class Holder {
             static final MemorySegment TPM_RSA_SRK_SEAL_KEY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.TPM_RSA_SRK_SEAL_KEY;
     }
@@ -3923,7 +3923,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_RSA_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_RSA_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("R");
         }
         return Holder.NCRYPT_RSA_ALGORITHM;
     }
@@ -3935,7 +3935,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_RSA_SIGN_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_RSA_SIGN_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("R");
         }
         return Holder.NCRYPT_RSA_SIGN_ALGORITHM;
     }
@@ -3947,7 +3947,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_DH_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_DH_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.NCRYPT_DH_ALGORITHM;
     }
@@ -3959,7 +3959,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_DSA_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_DSA_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.NCRYPT_DSA_ALGORITHM;
     }
@@ -3971,7 +3971,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_MD2_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_MD2_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.NCRYPT_MD2_ALGORITHM;
     }
@@ -3983,7 +3983,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_MD4_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_MD4_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.NCRYPT_MD4_ALGORITHM;
     }
@@ -3995,7 +3995,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_MD5_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_MD5_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.NCRYPT_MD5_ALGORITHM;
     }
@@ -4007,7 +4007,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SHA1_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_SHA1_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_SHA1_ALGORITHM;
     }
@@ -4019,7 +4019,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SHA256_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_SHA256_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SHA256", StandardCharsets.UTF_16LE);
+                = LIBRARY_ARENA.allocateFrom("SHA256", StandardCharsets.UTF_16LE);
         }
         return Holder.NCRYPT_SHA256_ALGORITHM;
     }
@@ -4031,7 +4031,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SHA384_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_SHA384_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_SHA384_ALGORITHM;
     }
@@ -4043,7 +4043,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SHA512_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_SHA512_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_SHA512_ALGORITHM;
     }
@@ -4055,7 +4055,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ECDSA_P256_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_ECDSA_P256_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_ECDSA_P256_ALGORITHM;
     }
@@ -4067,7 +4067,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ECDSA_P384_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_ECDSA_P384_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_ECDSA_P384_ALGORITHM;
     }
@@ -4079,7 +4079,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ECDSA_P521_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_ECDSA_P521_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_ECDSA_P521_ALGORITHM;
     }
@@ -4091,7 +4091,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ECDH_P256_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_ECDH_P256_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_ECDH_P256_ALGORITHM;
     }
@@ -4103,7 +4103,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ECDH_P384_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_ECDH_P384_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_ECDH_P384_ALGORITHM;
     }
@@ -4115,7 +4115,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ECDH_P521_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_ECDH_P521_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_ECDH_P521_ALGORITHM;
     }
@@ -4127,7 +4127,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_AES_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_AES_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+                = LIBRARY_ARENA.allocateFrom("A");
         }
         return Holder.NCRYPT_AES_ALGORITHM;
     }
@@ -4139,7 +4139,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_RC2_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_RC2_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("R");
         }
         return Holder.NCRYPT_RC2_ALGORITHM;
     }
@@ -4151,7 +4151,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_3DES_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_3DES_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("3");
+                = LIBRARY_ARENA.allocateFrom("3");
         }
         return Holder.NCRYPT_3DES_ALGORITHM;
     }
@@ -4163,7 +4163,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_DES_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_DES_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.NCRYPT_DES_ALGORITHM;
     }
@@ -4175,7 +4175,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_DESX_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_DESX_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.NCRYPT_DESX_ALGORITHM;
     }
@@ -4187,7 +4187,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_3DES_112_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_3DES_112_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("3");
+                = LIBRARY_ARENA.allocateFrom("3");
         }
         return Holder.NCRYPT_3DES_112_ALGORITHM;
     }
@@ -4199,7 +4199,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SP800108_CTR_HMAC_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_SP800108_CTR_HMAC_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_SP800108_CTR_HMAC_ALGORITHM;
     }
@@ -4211,7 +4211,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SP80056A_CONCAT_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_SP80056A_CONCAT_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_SP80056A_CONCAT_ALGORITHM;
     }
@@ -4223,7 +4223,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PBKDF2_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_PBKDF2_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PBKDF2_ALGORITHM;
     }
@@ -4235,7 +4235,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_CAPI_KDF_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_CAPI_KDF_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.NCRYPT_CAPI_KDF_ALGORITHM;
     }
@@ -4247,7 +4247,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ECDSA_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_ECDSA_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_ECDSA_ALGORITHM;
     }
@@ -4259,7 +4259,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ECDH_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_ECDH_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_ECDH_ALGORITHM;
     }
@@ -4271,7 +4271,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_KEY_STORAGE_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_KEY_STORAGE_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+                = LIBRARY_ARENA.allocateFrom("K");
         }
         return Holder.NCRYPT_KEY_STORAGE_ALGORITHM;
     }
@@ -4283,7 +4283,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_HMAC_SHA256_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_HMAC_SHA256_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+                = LIBRARY_ARENA.allocateFrom("H");
         }
         return Holder.NCRYPT_HMAC_SHA256_ALGORITHM;
     }
@@ -4349,7 +4349,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_RSA_ALGORITHM_GROUP() {
         class Holder {
             static final MemorySegment NCRYPT_RSA_ALGORITHM_GROUP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("R");
         }
         return Holder.NCRYPT_RSA_ALGORITHM_GROUP;
     }
@@ -4361,7 +4361,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_DH_ALGORITHM_GROUP() {
         class Holder {
             static final MemorySegment NCRYPT_DH_ALGORITHM_GROUP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.NCRYPT_DH_ALGORITHM_GROUP;
     }
@@ -4373,7 +4373,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_DSA_ALGORITHM_GROUP() {
         class Holder {
             static final MemorySegment NCRYPT_DSA_ALGORITHM_GROUP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.NCRYPT_DSA_ALGORITHM_GROUP;
     }
@@ -4385,7 +4385,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ECDSA_ALGORITHM_GROUP() {
         class Holder {
             static final MemorySegment NCRYPT_ECDSA_ALGORITHM_GROUP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_ECDSA_ALGORITHM_GROUP;
     }
@@ -4397,7 +4397,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ECDH_ALGORITHM_GROUP() {
         class Holder {
             static final MemorySegment NCRYPT_ECDH_ALGORITHM_GROUP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_ECDH_ALGORITHM_GROUP;
     }
@@ -4409,7 +4409,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_AES_ALGORITHM_GROUP() {
         class Holder {
             static final MemorySegment NCRYPT_AES_ALGORITHM_GROUP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+                = LIBRARY_ARENA.allocateFrom("A");
         }
         return Holder.NCRYPT_AES_ALGORITHM_GROUP;
     }
@@ -4421,7 +4421,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_RC2_ALGORITHM_GROUP() {
         class Holder {
             static final MemorySegment NCRYPT_RC2_ALGORITHM_GROUP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+                = LIBRARY_ARENA.allocateFrom("R");
         }
         return Holder.NCRYPT_RC2_ALGORITHM_GROUP;
     }
@@ -4433,7 +4433,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_DES_ALGORITHM_GROUP() {
         class Holder {
             static final MemorySegment NCRYPT_DES_ALGORITHM_GROUP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.NCRYPT_DES_ALGORITHM_GROUP;
     }
@@ -4445,7 +4445,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_KEY_DERIVATION_GROUP() {
         class Holder {
             static final MemorySegment NCRYPT_KEY_DERIVATION_GROUP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+                = LIBRARY_ARENA.allocateFrom("K");
         }
         return Holder.NCRYPT_KEY_DERIVATION_GROUP;
     }
@@ -4583,7 +4583,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_NAME_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_NAME_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("N");
+                = LIBRARY_ARENA.allocateFrom("N");
         }
         return Holder.NCRYPT_NAME_PROPERTY;
     }
@@ -4595,7 +4595,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_UNIQUE_NAME_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_UNIQUE_NAME_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("U");
+                = LIBRARY_ARENA.allocateFrom("U");
         }
         return Holder.NCRYPT_UNIQUE_NAME_PROPERTY;
     }
@@ -4607,7 +4607,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ALGORITHM_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_ALGORITHM_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+                = LIBRARY_ARENA.allocateFrom("A");
         }
         return Holder.NCRYPT_ALGORITHM_PROPERTY;
     }
@@ -4619,7 +4619,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_LENGTH_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_LENGTH_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("L");
+                = LIBRARY_ARENA.allocateFrom("L");
         }
         return Holder.NCRYPT_LENGTH_PROPERTY;
     }
@@ -4631,7 +4631,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_LENGTHS_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_LENGTHS_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("L");
+                = LIBRARY_ARENA.allocateFrom("L");
         }
         return Holder.NCRYPT_LENGTHS_PROPERTY;
     }
@@ -4643,7 +4643,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_BLOCK_LENGTH_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_BLOCK_LENGTH_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("B");
+                = LIBRARY_ARENA.allocateFrom("B");
         }
         return Holder.NCRYPT_BLOCK_LENGTH_PROPERTY;
     }
@@ -4655,7 +4655,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PUBLIC_LENGTH_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PUBLIC_LENGTH_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PUBLIC_LENGTH_PROPERTY;
     }
@@ -4667,7 +4667,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SIGNATURE_LENGTH_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_SIGNATURE_LENGTH_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_SIGNATURE_LENGTH_PROPERTY;
     }
@@ -4679,7 +4679,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_CHAINING_MODE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_CHAINING_MODE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.NCRYPT_CHAINING_MODE_PROPERTY;
     }
@@ -4691,7 +4691,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_AUTH_TAG_LENGTH() {
         class Holder {
             static final MemorySegment NCRYPT_AUTH_TAG_LENGTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+                = LIBRARY_ARENA.allocateFrom("A");
         }
         return Holder.NCRYPT_AUTH_TAG_LENGTH;
     }
@@ -4703,7 +4703,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_UI_POLICY_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_UI_POLICY_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("U");
+                = LIBRARY_ARENA.allocateFrom("U");
         }
         return Holder.NCRYPT_UI_POLICY_PROPERTY;
     }
@@ -4715,7 +4715,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_EXPORT_POLICY_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_EXPORT_POLICY_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_EXPORT_POLICY_PROPERTY;
     }
@@ -4727,7 +4727,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_WINDOW_HANDLE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_WINDOW_HANDLE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+                = LIBRARY_ARENA.allocateFrom("H");
         }
         return Holder.NCRYPT_WINDOW_HANDLE_PROPERTY;
     }
@@ -4739,7 +4739,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_USE_CONTEXT_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_USE_CONTEXT_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("U");
+                = LIBRARY_ARENA.allocateFrom("U");
         }
         return Holder.NCRYPT_USE_CONTEXT_PROPERTY;
     }
@@ -4751,7 +4751,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_IMPL_TYPE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_IMPL_TYPE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+                = LIBRARY_ARENA.allocateFrom("I");
         }
         return Holder.NCRYPT_IMPL_TYPE_PROPERTY;
     }
@@ -4763,7 +4763,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_KEY_USAGE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_KEY_USAGE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+                = LIBRARY_ARENA.allocateFrom("K");
         }
         return Holder.NCRYPT_KEY_USAGE_PROPERTY;
     }
@@ -4775,7 +4775,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_KEY_TYPE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_KEY_TYPE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+                = LIBRARY_ARENA.allocateFrom("K");
         }
         return Holder.NCRYPT_KEY_TYPE_PROPERTY;
     }
@@ -4787,7 +4787,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_VERSION_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_VERSION_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("V");
+                = LIBRARY_ARENA.allocateFrom("V");
         }
         return Holder.NCRYPT_VERSION_PROPERTY;
     }
@@ -4799,7 +4799,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SECURITY_DESCR_SUPPORT_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_SECURITY_DESCR_SUPPORT_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_SECURITY_DESCR_SUPPORT_PROPERTY;
     }
@@ -4811,7 +4811,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SECURITY_DESCR_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_SECURITY_DESCR_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_SECURITY_DESCR_PROPERTY;
     }
@@ -4823,7 +4823,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_USE_COUNT_ENABLED_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_USE_COUNT_ENABLED_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_USE_COUNT_ENABLED_PROPERTY;
     }
@@ -4835,7 +4835,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_USE_COUNT_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_USE_COUNT_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("U");
+                = LIBRARY_ARENA.allocateFrom("U");
         }
         return Holder.NCRYPT_USE_COUNT_PROPERTY;
     }
@@ -4847,7 +4847,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_LAST_MODIFIED_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_LAST_MODIFIED_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.NCRYPT_LAST_MODIFIED_PROPERTY;
     }
@@ -4859,7 +4859,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_MAX_NAME_LENGTH_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_MAX_NAME_LENGTH_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.NCRYPT_MAX_NAME_LENGTH_PROPERTY;
     }
@@ -4871,7 +4871,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ALGORITHM_GROUP_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_ALGORITHM_GROUP_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+                = LIBRARY_ARENA.allocateFrom("A");
         }
         return Holder.NCRYPT_ALGORITHM_GROUP_PROPERTY;
     }
@@ -4883,7 +4883,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_DH_PARAMETERS_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_DH_PARAMETERS_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+                = LIBRARY_ARENA.allocateFrom("D");
         }
         return Holder.NCRYPT_DH_PARAMETERS_PROPERTY;
     }
@@ -4895,7 +4895,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ECC_PARAMETERS_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_ECC_PARAMETERS_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_ECC_PARAMETERS_PROPERTY;
     }
@@ -4907,7 +4907,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ECC_CURVE_NAME_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_ECC_CURVE_NAME_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_ECC_CURVE_NAME_PROPERTY;
     }
@@ -4919,7 +4919,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ECC_CURVE_NAME_LIST_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_ECC_CURVE_NAME_LIST_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+                = LIBRARY_ARENA.allocateFrom("E");
         }
         return Holder.NCRYPT_ECC_CURVE_NAME_LIST_PROPERTY;
     }
@@ -4931,7 +4931,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_USE_VIRTUAL_ISOLATION_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_USE_VIRTUAL_ISOLATION_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("V");
+                = LIBRARY_ARENA.allocateFrom("V");
         }
         return Holder.NCRYPT_USE_VIRTUAL_ISOLATION_PROPERTY;
     }
@@ -4943,7 +4943,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_USE_PER_BOOT_KEY_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_USE_PER_BOOT_KEY_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_USE_PER_BOOT_KEY_PROPERTY;
     }
@@ -4955,7 +4955,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PROVIDER_HANDLE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PROVIDER_HANDLE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PROVIDER_HANDLE_PROPERTY;
     }
@@ -4967,7 +4967,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PIN_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PIN_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_PIN_PROPERTY;
     }
@@ -4979,7 +4979,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_READER_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_READER_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_READER_PROPERTY;
     }
@@ -4991,7 +4991,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SMARTCARD_GUID_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_SMARTCARD_GUID_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_SMARTCARD_GUID_PROPERTY;
     }
@@ -5003,7 +5003,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_CERTIFICATE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_CERTIFICATE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_CERTIFICATE_PROPERTY;
     }
@@ -5015,7 +5015,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PIN_PROMPT_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PIN_PROMPT_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_PIN_PROMPT_PROPERTY;
     }
@@ -5027,7 +5027,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_USER_CERTSTORE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_USER_CERTSTORE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_USER_CERTSTORE_PROPERTY;
     }
@@ -5039,7 +5039,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ROOT_CERTSTORE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_ROOT_CERTSTORE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_ROOT_CERTSTORE_PROPERTY;
     }
@@ -5051,7 +5051,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SECURE_PIN_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_SECURE_PIN_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_SECURE_PIN_PROPERTY;
     }
@@ -5063,7 +5063,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ASSOCIATED_ECDH_KEY() {
         class Holder {
             static final MemorySegment NCRYPT_ASSOCIATED_ECDH_KEY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_ASSOCIATED_ECDH_KEY;
     }
@@ -5075,7 +5075,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SCARD_PIN_ID() {
         class Holder {
             static final MemorySegment NCRYPT_SCARD_PIN_ID
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_SCARD_PIN_ID;
     }
@@ -5087,7 +5087,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SCARD_PIN_INFO() {
         class Holder {
             static final MemorySegment NCRYPT_SCARD_PIN_INFO
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_SCARD_PIN_INFO;
     }
@@ -5099,7 +5099,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_READER_ICON_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_READER_ICON_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_READER_ICON_PROPERTY;
     }
@@ -5111,7 +5111,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_KDF_SECRET_VALUE() {
         class Holder {
             static final MemorySegment NCRYPT_KDF_SECRET_VALUE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+                = LIBRARY_ARENA.allocateFrom("K");
         }
         return Holder.NCRYPT_KDF_SECRET_VALUE;
     }
@@ -5123,7 +5123,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_DISMISS_UI_TIMEOUT_SEC_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_DISMISS_UI_TIMEOUT_SEC_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_DISMISS_UI_TIMEOUT_SEC_PROPERTY;
     }
@@ -5135,7 +5135,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_PLATFORM_TYPE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_PLATFORM_TYPE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_PLATFORM_TYPE_PROPERTY;
     }
@@ -5147,7 +5147,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_PROVIDER_VERSION_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_PROVIDER_VERSION_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_PROVIDER_VERSION_PROPERTY;
     }
@@ -5159,7 +5159,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_EKPUB_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_EKPUB_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_EKPUB_PROPERTY;
     }
@@ -5171,7 +5171,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_EKCERT_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_EKCERT_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_EKCERT_PROPERTY;
     }
@@ -5183,7 +5183,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_EKNVCERT_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_EKNVCERT_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_EKNVCERT_PROPERTY;
     }
@@ -5195,7 +5195,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_RSA_EKPUB_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_RSA_EKPUB_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_RSA_EKPUB_PROPERTY;
     }
@@ -5207,7 +5207,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_RSA_EKCERT_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_RSA_EKCERT_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_RSA_EKCERT_PROPERTY;
     }
@@ -5219,7 +5219,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_RSA_EKNVCERT_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_RSA_EKNVCERT_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_RSA_EKNVCERT_PROPERTY;
     }
@@ -5231,7 +5231,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_ECC_EKPUB_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_ECC_EKPUB_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_ECC_EKPUB_PROPERTY;
     }
@@ -5243,7 +5243,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_ECC_EKCERT_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_ECC_EKCERT_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_ECC_EKCERT_PROPERTY;
     }
@@ -5255,7 +5255,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_ECC_EKNVCERT_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_ECC_EKNVCERT_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_ECC_EKNVCERT_PROPERTY;
     }
@@ -5267,7 +5267,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_SRKPUB_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_SRKPUB_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_SRKPUB_PROPERTY;
     }
@@ -5279,7 +5279,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_PCRTABLE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_PCRTABLE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_PCRTABLE_PROPERTY;
     }
@@ -5291,7 +5291,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_CHANGEPASSWORD_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_CHANGEPASSWORD_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_CHANGEPASSWORD_PROPERTY;
     }
@@ -5303,7 +5303,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_PASSWORD_REQUIRED_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_PASSWORD_REQUIRED_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_PASSWORD_REQUIRED_PROPERTY;
     }
@@ -5315,7 +5315,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_USAGEAUTH_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_USAGEAUTH_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_USAGEAUTH_PROPERTY;
     }
@@ -5327,7 +5327,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_MIGRATIONPASSWORD_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_MIGRATIONPASSWORD_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_MIGRATIONPASSWORD_PROPERTY;
     }
@@ -5339,7 +5339,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_EXPORT_ALLOWED_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_EXPORT_ALLOWED_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_EXPORT_ALLOWED_PROPERTY;
     }
@@ -5351,7 +5351,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_STORAGEPARENT_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_STORAGEPARENT_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_STORAGEPARENT_PROPERTY;
     }
@@ -5363,7 +5363,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_PROVIDERHANDLE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_PROVIDERHANDLE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_PROVIDERHANDLE_PROPERTY;
     }
@@ -5375,7 +5375,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_PLATFORMHANDLE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_PLATFORMHANDLE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_PLATFORMHANDLE_PROPERTY;
     }
@@ -5387,7 +5387,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRMASK_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRMASK_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_PLATFORM_BINDING_PCRMASK_PROPERTY;
     }
@@ -5399,7 +5399,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRDIGESTLIST_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRDIGESTLIST_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_PLATFORM_BINDING_PCRDIGESTLIST_PROPERTY;
     }
@@ -5411,7 +5411,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRDIGEST_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRDIGEST_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_PLATFORM_BINDING_PCRDIGEST_PROPERTY;
     }
@@ -5423,7 +5423,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_KEY_USAGE_POLICY_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_KEY_USAGE_POLICY_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_KEY_USAGE_POLICY_PROPERTY;
     }
@@ -5435,7 +5435,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_RSA_SCHEME_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_RSA_SCHEME_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_RSA_SCHEME_PROPERTY;
     }
@@ -5447,7 +5447,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_TPM12_IDBINDING_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_TPM12_IDBINDING_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_TPM12_IDBINDING_PROPERTY;
     }
@@ -5459,7 +5459,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_TPM12_IDBINDING_DYNAMIC_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_TPM12_IDBINDING_DYNAMIC_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_TPM12_IDBINDING_DYNAMIC_PROPERTY;
     }
@@ -5471,7 +5471,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_TPM12_IDACTIVATION_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_TPM12_IDACTIVATION_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_TPM12_IDACTIVATION_PROPERTY;
     }
@@ -5483,7 +5483,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_KEYATTESTATION_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_KEYATTESTATION_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_KEYATTESTATION_PROPERTY;
     }
@@ -5495,7 +5495,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY;
     }
@@ -5507,7 +5507,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRALGID_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRALGID_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_PLATFORM_BINDING_PCRALGID_PROPERTY;
     }
@@ -5519,7 +5519,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_HMAC_AUTH_POLICYREF() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_HMAC_AUTH_POLICYREF
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_HMAC_AUTH_POLICYREF;
     }
@@ -5531,7 +5531,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_HMAC_AUTH_POLICYINFO() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_HMAC_AUTH_POLICYINFO
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_HMAC_AUTH_POLICYINFO;
     }
@@ -5543,7 +5543,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_HMAC_AUTH_NONCE() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_HMAC_AUTH_NONCE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_HMAC_AUTH_NONCE;
     }
@@ -5555,7 +5555,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_HMAC_AUTH_SIGNATURE() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_HMAC_AUTH_SIGNATURE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_HMAC_AUTH_SIGNATURE;
     }
@@ -5567,7 +5567,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_HMAC_AUTH_TICKET() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_HMAC_AUTH_TICKET
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_HMAC_AUTH_TICKET;
     }
@@ -5579,7 +5579,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_NO_DA_PROTECTION_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_NO_DA_PROTECTION_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_NO_DA_PROTECTION_PROPERTY;
     }
@@ -5591,7 +5591,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_TPM_MANUFACTURER_ID_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_TPM_MANUFACTURER_ID_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_TPM_MANUFACTURER_ID_PROPERTY;
     }
@@ -5603,7 +5603,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_TPM_FW_VERSION_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_TPM_FW_VERSION_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_TPM_FW_VERSION_PROPERTY;
     }
@@ -5615,7 +5615,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_TPM2BNAME_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_TPM2BNAME_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_TPM2BNAME_PROPERTY;
     }
@@ -5627,7 +5627,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_TPM_VERSION_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_TPM_VERSION_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_TPM_VERSION_PROPERTY;
     }
@@ -5639,7 +5639,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_RAW_POLICYDIGEST_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_RAW_POLICYDIGEST_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_RAW_POLICYDIGEST_PROPERTY;
     }
@@ -5651,7 +5651,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_KEY_CREATIONHASH_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_KEY_CREATIONHASH_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_KEY_CREATIONHASH_PROPERTY;
     }
@@ -5663,7 +5663,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_KEY_CREATIONTICKET_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_KEY_CREATIONTICKET_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_KEY_CREATIONTICKET_PROPERTY;
     }
@@ -5675,7 +5675,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_RSA_SCHEME_HASH_ALG_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_RSA_SCHEME_HASH_ALG_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_RSA_SCHEME_HASH_ALG_PROPERTY;
     }
@@ -5687,7 +5687,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_PROHIBITED_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_PROHIBITED_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_PROHIBITED_PROPERTY;
     }
@@ -5699,7 +5699,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_VULNERABILITY_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_VULNERABILITY_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_VULNERABILITY_PROPERTY;
     }
@@ -5711,7 +5711,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_SESSIONID_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_SESSIONID_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_SESSIONID_PROPERTY;
     }
@@ -5723,7 +5723,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_PSS_SALT_SIZE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_PSS_SALT_SIZE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_PSS_SALT_SIZE_PROPERTY;
     }
@@ -5735,7 +5735,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_INTERMEDIATE_CA_EKCERT_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_INTERMEDIATE_CA_EKCERT_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_INTERMEDIATE_CA_EKCERT_PROPERTY;
     }
@@ -5747,7 +5747,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_PCRTABLE_ALGORITHM_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_PCRTABLE_ALGORITHM_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_PCRTABLE_ALGORITHM_PROPERTY;
     }
@@ -5759,7 +5759,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PCP_SYMMETRIC_KEYBITS_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PCP_SYMMETRIC_KEYBITS_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PCP_SYMMETRIC_KEYBITS_PROPERTY;
     }
@@ -5834,7 +5834,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SCARD_NGC_KEY_NAME() {
         class Holder {
             static final MemorySegment NCRYPT_SCARD_NGC_KEY_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = LIBRARY_ARENA.allocateFrom("S");
         }
         return Holder.NCRYPT_SCARD_NGC_KEY_NAME;
     }
@@ -5846,7 +5846,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_INITIALIZATION_VECTOR() {
         class Holder {
             static final MemorySegment NCRYPT_INITIALIZATION_VECTOR
-                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+                = LIBRARY_ARENA.allocateFrom("I");
         }
         return Holder.NCRYPT_INITIALIZATION_VECTOR;
     }
@@ -5858,7 +5858,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_CHANGEPASSWORD_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_CHANGEPASSWORD_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_CHANGEPASSWORD_PROPERTY;
     }
@@ -5870,7 +5870,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY;
     }
@@ -5882,7 +5882,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_KEY_ACCESS_POLICY_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_KEY_ACCESS_POLICY_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+                = LIBRARY_ARENA.allocateFrom("K");
         }
         return Holder.NCRYPT_KEY_ACCESS_POLICY_PROPERTY;
     }
@@ -5894,7 +5894,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PIN_CACHE_FREE_APPLICATION_TICKET_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PIN_CACHE_FREE_APPLICATION_TICKET_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PIN_CACHE_FREE_APPLICATION_TICKET_PROPERTY;
     }
@@ -5906,7 +5906,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PIN_CACHE_FLAGS_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PIN_CACHE_FLAGS_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PIN_CACHE_FLAGS_PROPERTY;
     }
@@ -5918,7 +5918,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PIN_CACHE_APPLICATION_TICKET_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PIN_CACHE_APPLICATION_TICKET_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PIN_CACHE_APPLICATION_TICKET_PROPERTY;
     }
@@ -5930,7 +5930,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PIN_CACHE_APPLICATION_IMAGE_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PIN_CACHE_APPLICATION_IMAGE_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PIN_CACHE_APPLICATION_IMAGE_PROPERTY;
     }
@@ -5942,7 +5942,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PIN_CACHE_APPLICATION_STATUS_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PIN_CACHE_APPLICATION_STATUS_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PIN_CACHE_APPLICATION_STATUS_PROPERTY;
     }
@@ -5954,7 +5954,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PIN_CACHE_PIN_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PIN_CACHE_PIN_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PIN_CACHE_PIN_PROPERTY;
     }
@@ -5966,7 +5966,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PIN_CACHE_IS_GESTURE_REQUIRED_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PIN_CACHE_IS_GESTURE_REQUIRED_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PIN_CACHE_IS_GESTURE_REQUIRED_PROPERTY;
     }
@@ -5978,7 +5978,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PIN_CACHE_CLEAR_PROPERTY() {
         class Holder {
             static final MemorySegment NCRYPT_PIN_CACHE_CLEAR_PROPERTY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PIN_CACHE_CLEAR_PROPERTY;
     }
@@ -5990,7 +5990,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_CIPHER_KEY_BLOB() {
         class Holder {
             static final MemorySegment NCRYPT_CIPHER_KEY_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+                = LIBRARY_ARENA.allocateFrom("C");
         }
         return Holder.NCRYPT_CIPHER_KEY_BLOB;
     }
@@ -6002,7 +6002,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_KDF_KEY_BLOB() {
         class Holder {
             static final MemorySegment NCRYPT_KDF_KEY_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+                = LIBRARY_ARENA.allocateFrom("K");
         }
         return Holder.NCRYPT_KDF_KEY_BLOB;
     }
@@ -6014,7 +6014,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PROTECTED_KEY_BLOB() {
         class Holder {
             static final MemorySegment NCRYPT_PROTECTED_KEY_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PROTECTED_KEY_BLOB;
     }
@@ -6035,7 +6035,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_TPM_LOADABLE_KEY_BLOB() {
         class Holder {
             static final MemorySegment NCRYPT_TPM_LOADABLE_KEY_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_TPM_LOADABLE_KEY_BLOB;
     }
@@ -6047,7 +6047,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PKCS7_ENVELOPE_BLOB() {
         class Holder {
             static final MemorySegment NCRYPT_PKCS7_ENVELOPE_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PKCS7_ENVELOPE_BLOB;
     }
@@ -6059,7 +6059,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_PKCS8_PRIVATE_KEY_BLOB() {
         class Holder {
             static final MemorySegment NCRYPT_PKCS8_PRIVATE_KEY_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+                = LIBRARY_ARENA.allocateFrom("P");
         }
         return Holder.NCRYPT_PKCS8_PRIVATE_KEY_BLOB;
     }
@@ -6071,7 +6071,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_OPAQUETRANSPORT_BLOB() {
         class Holder {
             static final MemorySegment NCRYPT_OPAQUETRANSPORT_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("O");
+                = LIBRARY_ARENA.allocateFrom("O");
         }
         return Holder.NCRYPT_OPAQUETRANSPORT_BLOB;
     }
@@ -6083,7 +6083,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_ISOLATED_KEY_ENVELOPE_BLOB() {
         class Holder {
             static final MemorySegment NCRYPT_ISOLATED_KEY_ENVELOPE_BLOB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+                = LIBRARY_ARENA.allocateFrom("I");
         }
         return Holder.NCRYPT_ISOLATED_KEY_ENVELOPE_BLOB;
     }
@@ -6095,7 +6095,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA() {
         class Holder {
             static final MemorySegment szOID_RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549");
         }
         return Holder.szOID_RSA;
     }
@@ -6107,7 +6107,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS() {
         class Holder {
             static final MemorySegment szOID_PKCS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1");
         }
         return Holder.szOID_PKCS;
     }
@@ -6119,7 +6119,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_HASH() {
         class Holder {
             static final MemorySegment szOID_RSA_HASH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.2");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.2");
         }
         return Holder.szOID_RSA_HASH;
     }
@@ -6131,7 +6131,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_ENCRYPT() {
         class Holder {
             static final MemorySegment szOID_RSA_ENCRYPT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.3");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.3");
         }
         return Holder.szOID_RSA_ENCRYPT;
     }
@@ -6143,7 +6143,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_1() {
         class Holder {
             static final MemorySegment szOID_PKCS_1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1");
         }
         return Holder.szOID_PKCS_1;
     }
@@ -6155,7 +6155,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_2() {
         class Holder {
             static final MemorySegment szOID_PKCS_2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.2");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.2");
         }
         return Holder.szOID_PKCS_2;
     }
@@ -6167,7 +6167,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_3() {
         class Holder {
             static final MemorySegment szOID_PKCS_3
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.3");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.3");
         }
         return Holder.szOID_PKCS_3;
     }
@@ -6179,7 +6179,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_4() {
         class Holder {
             static final MemorySegment szOID_PKCS_4
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.4");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.4");
         }
         return Holder.szOID_PKCS_4;
     }
@@ -6191,7 +6191,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_5() {
         class Holder {
             static final MemorySegment szOID_PKCS_5
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.5");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.5");
         }
         return Holder.szOID_PKCS_5;
     }
@@ -6203,7 +6203,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_6() {
         class Holder {
             static final MemorySegment szOID_PKCS_6
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.6");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.6");
         }
         return Holder.szOID_PKCS_6;
     }
@@ -6215,7 +6215,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_7() {
         class Holder {
             static final MemorySegment szOID_PKCS_7
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7");
         }
         return Holder.szOID_PKCS_7;
     }
@@ -6227,7 +6227,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_8() {
         class Holder {
             static final MemorySegment szOID_PKCS_8
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.8");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.8");
         }
         return Holder.szOID_PKCS_8;
     }
@@ -6239,7 +6239,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_9() {
         class Holder {
             static final MemorySegment szOID_PKCS_9
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9");
         }
         return Holder.szOID_PKCS_9;
     }
@@ -6251,7 +6251,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_10() {
         class Holder {
             static final MemorySegment szOID_PKCS_10
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.10");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.10");
         }
         return Holder.szOID_PKCS_10;
     }
@@ -6263,7 +6263,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_12() {
         class Holder {
             static final MemorySegment szOID_PKCS_12
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.12");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.12");
         }
         return Holder.szOID_PKCS_12;
     }
@@ -6275,7 +6275,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_RSA() {
         class Holder {
             static final MemorySegment szOID_RSA_RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.1");
         }
         return Holder.szOID_RSA_RSA;
     }
@@ -6287,7 +6287,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_MD2RSA() {
         class Holder {
             static final MemorySegment szOID_RSA_MD2RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.2");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.2");
         }
         return Holder.szOID_RSA_MD2RSA;
     }
@@ -6299,7 +6299,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_MD4RSA() {
         class Holder {
             static final MemorySegment szOID_RSA_MD4RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.3");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.3");
         }
         return Holder.szOID_RSA_MD4RSA;
     }
@@ -6311,7 +6311,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_MD5RSA() {
         class Holder {
             static final MemorySegment szOID_RSA_MD5RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.4");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.4");
         }
         return Holder.szOID_RSA_MD5RSA;
     }
@@ -6323,7 +6323,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_SHA1RSA() {
         class Holder {
             static final MemorySegment szOID_RSA_SHA1RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.5");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.5");
         }
         return Holder.szOID_RSA_SHA1RSA;
     }
@@ -6335,7 +6335,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_SETOAEP_RSA() {
         class Holder {
             static final MemorySegment szOID_RSA_SETOAEP_RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.6");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.6");
         }
         return Holder.szOID_RSA_SETOAEP_RSA;
     }
@@ -6347,7 +6347,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSAES_OAEP() {
         class Holder {
             static final MemorySegment szOID_RSAES_OAEP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.7");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.7");
         }
         return Holder.szOID_RSAES_OAEP;
     }
@@ -6359,7 +6359,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_MGF1() {
         class Holder {
             static final MemorySegment szOID_RSA_MGF1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.8");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.8");
         }
         return Holder.szOID_RSA_MGF1;
     }
@@ -6371,7 +6371,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_PSPECIFIED() {
         class Holder {
             static final MemorySegment szOID_RSA_PSPECIFIED
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.9");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.9");
         }
         return Holder.szOID_RSA_PSPECIFIED;
     }
@@ -6383,7 +6383,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_SSA_PSS() {
         class Holder {
             static final MemorySegment szOID_RSA_SSA_PSS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.10");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.10");
         }
         return Holder.szOID_RSA_SSA_PSS;
     }
@@ -6395,7 +6395,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_SHA256RSA() {
         class Holder {
             static final MemorySegment szOID_RSA_SHA256RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.11");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.11");
         }
         return Holder.szOID_RSA_SHA256RSA;
     }
@@ -6407,7 +6407,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_SHA384RSA() {
         class Holder {
             static final MemorySegment szOID_RSA_SHA384RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.12");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.12");
         }
         return Holder.szOID_RSA_SHA384RSA;
     }
@@ -6419,7 +6419,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_SHA512RSA() {
         class Holder {
             static final MemorySegment szOID_RSA_SHA512RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.13");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.13");
         }
         return Holder.szOID_RSA_SHA512RSA;
     }
@@ -6431,7 +6431,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_DH() {
         class Holder {
             static final MemorySegment szOID_RSA_DH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.3.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.3.1");
         }
         return Holder.szOID_RSA_DH;
     }
@@ -6443,7 +6443,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_data() {
         class Holder {
             static final MemorySegment szOID_RSA_data
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.1");
         }
         return Holder.szOID_RSA_data;
     }
@@ -6455,7 +6455,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_signedData() {
         class Holder {
             static final MemorySegment szOID_RSA_signedData
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.2");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.2");
         }
         return Holder.szOID_RSA_signedData;
     }
@@ -6467,7 +6467,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_envelopedData() {
         class Holder {
             static final MemorySegment szOID_RSA_envelopedData
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.3");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.3");
         }
         return Holder.szOID_RSA_envelopedData;
     }
@@ -6479,7 +6479,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_signEnvData() {
         class Holder {
             static final MemorySegment szOID_RSA_signEnvData
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.4");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.4");
         }
         return Holder.szOID_RSA_signEnvData;
     }
@@ -6491,7 +6491,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_digestedData() {
         class Holder {
             static final MemorySegment szOID_RSA_digestedData
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.5");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.5");
         }
         return Holder.szOID_RSA_digestedData;
     }
@@ -6503,7 +6503,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_hashedData() {
         class Holder {
             static final MemorySegment szOID_RSA_hashedData
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.5");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.5");
         }
         return Holder.szOID_RSA_hashedData;
     }
@@ -6515,7 +6515,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_encryptedData() {
         class Holder {
             static final MemorySegment szOID_RSA_encryptedData
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.6");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.6");
         }
         return Holder.szOID_RSA_encryptedData;
     }
@@ -6527,7 +6527,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_emailAddr() {
         class Holder {
             static final MemorySegment szOID_RSA_emailAddr
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.1");
         }
         return Holder.szOID_RSA_emailAddr;
     }
@@ -6539,7 +6539,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_unstructName() {
         class Holder {
             static final MemorySegment szOID_RSA_unstructName
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.2");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.2");
         }
         return Holder.szOID_RSA_unstructName;
     }
@@ -6551,7 +6551,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_contentType() {
         class Holder {
             static final MemorySegment szOID_RSA_contentType
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.3");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.3");
         }
         return Holder.szOID_RSA_contentType;
     }
@@ -6563,7 +6563,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_messageDigest() {
         class Holder {
             static final MemorySegment szOID_RSA_messageDigest
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.4");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.4");
         }
         return Holder.szOID_RSA_messageDigest;
     }
@@ -6575,7 +6575,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_signingTime() {
         class Holder {
             static final MemorySegment szOID_RSA_signingTime
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.5");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.5");
         }
         return Holder.szOID_RSA_signingTime;
     }
@@ -6587,7 +6587,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_counterSign() {
         class Holder {
             static final MemorySegment szOID_RSA_counterSign
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.6");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.6");
         }
         return Holder.szOID_RSA_counterSign;
     }
@@ -6599,7 +6599,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_challengePwd() {
         class Holder {
             static final MemorySegment szOID_RSA_challengePwd
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.7");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.7");
         }
         return Holder.szOID_RSA_challengePwd;
     }
@@ -6611,7 +6611,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_unstructAddr() {
         class Holder {
             static final MemorySegment szOID_RSA_unstructAddr
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.8");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.8");
         }
         return Holder.szOID_RSA_unstructAddr;
     }
@@ -6623,7 +6623,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_extCertAttrs() {
         class Holder {
             static final MemorySegment szOID_RSA_extCertAttrs
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.9");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.9");
         }
         return Holder.szOID_RSA_extCertAttrs;
     }
@@ -6635,7 +6635,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_certExtensions() {
         class Holder {
             static final MemorySegment szOID_RSA_certExtensions
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.14");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.14");
         }
         return Holder.szOID_RSA_certExtensions;
     }
@@ -6647,7 +6647,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_SMIMECapabilities() {
         class Holder {
             static final MemorySegment szOID_RSA_SMIMECapabilities
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.15");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.15");
         }
         return Holder.szOID_RSA_SMIMECapabilities;
     }
@@ -6659,7 +6659,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_preferSignedData() {
         class Holder {
             static final MemorySegment szOID_RSA_preferSignedData
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.15.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.15.1");
         }
         return Holder.szOID_RSA_preferSignedData;
     }
@@ -6671,7 +6671,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_TIMESTAMP_TOKEN() {
         class Holder {
             static final MemorySegment szOID_TIMESTAMP_TOKEN
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.1.4");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.1.4");
         }
         return Holder.szOID_TIMESTAMP_TOKEN;
     }
@@ -6683,7 +6683,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RFC3161_counterSign() {
         class Holder {
             static final MemorySegment szOID_RFC3161_counterSign
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.3.3.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.3.3.1");
         }
         return Holder.szOID_RFC3161_counterSign;
     }
@@ -6695,7 +6695,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_SMIMEalg() {
         class Holder {
             static final MemorySegment szOID_RSA_SMIMEalg
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.3");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.3");
         }
         return Holder.szOID_RSA_SMIMEalg;
     }
@@ -6707,7 +6707,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_SMIMEalgESDH() {
         class Holder {
             static final MemorySegment szOID_RSA_SMIMEalgESDH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.3.5");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.3.5");
         }
         return Holder.szOID_RSA_SMIMEalgESDH;
     }
@@ -6719,7 +6719,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_SMIMEalgCMS3DESwrap() {
         class Holder {
             static final MemorySegment szOID_RSA_SMIMEalgCMS3DESwrap
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.3.6");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.3.6");
         }
         return Holder.szOID_RSA_SMIMEalgCMS3DESwrap;
     }
@@ -6731,7 +6731,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_SMIMEalgCMSRC2wrap() {
         class Holder {
             static final MemorySegment szOID_RSA_SMIMEalgCMSRC2wrap
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.3.7");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.3.7");
         }
         return Holder.szOID_RSA_SMIMEalgCMSRC2wrap;
     }
@@ -6743,7 +6743,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_MD2() {
         class Holder {
             static final MemorySegment szOID_RSA_MD2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.2.2");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.2.2");
         }
         return Holder.szOID_RSA_MD2;
     }
@@ -6755,7 +6755,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_MD4() {
         class Holder {
             static final MemorySegment szOID_RSA_MD4
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.2.4");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.2.4");
         }
         return Holder.szOID_RSA_MD4;
     }
@@ -6767,7 +6767,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_MD5() {
         class Holder {
             static final MemorySegment szOID_RSA_MD5
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.2.5");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.2.5");
         }
         return Holder.szOID_RSA_MD5;
     }
@@ -6779,7 +6779,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_RC2CBC() {
         class Holder {
             static final MemorySegment szOID_RSA_RC2CBC
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.3.2");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.3.2");
         }
         return Holder.szOID_RSA_RC2CBC;
     }
@@ -6791,7 +6791,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_RC4() {
         class Holder {
             static final MemorySegment szOID_RSA_RC4
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.3.4");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.3.4");
         }
         return Holder.szOID_RSA_RC4;
     }
@@ -6803,7 +6803,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_DES_EDE3_CBC() {
         class Holder {
             static final MemorySegment szOID_RSA_DES_EDE3_CBC
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.3.7");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.3.7");
         }
         return Holder.szOID_RSA_DES_EDE3_CBC;
     }
@@ -6815,7 +6815,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RSA_RC5_CBCPad() {
         class Holder {
             static final MemorySegment szOID_RSA_RC5_CBCPad
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.3.9");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.3.9");
         }
         return Holder.szOID_RSA_RC5_CBCPad;
     }
@@ -6827,7 +6827,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ANSI_X942() {
         class Holder {
             static final MemorySegment szOID_ANSI_X942
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10046");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10046");
         }
         return Holder.szOID_ANSI_X942;
     }
@@ -6839,7 +6839,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ANSI_X942_DH() {
         class Holder {
             static final MemorySegment szOID_ANSI_X942_DH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10046.2.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10046.2.1");
         }
         return Holder.szOID_ANSI_X942_DH;
     }
@@ -6851,7 +6851,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_X957() {
         class Holder {
             static final MemorySegment szOID_X957
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10040");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10040");
         }
         return Holder.szOID_X957;
     }
@@ -6863,7 +6863,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_X957_DSA() {
         class Holder {
             static final MemorySegment szOID_X957_DSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10040.4.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10040.4.1");
         }
         return Holder.szOID_X957_DSA;
     }
@@ -6875,7 +6875,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_X957_SHA1DSA() {
         class Holder {
             static final MemorySegment szOID_X957_SHA1DSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10040.4.3");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10040.4.3");
         }
         return Holder.szOID_X957_SHA1DSA;
     }
@@ -6887,7 +6887,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_PUBLIC_KEY() {
         class Holder {
             static final MemorySegment szOID_ECC_PUBLIC_KEY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.2.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.2.1");
         }
         return Holder.szOID_ECC_PUBLIC_KEY;
     }
@@ -6899,7 +6899,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_P256() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_P256
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.7");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.7");
         }
         return Holder.szOID_ECC_CURVE_P256;
     }
@@ -6911,7 +6911,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_P384() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_P384
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.34");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.34");
         }
         return Holder.szOID_ECC_CURVE_P384;
     }
@@ -6923,7 +6923,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_P521() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_P521
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.35");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.35");
         }
         return Holder.szOID_ECC_CURVE_P521;
     }
@@ -6935,7 +6935,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP160R1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP160R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.1");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP160R1;
     }
@@ -6947,7 +6947,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP160T1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP160T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.2");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP160T1;
     }
@@ -6959,7 +6959,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP192R1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP192R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.3");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.3");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP192R1;
     }
@@ -6971,7 +6971,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP192T1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP192T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.4");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.4");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP192T1;
     }
@@ -6983,7 +6983,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP224R1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP224R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.5");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.5");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP224R1;
     }
@@ -6995,7 +6995,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP224T1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP224T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.6");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.6");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP224T1;
     }
@@ -7007,7 +7007,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP256R1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP256R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.7");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.7");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP256R1;
     }
@@ -7019,7 +7019,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP256T1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP256T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.8");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.8");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP256T1;
     }
@@ -7031,7 +7031,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP320R1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP320R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.9");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.9");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP320R1;
     }
@@ -7043,7 +7043,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP320T1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP320T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.10");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.10");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP320T1;
     }
@@ -7055,7 +7055,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP384R1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP384R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.11");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.11");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP384R1;
     }
@@ -7067,7 +7067,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP384T1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP384T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.12");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.12");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP384T1;
     }
@@ -7079,7 +7079,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP512R1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP512R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.13");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.13");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP512R1;
     }
@@ -7091,7 +7091,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP512T1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP512T1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.14");
+                = LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.14");
         }
         return Holder.szOID_ECC_CURVE_BRAINPOOLP512T1;
     }
@@ -7103,7 +7103,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_EC192WAPI() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_EC192WAPI
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.156.11235.1.1.2.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.156.11235.1.1.2.1");
         }
         return Holder.szOID_ECC_CURVE_EC192WAPI;
     }
@@ -7115,7 +7115,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CN_ECDSA_SHA256() {
         class Holder {
             static final MemorySegment szOID_CN_ECDSA_SHA256
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.156.11235.1.1.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.156.11235.1.1.1");
         }
         return Holder.szOID_CN_ECDSA_SHA256;
     }
@@ -7127,7 +7127,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_NISTP192() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_NISTP192
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.1");
         }
         return Holder.szOID_ECC_CURVE_NISTP192;
     }
@@ -7139,7 +7139,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_NISTP224() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_NISTP224
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.33");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.33");
         }
         return Holder.szOID_ECC_CURVE_NISTP224;
     }
@@ -7151,7 +7151,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_NISTP256() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_NISTP256
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.7");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.7");
         }
         return Holder.szOID_ECC_CURVE_NISTP256;
     }
@@ -7163,7 +7163,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_NISTP384() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_NISTP384
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.34");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.34");
         }
         return Holder.szOID_ECC_CURVE_NISTP384;
     }
@@ -7175,7 +7175,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_NISTP521() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_NISTP521
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.35");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.35");
         }
         return Holder.szOID_ECC_CURVE_NISTP521;
     }
@@ -7187,7 +7187,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_SECP160K1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_SECP160K1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.9");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.9");
         }
         return Holder.szOID_ECC_CURVE_SECP160K1;
     }
@@ -7199,7 +7199,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_SECP160R1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_SECP160R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.8");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.8");
         }
         return Holder.szOID_ECC_CURVE_SECP160R1;
     }
@@ -7211,7 +7211,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_SECP160R2() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_SECP160R2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.30");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.30");
         }
         return Holder.szOID_ECC_CURVE_SECP160R2;
     }
@@ -7223,7 +7223,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_SECP192K1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_SECP192K1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.31");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.31");
         }
         return Holder.szOID_ECC_CURVE_SECP192K1;
     }
@@ -7235,7 +7235,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_SECP192R1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_SECP192R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.1");
         }
         return Holder.szOID_ECC_CURVE_SECP192R1;
     }
@@ -7247,7 +7247,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_SECP224K1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_SECP224K1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.32");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.32");
         }
         return Holder.szOID_ECC_CURVE_SECP224K1;
     }
@@ -7259,7 +7259,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_SECP224R1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_SECP224R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.33");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.33");
         }
         return Holder.szOID_ECC_CURVE_SECP224R1;
     }
@@ -7271,7 +7271,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_SECP256K1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_SECP256K1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.10");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.10");
         }
         return Holder.szOID_ECC_CURVE_SECP256K1;
     }
@@ -7283,7 +7283,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_SECP256R1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_SECP256R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.7");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.7");
         }
         return Holder.szOID_ECC_CURVE_SECP256R1;
     }
@@ -7295,7 +7295,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_SECP384R1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_SECP384R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.34");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.34");
         }
         return Holder.szOID_ECC_CURVE_SECP384R1;
     }
@@ -7307,7 +7307,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_SECP521R1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_SECP521R1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.35");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.35");
         }
         return Holder.szOID_ECC_CURVE_SECP521R1;
     }
@@ -7319,7 +7319,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_WTLS7() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_WTLS7
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.30");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.30");
         }
         return Holder.szOID_ECC_CURVE_WTLS7;
     }
@@ -7331,7 +7331,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_WTLS9() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_WTLS9
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.23.43.1.4.9");
+                = LIBRARY_ARENA.allocateFrom("2.23.43.1.4.9");
         }
         return Holder.szOID_ECC_CURVE_WTLS9;
     }
@@ -7343,7 +7343,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_WTLS12() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_WTLS12
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.33");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.0.33");
         }
         return Holder.szOID_ECC_CURVE_WTLS12;
     }
@@ -7355,7 +7355,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_X962P192V1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_X962P192V1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.1");
         }
         return Holder.szOID_ECC_CURVE_X962P192V1;
     }
@@ -7367,7 +7367,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_X962P192V2() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_X962P192V2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.2");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.2");
         }
         return Holder.szOID_ECC_CURVE_X962P192V2;
     }
@@ -7379,7 +7379,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_X962P192V3() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_X962P192V3
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.3");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.3");
         }
         return Holder.szOID_ECC_CURVE_X962P192V3;
     }
@@ -7391,7 +7391,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_X962P239V1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_X962P239V1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.4");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.4");
         }
         return Holder.szOID_ECC_CURVE_X962P239V1;
     }
@@ -7403,7 +7403,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_X962P239V2() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_X962P239V2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.5");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.5");
         }
         return Holder.szOID_ECC_CURVE_X962P239V2;
     }
@@ -7415,7 +7415,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_X962P239V3() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_X962P239V3
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.6");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.6");
         }
         return Holder.szOID_ECC_CURVE_X962P239V3;
     }
@@ -7427,7 +7427,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECC_CURVE_X962P256V1() {
         class Holder {
             static final MemorySegment szOID_ECC_CURVE_X962P256V1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.7");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.7");
         }
         return Holder.szOID_ECC_CURVE_X962P256V1;
     }
@@ -7439,7 +7439,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECDSA_SHA1() {
         class Holder {
             static final MemorySegment szOID_ECDSA_SHA1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.1");
         }
         return Holder.szOID_ECDSA_SHA1;
     }
@@ -7451,7 +7451,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECDSA_SPECIFIED() {
         class Holder {
             static final MemorySegment szOID_ECDSA_SPECIFIED
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.3");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.3");
         }
         return Holder.szOID_ECDSA_SPECIFIED;
     }
@@ -7463,7 +7463,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECDSA_SHA256() {
         class Holder {
             static final MemorySegment szOID_ECDSA_SHA256
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.3.2");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.3.2");
         }
         return Holder.szOID_ECDSA_SHA256;
     }
@@ -7475,7 +7475,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECDSA_SHA384() {
         class Holder {
             static final MemorySegment szOID_ECDSA_SHA384
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.3.3");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.3.3");
         }
         return Holder.szOID_ECDSA_SHA384;
     }
@@ -7487,7 +7487,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ECDSA_SHA512() {
         class Holder {
             static final MemorySegment szOID_ECDSA_SHA512
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.3.4");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.3.4");
         }
         return Holder.szOID_ECDSA_SHA512;
     }
@@ -7499,7 +7499,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NIST_AES128_CBC() {
         class Holder {
             static final MemorySegment szOID_NIST_AES128_CBC
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.2");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.2");
         }
         return Holder.szOID_NIST_AES128_CBC;
     }
@@ -7511,7 +7511,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NIST_AES192_CBC() {
         class Holder {
             static final MemorySegment szOID_NIST_AES192_CBC
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.22");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.22");
         }
         return Holder.szOID_NIST_AES192_CBC;
     }
@@ -7523,7 +7523,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NIST_AES256_CBC() {
         class Holder {
             static final MemorySegment szOID_NIST_AES256_CBC
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.42");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.42");
         }
         return Holder.szOID_NIST_AES256_CBC;
     }
@@ -7535,7 +7535,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NIST_AES128_WRAP() {
         class Holder {
             static final MemorySegment szOID_NIST_AES128_WRAP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.5");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.5");
         }
         return Holder.szOID_NIST_AES128_WRAP;
     }
@@ -7547,7 +7547,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NIST_AES192_WRAP() {
         class Holder {
             static final MemorySegment szOID_NIST_AES192_WRAP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.25");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.25");
         }
         return Holder.szOID_NIST_AES192_WRAP;
     }
@@ -7559,7 +7559,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NIST_AES256_WRAP() {
         class Holder {
             static final MemorySegment szOID_NIST_AES256_WRAP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.45");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.45");
         }
         return Holder.szOID_NIST_AES256_WRAP;
     }
@@ -7571,7 +7571,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA1_KDF() {
         class Holder {
             static final MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA1_KDF
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.133.16.840.63.0.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.133.16.840.63.0.2");
         }
         return Holder.szOID_DH_SINGLE_PASS_STDDH_SHA1_KDF;
     }
@@ -7583,7 +7583,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA256_KDF() {
         class Holder {
             static final MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA256_KDF
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.1.11.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.1.11.1");
         }
         return Holder.szOID_DH_SINGLE_PASS_STDDH_SHA256_KDF;
     }
@@ -7595,7 +7595,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA384_KDF() {
         class Holder {
             static final MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA384_KDF
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.1.11.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.132.1.11.2");
         }
         return Holder.szOID_DH_SINGLE_PASS_STDDH_SHA384_KDF;
     }
@@ -7607,7 +7607,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DS() {
         class Holder {
             static final MemorySegment szOID_DS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5");
+                = LIBRARY_ARENA.allocateFrom("2.5");
         }
         return Holder.szOID_DS;
     }
@@ -7619,7 +7619,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DSALG() {
         class Holder {
             static final MemorySegment szOID_DSALG
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.8");
+                = LIBRARY_ARENA.allocateFrom("2.5.8");
         }
         return Holder.szOID_DSALG;
     }
@@ -7631,7 +7631,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DSALG_CRPT() {
         class Holder {
             static final MemorySegment szOID_DSALG_CRPT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.8.1");
+                = LIBRARY_ARENA.allocateFrom("2.5.8.1");
         }
         return Holder.szOID_DSALG_CRPT;
     }
@@ -7643,7 +7643,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DSALG_HASH() {
         class Holder {
             static final MemorySegment szOID_DSALG_HASH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.8.2");
+                = LIBRARY_ARENA.allocateFrom("2.5.8.2");
         }
         return Holder.szOID_DSALG_HASH;
     }
@@ -7655,7 +7655,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DSALG_SIGN() {
         class Holder {
             static final MemorySegment szOID_DSALG_SIGN
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.8.3");
+                = LIBRARY_ARENA.allocateFrom("2.5.8.3");
         }
         return Holder.szOID_DSALG_SIGN;
     }
@@ -7667,7 +7667,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DSALG_RSA() {
         class Holder {
             static final MemorySegment szOID_DSALG_RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.8.1.1");
+                = LIBRARY_ARENA.allocateFrom("2.5.8.1.1");
         }
         return Holder.szOID_DSALG_RSA;
     }
@@ -7679,7 +7679,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIW() {
         class Holder {
             static final MemorySegment szOID_OIW
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14");
+                = LIBRARY_ARENA.allocateFrom("1.3.14");
         }
         return Holder.szOID_OIW;
     }
@@ -7691,7 +7691,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC() {
         class Holder {
             static final MemorySegment szOID_OIWSEC
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2");
         }
         return Holder.szOID_OIWSEC;
     }
@@ -7703,7 +7703,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_md4RSA() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_md4RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.2");
         }
         return Holder.szOID_OIWSEC_md4RSA;
     }
@@ -7715,7 +7715,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_md5RSA() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_md5RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.3");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.3");
         }
         return Holder.szOID_OIWSEC_md5RSA;
     }
@@ -7727,7 +7727,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_md4RSA2() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_md4RSA2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.4");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.4");
         }
         return Holder.szOID_OIWSEC_md4RSA2;
     }
@@ -7739,7 +7739,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_desECB() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_desECB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.6");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.6");
         }
         return Holder.szOID_OIWSEC_desECB;
     }
@@ -7751,7 +7751,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_desCBC() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_desCBC
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.7");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.7");
         }
         return Holder.szOID_OIWSEC_desCBC;
     }
@@ -7763,7 +7763,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_desOFB() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_desOFB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.8");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.8");
         }
         return Holder.szOID_OIWSEC_desOFB;
     }
@@ -7775,7 +7775,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_desCFB() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_desCFB
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.9");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.9");
         }
         return Holder.szOID_OIWSEC_desCFB;
     }
@@ -7787,7 +7787,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_desMAC() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_desMAC
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.10");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.10");
         }
         return Holder.szOID_OIWSEC_desMAC;
     }
@@ -7799,7 +7799,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_rsaSign() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_rsaSign
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.11");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.11");
         }
         return Holder.szOID_OIWSEC_rsaSign;
     }
@@ -7811,7 +7811,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_dsa() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_dsa
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.12");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.12");
         }
         return Holder.szOID_OIWSEC_dsa;
     }
@@ -7823,7 +7823,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_shaDSA() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_shaDSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.13");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.13");
         }
         return Holder.szOID_OIWSEC_shaDSA;
     }
@@ -7835,7 +7835,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_mdc2RSA() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_mdc2RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.14");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.14");
         }
         return Holder.szOID_OIWSEC_mdc2RSA;
     }
@@ -7847,7 +7847,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_shaRSA() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_shaRSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.15");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.15");
         }
         return Holder.szOID_OIWSEC_shaRSA;
     }
@@ -7859,7 +7859,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_dhCommMod() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_dhCommMod
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.16");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.16");
         }
         return Holder.szOID_OIWSEC_dhCommMod;
     }
@@ -7871,7 +7871,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_desEDE() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_desEDE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.17");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.17");
         }
         return Holder.szOID_OIWSEC_desEDE;
     }
@@ -7883,7 +7883,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_sha() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_sha
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.18");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.18");
         }
         return Holder.szOID_OIWSEC_sha;
     }
@@ -7895,7 +7895,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_mdc2() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_mdc2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.19");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.19");
         }
         return Holder.szOID_OIWSEC_mdc2;
     }
@@ -7907,7 +7907,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_dsaComm() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_dsaComm
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.20");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.20");
         }
         return Holder.szOID_OIWSEC_dsaComm;
     }
@@ -7919,7 +7919,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_dsaCommSHA() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_dsaCommSHA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.21");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.21");
         }
         return Holder.szOID_OIWSEC_dsaCommSHA;
     }
@@ -7931,7 +7931,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_rsaXchg() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_rsaXchg
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.22");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.22");
         }
         return Holder.szOID_OIWSEC_rsaXchg;
     }
@@ -7943,7 +7943,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_keyHashSeal() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_keyHashSeal
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.23");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.23");
         }
         return Holder.szOID_OIWSEC_keyHashSeal;
     }
@@ -7955,7 +7955,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_md2RSASign() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_md2RSASign
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.24");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.24");
         }
         return Holder.szOID_OIWSEC_md2RSASign;
     }
@@ -7967,7 +7967,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_md5RSASign() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_md5RSASign
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.25");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.25");
         }
         return Holder.szOID_OIWSEC_md5RSASign;
     }
@@ -7979,7 +7979,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_sha1() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_sha1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.26");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.26");
         }
         return Holder.szOID_OIWSEC_sha1;
     }
@@ -7991,7 +7991,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_dsaSHA1() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_dsaSHA1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.27");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.27");
         }
         return Holder.szOID_OIWSEC_dsaSHA1;
     }
@@ -8003,7 +8003,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_dsaCommSHA1() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_dsaCommSHA1
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.28");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.28");
         }
         return Holder.szOID_OIWSEC_dsaCommSHA1;
     }
@@ -8015,7 +8015,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWSEC_sha1RSASign() {
         class Holder {
             static final MemorySegment szOID_OIWSEC_sha1RSASign
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.29");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.3.2.29");
         }
         return Holder.szOID_OIWSEC_sha1RSASign;
     }
@@ -8027,7 +8027,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWDIR() {
         class Holder {
             static final MemorySegment szOID_OIWDIR
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.7.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.7.2");
         }
         return Holder.szOID_OIWDIR;
     }
@@ -8039,7 +8039,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWDIR_CRPT() {
         class Holder {
             static final MemorySegment szOID_OIWDIR_CRPT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.7.2.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.7.2.1");
         }
         return Holder.szOID_OIWDIR_CRPT;
     }
@@ -8051,7 +8051,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWDIR_HASH() {
         class Holder {
             static final MemorySegment szOID_OIWDIR_HASH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.7.2.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.7.2.2");
         }
         return Holder.szOID_OIWDIR_HASH;
     }
@@ -8063,7 +8063,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWDIR_SIGN() {
         class Holder {
             static final MemorySegment szOID_OIWDIR_SIGN
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.7.2.3");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.7.2.3");
         }
         return Holder.szOID_OIWDIR_SIGN;
     }
@@ -8075,7 +8075,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWDIR_md2() {
         class Holder {
             static final MemorySegment szOID_OIWDIR_md2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.7.2.2.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.7.2.2.1");
         }
         return Holder.szOID_OIWDIR_md2;
     }
@@ -8087,7 +8087,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OIWDIR_md2RSA() {
         class Holder {
             static final MemorySegment szOID_OIWDIR_md2RSA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.7.2.3.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.14.7.2.3.1");
         }
         return Holder.szOID_OIWDIR_md2RSA;
     }
@@ -8099,7 +8099,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC() {
         class Holder {
             static final MemorySegment szOID_INFOSEC
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1");
         }
         return Holder.szOID_INFOSEC;
     }
@@ -8111,7 +8111,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_sdnsSignature() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_sdnsSignature
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.1");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.1");
         }
         return Holder.szOID_INFOSEC_sdnsSignature;
     }
@@ -8123,7 +8123,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_mosaicSignature() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_mosaicSignature
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.2");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.2");
         }
         return Holder.szOID_INFOSEC_mosaicSignature;
     }
@@ -8135,7 +8135,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_sdnsConfidentiality() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_sdnsConfidentiality
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.3");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.3");
         }
         return Holder.szOID_INFOSEC_sdnsConfidentiality;
     }
@@ -8147,7 +8147,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_mosaicConfidentiality() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_mosaicConfidentiality
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.4");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.4");
         }
         return Holder.szOID_INFOSEC_mosaicConfidentiality;
     }
@@ -8159,7 +8159,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_sdnsIntegrity() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_sdnsIntegrity
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.5");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.5");
         }
         return Holder.szOID_INFOSEC_sdnsIntegrity;
     }
@@ -8171,7 +8171,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_mosaicIntegrity() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_mosaicIntegrity
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.6");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.6");
         }
         return Holder.szOID_INFOSEC_mosaicIntegrity;
     }
@@ -8183,7 +8183,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_sdnsTokenProtection() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_sdnsTokenProtection
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.7");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.7");
         }
         return Holder.szOID_INFOSEC_sdnsTokenProtection;
     }
@@ -8195,7 +8195,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_mosaicTokenProtection() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_mosaicTokenProtection
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.8");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.8");
         }
         return Holder.szOID_INFOSEC_mosaicTokenProtection;
     }
@@ -8207,7 +8207,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_sdnsKeyManagement() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_sdnsKeyManagement
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.9");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.9");
         }
         return Holder.szOID_INFOSEC_sdnsKeyManagement;
     }
@@ -8219,7 +8219,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_mosaicKeyManagement() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_mosaicKeyManagement
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.10");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.10");
         }
         return Holder.szOID_INFOSEC_mosaicKeyManagement;
     }
@@ -8231,7 +8231,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_sdnsKMandSig() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_sdnsKMandSig
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.11");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.11");
         }
         return Holder.szOID_INFOSEC_sdnsKMandSig;
     }
@@ -8243,7 +8243,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_mosaicKMandSig() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_mosaicKMandSig
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.12");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.12");
         }
         return Holder.szOID_INFOSEC_mosaicKMandSig;
     }
@@ -8255,7 +8255,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_SuiteASignature() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_SuiteASignature
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.13");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.13");
         }
         return Holder.szOID_INFOSEC_SuiteASignature;
     }
@@ -8267,7 +8267,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_SuiteAConfidentiality() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_SuiteAConfidentiality
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.14");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.14");
         }
         return Holder.szOID_INFOSEC_SuiteAConfidentiality;
     }
@@ -8279,7 +8279,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_SuiteAIntegrity() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_SuiteAIntegrity
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.15");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.15");
         }
         return Holder.szOID_INFOSEC_SuiteAIntegrity;
     }
@@ -8291,7 +8291,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_SuiteATokenProtection() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_SuiteATokenProtection
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.16");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.16");
         }
         return Holder.szOID_INFOSEC_SuiteATokenProtection;
     }
@@ -8303,7 +8303,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_SuiteAKeyManagement() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_SuiteAKeyManagement
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.17");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.17");
         }
         return Holder.szOID_INFOSEC_SuiteAKeyManagement;
     }
@@ -8315,7 +8315,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_SuiteAKMandSig() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_SuiteAKMandSig
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.18");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.18");
         }
         return Holder.szOID_INFOSEC_SuiteAKMandSig;
     }
@@ -8327,7 +8327,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_mosaicUpdatedSig() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_mosaicUpdatedSig
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.19");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.19");
         }
         return Holder.szOID_INFOSEC_mosaicUpdatedSig;
     }
@@ -8339,7 +8339,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_mosaicKMandUpdSig() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_mosaicKMandUpdSig
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.20");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.20");
         }
         return Holder.szOID_INFOSEC_mosaicKMandUpdSig;
     }
@@ -8351,7 +8351,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INFOSEC_mosaicUpdatedInteg() {
         class Holder {
             static final MemorySegment szOID_INFOSEC_mosaicUpdatedInteg
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.21");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.21");
         }
         return Holder.szOID_INFOSEC_mosaicUpdatedInteg;
     }
@@ -8363,7 +8363,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NIST_sha256() {
         class Holder {
             static final MemorySegment szOID_NIST_sha256
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.2.1");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.2.1");
         }
         return Holder.szOID_NIST_sha256;
     }
@@ -8375,7 +8375,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NIST_sha384() {
         class Holder {
             static final MemorySegment szOID_NIST_sha384
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.2.2");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.2.2");
         }
         return Holder.szOID_NIST_sha384;
     }
@@ -8387,7 +8387,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NIST_sha512() {
         class Holder {
             static final MemorySegment szOID_NIST_sha512
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.2.3");
+                = LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.2.3");
         }
         return Holder.szOID_NIST_sha512;
     }
@@ -8399,7 +8399,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_COMMON_NAME() {
         class Holder {
             static final MemorySegment szOID_COMMON_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.3");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.3");
         }
         return Holder.szOID_COMMON_NAME;
     }
@@ -8411,7 +8411,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_SUR_NAME() {
         class Holder {
             static final MemorySegment szOID_SUR_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.4");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.4");
         }
         return Holder.szOID_SUR_NAME;
     }
@@ -8423,7 +8423,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DEVICE_SERIAL_NUMBER() {
         class Holder {
             static final MemorySegment szOID_DEVICE_SERIAL_NUMBER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.5");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.5");
         }
         return Holder.szOID_DEVICE_SERIAL_NUMBER;
     }
@@ -8435,7 +8435,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_COUNTRY_NAME() {
         class Holder {
             static final MemorySegment szOID_COUNTRY_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.6");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.6");
         }
         return Holder.szOID_COUNTRY_NAME;
     }
@@ -8447,7 +8447,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_LOCALITY_NAME() {
         class Holder {
             static final MemorySegment szOID_LOCALITY_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.7");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.7");
         }
         return Holder.szOID_LOCALITY_NAME;
     }
@@ -8459,7 +8459,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_STATE_OR_PROVINCE_NAME() {
         class Holder {
             static final MemorySegment szOID_STATE_OR_PROVINCE_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.8");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.8");
         }
         return Holder.szOID_STATE_OR_PROVINCE_NAME;
     }
@@ -8471,7 +8471,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_STREET_ADDRESS() {
         class Holder {
             static final MemorySegment szOID_STREET_ADDRESS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.9");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.9");
         }
         return Holder.szOID_STREET_ADDRESS;
     }
@@ -8483,7 +8483,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ORGANIZATION_NAME() {
         class Holder {
             static final MemorySegment szOID_ORGANIZATION_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.10");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.10");
         }
         return Holder.szOID_ORGANIZATION_NAME;
     }
@@ -8495,7 +8495,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ORGANIZATIONAL_UNIT_NAME() {
         class Holder {
             static final MemorySegment szOID_ORGANIZATIONAL_UNIT_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.11");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.11");
         }
         return Holder.szOID_ORGANIZATIONAL_UNIT_NAME;
     }
@@ -8507,7 +8507,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_TITLE() {
         class Holder {
             static final MemorySegment szOID_TITLE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.12");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.12");
         }
         return Holder.szOID_TITLE;
     }
@@ -8519,7 +8519,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DESCRIPTION() {
         class Holder {
             static final MemorySegment szOID_DESCRIPTION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.13");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.13");
         }
         return Holder.szOID_DESCRIPTION;
     }
@@ -8531,7 +8531,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_SEARCH_GUIDE() {
         class Holder {
             static final MemorySegment szOID_SEARCH_GUIDE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.14");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.14");
         }
         return Holder.szOID_SEARCH_GUIDE;
     }
@@ -8543,7 +8543,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_BUSINESS_CATEGORY() {
         class Holder {
             static final MemorySegment szOID_BUSINESS_CATEGORY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.15");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.15");
         }
         return Holder.szOID_BUSINESS_CATEGORY;
     }
@@ -8555,7 +8555,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_POSTAL_ADDRESS() {
         class Holder {
             static final MemorySegment szOID_POSTAL_ADDRESS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.16");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.16");
         }
         return Holder.szOID_POSTAL_ADDRESS;
     }
@@ -8567,7 +8567,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_POSTAL_CODE() {
         class Holder {
             static final MemorySegment szOID_POSTAL_CODE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.17");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.17");
         }
         return Holder.szOID_POSTAL_CODE;
     }
@@ -8579,7 +8579,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_POST_OFFICE_BOX() {
         class Holder {
             static final MemorySegment szOID_POST_OFFICE_BOX
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.18");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.18");
         }
         return Holder.szOID_POST_OFFICE_BOX;
     }
@@ -8591,7 +8591,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PHYSICAL_DELIVERY_OFFICE_NAME() {
         class Holder {
             static final MemorySegment szOID_PHYSICAL_DELIVERY_OFFICE_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.19");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.19");
         }
         return Holder.szOID_PHYSICAL_DELIVERY_OFFICE_NAME;
     }
@@ -8603,7 +8603,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_TELEPHONE_NUMBER() {
         class Holder {
             static final MemorySegment szOID_TELEPHONE_NUMBER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.20");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.20");
         }
         return Holder.szOID_TELEPHONE_NUMBER;
     }
@@ -8615,7 +8615,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_TELEX_NUMBER() {
         class Holder {
             static final MemorySegment szOID_TELEX_NUMBER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.21");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.21");
         }
         return Holder.szOID_TELEX_NUMBER;
     }
@@ -8627,7 +8627,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_TELETEXT_TERMINAL_IDENTIFIER() {
         class Holder {
             static final MemorySegment szOID_TELETEXT_TERMINAL_IDENTIFIER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.22");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.22");
         }
         return Holder.szOID_TELETEXT_TERMINAL_IDENTIFIER;
     }
@@ -8639,7 +8639,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_FACSIMILE_TELEPHONE_NUMBER() {
         class Holder {
             static final MemorySegment szOID_FACSIMILE_TELEPHONE_NUMBER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.23");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.23");
         }
         return Holder.szOID_FACSIMILE_TELEPHONE_NUMBER;
     }
@@ -8651,7 +8651,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_X21_ADDRESS() {
         class Holder {
             static final MemorySegment szOID_X21_ADDRESS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.24");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.24");
         }
         return Holder.szOID_X21_ADDRESS;
     }
@@ -8663,7 +8663,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INTERNATIONAL_ISDN_NUMBER() {
         class Holder {
             static final MemorySegment szOID_INTERNATIONAL_ISDN_NUMBER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.25");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.25");
         }
         return Holder.szOID_INTERNATIONAL_ISDN_NUMBER;
     }
@@ -8675,7 +8675,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_REGISTERED_ADDRESS() {
         class Holder {
             static final MemorySegment szOID_REGISTERED_ADDRESS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.26");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.26");
         }
         return Holder.szOID_REGISTERED_ADDRESS;
     }
@@ -8687,7 +8687,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DESTINATION_INDICATOR() {
         class Holder {
             static final MemorySegment szOID_DESTINATION_INDICATOR
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.27");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.27");
         }
         return Holder.szOID_DESTINATION_INDICATOR;
     }
@@ -8699,7 +8699,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PREFERRED_DELIVERY_METHOD() {
         class Holder {
             static final MemorySegment szOID_PREFERRED_DELIVERY_METHOD
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.28");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.28");
         }
         return Holder.szOID_PREFERRED_DELIVERY_METHOD;
     }
@@ -8711,7 +8711,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PRESENTATION_ADDRESS() {
         class Holder {
             static final MemorySegment szOID_PRESENTATION_ADDRESS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.29");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.29");
         }
         return Holder.szOID_PRESENTATION_ADDRESS;
     }
@@ -8723,7 +8723,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_SUPPORTED_APPLICATION_CONTEXT() {
         class Holder {
             static final MemorySegment szOID_SUPPORTED_APPLICATION_CONTEXT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.30");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.30");
         }
         return Holder.szOID_SUPPORTED_APPLICATION_CONTEXT;
     }
@@ -8735,7 +8735,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_MEMBER() {
         class Holder {
             static final MemorySegment szOID_MEMBER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.31");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.31");
         }
         return Holder.szOID_MEMBER;
     }
@@ -8747,7 +8747,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OWNER() {
         class Holder {
             static final MemorySegment szOID_OWNER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.32");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.32");
         }
         return Holder.szOID_OWNER;
     }
@@ -8759,7 +8759,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ROLE_OCCUPANT() {
         class Holder {
             static final MemorySegment szOID_ROLE_OCCUPANT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.33");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.33");
         }
         return Holder.szOID_ROLE_OCCUPANT;
     }
@@ -8771,7 +8771,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_SEE_ALSO() {
         class Holder {
             static final MemorySegment szOID_SEE_ALSO
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.34");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.34");
         }
         return Holder.szOID_SEE_ALSO;
     }
@@ -8783,7 +8783,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_USER_PASSWORD() {
         class Holder {
             static final MemorySegment szOID_USER_PASSWORD
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.35");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.35");
         }
         return Holder.szOID_USER_PASSWORD;
     }
@@ -8795,7 +8795,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_USER_CERTIFICATE() {
         class Holder {
             static final MemorySegment szOID_USER_CERTIFICATE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.36");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.36");
         }
         return Holder.szOID_USER_CERTIFICATE;
     }
@@ -8807,7 +8807,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CA_CERTIFICATE() {
         class Holder {
             static final MemorySegment szOID_CA_CERTIFICATE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.37");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.37");
         }
         return Holder.szOID_CA_CERTIFICATE;
     }
@@ -8819,7 +8819,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_AUTHORITY_REVOCATION_LIST() {
         class Holder {
             static final MemorySegment szOID_AUTHORITY_REVOCATION_LIST
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.38");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.38");
         }
         return Holder.szOID_AUTHORITY_REVOCATION_LIST;
     }
@@ -8831,7 +8831,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CERTIFICATE_REVOCATION_LIST() {
         class Holder {
             static final MemorySegment szOID_CERTIFICATE_REVOCATION_LIST
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.39");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.39");
         }
         return Holder.szOID_CERTIFICATE_REVOCATION_LIST;
     }
@@ -8843,7 +8843,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CROSS_CERTIFICATE_PAIR() {
         class Holder {
             static final MemorySegment szOID_CROSS_CERTIFICATE_PAIR
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.40");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.40");
         }
         return Holder.szOID_CROSS_CERTIFICATE_PAIR;
     }
@@ -8855,7 +8855,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_GIVEN_NAME() {
         class Holder {
             static final MemorySegment szOID_GIVEN_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.42");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.42");
         }
         return Holder.szOID_GIVEN_NAME;
     }
@@ -8867,7 +8867,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INITIALS() {
         class Holder {
             static final MemorySegment szOID_INITIALS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.43");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.43");
         }
         return Holder.szOID_INITIALS;
     }
@@ -8879,7 +8879,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DN_QUALIFIER() {
         class Holder {
             static final MemorySegment szOID_DN_QUALIFIER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.46");
+                = LIBRARY_ARENA.allocateFrom("2.5.4.46");
         }
         return Holder.szOID_DN_QUALIFIER;
     }
@@ -8891,7 +8891,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DOMAIN_COMPONENT() {
         class Holder {
             static final MemorySegment szOID_DOMAIN_COMPONENT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("0.9.2342.19200300.100.1.25");
+                = LIBRARY_ARENA.allocateFrom("0.9.2342.19200300.100.1.25");
         }
         return Holder.szOID_DOMAIN_COMPONENT;
     }
@@ -8903,7 +8903,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_12_FRIENDLY_NAME_ATTR() {
         class Holder {
             static final MemorySegment szOID_PKCS_12_FRIENDLY_NAME_ATTR
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.20");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.20");
         }
         return Holder.szOID_PKCS_12_FRIENDLY_NAME_ATTR;
     }
@@ -8915,7 +8915,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_12_LOCAL_KEY_ID() {
         class Holder {
             static final MemorySegment szOID_PKCS_12_LOCAL_KEY_ID
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.21");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.21");
         }
         return Holder.szOID_PKCS_12_LOCAL_KEY_ID;
     }
@@ -8927,7 +8927,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_12_KEY_PROVIDER_NAME_ATTR() {
         class Holder {
             static final MemorySegment szOID_PKCS_12_KEY_PROVIDER_NAME_ATTR
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.17.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.17.1");
         }
         return Holder.szOID_PKCS_12_KEY_PROVIDER_NAME_ATTR;
     }
@@ -8939,7 +8939,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_LOCAL_MACHINE_KEYSET() {
         class Holder {
             static final MemorySegment szOID_LOCAL_MACHINE_KEYSET
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.17.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.17.2");
         }
         return Holder.szOID_LOCAL_MACHINE_KEYSET;
     }
@@ -8951,7 +8951,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_12_EXTENDED_ATTRIBUTES() {
         class Holder {
             static final MemorySegment szOID_PKCS_12_EXTENDED_ATTRIBUTES
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.17.3");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.17.3");
         }
         return Holder.szOID_PKCS_12_EXTENDED_ATTRIBUTES;
     }
@@ -8963,7 +8963,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKCS_12_PROTECTED_PASSWORD_SECRET_BAG_TYPE_ID() {
         class Holder {
             static final MemorySegment szOID_PKCS_12_PROTECTED_PASSWORD_SECRET_BAG_TYPE_ID
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.17.4");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.17.4");
         }
         return Holder.szOID_PKCS_12_PROTECTED_PASSWORD_SECRET_BAG_TYPE_ID;
     }
@@ -8975,7 +8975,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_KEYID_RDN() {
         class Holder {
             static final MemorySegment szOID_KEYID_RDN
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.7.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.7.1");
         }
         return Holder.szOID_KEYID_RDN;
     }
@@ -8987,7 +8987,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_EV_RDN_LOCALE() {
         class Holder {
             static final MemorySegment szOID_EV_RDN_LOCALE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.60.2.1.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.60.2.1.1");
         }
         return Holder.szOID_EV_RDN_LOCALE;
     }
@@ -8999,7 +8999,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_EV_RDN_STATE_OR_PROVINCE() {
         class Holder {
             static final MemorySegment szOID_EV_RDN_STATE_OR_PROVINCE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.60.2.1.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.60.2.1.2");
         }
         return Holder.szOID_EV_RDN_STATE_OR_PROVINCE;
     }
@@ -9011,7 +9011,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_EV_RDN_COUNTRY() {
         class Holder {
             static final MemorySegment szOID_EV_RDN_COUNTRY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.60.2.1.3");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.60.2.1.3");
         }
         return Holder.szOID_EV_RDN_COUNTRY;
     }
@@ -9041,7 +9041,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment CERT_RSA_PUBLIC_KEY_OBJID() {
         class Holder {
             static final MemorySegment CERT_RSA_PUBLIC_KEY_OBJID
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.1");
         }
         return Holder.CERT_RSA_PUBLIC_KEY_OBJID;
     }
@@ -9053,7 +9053,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment CERT_DEFAULT_OID_PUBLIC_KEY_SIGN() {
         class Holder {
             static final MemorySegment CERT_DEFAULT_OID_PUBLIC_KEY_SIGN
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.1");
         }
         return Holder.CERT_DEFAULT_OID_PUBLIC_KEY_SIGN;
     }
@@ -9065,7 +9065,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment CERT_DEFAULT_OID_PUBLIC_KEY_XCHG() {
         class Holder {
             static final MemorySegment CERT_DEFAULT_OID_PUBLIC_KEY_XCHG
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.1");
+                = LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.1");
         }
         return Holder.CERT_DEFAULT_OID_PUBLIC_KEY_XCHG;
     }
@@ -10022,7 +10022,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_AUTHORITY_KEY_IDENTIFIER() {
         class Holder {
             static final MemorySegment szOID_AUTHORITY_KEY_IDENTIFIER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.1");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.1");
         }
         return Holder.szOID_AUTHORITY_KEY_IDENTIFIER;
     }
@@ -10034,7 +10034,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_KEY_ATTRIBUTES() {
         class Holder {
             static final MemorySegment szOID_KEY_ATTRIBUTES
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.2");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.2");
         }
         return Holder.szOID_KEY_ATTRIBUTES;
     }
@@ -10046,7 +10046,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CERT_POLICIES_95() {
         class Holder {
             static final MemorySegment szOID_CERT_POLICIES_95
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.3");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.3");
         }
         return Holder.szOID_CERT_POLICIES_95;
     }
@@ -10058,7 +10058,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_KEY_USAGE_RESTRICTION() {
         class Holder {
             static final MemorySegment szOID_KEY_USAGE_RESTRICTION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.4");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.4");
         }
         return Holder.szOID_KEY_USAGE_RESTRICTION;
     }
@@ -10070,7 +10070,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_SUBJECT_ALT_NAME() {
         class Holder {
             static final MemorySegment szOID_SUBJECT_ALT_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.7");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.7");
         }
         return Holder.szOID_SUBJECT_ALT_NAME;
     }
@@ -10082,7 +10082,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ISSUER_ALT_NAME() {
         class Holder {
             static final MemorySegment szOID_ISSUER_ALT_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.8");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.8");
         }
         return Holder.szOID_ISSUER_ALT_NAME;
     }
@@ -10094,7 +10094,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_BASIC_CONSTRAINTS() {
         class Holder {
             static final MemorySegment szOID_BASIC_CONSTRAINTS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.10");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.10");
         }
         return Holder.szOID_BASIC_CONSTRAINTS;
     }
@@ -10106,7 +10106,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_KEY_USAGE() {
         class Holder {
             static final MemorySegment szOID_KEY_USAGE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.15");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.15");
         }
         return Holder.szOID_KEY_USAGE;
     }
@@ -10118,7 +10118,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PRIVATEKEY_USAGE_PERIOD() {
         class Holder {
             static final MemorySegment szOID_PRIVATEKEY_USAGE_PERIOD
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.16");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.16");
         }
         return Holder.szOID_PRIVATEKEY_USAGE_PERIOD;
     }
@@ -10130,7 +10130,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_BASIC_CONSTRAINTS2() {
         class Holder {
             static final MemorySegment szOID_BASIC_CONSTRAINTS2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.19");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.19");
         }
         return Holder.szOID_BASIC_CONSTRAINTS2;
     }
@@ -10142,7 +10142,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CERT_POLICIES() {
         class Holder {
             static final MemorySegment szOID_CERT_POLICIES
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.32");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.32");
         }
         return Holder.szOID_CERT_POLICIES;
     }
@@ -10154,7 +10154,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ANY_CERT_POLICY() {
         class Holder {
             static final MemorySegment szOID_ANY_CERT_POLICY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.32.0");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.32.0");
         }
         return Holder.szOID_ANY_CERT_POLICY;
     }
@@ -10166,7 +10166,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INHIBIT_ANY_POLICY() {
         class Holder {
             static final MemorySegment szOID_INHIBIT_ANY_POLICY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.54");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.54");
         }
         return Holder.szOID_INHIBIT_ANY_POLICY;
     }
@@ -10178,7 +10178,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_AUTHORITY_KEY_IDENTIFIER2() {
         class Holder {
             static final MemorySegment szOID_AUTHORITY_KEY_IDENTIFIER2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.35");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.35");
         }
         return Holder.szOID_AUTHORITY_KEY_IDENTIFIER2;
     }
@@ -10190,7 +10190,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_SUBJECT_KEY_IDENTIFIER() {
         class Holder {
             static final MemorySegment szOID_SUBJECT_KEY_IDENTIFIER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.14");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.14");
         }
         return Holder.szOID_SUBJECT_KEY_IDENTIFIER;
     }
@@ -10202,7 +10202,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_SUBJECT_ALT_NAME2() {
         class Holder {
             static final MemorySegment szOID_SUBJECT_ALT_NAME2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.17");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.17");
         }
         return Holder.szOID_SUBJECT_ALT_NAME2;
     }
@@ -10214,7 +10214,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ISSUER_ALT_NAME2() {
         class Holder {
             static final MemorySegment szOID_ISSUER_ALT_NAME2
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.18");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.18");
         }
         return Holder.szOID_ISSUER_ALT_NAME2;
     }
@@ -10226,7 +10226,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CRL_REASON_CODE() {
         class Holder {
             static final MemorySegment szOID_CRL_REASON_CODE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.21");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.21");
         }
         return Holder.szOID_CRL_REASON_CODE;
     }
@@ -10238,7 +10238,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_REASON_CODE_HOLD() {
         class Holder {
             static final MemorySegment szOID_REASON_CODE_HOLD
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.23");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.23");
         }
         return Holder.szOID_REASON_CODE_HOLD;
     }
@@ -10250,7 +10250,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CRL_DIST_POINTS() {
         class Holder {
             static final MemorySegment szOID_CRL_DIST_POINTS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.31");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.31");
         }
         return Holder.szOID_CRL_DIST_POINTS;
     }
@@ -10262,7 +10262,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ENHANCED_KEY_USAGE() {
         class Holder {
             static final MemorySegment szOID_ENHANCED_KEY_USAGE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.37");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.37");
         }
         return Holder.szOID_ENHANCED_KEY_USAGE;
     }
@@ -10274,7 +10274,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ANY_ENHANCED_KEY_USAGE() {
         class Holder {
             static final MemorySegment szOID_ANY_ENHANCED_KEY_USAGE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.37.0");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.37.0");
         }
         return Holder.szOID_ANY_ENHANCED_KEY_USAGE;
     }
@@ -10286,7 +10286,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CRL_NUMBER() {
         class Holder {
             static final MemorySegment szOID_CRL_NUMBER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.20");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.20");
         }
         return Holder.szOID_CRL_NUMBER;
     }
@@ -10298,7 +10298,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DELTA_CRL_INDICATOR() {
         class Holder {
             static final MemorySegment szOID_DELTA_CRL_INDICATOR
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.27");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.27");
         }
         return Holder.szOID_DELTA_CRL_INDICATOR;
     }
@@ -10310,7 +10310,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ISSUING_DIST_POINT() {
         class Holder {
             static final MemorySegment szOID_ISSUING_DIST_POINT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.28");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.28");
         }
         return Holder.szOID_ISSUING_DIST_POINT;
     }
@@ -10322,7 +10322,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_FRESHEST_CRL() {
         class Holder {
             static final MemorySegment szOID_FRESHEST_CRL
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.46");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.46");
         }
         return Holder.szOID_FRESHEST_CRL;
     }
@@ -10334,7 +10334,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NAME_CONSTRAINTS() {
         class Holder {
             static final MemorySegment szOID_NAME_CONSTRAINTS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.30");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.30");
         }
         return Holder.szOID_NAME_CONSTRAINTS;
     }
@@ -10346,7 +10346,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_POLICY_MAPPINGS() {
         class Holder {
             static final MemorySegment szOID_POLICY_MAPPINGS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.33");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.33");
         }
         return Holder.szOID_POLICY_MAPPINGS;
     }
@@ -10358,7 +10358,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_LEGACY_POLICY_MAPPINGS() {
         class Holder {
             static final MemorySegment szOID_LEGACY_POLICY_MAPPINGS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.5");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.5");
         }
         return Holder.szOID_LEGACY_POLICY_MAPPINGS;
     }
@@ -10370,7 +10370,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_POLICY_CONSTRAINTS() {
         class Holder {
             static final MemorySegment szOID_POLICY_CONSTRAINTS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.36");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.36");
         }
         return Holder.szOID_POLICY_CONSTRAINTS;
     }
@@ -10382,7 +10382,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RENEWAL_CERTIFICATE() {
         class Holder {
             static final MemorySegment szOID_RENEWAL_CERTIFICATE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.13.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.13.1");
         }
         return Holder.szOID_RENEWAL_CERTIFICATE;
     }
@@ -10394,7 +10394,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ENROLLMENT_NAME_VALUE_PAIR() {
         class Holder {
             static final MemorySegment szOID_ENROLLMENT_NAME_VALUE_PAIR
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.13.2.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.13.2.1");
         }
         return Holder.szOID_ENROLLMENT_NAME_VALUE_PAIR;
     }
@@ -10406,7 +10406,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ENROLLMENT_CSP_PROVIDER() {
         class Holder {
             static final MemorySegment szOID_ENROLLMENT_CSP_PROVIDER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.13.2.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.13.2.2");
         }
         return Holder.szOID_ENROLLMENT_CSP_PROVIDER;
     }
@@ -10418,7 +10418,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_OS_VERSION() {
         class Holder {
             static final MemorySegment szOID_OS_VERSION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.13.2.3");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.13.2.3");
         }
         return Holder.szOID_OS_VERSION;
     }
@@ -10430,7 +10430,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ENROLLMENT_AGENT() {
         class Holder {
             static final MemorySegment szOID_ENROLLMENT_AGENT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.2.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.2.1");
         }
         return Holder.szOID_ENROLLMENT_AGENT;
     }
@@ -10442,7 +10442,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX() {
         class Holder {
             static final MemorySegment szOID_PKIX
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7");
         }
         return Holder.szOID_PKIX;
     }
@@ -10454,7 +10454,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX_PE() {
         class Holder {
             static final MemorySegment szOID_PKIX_PE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1");
         }
         return Holder.szOID_PKIX_PE;
     }
@@ -10466,7 +10466,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_AUTHORITY_INFO_ACCESS() {
         class Holder {
             static final MemorySegment szOID_AUTHORITY_INFO_ACCESS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.1");
         }
         return Holder.szOID_AUTHORITY_INFO_ACCESS;
     }
@@ -10478,7 +10478,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_SUBJECT_INFO_ACCESS() {
         class Holder {
             static final MemorySegment szOID_SUBJECT_INFO_ACCESS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.11");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.11");
         }
         return Holder.szOID_SUBJECT_INFO_ACCESS;
     }
@@ -10490,7 +10490,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_BIOMETRIC_EXT() {
         class Holder {
             static final MemorySegment szOID_BIOMETRIC_EXT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.2");
         }
         return Holder.szOID_BIOMETRIC_EXT;
     }
@@ -10502,7 +10502,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_QC_STATEMENTS_EXT() {
         class Holder {
             static final MemorySegment szOID_QC_STATEMENTS_EXT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.3");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.3");
         }
         return Holder.szOID_QC_STATEMENTS_EXT;
     }
@@ -10514,7 +10514,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_LOGOTYPE_EXT() {
         class Holder {
             static final MemorySegment szOID_LOGOTYPE_EXT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.12");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.12");
         }
         return Holder.szOID_LOGOTYPE_EXT;
     }
@@ -10526,7 +10526,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_TLS_FEATURES_EXT() {
         class Holder {
             static final MemorySegment szOID_TLS_FEATURES_EXT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.24");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.24");
         }
         return Holder.szOID_TLS_FEATURES_EXT;
     }
@@ -10538,7 +10538,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CERT_EXTENSIONS() {
         class Holder {
             static final MemorySegment szOID_CERT_EXTENSIONS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.2.1.14");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.2.1.14");
         }
         return Holder.szOID_CERT_EXTENSIONS;
     }
@@ -10550,7 +10550,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NEXT_UPDATE_LOCATION() {
         class Holder {
             static final MemorySegment szOID_NEXT_UPDATE_LOCATION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.2");
         }
         return Holder.szOID_NEXT_UPDATE_LOCATION;
     }
@@ -10562,7 +10562,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_REMOVE_CERTIFICATE() {
         class Holder {
             static final MemorySegment szOID_REMOVE_CERTIFICATE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.8.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.8.1");
         }
         return Holder.szOID_REMOVE_CERTIFICATE;
     }
@@ -10574,7 +10574,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CROSS_CERT_DIST_POINTS() {
         class Holder {
             static final MemorySegment szOID_CROSS_CERT_DIST_POINTS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.9.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.9.1");
         }
         return Holder.szOID_CROSS_CERT_DIST_POINTS;
     }
@@ -10586,7 +10586,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CTL() {
         class Holder {
             static final MemorySegment szOID_CTL
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.1");
         }
         return Holder.szOID_CTL;
     }
@@ -10598,7 +10598,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_SORTED_CTL() {
         class Holder {
             static final MemorySegment szOID_SORTED_CTL
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.1.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.1.1");
         }
         return Holder.szOID_SORTED_CTL;
     }
@@ -10610,7 +10610,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_SERIALIZED() {
         class Holder {
             static final MemorySegment szOID_SERIALIZED
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.3.3.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.3.3.1");
         }
         return Holder.szOID_SERIALIZED;
     }
@@ -10622,7 +10622,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NT_PRINCIPAL_NAME() {
         class Holder {
             static final MemorySegment szOID_NT_PRINCIPAL_NAME
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.2.3");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.2.3");
         }
         return Holder.szOID_NT_PRINCIPAL_NAME;
     }
@@ -10634,7 +10634,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_INTERNATIONALIZED_EMAIL_ADDRESS() {
         class Holder {
             static final MemorySegment szOID_INTERNATIONALIZED_EMAIL_ADDRESS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.2.4");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.2.4");
         }
         return Holder.szOID_INTERNATIONALIZED_EMAIL_ADDRESS;
     }
@@ -10646,7 +10646,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PRODUCT_UPDATE() {
         class Holder {
             static final MemorySegment szOID_PRODUCT_UPDATE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.31.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.31.1");
         }
         return Holder.szOID_PRODUCT_UPDATE;
     }
@@ -10658,7 +10658,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ANY_APPLICATION_POLICY() {
         class Holder {
             static final MemorySegment szOID_ANY_APPLICATION_POLICY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.12.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.12.1");
         }
         return Holder.szOID_ANY_APPLICATION_POLICY;
     }
@@ -10670,7 +10670,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_AUTO_ENROLL_CTL_USAGE() {
         class Holder {
             static final MemorySegment szOID_AUTO_ENROLL_CTL_USAGE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.1");
         }
         return Holder.szOID_AUTO_ENROLL_CTL_USAGE;
     }
@@ -10682,7 +10682,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ENROLL_CERTTYPE_EXTENSION() {
         class Holder {
             static final MemorySegment szOID_ENROLL_CERTTYPE_EXTENSION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.2");
         }
         return Holder.szOID_ENROLL_CERTTYPE_EXTENSION;
     }
@@ -10694,7 +10694,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CERT_MANIFOLD() {
         class Holder {
             static final MemorySegment szOID_CERT_MANIFOLD
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.3");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.3");
         }
         return Holder.szOID_CERT_MANIFOLD;
     }
@@ -10706,7 +10706,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CERTSRV_CA_VERSION() {
         class Holder {
             static final MemorySegment szOID_CERTSRV_CA_VERSION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.1");
         }
         return Holder.szOID_CERTSRV_CA_VERSION;
     }
@@ -10718,7 +10718,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CERTSRV_PREVIOUS_CERT_HASH() {
         class Holder {
             static final MemorySegment szOID_CERTSRV_PREVIOUS_CERT_HASH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.2");
         }
         return Holder.szOID_CERTSRV_PREVIOUS_CERT_HASH;
     }
@@ -10730,7 +10730,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CRL_VIRTUAL_BASE() {
         class Holder {
             static final MemorySegment szOID_CRL_VIRTUAL_BASE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.3");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.3");
         }
         return Holder.szOID_CRL_VIRTUAL_BASE;
     }
@@ -10742,7 +10742,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CRL_NEXT_PUBLISH() {
         class Holder {
             static final MemorySegment szOID_CRL_NEXT_PUBLISH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.4");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.4");
         }
         return Holder.szOID_CRL_NEXT_PUBLISH;
     }
@@ -10754,7 +10754,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_KP_CA_EXCHANGE() {
         class Holder {
             static final MemorySegment szOID_KP_CA_EXCHANGE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.5");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.5");
         }
         return Holder.szOID_KP_CA_EXCHANGE;
     }
@@ -10766,7 +10766,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_KP_PRIVACY_CA() {
         class Holder {
             static final MemorySegment szOID_KP_PRIVACY_CA
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.36");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.36");
         }
         return Holder.szOID_KP_PRIVACY_CA;
     }
@@ -10778,7 +10778,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_KP_KEY_RECOVERY_AGENT() {
         class Holder {
             static final MemorySegment szOID_KP_KEY_RECOVERY_AGENT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.6");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.6");
         }
         return Holder.szOID_KP_KEY_RECOVERY_AGENT;
     }
@@ -10790,7 +10790,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CERTIFICATE_TEMPLATE() {
         class Holder {
             static final MemorySegment szOID_CERTIFICATE_TEMPLATE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.7");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.7");
         }
         return Holder.szOID_CERTIFICATE_TEMPLATE;
     }
@@ -10802,7 +10802,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ENTERPRISE_OID_ROOT() {
         class Holder {
             static final MemorySegment szOID_ENTERPRISE_OID_ROOT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.8");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.8");
         }
         return Holder.szOID_ENTERPRISE_OID_ROOT;
     }
@@ -10814,7 +10814,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_RDN_DUMMY_SIGNER() {
         class Holder {
             static final MemorySegment szOID_RDN_DUMMY_SIGNER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.9");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.9");
         }
         return Holder.szOID_RDN_DUMMY_SIGNER;
     }
@@ -10826,7 +10826,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_APPLICATION_CERT_POLICIES() {
         class Holder {
             static final MemorySegment szOID_APPLICATION_CERT_POLICIES
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.10");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.10");
         }
         return Holder.szOID_APPLICATION_CERT_POLICIES;
     }
@@ -10838,7 +10838,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_APPLICATION_POLICY_MAPPINGS() {
         class Holder {
             static final MemorySegment szOID_APPLICATION_POLICY_MAPPINGS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.11");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.11");
         }
         return Holder.szOID_APPLICATION_POLICY_MAPPINGS;
     }
@@ -10850,7 +10850,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_APPLICATION_POLICY_CONSTRAINTS() {
         class Holder {
             static final MemorySegment szOID_APPLICATION_POLICY_CONSTRAINTS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.12");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.12");
         }
         return Holder.szOID_APPLICATION_POLICY_CONSTRAINTS;
     }
@@ -10862,7 +10862,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ARCHIVED_KEY_ATTR() {
         class Holder {
             static final MemorySegment szOID_ARCHIVED_KEY_ATTR
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.13");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.13");
         }
         return Holder.szOID_ARCHIVED_KEY_ATTR;
     }
@@ -10874,7 +10874,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CRL_SELF_CDP() {
         class Holder {
             static final MemorySegment szOID_CRL_SELF_CDP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.14");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.14");
         }
         return Holder.szOID_CRL_SELF_CDP;
     }
@@ -10886,7 +10886,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_REQUIRE_CERT_CHAIN_POLICY() {
         class Holder {
             static final MemorySegment szOID_REQUIRE_CERT_CHAIN_POLICY
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.15");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.15");
         }
         return Holder.szOID_REQUIRE_CERT_CHAIN_POLICY;
     }
@@ -10898,7 +10898,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ARCHIVED_KEY_CERT_HASH() {
         class Holder {
             static final MemorySegment szOID_ARCHIVED_KEY_CERT_HASH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.16");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.16");
         }
         return Holder.szOID_ARCHIVED_KEY_CERT_HASH;
     }
@@ -10910,7 +10910,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ISSUED_CERT_HASH() {
         class Holder {
             static final MemorySegment szOID_ISSUED_CERT_HASH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.17");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.17");
         }
         return Holder.szOID_ISSUED_CERT_HASH;
     }
@@ -10922,7 +10922,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_DS_EMAIL_REPLICATION() {
         class Holder {
             static final MemorySegment szOID_DS_EMAIL_REPLICATION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.19");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.19");
         }
         return Holder.szOID_DS_EMAIL_REPLICATION;
     }
@@ -10934,7 +10934,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_REQUEST_CLIENT_INFO() {
         class Holder {
             static final MemorySegment szOID_REQUEST_CLIENT_INFO
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.20");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.20");
         }
         return Holder.szOID_REQUEST_CLIENT_INFO;
     }
@@ -10946,7 +10946,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_ENCRYPTED_KEY_HASH() {
         class Holder {
             static final MemorySegment szOID_ENCRYPTED_KEY_HASH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.21");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.21");
         }
         return Holder.szOID_ENCRYPTED_KEY_HASH;
     }
@@ -10958,7 +10958,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_CERTSRV_CROSSCA_VERSION() {
         class Holder {
             static final MemorySegment szOID_CERTSRV_CROSSCA_VERSION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.22");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.22");
         }
         return Holder.szOID_CERTSRV_CROSSCA_VERSION;
     }
@@ -10970,7 +10970,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NTDS_REPLICATION() {
         class Holder {
             static final MemorySegment szOID_NTDS_REPLICATION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.25.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.25.1");
         }
         return Holder.szOID_NTDS_REPLICATION;
     }
@@ -10982,7 +10982,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NTDS_CA_SECURITY_EXT() {
         class Holder {
             static final MemorySegment szOID_NTDS_CA_SECURITY_EXT
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.25.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.25.2");
         }
         return Holder.szOID_NTDS_CA_SECURITY_EXT;
     }
@@ -10994,7 +10994,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_NTDS_OBJECTSID() {
         class Holder {
             static final MemorySegment szOID_NTDS_OBJECTSID
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.25.2.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.25.2.1");
         }
         return Holder.szOID_NTDS_OBJECTSID;
     }
@@ -11006,7 +11006,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_SUBJECT_DIR_ATTRS() {
         class Holder {
             static final MemorySegment szOID_SUBJECT_DIR_ATTRS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.9");
+                = LIBRARY_ARENA.allocateFrom("2.5.29.9");
         }
         return Holder.szOID_SUBJECT_DIR_ATTRS;
     }
@@ -11018,7 +11018,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX_KP() {
         class Holder {
             static final MemorySegment szOID_PKIX_KP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3");
         }
         return Holder.szOID_PKIX_KP;
     }
@@ -11030,7 +11030,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX_KP_SERVER_AUTH() {
         class Holder {
             static final MemorySegment szOID_PKIX_KP_SERVER_AUTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.1");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.1");
         }
         return Holder.szOID_PKIX_KP_SERVER_AUTH;
     }
@@ -11042,7 +11042,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX_KP_CLIENT_AUTH() {
         class Holder {
             static final MemorySegment szOID_PKIX_KP_CLIENT_AUTH
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.2");
         }
         return Holder.szOID_PKIX_KP_CLIENT_AUTH;
     }
@@ -11054,7 +11054,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX_KP_CODE_SIGNING() {
         class Holder {
             static final MemorySegment szOID_PKIX_KP_CODE_SIGNING
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.3");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.3");
         }
         return Holder.szOID_PKIX_KP_CODE_SIGNING;
     }
@@ -11066,7 +11066,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX_KP_EMAIL_PROTECTION() {
         class Holder {
             static final MemorySegment szOID_PKIX_KP_EMAIL_PROTECTION
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.4");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.4");
         }
         return Holder.szOID_PKIX_KP_EMAIL_PROTECTION;
     }
@@ -11078,7 +11078,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX_KP_IPSEC_END_SYSTEM() {
         class Holder {
             static final MemorySegment szOID_PKIX_KP_IPSEC_END_SYSTEM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.5");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.5");
         }
         return Holder.szOID_PKIX_KP_IPSEC_END_SYSTEM;
     }
@@ -11090,7 +11090,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX_KP_IPSEC_TUNNEL() {
         class Holder {
             static final MemorySegment szOID_PKIX_KP_IPSEC_TUNNEL
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.6");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.6");
         }
         return Holder.szOID_PKIX_KP_IPSEC_TUNNEL;
     }
@@ -11102,7 +11102,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX_KP_IPSEC_USER() {
         class Holder {
             static final MemorySegment szOID_PKIX_KP_IPSEC_USER
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.7");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.7");
         }
         return Holder.szOID_PKIX_KP_IPSEC_USER;
     }
@@ -11114,7 +11114,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX_KP_TIMESTAMP_SIGNING() {
         class Holder {
             static final MemorySegment szOID_PKIX_KP_TIMESTAMP_SIGNING
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.8");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.8");
         }
         return Holder.szOID_PKIX_KP_TIMESTAMP_SIGNING;
     }
@@ -11126,7 +11126,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX_KP_OCSP_SIGNING() {
         class Holder {
             static final MemorySegment szOID_PKIX_KP_OCSP_SIGNING
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.9");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.9");
         }
         return Holder.szOID_PKIX_KP_OCSP_SIGNING;
     }
@@ -11138,7 +11138,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX_OCSP_NOCHECK() {
         class Holder {
             static final MemorySegment szOID_PKIX_OCSP_NOCHECK
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.48.1.5");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.48.1.5");
         }
         return Holder.szOID_PKIX_OCSP_NOCHECK;
     }
@@ -11150,7 +11150,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment szOID_PKIX_OCSP_NONCE() {
         class Holder {
             static final MemorySegment szOID_PKIX_OCSP_NONCE
-                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.48.1.2");
+                = LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.48.1.2");
         }
         return Holder.szOID_PKIX_OCSP_NONCE;
     }

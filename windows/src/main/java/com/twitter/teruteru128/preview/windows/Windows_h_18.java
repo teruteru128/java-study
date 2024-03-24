@@ -26,7 +26,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DATA_SET_SCRUB_OUTPUT
      * }
      */
-    public static final AddressLayout PDEVICE_DATA_SET_SCRUB_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DATA_SET_SCRUB_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DATA_SET_SCRUB_OUTPUT {
@@ -36,7 +36,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_SCRUB_OUTPUT
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_SCRUB_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_SCRUB_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DATA_SET_SCRUB_EX_OUTPUT {
@@ -48,7 +48,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DATA_SET_SCRUB_EX_OUTPUT
      * }
      */
-    public static final AddressLayout PDEVICE_DATA_SET_SCRUB_EX_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DATA_SET_SCRUB_EX_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DATA_SET_SCRUB_EX_OUTPUT {
@@ -60,7 +60,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_SCRUB_OUTPUT2
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_SCRUB_OUTPUT2 = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_SCRUB_OUTPUT2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_TIERING_QUERY_INPUT {
@@ -72,7 +72,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_TIERING_QUERY_INPUT
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_TIERING_QUERY_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_TIERING_QUERY_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_TIERING_QUERY_INPUT {
@@ -84,7 +84,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_TIERING_QUERY_PARAMETERS
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_TIERING_QUERY_PARAMETERS = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_TIERING_QUERY_PARAMETERS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_TIER_REGION {
@@ -94,7 +94,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_TIER_REGION
      * }
      */
-    public static final AddressLayout PSTORAGE_TIER_REGION = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_TIER_REGION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_TIERING_QUERY_OUTPUT {
@@ -109,7 +109,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_TIERING_QUERY_OUTPUT
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_TIERING_QUERY_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_TIERING_QUERY_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS {
@@ -119,7 +119,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT {
@@ -128,7 +128,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT
      * }
      */
-    public static final AddressLayout PDEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT {
@@ -137,7 +137,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_TOPOLOGY_ID_QUERY_OUTPUT
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_TOPOLOGY_ID_QUERY_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_TOPOLOGY_ID_QUERY_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_STORAGE_ADDRESS_RANGE {
@@ -146,7 +146,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_STORAGE_ADDRESS_RANGE
      * }
      */
-    public static final AddressLayout PDEVICE_STORAGE_ADDRESS_RANGE = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_STORAGE_ADDRESS_RANGE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT {
@@ -158,7 +158,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_REPORT_ZONES_PARAMETERS {
@@ -169,7 +169,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_REPORT_ZONES_PARAMETERS
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_REPORT_ZONES_PARAMETERS = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_REPORT_ZONES_PARAMETERS = C_POINTER;
     private static final int ZonesAttributeTypeAndLengthMayDifferent = (int)0L;
     /**
      * {@snippet lang=c :
@@ -216,7 +216,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_ZONES_ATTRIBUTES
      * }
      */
-    public static final AddressLayout PSTORAGE_ZONES_ATTRIBUTES = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_ZONES_ATTRIBUTES = C_POINTER;
     private static final int ZoneConditionConventional = (int)0L;
     /**
      * {@snippet lang=c :
@@ -303,7 +303,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_ZONE_CONDITION
      * }
      */
-    public static final AddressLayout PSTORAGE_ZONE_CONDITION = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_ZONE_CONDITION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_ZONE_DESCRIPTOR {
@@ -317,7 +317,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_ZONE_DESCRIPTOR
      * }
      */
-    public static final AddressLayout PSTORAGE_ZONE_DESCRIPTOR = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_ZONE_DESCRIPTOR = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_REPORT_ZONES_DATA {
@@ -329,7 +329,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_REPORT_ZONES_DATA
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_REPORT_ZONES_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_REPORT_ZONES_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_REPORT_ZONES_DATA {
@@ -341,7 +341,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_REPORT_ZONES_OUTPUT
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_REPORT_ZONES_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_REPORT_ZONES_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_STORAGE_RANGE_ATTRIBUTES {
@@ -356,7 +356,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_STORAGE_RANGE_ATTRIBUTES
      * }
      */
-    public static final AddressLayout PDEVICE_STORAGE_RANGE_ATTRIBUTES = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_STORAGE_RANGE_ATTRIBUTES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_RANGE_ERROR_INFO {
@@ -368,7 +368,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_RANGE_ERROR_INFO
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_RANGE_ERROR_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_RANGE_ERROR_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_RANGE_ERROR_INFO {
@@ -380,7 +380,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_RANGE_ERROR_OUTPUT
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_RANGE_ERROR_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_RANGE_ERROR_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_LOST_QUERY_PARAMETERS {
@@ -389,7 +389,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_LOST_QUERY_PARAMETERS
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_LOST_QUERY_PARAMETERS = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_LOST_QUERY_PARAMETERS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_LOST_QUERY_OUTPUT {
@@ -401,7 +401,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_LOST_QUERY_OUTPUT
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_LOST_QUERY_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_LOST_QUERY_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_FREE_SPACE_OUTPUT {
@@ -410,7 +410,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_FREE_SPACE_OUTPUT
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_FREE_SPACE_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_FREE_SPACE_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_DSM_CONVERSION_OUTPUT {
@@ -419,7 +419,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_DSM_CONVERSION_OUTPUT
      * }
      */
-    public static final AddressLayout PDEVICE_DSM_CONVERSION_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_DSM_CONVERSION_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_GET_BC_PROPERTIES_OUTPUT {
@@ -432,7 +432,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_GET_BC_PROPERTIES_OUTPUT
      * }
      */
-    public static final AddressLayout PSTORAGE_GET_BC_PROPERTIES_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_GET_BC_PROPERTIES_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_ALLOCATE_BC_STREAM_INPUT {
@@ -447,7 +447,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_ALLOCATE_BC_STREAM_INPUT
      * }
      */
-    public static final AddressLayout PSTORAGE_ALLOCATE_BC_STREAM_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_ALLOCATE_BC_STREAM_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_ALLOCATE_BC_STREAM_OUTPUT {
@@ -456,7 +456,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_ALLOCATE_BC_STREAM_OUTPUT
      * }
      */
-    public static final AddressLayout PSTORAGE_ALLOCATE_BC_STREAM_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_ALLOCATE_BC_STREAM_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_PRIORITY_HINT_SUPPORT {
@@ -464,7 +464,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_PRIORITY_HINT_SUPPORT
      * }
      */
-    public static final AddressLayout PSTORAGE_PRIORITY_HINT_SUPPORT = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_PRIORITY_HINT_SUPPORT = C_POINTER;
     private static final int StorageDiagnosticLevelDefault = (int)0L;
     /**
      * {@snippet lang=c :
@@ -491,7 +491,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_DIAGNOSTIC_LEVEL
      * }
      */
-    public static final AddressLayout PSTORAGE_DIAGNOSTIC_LEVEL = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_DIAGNOSTIC_LEVEL = C_POINTER;
     private static final int StorageDiagnosticTargetTypeUndefined = (int)0L;
     /**
      * {@snippet lang=c :
@@ -548,7 +548,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_DIAGNOSTIC_TARGET_TYPE
      * }
      */
-    public static final AddressLayout PSTORAGE_DIAGNOSTIC_TARGET_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_DIAGNOSTIC_TARGET_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_DIAGNOSTIC_REQUEST {
@@ -560,7 +560,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_DIAGNOSTIC_REQUEST
      * }
      */
-    public static final AddressLayout PSTORAGE_DIAGNOSTIC_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_DIAGNOSTIC_REQUEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_DIAGNOSTIC_DATA {
@@ -573,7 +573,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_DIAGNOSTIC_DATA
      * }
      */
-    public static final AddressLayout PSTORAGE_DIAGNOSTIC_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_DIAGNOSTIC_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PHYSICAL_ELEMENT_STATUS_REQUEST {
@@ -586,7 +586,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPHYSICAL_ELEMENT_STATUS_REQUEST
      * }
      */
-    public static final AddressLayout PPHYSICAL_ELEMENT_STATUS_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout PPHYSICAL_ELEMENT_STATUS_REQUEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PHYSICAL_ELEMENT_STATUS_DESCRIPTOR {
@@ -601,7 +601,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPHYSICAL_ELEMENT_STATUS_DESCRIPTOR
      * }
      */
-    public static final AddressLayout PPHYSICAL_ELEMENT_STATUS_DESCRIPTOR = Windows_h.C_POINTER;
+    public static final AddressLayout PPHYSICAL_ELEMENT_STATUS_DESCRIPTOR = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PHYSICAL_ELEMENT_STATUS {
@@ -615,7 +615,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPHYSICAL_ELEMENT_STATUS
      * }
      */
-    public static final AddressLayout PPHYSICAL_ELEMENT_STATUS = Windows_h.C_POINTER;
+    public static final AddressLayout PPHYSICAL_ELEMENT_STATUS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _REMOVE_ELEMENT_AND_TRUNCATE_REQUEST {
@@ -627,7 +627,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREMOVE_ELEMENT_AND_TRUNCATE_REQUEST
      * }
      */
-    public static final AddressLayout PREMOVE_ELEMENT_AND_TRUNCATE_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout PREMOVE_ELEMENT_AND_TRUNCATE_REQUEST = C_POINTER;
     private static final int DeviceInternalStatusDataRequestTypeUndefined = (int)0L;
     /**
      * {@snippet lang=c :
@@ -684,7 +684,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE
      * }
      */
-    public static final AddressLayout PDEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = C_POINTER;
     private static final int DeviceStatusDataSetUndefined = (int)0L;
     /**
      * {@snippet lang=c :
@@ -751,7 +751,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_INTERNAL_STATUS_DATA_SET
      * }
      */
-    public static final AddressLayout PDEVICE_INTERNAL_STATUS_DATA_SET = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_INTERNAL_STATUS_DATA_SET = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST {
@@ -762,7 +762,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PGET_DEVICE_INTERNAL_STATUS_DATA_REQUEST
      * }
      */
-    public static final AddressLayout PGET_DEVICE_INTERNAL_STATUS_DATA_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout PGET_DEVICE_INTERNAL_STATUS_DATA_REQUEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICE_INTERNAL_STATUS_DATA {
@@ -781,7 +781,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICE_INTERNAL_STATUS_DATA
      * }
      */
-    public static final AddressLayout PDEVICE_INTERNAL_STATUS_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICE_INTERNAL_STATUS_DATA = C_POINTER;
     private static final int StorageSanitizeMethodDefault = (int)0L;
     /**
      * {@snippet lang=c :
@@ -818,7 +818,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_SANITIZE_METHOD
      * }
      */
-    public static final AddressLayout PSTORAGE_SANITIZE_METHOD = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_SANITIZE_METHOD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_REINITIALIZE_MEDIA {
@@ -833,7 +833,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_REINITIALIZE_MEDIA
      * }
      */
-    public static final AddressLayout PSTORAGE_REINITIALIZE_MEDIA = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_REINITIALIZE_MEDIA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_MEDIA_SERIAL_NUMBER_DATA {
@@ -843,7 +843,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_MEDIA_SERIAL_NUMBER_DATA
      * }
      */
-    public static final AddressLayout PSTORAGE_MEDIA_SERIAL_NUMBER_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_MEDIA_SERIAL_NUMBER_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_READ_CAPACITY {
@@ -855,7 +855,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_READ_CAPACITY
      * }
      */
-    public static final AddressLayout PSTORAGE_READ_CAPACITY = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_READ_CAPACITY = C_POINTER;
     private static final int WriteCacheTypeUnknown = (int)0L;
     /**
      * {@snippet lang=c :
@@ -988,7 +988,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_WRITE_CACHE_PROPERTY
      * }
      */
-    public static final AddressLayout PSTORAGE_WRITE_CACHE_PROPERTY = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_WRITE_CACHE_PROPERTY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PERSISTENT_RESERVE_COMMAND {
@@ -1011,7 +1011,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPERSISTENT_RESERVE_COMMAND
      * }
      */
-    public static final AddressLayout PPERSISTENT_RESERVE_COMMAND = Windows_h.C_POINTER;
+    public static final AddressLayout PPERSISTENT_RESERVE_COMMAND = C_POINTER;
     private static final int TCCollectionBugCheck = (int)1L;
     /**
      * {@snippet lang=c :
@@ -1048,7 +1048,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICEDUMP_COLLECTION_TYPE
      * }
      */
-    public static final AddressLayout PDEVICEDUMP_COLLECTION_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICEDUMP_COLLECTION_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICEDUMP_SUBSECTION_POINTER {
@@ -1058,7 +1058,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICEDUMP_SUBSECTION_POINTER
      * }
      */
-    public static final AddressLayout PDEVICEDUMP_SUBSECTION_POINTER = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICEDUMP_SUBSECTION_POINTER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICEDUMP_STRUCTURE_VERSION {
@@ -1068,7 +1068,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICEDUMP_STRUCTURE_VERSION
      * }
      */
-    public static final AddressLayout PDEVICEDUMP_STRUCTURE_VERSION = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICEDUMP_STRUCTURE_VERSION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICEDUMP_SECTION_HEADER {
@@ -1084,7 +1084,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICEDUMP_SECTION_HEADER
      * }
      */
-    public static final AddressLayout PDEVICEDUMP_SECTION_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICEDUMP_SECTION_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _GP_LOG_PAGE_DESCRIPTOR {
@@ -1093,7 +1093,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PGP_LOG_PAGE_DESCRIPTOR
      * }
      */
-    public static final AddressLayout PGP_LOG_PAGE_DESCRIPTOR = Windows_h.C_POINTER;
+    public static final AddressLayout PGP_LOG_PAGE_DESCRIPTOR = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICEDUMP_PUBLIC_SUBSECTION {
@@ -1104,7 +1104,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICEDUMP_PUBLIC_SUBSECTION
      * }
      */
-    public static final AddressLayout PDEVICEDUMP_PUBLIC_SUBSECTION = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICEDUMP_PUBLIC_SUBSECTION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICEDUMP_RESTRICTED_SUBSECTION {
@@ -1112,7 +1112,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICEDUMP_RESTRICTED_SUBSECTION
      * }
      */
-    public static final AddressLayout PDEVICEDUMP_RESTRICTED_SUBSECTION = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICEDUMP_RESTRICTED_SUBSECTION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICEDUMP_PRIVATE_SUBSECTION {
@@ -1122,7 +1122,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICEDUMP_PRIVATE_SUBSECTION
      * }
      */
-    public static final AddressLayout PDEVICEDUMP_PRIVATE_SUBSECTION = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICEDUMP_PRIVATE_SUBSECTION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICEDUMP_STORAGEDEVICE_DATA {
@@ -1136,7 +1136,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICEDUMP_STORAGEDEVICE_DATA
      * }
      */
-    public static final AddressLayout PDEVICEDUMP_STORAGEDEVICE_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICEDUMP_STORAGEDEVICE_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD {
@@ -1160,7 +1160,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD
      * }
      */
-    public static final AddressLayout PDEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP {
@@ -1172,7 +1172,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDEVICEDUMP_STORAGESTACK_PUBLIC_DUMP
      * }
      */
-    public static final AddressLayout PDEVICEDUMP_STORAGESTACK_PUBLIC_DUMP = Windows_h.C_POINTER;
+    public static final AddressLayout PDEVICEDUMP_STORAGESTACK_PUBLIC_DUMP = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_IDLE_POWER {
@@ -1185,7 +1185,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_IDLE_POWER
      * }
      */
-    public static final AddressLayout PSTORAGE_IDLE_POWER = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_IDLE_POWER = C_POINTER;
     private static final int StoragePowerupUnknown = (int)0L;
     /**
      * {@snippet lang=c :
@@ -1222,7 +1222,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_POWERUP_REASON_TYPE
      * }
      */
-    public static final AddressLayout PSTORAGE_POWERUP_REASON_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_POWERUP_REASON_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_IDLE_POWERUP_REASON {
@@ -1232,7 +1232,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_IDLE_POWERUP_REASON
      * }
      */
-    public static final AddressLayout PSTORAGE_IDLE_POWERUP_REASON = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_IDLE_POWERUP_REASON = C_POINTER;
     private static final int StorageDevicePowerCapUnitsPercent = (int)0L;
     /**
      * {@snippet lang=c :
@@ -1259,7 +1259,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_DEVICE_POWER_CAP_UNITS
      * }
      */
-    public static final AddressLayout PSTORAGE_DEVICE_POWER_CAP_UNITS = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_DEVICE_POWER_CAP_UNITS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_DEVICE_POWER_CAP {
@@ -1270,7 +1270,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_DEVICE_POWER_CAP
      * }
      */
-    public static final AddressLayout PSTORAGE_DEVICE_POWER_CAP = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_DEVICE_POWER_CAP = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_RPMB_DATA_FRAME {
@@ -1286,7 +1286,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_RPMB_DATA_FRAME
      * }
      */
-    public static final AddressLayout PSTORAGE_RPMB_DATA_FRAME = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_RPMB_DATA_FRAME = C_POINTER;
     private static final int StorRpmbProgramAuthKey = (int)1L;
     /**
      * {@snippet lang=c :
@@ -1363,7 +1363,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_RPMB_COMMAND_TYPE
      * }
      */
-    public static final AddressLayout PSTORAGE_RPMB_COMMAND_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_RPMB_COMMAND_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_EVENT_NOTIFICATION {
@@ -1373,7 +1373,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_EVENT_NOTIFICATION
      * }
      */
-    public static final AddressLayout PSTORAGE_EVENT_NOTIFICATION = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_EVENT_NOTIFICATION = C_POINTER;
     private static final int StorageCounterTypeUnknown = (int)0L;
     /**
      * {@snippet lang=c :
@@ -1600,7 +1600,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_COUNTER_TYPE
      * }
      */
-    public static final AddressLayout PSTORAGE_COUNTER_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_COUNTER_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_COUNTER {
@@ -1615,7 +1615,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_COUNTER
      * }
      */
-    public static final AddressLayout PSTORAGE_COUNTER = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_COUNTER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_COUNTERS {
@@ -1626,7 +1626,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_COUNTERS
      * }
      */
-    public static final AddressLayout PSTORAGE_COUNTERS = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_COUNTERS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_HW_FIRMWARE_INFO_QUERY {
@@ -1637,7 +1637,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_HW_FIRMWARE_INFO_QUERY
      * }
      */
-    public static final AddressLayout PSTORAGE_HW_FIRMWARE_INFO_QUERY = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_HW_FIRMWARE_INFO_QUERY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_HW_FIRMWARE_SLOT_INFO {
@@ -1651,7 +1651,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_HW_FIRMWARE_SLOT_INFO
      * }
      */
-    public static final AddressLayout PSTORAGE_HW_FIRMWARE_SLOT_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_HW_FIRMWARE_SLOT_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_HW_FIRMWARE_INFO {
@@ -1670,7 +1670,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_HW_FIRMWARE_INFO
      * }
      */
-    public static final AddressLayout PSTORAGE_HW_FIRMWARE_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_HW_FIRMWARE_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_HW_FIRMWARE_DOWNLOAD {
@@ -1685,7 +1685,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_HW_FIRMWARE_DOWNLOAD
      * }
      */
-    public static final AddressLayout PSTORAGE_HW_FIRMWARE_DOWNLOAD = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_HW_FIRMWARE_DOWNLOAD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_HW_FIRMWARE_DOWNLOAD_V2 {
@@ -1702,7 +1702,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_HW_FIRMWARE_DOWNLOAD_V2
      * }
      */
-    public static final AddressLayout PSTORAGE_HW_FIRMWARE_DOWNLOAD_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_HW_FIRMWARE_DOWNLOAD_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_HW_FIRMWARE_ACTIVATE {
@@ -1714,7 +1714,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_HW_FIRMWARE_ACTIVATE
      * }
      */
-    public static final AddressLayout PSTORAGE_HW_FIRMWARE_ACTIVATE = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_HW_FIRMWARE_ACTIVATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_PROTOCOL_COMMAND {
@@ -1740,7 +1740,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_PROTOCOL_COMMAND
      * }
      */
-    public static final AddressLayout PSTORAGE_PROTOCOL_COMMAND = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_PROTOCOL_COMMAND = C_POINTER;
     private static final int StorAttributeMgmt_ClearAttribute = (int)0L;
     /**
      * {@snippet lang=c :
@@ -1777,7 +1777,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_ATTRIBUTE_MGMT_ACTION
      * }
      */
-    public static final AddressLayout PSTORAGE_ATTRIBUTE_MGMT_ACTION = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_ATTRIBUTE_MGMT_ACTION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_ATTRIBUTE_MGMT {
@@ -1788,7 +1788,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_ATTRIBUTE_MGMT
      * }
      */
-    public static final AddressLayout PSTORAGE_ATTRIBUTE_MGMT = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_ATTRIBUTE_MGMT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_HEALTH_NOTIFICATION_DATA {
@@ -1796,7 +1796,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_HEALTH_NOTIFICATION_DATA
      * }
      */
-    public static final AddressLayout PSCM_PD_HEALTH_NOTIFICATION_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_HEALTH_NOTIFICATION_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_LOGICAL_DEVICE_INSTANCE {
@@ -1807,7 +1807,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_LOGICAL_DEVICE_INSTANCE
      * }
      */
-    public static final AddressLayout PSCM_LOGICAL_DEVICE_INSTANCE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_LOGICAL_DEVICE_INSTANCE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_LOGICAL_DEVICES {
@@ -1818,7 +1818,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_LOGICAL_DEVICES
      * }
      */
-    public static final AddressLayout PSCM_LOGICAL_DEVICES = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_LOGICAL_DEVICES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PHYSICAL_DEVICE_INSTANCE {
@@ -1829,7 +1829,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PHYSICAL_DEVICE_INSTANCE
      * }
      */
-    public static final AddressLayout PSCM_PHYSICAL_DEVICE_INSTANCE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PHYSICAL_DEVICE_INSTANCE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PHYSICAL_DEVICES {
@@ -1840,7 +1840,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PHYSICAL_DEVICES
      * }
      */
-    public static final AddressLayout PSCM_PHYSICAL_DEVICES = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PHYSICAL_DEVICES = C_POINTER;
     private static final int ScmRegionFlagNone = (int)0L;
     /**
      * {@snippet lang=c :
@@ -1867,7 +1867,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_REGION_FLAG
      * }
      */
-    public static final AddressLayout PSCM_REGION_FLAG = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_REGION_FLAG = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_REGION {
@@ -1886,7 +1886,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_REGION
      * }
      */
-    public static final AddressLayout PSCM_REGION = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_REGION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_REGIONS {
@@ -1897,7 +1897,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_REGIONS
      * }
      */
-    public static final AddressLayout PSCM_REGIONS = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_REGIONS = C_POINTER;
     private static final int ScmBusQuery_Descriptor = (int)0L;
     /**
      * {@snippet lang=c :
@@ -1934,7 +1934,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_BUS_QUERY_TYPE
      * }
      */
-    public static final AddressLayout PSCM_BUS_QUERY_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_BUS_QUERY_TYPE = C_POINTER;
     private static final int ScmBusSet_Descriptor = (int)0L;
     /**
      * {@snippet lang=c :
@@ -1971,7 +1971,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_BUS_SET_TYPE
      * }
      */
-    public static final AddressLayout PSCM_BUS_SET_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_BUS_SET_TYPE = C_POINTER;
     private static final int ScmBusProperty_RuntimeFwActivationInfo = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2018,7 +2018,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_BUS_PROPERTY_ID
      * }
      */
-    public static final AddressLayout PSCM_BUS_PROPERTY_ID = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_BUS_PROPERTY_ID = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_BUS_PROPERTY_QUERY {
@@ -2030,7 +2030,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_BUS_PROPERTY_QUERY
      * }
      */
-    public static final AddressLayout PSCM_BUS_PROPERTY_QUERY = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_BUS_PROPERTY_QUERY = C_POINTER;
     private static final int ScmBusFirmwareActivationState_Idle = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2067,7 +2067,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_BUS_FIRMWARE_ACTIVATION_STATE
      * }
      */
-    public static final AddressLayout PSCM_BUS_FIRMWARE_ACTIVATION_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_BUS_FIRMWARE_ACTIVATION_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_BUS_RUNTIME_FW_ACTIVATION_INFO {
@@ -2088,7 +2088,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_BUS_RUNTIME_FW_ACTIVATION_INFO
      * }
      */
-    public static final AddressLayout PSCM_BUS_RUNTIME_FW_ACTIVATION_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_BUS_RUNTIME_FW_ACTIVATION_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO {
@@ -2103,7 +2103,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_BUS_DEDICATED_MEMORY_DEVICE_INFO
      * }
      */
-    public static final AddressLayout PSCM_BUS_DEDICATED_MEMORY_DEVICE_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_BUS_DEDICATED_MEMORY_DEVICE_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO {
@@ -2114,7 +2114,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_BUS_DEDICATED_MEMORY_DEVICES_INFO
      * }
      */
-    public static final AddressLayout PSCM_BUS_DEDICATED_MEMORY_DEVICES_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_BUS_DEDICATED_MEMORY_DEVICES_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_BUS_PROPERTY_SET {
@@ -2126,7 +2126,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_BUS_PROPERTY_SET
      * }
      */
-    public static final AddressLayout PSCM_BUS_PROPERTY_SET = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_BUS_PROPERTY_SET = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_BUS_DEDICATED_MEMORY_STATE {
@@ -2134,7 +2134,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_BUS_DEDICATED_MEMORY_STATE
      * }
      */
-    public static final AddressLayout PSCM_BUS_DEDICATED_MEMORY_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_BUS_DEDICATED_MEMORY_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_INTERLEAVED_PD_INFO {
@@ -2143,7 +2143,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_INTERLEAVED_PD_INFO
      * }
      */
-    public static final AddressLayout PSCM_INTERLEAVED_PD_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_INTERLEAVED_PD_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_LD_INTERLEAVE_SET_INFO {
@@ -2154,7 +2154,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_LD_INTERLEAVE_SET_INFO
      * }
      */
-    public static final AddressLayout PSCM_LD_INTERLEAVE_SET_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_LD_INTERLEAVE_SET_INFO = C_POINTER;
     private static final int ScmPhysicalDeviceQuery_Descriptor = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2191,7 +2191,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_QUERY_TYPE
      * }
      */
-    public static final AddressLayout PSCM_PD_QUERY_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_QUERY_TYPE = C_POINTER;
     private static final int ScmPhysicalDeviceSet_Descriptor = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2228,7 +2228,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_SET_TYPE
      * }
      */
-    public static final AddressLayout PSCM_PD_SET_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_SET_TYPE = C_POINTER;
     private static final int ScmPhysicalDeviceProperty_DeviceInfo = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2335,7 +2335,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_PROPERTY_ID
      * }
      */
-    public static final AddressLayout PSCM_PD_PROPERTY_ID = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_PROPERTY_ID = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_PROPERTY_QUERY {
@@ -2347,7 +2347,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_PROPERTY_QUERY
      * }
      */
-    public static final AddressLayout PSCM_PD_PROPERTY_QUERY = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_PROPERTY_QUERY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_PROPERTY_SET {
@@ -2359,7 +2359,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_PROPERTY_SET
      * }
      */
-    public static final AddressLayout PSCM_PD_PROPERTY_SET = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_PROPERTY_SET = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE {
@@ -2367,7 +2367,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE
      * }
      */
-    public static final AddressLayout PSCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_DESCRIPTOR_HEADER {
@@ -2376,7 +2376,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_DESCRIPTOR_HEADER
      * }
      */
-    public static final AddressLayout PSCM_PD_DESCRIPTOR_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_DESCRIPTOR_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_DEVICE_HANDLE {
@@ -2387,7 +2387,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_DEVICE_HANDLE
      * }
      */
-    public static final AddressLayout PSCM_PD_DEVICE_HANDLE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_DEVICE_HANDLE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_DEVICE_INFO {
@@ -2416,7 +2416,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_DEVICE_INFO
      * }
      */
-    public static final AddressLayout PSCM_PD_DEVICE_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_DEVICE_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_DEVICE_SPECIFIC_PROPERTY {
@@ -2425,7 +2425,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_DEVICE_SPECIFIC_PROPERTY
      * }
      */
-    public static final AddressLayout PSCM_PD_DEVICE_SPECIFIC_PROPERTY = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_DEVICE_SPECIFIC_PROPERTY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_DEVICE_SPECIFIC_INFO {
@@ -2436,7 +2436,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_DEVICE_SPECIFIC_INFO
      * }
      */
-    public static final AddressLayout PSCM_PD_DEVICE_SPECIFIC_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_DEVICE_SPECIFIC_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_FIRMWARE_SLOT_INFO {
@@ -2450,7 +2450,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_FIRMWARE_SLOT_INFO
      * }
      */
-    public static final AddressLayout PSCM_PD_FIRMWARE_SLOT_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_FIRMWARE_SLOT_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_FIRMWARE_INFO {
@@ -2463,7 +2463,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_FIRMWARE_INFO
      * }
      */
-    public static final AddressLayout PSCM_PD_FIRMWARE_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_FIRMWARE_INFO = C_POINTER;
     private static final int ScmPhysicalDeviceHealth_Unknown = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2520,7 +2520,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_HEALTH_STATUS
      * }
      */
-    public static final AddressLayout PSCM_PD_HEALTH_STATUS = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_HEALTH_STATUS = C_POINTER;
     private static final int ScmPhysicalDeviceOpStatus_Unknown = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2617,7 +2617,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_OPERATIONAL_STATUS
      * }
      */
-    public static final AddressLayout PSCM_PD_OPERATIONAL_STATUS = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_OPERATIONAL_STATUS = C_POINTER;
     private static final int ScmPhysicalDeviceOpReason_Unknown = (int)0L;
     /**
      * {@snippet lang=c :
@@ -2864,7 +2864,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_OPERATIONAL_STATUS_REASON
      * }
      */
-    public static final AddressLayout PSCM_PD_OPERATIONAL_STATUS_REASON = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_OPERATIONAL_STATUS_REASON = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_MANAGEMENT_STATUS {
@@ -2878,7 +2878,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_MANAGEMENT_STATUS
      * }
      */
-    public static final AddressLayout PSCM_PD_MANAGEMENT_STATUS = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_MANAGEMENT_STATUS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_LOCATION_STRING {
@@ -2888,7 +2888,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_LOCATION_STRING
      * }
      */
-    public static final AddressLayout PSCM_PD_LOCATION_STRING = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_LOCATION_STRING = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_FRU_ID_STRING {
@@ -2899,7 +2899,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_FRU_ID_STRING
      * }
      */
-    public static final AddressLayout PSCM_PD_FRU_ID_STRING = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_FRU_ID_STRING = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_FIRMWARE_DOWNLOAD {
@@ -2914,7 +2914,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_FIRMWARE_DOWNLOAD
      * }
      */
-    public static final AddressLayout PSCM_PD_FIRMWARE_DOWNLOAD = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_FIRMWARE_DOWNLOAD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_FIRMWARE_ACTIVATE {
@@ -2925,7 +2925,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_FIRMWARE_ACTIVATE
      * }
      */
-    public static final AddressLayout PSCM_PD_FIRMWARE_ACTIVATE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_FIRMWARE_ACTIVATE = C_POINTER;
     private static final int ScmPdLastFwActivationStatus_None = (int)0L;
     /**
      * {@snippet lang=c :
@@ -3012,7 +3012,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_LAST_FW_ACTIVATION_STATUS
      * }
      */
-    public static final AddressLayout PSCM_PD_LAST_FW_ACTIVATION_STATUS = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_LAST_FW_ACTIVATION_STATUS = C_POINTER;
     private static final int ScmPdFirmwareActivationState_Idle = (int)0L;
     /**
      * {@snippet lang=c :
@@ -3049,7 +3049,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_FIRMWARE_ACTIVATION_STATE
      * }
      */
-    public static final AddressLayout PSCM_PD_FIRMWARE_ACTIVATION_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_FIRMWARE_ACTIVATION_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_RUNTIME_FW_ACTIVATION_INFO {
@@ -3060,7 +3060,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_RUNTIME_FW_ACTIVATION_INFO
      * }
      */
-    public static final AddressLayout PSCM_PD_RUNTIME_FW_ACTIVATION_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_RUNTIME_FW_ACTIVATION_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_PASSTHROUGH_INPUT {
@@ -3072,7 +3072,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_PASSTHROUGH_INPUT
      * }
      */
-    public static final AddressLayout PSCM_PD_PASSTHROUGH_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_PASSTHROUGH_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_PASSTHROUGH_OUTPUT {
@@ -3084,7 +3084,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_PASSTHROUGH_OUTPUT
      * }
      */
-    public static final AddressLayout PSCM_PD_PASSTHROUGH_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_PASSTHROUGH_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_PASSTHROUGH_INVDIMM_INPUT {
@@ -3094,7 +3094,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_PASSTHROUGH_INVDIMM_INPUT
      * }
      */
-    public static final AddressLayout PSCM_PD_PASSTHROUGH_INVDIMM_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_PASSTHROUGH_INVDIMM_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT {
@@ -3105,7 +3105,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_PASSTHROUGH_INVDIMM_OUTPUT
      * }
      */
-    public static final AddressLayout PSCM_PD_PASSTHROUGH_INVDIMM_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_PASSTHROUGH_INVDIMM_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_REINITIALIZE_MEDIA_INPUT {
@@ -3117,7 +3117,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_REINITIALIZE_MEDIA_INPUT
      * }
      */
-    public static final AddressLayout PSCM_PD_REINITIALIZE_MEDIA_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_REINITIALIZE_MEDIA_INPUT = C_POINTER;
     private static final int ScmPhysicalDeviceReinit_Success = (int)0L;
     /**
      * {@snippet lang=c :
@@ -3164,7 +3164,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_MEDIA_REINITIALIZATION_STATUS
      * }
      */
-    public static final AddressLayout PSCM_PD_MEDIA_REINITIALIZATION_STATUS = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_MEDIA_REINITIALIZATION_STATUS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCM_PD_REINITIALIZE_MEDIA_OUTPUT {
@@ -3174,7 +3174,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCM_PD_REINITIALIZE_MEDIA_OUTPUT
      * }
      */
-    public static final AddressLayout PSCM_PD_REINITIALIZE_MEDIA_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSCM_PD_REINITIALIZE_MEDIA_OUTPUT = C_POINTER;
     private static final int Unknown = (int)0L;
     /**
      * {@snippet lang=c :
@@ -3441,7 +3441,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PMEDIA_TYPE
      * }
      */
-    public static final AddressLayout PMEDIA_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PMEDIA_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FORMAT_PARAMETERS {
@@ -3453,19 +3453,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFORMAT_PARAMETERS
      * }
      */
-    public static final AddressLayout PFORMAT_PARAMETERS = Windows_h.C_POINTER;
+    public static final AddressLayout PFORMAT_PARAMETERS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef WORD BAD_TRACK_NUMBER
      * }
      */
-    public static final OfShort BAD_TRACK_NUMBER = Windows_h.C_SHORT;
+    public static final OfShort BAD_TRACK_NUMBER = C_SHORT;
     /**
      * {@snippet lang=c :
      * typedef WORD *PBAD_TRACK_NUMBER
      * }
      */
-    public static final AddressLayout PBAD_TRACK_NUMBER = Windows_h.C_POINTER;
+    public static final AddressLayout PBAD_TRACK_NUMBER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FORMAT_EX_PARAMETERS {
@@ -3480,7 +3480,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFORMAT_EX_PARAMETERS
      * }
      */
-    public static final AddressLayout PFORMAT_EX_PARAMETERS = Windows_h.C_POINTER;
+    public static final AddressLayout PFORMAT_EX_PARAMETERS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DISK_GEOMETRY {
@@ -3492,7 +3492,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_GEOMETRY
      * }
      */
-    public static final AddressLayout PDISK_GEOMETRY = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_GEOMETRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PARTITION_INFORMATION {
@@ -3507,7 +3507,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPARTITION_INFORMATION
      * }
      */
-    public static final AddressLayout PPARTITION_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PPARTITION_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SET_PARTITION_INFORMATION {
@@ -3515,7 +3515,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSET_PARTITION_INFORMATION
      * }
      */
-    public static final AddressLayout PSET_PARTITION_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PSET_PARTITION_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVE_LAYOUT_INFORMATION {
@@ -3525,7 +3525,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVE_LAYOUT_INFORMATION
      * }
      */
-    public static final AddressLayout PDRIVE_LAYOUT_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVE_LAYOUT_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _VERIFY_INFORMATION {
@@ -3534,7 +3534,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PVERIFY_INFORMATION
      * }
      */
-    public static final AddressLayout PVERIFY_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PVERIFY_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _REASSIGN_BLOCKS {
@@ -3544,7 +3544,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREASSIGN_BLOCKS
      * }
      */
-    public static final AddressLayout PREASSIGN_BLOCKS = Windows_h.C_POINTER;
+    public static final AddressLayout PREASSIGN_BLOCKS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _REASSIGN_BLOCKS_EX {
@@ -3554,7 +3554,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREASSIGN_BLOCKS_EX
      * }
      */
-    public static final AddressLayout PREASSIGN_BLOCKS_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PREASSIGN_BLOCKS_EX = C_POINTER;
     private static final int PARTITION_STYLE_MBR = (int)0L;
     /**
      * {@snippet lang=c :
@@ -3592,7 +3592,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPARTITION_INFORMATION_GPT
      * }
      */
-    public static final AddressLayout PPARTITION_INFORMATION_GPT = Windows_h.C_POINTER;
+    public static final AddressLayout PPARTITION_INFORMATION_GPT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PARTITION_INFORMATION_MBR {
@@ -3604,7 +3604,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPARTITION_INFORMATION_MBR
      * }
      */
-    public static final AddressLayout PPARTITION_INFORMATION_MBR = Windows_h.C_POINTER;
+    public static final AddressLayout PPARTITION_INFORMATION_MBR = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SET_PARTITION_INFORMATION_EX {
@@ -3616,7 +3616,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSET_PARTITION_INFORMATION_EX
      * }
      */
-    public static final AddressLayout PSET_PARTITION_INFORMATION_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PSET_PARTITION_INFORMATION_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CREATE_DISK_GPT {
@@ -3625,7 +3625,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCREATE_DISK_GPT
      * }
      */
-    public static final AddressLayout PCREATE_DISK_GPT = Windows_h.C_POINTER;
+    public static final AddressLayout PCREATE_DISK_GPT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CREATE_DISK_MBR {
@@ -3633,7 +3633,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCREATE_DISK_MBR
      * }
      */
-    public static final AddressLayout PCREATE_DISK_MBR = Windows_h.C_POINTER;
+    public static final AddressLayout PCREATE_DISK_MBR = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CREATE_DISK {
@@ -3645,7 +3645,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCREATE_DISK
      * }
      */
-    public static final AddressLayout PCREATE_DISK = Windows_h.C_POINTER;
+    public static final AddressLayout PCREATE_DISK = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _GET_LENGTH_INFORMATION {
@@ -3653,7 +3653,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PGET_LENGTH_INFORMATION
      * }
      */
-    public static final AddressLayout PGET_LENGTH_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PGET_LENGTH_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PARTITION_INFORMATION_EX {
@@ -3670,7 +3670,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPARTITION_INFORMATION_EX
      * }
      */
-    public static final AddressLayout PPARTITION_INFORMATION_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PPARTITION_INFORMATION_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVE_LAYOUT_INFORMATION_GPT {
@@ -3681,7 +3681,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVE_LAYOUT_INFORMATION_GPT
      * }
      */
-    public static final AddressLayout PDRIVE_LAYOUT_INFORMATION_GPT = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVE_LAYOUT_INFORMATION_GPT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVE_LAYOUT_INFORMATION_MBR {
@@ -3690,7 +3690,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVE_LAYOUT_INFORMATION_MBR
      * }
      */
-    public static final AddressLayout PDRIVE_LAYOUT_INFORMATION_MBR = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVE_LAYOUT_INFORMATION_MBR = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVE_LAYOUT_INFORMATION_EX {
@@ -3704,7 +3704,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVE_LAYOUT_INFORMATION_EX
      * }
      */
-    public static final AddressLayout PDRIVE_LAYOUT_INFORMATION_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVE_LAYOUT_INFORMATION_EX = C_POINTER;
     private static final int DetectNone = (int)0L;
     /**
      * {@snippet lang=c :
@@ -3743,7 +3743,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_INT13_INFO
      * }
      */
-    public static final AddressLayout PDISK_INT13_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_INT13_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DISK_EX_INT13_INFO {
@@ -3758,7 +3758,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_EX_INT13_INFO
      * }
      */
-    public static final AddressLayout PDISK_EX_INT13_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_EX_INT13_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DISK_DETECTION_INFO {
@@ -3773,7 +3773,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_DETECTION_INFO
      * }
      */
-    public static final AddressLayout PDISK_DETECTION_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_DETECTION_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DISK_PARTITION_INFO {
@@ -3791,7 +3791,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_PARTITION_INFO
      * }
      */
-    public static final AddressLayout PDISK_PARTITION_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_PARTITION_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DISK_GEOMETRY_EX {
@@ -3801,7 +3801,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_GEOMETRY_EX
      * }
      */
-    public static final AddressLayout PDISK_GEOMETRY_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_GEOMETRY_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DISK_CONTROLLER_NUMBER {
@@ -3810,7 +3810,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_CONTROLLER_NUMBER
      * }
      */
-    public static final AddressLayout PDISK_CONTROLLER_NUMBER = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_CONTROLLER_NUMBER = C_POINTER;
     private static final int EqualPriority = (int)0L;
     /**
      * {@snippet lang=c :
@@ -3862,7 +3862,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_CACHE_INFORMATION
      * }
      */
-    public static final AddressLayout PDISK_CACHE_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_CACHE_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DISK_GROW_PARTITION {
@@ -3871,7 +3871,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_GROW_PARTITION
      * }
      */
-    public static final AddressLayout PDISK_GROW_PARTITION = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_GROW_PARTITION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _HISTOGRAM_BUCKET {
@@ -3880,7 +3880,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PHISTOGRAM_BUCKET
      * }
      */
-    public static final AddressLayout PHISTOGRAM_BUCKET = Windows_h.C_POINTER;
+    public static final AddressLayout PHISTOGRAM_BUCKET = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DISK_HISTOGRAM {
@@ -3898,7 +3898,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_HISTOGRAM
      * }
      */
-    public static final AddressLayout PDISK_HISTOGRAM = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_HISTOGRAM = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DISK_PERFORMANCE {
@@ -3917,7 +3917,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_PERFORMANCE
      * }
      */
-    public static final AddressLayout PDISK_PERFORMANCE = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_PERFORMANCE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DISK_RECORD {
@@ -3931,7 +3931,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_RECORD
      * }
      */
-    public static final AddressLayout PDISK_RECORD = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_RECORD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DISK_LOGGING {
@@ -3941,7 +3941,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_LOGGING
      * }
      */
-    public static final AddressLayout PDISK_LOGGING = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_LOGGING = C_POINTER;
     private static final int RequestSize = (int)0L;
     /**
      * {@snippet lang=c :
@@ -3968,7 +3968,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PBIN_RANGE
      * }
      */
-    public static final AddressLayout PBIN_RANGE = Windows_h.C_POINTER;
+    public static final AddressLayout PBIN_RANGE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PERF_BIN {
@@ -3978,7 +3978,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPERF_BIN
      * }
      */
-    public static final AddressLayout PPERF_BIN = Windows_h.C_POINTER;
+    public static final AddressLayout PPERF_BIN = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _BIN_COUNT {
@@ -3987,7 +3987,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PBIN_COUNT
      * }
      */
-    public static final AddressLayout PBIN_COUNT = Windows_h.C_POINTER;
+    public static final AddressLayout PBIN_COUNT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _BIN_RESULTS {
@@ -3996,7 +3996,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PBIN_RESULTS
      * }
      */
-    public static final AddressLayout PBIN_RESULTS = Windows_h.C_POINTER;
+    public static final AddressLayout PBIN_RESULTS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _GETVERSIONINPARAMS {
@@ -4009,7 +4009,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PGETVERSIONINPARAMS
      * }
      */
-    public static final AddressLayout PGETVERSIONINPARAMS = Windows_h.C_POINTER;
+    public static final AddressLayout PGETVERSIONINPARAMS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _GETVERSIONINPARAMS {
@@ -4022,7 +4022,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPGETVERSIONINPARAMS
      * }
      */
-    public static final AddressLayout LPGETVERSIONINPARAMS = Windows_h.C_POINTER;
+    public static final AddressLayout LPGETVERSIONINPARAMS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IDEREGS {
@@ -4037,7 +4037,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PIDEREGS
      * }
      */
-    public static final AddressLayout PIDEREGS = Windows_h.C_POINTER;
+    public static final AddressLayout PIDEREGS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IDEREGS {
@@ -4052,7 +4052,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPIDEREGS
      * }
      */
-    public static final AddressLayout LPIDEREGS = Windows_h.C_POINTER;
+    public static final AddressLayout LPIDEREGS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SENDCMDINPARAMS {
@@ -4065,7 +4065,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSENDCMDINPARAMS
      * }
      */
-    public static final AddressLayout PSENDCMDINPARAMS = Windows_h.C_POINTER;
+    public static final AddressLayout PSENDCMDINPARAMS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SENDCMDINPARAMS {
@@ -4078,7 +4078,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPSENDCMDINPARAMS
      * }
      */
-    public static final AddressLayout LPSENDCMDINPARAMS = Windows_h.C_POINTER;
+    public static final AddressLayout LPSENDCMDINPARAMS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVERSTATUS {
@@ -4089,7 +4089,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVERSTATUS
      * }
      */
-    public static final AddressLayout PDRIVERSTATUS = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVERSTATUS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVERSTATUS {
@@ -4100,7 +4100,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPDRIVERSTATUS
      * }
      */
-    public static final AddressLayout LPDRIVERSTATUS = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVERSTATUS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SENDCMDOUTPARAMS {
@@ -4110,7 +4110,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSENDCMDOUTPARAMS
      * }
      */
-    public static final AddressLayout PSENDCMDOUTPARAMS = Windows_h.C_POINTER;
+    public static final AddressLayout PSENDCMDOUTPARAMS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SENDCMDOUTPARAMS {
@@ -4120,7 +4120,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPSENDCMDOUTPARAMS
      * }
      */
-    public static final AddressLayout LPSENDCMDOUTPARAMS = Windows_h.C_POINTER;
+    public static final AddressLayout LPSENDCMDOUTPARAMS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _GET_DISK_ATTRIBUTES {
@@ -4130,7 +4130,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PGET_DISK_ATTRIBUTES
      * }
      */
-    public static final AddressLayout PGET_DISK_ATTRIBUTES = Windows_h.C_POINTER;
+    public static final AddressLayout PGET_DISK_ATTRIBUTES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SET_DISK_ATTRIBUTES {
@@ -4143,7 +4143,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSET_DISK_ATTRIBUTES
      * }
      */
-    public static final AddressLayout PSET_DISK_ATTRIBUTES = Windows_h.C_POINTER;
+    public static final AddressLayout PSET_DISK_ATTRIBUTES = C_POINTER;
     private static final int AllElements = (int)0L;
     /**
      * {@snippet lang=c :
@@ -4230,7 +4230,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PELEMENT_TYPE
      * }
      */
-    public static final AddressLayout PELEMENT_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PELEMENT_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CHANGER_ELEMENT {
@@ -4239,7 +4239,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCHANGER_ELEMENT
      * }
      */
-    public static final AddressLayout PCHANGER_ELEMENT = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGER_ELEMENT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CHANGER_ELEMENT_LIST {
@@ -4248,7 +4248,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCHANGER_ELEMENT_LIST
      * }
      */
-    public static final AddressLayout PCHANGER_ELEMENT_LIST = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGER_ELEMENT_LIST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _GET_CHANGER_PARAMETERS {
@@ -4283,7 +4283,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PGET_CHANGER_PARAMETERS
      * }
      */
-    public static final AddressLayout PGET_CHANGER_PARAMETERS = Windows_h.C_POINTER;
+    public static final AddressLayout PGET_CHANGER_PARAMETERS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CHANGER_PRODUCT_DATA {
@@ -4295,7 +4295,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCHANGER_PRODUCT_DATA
      * }
      */
-    public static final AddressLayout PCHANGER_PRODUCT_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGER_PRODUCT_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CHANGER_SET_ACCESS {
@@ -4304,7 +4304,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCHANGER_SET_ACCESS
      * }
      */
-    public static final AddressLayout PCHANGER_SET_ACCESS = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGER_SET_ACCESS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CHANGER_READ_ELEMENT_STATUS {
@@ -4313,7 +4313,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCHANGER_READ_ELEMENT_STATUS
      * }
      */
-    public static final AddressLayout PCHANGER_READ_ELEMENT_STATUS = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGER_READ_ELEMENT_STATUS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CHANGER_ELEMENT_STATUS {
@@ -4329,7 +4329,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCHANGER_ELEMENT_STATUS
      * }
      */
-    public static final AddressLayout PCHANGER_ELEMENT_STATUS = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGER_ELEMENT_STATUS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CHANGER_ELEMENT_STATUS_EX {
@@ -4348,7 +4348,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCHANGER_ELEMENT_STATUS_EX
      * }
      */
-    public static final AddressLayout PCHANGER_ELEMENT_STATUS_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGER_ELEMENT_STATUS_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CHANGER_INITIALIZE_ELEMENT_STATUS {
@@ -4357,7 +4357,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCHANGER_INITIALIZE_ELEMENT_STATUS
      * }
      */
-    public static final AddressLayout PCHANGER_INITIALIZE_ELEMENT_STATUS = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGER_INITIALIZE_ELEMENT_STATUS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CHANGER_SET_POSITION {
@@ -4367,7 +4367,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCHANGER_SET_POSITION
      * }
      */
-    public static final AddressLayout PCHANGER_SET_POSITION = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGER_SET_POSITION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CHANGER_EXCHANGE_MEDIUM {
@@ -4380,7 +4380,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCHANGER_EXCHANGE_MEDIUM
      * }
      */
-    public static final AddressLayout PCHANGER_EXCHANGE_MEDIUM = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGER_EXCHANGE_MEDIUM = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CHANGER_MOVE_MEDIUM {
@@ -4391,7 +4391,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCHANGER_MOVE_MEDIUM
      * }
      */
-    public static final AddressLayout PCHANGER_MOVE_MEDIUM = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGER_MOVE_MEDIUM = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CHANGER_SEND_VOLUME_TAG_INFORMATION {
@@ -4401,7 +4401,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCHANGER_SEND_VOLUME_TAG_INFORMATION
      * }
      */
-    public static final AddressLayout PCHANGER_SEND_VOLUME_TAG_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGER_SEND_VOLUME_TAG_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _READ_ELEMENT_ADDRESS_INFO {
@@ -4410,7 +4410,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREAD_ELEMENT_ADDRESS_INFO
      * }
      */
-    public static final AddressLayout PREAD_ELEMENT_ADDRESS_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PREAD_ELEMENT_ADDRESS_INFO = C_POINTER;
     private static final int DeviceProblemNone = (int)0L;
     /**
      * {@snippet lang=c :
@@ -4557,7 +4557,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCHANGER_DEVICE_PROBLEM_TYPE
      * }
      */
-    public static final AddressLayout PCHANGER_DEVICE_PROBLEM_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGER_DEVICE_PROBLEM_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PATHNAME_BUFFER {
@@ -4566,7 +4566,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPATHNAME_BUFFER
      * }
      */
-    public static final AddressLayout PPATHNAME_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PPATHNAME_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FSCTL_QUERY_FAT_BPB_BUFFER {
@@ -4574,7 +4574,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFSCTL_QUERY_FAT_BPB_BUFFER
      * }
      */
-    public static final AddressLayout PFSCTL_QUERY_FAT_BPB_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PFSCTL_QUERY_FAT_BPB_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4595,7 +4595,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PNTFS_VOLUME_DATA_BUFFER
      * }
      */
-    public static final AddressLayout PNTFS_VOLUME_DATA_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PNTFS_VOLUME_DATA_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4612,7 +4612,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PNTFS_EXTENDED_VOLUME_DATA
      * }
      */
-    public static final AddressLayout PNTFS_EXTENDED_VOLUME_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PNTFS_EXTENDED_VOLUME_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4635,7 +4635,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREFS_VOLUME_DATA_BUFFER
      * }
      */
-    public static final AddressLayout PREFS_VOLUME_DATA_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PREFS_VOLUME_DATA_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4643,7 +4643,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTARTING_LCN_INPUT_BUFFER
      * }
      */
-    public static final AddressLayout PSTARTING_LCN_INPUT_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PSTARTING_LCN_INPUT_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4652,7 +4652,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTARTING_LCN_INPUT_BUFFER_EX
      * }
      */
-    public static final AddressLayout PSTARTING_LCN_INPUT_BUFFER_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PSTARTING_LCN_INPUT_BUFFER_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4662,7 +4662,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PVOLUME_BITMAP_BUFFER
      * }
      */
-    public static final AddressLayout PVOLUME_BITMAP_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PVOLUME_BITMAP_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4670,7 +4670,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTARTING_VCN_INPUT_BUFFER
      * }
      */
-    public static final AddressLayout PSTARTING_VCN_INPUT_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PSTARTING_VCN_INPUT_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct RETRIEVAL_POINTERS_BUFFER {
@@ -4683,7 +4683,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PRETRIEVAL_POINTERS_BUFFER
      * }
      */
-    public static final AddressLayout PRETRIEVAL_POINTERS_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PRETRIEVAL_POINTERS_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER {
@@ -4697,7 +4697,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PRETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER
      * }
      */
-    public static final AddressLayout PRETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PRETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct RETRIEVAL_POINTER_COUNT {
@@ -4705,7 +4705,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PRETRIEVAL_POINTER_COUNT
      * }
      */
-    public static final AddressLayout PRETRIEVAL_POINTER_COUNT = Windows_h.C_POINTER;
+    public static final AddressLayout PRETRIEVAL_POINTER_COUNT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4713,7 +4713,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PNTFS_FILE_RECORD_INPUT_BUFFER
      * }
      */
-    public static final AddressLayout PNTFS_FILE_RECORD_INPUT_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PNTFS_FILE_RECORD_INPUT_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4723,7 +4723,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PNTFS_FILE_RECORD_OUTPUT_BUFFER
      * }
      */
-    public static final AddressLayout PNTFS_FILE_RECORD_OUTPUT_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PNTFS_FILE_RECORD_OUTPUT_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4734,7 +4734,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PMOVE_FILE_DATA
      * }
      */
-    public static final AddressLayout PMOVE_FILE_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PMOVE_FILE_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4744,7 +4744,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PMOVE_FILE_RECORD_DATA
      * }
      */
-    public static final AddressLayout PMOVE_FILE_RECORD_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PMOVE_FILE_RECORD_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _MOVE_FILE_DATA32 {
@@ -4755,7 +4755,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PMOVE_FILE_DATA32
      * }
      */
-    public static final AddressLayout PMOVE_FILE_DATA32 = Windows_h.C_POINTER;
+    public static final AddressLayout PMOVE_FILE_DATA32 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4764,7 +4764,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFIND_BY_SID_DATA
      * }
      */
-    public static final AddressLayout PFIND_BY_SID_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PFIND_BY_SID_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4775,7 +4775,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFIND_BY_SID_OUTPUT
      * }
      */
-    public static final AddressLayout PFIND_BY_SID_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFIND_BY_SID_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4785,7 +4785,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PMFT_ENUM_DATA_V0
      * }
      */
-    public static final AddressLayout PMFT_ENUM_DATA_V0 = Windows_h.C_POINTER;
+    public static final AddressLayout PMFT_ENUM_DATA_V0 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4797,13 +4797,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PMFT_ENUM_DATA_V1
      * }
      */
-    public static final AddressLayout PMFT_ENUM_DATA_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout PMFT_ENUM_DATA_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef MFT_ENUM_DATA_V1 *PMFT_ENUM_DATA
      * }
      */
-    public static final AddressLayout PMFT_ENUM_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PMFT_ENUM_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4812,7 +4812,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCREATE_USN_JOURNAL_DATA
      * }
      */
-    public static final AddressLayout PCREATE_USN_JOURNAL_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PCREATE_USN_JOURNAL_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4821,7 +4821,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREAD_FILE_USN_DATA
      * }
      */
-    public static final AddressLayout PREAD_FILE_USN_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PREAD_FILE_USN_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4834,7 +4834,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREAD_USN_JOURNAL_DATA_V0
      * }
      */
-    public static final AddressLayout PREAD_USN_JOURNAL_DATA_V0 = Windows_h.C_POINTER;
+    public static final AddressLayout PREAD_USN_JOURNAL_DATA_V0 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4849,13 +4849,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREAD_USN_JOURNAL_DATA_V1
      * }
      */
-    public static final AddressLayout PREAD_USN_JOURNAL_DATA_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout PREAD_USN_JOURNAL_DATA_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef READ_USN_JOURNAL_DATA_V1 *PREAD_USN_JOURNAL_DATA
      * }
      */
-    public static final AddressLayout PREAD_USN_JOURNAL_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PREAD_USN_JOURNAL_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4866,7 +4866,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PUSN_TRACK_MODIFIED_RANGES
      * }
      */
-    public static final AddressLayout PUSN_TRACK_MODIFIED_RANGES = Windows_h.C_POINTER;
+    public static final AddressLayout PUSN_TRACK_MODIFIED_RANGES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4874,7 +4874,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PUSN_RANGE_TRACK_OUTPUT
      * }
      */
-    public static final AddressLayout PUSN_RANGE_TRACK_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PUSN_RANGE_TRACK_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4895,7 +4895,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PUSN_RECORD_V2
      * }
      */
-    public static final AddressLayout PUSN_RECORD_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout PUSN_RECORD_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4916,13 +4916,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PUSN_RECORD_V3
      * }
      */
-    public static final AddressLayout PUSN_RECORD_V3 = Windows_h.C_POINTER;
+    public static final AddressLayout PUSN_RECORD_V3 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef USN_RECORD_V2 *PUSN_RECORD
      * }
      */
-    public static final AddressLayout PUSN_RECORD = Windows_h.C_POINTER;
+    public static final AddressLayout PUSN_RECORD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4932,7 +4932,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PUSN_RECORD_COMMON_HEADER
      * }
      */
-    public static final AddressLayout PUSN_RECORD_COMMON_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PUSN_RECORD_COMMON_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4941,7 +4941,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PUSN_RECORD_EXTENT
      * }
      */
-    public static final AddressLayout PUSN_RECORD_EXTENT = Windows_h.C_POINTER;
+    public static final AddressLayout PUSN_RECORD_EXTENT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4958,7 +4958,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PUSN_RECORD_V4
      * }
      */
-    public static final AddressLayout PUSN_RECORD_V4 = Windows_h.C_POINTER;
+    public static final AddressLayout PUSN_RECORD_V4 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef union {
@@ -4969,7 +4969,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PUSN_RECORD_UNION
      * }
      */
-    public static final AddressLayout PUSN_RECORD_UNION = Windows_h.C_POINTER;
+    public static final AddressLayout PUSN_RECORD_UNION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4983,7 +4983,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PUSN_JOURNAL_DATA_V0
      * }
      */
-    public static final AddressLayout PUSN_JOURNAL_DATA_V0 = Windows_h.C_POINTER;
+    public static final AddressLayout PUSN_JOURNAL_DATA_V0 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -4999,7 +4999,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PUSN_JOURNAL_DATA_V1
      * }
      */
-    public static final AddressLayout PUSN_JOURNAL_DATA_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout PUSN_JOURNAL_DATA_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -5018,13 +5018,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PUSN_JOURNAL_DATA_V2
      * }
      */
-    public static final AddressLayout PUSN_JOURNAL_DATA_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout PUSN_JOURNAL_DATA_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef USN_JOURNAL_DATA_V1 *PUSN_JOURNAL_DATA
      * }
      */
-    public static final AddressLayout PUSN_JOURNAL_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PUSN_JOURNAL_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -5033,7 +5033,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDELETE_USN_JOURNAL_DATA
      * }
      */
-    public static final AddressLayout PDELETE_USN_JOURNAL_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PDELETE_USN_JOURNAL_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _MARK_HANDLE_INFO {
@@ -5046,7 +5046,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PMARK_HANDLE_INFO
      * }
      */
-    public static final AddressLayout PMARK_HANDLE_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PMARK_HANDLE_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _MARK_HANDLE_INFO32 {
@@ -5059,7 +5059,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PMARK_HANDLE_INFO32
      * }
      */
-    public static final AddressLayout PMARK_HANDLE_INFO32 = Windows_h.C_POINTER;
+    public static final AddressLayout PMARK_HANDLE_INFO32 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -5068,7 +5068,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PBULK_SECURITY_TEST_DATA
      * }
      */
-    public static final AddressLayout PBULK_SECURITY_TEST_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PBULK_SECURITY_TEST_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_PREFETCH {
@@ -5078,7 +5078,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_PREFETCH
      * }
      */
-    public static final AddressLayout PFILE_PREFETCH = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_PREFETCH = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_PREFETCH_EX {
@@ -5089,7 +5089,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_PREFETCH_EX
      * }
      */
-    public static final AddressLayout PFILE_PREFETCH_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_PREFETCH_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILESYSTEM_STATISTICS {
@@ -5111,7 +5111,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILESYSTEM_STATISTICS
      * }
      */
-    public static final AddressLayout PFILESYSTEM_STATISTICS = Windows_h.C_POINTER;
+    public static final AddressLayout PFILESYSTEM_STATISTICS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FAT_STATISTICS {
@@ -5127,7 +5127,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFAT_STATISTICS
      * }
      */
-    public static final AddressLayout PFAT_STATISTICS = Windows_h.C_POINTER;
+    public static final AddressLayout PFAT_STATISTICS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _EXFAT_STATISTICS {
@@ -5143,7 +5143,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PEXFAT_STATISTICS
      * }
      */
-    public static final AddressLayout PEXFAT_STATISTICS = Windows_h.C_POINTER;
+    public static final AddressLayout PEXFAT_STATISTICS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _NTFS_STATISTICS {
@@ -5226,7 +5226,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PNTFS_STATISTICS
      * }
      */
-    public static final AddressLayout PNTFS_STATISTICS = Windows_h.C_POINTER;
+    public static final AddressLayout PNTFS_STATISTICS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILESYSTEM_STATISTICS_EX {
@@ -5248,7 +5248,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILESYSTEM_STATISTICS_EX
      * }
      */
-    public static final AddressLayout PFILESYSTEM_STATISTICS_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PFILESYSTEM_STATISTICS_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _NTFS_STATISTICS_EX {
@@ -5343,7 +5343,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PNTFS_STATISTICS_EX
      * }
      */
-    public static final AddressLayout PNTFS_STATISTICS_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PNTFS_STATISTICS_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_OBJECTID_BUFFER {
@@ -5359,7 +5359,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_OBJECTID_BUFFER
      * }
      */
-    public static final AddressLayout PFILE_OBJECTID_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_OBJECTID_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_SET_SPARSE_BUFFER {
@@ -5367,7 +5367,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_SET_SPARSE_BUFFER
      * }
      */
-    public static final AddressLayout PFILE_SET_SPARSE_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_SET_SPARSE_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_ZERO_DATA_INFORMATION {
@@ -5376,7 +5376,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_ZERO_DATA_INFORMATION
      * }
      */
-    public static final AddressLayout PFILE_ZERO_DATA_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_ZERO_DATA_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_ZERO_DATA_INFORMATION_EX {
@@ -5386,7 +5386,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_ZERO_DATA_INFORMATION_EX
      * }
      */
-    public static final AddressLayout PFILE_ZERO_DATA_INFORMATION_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_ZERO_DATA_INFORMATION_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_ALLOCATED_RANGE_BUFFER {
@@ -5395,7 +5395,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_ALLOCATED_RANGE_BUFFER
      * }
      */
-    public static final AddressLayout PFILE_ALLOCATED_RANGE_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_ALLOCATED_RANGE_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ENCRYPTION_BUFFER {
@@ -5404,7 +5404,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PENCRYPTION_BUFFER
      * }
      */
-    public static final AddressLayout PENCRYPTION_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PENCRYPTION_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DECRYPTION_STATUS_BUFFER {
@@ -5412,7 +5412,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDECRYPTION_STATUS_BUFFER
      * }
      */
-    public static final AddressLayout PDECRYPTION_STATUS_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PDECRYPTION_STATUS_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _REQUEST_RAW_ENCRYPTED_DATA {
@@ -5421,7 +5421,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREQUEST_RAW_ENCRYPTED_DATA
      * }
      */
-    public static final AddressLayout PREQUEST_RAW_ENCRYPTED_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PREQUEST_RAW_ENCRYPTED_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ENCRYPTED_DATA_INFO {
@@ -5439,7 +5439,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PENCRYPTED_DATA_INFO
      * }
      */
-    public static final AddressLayout PENCRYPTED_DATA_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PENCRYPTED_DATA_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _EXTENDED_ENCRYPTED_DATA_INFO {
@@ -5450,7 +5450,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PEXTENDED_ENCRYPTED_DATA_INFO
      * }
      */
-    public static final AddressLayout PEXTENDED_ENCRYPTED_DATA_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PEXTENDED_ENCRYPTED_DATA_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PLEX_READ_DATA_REQUEST {
@@ -5460,7 +5460,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPLEX_READ_DATA_REQUEST
      * }
      */
-    public static final AddressLayout PPLEX_READ_DATA_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout PPLEX_READ_DATA_REQUEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SI_COPYFILE {
@@ -5471,7 +5471,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSI_COPYFILE
      * }
      */
-    public static final AddressLayout PSI_COPYFILE = Windows_h.C_POINTER;
+    public static final AddressLayout PSI_COPYFILE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_MAKE_COMPATIBLE_BUFFER {
@@ -5479,7 +5479,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_MAKE_COMPATIBLE_BUFFER
      * }
      */
-    public static final AddressLayout PFILE_MAKE_COMPATIBLE_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_MAKE_COMPATIBLE_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_SET_DEFECT_MGMT_BUFFER {
@@ -5487,7 +5487,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_SET_DEFECT_MGMT_BUFFER
      * }
      */
-    public static final AddressLayout PFILE_SET_DEFECT_MGMT_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_SET_DEFECT_MGMT_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_QUERY_SPARING_BUFFER {
@@ -5498,7 +5498,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_QUERY_SPARING_BUFFER
      * }
      */
-    public static final AddressLayout PFILE_QUERY_SPARING_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_QUERY_SPARING_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_QUERY_ON_DISK_VOL_INFO_BUFFER {
@@ -5516,13 +5516,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_QUERY_ON_DISK_VOL_INFO_BUFFER
      * }
      */
-    public static final AddressLayout PFILE_QUERY_ON_DISK_VOL_INFO_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_QUERY_ON_DISK_VOL_INFO_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef DWORDLONG CLSN
      * }
      */
-    public static final OfLong CLSN = Windows_h.C_LONG_LONG;
+    public static final OfLong CLSN = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_INITIATE_REPAIR_OUTPUT_BUFFER {
@@ -5533,7 +5533,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_INITIATE_REPAIR_OUTPUT_BUFFER
      * }
      */
-    public static final AddressLayout PFILE_INITIATE_REPAIR_OUTPUT_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_INITIATE_REPAIR_OUTPUT_BUFFER = C_POINTER;
     private static final int ShrinkPrepare = (int)1L;
     /**
      * {@snippet lang=c :
@@ -5570,7 +5570,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSHRINK_VOLUME_REQUEST_TYPES
      * }
      */
-    public static final AddressLayout PSHRINK_VOLUME_REQUEST_TYPES = Windows_h.C_POINTER;
+    public static final AddressLayout PSHRINK_VOLUME_REQUEST_TYPES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SHRINK_VOLUME_INFORMATION {
@@ -5580,7 +5580,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSHRINK_VOLUME_INFORMATION
      * }
      */
-    public static final AddressLayout PSHRINK_VOLUME_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PSHRINK_VOLUME_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_MODIFY_RM {
@@ -5595,7 +5595,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_MODIFY_RM
      * }
      */
-    public static final AddressLayout PTXFS_MODIFY_RM = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_MODIFY_RM = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_QUERY_RM_INFORMATION {
@@ -5628,7 +5628,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_QUERY_RM_INFORMATION
      * }
      */
-    public static final AddressLayout PTXFS_QUERY_RM_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_QUERY_RM_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_ROLLFORWARD_REDO_INFORMATION {
@@ -5639,7 +5639,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_ROLLFORWARD_REDO_INFORMATION
      * }
      */
-    public static final AddressLayout PTXFS_ROLLFORWARD_REDO_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_ROLLFORWARD_REDO_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_START_RM_INFORMATION {
@@ -5658,7 +5658,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_START_RM_INFORMATION
      * }
      */
-    public static final AddressLayout PTXFS_START_RM_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_START_RM_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_GET_METADATA_INFO_OUT {
@@ -5672,7 +5672,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_GET_METADATA_INFO_OUT
      * }
      */
-    public static final AddressLayout PTXFS_GET_METADATA_INFO_OUT = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_GET_METADATA_INFO_OUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY {
@@ -5686,7 +5686,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY
      * }
      */
-    public static final AddressLayout PTXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_LIST_TRANSACTION_LOCKED_FILES {
@@ -5697,7 +5697,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_LIST_TRANSACTION_LOCKED_FILES
      * }
      */
-    public static final AddressLayout PTXFS_LIST_TRANSACTION_LOCKED_FILES = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_LIST_TRANSACTION_LOCKED_FILES = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_LIST_TRANSACTIONS_ENTRY {
@@ -5709,7 +5709,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_LIST_TRANSACTIONS_ENTRY
      * }
      */
-    public static final AddressLayout PTXFS_LIST_TRANSACTIONS_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_LIST_TRANSACTIONS_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_LIST_TRANSACTIONS {
@@ -5718,7 +5718,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_LIST_TRANSACTIONS
      * }
      */
-    public static final AddressLayout PTXFS_LIST_TRANSACTIONS = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_LIST_TRANSACTIONS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_READ_BACKUP_INFORMATION_OUT {
@@ -5729,7 +5729,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_READ_BACKUP_INFORMATION_OUT
      * }
      */
-    public static final AddressLayout PTXFS_READ_BACKUP_INFORMATION_OUT = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_READ_BACKUP_INFORMATION_OUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_WRITE_BACKUP_INFORMATION {
@@ -5737,7 +5737,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_WRITE_BACKUP_INFORMATION
      * }
      */
-    public static final AddressLayout PTXFS_WRITE_BACKUP_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_WRITE_BACKUP_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_GET_TRANSACTED_VERSION {
@@ -5749,7 +5749,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_GET_TRANSACTED_VERSION
      * }
      */
-    public static final AddressLayout PTXFS_GET_TRANSACTED_VERSION = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_GET_TRANSACTED_VERSION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_SAVEPOINT_INFORMATION {
@@ -5759,7 +5759,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_SAVEPOINT_INFORMATION
      * }
      */
-    public static final AddressLayout PTXFS_SAVEPOINT_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_SAVEPOINT_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_CREATE_MINIVERSION_INFO {
@@ -5770,7 +5770,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_CREATE_MINIVERSION_INFO
      * }
      */
-    public static final AddressLayout PTXFS_CREATE_MINIVERSION_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_CREATE_MINIVERSION_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _TXFS_TRANSACTION_ACTIVE_INFO {
@@ -5778,7 +5778,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PTXFS_TRANSACTION_ACTIVE_INFO
      * }
      */
-    public static final AddressLayout PTXFS_TRANSACTION_ACTIVE_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PTXFS_TRANSACTION_ACTIVE_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _BOOT_AREA_INFO {
@@ -5789,7 +5789,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PBOOT_AREA_INFO
      * }
      */
-    public static final AddressLayout PBOOT_AREA_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PBOOT_AREA_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _RETRIEVAL_POINTER_BASE {
@@ -5797,7 +5797,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PRETRIEVAL_POINTER_BASE
      * }
      */
-    public static final AddressLayout PRETRIEVAL_POINTER_BASE = Windows_h.C_POINTER;
+    public static final AddressLayout PRETRIEVAL_POINTER_BASE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_FS_PERSISTENT_VOLUME_INFORMATION {
@@ -5808,7 +5808,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_FS_PERSISTENT_VOLUME_INFORMATION
      * }
      */
-    public static final AddressLayout PFILE_FS_PERSISTENT_VOLUME_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_FS_PERSISTENT_VOLUME_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_SYSTEM_RECOGNITION_INFORMATION {
@@ -5816,7 +5816,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_SYSTEM_RECOGNITION_INFORMATION
      * }
      */
-    public static final AddressLayout PFILE_SYSTEM_RECOGNITION_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_SYSTEM_RECOGNITION_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _REQUEST_OPLOCK_INPUT_BUFFER {
@@ -5827,7 +5827,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREQUEST_OPLOCK_INPUT_BUFFER
      * }
      */
-    public static final AddressLayout PREQUEST_OPLOCK_INPUT_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PREQUEST_OPLOCK_INPUT_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _REQUEST_OPLOCK_OUTPUT_BUFFER {
@@ -5841,7 +5841,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREQUEST_OPLOCK_OUTPUT_BUFFER
      * }
      */
-    public static final AddressLayout PREQUEST_OPLOCK_OUTPUT_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PREQUEST_OPLOCK_OUTPUT_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _VIRTUAL_STORAGE_TYPE {
@@ -5850,7 +5850,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PVIRTUAL_STORAGE_TYPE
      * }
      */
-    public static final AddressLayout PVIRTUAL_STORAGE_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PVIRTUAL_STORAGE_TYPE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST {
@@ -5859,7 +5859,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_QUERY_DEPENDENT_VOLUME_REQUEST
      * }
      */
-    public static final AddressLayout PSTORAGE_QUERY_DEPENDENT_VOLUME_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_QUERY_DEPENDENT_VOLUME_REQUEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY {
@@ -5870,7 +5870,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY
      * }
      */
-    public static final AddressLayout PSTORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY {
@@ -5890,7 +5890,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY
      * }
      */
-    public static final AddressLayout PSTORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE {
@@ -5903,7 +5903,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE
      * }
      */
-    public static final AddressLayout PSTORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SD_CHANGE_MACHINE_SID_INPUT {
@@ -5914,7 +5914,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSD_CHANGE_MACHINE_SID_INPUT
      * }
      */
-    public static final AddressLayout PSD_CHANGE_MACHINE_SID_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSD_CHANGE_MACHINE_SID_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SD_CHANGE_MACHINE_SID_OUTPUT {
@@ -5928,7 +5928,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSD_CHANGE_MACHINE_SID_OUTPUT
      * }
      */
-    public static final AddressLayout PSD_CHANGE_MACHINE_SID_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSD_CHANGE_MACHINE_SID_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SD_QUERY_STATS_INPUT {
@@ -5936,7 +5936,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSD_QUERY_STATS_INPUT
      * }
      */
-    public static final AddressLayout PSD_QUERY_STATS_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSD_QUERY_STATS_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SD_QUERY_STATS_OUTPUT {
@@ -5951,7 +5951,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSD_QUERY_STATS_OUTPUT
      * }
      */
-    public static final AddressLayout PSD_QUERY_STATS_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSD_QUERY_STATS_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SD_ENUM_SDS_INPUT {
@@ -5960,7 +5960,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSD_ENUM_SDS_INPUT
      * }
      */
-    public static final AddressLayout PSD_ENUM_SDS_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSD_ENUM_SDS_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SD_ENUM_SDS_ENTRY {
@@ -5972,7 +5972,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSD_ENUM_SDS_ENTRY
      * }
      */
-    public static final AddressLayout PSD_ENUM_SDS_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PSD_ENUM_SDS_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SD_ENUM_SDS_OUTPUT {
@@ -5983,7 +5983,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSD_ENUM_SDS_OUTPUT
      * }
      */
-    public static final AddressLayout PSD_ENUM_SDS_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSD_ENUM_SDS_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SD_GLOBAL_CHANGE_INPUT {
@@ -5997,7 +5997,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSD_GLOBAL_CHANGE_INPUT
      * }
      */
-    public static final AddressLayout PSD_GLOBAL_CHANGE_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSD_GLOBAL_CHANGE_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SD_GLOBAL_CHANGE_OUTPUT {
@@ -6011,7 +6011,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSD_GLOBAL_CHANGE_OUTPUT
      * }
      */
-    public static final AddressLayout PSD_GLOBAL_CHANGE_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSD_GLOBAL_CHANGE_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _LOOKUP_STREAM_FROM_CLUSTER_INPUT {
@@ -6021,7 +6021,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PLOOKUP_STREAM_FROM_CLUSTER_INPUT
      * }
      */
-    public static final AddressLayout PLOOKUP_STREAM_FROM_CLUSTER_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PLOOKUP_STREAM_FROM_CLUSTER_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _LOOKUP_STREAM_FROM_CLUSTER_OUTPUT {
@@ -6031,7 +6031,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PLOOKUP_STREAM_FROM_CLUSTER_OUTPUT
      * }
      */
-    public static final AddressLayout PLOOKUP_STREAM_FROM_CLUSTER_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PLOOKUP_STREAM_FROM_CLUSTER_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _LOOKUP_STREAM_FROM_CLUSTER_ENTRY {
@@ -6043,7 +6043,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PLOOKUP_STREAM_FROM_CLUSTER_ENTRY
      * }
      */
-    public static final AddressLayout PLOOKUP_STREAM_FROM_CLUSTER_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PLOOKUP_STREAM_FROM_CLUSTER_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_TYPE_NOTIFICATION_INPUT {
@@ -6053,11 +6053,11 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_TYPE_NOTIFICATION_INPUT
      * }
      */
-    public static final AddressLayout PFILE_TYPE_NOTIFICATION_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_TYPE_NOTIFICATION_INPUT = C_POINTER;
 
     private static class FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6092,7 +6092,7 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6127,7 +6127,7 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -6166,7 +6166,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_MGMT_LOCK
      * }
      */
-    public static final AddressLayout PCSV_MGMT_LOCK = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_MGMT_LOCK = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CSV_NAMESPACE_INFO {
@@ -6177,7 +6177,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_NAMESPACE_INFO
      * }
      */
-    public static final AddressLayout PCSV_NAMESPACE_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_NAMESPACE_INFO = C_POINTER;
     private static final int CsvControlStartRedirectFile = (int)2L;
     /**
      * {@snippet lang=c :
@@ -6364,7 +6364,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_CONTROL_OP
      * }
      */
-    public static final AddressLayout PCSV_CONTROL_OP = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_CONTROL_OP = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CSV_CONTROL_PARAM {
@@ -6373,7 +6373,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_CONTROL_PARAM
      * }
      */
-    public static final AddressLayout PCSV_CONTROL_PARAM = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_CONTROL_PARAM = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CSV_QUERY_REDIRECT_STATE {
@@ -6383,7 +6383,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_QUERY_REDIRECT_STATE
      * }
      */
-    public static final AddressLayout PCSV_QUERY_REDIRECT_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_QUERY_REDIRECT_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CSV_QUERY_FILE_REVISION {
@@ -6392,7 +6392,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_QUERY_FILE_REVISION
      * }
      */
-    public static final AddressLayout PCSV_QUERY_FILE_REVISION = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_QUERY_FILE_REVISION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CSV_QUERY_FILE_REVISION_FILE_ID_128 {
@@ -6401,7 +6401,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_QUERY_FILE_REVISION_FILE_ID_128
      * }
      */
-    public static final AddressLayout PCSV_QUERY_FILE_REVISION_FILE_ID_128 = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_QUERY_FILE_REVISION_FILE_ID_128 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CSV_QUERY_MDS_PATH {
@@ -6412,7 +6412,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_QUERY_MDS_PATH
      * }
      */
-    public static final AddressLayout PCSV_QUERY_MDS_PATH = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_QUERY_MDS_PATH = C_POINTER;
     private static final int CsvFsDiskConnectivityNone = (int)0L;
     /**
      * {@snippet lang=c :
@@ -6459,7 +6459,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSVFS_DISK_CONNECTIVITY
      * }
      */
-    public static final AddressLayout PCSVFS_DISK_CONNECTIVITY = Windows_h.C_POINTER;
+    public static final AddressLayout PCSVFS_DISK_CONNECTIVITY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CSV_QUERY_VOLUME_REDIRECT_STATE {
@@ -6471,7 +6471,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_QUERY_VOLUME_REDIRECT_STATE
      * }
      */
-    public static final AddressLayout PCSV_QUERY_VOLUME_REDIRECT_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_QUERY_VOLUME_REDIRECT_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CSV_QUERY_MDS_PATH_V2 {
@@ -6489,7 +6489,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_QUERY_MDS_PATH_V2
      * }
      */
-    public static final AddressLayout PCSV_QUERY_MDS_PATH_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_QUERY_MDS_PATH_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CSV_SET_VOLUME_ID {
@@ -6497,7 +6497,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_SET_VOLUME_ID
      * }
      */
-    public static final AddressLayout PCSV_SET_VOLUME_ID = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_SET_VOLUME_ID = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CSV_QUERY_VOLUME_ID {
@@ -6505,7 +6505,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_QUERY_VOLUME_ID
      * }
      */
-    public static final AddressLayout PCSV_QUERY_VOLUME_ID = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_QUERY_VOLUME_ID = C_POINTER;
     private static final int LMRQuerySessionInfo = (int)1L;
     /**
      * {@snippet lang=c :
@@ -6522,7 +6522,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PLMR_QUERY_INFO_CLASS
      * }
      */
-    public static final AddressLayout PLMR_QUERY_INFO_CLASS = Windows_h.C_POINTER;
+    public static final AddressLayout PLMR_QUERY_INFO_CLASS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _LMR_QUERY_INFO_PARAM {
@@ -6530,7 +6530,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PLMR_QUERY_INFO_PARAM
      * }
      */
-    public static final AddressLayout PLMR_QUERY_INFO_PARAM = Windows_h.C_POINTER;
+    public static final AddressLayout PLMR_QUERY_INFO_PARAM = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _LMR_QUERY_SESSION_INFO {
@@ -6538,7 +6538,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PLMR_QUERY_SESSION_INFO
      * }
      */
-    public static final AddressLayout PLMR_QUERY_SESSION_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PLMR_QUERY_SESSION_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT {
@@ -6548,7 +6548,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT
      * }
      */
-    public static final AddressLayout PCSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT = C_POINTER;
     private static final int StorageReserveIdNone = (int)0L;
     /**
      * {@snippet lang=c :
@@ -6605,7 +6605,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTORAGE_RESERVE_ID
      * }
      */
-    public static final AddressLayout PSTORAGE_RESERVE_ID = Windows_h.C_POINTER;
+    public static final AddressLayout PSTORAGE_RESERVE_ID = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CSV_IS_OWNED_BY_CSVFS {
@@ -6613,7 +6613,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSV_IS_OWNED_BY_CSVFS
      * }
      */
-    public static final AddressLayout PCSV_IS_OWNED_BY_CSVFS = Windows_h.C_POINTER;
+    public static final AddressLayout PCSV_IS_OWNED_BY_CSVFS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_LEVEL_TRIM_RANGE {
@@ -6622,7 +6622,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_LEVEL_TRIM_RANGE
      * }
      */
-    public static final AddressLayout PFILE_LEVEL_TRIM_RANGE = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_LEVEL_TRIM_RANGE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_LEVEL_TRIM {
@@ -6632,7 +6632,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_LEVEL_TRIM
      * }
      */
-    public static final AddressLayout PFILE_LEVEL_TRIM = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_LEVEL_TRIM = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_LEVEL_TRIM_OUTPUT {
@@ -6640,7 +6640,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_LEVEL_TRIM_OUTPUT
      * }
      */
-    public static final AddressLayout PFILE_LEVEL_TRIM_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_LEVEL_TRIM_OUTPUT = C_POINTER;
     private static final int QUERY_FILE_LAYOUT_FILTER_TYPE_NONE = (int)0L;
     /**
      * {@snippet lang=c :
@@ -6694,7 +6694,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCLUSTER_RANGE
      * }
      */
-    public static final AddressLayout PCLUSTER_RANGE = Windows_h.C_POINTER;
+    public static final AddressLayout PCLUSTER_RANGE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_REFERENCE_RANGE {
@@ -6703,7 +6703,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_REFERENCE_RANGE
      * }
      */
-    public static final AddressLayout PFILE_REFERENCE_RANGE = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_REFERENCE_RANGE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _QUERY_FILE_LAYOUT_INPUT {
@@ -6722,7 +6722,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PQUERY_FILE_LAYOUT_INPUT
      * }
      */
-    public static final AddressLayout PQUERY_FILE_LAYOUT_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PQUERY_FILE_LAYOUT_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _QUERY_FILE_LAYOUT_OUTPUT {
@@ -6733,7 +6733,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PQUERY_FILE_LAYOUT_OUTPUT
      * }
      */
-    public static final AddressLayout PQUERY_FILE_LAYOUT_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PQUERY_FILE_LAYOUT_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_LAYOUT_ENTRY {
@@ -6749,7 +6749,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_LAYOUT_ENTRY
      * }
      */
-    public static final AddressLayout PFILE_LAYOUT_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_LAYOUT_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_LAYOUT_NAME_ENTRY {
@@ -6762,7 +6762,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_LAYOUT_NAME_ENTRY
      * }
      */
-    public static final AddressLayout PFILE_LAYOUT_NAME_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_LAYOUT_NAME_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_LAYOUT_INFO_ENTRY {
@@ -6780,7 +6780,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_LAYOUT_INFO_ENTRY
      * }
      */
-    public static final AddressLayout PFILE_LAYOUT_INFO_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_LAYOUT_INFO_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STREAM_LAYOUT_ENTRY {
@@ -6798,7 +6798,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTREAM_LAYOUT_ENTRY
      * }
      */
-    public static final AddressLayout PSTREAM_LAYOUT_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PSTREAM_LAYOUT_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STREAM_EXTENT_ENTRY {
@@ -6809,7 +6809,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTREAM_EXTENT_ENTRY
      * }
      */
-    public static final AddressLayout PSTREAM_EXTENT_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PSTREAM_EXTENT_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FSCTL_GET_INTEGRITY_INFORMATION_BUFFER {
@@ -6821,7 +6821,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFSCTL_GET_INTEGRITY_INFORMATION_BUFFER
      * }
      */
-    public static final AddressLayout PFSCTL_GET_INTEGRITY_INFORMATION_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PFSCTL_GET_INTEGRITY_INFORMATION_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FSCTL_SET_INTEGRITY_INFORMATION_BUFFER {
@@ -6831,7 +6831,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFSCTL_SET_INTEGRITY_INFORMATION_BUFFER
      * }
      */
-    public static final AddressLayout PFSCTL_SET_INTEGRITY_INFORMATION_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PFSCTL_SET_INTEGRITY_INFORMATION_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX {
@@ -6844,7 +6844,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX
      * }
      */
-    public static final AddressLayout PFSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PFSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FSCTL_OFFLOAD_READ_INPUT {
@@ -6857,7 +6857,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFSCTL_OFFLOAD_READ_INPUT
      * }
      */
-    public static final AddressLayout PFSCTL_OFFLOAD_READ_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFSCTL_OFFLOAD_READ_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FSCTL_OFFLOAD_READ_OUTPUT {
@@ -6868,7 +6868,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFSCTL_OFFLOAD_READ_OUTPUT
      * }
      */
-    public static final AddressLayout PFSCTL_OFFLOAD_READ_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFSCTL_OFFLOAD_READ_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FSCTL_OFFLOAD_WRITE_INPUT {
@@ -6881,7 +6881,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFSCTL_OFFLOAD_WRITE_INPUT
      * }
      */
-    public static final AddressLayout PFSCTL_OFFLOAD_WRITE_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFSCTL_OFFLOAD_WRITE_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FSCTL_OFFLOAD_WRITE_OUTPUT {
@@ -6891,7 +6891,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFSCTL_OFFLOAD_WRITE_OUTPUT
      * }
      */
-    public static final AddressLayout PFSCTL_OFFLOAD_WRITE_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFSCTL_OFFLOAD_WRITE_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SET_PURGE_FAILURE_MODE_INPUT {
@@ -6899,7 +6899,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSET_PURGE_FAILURE_MODE_INPUT
      * }
      */
-    public static final AddressLayout PSET_PURGE_FAILURE_MODE_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSET_PURGE_FAILURE_MODE_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _REPAIR_COPIES_INPUT {
@@ -6913,7 +6913,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREPAIR_COPIES_INPUT
      * }
      */
-    public static final AddressLayout PREPAIR_COPIES_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PREPAIR_COPIES_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _REPAIR_COPIES_OUTPUT {
@@ -6923,7 +6923,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREPAIR_COPIES_OUTPUT
      * }
      */
-    public static final AddressLayout PREPAIR_COPIES_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PREPAIR_COPIES_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_REGION_INFO {
@@ -6934,7 +6934,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_REGION_INFO
      * }
      */
-    public static final AddressLayout PFILE_REGION_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_REGION_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_REGION_OUTPUT {
@@ -6946,7 +6946,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_REGION_OUTPUT
      * }
      */
-    public static final AddressLayout PFILE_REGION_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_REGION_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_REGION_INPUT {
@@ -6956,7 +6956,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_REGION_INPUT
      * }
      */
-    public static final AddressLayout PFILE_REGION_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_REGION_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _WRITE_USN_REASON_INPUT {
@@ -6965,7 +6965,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PWRITE_USN_REASON_INPUT
      * }
      */
-    public static final AddressLayout PWRITE_USN_REASON_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PWRITE_USN_REASON_INPUT = C_POINTER;
     private static final int FileStorageTierMediaTypeUnspecified = (int)0L;
     /**
      * {@snippet lang=c :
@@ -7022,7 +7022,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_STORAGE_TIER_MEDIA_TYPE
      * }
      */
-    public static final AddressLayout PFILE_STORAGE_TIER_MEDIA_TYPE = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_STORAGE_TIER_MEDIA_TYPE = C_POINTER;
     private static final int FileStorageTierClassUnspecified = (int)0L;
     /**
      * {@snippet lang=c :
@@ -7069,7 +7069,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_STORAGE_TIER_CLASS
      * }
      */
-    public static final AddressLayout PFILE_STORAGE_TIER_CLASS = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_STORAGE_TIER_CLASS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_STORAGE_TIER {
@@ -7083,7 +7083,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_STORAGE_TIER
      * }
      */
-    public static final AddressLayout PFILE_STORAGE_TIER = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_STORAGE_TIER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FSCTL_QUERY_STORAGE_CLASSES_OUTPUT {
@@ -7096,7 +7096,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFSCTL_QUERY_STORAGE_CLASSES_OUTPUT
      * }
      */
-    public static final AddressLayout PFSCTL_QUERY_STORAGE_CLASSES_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFSCTL_QUERY_STORAGE_CLASSES_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STREAM_INFORMATION_ENTRY {
@@ -7129,7 +7129,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTREAM_INFORMATION_ENTRY
      * }
      */
-    public static final AddressLayout PSTREAM_INFORMATION_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PSTREAM_INFORMATION_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FSCTL_QUERY_REGION_INFO_INPUT {
@@ -7141,7 +7141,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFSCTL_QUERY_REGION_INFO_INPUT
      * }
      */
-    public static final AddressLayout PFSCTL_QUERY_REGION_INFO_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFSCTL_QUERY_REGION_INFO_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_STORAGE_TIER_REGION {
@@ -7151,7 +7151,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_STORAGE_TIER_REGION
      * }
      */
-    public static final AddressLayout PFILE_STORAGE_TIER_REGION = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_STORAGE_TIER_REGION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FSCTL_QUERY_REGION_INFO_OUTPUT {
@@ -7166,7 +7166,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFSCTL_QUERY_REGION_INFO_OUTPUT
      * }
      */
-    public static final AddressLayout PFSCTL_QUERY_REGION_INFO_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFSCTL_QUERY_REGION_INFO_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_DESIRED_STORAGE_CLASS_INFORMATION {
@@ -7175,7 +7175,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_DESIRED_STORAGE_CLASS_INFORMATION
      * }
      */
-    public static final AddressLayout PFILE_DESIRED_STORAGE_CLASS_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_DESIRED_STORAGE_CLASS_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DUPLICATE_EXTENTS_DATA {
@@ -7186,7 +7186,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDUPLICATE_EXTENTS_DATA
      * }
      */
-    public static final AddressLayout PDUPLICATE_EXTENTS_DATA = Windows_h.C_POINTER;
+    public static final AddressLayout PDUPLICATE_EXTENTS_DATA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DUPLICATE_EXTENTS_DATA32 {
@@ -7197,7 +7197,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDUPLICATE_EXTENTS_DATA32
      * }
      */
-    public static final AddressLayout PDUPLICATE_EXTENTS_DATA32 = Windows_h.C_POINTER;
+    public static final AddressLayout PDUPLICATE_EXTENTS_DATA32 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DUPLICATE_EXTENTS_DATA_EX {
@@ -7210,7 +7210,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDUPLICATE_EXTENTS_DATA_EX
      * }
      */
-    public static final AddressLayout PDUPLICATE_EXTENTS_DATA_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PDUPLICATE_EXTENTS_DATA_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DUPLICATE_EXTENTS_DATA_EX32 {
@@ -7223,7 +7223,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDUPLICATE_EXTENTS_DATA_EX32
      * }
      */
-    public static final AddressLayout PDUPLICATE_EXTENTS_DATA_EX32 = Windows_h.C_POINTER;
+    public static final AddressLayout PDUPLICATE_EXTENTS_DATA_EX32 = C_POINTER;
     private static final int FileSnapStateInactive = (int)0L;
     /**
      * {@snippet lang=c :
@@ -7260,7 +7260,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDUPLICATE_EXTENTS_STATE
      * }
      */
-    public static final AddressLayout PDUPLICATE_EXTENTS_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PDUPLICATE_EXTENTS_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ASYNC_DUPLICATE_EXTENTS_STATUS {
@@ -7273,7 +7273,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PASYNC_DUPLICATE_EXTENTS_STATUS
      * }
      */
-    public static final AddressLayout PASYNC_DUPLICATE_EXTENTS_STATUS = Windows_h.C_POINTER;
+    public static final AddressLayout PASYNC_DUPLICATE_EXTENTS_STATUS = C_POINTER;
     private static final int SmrGcStateInactive = (int)0L;
     /**
      * {@snippet lang=c :
@@ -7320,7 +7320,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREFS_SMR_VOLUME_GC_STATE
      * }
      */
-    public static final AddressLayout PREFS_SMR_VOLUME_GC_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PREFS_SMR_VOLUME_GC_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _REFS_SMR_VOLUME_INFO_OUTPUT {
@@ -7338,7 +7338,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREFS_SMR_VOLUME_INFO_OUTPUT
      * }
      */
-    public static final AddressLayout PREFS_SMR_VOLUME_INFO_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PREFS_SMR_VOLUME_INFO_OUTPUT = C_POINTER;
     private static final int SmrGcActionStart = (int)1L;
     /**
      * {@snippet lang=c :
@@ -7385,7 +7385,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREFS_SMR_VOLUME_GC_ACTION
      * }
      */
-    public static final AddressLayout PREFS_SMR_VOLUME_GC_ACTION = Windows_h.C_POINTER;
+    public static final AddressLayout PREFS_SMR_VOLUME_GC_ACTION = C_POINTER;
     private static final int SmrGcMethodCompaction = (int)1L;
     /**
      * {@snippet lang=c :
@@ -7422,7 +7422,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREFS_SMR_VOLUME_GC_METHOD
      * }
      */
-    public static final AddressLayout PREFS_SMR_VOLUME_GC_METHOD = Windows_h.C_POINTER;
+    public static final AddressLayout PREFS_SMR_VOLUME_GC_METHOD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _REFS_SMR_VOLUME_GC_PARAMETERS {
@@ -7436,7 +7436,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREFS_SMR_VOLUME_GC_PARAMETERS
      * }
      */
-    public static final AddressLayout PREFS_SMR_VOLUME_GC_PARAMETERS = Windows_h.C_POINTER;
+    public static final AddressLayout PREFS_SMR_VOLUME_GC_PARAMETERS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER {
@@ -7447,7 +7447,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER
      * }
      */
-    public static final AddressLayout PSTREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PSTREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STREAMS_ASSOCIATE_ID_INPUT_BUFFER {
@@ -7456,7 +7456,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTREAMS_ASSOCIATE_ID_INPUT_BUFFER
      * }
      */
-    public static final AddressLayout PSTREAMS_ASSOCIATE_ID_INPUT_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PSTREAMS_ASSOCIATE_ID_INPUT_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _STREAMS_QUERY_ID_OUTPUT_BUFFER {
@@ -7464,7 +7464,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSTREAMS_QUERY_ID_OUTPUT_BUFFER
      * }
      */
-    public static final AddressLayout PSTREAMS_QUERY_ID_OUTPUT_BUFFER = Windows_h.C_POINTER;
+    public static final AddressLayout PSTREAMS_QUERY_ID_OUTPUT_BUFFER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _QUERY_BAD_RANGES_INPUT_RANGE {
@@ -7473,7 +7473,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PQUERY_BAD_RANGES_INPUT_RANGE
      * }
      */
-    public static final AddressLayout PQUERY_BAD_RANGES_INPUT_RANGE = Windows_h.C_POINTER;
+    public static final AddressLayout PQUERY_BAD_RANGES_INPUT_RANGE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _QUERY_BAD_RANGES_INPUT {
@@ -7483,7 +7483,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PQUERY_BAD_RANGES_INPUT
      * }
      */
-    public static final AddressLayout PQUERY_BAD_RANGES_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PQUERY_BAD_RANGES_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _QUERY_BAD_RANGES_OUTPUT_RANGE {
@@ -7494,7 +7494,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PQUERY_BAD_RANGES_OUTPUT_RANGE
      * }
      */
-    public static final AddressLayout PQUERY_BAD_RANGES_OUTPUT_RANGE = Windows_h.C_POINTER;
+    public static final AddressLayout PQUERY_BAD_RANGES_OUTPUT_RANGE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _QUERY_BAD_RANGES_OUTPUT {
@@ -7505,7 +7505,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PQUERY_BAD_RANGES_OUTPUT
      * }
      */
-    public static final AddressLayout PQUERY_BAD_RANGES_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PQUERY_BAD_RANGES_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT {
@@ -7516,7 +7516,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSET_DAX_ALLOC_ALIGNMENT_HINT_INPUT
      * }
      */
-    public static final AddressLayout PSET_DAX_ALLOC_ALIGNMENT_HINT_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSET_DAX_ALLOC_ALIGNMENT_HINT_INPUT = C_POINTER;
     private static final int VirtualStorageBehaviorUndefined = (int)0L;
     /**
      * {@snippet lang=c :
@@ -7573,7 +7573,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PVIRTUAL_STORAGE_BEHAVIOR_CODE
      * }
      */
-    public static final AddressLayout PVIRTUAL_STORAGE_BEHAVIOR_CODE = Windows_h.C_POINTER;
+    public static final AddressLayout PVIRTUAL_STORAGE_BEHAVIOR_CODE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT {
@@ -7582,7 +7582,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PVIRTUAL_STORAGE_SET_BEHAVIOR_INPUT
      * }
      */
-    public static final AddressLayout PVIRTUAL_STORAGE_SET_BEHAVIOR_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PVIRTUAL_STORAGE_SET_BEHAVIOR_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ENCRYPTION_KEY_CTRL_INPUT {
@@ -7596,7 +7596,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PENCRYPTION_KEY_CTRL_INPUT
      * }
      */
-    public static final AddressLayout PENCRYPTION_KEY_CTRL_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PENCRYPTION_KEY_CTRL_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _WOF_EXTERNAL_INFO {
@@ -7605,7 +7605,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PWOF_EXTERNAL_INFO
      * }
      */
-    public static final AddressLayout PWOF_EXTERNAL_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PWOF_EXTERNAL_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _WOF_EXTERNAL_FILE_ID {
@@ -7613,7 +7613,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PWOF_EXTERNAL_FILE_ID
      * }
      */
-    public static final AddressLayout PWOF_EXTERNAL_FILE_ID = Windows_h.C_POINTER;
+    public static final AddressLayout PWOF_EXTERNAL_FILE_ID = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _WOF_VERSION_INFO {
@@ -7621,7 +7621,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PWOF_VERSION_INFO
      * }
      */
-    public static final AddressLayout PWOF_VERSION_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PWOF_VERSION_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _WIM_PROVIDER_EXTERNAL_INFO {
@@ -7632,7 +7632,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PWIM_PROVIDER_EXTERNAL_INFO
      * }
      */
-    public static final AddressLayout PWIM_PROVIDER_EXTERNAL_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PWIM_PROVIDER_EXTERNAL_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _WIM_PROVIDER_ADD_OVERLAY_INPUT {
@@ -7643,7 +7643,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PWIM_PROVIDER_ADD_OVERLAY_INPUT
      * }
      */
-    public static final AddressLayout PWIM_PROVIDER_ADD_OVERLAY_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PWIM_PROVIDER_ADD_OVERLAY_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _WIM_PROVIDER_UPDATE_OVERLAY_INPUT {
@@ -7653,7 +7653,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PWIM_PROVIDER_UPDATE_OVERLAY_INPUT
      * }
      */
-    public static final AddressLayout PWIM_PROVIDER_UPDATE_OVERLAY_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PWIM_PROVIDER_UPDATE_OVERLAY_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _WIM_PROVIDER_REMOVE_OVERLAY_INPUT {
@@ -7661,7 +7661,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PWIM_PROVIDER_REMOVE_OVERLAY_INPUT
      * }
      */
-    public static final AddressLayout PWIM_PROVIDER_REMOVE_OVERLAY_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PWIM_PROVIDER_REMOVE_OVERLAY_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _WIM_PROVIDER_SUSPEND_OVERLAY_INPUT {
@@ -7669,7 +7669,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PWIM_PROVIDER_SUSPEND_OVERLAY_INPUT
      * }
      */
-    public static final AddressLayout PWIM_PROVIDER_SUSPEND_OVERLAY_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PWIM_PROVIDER_SUSPEND_OVERLAY_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _WIM_PROVIDER_OVERLAY_ENTRY {
@@ -7683,7 +7683,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PWIM_PROVIDER_OVERLAY_ENTRY
      * }
      */
-    public static final AddressLayout PWIM_PROVIDER_OVERLAY_ENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout PWIM_PROVIDER_OVERLAY_ENTRY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_PROVIDER_EXTERNAL_INFO_V0 {
@@ -7692,7 +7692,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_PROVIDER_EXTERNAL_INFO_V0
      * }
      */
-    public static final AddressLayout PFILE_PROVIDER_EXTERNAL_INFO_V0 = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_PROVIDER_EXTERNAL_INFO_V0 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FILE_PROVIDER_EXTERNAL_INFO_V1 {
@@ -7702,13 +7702,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFILE_PROVIDER_EXTERNAL_INFO_V1
      * }
      */
-    public static final AddressLayout PFILE_PROVIDER_EXTERNAL_INFO_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_PROVIDER_EXTERNAL_INFO_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PFILE_PROVIDER_EXTERNAL_INFO_V1 PFILE_PROVIDER_EXTERNAL_INFO
      * }
      */
-    public static final AddressLayout PFILE_PROVIDER_EXTERNAL_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PFILE_PROVIDER_EXTERNAL_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CONTAINER_VOLUME_STATE {
@@ -7716,7 +7716,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCONTAINER_VOLUME_STATE
      * }
      */
-    public static final AddressLayout PCONTAINER_VOLUME_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PCONTAINER_VOLUME_STATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CONTAINER_ROOT_INFO_INPUT {
@@ -7724,7 +7724,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCONTAINER_ROOT_INFO_INPUT
      * }
      */
-    public static final AddressLayout PCONTAINER_ROOT_INFO_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PCONTAINER_ROOT_INFO_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CONTAINER_ROOT_INFO_OUTPUT {
@@ -7733,7 +7733,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCONTAINER_ROOT_INFO_OUTPUT
      * }
      */
-    public static final AddressLayout PCONTAINER_ROOT_INFO_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PCONTAINER_ROOT_INFO_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _VIRTUALIZATION_INSTANCE_INFO_INPUT {
@@ -7742,7 +7742,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PVIRTUALIZATION_INSTANCE_INFO_INPUT
      * }
      */
-    public static final AddressLayout PVIRTUALIZATION_INSTANCE_INFO_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PVIRTUALIZATION_INSTANCE_INFO_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _VIRTUALIZATION_INSTANCE_INFO_INPUT_EX {
@@ -7754,7 +7754,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PVIRTUALIZATION_INSTANCE_INFO_INPUT_EX
      * }
      */
-    public static final AddressLayout PVIRTUALIZATION_INSTANCE_INFO_INPUT_EX = Windows_h.C_POINTER;
+    public static final AddressLayout PVIRTUALIZATION_INSTANCE_INFO_INPUT_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _VIRTUALIZATION_INSTANCE_INFO_OUTPUT {
@@ -7762,7 +7762,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PVIRTUALIZATION_INSTANCE_INFO_OUTPUT
      * }
      */
-    public static final AddressLayout PVIRTUALIZATION_INSTANCE_INFO_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PVIRTUALIZATION_INSTANCE_INFO_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _GET_FILTER_FILE_IDENTIFIER_INPUT {
@@ -7771,7 +7771,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PGET_FILTER_FILE_IDENTIFIER_INPUT
      * }
      */
-    public static final AddressLayout PGET_FILTER_FILE_IDENTIFIER_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PGET_FILTER_FILE_IDENTIFIER_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _GET_FILTER_FILE_IDENTIFIER_OUTPUT {
@@ -7780,7 +7780,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PGET_FILTER_FILE_IDENTIFIER_OUTPUT
      * }
      */
-    public static final AddressLayout PGET_FILTER_FILE_IDENTIFIER_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PGET_FILTER_FILE_IDENTIFIER_OUTPUT = C_POINTER;
     private static final int FS_BPIO_OP_ENABLE = (int)1L;
     /**
      * {@snippet lang=c :
@@ -7890,7 +7890,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFS_BPIO_INPUT
      * }
      */
-    public static final AddressLayout PFS_BPIO_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFS_BPIO_INPUT = C_POINTER;
     private static final int FSBPIO_OUTFL_None = (int)0L;
     /**
      * {@snippet lang=c :
@@ -7947,7 +7947,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFS_BPIO_RESULTS
      * }
      */
-    public static final AddressLayout PFS_BPIO_RESULTS = Windows_h.C_POINTER;
+    public static final AddressLayout PFS_BPIO_RESULTS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FS_BPIO_INFO {
@@ -7957,7 +7957,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFS_BPIO_INFO
      * }
      */
-    public static final AddressLayout PFS_BPIO_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PFS_BPIO_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FS_BPIO_OUTPUT {
@@ -7975,7 +7975,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PFS_BPIO_OUTPUT
      * }
      */
-    public static final AddressLayout PFS_BPIO_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PFS_BPIO_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SMB_SHARE_FLUSH_AND_PURGE_INPUT {
@@ -7983,7 +7983,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSMB_SHARE_FLUSH_AND_PURGE_INPUT
      * }
      */
-    public static final AddressLayout PSMB_SHARE_FLUSH_AND_PURGE_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSMB_SHARE_FLUSH_AND_PURGE_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const struct _SMB_SHARE_FLUSH_AND_PURGE_INPUT {
@@ -7991,7 +7991,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSMB_SHARE_FLUSH_AND_PURGE_INPUT
      * }
      */
-    public static final AddressLayout PCSMB_SHARE_FLUSH_AND_PURGE_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PCSMB_SHARE_FLUSH_AND_PURGE_INPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SMB_SHARE_FLUSH_AND_PURGE_OUTPUT {
@@ -7999,7 +7999,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSMB_SHARE_FLUSH_AND_PURGE_OUTPUT
      * }
      */
-    public static final AddressLayout PSMB_SHARE_FLUSH_AND_PURGE_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PSMB_SHARE_FLUSH_AND_PURGE_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const struct _SMB_SHARE_FLUSH_AND_PURGE_OUTPUT {
@@ -8007,7 +8007,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PCSMB_SHARE_FLUSH_AND_PURGE_OUTPUT
      * }
      */
-    public static final AddressLayout PCSMB_SHARE_FLUSH_AND_PURGE_OUTPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PCSMB_SHARE_FLUSH_AND_PURGE_OUTPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DISK_EXTENT {
@@ -8017,7 +8017,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDISK_EXTENT
      * }
      */
-    public static final AddressLayout PDISK_EXTENT = Windows_h.C_POINTER;
+    public static final AddressLayout PDISK_EXTENT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _VOLUME_DISK_EXTENTS {
@@ -8026,7 +8026,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PVOLUME_DISK_EXTENTS
      * }
      */
-    public static final AddressLayout PVOLUME_DISK_EXTENTS = Windows_h.C_POINTER;
+    public static final AddressLayout PVOLUME_DISK_EXTENTS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _VOLUME_GET_GPT_ATTRIBUTES_INFORMATION {
@@ -8034,7 +8034,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PVOLUME_GET_GPT_ATTRIBUTES_INFORMATION
      * }
      */
-    public static final AddressLayout PVOLUME_GET_GPT_ATTRIBUTES_INFORMATION = Windows_h.C_POINTER;
+    public static final AddressLayout PVOLUME_GET_GPT_ATTRIBUTES_INFORMATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _IO_IRP_EXT_TRACK_OFFSET_HEADER {
@@ -8044,17 +8044,17 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PIO_IRP_EXT_TRACK_OFFSET_HEADER
      * }
      */
-    public static final AddressLayout PIO_IRP_EXT_TRACK_OFFSET_HEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PIO_IRP_EXT_TRACK_OFFSET_HEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef WORD UWORD
      * }
      */
-    public static final OfShort UWORD = Windows_h.C_SHORT;
+    public static final OfShort UWORD = C_SHORT;
 
     private static class GUID_DEVINTERFACE_SMARTCARD_READER$constants {
         public static final GroupLayout LAYOUT = _GUID.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DEVINTERFACE_SMARTCARD_READER").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("GUID_DEVINTERFACE_SMARTCARD_READER").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8094,7 +8094,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCARD_IO_REQUEST
      * }
      */
-    public static final AddressLayout PSCARD_IO_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout PSCARD_IO_REQUEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCARD_IO_REQUEST {
@@ -8103,13 +8103,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPSCARD_IO_REQUEST
      * }
      */
-    public static final AddressLayout LPSCARD_IO_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout LPSCARD_IO_REQUEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const SCARD_IO_REQUEST *LPCSCARD_IO_REQUEST
      * }
      */
-    public static final AddressLayout LPCSCARD_IO_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout LPCSCARD_IO_REQUEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCARD_T0_COMMAND {
@@ -8121,41 +8121,41 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPSCARD_T0_COMMAND
      * }
      */
-    public static final AddressLayout LPSCARD_T0_COMMAND = Windows_h.C_POINTER;
+    public static final AddressLayout LPSCARD_T0_COMMAND = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef SCARD_T0_REQUEST *PSCARD_T0_REQUEST
      * }
      */
-    public static final AddressLayout PSCARD_T0_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout PSCARD_T0_REQUEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef SCARD_T0_REQUEST *LPSCARD_T0_REQUEST
      * }
      */
-    public static final AddressLayout LPSCARD_T0_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout LPSCARD_T0_REQUEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef SCARD_T1_REQUEST *PSCARD_T1_REQUEST
      * }
      */
-    public static final AddressLayout PSCARD_T1_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout PSCARD_T1_REQUEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef SCARD_T1_REQUEST *LPSCARD_T1_REQUEST
      * }
      */
-    public static final AddressLayout LPSCARD_T1_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout LPSCARD_T1_REQUEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const BYTE *LPCBYTE
      * }
      */
-    public static final AddressLayout LPCBYTE = Windows_h.C_POINTER;
+    public static final AddressLayout LPCBYTE = C_POINTER;
 
     private static class g_rgSCardT0Pci$constants {
         public static final GroupLayout LAYOUT = _SCARD_IO_REQUEST.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("g_rgSCardT0Pci").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("g_rgSCardT0Pci").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8190,7 +8190,7 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class g_rgSCardT1Pci$constants {
         public static final GroupLayout LAYOUT = _SCARD_IO_REQUEST.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("g_rgSCardT1Pci").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("g_rgSCardT1Pci").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8225,7 +8225,7 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class g_rgSCardRawPci$constants {
         public static final GroupLayout LAYOUT = _SCARD_IO_REQUEST.layout();
-        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("g_rgSCardRawPci").reinterpret(LAYOUT.byteSize());
+        public static final MemorySegment SEGMENT = findOrThrow("g_rgSCardRawPci").reinterpret(LAYOUT.byteSize());
     }
 
     /**
@@ -8262,49 +8262,49 @@ public class Windows_h_18 extends Windows_h_19 {
      * typedef ULONG_PTR SCARDCONTEXT
      * }
      */
-    public static final OfLong SCARDCONTEXT = Windows_h.C_LONG_LONG;
+    public static final OfLong SCARDCONTEXT = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef SCARDCONTEXT *PSCARDCONTEXT
      * }
      */
-    public static final AddressLayout PSCARDCONTEXT = Windows_h.C_POINTER;
+    public static final AddressLayout PSCARDCONTEXT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef SCARDCONTEXT *LPSCARDCONTEXT
      * }
      */
-    public static final AddressLayout LPSCARDCONTEXT = Windows_h.C_POINTER;
+    public static final AddressLayout LPSCARDCONTEXT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef ULONG_PTR SCARDHANDLE
      * }
      */
-    public static final OfLong SCARDHANDLE = Windows_h.C_LONG_LONG;
+    public static final OfLong SCARDHANDLE = C_LONG_LONG;
     /**
      * {@snippet lang=c :
      * typedef SCARDHANDLE *PSCARDHANDLE
      * }
      */
-    public static final AddressLayout PSCARDHANDLE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCARDHANDLE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef SCARDHANDLE *LPSCARDHANDLE
      * }
      */
-    public static final AddressLayout LPSCARDHANDLE = Windows_h.C_POINTER;
+    public static final AddressLayout LPSCARDHANDLE = C_POINTER;
 
     private static class SCardEstablishContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardEstablishContext"),
+                    findOrThrow("SCardEstablishContext"),
                     DESC);
     }
 
@@ -8346,12 +8346,12 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardReleaseContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardReleaseContext"),
+                    findOrThrow("SCardReleaseContext"),
                     DESC);
     }
 
@@ -8393,12 +8393,12 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardIsValidContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardIsValidContext"),
+                    findOrThrow("SCardIsValidContext"),
                     DESC);
     }
 
@@ -8440,14 +8440,14 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardListReaderGroupsA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardListReaderGroupsA"),
+                    findOrThrow("SCardListReaderGroupsA"),
                     DESC);
     }
 
@@ -8489,14 +8489,14 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardListReaderGroupsW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardListReaderGroupsW"),
+                    findOrThrow("SCardListReaderGroupsW"),
                     DESC);
     }
 
@@ -8538,15 +8538,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardListReadersA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardListReadersA"),
+                    findOrThrow("SCardListReadersA"),
                     DESC);
     }
 
@@ -8588,15 +8588,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardListReadersW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardListReadersW"),
+                    findOrThrow("SCardListReadersW"),
                     DESC);
     }
 
@@ -8638,17 +8638,17 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardListCardsA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardListCardsA"),
+                    findOrThrow("SCardListCardsA"),
                     DESC);
     }
 
@@ -8690,17 +8690,17 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardListCardsW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardListCardsW"),
+                    findOrThrow("SCardListCardsW"),
                     DESC);
     }
 
@@ -8742,15 +8742,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardListInterfacesA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardListInterfacesA"),
+                    findOrThrow("SCardListInterfacesA"),
                     DESC);
     }
 
@@ -8792,15 +8792,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardListInterfacesW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardListInterfacesW"),
+                    findOrThrow("SCardListInterfacesW"),
                     DESC);
     }
 
@@ -8842,14 +8842,14 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetProviderIdA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetProviderIdA"),
+                    findOrThrow("SCardGetProviderIdA"),
                     DESC);
     }
 
@@ -8891,14 +8891,14 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetProviderIdW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetProviderIdW"),
+                    findOrThrow("SCardGetProviderIdW"),
                     DESC);
     }
 
@@ -8940,16 +8940,16 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetCardTypeProviderNameA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetCardTypeProviderNameA"),
+                    findOrThrow("SCardGetCardTypeProviderNameA"),
                     DESC);
     }
 
@@ -8991,16 +8991,16 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetCardTypeProviderNameW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetCardTypeProviderNameW"),
+                    findOrThrow("SCardGetCardTypeProviderNameW"),
                     DESC);
     }
 
@@ -9042,13 +9042,13 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardIntroduceReaderGroupA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardIntroduceReaderGroupA"),
+                    findOrThrow("SCardIntroduceReaderGroupA"),
                     DESC);
     }
 
@@ -9090,13 +9090,13 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardIntroduceReaderGroupW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardIntroduceReaderGroupW"),
+                    findOrThrow("SCardIntroduceReaderGroupW"),
                     DESC);
     }
 
@@ -9138,13 +9138,13 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardForgetReaderGroupA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardForgetReaderGroupA"),
+                    findOrThrow("SCardForgetReaderGroupA"),
                     DESC);
     }
 
@@ -9186,13 +9186,13 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardForgetReaderGroupW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardForgetReaderGroupW"),
+                    findOrThrow("SCardForgetReaderGroupW"),
                     DESC);
     }
 
@@ -9234,14 +9234,14 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardIntroduceReaderA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardIntroduceReaderA"),
+                    findOrThrow("SCardIntroduceReaderA"),
                     DESC);
     }
 
@@ -9283,14 +9283,14 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardIntroduceReaderW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardIntroduceReaderW"),
+                    findOrThrow("SCardIntroduceReaderW"),
                     DESC);
     }
 
@@ -9332,13 +9332,13 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardForgetReaderA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardForgetReaderA"),
+                    findOrThrow("SCardForgetReaderA"),
                     DESC);
     }
 
@@ -9380,13 +9380,13 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardForgetReaderW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardForgetReaderW"),
+                    findOrThrow("SCardForgetReaderW"),
                     DESC);
     }
 
@@ -9428,14 +9428,14 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardAddReaderToGroupA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardAddReaderToGroupA"),
+                    findOrThrow("SCardAddReaderToGroupA"),
                     DESC);
     }
 
@@ -9477,14 +9477,14 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardAddReaderToGroupW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardAddReaderToGroupW"),
+                    findOrThrow("SCardAddReaderToGroupW"),
                     DESC);
     }
 
@@ -9526,14 +9526,14 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardRemoveReaderFromGroupA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardRemoveReaderFromGroupA"),
+                    findOrThrow("SCardRemoveReaderFromGroupA"),
                     DESC);
     }
 
@@ -9575,14 +9575,14 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardRemoveReaderFromGroupW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardRemoveReaderFromGroupW"),
+                    findOrThrow("SCardRemoveReaderFromGroupW"),
                     DESC);
     }
 
@@ -9624,19 +9624,19 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardIntroduceCardTypeA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardIntroduceCardTypeA"),
+                    findOrThrow("SCardIntroduceCardTypeA"),
                     DESC);
     }
 
@@ -9678,19 +9678,19 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardIntroduceCardTypeW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardIntroduceCardTypeW"),
+                    findOrThrow("SCardIntroduceCardTypeW"),
                     DESC);
     }
 
@@ -9732,15 +9732,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardSetCardTypeProviderNameA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardSetCardTypeProviderNameA"),
+                    findOrThrow("SCardSetCardTypeProviderNameA"),
                     DESC);
     }
 
@@ -9782,15 +9782,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardSetCardTypeProviderNameW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardSetCardTypeProviderNameW"),
+                    findOrThrow("SCardSetCardTypeProviderNameW"),
                     DESC);
     }
 
@@ -9832,13 +9832,13 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardForgetCardTypeA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardForgetCardTypeA"),
+                    findOrThrow("SCardForgetCardTypeA"),
                     DESC);
     }
 
@@ -9880,13 +9880,13 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardForgetCardTypeW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardForgetCardTypeW"),
+                    findOrThrow("SCardForgetCardTypeW"),
                     DESC);
     }
 
@@ -9928,13 +9928,13 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardFreeMemory {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardFreeMemory"),
+                    findOrThrow("SCardFreeMemory"),
                     DESC);
     }
 
@@ -9976,10 +9976,10 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardAccessStartedEvent {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardAccessStartedEvent"),
+                    findOrThrow("SCardAccessStartedEvent"),
                     DESC);
     }
 
@@ -10023,7 +10023,7 @@ public class Windows_h_18 extends Windows_h_19 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardReleaseStartedEvent"),
+                    findOrThrow("SCardReleaseStartedEvent"),
                     DESC);
     }
 
@@ -10074,7 +10074,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCARD_READERSTATEA
      * }
      */
-    public static final AddressLayout PSCARD_READERSTATEA = Windows_h.C_POINTER;
+    public static final AddressLayout PSCARD_READERSTATEA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -10087,7 +10087,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPSCARD_READERSTATEA
      * }
      */
-    public static final AddressLayout LPSCARD_READERSTATEA = Windows_h.C_POINTER;
+    public static final AddressLayout LPSCARD_READERSTATEA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -10100,7 +10100,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCARD_READERSTATEW
      * }
      */
-    public static final AddressLayout PSCARD_READERSTATEW = Windows_h.C_POINTER;
+    public static final AddressLayout PSCARD_READERSTATEW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -10113,31 +10113,31 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPSCARD_READERSTATEW
      * }
      */
-    public static final AddressLayout LPSCARD_READERSTATEW = Windows_h.C_POINTER;
+    public static final AddressLayout LPSCARD_READERSTATEW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PSCARD_READERSTATEA PSCARD_READERSTATE
      * }
      */
-    public static final AddressLayout PSCARD_READERSTATE = Windows_h.C_POINTER;
+    public static final AddressLayout PSCARD_READERSTATE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPSCARD_READERSTATEA LPSCARD_READERSTATE
      * }
      */
-    public static final AddressLayout LPSCARD_READERSTATE = Windows_h.C_POINTER;
+    public static final AddressLayout LPSCARD_READERSTATE = C_POINTER;
 
     private static class SCardLocateCardsA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardLocateCardsA"),
+                    findOrThrow("SCardLocateCardsA"),
                     DESC);
     }
 
@@ -10179,15 +10179,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardLocateCardsW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardLocateCardsW"),
+                    findOrThrow("SCardLocateCardsW"),
                     DESC);
     }
 
@@ -10235,7 +10235,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PSCARD_ATRMASK
      * }
      */
-    public static final AddressLayout PSCARD_ATRMASK = Windows_h.C_POINTER;
+    public static final AddressLayout PSCARD_ATRMASK = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SCARD_ATRMASK {
@@ -10245,20 +10245,20 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPSCARD_ATRMASK
      * }
      */
-    public static final AddressLayout LPSCARD_ATRMASK = Windows_h.C_POINTER;
+    public static final AddressLayout LPSCARD_ATRMASK = C_POINTER;
 
     private static class SCardLocateCardsByATRA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardLocateCardsByATRA"),
+                    findOrThrow("SCardLocateCardsByATRA"),
                     DESC);
     }
 
@@ -10300,16 +10300,16 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardLocateCardsByATRW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardLocateCardsByATRW"),
+                    findOrThrow("SCardLocateCardsByATRW"),
                     DESC);
     }
 
@@ -10351,15 +10351,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetStatusChangeA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetStatusChangeA"),
+                    findOrThrow("SCardGetStatusChangeA"),
                     DESC);
     }
 
@@ -10401,15 +10401,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetStatusChangeW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetStatusChangeW"),
+                    findOrThrow("SCardGetStatusChangeW"),
                     DESC);
     }
 
@@ -10451,12 +10451,12 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardCancel {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardCancel"),
+                    findOrThrow("SCardCancel"),
                     DESC);
     }
 
@@ -10498,17 +10498,17 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardConnectA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardConnectA"),
+                    findOrThrow("SCardConnectA"),
                     DESC);
     }
 
@@ -10550,17 +10550,17 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardConnectW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardConnectW"),
+                    findOrThrow("SCardConnectW"),
                     DESC);
     }
 
@@ -10602,16 +10602,16 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardReconnect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_LONG,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardReconnect"),
+                    findOrThrow("SCardReconnect"),
                     DESC);
     }
 
@@ -10653,13 +10653,13 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardDisconnect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardDisconnect"),
+                    findOrThrow("SCardDisconnect"),
                     DESC);
     }
 
@@ -10701,12 +10701,12 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardBeginTransaction {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardBeginTransaction"),
+                    findOrThrow("SCardBeginTransaction"),
                     DESC);
     }
 
@@ -10748,13 +10748,13 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardEndTransaction {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardEndTransaction"),
+                    findOrThrow("SCardEndTransaction"),
                     DESC);
     }
 
@@ -10796,12 +10796,12 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardCancelTransaction {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardCancelTransaction"),
+                    findOrThrow("SCardCancelTransaction"),
                     DESC);
     }
 
@@ -10843,16 +10843,16 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardState {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardState"),
+                    findOrThrow("SCardState"),
                     DESC);
     }
 
@@ -10894,18 +10894,18 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardStatusA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardStatusA"),
+                    findOrThrow("SCardStatusA"),
                     DESC);
     }
 
@@ -10947,18 +10947,18 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardStatusW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardStatusW"),
+                    findOrThrow("SCardStatusW"),
                     DESC);
     }
 
@@ -11000,18 +11000,18 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardTransmit {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardTransmit"),
+                    findOrThrow("SCardTransmit"),
                     DESC);
     }
 
@@ -11053,13 +11053,13 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetTransmitCount {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetTransmitCount"),
+                    findOrThrow("SCardGetTransmitCount"),
                     DESC);
     }
 
@@ -11101,18 +11101,18 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardControl {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardControl"),
+                    findOrThrow("SCardControl"),
                     DESC);
     }
 
@@ -11154,15 +11154,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetAttrib {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetAttrib"),
+                    findOrThrow("SCardGetAttrib"),
                     DESC);
     }
 
@@ -11204,15 +11204,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardSetAttrib {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardSetAttrib"),
+                    findOrThrow("SCardSetAttrib"),
                     DESC);
     }
 
@@ -11270,7 +11270,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *POPENCARD_SEARCH_CRITERIAA
      * }
      */
-    public static final AddressLayout POPENCARD_SEARCH_CRITERIAA = Windows_h.C_POINTER;
+    public static final AddressLayout POPENCARD_SEARCH_CRITERIAA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -11290,7 +11290,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPOPENCARD_SEARCH_CRITERIAA
      * }
      */
-    public static final AddressLayout LPOPENCARD_SEARCH_CRITERIAA = Windows_h.C_POINTER;
+    public static final AddressLayout LPOPENCARD_SEARCH_CRITERIAA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -11310,7 +11310,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *POPENCARD_SEARCH_CRITERIAW
      * }
      */
-    public static final AddressLayout POPENCARD_SEARCH_CRITERIAW = Windows_h.C_POINTER;
+    public static final AddressLayout POPENCARD_SEARCH_CRITERIAW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -11330,19 +11330,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPOPENCARD_SEARCH_CRITERIAW
      * }
      */
-    public static final AddressLayout LPOPENCARD_SEARCH_CRITERIAW = Windows_h.C_POINTER;
+    public static final AddressLayout LPOPENCARD_SEARCH_CRITERIAW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef POPENCARD_SEARCH_CRITERIAA POPENCARD_SEARCH_CRITERIA
      * }
      */
-    public static final AddressLayout POPENCARD_SEARCH_CRITERIA = Windows_h.C_POINTER;
+    public static final AddressLayout POPENCARD_SEARCH_CRITERIA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPOPENCARD_SEARCH_CRITERIAA LPOPENCARD_SEARCH_CRITERIA
      * }
      */
-    public static final AddressLayout LPOPENCARD_SEARCH_CRITERIA = Windows_h.C_POINTER;
+    public static final AddressLayout LPOPENCARD_SEARCH_CRITERIA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -11367,7 +11367,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *POPENCARDNAME_EXA
      * }
      */
-    public static final AddressLayout POPENCARDNAME_EXA = Windows_h.C_POINTER;
+    public static final AddressLayout POPENCARDNAME_EXA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -11392,7 +11392,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPOPENCARDNAME_EXA
      * }
      */
-    public static final AddressLayout LPOPENCARDNAME_EXA = Windows_h.C_POINTER;
+    public static final AddressLayout LPOPENCARDNAME_EXA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -11417,7 +11417,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *POPENCARDNAME_EXW
      * }
      */
-    public static final AddressLayout POPENCARDNAME_EXW = Windows_h.C_POINTER;
+    public static final AddressLayout POPENCARDNAME_EXW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -11442,19 +11442,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPOPENCARDNAME_EXW
      * }
      */
-    public static final AddressLayout LPOPENCARDNAME_EXW = Windows_h.C_POINTER;
+    public static final AddressLayout LPOPENCARDNAME_EXW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef POPENCARDNAME_EXA POPENCARDNAME_EX
      * }
      */
-    public static final AddressLayout POPENCARDNAME_EX = Windows_h.C_POINTER;
+    public static final AddressLayout POPENCARDNAME_EX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPOPENCARDNAME_EXA LPOPENCARDNAME_EX
      * }
      */
-    public static final AddressLayout LPOPENCARDNAME_EX = Windows_h.C_POINTER;
+    public static final AddressLayout LPOPENCARDNAME_EX = C_POINTER;
     private static final int RSR_MATCH_TYPE_READER_AND_CONTAINER = (int)1L;
     /**
      * {@snippet lang=c :
@@ -11506,7 +11506,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREADER_SEL_REQUEST
      * }
      */
-    public static final AddressLayout PREADER_SEL_REQUEST = Windows_h.C_POINTER;
+    public static final AddressLayout PREADER_SEL_REQUEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -11517,16 +11517,16 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PREADER_SEL_RESPONSE
      * }
      */
-    public static final AddressLayout PREADER_SEL_RESPONSE = Windows_h.C_POINTER;
+    public static final AddressLayout PREADER_SEL_RESPONSE = C_POINTER;
 
     private static class SCardUIDlgSelectCardA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardUIDlgSelectCardA"),
+                    findOrThrow("SCardUIDlgSelectCardA"),
                     DESC);
     }
 
@@ -11568,12 +11568,12 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardUIDlgSelectCardW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardUIDlgSelectCardW"),
+                    findOrThrow("SCardUIDlgSelectCardW"),
                     DESC);
     }
 
@@ -11641,7 +11641,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *POPENCARDNAMEA
      * }
      */
-    public static final AddressLayout POPENCARDNAMEA = Windows_h.C_POINTER;
+    public static final AddressLayout POPENCARDNAMEA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -11671,7 +11671,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPOPENCARDNAMEA
      * }
      */
-    public static final AddressLayout LPOPENCARDNAMEA = Windows_h.C_POINTER;
+    public static final AddressLayout LPOPENCARDNAMEA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -11701,7 +11701,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *POPENCARDNAMEW
      * }
      */
-    public static final AddressLayout POPENCARDNAMEW = Windows_h.C_POINTER;
+    public static final AddressLayout POPENCARDNAMEW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -11731,28 +11731,28 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPOPENCARDNAMEW
      * }
      */
-    public static final AddressLayout LPOPENCARDNAMEW = Windows_h.C_POINTER;
+    public static final AddressLayout LPOPENCARDNAMEW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef POPENCARDNAMEA POPENCARDNAME
      * }
      */
-    public static final AddressLayout POPENCARDNAME = Windows_h.C_POINTER;
+    public static final AddressLayout POPENCARDNAME = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPOPENCARDNAMEA LPOPENCARDNAME
      * }
      */
-    public static final AddressLayout LPOPENCARDNAME = Windows_h.C_POINTER;
+    public static final AddressLayout LPOPENCARDNAME = C_POINTER;
 
     private static class GetOpenCardNameA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetOpenCardNameA"),
+                    findOrThrow("GetOpenCardNameA"),
                     DESC);
     }
 
@@ -11794,12 +11794,12 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class GetOpenCardNameW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetOpenCardNameW"),
+                    findOrThrow("GetOpenCardNameW"),
                     DESC);
     }
 
@@ -11841,10 +11841,10 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardDlgExtendedError {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG    );
+            C_LONG    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardDlgExtendedError"),
+                    findOrThrow("SCardDlgExtendedError"),
                     DESC);
     }
 
@@ -11886,17 +11886,17 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardReadCacheA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardReadCacheA"),
+                    findOrThrow("SCardReadCacheA"),
                     DESC);
     }
 
@@ -11938,17 +11938,17 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardReadCacheW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardReadCacheW"),
+                    findOrThrow("SCardReadCacheW"),
                     DESC);
     }
 
@@ -11990,17 +11990,17 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardWriteCacheA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardWriteCacheA"),
+                    findOrThrow("SCardWriteCacheA"),
                     DESC);
     }
 
@@ -12042,17 +12042,17 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardWriteCacheW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardWriteCacheW"),
+                    findOrThrow("SCardWriteCacheW"),
                     DESC);
     }
 
@@ -12094,15 +12094,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetReaderIconA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetReaderIconA"),
+                    findOrThrow("SCardGetReaderIconA"),
                     DESC);
     }
 
@@ -12144,15 +12144,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetReaderIconW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetReaderIconW"),
+                    findOrThrow("SCardGetReaderIconW"),
                     DESC);
     }
 
@@ -12194,14 +12194,14 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetDeviceTypeIdA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetDeviceTypeIdA"),
+                    findOrThrow("SCardGetDeviceTypeIdA"),
                     DESC);
     }
 
@@ -12243,14 +12243,14 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetDeviceTypeIdW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetDeviceTypeIdW"),
+                    findOrThrow("SCardGetDeviceTypeIdW"),
                     DESC);
     }
 
@@ -12292,15 +12292,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetReaderDeviceInstanceIdA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetReaderDeviceInstanceIdA"),
+                    findOrThrow("SCardGetReaderDeviceInstanceIdA"),
                     DESC);
     }
 
@@ -12342,15 +12342,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardGetReaderDeviceInstanceIdW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardGetReaderDeviceInstanceIdW"),
+                    findOrThrow("SCardGetReaderDeviceInstanceIdW"),
                     DESC);
     }
 
@@ -12392,15 +12392,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardListReadersWithDeviceInstanceIdA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardListReadersWithDeviceInstanceIdA"),
+                    findOrThrow("SCardListReadersWithDeviceInstanceIdA"),
                     DESC);
     }
 
@@ -12442,15 +12442,15 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardListReadersWithDeviceInstanceIdW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardListReadersWithDeviceInstanceIdW"),
+                    findOrThrow("SCardListReadersWithDeviceInstanceIdW"),
                     DESC);
     }
 
@@ -12492,13 +12492,13 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class SCardAudit {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SCardAudit"),
+                    findOrThrow("SCardAudit"),
                     DESC);
     }
 
@@ -12542,13 +12542,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * typedef struct _PSP *HPROPSHEETPAGE
      * }
      */
-    public static final AddressLayout HPROPSHEETPAGE = Windows_h.C_POINTER;
+    public static final AddressLayout HPROPSHEETPAGE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPCDLGTEMPLATE PROPSHEETPAGE_RESOURCE
      * }
      */
-    public static final AddressLayout PROPSHEETPAGE_RESOURCE = Windows_h.C_POINTER;
+    public static final AddressLayout PROPSHEETPAGE_RESOURCE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROPSHEETPAGEA_V1 {
@@ -12571,13 +12571,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPROPSHEETPAGEA_V1
      * }
      */
-    public static final AddressLayout LPPROPSHEETPAGEA_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEA_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const PROPSHEETPAGEA_V1 *LPCPROPSHEETPAGEA_V1
      * }
      */
-    public static final AddressLayout LPCPROPSHEETPAGEA_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEA_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROPSHEETPAGEA_V2 {
@@ -12602,13 +12602,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPROPSHEETPAGEA_V2
      * }
      */
-    public static final AddressLayout LPPROPSHEETPAGEA_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEA_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const PROPSHEETPAGEA_V2 *LPCPROPSHEETPAGEA_V2
      * }
      */
-    public static final AddressLayout LPCPROPSHEETPAGEA_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEA_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROPSHEETPAGEA_V3 {
@@ -12634,13 +12634,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPROPSHEETPAGEA_V3
      * }
      */
-    public static final AddressLayout LPPROPSHEETPAGEA_V3 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEA_V3 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const PROPSHEETPAGEA_V3 *LPCPROPSHEETPAGEA_V3
      * }
      */
-    public static final AddressLayout LPCPROPSHEETPAGEA_V3 = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEA_V3 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROPSHEETPAGEA {
@@ -12670,13 +12670,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPROPSHEETPAGEA_V4
      * }
      */
-    public static final AddressLayout LPPROPSHEETPAGEA_V4 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEA_V4 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const PROPSHEETPAGEA_V4 *LPCPROPSHEETPAGEA_V4
      * }
      */
-    public static final AddressLayout LPCPROPSHEETPAGEA_V4 = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEA_V4 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROPSHEETPAGEW_V1 {
@@ -12699,13 +12699,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPROPSHEETPAGEW_V1
      * }
      */
-    public static final AddressLayout LPPROPSHEETPAGEW_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEW_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const PROPSHEETPAGEW_V1 *LPCPROPSHEETPAGEW_V1
      * }
      */
-    public static final AddressLayout LPCPROPSHEETPAGEW_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEW_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROPSHEETPAGEW_V2 {
@@ -12730,13 +12730,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPROPSHEETPAGEW_V2
      * }
      */
-    public static final AddressLayout LPPROPSHEETPAGEW_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEW_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const PROPSHEETPAGEW_V2 *LPCPROPSHEETPAGEW_V2
      * }
      */
-    public static final AddressLayout LPCPROPSHEETPAGEW_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEW_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROPSHEETPAGEW_V3 {
@@ -12762,13 +12762,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPROPSHEETPAGEW_V3
      * }
      */
-    public static final AddressLayout LPPROPSHEETPAGEW_V3 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEW_V3 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const PROPSHEETPAGEW_V3 *LPCPROPSHEETPAGEW_V3
      * }
      */
-    public static final AddressLayout LPCPROPSHEETPAGEW_V3 = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEW_V3 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROPSHEETPAGEW {
@@ -12798,61 +12798,61 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPROPSHEETPAGEW_V4
      * }
      */
-    public static final AddressLayout LPPROPSHEETPAGEW_V4 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEW_V4 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const PROPSHEETPAGEW_V4 *LPCPROPSHEETPAGEW_V4
      * }
      */
-    public static final AddressLayout LPCPROPSHEETPAGEW_V4 = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEW_V4 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPPROPSHEETPAGEA_V4 LPPROPSHEETPAGEA_LATEST
      * }
      */
-    public static final AddressLayout LPPROPSHEETPAGEA_LATEST = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEA_LATEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPPROPSHEETPAGEW_V4 LPPROPSHEETPAGEW_LATEST
      * }
      */
-    public static final AddressLayout LPPROPSHEETPAGEW_LATEST = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEW_LATEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPCPROPSHEETPAGEA_V4 LPCPROPSHEETPAGEA_LATEST
      * }
      */
-    public static final AddressLayout LPCPROPSHEETPAGEA_LATEST = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEA_LATEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPCPROPSHEETPAGEW_V4 LPCPROPSHEETPAGEW_LATEST
      * }
      */
-    public static final AddressLayout LPCPROPSHEETPAGEW_LATEST = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEW_LATEST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPPROPSHEETPAGEA_V4 LPPROPSHEETPAGEA
      * }
      */
-    public static final AddressLayout LPPROPSHEETPAGEA = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPPROPSHEETPAGEW_V4 LPPROPSHEETPAGEW
      * }
      */
-    public static final AddressLayout LPPROPSHEETPAGEW = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPCPROPSHEETPAGEA_V4 LPCPROPSHEETPAGEA
      * }
      */
-    public static final AddressLayout LPCPROPSHEETPAGEA = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPCPROPSHEETPAGEW_V4 LPCPROPSHEETPAGEW
      * }
      */
-    public static final AddressLayout LPCPROPSHEETPAGEW = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROPSHEETHEADERA_V1 {
@@ -12878,13 +12878,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPROPSHEETHEADERA_V1
      * }
      */
-    public static final AddressLayout LPPROPSHEETHEADERA_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETHEADERA_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const PROPSHEETHEADERA_V1 *LPCPROPSHEETHEADERA_V1
      * }
      */
-    public static final AddressLayout LPCPROPSHEETHEADERA_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETHEADERA_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROPSHEETHEADERA_V2 {
@@ -12919,13 +12919,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPROPSHEETHEADERA_V2
      * }
      */
-    public static final AddressLayout LPPROPSHEETHEADERA_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETHEADERA_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const PROPSHEETHEADERA_V2 *LPCPROPSHEETHEADERA_V2
      * }
      */
-    public static final AddressLayout LPCPROPSHEETHEADERA_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETHEADERA_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROPSHEETHEADERW_V1 {
@@ -12951,13 +12951,13 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPROPSHEETHEADERW_V1
      * }
      */
-    public static final AddressLayout LPPROPSHEETHEADERW_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETHEADERW_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const PROPSHEETHEADERW_V1 *LPCPROPSHEETHEADERW_V1
      * }
      */
-    public static final AddressLayout LPCPROPSHEETHEADERW_V1 = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETHEADERW_V1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PROPSHEETHEADERW_V2 {
@@ -12992,46 +12992,46 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPROPSHEETHEADERW_V2
      * }
      */
-    public static final AddressLayout LPPROPSHEETHEADERW_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETHEADERW_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const PROPSHEETHEADERW_V2 *LPCPROPSHEETHEADERW_V2
      * }
      */
-    public static final AddressLayout LPCPROPSHEETHEADERW_V2 = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETHEADERW_V2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPPROPSHEETHEADERA_V2 LPPROPSHEETHEADERA
      * }
      */
-    public static final AddressLayout LPPROPSHEETHEADERA = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETHEADERA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPPROPSHEETHEADERW_V2 LPPROPSHEETHEADERW
      * }
      */
-    public static final AddressLayout LPPROPSHEETHEADERW = Windows_h.C_POINTER;
+    public static final AddressLayout LPPROPSHEETHEADERW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPCPROPSHEETHEADERA_V2 LPCPROPSHEETHEADERA
      * }
      */
-    public static final AddressLayout LPCPROPSHEETHEADERA = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETHEADERA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPCPROPSHEETHEADERW_V2 LPCPROPSHEETHEADERW
      * }
      */
-    public static final AddressLayout LPCPROPSHEETHEADERW = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPROPSHEETHEADERW = C_POINTER;
 
     private static class CreatePropertySheetPageA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreatePropertySheetPageA"),
+                    findOrThrow("CreatePropertySheetPageA"),
                     DESC);
     }
 
@@ -13073,12 +13073,12 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class CreatePropertySheetPageW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreatePropertySheetPageW"),
+                    findOrThrow("CreatePropertySheetPageW"),
                     DESC);
     }
 
@@ -13120,12 +13120,12 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class DestroyPropertySheetPage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DestroyPropertySheetPage"),
+                    findOrThrow("DestroyPropertySheetPage"),
                     DESC);
     }
 
@@ -13167,12 +13167,12 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class PropertySheetA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("PropertySheetA"),
+                    findOrThrow("PropertySheetA"),
                     DESC);
     }
 
@@ -13214,12 +13214,12 @@ public class Windows_h_18 extends Windows_h_19 {
 
     private static class PropertySheetW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("PropertySheetW"),
+                    findOrThrow("PropertySheetW"),
                     DESC);
     }
 
@@ -13266,7 +13266,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPSHNOTIFY
      * }
      */
-    public static final AddressLayout LPPSHNOTIFY = Windows_h.C_POINTER;
+    public static final AddressLayout LPPSHNOTIFY = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_1A {
@@ -13277,7 +13277,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_1A
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_1A = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_1A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_1A {
@@ -13288,7 +13288,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_1A
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_1A = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_1A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_1W {
@@ -13299,7 +13299,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_1W
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_1W = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_1W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_1W {
@@ -13310,19 +13310,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_1W
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_1W = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_1W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PPRINTER_INFO_1A PPRINTER_INFO_1
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_1 = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPPRINTER_INFO_1A LPPRINTER_INFO_1
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_1 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_2A {
@@ -13350,7 +13350,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_2A
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_2A = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_2A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_2A {
@@ -13378,7 +13378,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_2A
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_2A = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_2A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_2W {
@@ -13406,7 +13406,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_2W
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_2W = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_2W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_2W {
@@ -13434,19 +13434,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_2W
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_2W = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_2W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PPRINTER_INFO_2A PPRINTER_INFO_2
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_2 = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPPRINTER_INFO_2A LPPRINTER_INFO_2
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_2 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_3 {
@@ -13454,7 +13454,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_3
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_3 = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_3 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_3 {
@@ -13462,7 +13462,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_3
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_3 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_3 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_4A {
@@ -13472,7 +13472,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_4A
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_4A = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_4A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_4A {
@@ -13482,7 +13482,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_4A
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_4A = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_4A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_4W {
@@ -13492,7 +13492,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_4W
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_4W = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_4W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_4W {
@@ -13502,19 +13502,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_4W
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_4W = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_4W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PPRINTER_INFO_4A PPRINTER_INFO_4
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_4 = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_4 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPPRINTER_INFO_4A LPPRINTER_INFO_4
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_4 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_4 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_5A {
@@ -13526,7 +13526,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_5A
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_5A = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_5A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_5A {
@@ -13538,7 +13538,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_5A
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_5A = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_5A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_5W {
@@ -13550,7 +13550,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_5W
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_5W = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_5W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_5W {
@@ -13562,19 +13562,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_5W
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_5W = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_5W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PPRINTER_INFO_5A PPRINTER_INFO_5
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_5 = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_5 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPPRINTER_INFO_5A LPPRINTER_INFO_5
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_5 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_5 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_6 {
@@ -13582,7 +13582,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_6
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_6 = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_6 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_6 {
@@ -13590,7 +13590,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_6
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_6 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_6 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_7A {
@@ -13599,7 +13599,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_7A
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_7A = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_7A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_7A {
@@ -13608,7 +13608,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_7A
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_7A = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_7A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_7W {
@@ -13617,7 +13617,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_7W
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_7W = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_7W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_7W {
@@ -13626,19 +13626,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_7W
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_7W = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_7W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PPRINTER_INFO_7A PPRINTER_INFO_7
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_7 = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_7 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPPRINTER_INFO_7A LPPRINTER_INFO_7
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_7 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_7 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_8A {
@@ -13646,7 +13646,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_8A
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_8A = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_8A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_8A {
@@ -13654,7 +13654,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_8A
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_8A = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_8A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_8W {
@@ -13662,7 +13662,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_8W
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_8W = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_8W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_8W {
@@ -13670,19 +13670,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_8W
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_8W = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_8W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PPRINTER_INFO_8A PPRINTER_INFO_8
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_8 = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_8 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPPRINTER_INFO_8A LPPRINTER_INFO_8
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_8 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_8 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_9A {
@@ -13690,7 +13690,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_9A
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_9A = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_9A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_9A {
@@ -13698,7 +13698,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_9A
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_9A = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_9A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_9W {
@@ -13706,7 +13706,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PPRINTER_INFO_9W
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_9W = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_9W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _PRINTER_INFO_9W {
@@ -13714,19 +13714,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPPRINTER_INFO_9W
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_9W = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_9W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PPRINTER_INFO_9A PPRINTER_INFO_9
      * }
      */
-    public static final AddressLayout PPRINTER_INFO_9 = Windows_h.C_POINTER;
+    public static final AddressLayout PPRINTER_INFO_9 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPPRINTER_INFO_9A LPPRINTER_INFO_9
      * }
      */
-    public static final AddressLayout LPPRINTER_INFO_9 = Windows_h.C_POINTER;
+    public static final AddressLayout LPPRINTER_INFO_9 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_1A {
@@ -13746,7 +13746,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PJOB_INFO_1A
      * }
      */
-    public static final AddressLayout PJOB_INFO_1A = Windows_h.C_POINTER;
+    public static final AddressLayout PJOB_INFO_1A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_1A {
@@ -13766,7 +13766,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPJOB_INFO_1A
      * }
      */
-    public static final AddressLayout LPJOB_INFO_1A = Windows_h.C_POINTER;
+    public static final AddressLayout LPJOB_INFO_1A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_1W {
@@ -13786,7 +13786,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PJOB_INFO_1W
      * }
      */
-    public static final AddressLayout PJOB_INFO_1W = Windows_h.C_POINTER;
+    public static final AddressLayout PJOB_INFO_1W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_1W {
@@ -13806,19 +13806,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPJOB_INFO_1W
      * }
      */
-    public static final AddressLayout LPJOB_INFO_1W = Windows_h.C_POINTER;
+    public static final AddressLayout LPJOB_INFO_1W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PJOB_INFO_1A PJOB_INFO_1
      * }
      */
-    public static final AddressLayout PJOB_INFO_1 = Windows_h.C_POINTER;
+    public static final AddressLayout PJOB_INFO_1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPJOB_INFO_1A LPJOB_INFO_1
      * }
      */
-    public static final AddressLayout LPJOB_INFO_1 = Windows_h.C_POINTER;
+    public static final AddressLayout LPJOB_INFO_1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_2A {
@@ -13848,7 +13848,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PJOB_INFO_2A
      * }
      */
-    public static final AddressLayout PJOB_INFO_2A = Windows_h.C_POINTER;
+    public static final AddressLayout PJOB_INFO_2A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_2A {
@@ -13878,7 +13878,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPJOB_INFO_2A
      * }
      */
-    public static final AddressLayout LPJOB_INFO_2A = Windows_h.C_POINTER;
+    public static final AddressLayout LPJOB_INFO_2A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_2W {
@@ -13908,7 +13908,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PJOB_INFO_2W
      * }
      */
-    public static final AddressLayout PJOB_INFO_2W = Windows_h.C_POINTER;
+    public static final AddressLayout PJOB_INFO_2W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_2W {
@@ -13938,19 +13938,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPJOB_INFO_2W
      * }
      */
-    public static final AddressLayout LPJOB_INFO_2W = Windows_h.C_POINTER;
+    public static final AddressLayout LPJOB_INFO_2W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PJOB_INFO_2A PJOB_INFO_2
      * }
      */
-    public static final AddressLayout PJOB_INFO_2 = Windows_h.C_POINTER;
+    public static final AddressLayout PJOB_INFO_2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPJOB_INFO_2A LPJOB_INFO_2
      * }
      */
-    public static final AddressLayout LPJOB_INFO_2 = Windows_h.C_POINTER;
+    public static final AddressLayout LPJOB_INFO_2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_3 {
@@ -13960,7 +13960,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PJOB_INFO_3
      * }
      */
-    public static final AddressLayout PJOB_INFO_3 = Windows_h.C_POINTER;
+    public static final AddressLayout PJOB_INFO_3 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_3 {
@@ -13970,7 +13970,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPJOB_INFO_3
      * }
      */
-    public static final AddressLayout LPJOB_INFO_3 = Windows_h.C_POINTER;
+    public static final AddressLayout LPJOB_INFO_3 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_4A {
@@ -14001,7 +14001,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PJOB_INFO_4A
      * }
      */
-    public static final AddressLayout PJOB_INFO_4A = Windows_h.C_POINTER;
+    public static final AddressLayout PJOB_INFO_4A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_4A {
@@ -14032,7 +14032,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPJOB_INFO_4A
      * }
      */
-    public static final AddressLayout LPJOB_INFO_4A = Windows_h.C_POINTER;
+    public static final AddressLayout LPJOB_INFO_4A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_4W {
@@ -14063,7 +14063,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PJOB_INFO_4W
      * }
      */
-    public static final AddressLayout PJOB_INFO_4W = Windows_h.C_POINTER;
+    public static final AddressLayout PJOB_INFO_4W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _JOB_INFO_4W {
@@ -14094,19 +14094,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPJOB_INFO_4W
      * }
      */
-    public static final AddressLayout LPJOB_INFO_4W = Windows_h.C_POINTER;
+    public static final AddressLayout LPJOB_INFO_4W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PJOB_INFO_4A PJOB_INFO_4
      * }
      */
-    public static final AddressLayout PJOB_INFO_4 = Windows_h.C_POINTER;
+    public static final AddressLayout PJOB_INFO_4 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPJOB_INFO_4A LPJOB_INFO_4
      * }
      */
-    public static final AddressLayout LPJOB_INFO_4 = Windows_h.C_POINTER;
+    public static final AddressLayout LPJOB_INFO_4 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ADDJOB_INFO_1A {
@@ -14115,7 +14115,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PADDJOB_INFO_1A
      * }
      */
-    public static final AddressLayout PADDJOB_INFO_1A = Windows_h.C_POINTER;
+    public static final AddressLayout PADDJOB_INFO_1A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ADDJOB_INFO_1A {
@@ -14124,7 +14124,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPADDJOB_INFO_1A
      * }
      */
-    public static final AddressLayout LPADDJOB_INFO_1A = Windows_h.C_POINTER;
+    public static final AddressLayout LPADDJOB_INFO_1A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ADDJOB_INFO_1W {
@@ -14133,7 +14133,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PADDJOB_INFO_1W
      * }
      */
-    public static final AddressLayout PADDJOB_INFO_1W = Windows_h.C_POINTER;
+    public static final AddressLayout PADDJOB_INFO_1W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ADDJOB_INFO_1W {
@@ -14142,19 +14142,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPADDJOB_INFO_1W
      * }
      */
-    public static final AddressLayout LPADDJOB_INFO_1W = Windows_h.C_POINTER;
+    public static final AddressLayout LPADDJOB_INFO_1W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PADDJOB_INFO_1A PADDJOB_INFO_1
      * }
      */
-    public static final AddressLayout PADDJOB_INFO_1 = Windows_h.C_POINTER;
+    public static final AddressLayout PADDJOB_INFO_1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPADDJOB_INFO_1A LPADDJOB_INFO_1
      * }
      */
-    public static final AddressLayout LPADDJOB_INFO_1 = Windows_h.C_POINTER;
+    public static final AddressLayout LPADDJOB_INFO_1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_1A {
@@ -14162,7 +14162,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVER_INFO_1A
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_1A = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_1A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_1A {
@@ -14170,7 +14170,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPDRIVER_INFO_1A
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_1A = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_1A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_1W {
@@ -14178,7 +14178,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVER_INFO_1W
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_1W = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_1W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_1W {
@@ -14186,19 +14186,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPDRIVER_INFO_1W
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_1W = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_1W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PDRIVER_INFO_1A PDRIVER_INFO_1
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_1 = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPDRIVER_INFO_1A LPDRIVER_INFO_1
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_1 = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_1 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_2A {
@@ -14211,7 +14211,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVER_INFO_2A
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_2A = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_2A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_2A {
@@ -14224,7 +14224,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPDRIVER_INFO_2A
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_2A = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_2A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_2W {
@@ -14237,7 +14237,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVER_INFO_2W
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_2W = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_2W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_2W {
@@ -14250,19 +14250,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPDRIVER_INFO_2W
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_2W = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_2W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PDRIVER_INFO_2A PDRIVER_INFO_2
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_2 = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPDRIVER_INFO_2A LPDRIVER_INFO_2
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_2 = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_2 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_3A {
@@ -14279,7 +14279,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVER_INFO_3A
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_3A = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_3A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_3A {
@@ -14296,7 +14296,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPDRIVER_INFO_3A
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_3A = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_3A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_3W {
@@ -14313,7 +14313,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVER_INFO_3W
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_3W = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_3W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_3W {
@@ -14330,19 +14330,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPDRIVER_INFO_3W
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_3W = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_3W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PDRIVER_INFO_3A PDRIVER_INFO_3
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_3 = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_3 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPDRIVER_INFO_3A LPDRIVER_INFO_3
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_3 = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_3 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_4A {
@@ -14360,7 +14360,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVER_INFO_4A
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_4A = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_4A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_4A {
@@ -14378,7 +14378,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPDRIVER_INFO_4A
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_4A = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_4A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_4W {
@@ -14396,7 +14396,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVER_INFO_4W
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_4W = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_4W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_4W {
@@ -14414,19 +14414,19 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPDRIVER_INFO_4W
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_4W = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_4W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PDRIVER_INFO_4A PDRIVER_INFO_4
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_4 = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_4 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPDRIVER_INFO_4A LPDRIVER_INFO_4
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_4 = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_4 = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_5A {
@@ -14442,7 +14442,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVER_INFO_5A
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_5A = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_5A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_5A {
@@ -14458,7 +14458,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPDRIVER_INFO_5A
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_5A = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_5A = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_5W {
@@ -14474,7 +14474,7 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *PDRIVER_INFO_5W
      * }
      */
-    public static final AddressLayout PDRIVER_INFO_5W = Windows_h.C_POINTER;
+    public static final AddressLayout PDRIVER_INFO_5W = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _DRIVER_INFO_5W {
@@ -14490,6 +14490,6 @@ public class Windows_h_18 extends Windows_h_19 {
      * } *LPDRIVER_INFO_5W
      * }
      */
-    public static final AddressLayout LPDRIVER_INFO_5W = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRIVER_INFO_5W = C_POINTER;
 }
 

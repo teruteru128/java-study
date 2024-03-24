@@ -1645,7 +1645,7 @@ public class Windows_h_4 extends Windows_h_5 {
     public static MemorySegment SZDDESYS_TOPIC() {
         class Holder {
             static final MemorySegment SZDDESYS_TOPIC
-                = Windows_h.LIBRARY_ARENA.allocateFrom("System");
+                = LIBRARY_ARENA.allocateFrom("System");
         }
         return Holder.SZDDESYS_TOPIC;
     }
@@ -1657,7 +1657,7 @@ public class Windows_h_4 extends Windows_h_5 {
     public static MemorySegment SZDDESYS_ITEM_TOPICS() {
         class Holder {
             static final MemorySegment SZDDESYS_ITEM_TOPICS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Topics");
+                = LIBRARY_ARENA.allocateFrom("Topics");
         }
         return Holder.SZDDESYS_ITEM_TOPICS;
     }
@@ -1669,7 +1669,7 @@ public class Windows_h_4 extends Windows_h_5 {
     public static MemorySegment SZDDESYS_ITEM_SYSITEMS() {
         class Holder {
             static final MemorySegment SZDDESYS_ITEM_SYSITEMS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("SysItems");
+                = LIBRARY_ARENA.allocateFrom("SysItems");
         }
         return Holder.SZDDESYS_ITEM_SYSITEMS;
     }
@@ -1681,7 +1681,7 @@ public class Windows_h_4 extends Windows_h_5 {
     public static MemorySegment SZDDESYS_ITEM_RTNMSG() {
         class Holder {
             static final MemorySegment SZDDESYS_ITEM_RTNMSG
-                = Windows_h.LIBRARY_ARENA.allocateFrom("ReturnMessage");
+                = LIBRARY_ARENA.allocateFrom("ReturnMessage");
         }
         return Holder.SZDDESYS_ITEM_RTNMSG;
     }
@@ -1693,7 +1693,7 @@ public class Windows_h_4 extends Windows_h_5 {
     public static MemorySegment SZDDESYS_ITEM_STATUS() {
         class Holder {
             static final MemorySegment SZDDESYS_ITEM_STATUS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Status");
+                = LIBRARY_ARENA.allocateFrom("Status");
         }
         return Holder.SZDDESYS_ITEM_STATUS;
     }
@@ -1705,7 +1705,7 @@ public class Windows_h_4 extends Windows_h_5 {
     public static MemorySegment SZDDESYS_ITEM_FORMATS() {
         class Holder {
             static final MemorySegment SZDDESYS_ITEM_FORMATS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Formats");
+                = LIBRARY_ARENA.allocateFrom("Formats");
         }
         return Holder.SZDDESYS_ITEM_FORMATS;
     }
@@ -1717,7 +1717,7 @@ public class Windows_h_4 extends Windows_h_5 {
     public static MemorySegment SZDDESYS_ITEM_HELP() {
         class Holder {
             static final MemorySegment SZDDESYS_ITEM_HELP
-                = Windows_h.LIBRARY_ARENA.allocateFrom("Help");
+                = LIBRARY_ARENA.allocateFrom("Help");
         }
         return Holder.SZDDESYS_ITEM_HELP;
     }
@@ -1729,7 +1729,7 @@ public class Windows_h_4 extends Windows_h_5 {
     public static MemorySegment SZDDE_ITEM_ITEMLIST() {
         class Holder {
             static final MemorySegment SZDDE_ITEM_ITEMLIST
-                = Windows_h.LIBRARY_ARENA.allocateFrom("TopicItemList");
+                = LIBRARY_ARENA.allocateFrom("TopicItemList");
         }
         return Holder.SZDDE_ITEM_ITEMLIST;
     }
@@ -7132,7 +7132,7 @@ public class Windows_h_4 extends Windows_h_5 {
     public static MemorySegment ALL_TRANSPORTS() {
         class Holder {
             static final MemorySegment ALL_TRANSPORTS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+                = LIBRARY_ARENA.allocateFrom("M");
         }
         return Holder.ALL_TRANSPORTS;
     }
@@ -7144,7 +7144,7 @@ public class Windows_h_4 extends Windows_h_5 {
     public static MemorySegment MS_NBF() {
         class Holder {
             static final MemorySegment MS_NBF
-                = Windows_h.LIBRARY_ARENA.allocateFrom("MNBF");
+                = LIBRARY_ARENA.allocateFrom("MNBF");
         }
         return Holder.MS_NBF;
     }
@@ -8191,7 +8191,7 @@ public class Windows_h_4 extends Windows_h_5 {
     public static MemorySegment WC_NETADDRESS() {
         class Holder {
             static final MemorySegment WC_NETADDRESS
-                = Windows_h.LIBRARY_ARENA.allocateFrom("m");
+                = LIBRARY_ARENA.allocateFrom("m");
         }
         return Holder.WC_NETADDRESS;
     }

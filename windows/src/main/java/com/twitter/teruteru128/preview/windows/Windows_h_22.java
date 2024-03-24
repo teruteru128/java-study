@@ -20,14 +20,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPointerTouchInfoHistory {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPointerTouchInfoHistory"),
+                    findOrThrow("GetPointerTouchInfoHistory"),
                     DESC);
     }
 
@@ -69,14 +69,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPointerFrameTouchInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPointerFrameTouchInfo"),
+                    findOrThrow("GetPointerFrameTouchInfo"),
                     DESC);
     }
 
@@ -118,15 +118,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPointerFrameTouchInfoHistory {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPointerFrameTouchInfoHistory"),
+                    findOrThrow("GetPointerFrameTouchInfoHistory"),
                     DESC);
     }
 
@@ -168,13 +168,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPointerPenInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPointerPenInfo"),
+                    findOrThrow("GetPointerPenInfo"),
                     DESC);
     }
 
@@ -216,14 +216,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPointerPenInfoHistory {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPointerPenInfoHistory"),
+                    findOrThrow("GetPointerPenInfoHistory"),
                     DESC);
     }
 
@@ -265,14 +265,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPointerFramePenInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPointerFramePenInfo"),
+                    findOrThrow("GetPointerFramePenInfo"),
                     DESC);
     }
 
@@ -314,15 +314,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPointerFramePenInfoHistory {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPointerFramePenInfoHistory"),
+                    findOrThrow("GetPointerFramePenInfoHistory"),
                     DESC);
     }
 
@@ -364,12 +364,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SkipPointerFrameMessages {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SkipPointerFrameMessages"),
+                    findOrThrow("SkipPointerFrameMessages"),
                     DESC);
     }
 
@@ -411,13 +411,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegisterPointerInputTarget {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegisterPointerInputTarget"),
+                    findOrThrow("RegisterPointerInputTarget"),
                     DESC);
     }
 
@@ -459,13 +459,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class UnregisterPointerInputTarget {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("UnregisterPointerInputTarget"),
+                    findOrThrow("UnregisterPointerInputTarget"),
                     DESC);
     }
 
@@ -507,14 +507,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegisterPointerInputTargetEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegisterPointerInputTargetEx"),
+                    findOrThrow("RegisterPointerInputTargetEx"),
                     DESC);
     }
 
@@ -556,13 +556,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class UnregisterPointerInputTargetEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("UnregisterPointerInputTargetEx"),
+                    findOrThrow("UnregisterPointerInputTargetEx"),
                     DESC);
     }
 
@@ -608,18 +608,18 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *HSYNTHETICPOINTERDEVICE
      * }
      */
-    public static final AddressLayout HSYNTHETICPOINTERDEVICE = Windows_h.C_POINTER;
+    public static final AddressLayout HSYNTHETICPOINTERDEVICE = C_POINTER;
 
     private static class CreateSyntheticPointerDevice {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_INT
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreateSyntheticPointerDevice"),
+                    findOrThrow("CreateSyntheticPointerDevice"),
                     DESC);
     }
 
@@ -661,14 +661,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class InjectSyntheticPointerInput {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("InjectSyntheticPointerInput"),
+                    findOrThrow("InjectSyntheticPointerInput"),
                     DESC);
     }
 
@@ -710,11 +710,11 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DestroySyntheticPointerDevice {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DestroySyntheticPointerDevice"),
+                    findOrThrow("DestroySyntheticPointerDevice"),
                     DESC);
     }
 
@@ -756,12 +756,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnableMouseInPointer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnableMouseInPointer"),
+                    findOrThrow("EnableMouseInPointer"),
                     DESC);
     }
 
@@ -803,10 +803,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsMouseInPointerEnabled {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsMouseInPointerEnabled"),
+                    findOrThrow("IsMouseInPointerEnabled"),
                     DESC);
     }
 
@@ -848,10 +848,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnableMouseInPointerForThread {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnableMouseInPointerForThread"),
+                    findOrThrow("EnableMouseInPointerForThread"),
                     DESC);
     }
 
@@ -893,13 +893,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegisterTouchHitTestingWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegisterTouchHitTestingWindow"),
+                    findOrThrow("RegisterTouchHitTestingWindow"),
                     DESC);
     }
 
@@ -946,7 +946,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PTOUCH_HIT_TESTING_PROXIMITY_EVALUATION
      * }
      */
-    public static final AddressLayout PTOUCH_HIT_TESTING_PROXIMITY_EVALUATION = Windows_h.C_POINTER;
+    public static final AddressLayout PTOUCH_HIT_TESTING_PROXIMITY_EVALUATION = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagTOUCH_HIT_TESTING_INPUT {
@@ -958,18 +958,18 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PTOUCH_HIT_TESTING_INPUT
      * }
      */
-    public static final AddressLayout PTOUCH_HIT_TESTING_INPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PTOUCH_HIT_TESTING_INPUT = C_POINTER;
 
     private static class EvaluateProximityToRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EvaluateProximityToRect"),
+                    findOrThrow("EvaluateProximityToRect"),
                     DESC);
     }
 
@@ -1011,15 +1011,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EvaluateProximityToPolygon {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EvaluateProximityToPolygon"),
+                    findOrThrow("EvaluateProximityToPolygon"),
                     DESC);
     }
 
@@ -1061,13 +1061,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class PackTouchHitTestingProximityEvaluation {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("PackTouchHitTestingProximityEvaluation"),
+                    findOrThrow("PackTouchHitTestingProximityEvaluation"),
                     DESC);
     }
 
@@ -1217,16 +1217,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowFeedbackSetting {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowFeedbackSetting"),
+                    findOrThrow("GetWindowFeedbackSetting"),
                     DESC);
     }
 
@@ -1268,16 +1268,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWindowFeedbackSetting {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowFeedbackSetting"),
+                    findOrThrow("SetWindowFeedbackSetting"),
                     DESC);
     }
 
@@ -1319,14 +1319,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPointerInputTransform {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPointerInputTransform"),
+                    findOrThrow("GetPointerInputTransform"),
                     DESC);
     }
 
@@ -1373,16 +1373,16 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PLASTINPUTINFO
      * }
      */
-    public static final AddressLayout PLASTINPUTINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PLASTINPUTINFO = C_POINTER;
 
     private static class GetLastInputInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetLastInputInfo"),
+                    findOrThrow("GetLastInputInfo"),
                     DESC);
     }
 
@@ -1424,13 +1424,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MapVirtualKeyA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MapVirtualKeyA"),
+                    findOrThrow("MapVirtualKeyA"),
                     DESC);
     }
 
@@ -1472,13 +1472,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MapVirtualKeyW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MapVirtualKeyW"),
+                    findOrThrow("MapVirtualKeyW"),
                     DESC);
     }
 
@@ -1520,14 +1520,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MapVirtualKeyExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MapVirtualKeyExA"),
+                    findOrThrow("MapVirtualKeyExA"),
                     DESC);
     }
 
@@ -1569,14 +1569,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MapVirtualKeyExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MapVirtualKeyExW"),
+                    findOrThrow("MapVirtualKeyExW"),
                     DESC);
     }
 
@@ -1618,10 +1618,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetInputState {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetInputState"),
+                    findOrThrow("GetInputState"),
                     DESC);
     }
 
@@ -1663,12 +1663,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetQueueStatus {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_INT
+            C_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetQueueStatus"),
+                    findOrThrow("GetQueueStatus"),
                     DESC);
     }
 
@@ -1710,10 +1710,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCapture {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCapture"),
+                    findOrThrow("GetCapture"),
                     DESC);
     }
 
@@ -1755,12 +1755,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetCapture {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetCapture"),
+                    findOrThrow("SetCapture"),
                     DESC);
     }
 
@@ -1802,10 +1802,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ReleaseCapture {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ReleaseCapture"),
+                    findOrThrow("ReleaseCapture"),
                     DESC);
     }
 
@@ -1847,16 +1847,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MsgWaitForMultipleObjects {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MsgWaitForMultipleObjects"),
+                    findOrThrow("MsgWaitForMultipleObjects"),
                     DESC);
     }
 
@@ -1898,16 +1898,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MsgWaitForMultipleObjectsEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MsgWaitForMultipleObjectsEx"),
+                    findOrThrow("MsgWaitForMultipleObjectsEx"),
                     DESC);
     }
 
@@ -1949,15 +1949,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetTimer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetTimer"),
+                    findOrThrow("SetTimer"),
                     DESC);
     }
 
@@ -1999,16 +1999,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetCoalescableTimer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetCoalescableTimer"),
+                    findOrThrow("SetCoalescableTimer"),
                     DESC);
     }
 
@@ -2050,13 +2050,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class KillTimer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("KillTimer"),
+                    findOrThrow("KillTimer"),
                     DESC);
     }
 
@@ -2098,12 +2098,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsWindowUnicode {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsWindowUnicode"),
+                    findOrThrow("IsWindowUnicode"),
                     DESC);
     }
 
@@ -2145,13 +2145,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnableWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnableWindow"),
+                    findOrThrow("EnableWindow"),
                     DESC);
     }
 
@@ -2193,12 +2193,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsWindowEnabled {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsWindowEnabled"),
+                    findOrThrow("IsWindowEnabled"),
                     DESC);
     }
 
@@ -2240,13 +2240,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadAcceleratorsA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadAcceleratorsA"),
+                    findOrThrow("LoadAcceleratorsA"),
                     DESC);
     }
 
@@ -2288,13 +2288,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadAcceleratorsW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadAcceleratorsW"),
+                    findOrThrow("LoadAcceleratorsW"),
                     DESC);
     }
 
@@ -2336,13 +2336,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreateAcceleratorTableA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreateAcceleratorTableA"),
+                    findOrThrow("CreateAcceleratorTableA"),
                     DESC);
     }
 
@@ -2384,13 +2384,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreateAcceleratorTableW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreateAcceleratorTableW"),
+                    findOrThrow("CreateAcceleratorTableW"),
                     DESC);
     }
 
@@ -2432,12 +2432,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DestroyAcceleratorTable {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DestroyAcceleratorTable"),
+                    findOrThrow("DestroyAcceleratorTable"),
                     DESC);
     }
 
@@ -2479,14 +2479,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CopyAcceleratorTableA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CopyAcceleratorTableA"),
+                    findOrThrow("CopyAcceleratorTableA"),
                     DESC);
     }
 
@@ -2528,14 +2528,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CopyAcceleratorTableW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CopyAcceleratorTableW"),
+                    findOrThrow("CopyAcceleratorTableW"),
                     DESC);
     }
 
@@ -2577,14 +2577,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class TranslateAcceleratorA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("TranslateAcceleratorA"),
+                    findOrThrow("TranslateAcceleratorA"),
                     DESC);
     }
 
@@ -2626,14 +2626,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class TranslateAcceleratorW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("TranslateAcceleratorW"),
+                    findOrThrow("TranslateAcceleratorW"),
                     DESC);
     }
 
@@ -2675,12 +2675,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetSystemMetrics {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetSystemMetrics"),
+                    findOrThrow("GetSystemMetrics"),
                     DESC);
     }
 
@@ -2722,13 +2722,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetSystemMetricsForDpi {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetSystemMetricsForDpi"),
+                    findOrThrow("GetSystemMetricsForDpi"),
                     DESC);
     }
 
@@ -2770,13 +2770,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadMenuA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadMenuA"),
+                    findOrThrow("LoadMenuA"),
                     DESC);
     }
 
@@ -2818,13 +2818,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadMenuW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadMenuW"),
+                    findOrThrow("LoadMenuW"),
                     DESC);
     }
 
@@ -2866,12 +2866,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadMenuIndirectA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadMenuIndirectA"),
+                    findOrThrow("LoadMenuIndirectA"),
                     DESC);
     }
 
@@ -2913,12 +2913,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadMenuIndirectW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadMenuIndirectW"),
+                    findOrThrow("LoadMenuIndirectW"),
                     DESC);
     }
 
@@ -2960,12 +2960,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetMenu {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenu"),
+                    findOrThrow("GetMenu"),
                     DESC);
     }
 
@@ -3007,13 +3007,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetMenu {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetMenu"),
+                    findOrThrow("SetMenu"),
                     DESC);
     }
 
@@ -3055,16 +3055,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ChangeMenuA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ChangeMenuA"),
+                    findOrThrow("ChangeMenuA"),
                     DESC);
     }
 
@@ -3106,16 +3106,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ChangeMenuW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ChangeMenuW"),
+                    findOrThrow("ChangeMenuW"),
                     DESC);
     }
 
@@ -3157,15 +3157,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class HiliteMenuItem {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("HiliteMenuItem"),
+                    findOrThrow("HiliteMenuItem"),
                     DESC);
     }
 
@@ -3207,16 +3207,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetMenuStringA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenuStringA"),
+                    findOrThrow("GetMenuStringA"),
                     DESC);
     }
 
@@ -3258,16 +3258,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetMenuStringW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenuStringW"),
+                    findOrThrow("GetMenuStringW"),
                     DESC);
     }
 
@@ -3309,14 +3309,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetMenuState {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenuState"),
+                    findOrThrow("GetMenuState"),
                     DESC);
     }
 
@@ -3358,12 +3358,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DrawMenuBar {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DrawMenuBar"),
+                    findOrThrow("DrawMenuBar"),
                     DESC);
     }
 
@@ -3405,13 +3405,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetSystemMenu {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetSystemMenu"),
+                    findOrThrow("GetSystemMenu"),
                     DESC);
     }
 
@@ -3453,10 +3453,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreateMenu {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreateMenu"),
+                    findOrThrow("CreateMenu"),
                     DESC);
     }
 
@@ -3498,10 +3498,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreatePopupMenu {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreatePopupMenu"),
+                    findOrThrow("CreatePopupMenu"),
                     DESC);
     }
 
@@ -3543,12 +3543,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DestroyMenu {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DestroyMenu"),
+                    findOrThrow("DestroyMenu"),
                     DESC);
     }
 
@@ -3590,14 +3590,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CheckMenuItem {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CheckMenuItem"),
+                    findOrThrow("CheckMenuItem"),
                     DESC);
     }
 
@@ -3639,14 +3639,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnableMenuItem {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnableMenuItem"),
+                    findOrThrow("EnableMenuItem"),
                     DESC);
     }
 
@@ -3688,13 +3688,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetSubMenu {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetSubMenu"),
+                    findOrThrow("GetSubMenu"),
                     DESC);
     }
 
@@ -3736,13 +3736,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetMenuItemID {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenuItemID"),
+                    findOrThrow("GetMenuItemID"),
                     DESC);
     }
 
@@ -3784,12 +3784,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetMenuItemCount {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenuItemCount"),
+                    findOrThrow("GetMenuItemCount"),
                     DESC);
     }
 
@@ -3831,16 +3831,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class InsertMenuA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("InsertMenuA"),
+                    findOrThrow("InsertMenuA"),
                     DESC);
     }
 
@@ -3882,16 +3882,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class InsertMenuW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("InsertMenuW"),
+                    findOrThrow("InsertMenuW"),
                     DESC);
     }
 
@@ -3933,15 +3933,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class AppendMenuA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("AppendMenuA"),
+                    findOrThrow("AppendMenuA"),
                     DESC);
     }
 
@@ -3983,15 +3983,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class AppendMenuW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("AppendMenuW"),
+                    findOrThrow("AppendMenuW"),
                     DESC);
     }
 
@@ -4033,16 +4033,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ModifyMenuA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ModifyMenuA"),
+                    findOrThrow("ModifyMenuA"),
                     DESC);
     }
 
@@ -4084,16 +4084,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ModifyMenuW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ModifyMenuW"),
+                    findOrThrow("ModifyMenuW"),
                     DESC);
     }
 
@@ -4135,14 +4135,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RemoveMenu {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RemoveMenu"),
+                    findOrThrow("RemoveMenu"),
                     DESC);
     }
 
@@ -4184,14 +4184,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DeleteMenu {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DeleteMenu"),
+                    findOrThrow("DeleteMenu"),
                     DESC);
     }
 
@@ -4233,16 +4233,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetMenuItemBitmaps {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetMenuItemBitmaps"),
+                    findOrThrow("SetMenuItemBitmaps"),
                     DESC);
     }
 
@@ -4284,10 +4284,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetMenuCheckMarkDimensions {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG    );
+            C_LONG    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenuCheckMarkDimensions"),
+                    findOrThrow("GetMenuCheckMarkDimensions"),
                     DESC);
     }
 
@@ -4329,18 +4329,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class TrackPopupMenu {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("TrackPopupMenu"),
+                    findOrThrow("TrackPopupMenu"),
                     DESC);
     }
 
@@ -4384,21 +4384,21 @@ public class Windows_h_22 extends Windows_h_23 {
      * typedef TPMPARAMS *LPTPMPARAMS
      * }
      */
-    public static final AddressLayout LPTPMPARAMS = Windows_h.C_POINTER;
+    public static final AddressLayout LPTPMPARAMS = C_POINTER;
 
     private static class TrackPopupMenuEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("TrackPopupMenuEx"),
+                    findOrThrow("TrackPopupMenuEx"),
                     DESC);
     }
 
@@ -4440,16 +4440,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CalculatePopupWindowPosition {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CalculatePopupWindowPosition"),
+                    findOrThrow("CalculatePopupWindowPosition"),
                     DESC);
     }
 
@@ -4501,23 +4501,23 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMENUINFO
      * }
      */
-    public static final AddressLayout LPMENUINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPMENUINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const MENUINFO *LPCMENUINFO
      * }
      */
-    public static final AddressLayout LPCMENUINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPCMENUINFO = C_POINTER;
 
     private static class GetMenuInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenuInfo"),
+                    findOrThrow("GetMenuInfo"),
                     DESC);
     }
 
@@ -4559,13 +4559,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetMenuInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetMenuInfo"),
+                    findOrThrow("SetMenuInfo"),
                     DESC);
     }
 
@@ -4607,10 +4607,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EndMenu {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EndMenu"),
+                    findOrThrow("EndMenu"),
                     DESC);
     }
 
@@ -4660,7 +4660,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PMENUGETOBJECTINFO
      * }
      */
-    public static final AddressLayout PMENUGETOBJECTINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PMENUGETOBJECTINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMENUITEMINFOA {
@@ -4679,7 +4679,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMENUITEMINFOA
      * }
      */
-    public static final AddressLayout LPMENUITEMINFOA = Windows_h.C_POINTER;
+    public static final AddressLayout LPMENUITEMINFOA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMENUITEMINFOW {
@@ -4698,43 +4698,43 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMENUITEMINFOW
      * }
      */
-    public static final AddressLayout LPMENUITEMINFOW = Windows_h.C_POINTER;
+    public static final AddressLayout LPMENUITEMINFOW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPMENUITEMINFOA LPMENUITEMINFO
      * }
      */
-    public static final AddressLayout LPMENUITEMINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPMENUITEMINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const MENUITEMINFOA *LPCMENUITEMINFOA
      * }
      */
-    public static final AddressLayout LPCMENUITEMINFOA = Windows_h.C_POINTER;
+    public static final AddressLayout LPCMENUITEMINFOA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const MENUITEMINFOW *LPCMENUITEMINFOW
      * }
      */
-    public static final AddressLayout LPCMENUITEMINFOW = Windows_h.C_POINTER;
+    public static final AddressLayout LPCMENUITEMINFOW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPCMENUITEMINFOA LPCMENUITEMINFO
      * }
      */
-    public static final AddressLayout LPCMENUITEMINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPCMENUITEMINFO = C_POINTER;
 
     private static class InsertMenuItemA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("InsertMenuItemA"),
+                    findOrThrow("InsertMenuItemA"),
                     DESC);
     }
 
@@ -4776,15 +4776,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class InsertMenuItemW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("InsertMenuItemW"),
+                    findOrThrow("InsertMenuItemW"),
                     DESC);
     }
 
@@ -4826,15 +4826,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetMenuItemInfoA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenuItemInfoA"),
+                    findOrThrow("GetMenuItemInfoA"),
                     DESC);
     }
 
@@ -4876,15 +4876,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetMenuItemInfoW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenuItemInfoW"),
+                    findOrThrow("GetMenuItemInfoW"),
                     DESC);
     }
 
@@ -4926,15 +4926,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetMenuItemInfoA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetMenuItemInfoA"),
+                    findOrThrow("SetMenuItemInfoA"),
                     DESC);
     }
 
@@ -4976,15 +4976,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetMenuItemInfoW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetMenuItemInfoW"),
+                    findOrThrow("SetMenuItemInfoW"),
                     DESC);
     }
 
@@ -5026,14 +5026,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetMenuDefaultItem {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenuDefaultItem"),
+                    findOrThrow("GetMenuDefaultItem"),
                     DESC);
     }
 
@@ -5075,14 +5075,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetMenuDefaultItem {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetMenuDefaultItem"),
+                    findOrThrow("SetMenuDefaultItem"),
                     DESC);
     }
 
@@ -5124,15 +5124,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetMenuItemRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenuItemRect"),
+                    findOrThrow("GetMenuItemRect"),
                     DESC);
     }
 
@@ -5174,14 +5174,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MenuItemFromPoint {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
             tagPOINT.layout()
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MenuItemFromPoint"),
+                    findOrThrow("MenuItemFromPoint"),
                     DESC);
     }
 
@@ -5232,7 +5232,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PDROPSTRUCT
      * }
      */
-    public static final AddressLayout PDROPSTRUCT = Windows_h.C_POINTER;
+    public static final AddressLayout PDROPSTRUCT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagDROPSTRUCT {
@@ -5245,20 +5245,20 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPDROPSTRUCT
      * }
      */
-    public static final AddressLayout LPDROPSTRUCT = Windows_h.C_POINTER;
+    public static final AddressLayout LPDROPSTRUCT = C_POINTER;
 
     private static class DragObject {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DragObject"),
+                    findOrThrow("DragObject"),
                     DESC);
     }
 
@@ -5300,13 +5300,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DragDetect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
+            C_INT,
+            C_POINTER,
             tagPOINT.layout()
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DragDetect"),
+                    findOrThrow("DragDetect"),
                     DESC);
     }
 
@@ -5348,15 +5348,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DrawIcon {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DrawIcon"),
+                    findOrThrow("DrawIcon"),
                     DESC);
     }
 
@@ -5406,20 +5406,20 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPDRAWTEXTPARAMS
      * }
      */
-    public static final AddressLayout LPDRAWTEXTPARAMS = Windows_h.C_POINTER;
+    public static final AddressLayout LPDRAWTEXTPARAMS = C_POINTER;
 
     private static class DrawTextA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DrawTextA"),
+                    findOrThrow("DrawTextA"),
                     DESC);
     }
 
@@ -5461,16 +5461,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DrawTextW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DrawTextW"),
+                    findOrThrow("DrawTextW"),
                     DESC);
     }
 
@@ -5512,17 +5512,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DrawTextExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DrawTextExA"),
+                    findOrThrow("DrawTextExA"),
                     DESC);
     }
 
@@ -5564,17 +5564,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DrawTextExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DrawTextExW"),
+                    findOrThrow("DrawTextExW"),
                     DESC);
     }
 
@@ -5616,20 +5616,20 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GrayStringA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GrayStringA"),
+                    findOrThrow("GrayStringA"),
                     DESC);
     }
 
@@ -5671,20 +5671,20 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GrayStringW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GrayStringW"),
+                    findOrThrow("GrayStringW"),
                     DESC);
     }
 
@@ -5726,21 +5726,21 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DrawStateA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DrawStateA"),
+                    findOrThrow("DrawStateA"),
                     DESC);
     }
 
@@ -5782,21 +5782,21 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DrawStateW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG,
+            C_LONG_LONG,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DrawStateW"),
+                    findOrThrow("DrawStateW"),
                     DESC);
     }
 
@@ -5838,19 +5838,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class TabbedTextOutA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("TabbedTextOutA"),
+                    findOrThrow("TabbedTextOutA"),
                     DESC);
     }
 
@@ -5892,19 +5892,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class TabbedTextOutW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("TabbedTextOutW"),
+                    findOrThrow("TabbedTextOutW"),
                     DESC);
     }
 
@@ -5946,16 +5946,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetTabbedTextExtentA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetTabbedTextExtentA"),
+                    findOrThrow("GetTabbedTextExtentA"),
                     DESC);
     }
 
@@ -5997,16 +5997,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetTabbedTextExtentW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetTabbedTextExtentW"),
+                    findOrThrow("GetTabbedTextExtentW"),
                     DESC);
     }
 
@@ -6048,12 +6048,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class UpdateWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("UpdateWindow"),
+                    findOrThrow("UpdateWindow"),
                     DESC);
     }
 
@@ -6095,12 +6095,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetActiveWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetActiveWindow"),
+                    findOrThrow("SetActiveWindow"),
                     DESC);
     }
 
@@ -6142,10 +6142,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetForegroundWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetForegroundWindow"),
+                    findOrThrow("GetForegroundWindow"),
                     DESC);
     }
 
@@ -6187,12 +6187,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class PaintDesktop {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("PaintDesktop"),
+                    findOrThrow("PaintDesktop"),
                     DESC);
     }
 
@@ -6234,12 +6234,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SwitchToThisWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SwitchToThisWindow"),
+                    findOrThrow("SwitchToThisWindow"),
                     DESC);
     }
 
@@ -6281,12 +6281,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetForegroundWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetForegroundWindow"),
+                    findOrThrow("SetForegroundWindow"),
                     DESC);
     }
 
@@ -6328,12 +6328,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class AllowSetForegroundWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("AllowSetForegroundWindow"),
+                    findOrThrow("AllowSetForegroundWindow"),
                     DESC);
     }
 
@@ -6375,12 +6375,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LockSetForegroundWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LockSetForegroundWindow"),
+                    findOrThrow("LockSetForegroundWindow"),
                     DESC);
     }
 
@@ -6422,12 +6422,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WindowFromDC {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WindowFromDC"),
+                    findOrThrow("WindowFromDC"),
                     DESC);
     }
 
@@ -6469,12 +6469,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDC {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDC"),
+                    findOrThrow("GetDC"),
                     DESC);
     }
 
@@ -6516,14 +6516,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDCEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDCEx"),
+                    findOrThrow("GetDCEx"),
                     DESC);
     }
 
@@ -6565,12 +6565,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowDC {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowDC"),
+                    findOrThrow("GetWindowDC"),
                     DESC);
     }
 
@@ -6612,13 +6612,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ReleaseDC {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ReleaseDC"),
+                    findOrThrow("ReleaseDC"),
                     DESC);
     }
 
@@ -6660,13 +6660,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class BeginPaint {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("BeginPaint"),
+                    findOrThrow("BeginPaint"),
                     DESC);
     }
 
@@ -6708,13 +6708,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EndPaint {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EndPaint"),
+                    findOrThrow("EndPaint"),
                     DESC);
     }
 
@@ -6756,14 +6756,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetUpdateRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetUpdateRect"),
+                    findOrThrow("GetUpdateRect"),
                     DESC);
     }
 
@@ -6805,14 +6805,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetUpdateRgn {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetUpdateRgn"),
+                    findOrThrow("GetUpdateRgn"),
                     DESC);
     }
 
@@ -6854,14 +6854,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWindowRgn {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowRgn"),
+                    findOrThrow("SetWindowRgn"),
                     DESC);
     }
 
@@ -6903,13 +6903,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowRgn {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowRgn"),
+                    findOrThrow("GetWindowRgn"),
                     DESC);
     }
 
@@ -6951,13 +6951,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowRgnBox {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowRgnBox"),
+                    findOrThrow("GetWindowRgnBox"),
                     DESC);
     }
 
@@ -6999,13 +6999,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ExcludeUpdateRgn {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ExcludeUpdateRgn"),
+                    findOrThrow("ExcludeUpdateRgn"),
                     DESC);
     }
 
@@ -7047,14 +7047,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class InvalidateRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("InvalidateRect"),
+                    findOrThrow("InvalidateRect"),
                     DESC);
     }
 
@@ -7096,13 +7096,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ValidateRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ValidateRect"),
+                    findOrThrow("ValidateRect"),
                     DESC);
     }
 
@@ -7144,14 +7144,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class InvalidateRgn {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("InvalidateRgn"),
+                    findOrThrow("InvalidateRgn"),
                     DESC);
     }
 
@@ -7193,13 +7193,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ValidateRgn {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ValidateRgn"),
+                    findOrThrow("ValidateRgn"),
                     DESC);
     }
 
@@ -7241,15 +7241,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RedrawWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RedrawWindow"),
+                    findOrThrow("RedrawWindow"),
                     DESC);
     }
 
@@ -7291,12 +7291,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LockWindowUpdate {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LockWindowUpdate"),
+                    findOrThrow("LockWindowUpdate"),
                     DESC);
     }
 
@@ -7338,16 +7338,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ScrollWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ScrollWindow"),
+                    findOrThrow("ScrollWindow"),
                     DESC);
     }
 
@@ -7389,18 +7389,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ScrollDC {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ScrollDC"),
+                    findOrThrow("ScrollDC"),
                     DESC);
     }
 
@@ -7442,19 +7442,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ScrollWindowEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ScrollWindowEx"),
+                    findOrThrow("ScrollWindowEx"),
                     DESC);
     }
 
@@ -7496,15 +7496,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetScrollPos {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetScrollPos"),
+                    findOrThrow("SetScrollPos"),
                     DESC);
     }
 
@@ -7546,13 +7546,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetScrollPos {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetScrollPos"),
+                    findOrThrow("GetScrollPos"),
                     DESC);
     }
 
@@ -7594,16 +7594,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetScrollRange {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetScrollRange"),
+                    findOrThrow("SetScrollRange"),
                     DESC);
     }
 
@@ -7645,15 +7645,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetScrollRange {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetScrollRange"),
+                    findOrThrow("GetScrollRange"),
                     DESC);
     }
 
@@ -7695,14 +7695,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ShowScrollBar {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ShowScrollBar"),
+                    findOrThrow("ShowScrollBar"),
                     DESC);
     }
 
@@ -7744,14 +7744,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnableScrollBar {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnableScrollBar"),
+                    findOrThrow("EnableScrollBar"),
                     DESC);
     }
 
@@ -7793,14 +7793,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetPropA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetPropA"),
+                    findOrThrow("SetPropA"),
                     DESC);
     }
 
@@ -7842,14 +7842,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetPropW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetPropW"),
+                    findOrThrow("SetPropW"),
                     DESC);
     }
 
@@ -7891,13 +7891,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPropA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPropA"),
+                    findOrThrow("GetPropA"),
                     DESC);
     }
 
@@ -7939,13 +7939,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPropW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPropW"),
+                    findOrThrow("GetPropW"),
                     DESC);
     }
 
@@ -7987,13 +7987,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RemovePropA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RemovePropA"),
+                    findOrThrow("RemovePropA"),
                     DESC);
     }
 
@@ -8035,13 +8035,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RemovePropW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RemovePropW"),
+                    findOrThrow("RemovePropW"),
                     DESC);
     }
 
@@ -8083,14 +8083,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumPropsExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumPropsExA"),
+                    findOrThrow("EnumPropsExA"),
                     DESC);
     }
 
@@ -8132,14 +8132,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumPropsExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumPropsExW"),
+                    findOrThrow("EnumPropsExW"),
                     DESC);
     }
 
@@ -8181,13 +8181,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumPropsA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumPropsA"),
+                    findOrThrow("EnumPropsA"),
                     DESC);
     }
 
@@ -8229,13 +8229,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumPropsW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumPropsW"),
+                    findOrThrow("EnumPropsW"),
                     DESC);
     }
 
@@ -8277,13 +8277,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWindowTextA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowTextA"),
+                    findOrThrow("SetWindowTextA"),
                     DESC);
     }
 
@@ -8325,13 +8325,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWindowTextW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowTextW"),
+                    findOrThrow("SetWindowTextW"),
                     DESC);
     }
 
@@ -8373,14 +8373,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowTextA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowTextA"),
+                    findOrThrow("GetWindowTextA"),
                     DESC);
     }
 
@@ -8422,14 +8422,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowTextW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowTextW"),
+                    findOrThrow("GetWindowTextW"),
                     DESC);
     }
 
@@ -8471,12 +8471,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowTextLengthA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowTextLengthA"),
+                    findOrThrow("GetWindowTextLengthA"),
                     DESC);
     }
 
@@ -8518,12 +8518,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowTextLengthW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowTextLengthW"),
+                    findOrThrow("GetWindowTextLengthW"),
                     DESC);
     }
 
@@ -8565,13 +8565,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetClientRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetClientRect"),
+                    findOrThrow("GetClientRect"),
                     DESC);
     }
 
@@ -8613,13 +8613,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowRect"),
+                    findOrThrow("GetWindowRect"),
                     DESC);
     }
 
@@ -8661,14 +8661,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class AdjustWindowRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("AdjustWindowRect"),
+                    findOrThrow("AdjustWindowRect"),
                     DESC);
     }
 
@@ -8710,15 +8710,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class AdjustWindowRectEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("AdjustWindowRectEx"),
+                    findOrThrow("AdjustWindowRectEx"),
                     DESC);
     }
 
@@ -8760,16 +8760,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class AdjustWindowRectExForDpi {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_INT,
+            C_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("AdjustWindowRectExForDpi"),
+                    findOrThrow("AdjustWindowRectExForDpi"),
                     DESC);
     }
 
@@ -8820,17 +8820,17 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPHELPINFO
      * }
      */
-    public static final AddressLayout LPHELPINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPHELPINFO = C_POINTER;
 
     private static class SetWindowContextHelpId {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowContextHelpId"),
+                    findOrThrow("SetWindowContextHelpId"),
                     DESC);
     }
 
@@ -8872,12 +8872,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowContextHelpId {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowContextHelpId"),
+                    findOrThrow("GetWindowContextHelpId"),
                     DESC);
     }
 
@@ -8919,13 +8919,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetMenuContextHelpId {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetMenuContextHelpId"),
+                    findOrThrow("SetMenuContextHelpId"),
                     DESC);
     }
 
@@ -8967,12 +8967,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetMenuContextHelpId {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenuContextHelpId"),
+                    findOrThrow("GetMenuContextHelpId"),
                     DESC);
     }
 
@@ -9014,15 +9014,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MessageBoxA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MessageBoxA"),
+                    findOrThrow("MessageBoxA"),
                     DESC);
     }
 
@@ -9064,15 +9064,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MessageBoxW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MessageBoxW"),
+                    findOrThrow("MessageBoxW"),
                     DESC);
     }
 
@@ -9114,16 +9114,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MessageBoxExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_SHORT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_SHORT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MessageBoxExA"),
+                    findOrThrow("MessageBoxExA"),
                     DESC);
     }
 
@@ -9165,16 +9165,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MessageBoxExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_SHORT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_SHORT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MessageBoxExW"),
+                    findOrThrow("MessageBoxExW"),
                     DESC);
     }
 
@@ -9229,7 +9229,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PMSGBOXPARAMSA
      * }
      */
-    public static final AddressLayout PMSGBOXPARAMSA = Windows_h.C_POINTER;
+    public static final AddressLayout PMSGBOXPARAMSA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMSGBOXPARAMSA {
@@ -9246,7 +9246,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMSGBOXPARAMSA
      * }
      */
-    public static final AddressLayout LPMSGBOXPARAMSA = Windows_h.C_POINTER;
+    public static final AddressLayout LPMSGBOXPARAMSA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMSGBOXPARAMSW {
@@ -9263,7 +9263,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PMSGBOXPARAMSW
      * }
      */
-    public static final AddressLayout PMSGBOXPARAMSW = Windows_h.C_POINTER;
+    public static final AddressLayout PMSGBOXPARAMSW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMSGBOXPARAMSW {
@@ -9280,28 +9280,28 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMSGBOXPARAMSW
      * }
      */
-    public static final AddressLayout LPMSGBOXPARAMSW = Windows_h.C_POINTER;
+    public static final AddressLayout LPMSGBOXPARAMSW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PMSGBOXPARAMSA PMSGBOXPARAMS
      * }
      */
-    public static final AddressLayout PMSGBOXPARAMS = Windows_h.C_POINTER;
+    public static final AddressLayout PMSGBOXPARAMS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPMSGBOXPARAMSA LPMSGBOXPARAMS
      * }
      */
-    public static final AddressLayout LPMSGBOXPARAMS = Windows_h.C_POINTER;
+    public static final AddressLayout LPMSGBOXPARAMS = C_POINTER;
 
     private static class MessageBoxIndirectA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MessageBoxIndirectA"),
+                    findOrThrow("MessageBoxIndirectA"),
                     DESC);
     }
 
@@ -9343,12 +9343,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MessageBoxIndirectW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MessageBoxIndirectW"),
+                    findOrThrow("MessageBoxIndirectW"),
                     DESC);
     }
 
@@ -9390,12 +9390,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MessageBeep {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MessageBeep"),
+                    findOrThrow("MessageBeep"),
                     DESC);
     }
 
@@ -9437,12 +9437,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ShowCursor {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ShowCursor"),
+                    findOrThrow("ShowCursor"),
                     DESC);
     }
 
@@ -9484,13 +9484,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetCursorPos {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetCursorPos"),
+                    findOrThrow("SetCursorPos"),
                     DESC);
     }
 
@@ -9532,13 +9532,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetPhysicalCursorPos {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetPhysicalCursorPos"),
+                    findOrThrow("SetPhysicalCursorPos"),
                     DESC);
     }
 
@@ -9580,12 +9580,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetCursor {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetCursor"),
+                    findOrThrow("SetCursor"),
                     DESC);
     }
 
@@ -9627,12 +9627,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCursorPos {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCursorPos"),
+                    findOrThrow("GetCursorPos"),
                     DESC);
     }
 
@@ -9674,12 +9674,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPhysicalCursorPos {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPhysicalCursorPos"),
+                    findOrThrow("GetPhysicalCursorPos"),
                     DESC);
     }
 
@@ -9721,12 +9721,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetClipCursor {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetClipCursor"),
+                    findOrThrow("GetClipCursor"),
                     DESC);
     }
 
@@ -9768,10 +9768,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCursor {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCursor"),
+                    findOrThrow("GetCursor"),
                     DESC);
     }
 
@@ -9813,15 +9813,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreateCaret {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreateCaret"),
+                    findOrThrow("CreateCaret"),
                     DESC);
     }
 
@@ -9863,10 +9863,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCaretBlinkTime {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCaretBlinkTime"),
+                    findOrThrow("GetCaretBlinkTime"),
                     DESC);
     }
 
@@ -9908,12 +9908,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetCaretBlinkTime {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetCaretBlinkTime"),
+                    findOrThrow("SetCaretBlinkTime"),
                     DESC);
     }
 
@@ -9955,10 +9955,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DestroyCaret {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DestroyCaret"),
+                    findOrThrow("DestroyCaret"),
                     DESC);
     }
 
@@ -10000,12 +10000,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class HideCaret {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("HideCaret"),
+                    findOrThrow("HideCaret"),
                     DESC);
     }
 
@@ -10047,12 +10047,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ShowCaret {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ShowCaret"),
+                    findOrThrow("ShowCaret"),
                     DESC);
     }
 
@@ -10094,13 +10094,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetCaretPos {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetCaretPos"),
+                    findOrThrow("SetCaretPos"),
                     DESC);
     }
 
@@ -10142,12 +10142,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCaretPos {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCaretPos"),
+                    findOrThrow("GetCaretPos"),
                     DESC);
     }
 
@@ -10189,13 +10189,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ClientToScreen {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ClientToScreen"),
+                    findOrThrow("ClientToScreen"),
                     DESC);
     }
 
@@ -10237,13 +10237,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ScreenToClient {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ScreenToClient"),
+                    findOrThrow("ScreenToClient"),
                     DESC);
     }
 
@@ -10285,13 +10285,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LogicalToPhysicalPoint {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LogicalToPhysicalPoint"),
+                    findOrThrow("LogicalToPhysicalPoint"),
                     DESC);
     }
 
@@ -10333,13 +10333,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class PhysicalToLogicalPoint {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("PhysicalToLogicalPoint"),
+                    findOrThrow("PhysicalToLogicalPoint"),
                     DESC);
     }
 
@@ -10381,13 +10381,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LogicalToPhysicalPointForPerMonitorDPI {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LogicalToPhysicalPointForPerMonitorDPI"),
+                    findOrThrow("LogicalToPhysicalPointForPerMonitorDPI"),
                     DESC);
     }
 
@@ -10429,13 +10429,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class PhysicalToLogicalPointForPerMonitorDPI {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("PhysicalToLogicalPointForPerMonitorDPI"),
+                    findOrThrow("PhysicalToLogicalPointForPerMonitorDPI"),
                     DESC);
     }
 
@@ -10477,15 +10477,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MapWindowPoints {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MapWindowPoints"),
+                    findOrThrow("MapWindowPoints"),
                     DESC);
     }
 
@@ -10527,12 +10527,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WindowFromPoint {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
+            C_POINTER,
             tagPOINT.layout()
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WindowFromPoint"),
+                    findOrThrow("WindowFromPoint"),
                     DESC);
     }
 
@@ -10574,12 +10574,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WindowFromPhysicalPoint {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
+            C_POINTER,
             tagPOINT.layout()
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WindowFromPhysicalPoint"),
+                    findOrThrow("WindowFromPhysicalPoint"),
                     DESC);
     }
 
@@ -10621,13 +10621,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ChildWindowFromPoint {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
+            C_POINTER,
+            C_POINTER,
             tagPOINT.layout()
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ChildWindowFromPoint"),
+                    findOrThrow("ChildWindowFromPoint"),
                     DESC);
     }
 
@@ -10669,12 +10669,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ClipCursor {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ClipCursor"),
+                    findOrThrow("ClipCursor"),
                     DESC);
     }
 
@@ -10716,14 +10716,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ChildWindowFromPointEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
+            C_POINTER,
+            C_POINTER,
             tagPOINT.layout(),
-            Windows_h.C_INT
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ChildWindowFromPointEx"),
+                    findOrThrow("ChildWindowFromPointEx"),
                     DESC);
     }
 
@@ -10765,12 +10765,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetSysColor {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_INT
+            C_LONG,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetSysColor"),
+                    findOrThrow("GetSysColor"),
                     DESC);
     }
 
@@ -10812,12 +10812,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetSysColorBrush {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetSysColorBrush"),
+                    findOrThrow("GetSysColorBrush"),
                     DESC);
     }
 
@@ -10859,14 +10859,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetSysColors {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetSysColors"),
+                    findOrThrow("SetSysColors"),
                     DESC);
     }
 
@@ -10908,13 +10908,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DrawFocusRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DrawFocusRect"),
+                    findOrThrow("DrawFocusRect"),
                     DESC);
     }
 
@@ -10956,14 +10956,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FillRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FillRect"),
+                    findOrThrow("FillRect"),
                     DESC);
     }
 
@@ -11005,14 +11005,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FrameRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FrameRect"),
+                    findOrThrow("FrameRect"),
                     DESC);
     }
 
@@ -11054,13 +11054,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class InvertRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("InvertRect"),
+                    findOrThrow("InvertRect"),
                     DESC);
     }
 
@@ -11102,16 +11102,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetRect"),
+                    findOrThrow("SetRect"),
                     DESC);
     }
 
@@ -11153,12 +11153,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetRectEmpty {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetRectEmpty"),
+                    findOrThrow("SetRectEmpty"),
                     DESC);
     }
 
@@ -11200,13 +11200,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CopyRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CopyRect"),
+                    findOrThrow("CopyRect"),
                     DESC);
     }
 
@@ -11248,14 +11248,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class InflateRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("InflateRect"),
+                    findOrThrow("InflateRect"),
                     DESC);
     }
 
@@ -11297,14 +11297,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IntersectRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IntersectRect"),
+                    findOrThrow("IntersectRect"),
                     DESC);
     }
 
@@ -11346,14 +11346,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class UnionRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("UnionRect"),
+                    findOrThrow("UnionRect"),
                     DESC);
     }
 
@@ -11395,14 +11395,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SubtractRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SubtractRect"),
+                    findOrThrow("SubtractRect"),
                     DESC);
     }
 
@@ -11444,14 +11444,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class OffsetRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("OffsetRect"),
+                    findOrThrow("OffsetRect"),
                     DESC);
     }
 
@@ -11493,12 +11493,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsRectEmpty {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsRectEmpty"),
+                    findOrThrow("IsRectEmpty"),
                     DESC);
     }
 
@@ -11540,13 +11540,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EqualRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EqualRect"),
+                    findOrThrow("EqualRect"),
                     DESC);
     }
 
@@ -11588,13 +11588,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class PtInRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
+            C_INT,
+            C_POINTER,
             tagPOINT.layout()
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("PtInRect"),
+                    findOrThrow("PtInRect"),
                     DESC);
     }
 
@@ -11636,13 +11636,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowWord {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_SHORT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowWord"),
+                    findOrThrow("GetWindowWord"),
                     DESC);
     }
 
@@ -11684,14 +11684,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWindowWord {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_SHORT
+            C_SHORT,
+            C_POINTER,
+            C_INT,
+            C_SHORT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowWord"),
+                    findOrThrow("SetWindowWord"),
                     DESC);
     }
 
@@ -11733,13 +11733,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowLongA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowLongA"),
+                    findOrThrow("GetWindowLongA"),
                     DESC);
     }
 
@@ -11781,13 +11781,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowLongW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowLongW"),
+                    findOrThrow("GetWindowLongW"),
                     DESC);
     }
 
@@ -11829,14 +11829,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWindowLongA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowLongA"),
+                    findOrThrow("SetWindowLongA"),
                     DESC);
     }
 
@@ -11878,14 +11878,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWindowLongW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowLongW"),
+                    findOrThrow("SetWindowLongW"),
                     DESC);
     }
 
@@ -11927,13 +11927,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowLongPtrA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowLongPtrA"),
+                    findOrThrow("GetWindowLongPtrA"),
                     DESC);
     }
 
@@ -11975,13 +11975,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowLongPtrW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowLongPtrW"),
+                    findOrThrow("GetWindowLongPtrW"),
                     DESC);
     }
 
@@ -12023,14 +12023,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWindowLongPtrA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowLongPtrA"),
+                    findOrThrow("SetWindowLongPtrA"),
                     DESC);
     }
 
@@ -12072,14 +12072,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWindowLongPtrW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowLongPtrW"),
+                    findOrThrow("SetWindowLongPtrW"),
                     DESC);
     }
 
@@ -12121,13 +12121,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetClassWord {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_SHORT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetClassWord"),
+                    findOrThrow("GetClassWord"),
                     DESC);
     }
 
@@ -12169,14 +12169,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetClassWord {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_SHORT
+            C_SHORT,
+            C_POINTER,
+            C_INT,
+            C_SHORT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetClassWord"),
+                    findOrThrow("SetClassWord"),
                     DESC);
     }
 
@@ -12218,13 +12218,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetClassLongA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetClassLongA"),
+                    findOrThrow("GetClassLongA"),
                     DESC);
     }
 
@@ -12266,13 +12266,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetClassLongW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetClassLongW"),
+                    findOrThrow("GetClassLongW"),
                     DESC);
     }
 
@@ -12314,14 +12314,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetClassLongA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetClassLongA"),
+                    findOrThrow("SetClassLongA"),
                     DESC);
     }
 
@@ -12363,14 +12363,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetClassLongW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetClassLongW"),
+                    findOrThrow("SetClassLongW"),
                     DESC);
     }
 
@@ -12412,13 +12412,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetClassLongPtrA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetClassLongPtrA"),
+                    findOrThrow("GetClassLongPtrA"),
                     DESC);
     }
 
@@ -12460,13 +12460,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetClassLongPtrW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetClassLongPtrW"),
+                    findOrThrow("GetClassLongPtrW"),
                     DESC);
     }
 
@@ -12508,14 +12508,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetClassLongPtrA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetClassLongPtrA"),
+                    findOrThrow("SetClassLongPtrA"),
                     DESC);
     }
 
@@ -12557,14 +12557,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetClassLongPtrW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetClassLongPtrW"),
+                    findOrThrow("SetClassLongPtrW"),
                     DESC);
     }
 
@@ -12606,12 +12606,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetProcessDefaultLayout {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetProcessDefaultLayout"),
+                    findOrThrow("GetProcessDefaultLayout"),
                     DESC);
     }
 
@@ -12653,12 +12653,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetProcessDefaultLayout {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetProcessDefaultLayout"),
+                    findOrThrow("SetProcessDefaultLayout"),
                     DESC);
     }
 
@@ -12700,10 +12700,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDesktopWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDesktopWindow"),
+                    findOrThrow("GetDesktopWindow"),
                     DESC);
     }
 
@@ -12745,12 +12745,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetParent {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetParent"),
+                    findOrThrow("GetParent"),
                     DESC);
     }
 
@@ -12792,13 +12792,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetParent {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetParent"),
+                    findOrThrow("SetParent"),
                     DESC);
     }
 
@@ -12840,14 +12840,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumChildWindows {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumChildWindows"),
+                    findOrThrow("EnumChildWindows"),
                     DESC);
     }
 
@@ -12889,13 +12889,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FindWindowA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FindWindowA"),
+                    findOrThrow("FindWindowA"),
                     DESC);
     }
 
@@ -12937,13 +12937,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FindWindowW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FindWindowW"),
+                    findOrThrow("FindWindowW"),
                     DESC);
     }
 
@@ -12985,15 +12985,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FindWindowExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FindWindowExA"),
+                    findOrThrow("FindWindowExA"),
                     DESC);
     }
 
@@ -13035,15 +13035,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FindWindowExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FindWindowExW"),
+                    findOrThrow("FindWindowExW"),
                     DESC);
     }
 
@@ -13085,10 +13085,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetShellWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetShellWindow"),
+                    findOrThrow("GetShellWindow"),
                     DESC);
     }
 
@@ -13130,12 +13130,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegisterShellHookWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegisterShellHookWindow"),
+                    findOrThrow("RegisterShellHookWindow"),
                     DESC);
     }
 
@@ -13177,12 +13177,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DeregisterShellHookWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DeregisterShellHookWindow"),
+                    findOrThrow("DeregisterShellHookWindow"),
                     DESC);
     }
 
@@ -13224,13 +13224,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumWindows {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumWindows"),
+                    findOrThrow("EnumWindows"),
                     DESC);
     }
 
@@ -13272,14 +13272,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumThreadWindows {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumThreadWindows"),
+                    findOrThrow("EnumThreadWindows"),
                     DESC);
     }
 
@@ -13321,14 +13321,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetClassNameA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetClassNameA"),
+                    findOrThrow("GetClassNameA"),
                     DESC);
     }
 
@@ -13370,14 +13370,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetClassNameW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetClassNameW"),
+                    findOrThrow("GetClassNameW"),
                     DESC);
     }
 
@@ -13419,12 +13419,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetTopWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetTopWindow"),
+                    findOrThrow("GetTopWindow"),
                     DESC);
     }
 
@@ -13466,13 +13466,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowThreadProcessId {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowThreadProcessId"),
+                    findOrThrow("GetWindowThreadProcessId"),
                     DESC);
     }
 
@@ -13514,12 +13514,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsGUIThread {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsGUIThread"),
+                    findOrThrow("IsGUIThread"),
                     DESC);
     }
 
@@ -13561,12 +13561,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetLastActivePopup {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetLastActivePopup"),
+                    findOrThrow("GetLastActivePopup"),
                     DESC);
     }
 
@@ -13608,13 +13608,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindow"),
+                    findOrThrow("GetWindow"),
                     DESC);
     }
 
@@ -13656,13 +13656,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWindowsHookA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowsHookA"),
+                    findOrThrow("SetWindowsHookA"),
                     DESC);
     }
 
@@ -13704,13 +13704,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWindowsHookW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowsHookW"),
+                    findOrThrow("SetWindowsHookW"),
                     DESC);
     }
 
@@ -13752,13 +13752,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class UnhookWindowsHook {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("UnhookWindowsHook"),
+                    findOrThrow("UnhookWindowsHook"),
                     DESC);
     }
 
@@ -13800,15 +13800,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWindowsHookExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowsHookExA"),
+                    findOrThrow("SetWindowsHookExA"),
                     DESC);
     }
 
@@ -13850,15 +13850,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWindowsHookExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWindowsHookExW"),
+                    findOrThrow("SetWindowsHookExW"),
                     DESC);
     }
 
@@ -13900,12 +13900,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class UnhookWindowsHookEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("UnhookWindowsHookEx"),
+                    findOrThrow("UnhookWindowsHookEx"),
                     DESC);
     }
 
@@ -13947,15 +13947,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CallNextHookEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CallNextHookEx"),
+                    findOrThrow("CallNextHookEx"),
                     DESC);
     }
 
@@ -13997,16 +13997,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CheckMenuRadioItem {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CheckMenuRadioItem"),
+                    findOrThrow("CheckMenuRadioItem"),
                     DESC);
     }
 
@@ -14053,7 +14053,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PMENUITEMTEMPLATEHEADER
      * }
      */
-    public static final AddressLayout PMENUITEMTEMPLATEHEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PMENUITEMTEMPLATEHEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct {
@@ -14063,17 +14063,17 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PMENUITEMTEMPLATE
      * }
      */
-    public static final AddressLayout PMENUITEMTEMPLATE = Windows_h.C_POINTER;
+    public static final AddressLayout PMENUITEMTEMPLATE = C_POINTER;
 
     private static class LoadBitmapA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadBitmapA"),
+                    findOrThrow("LoadBitmapA"),
                     DESC);
     }
 
@@ -14115,13 +14115,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadBitmapW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadBitmapW"),
+                    findOrThrow("LoadBitmapW"),
                     DESC);
     }
 
@@ -14163,13 +14163,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadCursorA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadCursorA"),
+                    findOrThrow("LoadCursorA"),
                     DESC);
     }
 
@@ -14211,13 +14211,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadCursorW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadCursorW"),
+                    findOrThrow("LoadCursorW"),
                     DESC);
     }
 
@@ -14259,12 +14259,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadCursorFromFileA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadCursorFromFileA"),
+                    findOrThrow("LoadCursorFromFileA"),
                     DESC);
     }
 
@@ -14306,12 +14306,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadCursorFromFileW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadCursorFromFileW"),
+                    findOrThrow("LoadCursorFromFileW"),
                     DESC);
     }
 
@@ -14353,18 +14353,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreateCursor {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreateCursor"),
+                    findOrThrow("CreateCursor"),
                     DESC);
     }
 
@@ -14406,12 +14406,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DestroyCursor {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DestroyCursor"),
+                    findOrThrow("DestroyCursor"),
                     DESC);
     }
 
@@ -14453,13 +14453,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetSystemCursor {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetSystemCursor"),
+                    findOrThrow("SetSystemCursor"),
                     DESC);
     }
 
@@ -14503,17 +14503,17 @@ public class Windows_h_22 extends Windows_h_23 {
      * typedef ICONINFO *PICONINFO
      * }
      */
-    public static final AddressLayout PICONINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PICONINFO = C_POINTER;
 
     private static class LoadIconA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadIconA"),
+                    findOrThrow("LoadIconA"),
                     DESC);
     }
 
@@ -14555,13 +14555,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadIconW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadIconW"),
+                    findOrThrow("LoadIconW"),
                     DESC);
     }
 
@@ -14603,19 +14603,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class PrivateExtractIconsA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("PrivateExtractIconsA"),
+                    findOrThrow("PrivateExtractIconsA"),
                     DESC);
     }
 
@@ -14657,19 +14657,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class PrivateExtractIconsW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("PrivateExtractIconsW"),
+                    findOrThrow("PrivateExtractIconsW"),
                     DESC);
     }
 
@@ -14711,18 +14711,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreateIcon {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_CHAR,
-            Windows_h.C_CHAR,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_CHAR,
+            C_CHAR,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreateIcon"),
+                    findOrThrow("CreateIcon"),
                     DESC);
     }
 
@@ -14764,12 +14764,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DestroyIcon {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DestroyIcon"),
+                    findOrThrow("DestroyIcon"),
                     DESC);
     }
 
@@ -14811,13 +14811,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LookupIconIdFromDirectory {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LookupIconIdFromDirectory"),
+                    findOrThrow("LookupIconIdFromDirectory"),
                     DESC);
     }
 
@@ -14859,16 +14859,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LookupIconIdFromDirectoryEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LookupIconIdFromDirectoryEx"),
+                    findOrThrow("LookupIconIdFromDirectoryEx"),
                     DESC);
     }
 
@@ -14910,15 +14910,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreateIconFromResource {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreateIconFromResource"),
+                    findOrThrow("CreateIconFromResource"),
                     DESC);
     }
 
@@ -14960,18 +14960,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreateIconFromResourceEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_INT,
+            C_LONG,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreateIconFromResourceEx"),
+                    findOrThrow("CreateIconFromResourceEx"),
                     DESC);
     }
 
@@ -15023,16 +15023,16 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPCURSORSHAPE
      * }
      */
-    public static final AddressLayout LPCURSORSHAPE = Windows_h.C_POINTER;
+    public static final AddressLayout LPCURSORSHAPE = C_POINTER;
 
     private static class SetThreadCursorCreationScaling {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetThreadCursorCreationScaling"),
+                    findOrThrow("SetThreadCursorCreationScaling"),
                     DESC);
     }
 
@@ -15074,17 +15074,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadImageA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadImageA"),
+                    findOrThrow("LoadImageA"),
                     DESC);
     }
 
@@ -15126,17 +15126,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadImageW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadImageW"),
+                    findOrThrow("LoadImageW"),
                     DESC);
     }
 
@@ -15178,16 +15178,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CopyImage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CopyImage"),
+                    findOrThrow("CopyImage"),
                     DESC);
     }
 
@@ -15229,20 +15229,20 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DrawIconEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DrawIconEx"),
+                    findOrThrow("DrawIconEx"),
                     DESC);
     }
 
@@ -15284,12 +15284,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreateIconIndirect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreateIconIndirect"),
+                    findOrThrow("CreateIconIndirect"),
                     DESC);
     }
 
@@ -15331,12 +15331,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CopyIcon {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CopyIcon"),
+                    findOrThrow("CopyIcon"),
                     DESC);
     }
 
@@ -15378,13 +15378,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetIconInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetIconInfo"),
+                    findOrThrow("GetIconInfo"),
                     DESC);
     }
 
@@ -15438,7 +15438,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PICONINFOEXA
      * }
      */
-    public static final AddressLayout PICONINFOEXA = Windows_h.C_POINTER;
+    public static final AddressLayout PICONINFOEXA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _ICONINFOEXW {
@@ -15454,23 +15454,23 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PICONINFOEXW
      * }
      */
-    public static final AddressLayout PICONINFOEXW = Windows_h.C_POINTER;
+    public static final AddressLayout PICONINFOEXW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PICONINFOEXA PICONINFOEX
      * }
      */
-    public static final AddressLayout PICONINFOEX = Windows_h.C_POINTER;
+    public static final AddressLayout PICONINFOEX = C_POINTER;
 
     private static class GetIconInfoExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetIconInfoExA"),
+                    findOrThrow("GetIconInfoExA"),
                     DESC);
     }
 
@@ -15512,13 +15512,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetIconInfoExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetIconInfoExW"),
+                    findOrThrow("GetIconInfoExW"),
                     DESC);
     }
 
@@ -15578,13 +15578,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsDialogMessageA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsDialogMessageA"),
+                    findOrThrow("IsDialogMessageA"),
                     DESC);
     }
 
@@ -15626,13 +15626,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsDialogMessageW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsDialogMessageW"),
+                    findOrThrow("IsDialogMessageW"),
                     DESC);
     }
 
@@ -15674,13 +15674,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MapDialogRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MapDialogRect"),
+                    findOrThrow("MapDialogRect"),
                     DESC);
     }
 
@@ -15722,16 +15722,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DlgDirListA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DlgDirListA"),
+                    findOrThrow("DlgDirListA"),
                     DESC);
     }
 
@@ -15773,16 +15773,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DlgDirListW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DlgDirListW"),
+                    findOrThrow("DlgDirListW"),
                     DESC);
     }
 
@@ -15824,15 +15824,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DlgDirSelectExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DlgDirSelectExA"),
+                    findOrThrow("DlgDirSelectExA"),
                     DESC);
     }
 
@@ -15874,15 +15874,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DlgDirSelectExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DlgDirSelectExW"),
+                    findOrThrow("DlgDirSelectExW"),
                     DESC);
     }
 
@@ -15924,16 +15924,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DlgDirListComboBoxA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DlgDirListComboBoxA"),
+                    findOrThrow("DlgDirListComboBoxA"),
                     DESC);
     }
 
@@ -15975,16 +15975,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DlgDirListComboBoxW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DlgDirListComboBoxW"),
+                    findOrThrow("DlgDirListComboBoxW"),
                     DESC);
     }
 
@@ -16026,15 +16026,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DlgDirSelectComboBoxExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DlgDirSelectComboBoxExA"),
+                    findOrThrow("DlgDirSelectComboBoxExA"),
                     DESC);
     }
 
@@ -16076,15 +16076,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DlgDirSelectComboBoxExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DlgDirSelectComboBoxExW"),
+                    findOrThrow("DlgDirSelectComboBoxExW"),
                     DESC);
     }
 
@@ -16136,25 +16136,25 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPSCROLLINFO
      * }
      */
-    public static final AddressLayout LPSCROLLINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPSCROLLINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const SCROLLINFO *LPCSCROLLINFO
      * }
      */
-    public static final AddressLayout LPCSCROLLINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPCSCROLLINFO = C_POINTER;
 
     private static class SetScrollInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetScrollInfo"),
+                    findOrThrow("SetScrollInfo"),
                     DESC);
     }
 
@@ -16196,14 +16196,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetScrollInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetScrollInfo"),
+                    findOrThrow("GetScrollInfo"),
                     DESC);
     }
 
@@ -16257,7 +16257,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMDICREATESTRUCTA
      * }
      */
-    public static final AddressLayout LPMDICREATESTRUCTA = Windows_h.C_POINTER;
+    public static final AddressLayout LPMDICREATESTRUCTA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMDICREATESTRUCTW {
@@ -16273,13 +16273,13 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMDICREATESTRUCTW
      * }
      */
-    public static final AddressLayout LPMDICREATESTRUCTW = Windows_h.C_POINTER;
+    public static final AddressLayout LPMDICREATESTRUCTW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPMDICREATESTRUCTA LPMDICREATESTRUCT
      * }
      */
-    public static final AddressLayout LPMDICREATESTRUCT = Windows_h.C_POINTER;
+    public static final AddressLayout LPMDICREATESTRUCT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagCLIENTCREATESTRUCT {
@@ -16288,20 +16288,20 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPCLIENTCREATESTRUCT
      * }
      */
-    public static final AddressLayout LPCLIENTCREATESTRUCT = Windows_h.C_POINTER;
+    public static final AddressLayout LPCLIENTCREATESTRUCT = C_POINTER;
 
     private static class DefFrameProcA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DefFrameProcA"),
+                    findOrThrow("DefFrameProcA"),
                     DESC);
     }
 
@@ -16343,16 +16343,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DefFrameProcW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DefFrameProcW"),
+                    findOrThrow("DefFrameProcW"),
                     DESC);
     }
 
@@ -16394,15 +16394,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DefMDIChildProcA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DefMDIChildProcA"),
+                    findOrThrow("DefMDIChildProcA"),
                     DESC);
     }
 
@@ -16444,15 +16444,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DefMDIChildProcW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_LONG_LONG
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DefMDIChildProcW"),
+                    findOrThrow("DefMDIChildProcW"),
                     DESC);
     }
 
@@ -16494,13 +16494,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class TranslateMDISysAccel {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("TranslateMDISysAccel"),
+                    findOrThrow("TranslateMDISysAccel"),
                     DESC);
     }
 
@@ -16542,12 +16542,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ArrangeIconicWindows {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ArrangeIconicWindows"),
+                    findOrThrow("ArrangeIconicWindows"),
                     DESC);
     }
 
@@ -16589,21 +16589,21 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreateMDIWindowA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreateMDIWindowA"),
+                    findOrThrow("CreateMDIWindowA"),
                     DESC);
     }
 
@@ -16645,21 +16645,21 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreateMDIWindowW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreateMDIWindowW"),
+                    findOrThrow("CreateMDIWindowW"),
                     DESC);
     }
 
@@ -16701,16 +16701,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class TileWindows {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_SHORT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("TileWindows"),
+                    findOrThrow("TileWindows"),
                     DESC);
     }
 
@@ -16752,16 +16752,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CascadeWindows {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_SHORT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CascadeWindows"),
+                    findOrThrow("CascadeWindows"),
                     DESC);
     }
 
@@ -16805,7 +16805,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * typedef DWORD HELPPOLY
      * }
      */
-    public static final OfInt HELPPOLY = Windows_h.C_LONG;
+    public static final OfInt HELPPOLY = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef struct tagMULTIKEYHELPA {
@@ -16815,7 +16815,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PMULTIKEYHELPA
      * }
      */
-    public static final AddressLayout PMULTIKEYHELPA = Windows_h.C_POINTER;
+    public static final AddressLayout PMULTIKEYHELPA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMULTIKEYHELPA {
@@ -16825,7 +16825,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMULTIKEYHELPA
      * }
      */
-    public static final AddressLayout LPMULTIKEYHELPA = Windows_h.C_POINTER;
+    public static final AddressLayout LPMULTIKEYHELPA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMULTIKEYHELPW {
@@ -16835,7 +16835,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PMULTIKEYHELPW
      * }
      */
-    public static final AddressLayout PMULTIKEYHELPW = Windows_h.C_POINTER;
+    public static final AddressLayout PMULTIKEYHELPW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMULTIKEYHELPW {
@@ -16845,19 +16845,19 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMULTIKEYHELPW
      * }
      */
-    public static final AddressLayout LPMULTIKEYHELPW = Windows_h.C_POINTER;
+    public static final AddressLayout LPMULTIKEYHELPW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PMULTIKEYHELPA PMULTIKEYHELP
      * }
      */
-    public static final AddressLayout PMULTIKEYHELP = Windows_h.C_POINTER;
+    public static final AddressLayout PMULTIKEYHELP = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPMULTIKEYHELPA LPMULTIKEYHELP
      * }
      */
-    public static final AddressLayout LPMULTIKEYHELP = Windows_h.C_POINTER;
+    public static final AddressLayout LPMULTIKEYHELP = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagHELPWININFOA {
@@ -16871,7 +16871,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PHELPWININFOA
      * }
      */
-    public static final AddressLayout PHELPWININFOA = Windows_h.C_POINTER;
+    public static final AddressLayout PHELPWININFOA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagHELPWININFOA {
@@ -16885,7 +16885,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPHELPWININFOA
      * }
      */
-    public static final AddressLayout LPHELPWININFOA = Windows_h.C_POINTER;
+    public static final AddressLayout LPHELPWININFOA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagHELPWININFOW {
@@ -16899,7 +16899,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PHELPWININFOW
      * }
      */
-    public static final AddressLayout PHELPWININFOW = Windows_h.C_POINTER;
+    public static final AddressLayout PHELPWININFOW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagHELPWININFOW {
@@ -16913,31 +16913,31 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPHELPWININFOW
      * }
      */
-    public static final AddressLayout LPHELPWININFOW = Windows_h.C_POINTER;
+    public static final AddressLayout LPHELPWININFOW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PHELPWININFOA PHELPWININFO
      * }
      */
-    public static final AddressLayout PHELPWININFO = Windows_h.C_POINTER;
+    public static final AddressLayout PHELPWININFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPHELPWININFOA LPHELPWININFO
      * }
      */
-    public static final AddressLayout LPHELPWININFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPHELPWININFO = C_POINTER;
 
     private static class WinHelpA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WinHelpA"),
+                    findOrThrow("WinHelpA"),
                     DESC);
     }
 
@@ -16979,15 +16979,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WinHelpW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WinHelpW"),
+                    findOrThrow("WinHelpW"),
                     DESC);
     }
 
@@ -17029,13 +17029,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetGuiResources {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetGuiResources"),
+                    findOrThrow("GetGuiResources"),
                     DESC);
     }
 
@@ -17084,7 +17084,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PTOUCHPREDICTIONPARAMETERS
      * }
      */
-    public static final AddressLayout PTOUCHPREDICTIONPARAMETERS = Windows_h.C_POINTER;
+    public static final AddressLayout PTOUCHPREDICTIONPARAMETERS = C_POINTER;
     private static final int HANDEDNESS_LEFT = (int)0L;
     /**
      * {@snippet lang=c :
@@ -17111,7 +17111,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PHANDEDNESS
      * }
      */
-    public static final AddressLayout PHANDEDNESS = Windows_h.C_POINTER;
+    public static final AddressLayout PHANDEDNESS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagNONCLIENTMETRICSA {
@@ -17134,7 +17134,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PNONCLIENTMETRICSA
      * }
      */
-    public static final AddressLayout PNONCLIENTMETRICSA = Windows_h.C_POINTER;
+    public static final AddressLayout PNONCLIENTMETRICSA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagNONCLIENTMETRICSA {
@@ -17157,7 +17157,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPNONCLIENTMETRICSA
      * }
      */
-    public static final AddressLayout LPNONCLIENTMETRICSA = Windows_h.C_POINTER;
+    public static final AddressLayout LPNONCLIENTMETRICSA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagNONCLIENTMETRICSW {
@@ -17180,7 +17180,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PNONCLIENTMETRICSW
      * }
      */
-    public static final AddressLayout PNONCLIENTMETRICSW = Windows_h.C_POINTER;
+    public static final AddressLayout PNONCLIENTMETRICSW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagNONCLIENTMETRICSW {
@@ -17203,19 +17203,19 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPNONCLIENTMETRICSW
      * }
      */
-    public static final AddressLayout LPNONCLIENTMETRICSW = Windows_h.C_POINTER;
+    public static final AddressLayout LPNONCLIENTMETRICSW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PNONCLIENTMETRICSA PNONCLIENTMETRICS
      * }
      */
-    public static final AddressLayout PNONCLIENTMETRICS = Windows_h.C_POINTER;
+    public static final AddressLayout PNONCLIENTMETRICS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPNONCLIENTMETRICSA LPNONCLIENTMETRICS
      * }
      */
-    public static final AddressLayout LPNONCLIENTMETRICS = Windows_h.C_POINTER;
+    public static final AddressLayout LPNONCLIENTMETRICS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMINIMIZEDMETRICS {
@@ -17227,7 +17227,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PMINIMIZEDMETRICS
      * }
      */
-    public static final AddressLayout PMINIMIZEDMETRICS = Windows_h.C_POINTER;
+    public static final AddressLayout PMINIMIZEDMETRICS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMINIMIZEDMETRICS {
@@ -17239,7 +17239,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMINIMIZEDMETRICS
      * }
      */
-    public static final AddressLayout LPMINIMIZEDMETRICS = Windows_h.C_POINTER;
+    public static final AddressLayout LPMINIMIZEDMETRICS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagICONMETRICSA {
@@ -17251,7 +17251,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PICONMETRICSA
      * }
      */
-    public static final AddressLayout PICONMETRICSA = Windows_h.C_POINTER;
+    public static final AddressLayout PICONMETRICSA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagICONMETRICSA {
@@ -17263,7 +17263,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPICONMETRICSA
      * }
      */
-    public static final AddressLayout LPICONMETRICSA = Windows_h.C_POINTER;
+    public static final AddressLayout LPICONMETRICSA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagICONMETRICSW {
@@ -17275,7 +17275,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PICONMETRICSW
      * }
      */
-    public static final AddressLayout PICONMETRICSW = Windows_h.C_POINTER;
+    public static final AddressLayout PICONMETRICSW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagICONMETRICSW {
@@ -17287,19 +17287,19 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPICONMETRICSW
      * }
      */
-    public static final AddressLayout LPICONMETRICSW = Windows_h.C_POINTER;
+    public static final AddressLayout LPICONMETRICSW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PICONMETRICSA PICONMETRICS
      * }
      */
-    public static final AddressLayout PICONMETRICS = Windows_h.C_POINTER;
+    public static final AddressLayout PICONMETRICS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPICONMETRICSA LPICONMETRICS
      * }
      */
-    public static final AddressLayout LPICONMETRICS = Windows_h.C_POINTER;
+    public static final AddressLayout LPICONMETRICS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagANIMATIONINFO {
@@ -17308,7 +17308,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPANIMATIONINFO
      * }
      */
-    public static final AddressLayout LPANIMATIONINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPANIMATIONINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagSERIALKEYSA {
@@ -17322,7 +17322,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPSERIALKEYSA
      * }
      */
-    public static final AddressLayout LPSERIALKEYSA = Windows_h.C_POINTER;
+    public static final AddressLayout LPSERIALKEYSA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagSERIALKEYSW {
@@ -17336,13 +17336,13 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPSERIALKEYSW
      * }
      */
-    public static final AddressLayout LPSERIALKEYSW = Windows_h.C_POINTER;
+    public static final AddressLayout LPSERIALKEYSW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPSERIALKEYSA LPSERIALKEYS
      * }
      */
-    public static final AddressLayout LPSERIALKEYS = Windows_h.C_POINTER;
+    public static final AddressLayout LPSERIALKEYS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagHIGHCONTRASTA {
@@ -17352,7 +17352,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPHIGHCONTRASTA
      * }
      */
-    public static final AddressLayout LPHIGHCONTRASTA = Windows_h.C_POINTER;
+    public static final AddressLayout LPHIGHCONTRASTA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagHIGHCONTRASTW {
@@ -17362,13 +17362,13 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPHIGHCONTRASTW
      * }
      */
-    public static final AddressLayout LPHIGHCONTRASTW = Windows_h.C_POINTER;
+    public static final AddressLayout LPHIGHCONTRASTW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPHIGHCONTRASTA LPHIGHCONTRAST
      * }
      */
-    public static final AddressLayout LPHIGHCONTRAST = Windows_h.C_POINTER;
+    public static final AddressLayout LPHIGHCONTRAST = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _VIDEOPARAMETERS {
@@ -17398,7 +17398,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PVIDEOPARAMETERS
      * }
      */
-    public static final AddressLayout PVIDEOPARAMETERS = Windows_h.C_POINTER;
+    public static final AddressLayout PVIDEOPARAMETERS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _VIDEOPARAMETERS {
@@ -17428,17 +17428,17 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPVIDEOPARAMETERS
      * }
      */
-    public static final AddressLayout LPVIDEOPARAMETERS = Windows_h.C_POINTER;
+    public static final AddressLayout LPVIDEOPARAMETERS = C_POINTER;
 
     private static class ChangeDisplaySettingsA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ChangeDisplaySettingsA"),
+                    findOrThrow("ChangeDisplaySettingsA"),
                     DESC);
     }
 
@@ -17480,13 +17480,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ChangeDisplaySettingsW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ChangeDisplaySettingsW"),
+                    findOrThrow("ChangeDisplaySettingsW"),
                     DESC);
     }
 
@@ -17528,16 +17528,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ChangeDisplaySettingsExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ChangeDisplaySettingsExA"),
+                    findOrThrow("ChangeDisplaySettingsExA"),
                     DESC);
     }
 
@@ -17579,16 +17579,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ChangeDisplaySettingsExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ChangeDisplaySettingsExW"),
+                    findOrThrow("ChangeDisplaySettingsExW"),
                     DESC);
     }
 
@@ -17630,14 +17630,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumDisplaySettingsA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumDisplaySettingsA"),
+                    findOrThrow("EnumDisplaySettingsA"),
                     DESC);
     }
 
@@ -17679,14 +17679,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumDisplaySettingsW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumDisplaySettingsW"),
+                    findOrThrow("EnumDisplaySettingsW"),
                     DESC);
     }
 
@@ -17728,15 +17728,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumDisplaySettingsExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumDisplaySettingsExA"),
+                    findOrThrow("EnumDisplaySettingsExA"),
                     DESC);
     }
 
@@ -17778,15 +17778,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumDisplaySettingsExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumDisplaySettingsExW"),
+                    findOrThrow("EnumDisplaySettingsExW"),
                     DESC);
     }
 
@@ -17828,15 +17828,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumDisplayDevicesA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumDisplayDevicesA"),
+                    findOrThrow("EnumDisplayDevicesA"),
                     DESC);
     }
 
@@ -17878,15 +17878,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumDisplayDevicesW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumDisplayDevicesW"),
+                    findOrThrow("EnumDisplayDevicesW"),
                     DESC);
     }
 
@@ -17928,14 +17928,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDisplayConfigBufferSizes {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDisplayConfigBufferSizes"),
+                    findOrThrow("GetDisplayConfigBufferSizes"),
                     DESC);
     }
 
@@ -17977,16 +17977,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetDisplayConfig {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_LONG,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetDisplayConfig"),
+                    findOrThrow("SetDisplayConfig"),
                     DESC);
     }
 
@@ -18028,17 +18028,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class QueryDisplayConfig {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("QueryDisplayConfig"),
+                    findOrThrow("QueryDisplayConfig"),
                     DESC);
     }
 
@@ -18080,12 +18080,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DisplayConfigGetDeviceInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DisplayConfigGetDeviceInfo"),
+                    findOrThrow("DisplayConfigGetDeviceInfo"),
                     DESC);
     }
 
@@ -18127,12 +18127,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DisplayConfigSetDeviceInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DisplayConfigSetDeviceInfo"),
+                    findOrThrow("DisplayConfigSetDeviceInfo"),
                     DESC);
     }
 
@@ -18174,15 +18174,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SystemParametersInfoA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SystemParametersInfoA"),
+                    findOrThrow("SystemParametersInfoA"),
                     DESC);
     }
 
@@ -18224,15 +18224,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SystemParametersInfoW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SystemParametersInfoW"),
+                    findOrThrow("SystemParametersInfoW"),
                     DESC);
     }
 
@@ -18274,16 +18274,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SystemParametersInfoForDpi {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SystemParametersInfoForDpi"),
+                    findOrThrow("SystemParametersInfoForDpi"),
                     DESC);
     }
 
@@ -18334,7 +18334,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPFILTERKEYS
      * }
      */
-    public static final AddressLayout LPFILTERKEYS = Windows_h.C_POINTER;
+    public static final AddressLayout LPFILTERKEYS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagSTICKYKEYS {
@@ -18343,7 +18343,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPSTICKYKEYS
      * }
      */
-    public static final AddressLayout LPSTICKYKEYS = Windows_h.C_POINTER;
+    public static final AddressLayout LPSTICKYKEYS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMOUSEKEYS {
@@ -18357,7 +18357,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMOUSEKEYS
      * }
      */
-    public static final AddressLayout LPMOUSEKEYS = Windows_h.C_POINTER;
+    public static final AddressLayout LPMOUSEKEYS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagACCESSTIMEOUT {
@@ -18367,7 +18367,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPACCESSTIMEOUT
      * }
      */
-    public static final AddressLayout LPACCESSTIMEOUT = Windows_h.C_POINTER;
+    public static final AddressLayout LPACCESSTIMEOUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagSOUNDSENTRYA {
@@ -18386,7 +18386,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPSOUNDSENTRYA
      * }
      */
-    public static final AddressLayout LPSOUNDSENTRYA = Windows_h.C_POINTER;
+    public static final AddressLayout LPSOUNDSENTRYA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagSOUNDSENTRYW {
@@ -18405,20 +18405,20 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPSOUNDSENTRYW
      * }
      */
-    public static final AddressLayout LPSOUNDSENTRYW = Windows_h.C_POINTER;
+    public static final AddressLayout LPSOUNDSENTRYW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPSOUNDSENTRYA LPSOUNDSENTRY
      * }
      */
-    public static final AddressLayout LPSOUNDSENTRY = Windows_h.C_POINTER;
+    public static final AddressLayout LPSOUNDSENTRY = C_POINTER;
 
     private static class SoundSentry {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SoundSentry"),
+                    findOrThrow("SoundSentry"),
                     DESC);
     }
 
@@ -18465,7 +18465,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPTOGGLEKEYS
      * }
      */
-    public static final AddressLayout LPTOGGLEKEYS = Windows_h.C_POINTER;
+    public static final AddressLayout LPTOGGLEKEYS = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagAUDIODESCRIPTION {
@@ -18475,15 +18475,15 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPAUDIODESCRIPTION
      * }
      */
-    public static final AddressLayout LPAUDIODESCRIPTION = Windows_h.C_POINTER;
+    public static final AddressLayout LPAUDIODESCRIPTION = C_POINTER;
 
     private static class SetDebugErrorLevel {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_LONG
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetDebugErrorLevel"),
+                    findOrThrow("SetDebugErrorLevel"),
                     DESC);
     }
 
@@ -18525,12 +18525,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetLastErrorEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetLastErrorEx"),
+                    findOrThrow("SetLastErrorEx"),
                     DESC);
     }
 
@@ -18572,14 +18572,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class InternalGetWindowText {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("InternalGetWindowText"),
+                    findOrThrow("InternalGetWindowText"),
                     DESC);
     }
 
@@ -18621,10 +18621,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CancelShutdown {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CancelShutdown"),
+                    findOrThrow("CancelShutdown"),
                     DESC);
     }
 
@@ -18666,13 +18666,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MonitorFromPoint {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
+            C_POINTER,
             tagPOINT.layout(),
-            Windows_h.C_LONG
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MonitorFromPoint"),
+                    findOrThrow("MonitorFromPoint"),
                     DESC);
     }
 
@@ -18714,13 +18714,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MonitorFromRect {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MonitorFromRect"),
+                    findOrThrow("MonitorFromRect"),
                     DESC);
     }
 
@@ -18762,13 +18762,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MonitorFromWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MonitorFromWindow"),
+                    findOrThrow("MonitorFromWindow"),
                     DESC);
     }
 
@@ -18817,7 +18817,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMONITORINFO
      * }
      */
-    public static final AddressLayout LPMONITORINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPMONITORINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMONITORINFOEXA {
@@ -18825,7 +18825,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMONITORINFOEXA
      * }
      */
-    public static final AddressLayout LPMONITORINFOEXA = Windows_h.C_POINTER;
+    public static final AddressLayout LPMONITORINFOEXA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMONITORINFOEXW {
@@ -18833,23 +18833,23 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMONITORINFOEXW
      * }
      */
-    public static final AddressLayout LPMONITORINFOEXW = Windows_h.C_POINTER;
+    public static final AddressLayout LPMONITORINFOEXW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPMONITORINFOEXA LPMONITORINFOEX
      * }
      */
-    public static final AddressLayout LPMONITORINFOEX = Windows_h.C_POINTER;
+    public static final AddressLayout LPMONITORINFOEX = C_POINTER;
 
     private static class GetMonitorInfoA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMonitorInfoA"),
+                    findOrThrow("GetMonitorInfoA"),
                     DESC);
     }
 
@@ -18891,13 +18891,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetMonitorInfoW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMonitorInfoW"),
+                    findOrThrow("GetMonitorInfoW"),
                     DESC);
     }
 
@@ -18939,15 +18939,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumDisplayMonitors {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumDisplayMonitors"),
+                    findOrThrow("EnumDisplayMonitors"),
                     DESC);
     }
 
@@ -18989,14 +18989,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class NotifyWinEvent {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("NotifyWinEvent"),
+                    findOrThrow("NotifyWinEvent"),
                     DESC);
     }
 
@@ -19038,18 +19038,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetWinEventHook {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetWinEventHook"),
+                    findOrThrow("SetWinEventHook"),
                     DESC);
     }
 
@@ -19091,12 +19091,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsWinEventHookInstalled {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsWinEventHookInstalled"),
+                    findOrThrow("IsWinEventHookInstalled"),
                     DESC);
     }
 
@@ -19138,12 +19138,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class UnhookWinEvent {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("UnhookWinEvent"),
+                    findOrThrow("UnhookWinEvent"),
                     DESC);
     }
 
@@ -19197,7 +19197,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PGUITHREADINFO
      * }
      */
-    public static final AddressLayout PGUITHREADINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PGUITHREADINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagGUITHREADINFO {
@@ -19213,17 +19213,17 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPGUITHREADINFO
      * }
      */
-    public static final AddressLayout LPGUITHREADINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPGUITHREADINFO = C_POINTER;
 
     private static class GetGUIThreadInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetGUIThreadInfo"),
+                    findOrThrow("GetGUIThreadInfo"),
                     DESC);
     }
 
@@ -19265,12 +19265,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class BlockInput {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("BlockInput"),
+                    findOrThrow("BlockInput"),
                     DESC);
     }
 
@@ -19312,10 +19312,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetProcessDPIAware {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetProcessDPIAware"),
+                    findOrThrow("SetProcessDPIAware"),
                     DESC);
     }
 
@@ -19357,10 +19357,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsProcessDPIAware {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsProcessDPIAware"),
+                    findOrThrow("IsProcessDPIAware"),
                     DESC);
     }
 
@@ -19402,12 +19402,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetThreadDpiAwarenessContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetThreadDpiAwarenessContext"),
+                    findOrThrow("SetThreadDpiAwarenessContext"),
                     DESC);
     }
 
@@ -19449,10 +19449,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetThreadDpiAwarenessContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetThreadDpiAwarenessContext"),
+                    findOrThrow("GetThreadDpiAwarenessContext"),
                     DESC);
     }
 
@@ -19494,12 +19494,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowDpiAwarenessContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowDpiAwarenessContext"),
+                    findOrThrow("GetWindowDpiAwarenessContext"),
                     DESC);
     }
 
@@ -19541,12 +19541,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetAwarenessFromDpiAwarenessContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetAwarenessFromDpiAwarenessContext"),
+                    findOrThrow("GetAwarenessFromDpiAwarenessContext"),
                     DESC);
     }
 
@@ -19588,12 +19588,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDpiFromDpiAwarenessContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDpiFromDpiAwarenessContext"),
+                    findOrThrow("GetDpiFromDpiAwarenessContext"),
                     DESC);
     }
 
@@ -19635,13 +19635,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class AreDpiAwarenessContextsEqual {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("AreDpiAwarenessContextsEqual"),
+                    findOrThrow("AreDpiAwarenessContextsEqual"),
                     DESC);
     }
 
@@ -19683,12 +19683,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsValidDpiAwarenessContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsValidDpiAwarenessContext"),
+                    findOrThrow("IsValidDpiAwarenessContext"),
                     DESC);
     }
 
@@ -19730,12 +19730,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDpiForWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDpiForWindow"),
+                    findOrThrow("GetDpiForWindow"),
                     DESC);
     }
 
@@ -19777,10 +19777,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDpiForSystem {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDpiForSystem"),
+                    findOrThrow("GetDpiForSystem"),
                     DESC);
     }
 
@@ -19822,12 +19822,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetSystemDpiForProcess {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetSystemDpiForProcess"),
+                    findOrThrow("GetSystemDpiForProcess"),
                     DESC);
     }
 
@@ -19869,12 +19869,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnableNonClientDpiScaling {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnableNonClientDpiScaling"),
+                    findOrThrow("EnableNonClientDpiScaling"),
                     DESC);
     }
 
@@ -19916,13 +19916,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class InheritWindowMonitor {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("InheritWindowMonitor"),
+                    findOrThrow("InheritWindowMonitor"),
                     DESC);
     }
 
@@ -19964,12 +19964,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetProcessDpiAwarenessContext {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetProcessDpiAwarenessContext"),
+                    findOrThrow("SetProcessDpiAwarenessContext"),
                     DESC);
     }
 
@@ -20011,12 +20011,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDpiAwarenessContextForProcess {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDpiAwarenessContextForProcess"),
+                    findOrThrow("GetDpiAwarenessContextForProcess"),
                     DESC);
     }
 
@@ -20058,12 +20058,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetThreadDpiHostingBehavior {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetThreadDpiHostingBehavior"),
+                    findOrThrow("SetThreadDpiHostingBehavior"),
                     DESC);
     }
 
@@ -20105,10 +20105,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetThreadDpiHostingBehavior {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetThreadDpiHostingBehavior"),
+                    findOrThrow("GetThreadDpiHostingBehavior"),
                     DESC);
     }
 
@@ -20150,12 +20150,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowDpiHostingBehavior {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowDpiHostingBehavior"),
+                    findOrThrow("GetWindowDpiHostingBehavior"),
                     DESC);
     }
 
@@ -20197,14 +20197,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowModuleFileNameA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowModuleFileNameA"),
+                    findOrThrow("GetWindowModuleFileNameA"),
                     DESC);
     }
 
@@ -20246,14 +20246,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetWindowModuleFileNameW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowModuleFileNameW"),
+                    findOrThrow("GetWindowModuleFileNameW"),
                     DESC);
     }
 
@@ -20302,7 +20302,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PCURSORINFO
      * }
      */
-    public static final AddressLayout PCURSORINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PCURSORINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagCURSORINFO {
@@ -20313,16 +20313,16 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPCURSORINFO
      * }
      */
-    public static final AddressLayout LPCURSORINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPCURSORINFO = C_POINTER;
 
     private static class GetCursorInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCursorInfo"),
+                    findOrThrow("GetCursorInfo"),
                     DESC);
     }
 
@@ -20377,7 +20377,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PWINDOWINFO
      * }
      */
-    public static final AddressLayout PWINDOWINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PWINDOWINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagWINDOWINFO {
@@ -20394,17 +20394,17 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPWINDOWINFO
      * }
      */
-    public static final AddressLayout LPWINDOWINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPWINDOWINFO = C_POINTER;
 
     private static class GetWindowInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetWindowInfo"),
+                    findOrThrow("GetWindowInfo"),
                     DESC);
     }
 
@@ -20452,7 +20452,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PTITLEBARINFO
      * }
      */
-    public static final AddressLayout PTITLEBARINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PTITLEBARINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagTITLEBARINFO {
@@ -20462,17 +20462,17 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPTITLEBARINFO
      * }
      */
-    public static final AddressLayout LPTITLEBARINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPTITLEBARINFO = C_POINTER;
 
     private static class GetTitleBarInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetTitleBarInfo"),
+                    findOrThrow("GetTitleBarInfo"),
                     DESC);
     }
 
@@ -20521,7 +20521,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PTITLEBARINFOEX
      * }
      */
-    public static final AddressLayout PTITLEBARINFOEX = Windows_h.C_POINTER;
+    public static final AddressLayout PTITLEBARINFOEX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagTITLEBARINFOEX {
@@ -20532,7 +20532,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPTITLEBARINFOEX
      * }
      */
-    public static final AddressLayout LPTITLEBARINFOEX = Windows_h.C_POINTER;
+    public static final AddressLayout LPTITLEBARINFOEX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMENUBARINFO {
@@ -20546,7 +20546,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PMENUBARINFO
      * }
      */
-    public static final AddressLayout PMENUBARINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PMENUBARINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagMENUBARINFO {
@@ -20560,19 +20560,19 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPMENUBARINFO
      * }
      */
-    public static final AddressLayout LPMENUBARINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPMENUBARINFO = C_POINTER;
 
     private static class GetMenuBarInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetMenuBarInfo"),
+                    findOrThrow("GetMenuBarInfo"),
                     DESC);
     }
 
@@ -20624,7 +20624,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PSCROLLBARINFO
      * }
      */
-    public static final AddressLayout PSCROLLBARINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PSCROLLBARINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagSCROLLBARINFO {
@@ -20638,18 +20638,18 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPSCROLLBARINFO
      * }
      */
-    public static final AddressLayout LPSCROLLBARINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPSCROLLBARINFO = C_POINTER;
 
     private static class GetScrollBarInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetScrollBarInfo"),
+                    findOrThrow("GetScrollBarInfo"),
                     DESC);
     }
 
@@ -20701,7 +20701,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PCOMBOBOXINFO
      * }
      */
-    public static final AddressLayout PCOMBOBOXINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PCOMBOBOXINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagCOMBOBOXINFO {
@@ -20715,17 +20715,17 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPCOMBOBOXINFO
      * }
      */
-    public static final AddressLayout LPCOMBOBOXINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPCOMBOBOXINFO = C_POINTER;
 
     private static class GetComboBoxInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetComboBoxInfo"),
+                    findOrThrow("GetComboBoxInfo"),
                     DESC);
     }
 
@@ -20767,13 +20767,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetAncestor {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetAncestor"),
+                    findOrThrow("GetAncestor"),
                     DESC);
     }
 
@@ -20815,13 +20815,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RealChildWindowFromPoint {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
+            C_POINTER,
+            C_POINTER,
             tagPOINT.layout()
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RealChildWindowFromPoint"),
+                    findOrThrow("RealChildWindowFromPoint"),
                     DESC);
     }
 
@@ -20863,14 +20863,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RealGetWindowClassA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RealGetWindowClassA"),
+                    findOrThrow("RealGetWindowClassA"),
                     DESC);
     }
 
@@ -20912,14 +20912,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RealGetWindowClassW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RealGetWindowClassW"),
+                    findOrThrow("RealGetWindowClassW"),
                     DESC);
     }
 
@@ -20973,7 +20973,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PALTTABINFO
      * }
      */
-    public static final AddressLayout PALTTABINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PALTTABINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagALTTABINFO {
@@ -20989,20 +20989,20 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPALTTABINFO
      * }
      */
-    public static final AddressLayout LPALTTABINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPALTTABINFO = C_POINTER;
 
     private static class GetAltTabInfoA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetAltTabInfoA"),
+                    findOrThrow("GetAltTabInfoA"),
                     DESC);
     }
 
@@ -21044,16 +21044,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetAltTabInfoW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetAltTabInfoW"),
+                    findOrThrow("GetAltTabInfoW"),
                     DESC);
     }
 
@@ -21095,12 +21095,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetListBoxInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetListBoxInfo"),
+                    findOrThrow("GetListBoxInfo"),
                     DESC);
     }
 
@@ -21142,10 +21142,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LockWorkStation {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LockWorkStation"),
+                    findOrThrow("LockWorkStation"),
                     DESC);
     }
 
@@ -21187,14 +21187,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class UserHandleGrantAccess {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("UserHandleGrantAccess"),
+                    findOrThrow("UserHandleGrantAccess"),
                     DESC);
     }
 
@@ -21240,7 +21240,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *HRAWINPUT
      * }
      */
-    public static final AddressLayout HRAWINPUT = Windows_h.C_POINTER;
+    public static final AddressLayout HRAWINPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRAWINPUTHEADER {
@@ -21251,7 +21251,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PRAWINPUTHEADER
      * }
      */
-    public static final AddressLayout PRAWINPUTHEADER = Windows_h.C_POINTER;
+    public static final AddressLayout PRAWINPUTHEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRAWINPUTHEADER {
@@ -21262,7 +21262,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPRAWINPUTHEADER
      * }
      */
-    public static final AddressLayout LPRAWINPUTHEADER = Windows_h.C_POINTER;
+    public static final AddressLayout LPRAWINPUTHEADER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRAWMOUSE {
@@ -21281,7 +21281,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PRAWMOUSE
      * }
      */
-    public static final AddressLayout PRAWMOUSE = Windows_h.C_POINTER;
+    public static final AddressLayout PRAWMOUSE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRAWMOUSE {
@@ -21300,7 +21300,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPRAWMOUSE
      * }
      */
-    public static final AddressLayout LPRAWMOUSE = Windows_h.C_POINTER;
+    public static final AddressLayout LPRAWMOUSE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRAWKEYBOARD {
@@ -21313,7 +21313,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PRAWKEYBOARD
      * }
      */
-    public static final AddressLayout PRAWKEYBOARD = Windows_h.C_POINTER;
+    public static final AddressLayout PRAWKEYBOARD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRAWKEYBOARD {
@@ -21326,7 +21326,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPRAWKEYBOARD
      * }
      */
-    public static final AddressLayout LPRAWKEYBOARD = Windows_h.C_POINTER;
+    public static final AddressLayout LPRAWKEYBOARD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRAWHID {
@@ -21336,7 +21336,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PRAWHID
      * }
      */
-    public static final AddressLayout PRAWHID = Windows_h.C_POINTER;
+    public static final AddressLayout PRAWHID = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRAWHID {
@@ -21346,7 +21346,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPRAWHID
      * }
      */
-    public static final AddressLayout LPRAWHID = Windows_h.C_POINTER;
+    public static final AddressLayout LPRAWHID = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRAWINPUT {
@@ -21359,7 +21359,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PRAWINPUT
      * }
      */
-    public static final AddressLayout PRAWINPUT = Windows_h.C_POINTER;
+    public static final AddressLayout PRAWINPUT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRAWINPUT {
@@ -21372,20 +21372,20 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPRAWINPUT
      * }
      */
-    public static final AddressLayout LPRAWINPUT = Windows_h.C_POINTER;
+    public static final AddressLayout LPRAWINPUT = C_POINTER;
 
     private static class GetRawInputData {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetRawInputData"),
+                    findOrThrow("GetRawInputData"),
                     DESC);
     }
 
@@ -21434,7 +21434,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PRID_DEVICE_INFO_MOUSE
      * }
      */
-    public static final AddressLayout PRID_DEVICE_INFO_MOUSE = Windows_h.C_POINTER;
+    public static final AddressLayout PRID_DEVICE_INFO_MOUSE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRID_DEVICE_INFO_KEYBOARD {
@@ -21447,7 +21447,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PRID_DEVICE_INFO_KEYBOARD
      * }
      */
-    public static final AddressLayout PRID_DEVICE_INFO_KEYBOARD = Windows_h.C_POINTER;
+    public static final AddressLayout PRID_DEVICE_INFO_KEYBOARD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRID_DEVICE_INFO_HID {
@@ -21459,7 +21459,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PRID_DEVICE_INFO_HID
      * }
      */
-    public static final AddressLayout PRID_DEVICE_INFO_HID = Windows_h.C_POINTER;
+    public static final AddressLayout PRID_DEVICE_INFO_HID = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRID_DEVICE_INFO {
@@ -21473,7 +21473,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PRID_DEVICE_INFO
      * }
      */
-    public static final AddressLayout PRID_DEVICE_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PRID_DEVICE_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRID_DEVICE_INFO {
@@ -21487,19 +21487,19 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPRID_DEVICE_INFO
      * }
      */
-    public static final AddressLayout LPRID_DEVICE_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPRID_DEVICE_INFO = C_POINTER;
 
     private static class GetRawInputDeviceInfoA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetRawInputDeviceInfoA"),
+                    findOrThrow("GetRawInputDeviceInfoA"),
                     DESC);
     }
 
@@ -21541,15 +21541,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetRawInputDeviceInfoW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetRawInputDeviceInfoW"),
+                    findOrThrow("GetRawInputDeviceInfoW"),
                     DESC);
     }
 
@@ -21591,14 +21591,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetRawInputBuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetRawInputBuffer"),
+                    findOrThrow("GetRawInputBuffer"),
                     DESC);
     }
 
@@ -21647,7 +21647,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PRAWINPUTDEVICE
      * }
      */
-    public static final AddressLayout PRAWINPUTDEVICE = Windows_h.C_POINTER;
+    public static final AddressLayout PRAWINPUTDEVICE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagRAWINPUTDEVICE {
@@ -21658,24 +21658,24 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPRAWINPUTDEVICE
      * }
      */
-    public static final AddressLayout LPRAWINPUTDEVICE = Windows_h.C_POINTER;
+    public static final AddressLayout LPRAWINPUTDEVICE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const RAWINPUTDEVICE *PCRAWINPUTDEVICE
      * }
      */
-    public static final AddressLayout PCRAWINPUTDEVICE = Windows_h.C_POINTER;
+    public static final AddressLayout PCRAWINPUTDEVICE = C_POINTER;
 
     private static class RegisterRawInputDevices {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegisterRawInputDevices"),
+                    findOrThrow("RegisterRawInputDevices"),
                     DESC);
     }
 
@@ -21717,14 +21717,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetRegisteredRawInputDevices {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetRegisteredRawInputDevices"),
+                    findOrThrow("GetRegisteredRawInputDevices"),
                     DESC);
     }
 
@@ -21771,18 +21771,18 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PRAWINPUTDEVICELIST
      * }
      */
-    public static final AddressLayout PRAWINPUTDEVICELIST = Windows_h.C_POINTER;
+    public static final AddressLayout PRAWINPUTDEVICELIST = C_POINTER;
 
     private static class GetRawInputDeviceList {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetRawInputDeviceList"),
+                    findOrThrow("GetRawInputDeviceList"),
                     DESC);
     }
 
@@ -21824,14 +21824,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class DefRawInputProc {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_LONG_LONG,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("DefRawInputProc"),
+                    findOrThrow("DefRawInputProc"),
                     DESC);
     }
 
@@ -21954,13 +21954,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPointerDevices {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPointerDevices"),
+                    findOrThrow("GetPointerDevices"),
                     DESC);
     }
 
@@ -22002,13 +22002,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPointerDevice {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPointerDevice"),
+                    findOrThrow("GetPointerDevice"),
                     DESC);
     }
 
@@ -22050,14 +22050,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPointerDeviceProperties {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPointerDeviceProperties"),
+                    findOrThrow("GetPointerDeviceProperties"),
                     DESC);
     }
 
@@ -22099,13 +22099,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegisterPointerDeviceNotifications {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegisterPointerDeviceNotifications"),
+                    findOrThrow("RegisterPointerDeviceNotifications"),
                     DESC);
     }
 
@@ -22147,14 +22147,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPointerDeviceRects {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPointerDeviceRects"),
+                    findOrThrow("GetPointerDeviceRects"),
                     DESC);
     }
 
@@ -22196,14 +22196,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetPointerDeviceCursors {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetPointerDeviceCursors"),
+                    findOrThrow("GetPointerDeviceCursors"),
                     DESC);
     }
 
@@ -22245,16 +22245,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetRawPointerDeviceData {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetRawPointerDeviceData"),
+                    findOrThrow("GetRawPointerDeviceData"),
                     DESC);
     }
 
@@ -22296,13 +22296,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ChangeWindowMessageFilter {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_INT,
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ChangeWindowMessageFilter"),
+                    findOrThrow("ChangeWindowMessageFilter"),
                     DESC);
     }
 
@@ -22349,19 +22349,19 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PCHANGEFILTERSTRUCT
      * }
      */
-    public static final AddressLayout PCHANGEFILTERSTRUCT = Windows_h.C_POINTER;
+    public static final AddressLayout PCHANGEFILTERSTRUCT = C_POINTER;
 
     private static class ChangeWindowMessageFilterEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ChangeWindowMessageFilterEx"),
+                    findOrThrow("ChangeWindowMessageFilterEx"),
                     DESC);
     }
 
@@ -22407,7 +22407,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *HGESTUREINFO
      * }
      */
-    public static final AddressLayout HGESTUREINFO = Windows_h.C_POINTER;
+    public static final AddressLayout HGESTUREINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagGESTUREINFO {
@@ -22423,13 +22423,13 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PGESTUREINFO
      * }
      */
-    public static final AddressLayout PGESTUREINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PGESTUREINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef const GESTUREINFO *PCGESTUREINFO
      * }
      */
-    public static final AddressLayout PCGESTUREINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PCGESTUREINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct tagGESTURENOTIFYSTRUCT {
@@ -22441,17 +22441,17 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PGESTURENOTIFYSTRUCT
      * }
      */
-    public static final AddressLayout PGESTURENOTIFYSTRUCT = Windows_h.C_POINTER;
+    public static final AddressLayout PGESTURENOTIFYSTRUCT = C_POINTER;
 
     private static class GetGestureInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetGestureInfo"),
+                    findOrThrow("GetGestureInfo"),
                     DESC);
     }
 
@@ -22493,14 +22493,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetGestureExtraArgs {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetGestureExtraArgs"),
+                    findOrThrow("GetGestureExtraArgs"),
                     DESC);
     }
 
@@ -22542,12 +22542,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CloseGestureInfoHandle {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CloseGestureInfoHandle"),
+                    findOrThrow("CloseGestureInfoHandle"),
                     DESC);
     }
 
@@ -22595,20 +22595,20 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PGESTURECONFIG
      * }
      */
-    public static final AddressLayout PGESTURECONFIG = Windows_h.C_POINTER;
+    public static final AddressLayout PGESTURECONFIG = C_POINTER;
 
     private static class SetGestureConfig {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetGestureConfig"),
+                    findOrThrow("SetGestureConfig"),
                     DESC);
     }
 
@@ -22650,17 +22650,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetGestureConfig {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetGestureConfig"),
+                    findOrThrow("GetGestureConfig"),
                     DESC);
     }
 
@@ -22702,13 +22702,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ShutdownBlockReasonCreate {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ShutdownBlockReasonCreate"),
+                    findOrThrow("ShutdownBlockReasonCreate"),
                     DESC);
     }
 
@@ -22750,14 +22750,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ShutdownBlockReasonQuery {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ShutdownBlockReasonQuery"),
+                    findOrThrow("ShutdownBlockReasonQuery"),
                     DESC);
     }
 
@@ -22799,12 +22799,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ShutdownBlockReasonDestroy {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ShutdownBlockReasonDestroy"),
+                    findOrThrow("ShutdownBlockReasonDestroy"),
                     DESC);
     }
 
@@ -22936,12 +22936,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCurrentInputMessageSource {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCurrentInputMessageSource"),
+                    findOrThrow("GetCurrentInputMessageSource"),
                     DESC);
     }
 
@@ -22983,12 +22983,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCIMSSM {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCIMSSM"),
+                    findOrThrow("GetCIMSSM"),
                     DESC);
     }
 
@@ -23123,7 +23123,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PAR_STATE
      * }
      */
-    public static final AddressLayout PAR_STATE = Windows_h.C_POINTER;
+    public static final AddressLayout PAR_STATE = C_POINTER;
     private static final int ORIENTATION_PREFERENCE_NONE = (int)0L;
     /**
      * {@snippet lang=c :
@@ -23172,12 +23172,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetAutoRotationState {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetAutoRotationState"),
+                    findOrThrow("GetAutoRotationState"),
                     DESC);
     }
 
@@ -23219,12 +23219,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDisplayAutoRotationPreferences {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDisplayAutoRotationPreferences"),
+                    findOrThrow("GetDisplayAutoRotationPreferences"),
                     DESC);
     }
 
@@ -23266,14 +23266,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDisplayAutoRotationPreferencesByProcessId {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDisplayAutoRotationPreferencesByProcessId"),
+                    findOrThrow("GetDisplayAutoRotationPreferencesByProcessId"),
                     DESC);
     }
 
@@ -23315,12 +23315,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetDisplayAutoRotationPreferences {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetDisplayAutoRotationPreferences"),
+                    findOrThrow("SetDisplayAutoRotationPreferences"),
                     DESC);
     }
 
@@ -23362,12 +23362,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsImmersiveProcess {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsImmersiveProcess"),
+                    findOrThrow("IsImmersiveProcess"),
                     DESC);
     }
 
@@ -23409,12 +23409,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetProcessRestrictionExemption {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetProcessRestrictionExemption"),
+                    findOrThrow("SetProcessRestrictionExemption"),
                     DESC);
     }
 
@@ -23456,17 +23456,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDateFormatA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDateFormatA"),
+                    findOrThrow("GetDateFormatA"),
                     DESC);
     }
 
@@ -23508,17 +23508,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDateFormatW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDateFormatW"),
+                    findOrThrow("GetDateFormatW"),
                     DESC);
     }
 
@@ -23560,17 +23560,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetTimeFormatA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetTimeFormatA"),
+                    findOrThrow("GetTimeFormatA"),
                     DESC);
     }
 
@@ -23612,17 +23612,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetTimeFormatW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetTimeFormatW"),
+                    findOrThrow("GetTimeFormatW"),
                     DESC);
     }
 
@@ -23664,17 +23664,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetTimeFormatEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetTimeFormatEx"),
+                    findOrThrow("GetTimeFormatEx"),
                     DESC);
     }
 
@@ -23716,18 +23716,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDateFormatEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDateFormatEx"),
+                    findOrThrow("GetDateFormatEx"),
                     DESC);
     }
 
@@ -23769,18 +23769,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDurationFormatEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDurationFormatEx"),
+                    findOrThrow("GetDurationFormatEx"),
                     DESC);
     }
 
@@ -23824,25 +23824,25 @@ public class Windows_h_22 extends Windows_h_23 {
      * typedef DWORD LGRPID
      * }
      */
-    public static final OfInt LGRPID = Windows_h.C_LONG;
+    public static final OfInt LGRPID = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef DWORD LCTYPE
      * }
      */
-    public static final OfInt LCTYPE = Windows_h.C_LONG;
+    public static final OfInt LCTYPE = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef DWORD CALTYPE
      * }
      */
-    public static final OfInt CALTYPE = Windows_h.C_LONG;
+    public static final OfInt CALTYPE = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef DWORD CALID
      * }
      */
-    public static final OfInt CALID = Windows_h.C_LONG;
+    public static final OfInt CALID = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef struct _cpinfo {
@@ -23852,25 +23852,25 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPCPINFO
      * }
      */
-    public static final AddressLayout LPCPINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef DWORD GEOTYPE
      * }
      */
-    public static final OfInt GEOTYPE = Windows_h.C_LONG;
+    public static final OfInt GEOTYPE = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef DWORD GEOCLASS
      * }
      */
-    public static final OfInt GEOCLASS = Windows_h.C_LONG;
+    public static final OfInt GEOCLASS = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef LONG GEOID
      * }
      */
-    public static final OfInt GEOID = Windows_h.C_LONG;
+    public static final OfInt GEOID = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef struct _cpinfoexA {
@@ -23883,7 +23883,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPCPINFOEXA
      * }
      */
-    public static final AddressLayout LPCPINFOEXA = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPINFOEXA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _cpinfoexW {
@@ -23896,13 +23896,13 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPCPINFOEXW
      * }
      */
-    public static final AddressLayout LPCPINFOEXW = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPINFOEXW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPCPINFOEXA LPCPINFOEX
      * }
      */
-    public static final AddressLayout LPCPINFOEX = Windows_h.C_POINTER;
+    public static final AddressLayout LPCPINFOEX = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _numberfmtA {
@@ -23915,7 +23915,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPNUMBERFMTA
      * }
      */
-    public static final AddressLayout LPNUMBERFMTA = Windows_h.C_POINTER;
+    public static final AddressLayout LPNUMBERFMTA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _numberfmtW {
@@ -23928,13 +23928,13 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPNUMBERFMTW
      * }
      */
-    public static final AddressLayout LPNUMBERFMTW = Windows_h.C_POINTER;
+    public static final AddressLayout LPNUMBERFMTW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPNUMBERFMTA LPNUMBERFMT
      * }
      */
-    public static final AddressLayout LPNUMBERFMT = Windows_h.C_POINTER;
+    public static final AddressLayout LPNUMBERFMT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _currencyfmtA {
@@ -23949,7 +23949,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPCURRENCYFMTA
      * }
      */
-    public static final AddressLayout LPCURRENCYFMTA = Windows_h.C_POINTER;
+    public static final AddressLayout LPCURRENCYFMTA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _currencyfmtW {
@@ -23964,13 +23964,13 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPCURRENCYFMTW
      * }
      */
-    public static final AddressLayout LPCURRENCYFMTW = Windows_h.C_POINTER;
+    public static final AddressLayout LPCURRENCYFMTW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef LPCURRENCYFMTA LPCURRENCYFMT
      * }
      */
-    public static final AddressLayout LPCURRENCYFMT = Windows_h.C_POINTER;
+    public static final AddressLayout LPCURRENCYFMT = C_POINTER;
     private static final int COMPARE_STRING = (int)1L;
     /**
      * {@snippet lang=c :
@@ -23985,7 +23985,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * typedef DWORD NLS_FUNCTION
      * }
      */
-    public static final OfInt NLS_FUNCTION = Windows_h.C_LONG;
+    public static final OfInt NLS_FUNCTION = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef struct _nlsversioninfo {
@@ -23997,7 +23997,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPNLSVERSIONINFO
      * }
      */
-    public static final AddressLayout LPNLSVERSIONINFO = Windows_h.C_POINTER;
+    public static final AddressLayout LPNLSVERSIONINFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _nlsversioninfoex {
@@ -24009,7 +24009,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *LPNLSVERSIONINFOEX
      * }
      */
-    public static final AddressLayout LPNLSVERSIONINFOEX = Windows_h.C_POINTER;
+    public static final AddressLayout LPNLSVERSIONINFOEX = C_POINTER;
     private static final int GEO_NATION = (int)1L;
     /**
      * {@snippet lang=c :
@@ -24263,24 +24263,24 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PFILEMUIINFO
      * }
      */
-    public static final AddressLayout PFILEMUIINFO = Windows_h.C_POINTER;
+    public static final AddressLayout PFILEMUIINFO = C_POINTER;
 
     private static class CompareStringEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CompareStringEx"),
+                    findOrThrow("CompareStringEx"),
                     DESC);
     }
 
@@ -24322,16 +24322,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CompareStringOrdinal {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CompareStringOrdinal"),
+                    findOrThrow("CompareStringOrdinal"),
                     DESC);
     }
 
@@ -24373,17 +24373,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CompareStringW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CompareStringW"),
+                    findOrThrow("CompareStringW"),
                     DESC);
     }
 
@@ -24425,16 +24425,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FoldStringW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FoldStringW"),
+                    findOrThrow("FoldStringW"),
                     DESC);
     }
 
@@ -24476,16 +24476,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetStringTypeExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetStringTypeExW"),
+                    findOrThrow("GetStringTypeExW"),
                     DESC);
     }
 
@@ -24527,15 +24527,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetStringTypeW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetStringTypeW"),
+                    findOrThrow("GetStringTypeW"),
                     DESC);
     }
 
@@ -24577,17 +24577,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class MultiByteToWideChar {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("MultiByteToWideChar"),
+                    findOrThrow("MultiByteToWideChar"),
                     DESC);
     }
 
@@ -24629,19 +24629,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WideCharToMultiByte {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WideCharToMultiByte"),
+                    findOrThrow("WideCharToMultiByte"),
                     DESC);
     }
 
@@ -24683,12 +24683,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsValidCodePage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsValidCodePage"),
+                    findOrThrow("IsValidCodePage"),
                     DESC);
     }
 
@@ -24730,10 +24730,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetACP {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetACP"),
+                    findOrThrow("GetACP"),
                     DESC);
     }
 
@@ -24775,10 +24775,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetOEMCP {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetOEMCP"),
+                    findOrThrow("GetOEMCP"),
                     DESC);
     }
 
@@ -24820,13 +24820,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCPInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCPInfo"),
+                    findOrThrow("GetCPInfo"),
                     DESC);
     }
 
@@ -24868,14 +24868,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCPInfoExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCPInfoExA"),
+                    findOrThrow("GetCPInfoExA"),
                     DESC);
     }
 
@@ -24917,14 +24917,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCPInfoExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_INT,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCPInfoExW"),
+                    findOrThrow("GetCPInfoExW"),
                     DESC);
     }
 
@@ -24966,17 +24966,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CompareStringA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CompareStringA"),
+                    findOrThrow("CompareStringA"),
                     DESC);
     }
 
@@ -25018,18 +25018,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FindNLSString {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FindNLSString"),
+                    findOrThrow("FindNLSString"),
                     DESC);
     }
 
@@ -25071,17 +25071,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LCMapStringW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LCMapStringW"),
+                    findOrThrow("LCMapStringW"),
                     DESC);
     }
 
@@ -25123,17 +25123,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LCMapStringA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LCMapStringA"),
+                    findOrThrow("LCMapStringA"),
                     DESC);
     }
 
@@ -25175,15 +25175,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetLocaleInfoW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetLocaleInfoW"),
+                    findOrThrow("GetLocaleInfoW"),
                     DESC);
     }
 
@@ -25225,15 +25225,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetLocaleInfoA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetLocaleInfoA"),
+                    findOrThrow("GetLocaleInfoA"),
                     DESC);
     }
 
@@ -25275,14 +25275,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetLocaleInfoA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetLocaleInfoA"),
+                    findOrThrow("SetLocaleInfoA"),
                     DESC);
     }
 
@@ -25324,14 +25324,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetLocaleInfoW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetLocaleInfoW"),
+                    findOrThrow("SetLocaleInfoW"),
                     DESC);
     }
 
@@ -25373,17 +25373,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCalendarInfoA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCalendarInfoA"),
+                    findOrThrow("GetCalendarInfoA"),
                     DESC);
     }
 
@@ -25425,17 +25425,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCalendarInfoW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCalendarInfoW"),
+                    findOrThrow("GetCalendarInfoW"),
                     DESC);
     }
 
@@ -25477,15 +25477,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetCalendarInfoA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetCalendarInfoA"),
+                    findOrThrow("SetCalendarInfoA"),
                     DESC);
     }
 
@@ -25527,15 +25527,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetCalendarInfoW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetCalendarInfoW"),
+                    findOrThrow("SetCalendarInfoW"),
                     DESC);
     }
 
@@ -25577,18 +25577,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LoadStringByReference {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LoadStringByReference"),
+                    findOrThrow("LoadStringByReference"),
                     DESC);
     }
 
@@ -25630,12 +25630,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsDBCSLeadByte {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_CHAR
+            C_INT,
+            C_CHAR
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsDBCSLeadByte"),
+                    findOrThrow("IsDBCSLeadByte"),
                     DESC);
     }
 
@@ -25677,13 +25677,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsDBCSLeadByteEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_CHAR
+            C_INT,
+            C_INT,
+            C_CHAR
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsDBCSLeadByteEx"),
+                    findOrThrow("IsDBCSLeadByteEx"),
                     DESC);
     }
 
@@ -25725,13 +25725,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LocaleNameToLCID {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LocaleNameToLCID"),
+                    findOrThrow("LocaleNameToLCID"),
                     DESC);
     }
 
@@ -25773,15 +25773,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LCIDToLocaleName {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LCIDToLocaleName"),
+                    findOrThrow("LCIDToLocaleName"),
                     DESC);
     }
 
@@ -25823,18 +25823,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetDurationFormat {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_LONG_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetDurationFormat"),
+                    findOrThrow("GetDurationFormat"),
                     DESC);
     }
 
@@ -25876,17 +25876,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetNumberFormatA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetNumberFormatA"),
+                    findOrThrow("GetNumberFormatA"),
                     DESC);
     }
 
@@ -25928,17 +25928,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetNumberFormatW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetNumberFormatW"),
+                    findOrThrow("GetNumberFormatW"),
                     DESC);
     }
 
@@ -25980,17 +25980,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCurrencyFormatA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCurrencyFormatA"),
+                    findOrThrow("GetCurrencyFormatA"),
                     DESC);
     }
 
@@ -26032,17 +26032,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCurrencyFormatW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCurrencyFormatW"),
+                    findOrThrow("GetCurrencyFormatW"),
                     DESC);
     }
 
@@ -26084,15 +26084,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumCalendarInfoA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumCalendarInfoA"),
+                    findOrThrow("EnumCalendarInfoA"),
                     DESC);
     }
 
@@ -26134,15 +26134,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumCalendarInfoW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumCalendarInfoW"),
+                    findOrThrow("EnumCalendarInfoW"),
                     DESC);
     }
 
@@ -26184,15 +26184,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumCalendarInfoExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumCalendarInfoExA"),
+                    findOrThrow("EnumCalendarInfoExA"),
                     DESC);
     }
 
@@ -26234,15 +26234,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumCalendarInfoExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumCalendarInfoExW"),
+                    findOrThrow("EnumCalendarInfoExW"),
                     DESC);
     }
 
@@ -26284,14 +26284,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumTimeFormatsA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumTimeFormatsA"),
+                    findOrThrow("EnumTimeFormatsA"),
                     DESC);
     }
 
@@ -26333,14 +26333,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumTimeFormatsW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumTimeFormatsW"),
+                    findOrThrow("EnumTimeFormatsW"),
                     DESC);
     }
 
@@ -26382,14 +26382,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumDateFormatsA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumDateFormatsA"),
+                    findOrThrow("EnumDateFormatsA"),
                     DESC);
     }
 
@@ -26431,14 +26431,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumDateFormatsW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumDateFormatsW"),
+                    findOrThrow("EnumDateFormatsW"),
                     DESC);
     }
 
@@ -26480,14 +26480,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumDateFormatsExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumDateFormatsExA"),
+                    findOrThrow("EnumDateFormatsExA"),
                     DESC);
     }
 
@@ -26529,14 +26529,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumDateFormatsExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumDateFormatsExW"),
+                    findOrThrow("EnumDateFormatsExW"),
                     DESC);
     }
 
@@ -26578,13 +26578,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsValidLanguageGroup {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_INT,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsValidLanguageGroup"),
+                    findOrThrow("IsValidLanguageGroup"),
                     DESC);
     }
 
@@ -26626,14 +26626,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetNLSVersion {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetNLSVersion"),
+                    findOrThrow("GetNLSVersion"),
                     DESC);
     }
 
@@ -26675,13 +26675,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsValidLocale {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_INT,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsValidLocale"),
+                    findOrThrow("IsValidLocale"),
                     DESC);
     }
 
@@ -26723,16 +26723,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetGeoInfoA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_SHORT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_SHORT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetGeoInfoA"),
+                    findOrThrow("GetGeoInfoA"),
                     DESC);
     }
 
@@ -26774,16 +26774,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetGeoInfoW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_SHORT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_SHORT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetGeoInfoW"),
+                    findOrThrow("GetGeoInfoW"),
                     DESC);
     }
 
@@ -26825,15 +26825,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetGeoInfoEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetGeoInfoEx"),
+                    findOrThrow("GetGeoInfoEx"),
                     DESC);
     }
 
@@ -26875,14 +26875,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumSystemGeoID {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumSystemGeoID"),
+                    findOrThrow("EnumSystemGeoID"),
                     DESC);
     }
 
@@ -26924,14 +26924,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumSystemGeoNames {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumSystemGeoNames"),
+                    findOrThrow("EnumSystemGeoNames"),
                     DESC);
     }
 
@@ -26973,12 +26973,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetUserGeoID {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetUserGeoID"),
+                    findOrThrow("GetUserGeoID"),
                     DESC);
     }
 
@@ -27020,13 +27020,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetUserDefaultGeoName {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetUserDefaultGeoName"),
+                    findOrThrow("GetUserDefaultGeoName"),
                     DESC);
     }
 
@@ -27068,12 +27068,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetUserGeoID {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetUserGeoID"),
+                    findOrThrow("SetUserGeoID"),
                     DESC);
     }
 
@@ -27115,12 +27115,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetUserGeoName {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetUserGeoName"),
+                    findOrThrow("SetUserGeoName"),
                     DESC);
     }
 
@@ -27162,12 +27162,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ConvertDefaultLocale {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ConvertDefaultLocale"),
+                    findOrThrow("ConvertDefaultLocale"),
                     DESC);
     }
 
@@ -27209,10 +27209,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetSystemDefaultUILanguage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT    );
+            C_SHORT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetSystemDefaultUILanguage"),
+                    findOrThrow("GetSystemDefaultUILanguage"),
                     DESC);
     }
 
@@ -27254,10 +27254,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetThreadLocale {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG    );
+            C_LONG    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetThreadLocale"),
+                    findOrThrow("GetThreadLocale"),
                     DESC);
     }
 
@@ -27299,12 +27299,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetThreadLocale {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetThreadLocale"),
+                    findOrThrow("SetThreadLocale"),
                     DESC);
     }
 
@@ -27346,10 +27346,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetUserDefaultUILanguage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT    );
+            C_SHORT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetUserDefaultUILanguage"),
+                    findOrThrow("GetUserDefaultUILanguage"),
                     DESC);
     }
 
@@ -27391,10 +27391,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetUserDefaultLangID {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT    );
+            C_SHORT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetUserDefaultLangID"),
+                    findOrThrow("GetUserDefaultLangID"),
                     DESC);
     }
 
@@ -27436,10 +27436,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetSystemDefaultLangID {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT    );
+            C_SHORT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetSystemDefaultLangID"),
+                    findOrThrow("GetSystemDefaultLangID"),
                     DESC);
     }
 
@@ -27481,10 +27481,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetSystemDefaultLCID {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG    );
+            C_LONG    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetSystemDefaultLCID"),
+                    findOrThrow("GetSystemDefaultLCID"),
                     DESC);
     }
 
@@ -27526,10 +27526,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetUserDefaultLCID {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG    );
+            C_LONG    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetUserDefaultLCID"),
+                    findOrThrow("GetUserDefaultLCID"),
                     DESC);
     }
 
@@ -27571,12 +27571,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetThreadUILanguage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT,
-            Windows_h.C_SHORT
+            C_SHORT,
+            C_SHORT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetThreadUILanguage"),
+                    findOrThrow("SetThreadUILanguage"),
                     DESC);
     }
 
@@ -27618,10 +27618,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetThreadUILanguage {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_SHORT    );
+            C_SHORT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetThreadUILanguage"),
+                    findOrThrow("GetThreadUILanguage"),
                     DESC);
     }
 
@@ -27663,15 +27663,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetProcessPreferredUILanguages {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetProcessPreferredUILanguages"),
+                    findOrThrow("GetProcessPreferredUILanguages"),
                     DESC);
     }
 
@@ -27713,14 +27713,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetProcessPreferredUILanguages {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetProcessPreferredUILanguages"),
+                    findOrThrow("SetProcessPreferredUILanguages"),
                     DESC);
     }
 
@@ -27762,15 +27762,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetUserPreferredUILanguages {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetUserPreferredUILanguages"),
+                    findOrThrow("GetUserPreferredUILanguages"),
                     DESC);
     }
 
@@ -27812,15 +27812,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetSystemPreferredUILanguages {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetSystemPreferredUILanguages"),
+                    findOrThrow("GetSystemPreferredUILanguages"),
                     DESC);
     }
 
@@ -27862,15 +27862,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetThreadPreferredUILanguages {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetThreadPreferredUILanguages"),
+                    findOrThrow("GetThreadPreferredUILanguages"),
                     DESC);
     }
 
@@ -27912,14 +27912,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetThreadPreferredUILanguages {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetThreadPreferredUILanguages"),
+                    findOrThrow("SetThreadPreferredUILanguages"),
                     DESC);
     }
 
@@ -27961,15 +27961,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetFileMUIInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetFileMUIInfo"),
+                    findOrThrow("GetFileMUIInfo"),
                     DESC);
     }
 
@@ -28011,18 +28011,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetFileMUIPath {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetFileMUIPath"),
+                    findOrThrow("GetFileMUIPath"),
                     DESC);
     }
 
@@ -28064,16 +28064,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetUILanguageInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetUILanguageInfo"),
+                    findOrThrow("GetUILanguageInfo"),
                     DESC);
     }
 
@@ -28119,19 +28119,19 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *HSAVEDUILANGUAGES
      * }
      */
-    public static final AddressLayout HSAVEDUILANGUAGES = Windows_h.C_POINTER;
+    public static final AddressLayout HSAVEDUILANGUAGES = C_POINTER;
 
     private static class SetThreadPreferredUILanguages2 {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetThreadPreferredUILanguages2"),
+                    findOrThrow("SetThreadPreferredUILanguages2"),
                     DESC);
     }
 
@@ -28173,11 +28173,11 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RestoreThreadPreferredUILanguages {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RestoreThreadPreferredUILanguages"),
+                    findOrThrow("RestoreThreadPreferredUILanguages"),
                     DESC);
     }
 
@@ -28219,16 +28219,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class NotifyUILanguageChange {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("NotifyUILanguageChange"),
+                    findOrThrow("NotifyUILanguageChange"),
                     DESC);
     }
 
@@ -28270,16 +28270,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetStringTypeExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetStringTypeExA"),
+                    findOrThrow("GetStringTypeExA"),
                     DESC);
     }
 
@@ -28321,16 +28321,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetStringTypeA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetStringTypeA"),
+                    findOrThrow("GetStringTypeA"),
                     DESC);
     }
 
@@ -28372,16 +28372,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FoldStringA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FoldStringA"),
+                    findOrThrow("FoldStringA"),
                     DESC);
     }
 
@@ -28423,13 +28423,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumSystemLocalesA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumSystemLocalesA"),
+                    findOrThrow("EnumSystemLocalesA"),
                     DESC);
     }
 
@@ -28471,13 +28471,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumSystemLocalesW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumSystemLocalesW"),
+                    findOrThrow("EnumSystemLocalesW"),
                     DESC);
     }
 
@@ -28519,14 +28519,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumSystemLanguageGroupsA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumSystemLanguageGroupsA"),
+                    findOrThrow("EnumSystemLanguageGroupsA"),
                     DESC);
     }
 
@@ -28568,14 +28568,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumSystemLanguageGroupsW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumSystemLanguageGroupsW"),
+                    findOrThrow("EnumSystemLanguageGroupsW"),
                     DESC);
     }
 
@@ -28617,15 +28617,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumLanguageGroupLocalesA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumLanguageGroupLocalesA"),
+                    findOrThrow("EnumLanguageGroupLocalesA"),
                     DESC);
     }
 
@@ -28667,15 +28667,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumLanguageGroupLocalesW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumLanguageGroupLocalesW"),
+                    findOrThrow("EnumLanguageGroupLocalesW"),
                     DESC);
     }
 
@@ -28717,14 +28717,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumUILanguagesA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumUILanguagesA"),
+                    findOrThrow("EnumUILanguagesA"),
                     DESC);
     }
 
@@ -28766,14 +28766,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumUILanguagesW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumUILanguagesW"),
+                    findOrThrow("EnumUILanguagesW"),
                     DESC);
     }
 
@@ -28815,13 +28815,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumSystemCodePagesA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumSystemCodePagesA"),
+                    findOrThrow("EnumSystemCodePagesA"),
                     DESC);
     }
 
@@ -28863,13 +28863,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumSystemCodePagesW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumSystemCodePagesW"),
+                    findOrThrow("EnumSystemCodePagesW"),
                     DESC);
     }
 
@@ -28911,16 +28911,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IdnToAscii {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IdnToAscii"),
+                    findOrThrow("IdnToAscii"),
                     DESC);
     }
 
@@ -28962,16 +28962,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IdnToUnicode {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IdnToUnicode"),
+                    findOrThrow("IdnToUnicode"),
                     DESC);
     }
 
@@ -29013,16 +29013,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IdnToNameprepUnicode {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IdnToNameprepUnicode"),
+                    findOrThrow("IdnToNameprepUnicode"),
                     DESC);
     }
 
@@ -29064,16 +29064,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class NormalizeString {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("NormalizeString"),
+                    findOrThrow("NormalizeString"),
                     DESC);
     }
 
@@ -29115,14 +29115,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsNormalizedString {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsNormalizedString"),
+                    findOrThrow("IsNormalizedString"),
                     DESC);
     }
 
@@ -29164,16 +29164,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class VerifyScripts {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("VerifyScripts"),
+                    findOrThrow("VerifyScripts"),
                     DESC);
     }
 
@@ -29215,16 +29215,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetStringScripts {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetStringScripts"),
+                    findOrThrow("GetStringScripts"),
                     DESC);
     }
 
@@ -29266,15 +29266,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetLocaleInfoEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetLocaleInfoEx"),
+                    findOrThrow("GetLocaleInfoEx"),
                     DESC);
     }
 
@@ -29316,18 +29316,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCalendarInfoEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCalendarInfoEx"),
+                    findOrThrow("GetCalendarInfoEx"),
                     DESC);
     }
 
@@ -29369,17 +29369,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetNumberFormatEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetNumberFormatEx"),
+                    findOrThrow("GetNumberFormatEx"),
                     DESC);
     }
 
@@ -29421,17 +29421,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCurrencyFormatEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCurrencyFormatEx"),
+                    findOrThrow("GetCurrencyFormatEx"),
                     DESC);
     }
 
@@ -29473,13 +29473,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetUserDefaultLocaleName {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetUserDefaultLocaleName"),
+                    findOrThrow("GetUserDefaultLocaleName"),
                     DESC);
     }
 
@@ -29521,13 +29521,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetSystemDefaultLocaleName {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetSystemDefaultLocaleName"),
+                    findOrThrow("GetSystemDefaultLocaleName"),
                     DESC);
     }
 
@@ -29569,16 +29569,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsNLSDefinedString {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsNLSDefinedString"),
+                    findOrThrow("IsNLSDefinedString"),
                     DESC);
     }
 
@@ -29620,14 +29620,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetNLSVersionEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetNLSVersionEx"),
+                    findOrThrow("GetNLSVersionEx"),
                     DESC);
     }
 
@@ -29669,14 +29669,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsValidNLSVersion {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsValidNLSVersion"),
+                    findOrThrow("IsValidNLSVersion"),
                     DESC);
     }
 
@@ -29718,21 +29718,21 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FindNLSStringEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FindNLSStringEx"),
+                    findOrThrow("FindNLSStringEx"),
                     DESC);
     }
 
@@ -29774,20 +29774,20 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class LCMapStringEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("LCMapStringEx"),
+                    findOrThrow("LCMapStringEx"),
                     DESC);
     }
 
@@ -29829,12 +29829,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class IsValidLocaleName {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("IsValidLocaleName"),
+                    findOrThrow("IsValidLocaleName"),
                     DESC);
     }
 
@@ -29876,17 +29876,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumCalendarInfoExEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumCalendarInfoExEx"),
+                    findOrThrow("EnumCalendarInfoExEx"),
                     DESC);
     }
 
@@ -29928,15 +29928,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumDateFormatsExEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumDateFormatsExEx"),
+                    findOrThrow("EnumDateFormatsExEx"),
                     DESC);
     }
 
@@ -29978,15 +29978,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumTimeFormatsEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumTimeFormatsEx"),
+                    findOrThrow("EnumTimeFormatsEx"),
                     DESC);
     }
 
@@ -30028,15 +30028,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class EnumSystemLocalesEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("EnumSystemLocalesEx"),
+                    findOrThrow("EnumSystemLocalesEx"),
                     DESC);
     }
 
@@ -30078,14 +30078,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ResolveLocaleName {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ResolveLocaleName"),
+                    findOrThrow("ResolveLocaleName"),
                     DESC);
     }
 
@@ -30132,7 +30132,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PCOORD
      * }
      */
-    public static final AddressLayout PCOORD = Windows_h.C_POINTER;
+    public static final AddressLayout PCOORD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _SMALL_RECT {
@@ -30143,7 +30143,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PSMALL_RECT
      * }
      */
-    public static final AddressLayout PSMALL_RECT = Windows_h.C_POINTER;
+    public static final AddressLayout PSMALL_RECT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _KEY_EVENT_RECORD {
@@ -30159,7 +30159,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PKEY_EVENT_RECORD
      * }
      */
-    public static final AddressLayout PKEY_EVENT_RECORD = Windows_h.C_POINTER;
+    public static final AddressLayout PKEY_EVENT_RECORD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _MOUSE_EVENT_RECORD {
@@ -30170,7 +30170,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PMOUSE_EVENT_RECORD
      * }
      */
-    public static final AddressLayout PMOUSE_EVENT_RECORD = Windows_h.C_POINTER;
+    public static final AddressLayout PMOUSE_EVENT_RECORD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _WINDOW_BUFFER_SIZE_RECORD {
@@ -30178,7 +30178,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PWINDOW_BUFFER_SIZE_RECORD
      * }
      */
-    public static final AddressLayout PWINDOW_BUFFER_SIZE_RECORD = Windows_h.C_POINTER;
+    public static final AddressLayout PWINDOW_BUFFER_SIZE_RECORD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _MENU_EVENT_RECORD {
@@ -30186,7 +30186,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PMENU_EVENT_RECORD
      * }
      */
-    public static final AddressLayout PMENU_EVENT_RECORD = Windows_h.C_POINTER;
+    public static final AddressLayout PMENU_EVENT_RECORD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _FOCUS_EVENT_RECORD {
@@ -30194,7 +30194,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PFOCUS_EVENT_RECORD
      * }
      */
-    public static final AddressLayout PFOCUS_EVENT_RECORD = Windows_h.C_POINTER;
+    public static final AddressLayout PFOCUS_EVENT_RECORD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _INPUT_RECORD {
@@ -30209,7 +30209,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PINPUT_RECORD
      * }
      */
-    public static final AddressLayout PINPUT_RECORD = Windows_h.C_POINTER;
+    public static final AddressLayout PINPUT_RECORD = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CHAR_INFO {
@@ -30221,7 +30221,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PCHAR_INFO
      * }
      */
-    public static final AddressLayout PCHAR_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PCHAR_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct _CONSOLE_FONT_INFO {
@@ -30230,20 +30230,20 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PCONSOLE_FONT_INFO
      * }
      */
-    public static final AddressLayout PCONSOLE_FONT_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PCONSOLE_FONT_INFO = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef void *HPCON
      * }
      */
-    public static final AddressLayout HPCON = Windows_h.C_POINTER;
+    public static final AddressLayout HPCON = C_POINTER;
 
     private static class AllocConsole {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("AllocConsole"),
+                    findOrThrow("AllocConsole"),
                     DESC);
     }
 
@@ -30285,10 +30285,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FreeConsole {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FreeConsole"),
+                    findOrThrow("FreeConsole"),
                     DESC);
     }
 
@@ -30330,12 +30330,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class AttachConsole {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG
+            C_INT,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("AttachConsole"),
+                    findOrThrow("AttachConsole"),
                     DESC);
     }
 
@@ -30377,10 +30377,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleCP {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleCP"),
+                    findOrThrow("GetConsoleCP"),
                     DESC);
     }
 
@@ -30422,10 +30422,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleOutputCP {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT    );
+            C_INT    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleOutputCP"),
+                    findOrThrow("GetConsoleOutputCP"),
                     DESC);
     }
 
@@ -30467,13 +30467,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleMode {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleMode"),
+                    findOrThrow("GetConsoleMode"),
                     DESC);
     }
 
@@ -30515,13 +30515,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleMode {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_INT,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleMode"),
+                    findOrThrow("SetConsoleMode"),
                     DESC);
     }
 
@@ -30563,13 +30563,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetNumberOfConsoleInputEvents {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetNumberOfConsoleInputEvents"),
+                    findOrThrow("GetNumberOfConsoleInputEvents"),
                     DESC);
     }
 
@@ -30611,15 +30611,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ReadConsoleInputA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ReadConsoleInputA"),
+                    findOrThrow("ReadConsoleInputA"),
                     DESC);
     }
 
@@ -30661,15 +30661,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ReadConsoleInputW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ReadConsoleInputW"),
+                    findOrThrow("ReadConsoleInputW"),
                     DESC);
     }
 
@@ -30711,15 +30711,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class PeekConsoleInputA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("PeekConsoleInputA"),
+                    findOrThrow("PeekConsoleInputA"),
                     DESC);
     }
 
@@ -30761,15 +30761,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class PeekConsoleInputW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("PeekConsoleInputW"),
+                    findOrThrow("PeekConsoleInputW"),
                     DESC);
     }
 
@@ -30818,20 +30818,20 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PCONSOLE_READCONSOLE_CONTROL
      * }
      */
-    public static final AddressLayout PCONSOLE_READCONSOLE_CONTROL = Windows_h.C_POINTER;
+    public static final AddressLayout PCONSOLE_READCONSOLE_CONTROL = C_POINTER;
 
     private static class ReadConsoleA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ReadConsoleA"),
+                    findOrThrow("ReadConsoleA"),
                     DESC);
     }
 
@@ -30873,16 +30873,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ReadConsoleW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ReadConsoleW"),
+                    findOrThrow("ReadConsoleW"),
                     DESC);
     }
 
@@ -30924,16 +30924,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WriteConsoleA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WriteConsoleA"),
+                    findOrThrow("WriteConsoleA"),
                     DESC);
     }
 
@@ -30975,16 +30975,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WriteConsoleW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WriteConsoleW"),
+                    findOrThrow("WriteConsoleW"),
                     DESC);
     }
 
@@ -31026,13 +31026,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleCtrlHandler {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_INT,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleCtrlHandler"),
+                    findOrThrow("SetConsoleCtrlHandler"),
                     DESC);
     }
 
@@ -31074,16 +31074,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreatePseudoConsole {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
+            C_LONG,
             _COORD.layout(),
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreatePseudoConsole"),
+                    findOrThrow("CreatePseudoConsole"),
                     DESC);
     }
 
@@ -31125,13 +31125,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ResizePseudoConsole {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
+            C_LONG,
+            C_POINTER,
             _COORD.layout()
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ResizePseudoConsole"),
+                    findOrThrow("ResizePseudoConsole"),
                     DESC);
     }
 
@@ -31173,11 +31173,11 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ClosePseudoConsole {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ClosePseudoConsole"),
+                    findOrThrow("ClosePseudoConsole"),
                     DESC);
     }
 
@@ -31219,16 +31219,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FillConsoleOutputCharacterA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_CHAR,
-            Windows_h.C_LONG,
+            C_INT,
+            C_POINTER,
+            C_CHAR,
+            C_LONG,
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FillConsoleOutputCharacterA"),
+                    findOrThrow("FillConsoleOutputCharacterA"),
                     DESC);
     }
 
@@ -31270,16 +31270,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FillConsoleOutputCharacterW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_SHORT,
-            Windows_h.C_LONG,
+            C_INT,
+            C_POINTER,
+            C_SHORT,
+            C_LONG,
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FillConsoleOutputCharacterW"),
+                    findOrThrow("FillConsoleOutputCharacterW"),
                     DESC);
     }
 
@@ -31321,16 +31321,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FillConsoleOutputAttribute {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_SHORT,
-            Windows_h.C_LONG,
+            C_INT,
+            C_POINTER,
+            C_SHORT,
+            C_LONG,
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FillConsoleOutputAttribute"),
+                    findOrThrow("FillConsoleOutputAttribute"),
                     DESC);
     }
 
@@ -31372,13 +31372,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GenerateConsoleCtrlEvent {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_INT,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GenerateConsoleCtrlEvent"),
+                    findOrThrow("GenerateConsoleCtrlEvent"),
                     DESC);
     }
 
@@ -31420,16 +31420,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class CreateConsoleScreenBuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("CreateConsoleScreenBuffer"),
+                    findOrThrow("CreateConsoleScreenBuffer"),
                     DESC);
     }
 
@@ -31471,12 +31471,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleActiveScreenBuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleActiveScreenBuffer"),
+                    findOrThrow("SetConsoleActiveScreenBuffer"),
                     DESC);
     }
 
@@ -31518,12 +31518,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class FlushConsoleInputBuffer {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("FlushConsoleInputBuffer"),
+                    findOrThrow("FlushConsoleInputBuffer"),
                     DESC);
     }
 
@@ -31565,12 +31565,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleCP {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleCP"),
+                    findOrThrow("SetConsoleCP"),
                     DESC);
     }
 
@@ -31612,12 +31612,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleOutputCP {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_INT
+            C_INT,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleOutputCP"),
+                    findOrThrow("SetConsoleOutputCP"),
                     DESC);
     }
 
@@ -31664,17 +31664,17 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PCONSOLE_CURSOR_INFO
      * }
      */
-    public static final AddressLayout PCONSOLE_CURSOR_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PCONSOLE_CURSOR_INFO = C_POINTER;
 
     private static class GetConsoleCursorInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleCursorInfo"),
+                    findOrThrow("GetConsoleCursorInfo"),
                     DESC);
     }
 
@@ -31716,13 +31716,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleCursorInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleCursorInfo"),
+                    findOrThrow("SetConsoleCursorInfo"),
                     DESC);
     }
 
@@ -31772,17 +31772,17 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PCONSOLE_SCREEN_BUFFER_INFO
      * }
      */
-    public static final AddressLayout PCONSOLE_SCREEN_BUFFER_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PCONSOLE_SCREEN_BUFFER_INFO = C_POINTER;
 
     private static class GetConsoleScreenBufferInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleScreenBufferInfo"),
+                    findOrThrow("GetConsoleScreenBufferInfo"),
                     DESC);
     }
 
@@ -31836,17 +31836,17 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PCONSOLE_SCREEN_BUFFER_INFOEX
      * }
      */
-    public static final AddressLayout PCONSOLE_SCREEN_BUFFER_INFOEX = Windows_h.C_POINTER;
+    public static final AddressLayout PCONSOLE_SCREEN_BUFFER_INFOEX = C_POINTER;
 
     private static class GetConsoleScreenBufferInfoEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleScreenBufferInfoEx"),
+                    findOrThrow("GetConsoleScreenBufferInfoEx"),
                     DESC);
     }
 
@@ -31888,13 +31888,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleScreenBufferInfoEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleScreenBufferInfoEx"),
+                    findOrThrow("SetConsoleScreenBufferInfoEx"),
                     DESC);
     }
 
@@ -31936,13 +31936,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleScreenBufferSize {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
+            C_INT,
+            C_POINTER,
             _COORD.layout()
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleScreenBufferSize"),
+                    findOrThrow("SetConsoleScreenBufferSize"),
                     DESC);
     }
 
@@ -31984,13 +31984,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleCursorPosition {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
+            C_INT,
+            C_POINTER,
             _COORD.layout()
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleCursorPosition"),
+                    findOrThrow("SetConsoleCursorPosition"),
                     DESC);
     }
 
@@ -32033,11 +32033,11 @@ public class Windows_h_22 extends Windows_h_23 {
     private static class GetLargestConsoleWindowSize {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetLargestConsoleWindowSize"),
+                    findOrThrow("GetLargestConsoleWindowSize"),
                     DESC);
     }
 
@@ -32079,13 +32079,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleTextAttribute {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_SHORT
+            C_INT,
+            C_POINTER,
+            C_SHORT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleTextAttribute"),
+                    findOrThrow("SetConsoleTextAttribute"),
                     DESC);
     }
 
@@ -32127,14 +32127,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleWindowInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleWindowInfo"),
+                    findOrThrow("SetConsoleWindowInfo"),
                     DESC);
     }
 
@@ -32176,16 +32176,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WriteConsoleOutputCharacterA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WriteConsoleOutputCharacterA"),
+                    findOrThrow("WriteConsoleOutputCharacterA"),
                     DESC);
     }
 
@@ -32227,16 +32227,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WriteConsoleOutputCharacterW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WriteConsoleOutputCharacterW"),
+                    findOrThrow("WriteConsoleOutputCharacterW"),
                     DESC);
     }
 
@@ -32278,16 +32278,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WriteConsoleOutputAttribute {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WriteConsoleOutputAttribute"),
+                    findOrThrow("WriteConsoleOutputAttribute"),
                     DESC);
     }
 
@@ -32329,16 +32329,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ReadConsoleOutputCharacterA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ReadConsoleOutputCharacterA"),
+                    findOrThrow("ReadConsoleOutputCharacterA"),
                     DESC);
     }
 
@@ -32380,16 +32380,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ReadConsoleOutputCharacterW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ReadConsoleOutputCharacterW"),
+                    findOrThrow("ReadConsoleOutputCharacterW"),
                     DESC);
     }
 
@@ -32431,16 +32431,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ReadConsoleOutputAttribute {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ReadConsoleOutputAttribute"),
+                    findOrThrow("ReadConsoleOutputAttribute"),
                     DESC);
     }
 
@@ -32482,15 +32482,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WriteConsoleInputA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WriteConsoleInputA"),
+                    findOrThrow("WriteConsoleInputA"),
                     DESC);
     }
 
@@ -32532,15 +32532,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WriteConsoleInputW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WriteConsoleInputW"),
+                    findOrThrow("WriteConsoleInputW"),
                     DESC);
     }
 
@@ -32582,16 +32582,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ScrollConsoleScreenBufferA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ScrollConsoleScreenBufferA"),
+                    findOrThrow("ScrollConsoleScreenBufferA"),
                     DESC);
     }
 
@@ -32633,16 +32633,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ScrollConsoleScreenBufferW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ScrollConsoleScreenBufferW"),
+                    findOrThrow("ScrollConsoleScreenBufferW"),
                     DESC);
     }
 
@@ -32684,16 +32684,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WriteConsoleOutputA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
             _COORD.layout(),
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WriteConsoleOutputA"),
+                    findOrThrow("WriteConsoleOutputA"),
                     DESC);
     }
 
@@ -32735,16 +32735,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class WriteConsoleOutputW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
             _COORD.layout(),
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("WriteConsoleOutputW"),
+                    findOrThrow("WriteConsoleOutputW"),
                     DESC);
     }
 
@@ -32786,16 +32786,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ReadConsoleOutputA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
             _COORD.layout(),
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ReadConsoleOutputA"),
+                    findOrThrow("ReadConsoleOutputA"),
                     DESC);
     }
 
@@ -32837,16 +32837,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ReadConsoleOutputW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
+            C_INT,
+            C_POINTER,
+            C_POINTER,
             _COORD.layout(),
             _COORD.layout(),
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ReadConsoleOutputW"),
+                    findOrThrow("ReadConsoleOutputW"),
                     DESC);
     }
 
@@ -32888,13 +32888,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleTitleA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleTitleA"),
+                    findOrThrow("GetConsoleTitleA"),
                     DESC);
     }
 
@@ -32936,13 +32936,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleTitleW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleTitleW"),
+                    findOrThrow("GetConsoleTitleW"),
                     DESC);
     }
 
@@ -32984,13 +32984,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleOriginalTitleA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleOriginalTitleA"),
+                    findOrThrow("GetConsoleOriginalTitleA"),
                     DESC);
     }
 
@@ -33032,13 +33032,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleOriginalTitleW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleOriginalTitleW"),
+                    findOrThrow("GetConsoleOriginalTitleW"),
                     DESC);
     }
 
@@ -33080,12 +33080,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleTitleA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleTitleA"),
+                    findOrThrow("SetConsoleTitleA"),
                     DESC);
     }
 
@@ -33127,12 +33127,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleTitleW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleTitleW"),
+                    findOrThrow("SetConsoleTitleW"),
                     DESC);
     }
 
@@ -33174,12 +33174,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetNumberOfConsoleMouseButtons {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetNumberOfConsoleMouseButtons"),
+                    findOrThrow("GetNumberOfConsoleMouseButtons"),
                     DESC);
     }
 
@@ -33222,12 +33222,12 @@ public class Windows_h_22 extends Windows_h_23 {
     private static class GetConsoleFontSize {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
             _COORD.layout(),
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleFontSize"),
+                    findOrThrow("GetConsoleFontSize"),
                     DESC);
     }
 
@@ -33269,14 +33269,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetCurrentConsoleFont {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCurrentConsoleFont"),
+                    findOrThrow("GetCurrentConsoleFont"),
                     DESC);
     }
 
@@ -33327,18 +33327,18 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PCONSOLE_FONT_INFOEX
      * }
      */
-    public static final AddressLayout PCONSOLE_FONT_INFOEX = Windows_h.C_POINTER;
+    public static final AddressLayout PCONSOLE_FONT_INFOEX = C_POINTER;
 
     private static class GetCurrentConsoleFontEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetCurrentConsoleFontEx"),
+                    findOrThrow("GetCurrentConsoleFontEx"),
                     DESC);
     }
 
@@ -33380,14 +33380,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetCurrentConsoleFontEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetCurrentConsoleFontEx"),
+                    findOrThrow("SetCurrentConsoleFontEx"),
                     DESC);
     }
 
@@ -33435,16 +33435,16 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PCONSOLE_SELECTION_INFO
      * }
      */
-    public static final AddressLayout PCONSOLE_SELECTION_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PCONSOLE_SELECTION_INFO = C_POINTER;
 
     private static class GetConsoleSelectionInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleSelectionInfo"),
+                    findOrThrow("GetConsoleSelectionInfo"),
                     DESC);
     }
 
@@ -33493,16 +33493,16 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PCONSOLE_HISTORY_INFO
      * }
      */
-    public static final AddressLayout PCONSOLE_HISTORY_INFO = Windows_h.C_POINTER;
+    public static final AddressLayout PCONSOLE_HISTORY_INFO = C_POINTER;
 
     private static class GetConsoleHistoryInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleHistoryInfo"),
+                    findOrThrow("GetConsoleHistoryInfo"),
                     DESC);
     }
 
@@ -33544,12 +33544,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleHistoryInfo {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleHistoryInfo"),
+                    findOrThrow("SetConsoleHistoryInfo"),
                     DESC);
     }
 
@@ -33591,12 +33591,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleDisplayMode {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleDisplayMode"),
+                    findOrThrow("GetConsoleDisplayMode"),
                     DESC);
     }
 
@@ -33638,14 +33638,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleDisplayMode {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleDisplayMode"),
+                    findOrThrow("SetConsoleDisplayMode"),
                     DESC);
     }
 
@@ -33687,10 +33687,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleWindow {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_POINTER    );
+            C_POINTER    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleWindow"),
+                    findOrThrow("GetConsoleWindow"),
                     DESC);
     }
 
@@ -33732,14 +33732,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class AddConsoleAliasA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("AddConsoleAliasA"),
+                    findOrThrow("AddConsoleAliasA"),
                     DESC);
     }
 
@@ -33781,14 +33781,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class AddConsoleAliasW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("AddConsoleAliasW"),
+                    findOrThrow("AddConsoleAliasW"),
                     DESC);
     }
 
@@ -33830,15 +33830,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleAliasA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleAliasA"),
+                    findOrThrow("GetConsoleAliasA"),
                     DESC);
     }
 
@@ -33880,15 +33880,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleAliasW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleAliasW"),
+                    findOrThrow("GetConsoleAliasW"),
                     DESC);
     }
 
@@ -33930,12 +33930,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleAliasesLengthA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleAliasesLengthA"),
+                    findOrThrow("GetConsoleAliasesLengthA"),
                     DESC);
     }
 
@@ -33977,12 +33977,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleAliasesLengthW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleAliasesLengthW"),
+                    findOrThrow("GetConsoleAliasesLengthW"),
                     DESC);
     }
 
@@ -34024,10 +34024,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleAliasExesLengthA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG    );
+            C_LONG    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleAliasExesLengthA"),
+                    findOrThrow("GetConsoleAliasExesLengthA"),
                     DESC);
     }
 
@@ -34069,10 +34069,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleAliasExesLengthW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG    );
+            C_LONG    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleAliasExesLengthW"),
+                    findOrThrow("GetConsoleAliasExesLengthW"),
                     DESC);
     }
 
@@ -34114,14 +34114,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleAliasesA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleAliasesA"),
+                    findOrThrow("GetConsoleAliasesA"),
                     DESC);
     }
 
@@ -34163,14 +34163,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleAliasesW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleAliasesW"),
+                    findOrThrow("GetConsoleAliasesW"),
                     DESC);
     }
 
@@ -34212,13 +34212,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleAliasExesA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleAliasExesA"),
+                    findOrThrow("GetConsoleAliasExesA"),
                     DESC);
     }
 
@@ -34260,13 +34260,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleAliasExesW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleAliasExesW"),
+                    findOrThrow("GetConsoleAliasExesW"),
                     DESC);
     }
 
@@ -34308,11 +34308,11 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ExpungeConsoleCommandHistoryA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ExpungeConsoleCommandHistoryA"),
+                    findOrThrow("ExpungeConsoleCommandHistoryA"),
                     DESC);
     }
 
@@ -34354,11 +34354,11 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class ExpungeConsoleCommandHistoryW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
-            Windows_h.C_POINTER
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("ExpungeConsoleCommandHistoryW"),
+                    findOrThrow("ExpungeConsoleCommandHistoryW"),
                     DESC);
     }
 
@@ -34400,13 +34400,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleNumberOfCommandsA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleNumberOfCommandsA"),
+                    findOrThrow("SetConsoleNumberOfCommandsA"),
                     DESC);
     }
 
@@ -34448,13 +34448,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class SetConsoleNumberOfCommandsW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("SetConsoleNumberOfCommandsW"),
+                    findOrThrow("SetConsoleNumberOfCommandsW"),
                     DESC);
     }
 
@@ -34496,12 +34496,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleCommandHistoryLengthA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleCommandHistoryLengthA"),
+                    findOrThrow("GetConsoleCommandHistoryLengthA"),
                     DESC);
     }
 
@@ -34543,12 +34543,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleCommandHistoryLengthW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleCommandHistoryLengthW"),
+                    findOrThrow("GetConsoleCommandHistoryLengthW"),
                     DESC);
     }
 
@@ -34590,14 +34590,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleCommandHistoryA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleCommandHistoryA"),
+                    findOrThrow("GetConsoleCommandHistoryA"),
                     DESC);
     }
 
@@ -34639,14 +34639,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleCommandHistoryW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleCommandHistoryW"),
+                    findOrThrow("GetConsoleCommandHistoryW"),
                     DESC);
     }
 
@@ -34688,13 +34688,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetConsoleProcessList {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetConsoleProcessList"),
+                    findOrThrow("GetConsoleProcessList"),
                     DESC);
     }
 
@@ -34736,19 +34736,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class VerFindFileA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("VerFindFileA"),
+                    findOrThrow("VerFindFileA"),
                     DESC);
     }
 
@@ -34790,19 +34790,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class VerFindFileW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("VerFindFileW"),
+                    findOrThrow("VerFindFileW"),
                     DESC);
     }
 
@@ -34844,19 +34844,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class VerInstallFileA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("VerInstallFileA"),
+                    findOrThrow("VerInstallFileA"),
                     DESC);
     }
 
@@ -34898,19 +34898,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class VerInstallFileW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("VerInstallFileW"),
+                    findOrThrow("VerInstallFileW"),
                     DESC);
     }
 
@@ -34952,13 +34952,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetFileVersionInfoSizeA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetFileVersionInfoSizeA"),
+                    findOrThrow("GetFileVersionInfoSizeA"),
                     DESC);
     }
 
@@ -35000,13 +35000,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetFileVersionInfoSizeW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetFileVersionInfoSizeW"),
+                    findOrThrow("GetFileVersionInfoSizeW"),
                     DESC);
     }
 
@@ -35048,15 +35048,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetFileVersionInfoA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetFileVersionInfoA"),
+                    findOrThrow("GetFileVersionInfoA"),
                     DESC);
     }
 
@@ -35098,15 +35098,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetFileVersionInfoW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetFileVersionInfoW"),
+                    findOrThrow("GetFileVersionInfoW"),
                     DESC);
     }
 
@@ -35148,14 +35148,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetFileVersionInfoSizeExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetFileVersionInfoSizeExA"),
+                    findOrThrow("GetFileVersionInfoSizeExA"),
                     DESC);
     }
 
@@ -35197,14 +35197,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetFileVersionInfoSizeExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetFileVersionInfoSizeExW"),
+                    findOrThrow("GetFileVersionInfoSizeExW"),
                     DESC);
     }
 
@@ -35246,16 +35246,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetFileVersionInfoExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetFileVersionInfoExA"),
+                    findOrThrow("GetFileVersionInfoExA"),
                     DESC);
     }
 
@@ -35297,16 +35297,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class GetFileVersionInfoExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("GetFileVersionInfoExW"),
+                    findOrThrow("GetFileVersionInfoExW"),
                     DESC);
     }
 
@@ -35348,14 +35348,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class VerLanguageNameA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("VerLanguageNameA"),
+                    findOrThrow("VerLanguageNameA"),
                     DESC);
     }
 
@@ -35397,14 +35397,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class VerLanguageNameW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("VerLanguageNameW"),
+                    findOrThrow("VerLanguageNameW"),
                     DESC);
     }
 
@@ -35446,15 +35446,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class VerQueryValueA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("VerQueryValueA"),
+                    findOrThrow("VerQueryValueA"),
                     DESC);
     }
 
@@ -35496,15 +35496,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class VerQueryValueW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_INT,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_INT,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("VerQueryValueW"),
+                    findOrThrow("VerQueryValueW"),
                     DESC);
     }
 
@@ -35548,13 +35548,13 @@ public class Windows_h_22 extends Windows_h_23 {
      * typedef LONG LSTATUS
      * }
      */
-    public static final OfInt LSTATUS = Windows_h.C_LONG;
+    public static final OfInt LSTATUS = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef ACCESS_MASK REGSAM
      * }
      */
-    public static final OfInt REGSAM = Windows_h.C_LONG;
+    public static final OfInt REGSAM = C_LONG;
     /**
      * {@snippet lang=c :
      * typedef struct val_context {
@@ -35564,7 +35564,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PVALCONTEXT
      * }
      */
-    public static final AddressLayout PVALCONTEXT = Windows_h.C_POINTER;
+    public static final AddressLayout PVALCONTEXT = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct pvalueA {
@@ -35575,7 +35575,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PPVALUEA
      * }
      */
-    public static final AddressLayout PPVALUEA = Windows_h.C_POINTER;
+    public static final AddressLayout PPVALUEA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct pvalueW {
@@ -35586,13 +35586,13 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PPVALUEW
      * }
      */
-    public static final AddressLayout PPVALUEW = Windows_h.C_POINTER;
+    public static final AddressLayout PPVALUEW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PPVALUEA PPVALUE
      * }
      */
-    public static final AddressLayout PPVALUE = Windows_h.C_POINTER;
+    public static final AddressLayout PPVALUE = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct provider_info {
@@ -35605,7 +35605,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PPROVIDER
      * }
      */
-    public static final AddressLayout PPROVIDER = Windows_h.C_POINTER;
+    public static final AddressLayout PPROVIDER = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct value_entA {
@@ -35616,7 +35616,7 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PVALENTA
      * }
      */
-    public static final AddressLayout PVALENTA = Windows_h.C_POINTER;
+    public static final AddressLayout PVALENTA = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef struct value_entW {
@@ -35627,22 +35627,22 @@ public class Windows_h_22 extends Windows_h_23 {
      * } *PVALENTW
      * }
      */
-    public static final AddressLayout PVALENTW = Windows_h.C_POINTER;
+    public static final AddressLayout PVALENTW = C_POINTER;
     /**
      * {@snippet lang=c :
      * typedef PVALENTA PVALENT
      * }
      */
-    public static final AddressLayout PVALENT = Windows_h.C_POINTER;
+    public static final AddressLayout PVALENT = C_POINTER;
 
     private static class RegCloseKey {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegCloseKey"),
+                    findOrThrow("RegCloseKey"),
                     DESC);
     }
 
@@ -35684,13 +35684,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegOverridePredefKey {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegOverridePredefKey"),
+                    findOrThrow("RegOverridePredefKey"),
                     DESC);
     }
 
@@ -35732,15 +35732,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegOpenUserClassesRoot {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegOpenUserClassesRoot"),
+                    findOrThrow("RegOpenUserClassesRoot"),
                     DESC);
     }
 
@@ -35782,13 +35782,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegOpenCurrentUser {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegOpenCurrentUser"),
+                    findOrThrow("RegOpenCurrentUser"),
                     DESC);
     }
 
@@ -35830,10 +35830,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegDisablePredefinedCache {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG    );
+            C_LONG    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegDisablePredefinedCache"),
+                    findOrThrow("RegDisablePredefinedCache"),
                     DESC);
     }
 
@@ -35875,10 +35875,10 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegDisablePredefinedCacheEx {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG    );
+            C_LONG    );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegDisablePredefinedCacheEx"),
+                    findOrThrow("RegDisablePredefinedCacheEx"),
                     DESC);
     }
 
@@ -35920,14 +35920,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegConnectRegistryA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegConnectRegistryA"),
+                    findOrThrow("RegConnectRegistryA"),
                     DESC);
     }
 
@@ -35969,14 +35969,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegConnectRegistryW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegConnectRegistryW"),
+                    findOrThrow("RegConnectRegistryW"),
                     DESC);
     }
 
@@ -36018,15 +36018,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegConnectRegistryExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegConnectRegistryExA"),
+                    findOrThrow("RegConnectRegistryExA"),
                     DESC);
     }
 
@@ -36068,15 +36068,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegConnectRegistryExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegConnectRegistryExW"),
+                    findOrThrow("RegConnectRegistryExW"),
                     DESC);
     }
 
@@ -36118,14 +36118,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegCreateKeyA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegCreateKeyA"),
+                    findOrThrow("RegCreateKeyA"),
                     DESC);
     }
 
@@ -36167,14 +36167,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegCreateKeyW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegCreateKeyW"),
+                    findOrThrow("RegCreateKeyW"),
                     DESC);
     }
 
@@ -36216,20 +36216,20 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegCreateKeyExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegCreateKeyExA"),
+                    findOrThrow("RegCreateKeyExA"),
                     DESC);
     }
 
@@ -36271,20 +36271,20 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegCreateKeyExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegCreateKeyExW"),
+                    findOrThrow("RegCreateKeyExW"),
                     DESC);
     }
 
@@ -36326,22 +36326,22 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegCreateKeyTransactedA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegCreateKeyTransactedA"),
+                    findOrThrow("RegCreateKeyTransactedA"),
                     DESC);
     }
 
@@ -36383,22 +36383,22 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegCreateKeyTransactedW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegCreateKeyTransactedW"),
+                    findOrThrow("RegCreateKeyTransactedW"),
                     DESC);
     }
 
@@ -36440,13 +36440,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegDeleteKeyA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegDeleteKeyA"),
+                    findOrThrow("RegDeleteKeyA"),
                     DESC);
     }
 
@@ -36488,13 +36488,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegDeleteKeyW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegDeleteKeyW"),
+                    findOrThrow("RegDeleteKeyW"),
                     DESC);
     }
 
@@ -36536,15 +36536,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegDeleteKeyExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegDeleteKeyExA"),
+                    findOrThrow("RegDeleteKeyExA"),
                     DESC);
     }
 
@@ -36586,15 +36586,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegDeleteKeyExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegDeleteKeyExW"),
+                    findOrThrow("RegDeleteKeyExW"),
                     DESC);
     }
 
@@ -36636,17 +36636,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegDeleteKeyTransactedA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegDeleteKeyTransactedA"),
+                    findOrThrow("RegDeleteKeyTransactedA"),
                     DESC);
     }
 
@@ -36688,17 +36688,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegDeleteKeyTransactedW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegDeleteKeyTransactedW"),
+                    findOrThrow("RegDeleteKeyTransactedW"),
                     DESC);
     }
 
@@ -36740,12 +36740,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegDisableReflectionKey {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegDisableReflectionKey"),
+                    findOrThrow("RegDisableReflectionKey"),
                     DESC);
     }
 
@@ -36787,12 +36787,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegEnableReflectionKey {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegEnableReflectionKey"),
+                    findOrThrow("RegEnableReflectionKey"),
                     DESC);
     }
 
@@ -36834,13 +36834,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegQueryReflectionKey {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegQueryReflectionKey"),
+                    findOrThrow("RegQueryReflectionKey"),
                     DESC);
     }
 
@@ -36882,13 +36882,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegDeleteValueA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegDeleteValueA"),
+                    findOrThrow("RegDeleteValueA"),
                     DESC);
     }
 
@@ -36930,13 +36930,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegDeleteValueW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegDeleteValueW"),
+                    findOrThrow("RegDeleteValueW"),
                     DESC);
     }
 
@@ -36978,15 +36978,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegEnumKeyA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegEnumKeyA"),
+                    findOrThrow("RegEnumKeyA"),
                     DESC);
     }
 
@@ -37028,15 +37028,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegEnumKeyW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegEnumKeyW"),
+                    findOrThrow("RegEnumKeyW"),
                     DESC);
     }
 
@@ -37078,19 +37078,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegEnumKeyExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegEnumKeyExA"),
+                    findOrThrow("RegEnumKeyExA"),
                     DESC);
     }
 
@@ -37132,19 +37132,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegEnumKeyExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegEnumKeyExW"),
+                    findOrThrow("RegEnumKeyExW"),
                     DESC);
     }
 
@@ -37186,19 +37186,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegEnumValueA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegEnumValueA"),
+                    findOrThrow("RegEnumValueA"),
                     DESC);
     }
 
@@ -37240,19 +37240,19 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegEnumValueW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegEnumValueW"),
+                    findOrThrow("RegEnumValueW"),
                     DESC);
     }
 
@@ -37294,12 +37294,12 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegFlushKey {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegFlushKey"),
+                    findOrThrow("RegFlushKey"),
                     DESC);
     }
 
@@ -37341,15 +37341,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegGetKeySecurity {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegGetKeySecurity"),
+                    findOrThrow("RegGetKeySecurity"),
                     DESC);
     }
 
@@ -37391,14 +37391,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegLoadKeyA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegLoadKeyA"),
+                    findOrThrow("RegLoadKeyA"),
                     DESC);
     }
 
@@ -37440,14 +37440,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegLoadKeyW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegLoadKeyW"),
+                    findOrThrow("RegLoadKeyW"),
                     DESC);
     }
 
@@ -37489,16 +37489,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegNotifyChangeKeyValue {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_INT
+            C_LONG,
+            C_POINTER,
+            C_INT,
+            C_LONG,
+            C_POINTER,
+            C_INT
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegNotifyChangeKeyValue"),
+                    findOrThrow("RegNotifyChangeKeyValue"),
                     DESC);
     }
 
@@ -37540,14 +37540,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegOpenKeyA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegOpenKeyA"),
+                    findOrThrow("RegOpenKeyA"),
                     DESC);
     }
 
@@ -37589,14 +37589,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegOpenKeyW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegOpenKeyW"),
+                    findOrThrow("RegOpenKeyW"),
                     DESC);
     }
 
@@ -37638,16 +37638,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegOpenKeyExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegOpenKeyExA"),
+                    findOrThrow("RegOpenKeyExA"),
                     DESC);
     }
 
@@ -37689,16 +37689,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegOpenKeyExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegOpenKeyExW"),
+                    findOrThrow("RegOpenKeyExW"),
                     DESC);
     }
 
@@ -37740,18 +37740,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegOpenKeyTransactedA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegOpenKeyTransactedA"),
+                    findOrThrow("RegOpenKeyTransactedA"),
                     DESC);
     }
 
@@ -37793,18 +37793,18 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegOpenKeyTransactedW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegOpenKeyTransactedW"),
+                    findOrThrow("RegOpenKeyTransactedW"),
                     DESC);
     }
 
@@ -37846,23 +37846,23 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegQueryInfoKeyA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegQueryInfoKeyA"),
+                    findOrThrow("RegQueryInfoKeyA"),
                     DESC);
     }
 
@@ -37904,23 +37904,23 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegQueryInfoKeyW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegQueryInfoKeyW"),
+                    findOrThrow("RegQueryInfoKeyW"),
                     DESC);
     }
 
@@ -37962,15 +37962,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegQueryValueA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegQueryValueA"),
+                    findOrThrow("RegQueryValueA"),
                     DESC);
     }
 
@@ -38012,15 +38012,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegQueryValueW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegQueryValueW"),
+                    findOrThrow("RegQueryValueW"),
                     DESC);
     }
 
@@ -38062,16 +38062,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegQueryMultipleValuesA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegQueryMultipleValuesA"),
+                    findOrThrow("RegQueryMultipleValuesA"),
                     DESC);
     }
 
@@ -38113,16 +38113,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegQueryMultipleValuesW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegQueryMultipleValuesW"),
+                    findOrThrow("RegQueryMultipleValuesW"),
                     DESC);
     }
 
@@ -38164,17 +38164,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegQueryValueExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegQueryValueExA"),
+                    findOrThrow("RegQueryValueExA"),
                     DESC);
     }
 
@@ -38216,17 +38216,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegQueryValueExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegQueryValueExW"),
+                    findOrThrow("RegQueryValueExW"),
                     DESC);
     }
 
@@ -38268,15 +38268,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegReplaceKeyA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegReplaceKeyA"),
+                    findOrThrow("RegReplaceKeyA"),
                     DESC);
     }
 
@@ -38318,15 +38318,15 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegReplaceKeyW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegReplaceKeyW"),
+                    findOrThrow("RegReplaceKeyW"),
                     DESC);
     }
 
@@ -38368,14 +38368,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegRestoreKeyA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegRestoreKeyA"),
+                    findOrThrow("RegRestoreKeyA"),
                     DESC);
     }
 
@@ -38417,14 +38417,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegRestoreKeyW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegRestoreKeyW"),
+                    findOrThrow("RegRestoreKeyW"),
                     DESC);
     }
 
@@ -38466,14 +38466,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegRenameKey {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegRenameKey"),
+                    findOrThrow("RegRenameKey"),
                     DESC);
     }
 
@@ -38515,14 +38515,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegSaveKeyA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegSaveKeyA"),
+                    findOrThrow("RegSaveKeyA"),
                     DESC);
     }
 
@@ -38564,14 +38564,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegSaveKeyW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegSaveKeyW"),
+                    findOrThrow("RegSaveKeyW"),
                     DESC);
     }
 
@@ -38613,14 +38613,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegSetKeySecurity {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_LONG,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegSetKeySecurity"),
+                    findOrThrow("RegSetKeySecurity"),
                     DESC);
     }
 
@@ -38662,16 +38662,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegSetValueA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegSetValueA"),
+                    findOrThrow("RegSetValueA"),
                     DESC);
     }
 
@@ -38713,16 +38713,16 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegSetValueW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegSetValueW"),
+                    findOrThrow("RegSetValueW"),
                     DESC);
     }
 
@@ -38764,17 +38764,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegSetValueExA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegSetValueExA"),
+                    findOrThrow("RegSetValueExA"),
                     DESC);
     }
 
@@ -38816,17 +38816,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegSetValueExW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegSetValueExW"),
+                    findOrThrow("RegSetValueExW"),
                     DESC);
     }
 
@@ -38868,13 +38868,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegUnLoadKeyA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegUnLoadKeyA"),
+                    findOrThrow("RegUnLoadKeyA"),
                     DESC);
     }
 
@@ -38916,13 +38916,13 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegUnLoadKeyW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegUnLoadKeyW"),
+                    findOrThrow("RegUnLoadKeyW"),
                     DESC);
     }
 
@@ -38964,14 +38964,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegDeleteKeyValueA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegDeleteKeyValueA"),
+                    findOrThrow("RegDeleteKeyValueA"),
                     DESC);
     }
 
@@ -39013,14 +39013,14 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegDeleteKeyValueW {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegDeleteKeyValueW"),
+                    findOrThrow("RegDeleteKeyValueW"),
                     DESC);
     }
 
@@ -39062,17 +39062,17 @@ public class Windows_h_22 extends Windows_h_23 {
 
     private static class RegSetKeyValueA {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG,
-            Windows_h.C_POINTER,
-            Windows_h.C_LONG
+            C_LONG,
+            C_POINTER,
+            C_POINTER,
+            C_POINTER,
+            C_LONG,
+            C_POINTER,
+            C_LONG
         );
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
-                    Windows_h.findOrThrow("RegSetKeyValueA"),
+                    findOrThrow("RegSetKeyValueA"),
                     DESC);
     }
 

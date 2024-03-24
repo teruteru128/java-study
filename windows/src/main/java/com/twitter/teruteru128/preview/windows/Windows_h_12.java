@@ -1591,7 +1591,7 @@ public class Windows_h_12 extends Windows_h_13 {
     public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A() {
         class Holder {
             static final MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("GetSystemWow64DirectoryA");
+                = LIBRARY_ARENA.allocateFrom("GetSystemWow64DirectoryA");
         }
         return Holder.GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A;
     }
@@ -1603,7 +1603,7 @@ public class Windows_h_12 extends Windows_h_13 {
     public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W() {
         class Holder {
             static final MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("G");
+                = LIBRARY_ARENA.allocateFrom("G");
         }
         return Holder.GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W;
     }
@@ -1615,7 +1615,7 @@ public class Windows_h_12 extends Windows_h_13 {
     public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T() {
         class Holder {
             static final MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T
-                = Windows_h.LIBRARY_ARENA.allocateFrom("GetSystemWow64DirectoryA");
+                = LIBRARY_ARENA.allocateFrom("GetSystemWow64DirectoryA");
         }
         return Holder.GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T;
     }
@@ -1627,7 +1627,7 @@ public class Windows_h_12 extends Windows_h_13 {
     public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A() {
         class Holder {
             static final MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("GetSystemWow64DirectoryW");
+                = LIBRARY_ARENA.allocateFrom("GetSystemWow64DirectoryW");
         }
         return Holder.GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A;
     }
@@ -1639,7 +1639,7 @@ public class Windows_h_12 extends Windows_h_13 {
     public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W() {
         class Holder {
             static final MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("G");
+                = LIBRARY_ARENA.allocateFrom("G");
         }
         return Holder.GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W;
     }
@@ -1651,7 +1651,7 @@ public class Windows_h_12 extends Windows_h_13 {
     public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T() {
         class Holder {
             static final MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T
-                = Windows_h.LIBRARY_ARENA.allocateFrom("GetSystemWow64DirectoryW");
+                = LIBRARY_ARENA.allocateFrom("GetSystemWow64DirectoryW");
         }
         return Holder.GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T;
     }
@@ -1663,7 +1663,7 @@ public class Windows_h_12 extends Windows_h_13 {
     public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A() {
         class Holder {
             static final MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A
-                = Windows_h.LIBRARY_ARENA.allocateFrom("GetSystemWow64DirectoryA");
+                = LIBRARY_ARENA.allocateFrom("GetSystemWow64DirectoryA");
         }
         return Holder.GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A;
     }
@@ -1675,7 +1675,7 @@ public class Windows_h_12 extends Windows_h_13 {
     public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W() {
         class Holder {
             static final MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W
-                = Windows_h.LIBRARY_ARENA.allocateFrom("G");
+                = LIBRARY_ARENA.allocateFrom("G");
         }
         return Holder.GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W;
     }
@@ -1687,7 +1687,7 @@ public class Windows_h_12 extends Windows_h_13 {
     public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T() {
         class Holder {
             static final MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T
-                = Windows_h.LIBRARY_ARENA.allocateFrom("GetSystemWow64DirectoryA");
+                = LIBRARY_ARENA.allocateFrom("GetSystemWow64DirectoryA");
         }
         return Holder.GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T;
     }
