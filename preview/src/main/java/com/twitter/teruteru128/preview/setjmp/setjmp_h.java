@@ -276,7 +276,7 @@ public class setjmp_h {
      * typedef _Bool __vcrt_bool
      * }
      */
-    public static final OfBoolean __vcrt_bool = setjmp_h.C_BOOL;
+    public static final OfBoolean __vcrt_bool = C_BOOL;
     /**
      * {@snippet lang=c :
      * typedef unsigned short wchar_t
