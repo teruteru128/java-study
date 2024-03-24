@@ -5,14 +5,13 @@ import com.twitter.teruteru128.bitmessage.app.Spammer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UncheckedIOException;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
-import java.net.InetSocketAddress;
+import java.net.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.SocketChannel;
-import java.nio.channels.spi.SelectorProvider;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.*;
@@ -20,12 +19,14 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Collections;
-import java.util.HexFormat;
 import java.util.Objects;
+import java.util.StringJoiner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
+import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
 import static java.lang.Math.min;
 
@@ -35,8 +36,7 @@ import static java.lang.Math.min;
 public class Main {
 
     public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
-    private static final byte[] TSKEY = "b9dfaa7bee6ac57ac7b65f1094a1c155e747327bc2fe5d51c512023fe54a280201004e90ad1daaae1075d53b7d571c30e063b5a62a4a017bb394833aa0983e6e".getBytes();
-    private static final HexFormat hexFormat = HexFormat.of();
+    private static final byte[] TEAM_SPEAK_KEY = "b9dfaa7bee6ac57ac7b65f1094a1c155e747327bc2fe5d51c512023fe54a280201004e90ad1daaae1075d53b7d571c30e063b5a62a4a017bb394833aa0983e6e".getBytes();
 
     static {
         try {
@@ -52,6 +52,7 @@ public class Main {
             throw new InternalError(e);
         }
         try (var s = new BufferedReader(new InputStreamReader(Objects.requireNonNull(Main.class.getResource("class-list.txt")).openStream()))) {
+            // forName()した後になにかするならmap()を使うんだろうな
             s.lines().forEach(className -> {
                 try {
                     Class.forName(className);
@@ -70,31 +71,104 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         if (args.length < 1) {
-            return;
+            Runtime.getRuntime().exit(1);
         }
         switch (args[0]) {
-            case "bmg" -> extracted2();
             case "clone" -> extracted1();
             case "getPubKeySpam" ->
                     Spammer.getPubKeySpam((SecureRandom) SECURE_RANDOM_GENERATOR, args.length >= 2 ? Integer.parseInt(args[1]) : 10000);
             case "random" -> doubleSample(ThreadLocalRandom.current());
             case "random2" -> extracted();
-            case "ts" -> {
+            case "ts1" -> {
                 var decoder = Base64.getDecoder();
                 ts1(decoder);
                 // ここで秘密鍵を公開鍵に変換する
-                var publicKey = "MEwDAgcAAgEgAiEA7Vo1+Orf2xuuu6hTPAPldSfrUZZ7WYAzpRcO5DoYFLoCIF1JKVBctOGvMOy495O/BWFuFEYH4i1f6vU0b9+a64RD".getBytes();
+            }
+            case "ts2" -> {
+                var publicKey = Objects.requireNonNull(System.getenv("BM_PUBLIC_KEY")).getBytes();
                 ts2(publicKey, args.length >= 2 ? Integer.parseInt(args[1]) : Runtime.getRuntime().availableProcessors());
             }
             case "unitSpam" -> {
                 if (args.length >= 2) {
-                    if (args.length >= 3) {
-                        Spammer.unitSpam(Files.readAllLines(Path.of(args[1])), 2500, Duration.ofHours(12), Integer.parseInt(args[2]));
-                    } else Spammer.unitSpam(Files.readAllLines(Path.of(args[1])), 2500, Duration.ofHours(12), 0);
+                    Spammer.unitSpam(Files.readAllLines(Path.of(args[1])), 2500, Duration.ofHours(12), args.length >= 3 ? Integer.parseInt(args[2]) : 0);
                 }
             }
-            default -> System.err.println("unknown command");
+            case "unitSpam2" -> {
+                if (args.length >= 2)
+                    Spammer.unitSpam2(Files.readAllLines(Path.of(args[1])), 2500, args.length >= 3 ? Integer.parseInt(args[2]) : 0);
+            }
+            case "hash-base64" -> {
+                if (args.length >= 2) {
+                    var sha256 = MessageDigest.getInstance("SHA-256");
+                    var hash = sha256.digest(Files.readAllBytes(Path.of(args[1])));
+                    System.out.println(Base64.getEncoder().encodeToString(hash));
+                }
+            }
+            case "search-tor" -> extracted(new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9150)));
+            case "map" -> System.out.println("System.mapLibraryName(\"OpenCL\") = " + System.mapLibraryName("OpenCL"));
+            default -> {
+                System.err.println("unknown command");
+                Runtime.getRuntime().exit(1);
+            }
         }
+    }
+
+    private static void extracted(Proxy proxy) {
+        var pattern1 = Pattern.compile("<title>(.*荒らし共栄圏.*)</title>");
+        var pattern2 = Pattern.compile("<title>(.*)</title>");
+        long counter = IntStream.range(4299, 20000).mapToObj(i -> {
+            try {
+                return new URI("http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/tor/%d/l50".formatted(i));
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }).map(uri -> {
+            try {
+                return uri.toURL();
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            }
+        }).map(u -> {
+            try {
+                return (HttpURLConnection) u.openConnection(proxy);
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        }).filter(connection -> {
+            try {
+                var responseCode = connection.getResponseCode();
+                var b = responseCode == HttpURLConnection.HTTP_OK;
+                if (!b) {
+                    System.err.printf("response code: %d%n", responseCode);
+                }
+                return b;
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        }).map(c -> {
+            try (var in = new BufferedReader(new InputStreamReader(c.getInputStream(), StandardCharsets.UTF_8))) {
+                return in.lines().collect(() -> new StringJoiner(System.lineSeparator()), StringJoiner::add, StringJoiner::merge).toString();
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        }).filter(b -> {
+            var b1 = pattern1.matcher(b).find();
+            if (!b1) {
+                var matcher = pattern2.matcher(b);
+                if (matcher.find()) {
+                    System.err.println(matcher.group(1));
+                }
+            }
+            try {
+                Thread.sleep(3000);
+                return b1;
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } finally {
+                System.err.println("ho!");
+            }
+        }).count();
+        System.out.println("counter = " + counter);
     }
 
     private static void ts2(byte[] publicKey, int n) throws NoSuchAlgorithmException, DigestException, InterruptedException, ExecutionException {
@@ -109,19 +183,16 @@ public class Main {
                 var hash = buffer.array();
                 var current = RandomGenerator.getDefault();
                 var w = MessageDigest.getInstance("SHA-1");
-                int i;
-                do {
-                    do {
-                        w.update(publicKey);
-                        co = current.nextLong();
-                        // teamspeakのカウンターは符号なし
-                        // TODO toUnsignedString() -> getBytes で byte[]を取得とか絶対遅いからもっと早い実装にしたい
-                        w.update(Long.toUnsignedString(co).getBytes());
-                        w.digest(hash, 0, 20);
-                        i = Long.numberOfTrailingZeros(buffer.getLong(0));
-                    } while (i < 45);
-                    System.out.printf("%d: %d%n", co, i);
-                } while (i < 48);
+                int level = 0;
+                for (co = (current.nextInt() & 0xffffffffL) << 32; level < 48; co++) {
+                    w.update(publicKey);
+                    // teamspeakのカウンターは符号なし
+                    // TODO toUnsignedString() -> getBytes で byte[]を取得とか絶対遅いからもっと早い実装にしたい
+                    w.update(Long.toUnsignedString(co).getBytes());
+                    w.digest(hash, 0, 20);
+                    level = Long.numberOfTrailingZeros(buffer.getLong(0));
+                    if (level >= 34) System.out.printf("%s: %d%n", Long.toUnsignedString(co), level);
+                }
                 return co;
             }));
             System.out.printf("%d: %d%n", counter, getSecurityLevel(publicKey, counter));
@@ -130,13 +201,13 @@ public class Main {
     }
 
     /**
-     * @param decoder
-     * @throws NoSuchAlgorithmException
-     * @throws DigestException
+     * @param decoder a
+     * @throws NoSuchAlgorithmException a
+     * @throws DigestException a
      */
     private static void ts1(Base64.Decoder decoder) throws NoSuchAlgorithmException, DigestException {
         var privateKey = decoder.decode(System.getenv("KEY"));
-        deObfuscateInplace(privateKey);
+        deObfuscateInPlace(privateKey);
         System.out.println(new String(privateKey));
     }
 
@@ -149,7 +220,7 @@ public class Main {
         return Long.numberOfTrailingZeros(ByteBuffer.wrap(hash).order(ByteOrder.LITTLE_ENDIAN).getLong(0));
     }
 
-    private static void deObfuscateInplace(byte[] data) throws NoSuchAlgorithmException, DigestException {
+    private static void deObfuscateInPlace(byte[] data) throws NoSuchAlgorithmException, DigestException {
         var sha1 = MessageDigest.getInstance("SHA-1");
         int strlen = 0;
         while (data[strlen + 20] != 0) strlen++;
@@ -161,14 +232,7 @@ public class Main {
         }
         int dataSize = min(100, data.length);
         for (int i = 0; i < dataSize; i++) {
-            data[i] ^= TSKEY[i];
-        }
-    }
-
-    private static void extracted2() throws Exception {
-        var a = new InetSocketAddress("localhost", 8444);
-        try (var socket = SocketChannel.open(a); var selector = SelectorProvider.provider().openSelector()) {
-            var key = socket.register(selector, SelectionKey.OP_READ);
+            data[i] ^= TEAM_SPEAK_KEY[i];
         }
     }
 
