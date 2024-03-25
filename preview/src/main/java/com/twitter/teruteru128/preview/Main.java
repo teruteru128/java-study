@@ -1,7 +1,6 @@
 package com.twitter.teruteru128.preview;
 
 import java.lang.foreign.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HexFormat;
 import java.util.Objects;
@@ -14,7 +13,6 @@ import static java.lang.foreign.FunctionDescriptor.of;
 import static java.lang.foreign.MemoryLayout.*;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.*;
-import static java.util.FormatProcessor.FMT;
 
 public class Main implements Callable<Void> {
 
@@ -119,7 +117,7 @@ public class Main implements Callable<Void> {
         System.loadLibrary("BCrypt");
         ValueLayout.ADDRESS.targetLayout().ifPresent(memoryLayout -> System.out.printf("address value layout: %s%n", memoryLayout));
         try (var arena = Arena.ofConfined()) {
-            System.out.println(STR."strlen(arena.allocateFrom(s)) = \{strlen(arena.allocateFrom(s))}");
+            System.out.printf("strlen(arena.allocateFrom(s)) = %s", strlen(arena.allocateFrom(s)));
             ret = cl(arena);
             if (ret != 0) {
                 System.err.printf("cl: %s%n", clGetErrorString(ret));
@@ -150,7 +148,7 @@ public class Main implements Callable<Void> {
     private int BCryptSHA256(Arena arena, String str) {
         var newLocale = arena.allocateFrom("");
         var locale = setlocale(0, newLocale);
-        System.out.println(STR."locale.reinterpret(strlen(locale) + 1).getString(0) = \{locale.reinterpret(strlen(locale) + 1).getString(0)}");
+        System.out.printf("locale.reinterpret(strlen(locale) + 1).getString(0) = %s",locale.reinterpret(strlen(locale) + 1).getString(0));
 
         //プロバイダーハンドルを作成
         int status;
@@ -169,13 +167,13 @@ public class Main implements Callable<Void> {
         var re = arena.allocate(JAVA_INT);
         var i5 = BCryptGetProperty(handle, BCRYPT_OBJECT_LENGTH(), NULL, 0, re, 0);
         if (i5 != 0) {
-            throw new IllegalStateException(FMT."BCryptGetProperty 1: %08x\{i5}");
+            throw new IllegalStateException(String.format("BCryptGetProperty 1: %08x", i5));
         }
         var byteSize = re.get(JAVA_INT, 0);
         var bufferSize = arena.allocate(byteSize);
         var i4 = BCryptGetProperty(handle, BCRYPT_OBJECT_LENGTH(), bufferSize, byteSize, re, 0);
         if (i4 != 0) {
-            throw new IllegalStateException(FMT."BCryptGetProperty 2: %08x\{i4}");
+            throw new IllegalStateException(String.format("BCryptGetProperty 2: %08x", i4));
         }
         var size1 = bufferSize.get(JAVA_INT, 0);
         // hashオブジェクトを作成
@@ -183,8 +181,7 @@ public class Main implements Callable<Void> {
         var hash = arena.allocate(ADDRESS);
         var i = BCryptCreateHash(handle, hash, buffer, size1, NULL, 0, BCRYPT_HASH_REUSABLE_FLAG());
         if (i != 0) {
-            System.err.printf("BCryptCreateHash %d%n", i);
-            throw new IllegalStateException(FMT."BCryptCreateHash: %08x\{i}");
+            throw new IllegalStateException(String.format("BCryptCreateHash: %08x", i));
         }
         // hash開始
         var rawStr = arena.allocateFrom(str);
@@ -211,7 +208,7 @@ public class Main implements Callable<Void> {
         }
         var average = Arrays.stream(s).average();
         if (average.isPresent()) {
-            System.out.println(STR."\{average.getAsDouble() / 1e9}");
+            System.out.println(average.getAsDouble() / 1e9);
         }
         // javaのbyte配列にコピーして出力
         MemorySegment.copy(hashBuffer, JAVA_BYTE, 0, hashBuffer1, 0, 20);
@@ -219,11 +216,11 @@ public class Main implements Callable<Void> {
         // hashオブジェクトを破棄
         var i3 = BCryptDestroyHash(hHash);
         if (i3 != 0) {
-            throw new RuntimeException(STR."BCryptDestroyHash: \{i3}");
+            throw new RuntimeException("BCryptDestroyHash: " + i3);
         }
         var j6 = BCryptCloseAlgorithmProvider(handle, 0);
         if (j6 != 0) {
-            throw new RuntimeException(FMT."**** Error 0x%08x\{j6}(%d\{j6}) returned by BCryptCloseAlgorithmProvider");
+            throw new RuntimeException(String.format("**** Error 0x%1$08x(%1$d) returned by BCryptCloseAlgorithmProvider", j6));
         }
         return 0;
     }
@@ -303,7 +300,7 @@ public class Main implements Callable<Void> {
             System.err.printf("clGetKernelWorkGroupInfo: %s%n", clGetErrorString(ret));
             return 1;
         }
-        System.out.println(STR."workGroupSize.get(JAVA_LONG, 0) = \{workGroupSize.get(JAVA_LONG, 0)}");
+        System.out.println("workGroupSize.get(JAVA_LONG, 0) = " + workGroupSize.get(JAVA_LONG, 0));
         // device オブジェクトをリリースする
         if ((ret = clReleaseDevice(deviceIds.get(ADDRESS, 0))) != 0) {
             System.err.printf("clReleaseDevice: %s%n", clGetErrorString(ret));
