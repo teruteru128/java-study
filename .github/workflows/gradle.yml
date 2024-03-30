@@ -27,8 +27,8 @@ jobs:
     - uses: gradle/wrapper-validation-action@v2.1.2
     - name: use variables
       run: |
-        echo ${{vars.RUNNER_ARCH}}
+        echo ${{RUNNER_ARCH}}
     - name: Build with Gradle
       uses: gradle/gradle-build-action@v3.1.0
       with:
-        arguments: -Dorg.gradle.java.home=${{vars.JAVA_HOME_21_x64}} build --parallel
+        arguments: -Dorg.gradle.java.home $JAVA_HOME_21_x64 build --parallel
