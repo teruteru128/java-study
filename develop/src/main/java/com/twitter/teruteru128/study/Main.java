@@ -2,10 +2,7 @@ package com.twitter.teruteru128.study;
 
 import com.twitter.teruteru128.bitmessage.app.Spammer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UncheckedIOException;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.net.*;
@@ -17,14 +14,11 @@ import java.nio.file.Path;
 import java.security.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
+import java.util.random.RandomGeneratorFactory;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
@@ -36,7 +30,10 @@ import static java.lang.Math.min;
 public class Main {
 
     public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
+    public static final Pattern PATTERN_1 = Pattern.compile("<title>(.*(?:荒らし共栄圏|園田亮平).*)</title>");
+    public static final Pattern PATTERN_2 = Pattern.compile("<title>(.*)</title>");
     private static final byte[] TEAM_SPEAK_KEY = "b9dfaa7bee6ac57ac7b65f1094a1c155e747327bc2fe5d51c512023fe54a280201004e90ad1daaae1075d53b7d571c30e063b5a62a4a017bb394833aa0983e6e".getBytes();
+    public static final Proxy PROXY = new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9150));
 
     static {
         try {
@@ -77,8 +74,18 @@ public class Main {
             case "clone" -> extracted1();
             case "getPubKeySpam" ->
                     Spammer.getPubKeySpam((SecureRandom) SECURE_RANDOM_GENERATOR, args.length >= 2 ? Integer.parseInt(args[1]) : 10000);
-            case "random" -> doubleSample(ThreadLocalRandom.current());
-            case "random2" -> extracted();
+            case "random" -> doubleSample(RandomGenerator.getDefault());
+            case "random2" -> random2();
+            case "random4" -> {
+                // SecureRandom has MAX_VALUE stateBits.
+                RandomGeneratorFactory<RandomGenerator> best = RandomGeneratorFactory.all()
+                        .filter(rgf -> !rgf.name().equals("SecureRandom")).max(Comparator.comparingInt(RandomGeneratorFactory<RandomGenerator>::stateBits))
+                    .orElse(RandomGeneratorFactory.of("Random"));
+                System.out.println(best.name() + " in " + best.group() + " was selected");
+
+                RandomGenerator rng = best.create();
+                System.out.println(rng.nextLong());
+            }
             case "ts1" -> {
                 var decoder = Base64.getDecoder();
                 ts1(decoder);
@@ -104,7 +111,12 @@ public class Main {
                     System.out.println(Base64.getEncoder().encodeToString(hash));
                 }
             }
-            case "search-tor" -> extracted(new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9150)));
+            case "search-tor" -> {
+                var min = args.length >= 2 ? Integer.parseInt(args[1]) : (4299 + 9473);
+                var max = args.length >= 3 ? Integer.parseInt(args[2]) : 23000;
+                extracted(min, max);
+            }
+            case "check-tor" -> extracted2();
             case "map" -> System.out.println("System.mapLibraryName(\"OpenCL\") = " + System.mapLibraryName("OpenCL"));
             default -> {
                 System.err.println("unknown command");
@@ -113,62 +125,86 @@ public class Main {
         }
     }
 
-    private static void extracted(Proxy proxy) {
-        var pattern1 = Pattern.compile("<title>(.*荒らし共栄圏.*)</title>");
-        var pattern2 = Pattern.compile("<title>(.*)</title>");
-        long counter = IntStream.range(4299, 20000).mapToObj(i -> {
-            try {
-                return new URI("http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/tor/%d/l50".formatted(i));
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-        }).map(uri -> {
-            try {
-                return uri.toURL();
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
-            }
-        }).map(u -> {
-            try {
-                return (HttpURLConnection) u.openConnection(proxy);
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
-        }).filter(connection -> {
-            try {
-                var responseCode = connection.getResponseCode();
-                var b = responseCode == HttpURLConnection.HTTP_OK;
-                if (!b) {
-                    System.err.printf("response code: %d%n", responseCode);
+    private static void extracted2() throws IOException, URISyntaxException {
+        var d = Duration.ofMinutes(5);
+        try (var service = Executors.newSingleThreadExecutor()) {
+            var uri = new URI("http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/");
+            var target = uri.toURL();
+            var scheduledFuture = service.submit(() -> {
+                while (true) {
+                    try {
+                        var connection = (HttpURLConnection) target.openConnection(PROXY);
+                        connection.connect();
+                        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                            connection.disconnect();
+                            return;
+                        }
+                    } catch (SocketException e) {
+                        e.printStackTrace(System.err);
+                    } catch (IOException ignored) {
+                    }
+                    try {
+                        Thread.sleep(d);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-                return b;
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
-        }).map(c -> {
-            try (var in = new BufferedReader(new InputStreamReader(c.getInputStream(), StandardCharsets.UTF_8))) {
-                return in.lines().collect(() -> new StringJoiner(System.lineSeparator()), StringJoiner::add, StringJoiner::merge).toString();
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
-        }).filter(b -> {
-            var b1 = pattern1.matcher(b).find();
-            if (!b1) {
-                var matcher = pattern2.matcher(b);
+            });
+            scheduledFuture.get();
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void extracted(int min, int max) throws IOException {
+        // TODO スレッド名をDBかなにかにまとめる
+        try (var bos = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("subjects.txt", true), StandardCharsets.UTF_8), 16384)) {
+            // 4299
+            IntStream.range(min, max).mapToObj(i -> {
+                try {
+                    return (HttpURLConnection) new URI("http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/tor/%d/l50".formatted(i)).toURL().openConnection(PROXY);
+                } catch (URISyntaxException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }).filter(connection -> {
+                try {
+                    var responseCode = connection.getResponseCode();
+                    var b = responseCode == HttpURLConnection.HTTP_OK;
+                    if (!b) {
+                        System.err.printf("response code: %d%n", responseCode);
+                    }
+                    return b;
+                } catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
+            }).map(c -> {
+                try (var in = new BufferedReader(new InputStreamReader(c.getInputStream(), StandardCharsets.UTF_8))) {
+                    return in.lines().collect(() -> new StringJoiner(System.lineSeparator()), StringJoiner::add, StringJoiner::merge).toString();
+                } catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                } finally {
+                    c.disconnect();
+                }
+            }).forEach(b -> {
+                var matcher = PATTERN_2.matcher(b);
                 if (matcher.find()) {
-                    System.err.println(matcher.group(1));
+                    var group = matcher.group(1);
+                    try {
+                        bos.write(group);
+                        bos.newLine();
+                        bos.flush();
+                    } catch (IOException e) {
+                        throw new UncheckedIOException(e);
+                    }
+                    System.out.println(group);
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            }
-            try {
-                Thread.sleep(3000);
-                return b1;
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            } finally {
-                System.err.println("ho!");
-            }
-        }).count();
-        System.out.println("counter = " + counter);
+            });
+        }
     }
 
     private static void ts2(byte[] publicKey, int n) throws NoSuchAlgorithmException, DigestException, InterruptedException, ExecutionException {
@@ -203,7 +239,7 @@ public class Main {
     /**
      * @param decoder a
      * @throws NoSuchAlgorithmException a
-     * @throws DigestException a
+     * @throws DigestException          a
      */
     private static void ts1(Base64.Decoder decoder) throws NoSuchAlgorithmException, DigestException {
         var privateKey = decoder.decode(System.getenv("KEY"));
@@ -245,7 +281,7 @@ public class Main {
         System.out.println(zero.getClass() == myZero.getClass());
     }
 
-    private static void extracted() {
+    private static void random2() {
         var feats = (101. / 64) * nextDouble(SECURE_RANDOM_GENERATOR) + 1;
         System.out.printf("%f feats, %f cm%n", feats, feats * 30.48);
         var milk = Math.pow(10, 4 + nextDouble(SECURE_RANDOM_GENERATOR));

@@ -1,11 +1,16 @@
 package com.twitter.teruteru128.preview;
 
+import java.io.IOException;
 import java.lang.foreign.*;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HexFormat;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Stream;
 
 import static com.twitter.teruteru128.preview.opencl.opencl_h.*;
 import static com.twitter.teruteru128.preview.windows.Windows_h.*;
@@ -130,6 +135,45 @@ public class Main implements Callable<Void> {
             if (ret != 0) {
                 System.err.printf("mutexSample: %d%n", ret);
             }
+            var k = System.mapLibraryName("opengl32");
+            SymbolLookup.libraryLookup(k, arena);
+            System.out.println("System.mapLibraryName(\"opengl32\") = " + k);
+            ArrayList<Path> symbolLookups = new ArrayList<>(1000);
+            Files.walkFileTree(Paths.get(args[1]), new SimpleFileVisitor<>() {
+                @Override
+                public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    if (file.toString().toLowerCase().endsWith(".dll")) {
+                        try {
+                            symbolLookups.add(file);
+                            System.out.println(file);
+                        } catch (IllegalArgumentException _) {
+                            System.err.println(file);
+                        }
+                    }
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+                    if (exc instanceof AccessDeniedException) {
+                        return FileVisitResult.CONTINUE;
+                    }
+                    return super.visitFileFailed(file, exc);
+                }
+
+                @Override
+                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+            System.err.println("symbolLookups.size() = " + symbolLookups.size());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }
