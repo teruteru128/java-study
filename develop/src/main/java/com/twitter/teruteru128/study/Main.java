@@ -31,9 +31,10 @@ public class Main {
 
     public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
     public static final Pattern PATTERN_1 = Pattern.compile("<title>(.*(?:荒らし共栄圏|園田亮平).*)</title>");
-    public static final Pattern PATTERN_2 = Pattern.compile("<title>(.*)</title>");
-    private static final byte[] TEAM_SPEAK_KEY = "b9dfaa7bee6ac57ac7b65f1094a1c155e747327bc2fe5d51c512023fe54a280201004e90ad1daaae1075d53b7d571c30e063b5a62a4a017bb394833aa0983e6e".getBytes();
+    public static final Pattern PATTERN_2 = Pattern.compile("<title>Tor板 v3 - (.*)</title>");
+    public static final Pattern PATTERN_3 = Pattern.compile("http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/tor/(\\d+)/l50");
     public static final Proxy PROXY = new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9150));
+    private static final byte[] TEAM_SPEAK_KEY = "b9dfaa7bee6ac57ac7b65f1094a1c155e747327bc2fe5d51c512023fe54a280201004e90ad1daaae1075d53b7d571c30e063b5a62a4a017bb394833aa0983e6e".getBytes();
 
     static {
         try {
@@ -80,7 +81,7 @@ public class Main {
                 // SecureRandom has MAX_VALUE stateBits.
                 RandomGeneratorFactory<RandomGenerator> best = RandomGeneratorFactory.all()
                         .filter(rgf -> !rgf.name().equals("SecureRandom")).max(Comparator.comparingInt(RandomGeneratorFactory<RandomGenerator>::stateBits))
-                    .orElse(RandomGeneratorFactory.of("Random"));
+                        .orElse(RandomGeneratorFactory.of("Random"));
                 System.out.println(best.name() + " in " + best.group() + " was selected");
 
                 RandomGenerator rng = best.create();
@@ -114,7 +115,7 @@ public class Main {
             case "search-tor" -> {
                 var min = args.length >= 2 ? Integer.parseInt(args[1]) : (4299 + 9473);
                 var max = args.length >= 3 ? Integer.parseInt(args[2]) : 23000;
-                extracted(min, max);
+                searchTor(min, max);
             }
             case "check-tor" -> extracted2();
             case "map" -> System.out.println("System.mapLibraryName(\"OpenCL\") = " + System.mapLibraryName("OpenCL"));
@@ -156,8 +157,9 @@ public class Main {
         }
     }
 
-    private static void extracted(int min, int max) throws IOException {
+    private static void searchTor(int min, int max) throws IOException {
         // TODO スレッド名をDBかなにかにまとめる
+        System.err.printf("min: %d, max: %d%n", min, max);
         try (var bos = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("subjects.txt", true), StandardCharsets.UTF_8), 16384)) {
             // 4299
             IntStream.range(min, max).mapToObj(i -> {
@@ -178,25 +180,30 @@ public class Main {
                     throw new UncheckedIOException(e);
                 }
             }).map(c -> {
+                var map = new HashMap<String, Serializable>();
                 try (var in = new BufferedReader(new InputStreamReader(c.getInputStream(), StandardCharsets.UTF_8))) {
-                    return in.lines().collect(() -> new StringJoiner(System.lineSeparator()), StringJoiner::add, StringJoiner::merge).toString();
+                    var string = in.lines().collect(() -> new StringJoiner(System.lineSeparator()), StringJoiner::add, StringJoiner::merge).toString();
+                    map.put("body", string);
+                    map.put("url", c.getURL());
+                    return map;
                 } catch (IOException e) {
                     throw new UncheckedIOException(e);
                 } finally {
                     c.disconnect();
                 }
             }).forEach(b -> {
-                var matcher = PATTERN_2.matcher(b);
-                if (matcher.find()) {
-                    var group = matcher.group(1);
+                var matcher2 = PATTERN_2.matcher((String) b.get("body"));
+                var matcher3 = PATTERN_3.matcher(b.get("url").toString());
+                if (matcher2.find() && matcher3.matches()) {
+                    var line = matcher3.group(1) + "<>" + matcher2.group(1);
                     try {
-                        bos.write(group);
+                        bos.write(line);
                         bos.newLine();
                         bos.flush();
                     } catch (IOException e) {
                         throw new UncheckedIOException(e);
                     }
-                    System.out.println(group);
+                    System.out.println(line);
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
