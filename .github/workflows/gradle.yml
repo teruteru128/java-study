@@ -24,8 +24,8 @@ jobs:
         java-version: |
           21
           22
-    - uses: gradle/wrapper-validation-action@v2.1.2
+    - uses: gradle/wrapper-validation-action@v2
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v3
+      uses: gradle/actions/setup-gradle@v3
     - name: Build with Gradle
       run: ./gradlew -Dorg.gradle.java.home=${JAVA_HOME_21_X64} build --parallel
