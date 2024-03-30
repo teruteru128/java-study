@@ -25,6 +25,9 @@ jobs:
           21
           22
     - uses: gradle/wrapper-validation-action@v2.1.2
+    - name: use variables
+      run: |
+        echo ${{vars.RUNNER_ARCH}}
     - name: Build with Gradle
       uses: gradle/gradle-build-action@v3.1.0
       with:
