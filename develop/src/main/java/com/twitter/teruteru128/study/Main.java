@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study;
 
 import com.twitter.teruteru128.bitmessage.app.Spammer;
+import org.bouncycastle.crypto.ec.CustomNamedCurves;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -34,6 +35,8 @@ public class Main {
     public static final Pattern PATTERN_2 = Pattern.compile("<title>Tor板 v3 - (.*)</title>");
     public static final Pattern PATTERN_3 = Pattern.compile("http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/tor/(\\d+)/l50");
     public static final Proxy PROXY = new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9150));
+    public static final int PK_PRIVATE = 1;
+    public static final int PK_PUBLIC = 0;
     private static final byte[] TEAM_SPEAK_KEY = "b9dfaa7bee6ac57ac7b65f1094a1c155e747327bc2fe5d51c512023fe54a280201004e90ad1daaae1075d53b7d571c30e063b5a62a4a017bb394833aa0983e6e".getBytes();
 
     static {
@@ -79,9 +82,7 @@ public class Main {
             case "random2" -> random2();
             case "random4" -> {
                 // SecureRandom has MAX_VALUE stateBits.
-                RandomGeneratorFactory<RandomGenerator> best = RandomGeneratorFactory.all()
-                        .filter(rgf -> !rgf.name().equals("SecureRandom")).max(Comparator.comparingInt(RandomGeneratorFactory<RandomGenerator>::stateBits))
-                        .orElse(RandomGeneratorFactory.of("Random"));
+                RandomGeneratorFactory<RandomGenerator> best = RandomGeneratorFactory.all().filter(rgf -> !rgf.name().equals("SecureRandom")).max(Comparator.comparingInt(RandomGeneratorFactory<RandomGenerator>::stateBits)).orElse(RandomGeneratorFactory.of("Random"));
                 System.out.println(best.name() + " in " + best.group() + " was selected");
 
                 RandomGenerator rng = best.create();
@@ -89,12 +90,30 @@ public class Main {
             }
             case "ts1" -> {
                 var decoder = Base64.getDecoder();
-                ts1(decoder);
+                var keys = decoder.decode(System.getenv("KEY"));
+                var b = ts1(keys);
                 // ここで秘密鍵を公開鍵に変換する
+                System.out.println(Base64.getEncoder().encodeToString(b));
+                System.out.println(HexFormat.of().formatHex(b));
             }
             case "ts2" -> {
+                var decoder = Base64.getDecoder();
+                var privateKey = decoder.decode(System.getenv("KEY"));
                 var publicKey = Objects.requireNonNull(System.getenv("BM_PUBLIC_KEY")).getBytes();
-                ts2(publicKey, args.length >= 2 ? Integer.parseInt(args[1]) : Runtime.getRuntime().availableProcessors());
+                ts2(privateKey, publicKey);
+            }
+            case "ts3" -> {
+                var decoder = Base64.getDecoder();
+                var privateKey = decoder.decode(System.getenv("KEY"));
+                deObfuscateInPlace(privateKey);
+                var decodedKey = decoder.decode(privateKey);
+                var key = ecc_import(decodedKey);
+                var ecc256 = CustomNamedCurves.getByName("secp256r1");
+                var g = ecc256.getG();
+                var point = g.multiply(new BigInteger(key.k()));
+                var curve = ecc256.getCurve();
+                var point1 = curve.createPoint(new BigInteger(key.point.x), new BigInteger(key.point.y));
+                System.out.println("point.equals(point1) = " + point.equals(point1));
             }
             case "unitSpam" -> {
                 if (args.length >= 2) {
@@ -119,10 +138,32 @@ public class Main {
             }
             case "check-tor" -> extracted2();
             case "map" -> System.out.println("System.mapLibraryName(\"OpenCL\") = " + System.mapLibraryName("OpenCL"));
-            default -> {
+            case "telnet-tor" -> {
+                var hostname = args[1];
+                var port = Integer.parseInt(args[2]);
+                extracted(hostname, port);
+            }
+            case null, default -> {
                 System.err.println("unknown command");
                 Runtime.getRuntime().exit(1);
             }
+        }
+    }
+
+    private static void extracted(String hostname, int port) throws IOException, InterruptedException {
+        boolean done = false;
+        var endpoint = new InetSocketAddress(hostname, port);
+        while (!done) {
+            try (var channel = new Socket(PROXY)) {
+                channel.connect(endpoint, 5000);
+                System.out.println("connected! " + LocalDateTime.now());
+                done = true;
+            } catch (SocketTimeoutException e) {
+                System.err.printf("たいむあうと: %dbytes%n", e.bytesTransferred);
+            } catch (SocketException ignored) {
+                System.err.println("だめぽ");
+            }
+            Thread.sleep(1000 * 60 * 5);
         }
     }
 
@@ -160,7 +201,7 @@ public class Main {
     private static void searchTor(int min, int max) throws IOException {
         // TODO スレッド名をDBかなにかにまとめる
         System.err.printf("min: %d, max: %d%n", min, max);
-        try (var bos = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("subjects.txt", true), StandardCharsets.UTF_8), 16384)) {
+        try (var bos = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("subjects-old.txt", true), StandardCharsets.UTF_8), 16384)) {
             // 4299
             IntStream.range(min, max).mapToObj(i -> {
                 try {
@@ -174,6 +215,11 @@ public class Main {
                     var b = responseCode == HttpURLConnection.HTTP_OK;
                     if (!b) {
                         System.err.printf("response code: %d%n", responseCode);
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     return b;
                 } catch (IOException e) {
@@ -205,7 +251,7 @@ public class Main {
                     }
                     System.out.println(line);
                     try {
-                        Thread.sleep(3000);
+                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -214,58 +260,107 @@ public class Main {
         }
     }
 
-    private static void ts2(byte[] publicKey, int n) throws NoSuchAlgorithmException, DigestException, InterruptedException, ExecutionException {
-        System.out.println("n = " + n);
-        System.out.println(new String(publicKey));
+    private static void ts2(byte[] key, byte[] publicKey) throws NoSuchAlgorithmException, DigestException {
+        deObfuscateInPlace(key);
+        var decoder = Base64.getDecoder();
+        var k = ecc_import(decoder.decode(key));
+        var k2 = ecc_export(PK_PUBLIC, k);
+        var x = new String(publicKey);
+        System.out.println(x);
         System.out.println(getSecurityLevel(publicKey, 16689509343190L));
-        System.err.printf("開幕: %s%n", LocalDateTime.now());
-        try (var service = Executors.newCachedThreadPool()) {
-            var counter = (Long) service.invokeAny(Collections.nCopies(n, () -> {
-                long co;
-                var buffer = ByteBuffer.allocate(20).order(ByteOrder.LITTLE_ENDIAN);
-                var hash = buffer.array();
-                var current = RandomGenerator.getDefault();
-                var w = MessageDigest.getInstance("SHA-1");
-                int level = 0;
-                for (co = (current.nextInt() & 0xffffffffL) << 32; level < 48; co++) {
-                    w.update(publicKey);
-                    // teamspeakのカウンターは符号なし
-                    // TODO toUnsignedString() -> getBytes で byte[]を取得とか絶対遅いからもっと早い実装にしたい
-                    w.update(Long.toUnsignedString(co).getBytes());
-                    w.digest(hash, 0, 20);
-                    level = Long.numberOfTrailingZeros(buffer.getLong(0));
-                    if (level >= 34) System.out.printf("%s: %d%n", Long.toUnsignedString(co), level);
-                }
-                return co;
-            }));
-            System.out.printf("%d: %d%n", counter, getSecurityLevel(publicKey, counter));
-        }
-        System.err.printf("閉幕: %s%n", LocalDateTime.now());
+        var encoder = Base64.getEncoder();
+        var k3 = encoder.encode(k2);
+        System.out.printf("ts2 check: %b%n", Arrays.equals(k3, publicKey));
+        System.out.println(HexFormat.of().formatHex(decoder.decode(publicKey)));
     }
 
     /**
-     * @param decoder a
+     * @param privateKey a
+     * @return a
      * @throws NoSuchAlgorithmException a
      * @throws DigestException          a
      */
-    private static void ts1(Base64.Decoder decoder) throws NoSuchAlgorithmException, DigestException {
-        var privateKey = decoder.decode(System.getenv("KEY"));
+    private static byte[] ts1(byte[] privateKey) throws NoSuchAlgorithmException, DigestException {
         deObfuscateInPlace(privateKey);
         System.out.println(new String(privateKey));
+        var decoder = Base64.getDecoder();
+        var decodedKey = decoder.decode(privateKey);
+        var key = ecc_import(decodedKey);
+        return ecc_export(PK_PRIVATE, key);
     }
 
-    private static int getSecurityLevel(byte[] key, long counter) throws NoSuchAlgorithmException, DigestException {
+    private static ECCKey ecc_import(byte[] in) {
+        // decode asn.1
+        var buffer = ByteBuffer.wrap(in);
+        // struct
+        var type = buffer.get();
+        // length
+        var length1 = buffer.get();
+        // bit string
+        var a = buffer.get();
+        // length
+        var b = buffer.get();
+        var c = buffer.get();
+        var d = buffer.get();
+        // if flags == 1, private key
+        byte flags = (byte) ((d & 0xff) >>> c);
+        // integer
+        var e = buffer.get();
+        // length
+        var f = buffer.get();
+        //
+        int key_size = buffer.get();
+        // integer
+        var h = buffer.get();
+        var publicKeyXLength = buffer.get();
+        byte[] publicKeyX = new byte[publicKeyXLength];
+        buffer.get(publicKeyX);
+        var j = buffer.get();
+        var publicKeyYLength = buffer.get();
+        byte[] publicKeyY = new byte[publicKeyYLength];
+        buffer.get(publicKeyY);
+        ECCKey key;
+        if (flags == PK_PRIVATE) {
+            var m = buffer.get();
+            var privateKeyLength = buffer.get();
+            // the private key
+            byte[] k = new byte[privateKeyLength];
+            buffer.get(k);
+            var point = new ECCPoint(publicKeyX, publicKeyY, null);
+            key = new ECCKey(1, point, k);
+        } else {
+            var point = new ECCPoint(publicKeyX, publicKeyY, null);
+            key = new ECCKey(1, point, null);
+        }
+        return key;
+    }
+
+    private static byte[] ecc_export(int t, ECCKey key) {
+        // encode asn.1
+        int publicKeyLength;
+        if (t == 1) {
+            publicKeyLength = 2 + 4 + 3 + 2 + key.point.x.length + 2 + key.point.y.length + 2 + key.k.length;
+        } else {
+            publicKeyLength = 2 + 4 + 3 + 2 + key.point.x.length + 2 + key.point.y.length;
+        }
+        var publicKey = ByteBuffer.allocate(publicKeyLength).put((byte) 0x30).put((byte) (publicKeyLength - 2)).put((byte) 0x03).put((byte) 0x02).put((byte) 0x07).put((byte) 0x00).put((byte) 0x02).put((byte) 1).put((byte) 0x20).put((byte) 0x02).put((byte) key.point.x.length).put(key.point.x).put((byte) 0x02).put((byte) key.point.y.length).put(key.point.y);
+        if (t == PK_PRIVATE) {
+            publicKey.put((byte) 0x02).put((byte) key.k.length).put(key.k);
+        }
+        return publicKey.array();
+    }
+
+    private static int getSecurityLevel(byte[] key, long counter) throws NoSuchAlgorithmException {
         var sha1 = MessageDigest.getInstance("SHA-1");
         sha1.update(key);
         sha1.update(Long.toString(counter).getBytes());
-        var hash = new byte[20];
-        sha1.digest(hash, 0, 20);
-        return Long.numberOfTrailingZeros(ByteBuffer.wrap(hash).order(ByteOrder.LITTLE_ENDIAN).getLong(0));
+        return Long.numberOfTrailingZeros(ByteBuffer.wrap(sha1.digest()).order(ByteOrder.LITTLE_ENDIAN).getLong(0));
     }
 
     private static void deObfuscateInPlace(byte[] data) throws NoSuchAlgorithmException, DigestException {
         var sha1 = MessageDigest.getInstance("SHA-1");
         int strlen = 0;
+        // fixme
         while (data[strlen + 20] != 0) strlen++;
         sha1.update(data, 20, strlen);
         var hash = new byte[20];
@@ -330,6 +425,12 @@ public class Main {
             exp++;
         }
         return Double.longBitsToDouble(((long) (exp + 1022) << 52) | bits & 0xfffffffffffffL);
+    }
+
+    private record ECCPoint(byte[] x, byte[] y, byte[] z) {
+    }
+
+    private record ECCKey(int type, ECCPoint point, byte[] k) {
     }
 
 }
