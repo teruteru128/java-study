@@ -3,7 +3,7 @@ package com.twitter.teruteru128.sample;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.twitter.teruteru128.study.Main;
+import com.twitter.teruteru128.study.Random;
 import org.junit.jupiter.api.Test;
 
 import java.util.random.RandomGenerator;
@@ -20,6 +20,6 @@ public class MainTest {
 
     @Test
     void nextDouble() {
-        assertEquals(0.5, Main.nextDouble(RandomGenerator.getDefault()), 0.5);
+        assertEquals(0.5, Random.nextDouble(RandomGenerator.getDefault()), 0.5);
     }
 }
