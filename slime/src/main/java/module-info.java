@@ -1,6 +1,5 @@
 /**
  * @moduleGraph
 */
-module com.twitter.teruteru.slime {
-    
+module com.github.teruteru.slime {
 }

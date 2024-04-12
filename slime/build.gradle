@@ -4,8 +4,8 @@ plugins {
 }
 
 application {
-    mainModule = 'com.twitter.teruteru.slime'
-    mainClass = 'com.twitter.teruteru128.slime.Main'
+    mainModule = 'com.github.teruteru.slime'
+    mainClass = 'com.github.teruteru128.slime.Main'
     applicationDefaultJvmArgs = []
 }
 

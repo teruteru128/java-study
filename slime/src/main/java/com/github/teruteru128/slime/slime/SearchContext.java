@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.slime;
+package com.github.teruteru128.slime.slime;
 
 import java.util.concurrent.atomic.AtomicLong;
 
