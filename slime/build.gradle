@@ -1,6 +1,6 @@
 
 plugins {
-    id 'com.twitter.teruteru128.study.java-application-conventions'
+    id 'com.github.teruteru128.study.java-application-conventions'
 }
 
 application {
