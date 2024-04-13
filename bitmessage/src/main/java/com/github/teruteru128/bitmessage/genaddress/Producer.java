@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage.genaddress;
+package com.github.teruteru128.bitmessage.genaddress;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
@@ -13,8 +13,8 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.concurrent.Callable;
 
-import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.spec.KeyPair;
+import com.github.teruteru128.bitmessage.spec.KeyPair;
+import com.github.teruteru128.bitmessage.Const;
 
 public class Producer implements Callable<Void> {
 

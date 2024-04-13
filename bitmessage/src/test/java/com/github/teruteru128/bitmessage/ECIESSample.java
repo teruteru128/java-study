@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage;
+package com.github.teruteru128.bitmessage;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;

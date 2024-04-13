@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage.spec;
+package com.github.teruteru128.bitmessage.spec;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -8,8 +8,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import com.twitter.teruteru128.bitmessage.Structs;
-import com.twitter.teruteru128.encode.Base58;
+import com.github.teruteru128.bitmessage.Structs;
+import com.github.teruteru128.encode.Base58;
 
 /**
  * FIXME 変換とかデータをクラスに変換とかみたいなクラスはどう設計したら良いのか

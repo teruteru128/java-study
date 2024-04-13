@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage.genaddress;
+package com.github.teruteru128.bitmessage.genaddress;
 
 // Number of Leading Zero
 public class Request {

@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage.spec;
+package com.github.teruteru128.bitmessage.spec;
 
 import java.io.Serializable;
 import java.util.Arrays;

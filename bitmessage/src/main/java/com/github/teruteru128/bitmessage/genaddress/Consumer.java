@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage.genaddress;
+package com.github.teruteru128.bitmessage.genaddress;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

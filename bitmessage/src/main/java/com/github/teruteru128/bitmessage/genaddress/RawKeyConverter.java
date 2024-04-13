@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage.genaddress;
+package com.github.teruteru128.bitmessage.genaddress;
 
 import java.math.BigInteger;
 import java.security.DigestException;
@@ -9,11 +9,11 @@ import java.security.Security;
 import java.util.Arrays;
 import java.util.HexFormat;
 
+import com.github.teruteru128.bitmessage.spec.AddressFactory;
+import com.github.teruteru128.bitmessage.spec.KeyPair;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
-import com.twitter.teruteru128.bitmessage.spec.KeyPair;
+import com.github.teruteru128.bitmessage.Const;
 
 public class RawKeyConverter {
 

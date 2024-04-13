@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage.genaddress;
+package com.github.teruteru128.bitmessage.genaddress;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,14 +9,15 @@ import java.security.Provider;
 import java.security.Security;
 import java.util.HexFormat;
 
+import com.github.teruteru128.bitmessage.spec.AddressFactory;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
-import com.twitter.teruteru128.encode.Base58;
+import com.github.teruteru128.bitmessage.Const;
+import com.github.teruteru128.encode.Base58;
 
 public class AddressFactoryTest {
 
@@ -46,7 +47,7 @@ public class AddressFactoryTest {
         sha512.update(pubEncryptionKey);
         byte[] ripe = ripemd160.digest(sha512.digest());
         assertArrayEquals(HexFormat.of().parseHex("00005757482ea4aa7c4e243da76ac4cc977f3204"), ripe);
-        assertEquals(AddressFactory.encodeAddress(4, 1, ripe), address);
+        Assertions.assertEquals(AddressFactory.encodeAddress(4, 1, ripe), address);
     }
 
     @AfterAll

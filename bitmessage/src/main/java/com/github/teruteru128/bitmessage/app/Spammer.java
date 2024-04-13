@@ -1,8 +1,8 @@
-package com.twitter.teruteru128.bitmessage.app;
+package com.github.teruteru128.bitmessage.app;
 
-import com.twitter.teruteru128.bitmessage.Structs;
-import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
-import com.twitter.teruteru128.encode.Base58;
+import com.github.teruteru128.bitmessage.spec.AddressFactory;
+import com.github.teruteru128.bitmessage.Structs;
+import com.github.teruteru128.encode.Base58;
 
 import java.io.IOException;
 import java.net.URI;

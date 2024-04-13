@@ -1,8 +1,8 @@
-package com.twitter.teruteru128.bitmessage.genaddress;
+package com.github.teruteru128.bitmessage.genaddress;
 
 import java.io.Serializable;
 
-import com.twitter.teruteru128.bitmessage.spec.KeyPair;
+import com.github.teruteru128.bitmessage.spec.KeyPair;
 
 public class Response implements Cloneable, Serializable {
 

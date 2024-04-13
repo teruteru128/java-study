@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage;
+package com.github.teruteru128.bitmessage;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -1,8 +1,8 @@
-package com.twitter.teruteru128.bitmessage.genaddress;
+package com.github.teruteru128.bitmessage.genaddress;
 
-import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
-import com.twitter.teruteru128.encode.Base58;
+import com.github.teruteru128.bitmessage.spec.AddressFactory;
+import com.github.teruteru128.bitmessage.Const;
+import com.github.teruteru128.encode.Base58;
 
 import java.io.PrintStream;
 import java.lang.System.Logger;

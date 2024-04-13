@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage.app;
+package com.github.teruteru128.bitmessage.app;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,12 +15,12 @@ import java.security.Security;
 import java.util.HexFormat;
 import java.util.regex.Pattern;
 
+import com.github.teruteru128.bitmessage.spec.KeyPair;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.genaddress.BMAddressGenerator;
-import com.twitter.teruteru128.bitmessage.genaddress.Response;
-import com.twitter.teruteru128.bitmessage.spec.KeyPair;
+import com.github.teruteru128.bitmessage.Const;
+import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
+import com.github.teruteru128.bitmessage.genaddress.Response;
 
 public class RipeAndKeysConverter {
 
