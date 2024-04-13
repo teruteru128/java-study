@@ -1,5 +1,5 @@
 
-package com.twitter.teruteru128.encode;
+package com.github.teruteru128.encode;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;

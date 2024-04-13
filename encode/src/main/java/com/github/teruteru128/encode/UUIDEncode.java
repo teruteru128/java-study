@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.encode;
+package com.github.teruteru128.encode;
 
 import java.nio.ByteBuffer;
 import java.util.UUID;

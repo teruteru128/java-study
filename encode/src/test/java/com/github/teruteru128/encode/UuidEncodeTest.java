@@ -1,14 +1,15 @@
-package com.twitter.teruteru128.encode;
+package com.github.teruteru128.encode;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
 /**
- * com.twitter.teruteru128.encode.UuidEncodeTest
+ * com.github.teruteru128.encode.UuidEncodeTest
  */
 public class UuidEncodeTest {
 
