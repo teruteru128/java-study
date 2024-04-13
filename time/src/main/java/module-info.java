@@ -1,3 +1,3 @@
-module com.twitter.teruteru.time {
-    exports com.twitter.teruteru128.time;
+module com.github.teruteru.time {
+    exports com.github.teruteru128.time;
 }

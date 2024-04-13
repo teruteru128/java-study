@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.time;
+package com.github.teruteru128.time;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
