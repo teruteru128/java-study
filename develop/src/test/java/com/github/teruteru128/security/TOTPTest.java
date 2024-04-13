@@ -1,6 +1,5 @@
 package com.github.teruteru128.security;
 
-import com.github.teruteru128.teruteru128.security.TOTP;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
