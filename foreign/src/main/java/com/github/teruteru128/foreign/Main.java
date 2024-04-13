@@ -13,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static com.github.teruteru128.foreign.opencl.opencl_h.*;
 import static com.github.teruteru128.foreign.windows.Windows_h.*;
+import static com.github.teruteru128.foreign.setjmp.setjmp_h.*;
 import static java.lang.foreign.FunctionDescriptor.of;
 import static java.lang.foreign.MemoryLayout.*;
 import static java.lang.foreign.MemorySegment.NULL;
@@ -113,7 +114,6 @@ public class Main implements Callable<Void> {
         // もしかしてネイティブライブラリにアクセスできるならOpenSSLにアクセスもできる……？
         // OpenCLもアクセスできるっぽい
         var s = args.length >= 1 ? args[0] : "\uD83D\uDCA9";
-        int ret;
         var sequenceLayout = sequenceLayout(32, JAVA_BYTE);
         var structLayout = structLayout(JAVA_BYTE.withName("prefix"), sequenceLayout.withName("x"), sequenceLayout.withName("y")).withName("b");
         var publicKeyLayout = unionLayout(sequenceLayout(65, JAVA_BYTE).withName("a"), structLayout);
@@ -121,58 +121,13 @@ public class Main implements Callable<Void> {
         System.loadLibrary("BCrypt");
         ValueLayout.ADDRESS.targetLayout().ifPresent(memoryLayout -> System.out.printf("address value layout: %s%n", memoryLayout));
         try (var arena = Arena.ofConfined()) {
-            System.out.printf("strlen(arena.allocateFrom(s)) = %s", strlen(arena.allocateFrom(s)));
-            ret = cl(arena);
-            if (ret != 0) {
-                System.err.printf("cl: %s%n", clGetErrorString(ret));
-            }
-            ret = BCryptSHA256(arena, s);
-            if (ret != 0) {
-                System.err.printf("BCryptSHA256: %d%n", ret);
-            }
-            ret = mutexSample(arena);
-            if (ret != 0) {
-                System.err.printf("mutexSample: %d%n", ret);
-            }
+            System.out.printf("strlen(arena.allocateFrom(s)) = %s%n", strlen(arena.allocateFrom(s)));
+            cl(arena);
+            BCryptSHA256(arena, s);
+            mutexSample(arena);
             var k = System.mapLibraryName("opengl32");
-            SymbolLookup.libraryLookup(k, arena);
-            System.out.println("System.mapLibraryName(\"opengl32\") = " + k);
-            ArrayList<Path> symbolLookups = new ArrayList<>(1000);
-            Files.walkFileTree(Paths.get(args[1]), new SimpleFileVisitor<>() {
-                @Override
-                public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    if (file.toString().toLowerCase().endsWith(".dll")) {
-                        try {
-                            symbolLookups.add(file);
-                            System.out.println(file);
-                        } catch (IllegalArgumentException _) {
-                            System.err.println(file);
-                        }
-                    }
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-                    if (exc instanceof AccessDeniedException) {
-                        return FileVisitResult.CONTINUE;
-                    }
-                    return super.visitFileFailed(file, exc);
-                }
-
-                @Override
-                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                    return FileVisitResult.CONTINUE;
-                }
-            });
-            System.err.println("symbolLookups.size() = " + symbolLookups.size());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            var opengl32 = SymbolLookup.libraryLookup(k, arena);
+            System.out.println(opengl32);
         }
         return null;
     }
@@ -180,30 +135,27 @@ public class Main implements Callable<Void> {
     public int mutexSample(Arena arena) {
         System.loadLibrary("Kernel32");
         var name = arena.allocateFrom("munchie");
-        var i = CreateMutexExA(NULL, name, 0, 0);
-        if (i.equals(NULL)) {
-            System.err.printf("CreateMutexExA: %d%n", GetLastError());
+        var mutexHandle = CreateMutexExA(NULL, name, 0, 0);
+        if (mutexHandle.equals(NULL)) {
+            return 1;
         }
-        CloseHandle(i);
+        CloseHandle(mutexHandle);
         return 0;
     }
 
     private int BCryptSHA256(Arena arena, String str) {
         var newLocale = arena.allocateFrom("");
         var locale = setlocale(0, newLocale);
-        System.out.printf("locale.reinterpret(strlen(locale) + 1).getString(0) = %s",locale.reinterpret(strlen(locale) + 1).getString(0));
 
         //プロバイダーハンドルを作成
         int status;
         // wchar_tの中身がUTF-16だったりUTF-32だったりSHIFT-JISだったりしろ
         var hAlg = arena.allocateFrom(ADDRESS, NULL);
         if (!((status = BCryptOpenAlgorithmProvider(hAlg, BCRYPT_SHA1_ALGORITHM(), NULL, 0)) >= 0)) {
-            System.err.printf("**** Error 0x%1$08x(%1$d) returned by BCryptOpenAlgorithmProvider%n", status);
             return status;
         }
         var handle = hAlg.get(ADDRESS, 0);
         if (handle.equals(NULL)) {
-            System.err.println("handle is null");
             return 1;
         }
         // オブジェクトの大きさを取得
@@ -237,22 +189,14 @@ public class Main implements Callable<Void> {
         long start = System.nanoTime();
         i = BCryptHashData(hHash, rawStr, (int) strLength, 0);
         if (i != 0) {
-            System.err.printf("BCryptHashData: %d%n", i);
             return i;
         }
         i = BCryptFinishHash(hHash, hashBuffer, 20, 0);
         if (i != 0) {
-            System.err.printf("BCryptFinishHash %d%n", i);
             return i;
         }
         s[0] = System.nanoTime() - start;
-        if (s[0] == 0) {
-            System.err.println("s[0] is zero");
-        }
-        var average = Arrays.stream(s).average();
-        if (average.isPresent()) {
-            System.out.println(average.getAsDouble() / 1e9);
-        }
+        Arrays.stream(s).average().ifPresent(a->System.out.println(a / 1e9));
         // javaのbyte配列にコピーして出力
         MemorySegment.copy(hashBuffer, JAVA_BYTE, 0, hashBuffer1, 0, 20);
         System.out.printf("hash: %s%n", HexFormat.of().formatHex(hashBuffer1));
@@ -276,40 +220,31 @@ public class Main implements Callable<Void> {
      * @see <a href="https://docs.oracle.com/javase/jp/21/core/call-native-functions-jextract.html#GUID-480A7E64-531A-4C88-800F-810FF87F24A1">jextract</a>
      */
     private int cl(Arena arena) {
-        var ret_ptr = arena.allocate(JAVA_INT);
         var numEntriesPtr = arena.allocate(JAVA_INT);
         int ret;
         if ((ret = clGetPlatformIDs(0, NULL, numEntriesPtr)) != 0) {
-            System.err.printf("clGetPlatformIDs: %s%n", clGetErrorString(ret));
             return ret;
         }
-        int platformCount = numEntriesPtr.get(JAVA_INT, 0);
-        var platformIds = arena.allocate(ADDRESS, platformCount);
+        var platformIds = arena.allocate(ADDRESS, numEntriesPtr.get(JAVA_INT, 0));
 
-        if ((ret = clGetPlatformIDs(platformCount, platformIds, NULL)) != 0) {
-            System.err.printf("clGetPlatformIDs: %s%n", clGetErrorString(ret));
+        if ((ret = clGetPlatformIDs(numEntriesPtr.get(JAVA_INT, 0), platformIds, NULL)) != 0) {
             return ret;
         }
         var num_devices = arena.allocate(JAVA_INT);
-        var platform = platformIds.get(ADDRESS, 0);
-        if ((ret = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), 0, NULL, num_devices)) != 0) {
-            System.err.printf("clGetDeviceIDs: %s%n", clGetErrorString(ret));
+        if ((ret = clGetDeviceIDs(platformIds.get(ADDRESS, 0), CL_DEVICE_TYPE_ALL(), 0, NULL, num_devices)) != 0) {
             return ret;
         }
-        int deviceNumber = num_devices.get(JAVA_INT, 0);
-        var deviceIds = arena.allocate(ADDRESS, deviceNumber);
-        if ((ret = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), deviceNumber, deviceIds, NULL)) != 0) {
-            System.err.printf("clGetDeviceIDs: %s%n", clGetErrorString(ret));
+        var deviceIds = arena.allocate(ADDRESS, num_devices.get(JAVA_INT, 0));
+        if ((ret = clGetDeviceIDs(platformIds.get(ADDRESS, 0), CL_DEVICE_TYPE_ALL(), num_devices.get(JAVA_INT, 0), deviceIds, NULL)) != 0) {
             return ret;
         }
-        var context = clCreateContext(NULL, deviceNumber, deviceIds, NULL, NULL, ret_ptr);
+        var ret_ptr = arena.allocate(JAVA_INT);
+        var context = clCreateContext(NULL, num_devices.get(JAVA_INT, 0), deviceIds, NULL, NULL, ret_ptr);
         if (ret_ptr.get(JAVA_INT, 0) != 0) {
-            System.err.printf("clCreateContext: %s%n", clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
             return 1;
         }
         var commandQueue = clCreateCommandQueueWithProperties(context, deviceIds.get(ADDRESS, 0), NULL, ret_ptr);
         if (ret_ptr.get(JAVA_INT, 0) != 0) {
-            System.err.printf("clCreateCommandQueueWithProperties: %s%n", clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
             return 1;
         }
         // 実際にやるならリソースとしてファイルに出すんかな、動的に生成とかロードとかしてみたいな
@@ -326,38 +261,30 @@ public class Main implements Callable<Void> {
                 """);
         var program = clCreateProgramWithSource(context, 1, arena.allocateFrom(ADDRESS, sourceString), NULL, ret_ptr);
         if (ret_ptr.get(JAVA_INT, 0) != 0) {
-            System.err.printf("clCreateProgramWithSource: %s%n", clGetErrorString(ret));
             return 1;
         }
         if ((ret = clBuildProgram(program, 1, deviceIds, NULL, NULL, NULL)) != 0) {
-            System.err.printf("clBuildProgram: %s%n", clGetErrorString(ret));
             return 1;
         }
         var kernel = clCreateKernel(program, arena.allocateFrom("func"), ret_ptr);
         if (ret_ptr.get(JAVA_INT, 0) != 0) {
-            System.err.printf("clCreateKernel: %s%n", clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
             return 1;
         }
         var workGroupSize = arena.allocate(JAVA_LONG);
         if ((ret = clGetKernelWorkGroupInfo(kernel, deviceIds.get(ADDRESS, 0), CL_KERNEL_WORK_GROUP_SIZE(), JAVA_LONG.byteSize(), workGroupSize, NULL)) != 0) {
-            System.err.printf("clGetKernelWorkGroupInfo: %s%n", clGetErrorString(ret));
             return 1;
         }
-        System.out.println("workGroupSize.get(JAVA_LONG, 0) = " + workGroupSize.get(JAVA_LONG, 0));
         // device オブジェクトをリリースする
         if ((ret = clReleaseDevice(deviceIds.get(ADDRESS, 0))) != 0) {
-            System.err.printf("clReleaseDevice: %s%n", clGetErrorString(ret));
             return 1;
         }
         var num = 1000;
         var outBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), JAVA_BYTE.byteSize() * num, NULL, ret_ptr);
         if (ret_ptr.get(JAVA_INT, 0) != 0) {
-            System.err.printf("clCreateBuffer outBuffer: %s%n", clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
             return 1;
         }
         var inBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), JAVA_BYTE.byteSize() * num, NULL, ret_ptr);
         if (ret_ptr.get(JAVA_INT, 0) != 0) {
-            System.err.printf("clCreateBuffer inBuffer: %s%n", clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
             return 1;
         }
         var in = arena.allocate(JAVA_BYTE, num);
@@ -365,29 +292,24 @@ public class Main implements Callable<Void> {
             in.setAtIndex(JAVA_BYTE, i, (byte) ThreadLocalRandom.current().nextInt(16));
         }
         if ((ret = clEnqueueWriteBuffer(commandQueue, inBuffer, CL_TRUE(), 0, JAVA_BYTE.byteSize() * num, in, 0, NULL, NULL)) != 0) {
-            System.err.printf("clEnqueueWriteBuffer: %s%n", clGetErrorString(ret));
             return 1;
         }
         if ((ret = clSetKernelArg(kernel, 0, ADDRESS.byteSize(), arena.allocateFrom(ADDRESS, outBuffer))) != 0) {
-            System.err.printf("clSetKernelArg 0: %s%n", clGetErrorString(ret));
             return 1;
         }
         if ((ret = clSetKernelArg(kernel, 1, ADDRESS.byteSize(), arena.allocateFrom(ADDRESS, inBuffer))) != 0) {
-            System.err.printf("clSetKernelArg 1: %s%n", clGetErrorString(ret));
             return 1;
         }
         var globalWorkSize = arena.allocateFrom(JAVA_LONG, 10, 10, 10);
         var localWorkSize = arena.allocateFrom(JAVA_LONG, 1, 1, 1);
         long start = System.nanoTime();
         if ((ret = clEnqueueNDRangeKernel(commandQueue, kernel, 3, NULL, globalWorkSize, localWorkSize, 0, NULL, NULL)) != 0) {
-            System.err.printf("clEnqueueNDRangeKernel: %s%n", clGetErrorString(ret));
             return 1;
         }
         clFinish(commandQueue);
         long end = System.nanoTime();
         var out = arena.allocate(JAVA_BYTE, num);
         if ((ret = clEnqueueReadBuffer(commandQueue, outBuffer, CL_TRUE(), 0, JAVA_BYTE.byteSize() * num, out, 0, NULL, NULL)) != 0) {
-            System.err.printf("clEnqueueReadBuffer: %s%n", clGetErrorString(ret));
             return 1;
         }
         boolean eq = true;
