@@ -4,7 +4,7 @@
  * 
  * @author teruteru
  */
-module com.twitter.teruteru.study {
+module com.github.teruteru.study {
     requires java.desktop;
     requires java.logging;
     requires java.management;
@@ -33,11 +33,11 @@ module com.twitter.teruteru.study {
     requires org.bouncycastle.provider;
     requires org.twitter4j;
 
-    requires com.twitter.teruteru.bitmessage;
-    requires com.twitter.teruteru.encode;
-    requires com.twitter.teruteru.time;
+    requires com.github.teruteru.bitmessage;
+    requires com.github.teruteru.encode;
+    requires com.github.teruteru.time;
 
-    opens com.twitter.teruteru128.study;
-    opens com.twitter.teruteru128.util;
-    opens com.twitter.teruteru128.util.function;
+    opens com.github.teruteru128.study;
+    opens com.github.teruteru128.util;
+    opens com.github.teruteru128.util.function;
 }

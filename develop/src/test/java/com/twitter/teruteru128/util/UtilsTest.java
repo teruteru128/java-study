@@ -2,6 +2,7 @@ package com.twitter.teruteru128.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.github.teruteru128.util.Utils;
 import org.junit.jupiter.api.Test;
 
 public class UtilsTest {
