@@ -1,3 +1,3 @@
-module com.twitter.teruteru.preview.windows {
-    exports com.twitter.teruteru128.preview.windows;
+module com.github.teruteru.preview.windows {
+    exports com.github.teruteru128.preview.windows;
 }
