@@ -1,3 +1,3 @@
-module com.twitter.teruteru.preview.opencl {
-    exports com.twitter.teruteru128.preview.opencl;
+module com.github.teruteru.preview.opencl {
+    exports com.github.teruteru128.preview.opencl;
 }
