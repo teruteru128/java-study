@@ -20,14 +20,15 @@ compileJava {
 }
 
 application {
-    mainModule = 'com.github.teruteru.preview'
-    mainClass = 'com.github.teruteru128.preview.Main'
+    mainModule = 'com.github.teruteru.foreign'
+    mainClass = 'com.github.teruteru128.foreign.Main'
     applicationDefaultJvmArgs = [
             '--enable-preview',
-            '--enable-native-access=com.github.teruteru.preview,com.github.teruteru.preview.opencl,com.github.teruteru.preview.windows', '-Xms64G', '-Xmx64G']
+            '--enable-native-access=com.github.teruteru.foreign,com.github.teruteru.foreign.opencl,com.github.teruteru.foreign.setjmp,com.github.teruteru.foreign.windows', '-Xms64G', '-Xmx64G']
 }
 
 dependencies {
     implementation project(":opencl")
+    implementation project(":setjmp")
     implementation project(":windows")
 }

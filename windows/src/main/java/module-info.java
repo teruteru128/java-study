@@ -1,3 +1,3 @@
-module com.github.teruteru.preview.windows {
-    exports com.github.teruteru128.preview.windows;
+module com.github.teruteru.foreign.windows {
+    exports com.github.teruteru128.foreign.windows;
 }

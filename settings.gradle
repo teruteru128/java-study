@@ -23,3 +23,5 @@ include("preview")
 include("slime")
 include("time")
 include("windows")
+include("setjmp")
+
