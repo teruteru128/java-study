@@ -1,4 +1,4 @@
 module com.twitter.teruteru.preview {
-    requires com.twitter.teruteru.preview.opencl;
-    requires com.twitter.teruteru.preview.windows;
+    requires com.github.teruteru.preview.opencl;
+    requires com.github.teruteru.preview.windows;
 }

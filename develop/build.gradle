@@ -12,8 +12,8 @@ plugins {
 }
 
 application {
-    mainModule = 'com.twitter.teruteru.study'
-    mainClass = 'com.twitter.teruteru128.study.Main'
+    mainModule = 'com.github.teruteru.study'
+    mainClass = 'com.github.teruteru128.study.Main'
     applicationDefaultJvmArgs = ['-Xms32G', '-Xmx32G']
 }
 

@@ -1,6 +1,5 @@
-package com.twitter.teruteru128.util;
+package com.github.teruteru128.util;
 
-import com.github.teruteru128.util.UUIDUnsignedComparator;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;

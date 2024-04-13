@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample.bitmessage;
+package com.github.teruteru128.sample.bitmessage;
 
 import java.io.IOException;
 import java.net.InetAddress;

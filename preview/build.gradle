@@ -20,11 +20,11 @@ compileJava {
 }
 
 application {
-    mainModule = 'com.twitter.teruteru.preview'
-    mainClass = 'com.twitter.teruteru128.preview.Main'
+    mainModule = 'com.github.teruteru.preview'
+    mainClass = 'com.github.teruteru128.preview.Main'
     applicationDefaultJvmArgs = [
             '--enable-preview',
-            '--enable-native-access=com.twitter.teruteru.preview,com.twitter.teruteru.preview.opencl,com.twitter.teruteru.preview.windows', '-Xms64G', '-Xmx64G']
+            '--enable-native-access=com.github.teruteru.preview,com.github.teruteru.preview.opencl,com.github.teruteru.preview.windows', '-Xms64G', '-Xmx64G']
 }
 
 dependencies {
