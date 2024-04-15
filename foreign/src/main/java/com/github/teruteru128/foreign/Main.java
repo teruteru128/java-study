@@ -1,10 +1,8 @@
 package com.github.teruteru128.foreign;
 
-import java.io.IOException;
 import java.lang.foreign.*;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.util.Arrays;
 import java.util.HexFormat;
 import java.util.Objects;
@@ -13,7 +11,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static com.github.teruteru128.foreign.opencl.opencl_h.*;
 import static com.github.teruteru128.foreign.windows.Windows_h.*;
-import static com.github.teruteru128.foreign.setjmp.setjmp_h.*;
 import static java.lang.foreign.FunctionDescriptor.of;
 import static java.lang.foreign.MemoryLayout.*;
 import static java.lang.foreign.MemorySegment.NULL;
@@ -103,13 +100,18 @@ public class Main implements Callable<Void> {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException {
         var main = new Main(args);
         main.call();
     }
 
+    private static void callback(MemorySegment program, MemorySegment user_data) {
+        System.out.println("ウンチが漏れました！");
+        System.err.println("callback:" + Thread.currentThread());
+    }
+
     @Override
-    public Void call() {
+    public Void call() throws NoSuchMethodException, IllegalAccessException {
         // でも本当にほしいのはSocketとかファイルとかMessageDigestとかの連携なんだよね……
         // もしかしてネイティブライブラリにアクセスできるならOpenSSLにアクセスもできる……？
         // OpenCLもアクセスできるっぽい
@@ -126,8 +128,8 @@ public class Main implements Callable<Void> {
             BCryptSHA256(arena, s);
             mutexSample(arena);
             var k = System.mapLibraryName("opengl32");
-            var opengl32 = SymbolLookup.libraryLookup(k, arena);
-            System.out.println(opengl32);
+            SymbolLookup.libraryLookup(k, arena);
+            System.err.println("opengl32 looked up");
         }
         return null;
     }
@@ -144,17 +146,19 @@ public class Main implements Callable<Void> {
     }
 
     private int BCryptSHA256(Arena arena, String str) {
-        var newLocale = arena.allocateFrom("");
-        var locale = setlocale(0, newLocale);
+        var locale = setlocale(0, arena.allocateFrom("Japanese_Japan.65001"));
+        var len = strlen(locale);
+        var loc = locale.reinterpret(len + 1);
+        System.err.println(loc.getString(0));
 
         //プロバイダーハンドルを作成
         int status;
         // wchar_tの中身がUTF-16だったりUTF-32だったりSHIFT-JISだったりしろ
-        var hAlg = arena.allocateFrom(ADDRESS, NULL);
-        if (!((status = BCryptOpenAlgorithmProvider(hAlg, BCRYPT_SHA1_ALGORITHM(), NULL, 0)) >= 0)) {
+        var algorithmHandler = arena.allocate(ADDRESS);
+        if (!((status = BCryptOpenAlgorithmProvider(algorithmHandler, BCRYPT_SHA1_ALGORITHM(), NULL, 0)) >= 0)) {
             return status;
         }
-        var handle = hAlg.get(ADDRESS, 0);
+        var handle = algorithmHandler.get(ADDRESS, 0);
         if (handle.equals(NULL)) {
             return 1;
         }
@@ -172,7 +176,7 @@ public class Main implements Callable<Void> {
         }
         var size1 = bufferSize.get(JAVA_INT, 0);
         // hashオブジェクトを作成
-        var buffer = arena.allocate(size1);
+        var buffer = arena.allocate(size1, 1);
         var hash = arena.allocate(ADDRESS);
         var i = BCryptCreateHash(handle, hash, buffer, size1, NULL, 0, BCRYPT_HASH_REUSABLE_FLAG());
         if (i != 0) {
@@ -196,7 +200,7 @@ public class Main implements Callable<Void> {
             return i;
         }
         s[0] = System.nanoTime() - start;
-        Arrays.stream(s).average().ifPresent(a->System.out.println(a / 1e9));
+        Arrays.stream(s).average().ifPresent(a -> System.out.println(a / 1e9));
         // javaのbyte配列にコピーして出力
         MemorySegment.copy(hashBuffer, JAVA_BYTE, 0, hashBuffer1, 0, 20);
         System.out.printf("hash: %s%n", HexFormat.of().formatHex(hashBuffer1));
@@ -219,33 +223,37 @@ public class Main implements Callable<Void> {
      * @return 正常に終了した場合0、異常時非ゼロ
      * @see <a href="https://docs.oracle.com/javase/jp/21/core/call-native-functions-jextract.html#GUID-480A7E64-531A-4C88-800F-810FF87F24A1">jextract</a>
      */
-    private int cl(Arena arena) {
+    private int cl(Arena arena) throws NoSuchMethodException, IllegalAccessException {
         var numEntriesPtr = arena.allocate(JAVA_INT);
         int ret;
         if ((ret = clGetPlatformIDs(0, NULL, numEntriesPtr)) != 0) {
-            return ret;
+            throw new RuntimeException(clGetErrorString(ret));
         }
-        var platformIds = arena.allocate(ADDRESS, numEntriesPtr.get(JAVA_INT, 0));
+        var numEntries = numEntriesPtr.get(JAVA_INT, 0);
+        var platformIds = arena.allocate(ADDRESS, numEntries);
 
-        if ((ret = clGetPlatformIDs(numEntriesPtr.get(JAVA_INT, 0), platformIds, NULL)) != 0) {
-            return ret;
+        if ((ret = clGetPlatformIDs(numEntries, platformIds, NULL)) != 0) {
+            throw new RuntimeException(clGetErrorString(ret));
         }
         var num_devices = arena.allocate(JAVA_INT);
-        if ((ret = clGetDeviceIDs(platformIds.get(ADDRESS, 0), CL_DEVICE_TYPE_ALL(), 0, NULL, num_devices)) != 0) {
-            return ret;
+        var platform = platformIds.get(ADDRESS, 0);
+        if ((ret = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), 0, NULL, num_devices)) != 0) {
+            throw new RuntimeException(clGetErrorString(ret));
         }
-        var deviceIds = arena.allocate(ADDRESS, num_devices.get(JAVA_INT, 0));
-        if ((ret = clGetDeviceIDs(platformIds.get(ADDRESS, 0), CL_DEVICE_TYPE_ALL(), num_devices.get(JAVA_INT, 0), deviceIds, NULL)) != 0) {
-            return ret;
+        var numDevices = num_devices.get(JAVA_INT, 0);
+        var deviceIds = arena.allocate(ADDRESS, numDevices);
+        if ((ret = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), numDevices, deviceIds, NULL)) != 0) {
+            throw new RuntimeException(clGetErrorString(ret));
         }
         var ret_ptr = arena.allocate(JAVA_INT);
-        var context = clCreateContext(NULL, num_devices.get(JAVA_INT, 0), deviceIds, NULL, NULL, ret_ptr);
+        var context = clCreateContext(NULL, numDevices, deviceIds, NULL, NULL, ret_ptr);
         if (ret_ptr.get(JAVA_INT, 0) != 0) {
-            return 1;
+            throw new RuntimeException(clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
         }
-        var commandQueue = clCreateCommandQueueWithProperties(context, deviceIds.get(ADDRESS, 0), NULL, ret_ptr);
+        var device = deviceIds.get(ADDRESS, 0);
+        var commandQueue = clCreateCommandQueueWithProperties(context, device, NULL, ret_ptr);
         if (ret_ptr.get(JAVA_INT, 0) != 0) {
-            return 1;
+            throw new RuntimeException(clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
         }
         // 実際にやるならリソースとしてファイルに出すんかな、動的に生成とかロードとかしてみたいな
         final var sourceString = arena.allocateFrom("""
@@ -263,20 +271,26 @@ public class Main implements Callable<Void> {
         if (ret_ptr.get(JAVA_INT, 0) != 0) {
             return 1;
         }
-        if ((ret = clBuildProgram(program, 1, deviceIds, NULL, NULL, NULL)) != 0) {
-            return 1;
+        System.err.println("main:" + Thread.currentThread());
+        var callbackHandle = MethodHandles.lookup().findStatic(getClass(), "callback", MethodType.methodType(void.class, MemorySegment.class, MemorySegment.class));
+        var callbackDesc = FunctionDescriptor.ofVoid(ADDRESS, ADDRESS);
+        var callback = linker.upcallStub(callbackHandle, callbackDesc, arena);
+        if ((ret = clBuildProgram(program, 0, NULL, NULL, callback, NULL)) != 0) {
+            return ret;
         }
         var kernel = clCreateKernel(program, arena.allocateFrom("func"), ret_ptr);
         if (ret_ptr.get(JAVA_INT, 0) != 0) {
-            return 1;
+            return ret_ptr.get(JAVA_INT, 0);
         }
         var workGroupSize = arena.allocate(JAVA_LONG);
-        if ((ret = clGetKernelWorkGroupInfo(kernel, deviceIds.get(ADDRESS, 0), CL_KERNEL_WORK_GROUP_SIZE(), JAVA_LONG.byteSize(), workGroupSize, NULL)) != 0) {
-            return 1;
+        if ((ret = clGetKernelWorkGroupInfo(kernel, device, CL_KERNEL_WORK_GROUP_SIZE(), JAVA_LONG.byteSize(), workGroupSize, NULL)) != 0) {
+            return ret;
         }
         // device オブジェクトをリリースする
-        if ((ret = clReleaseDevice(deviceIds.get(ADDRESS, 0))) != 0) {
-            return 1;
+        for (int i = 0; i < numDevices; i++) {
+            if ((ret = clReleaseDevice(deviceIds.getAtIndex(ADDRESS, i))) != 0) {
+                return ret;
+            }
         }
         var num = 1000;
         var outBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), JAVA_BYTE.byteSize() * num, NULL, ret_ptr);

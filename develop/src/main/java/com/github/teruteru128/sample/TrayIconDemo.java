@@ -1,28 +1,31 @@
 package com.github.teruteru128.sample;
 
-import java.awt.AWTException;
-import java.awt.SystemTray;
-import java.awt.Toolkit;
-import java.awt.TrayIcon;
-import java.awt.TrayIcon.MessageType;
+import java.awt.*;
 
 public class TrayIconDemo implements Sample {
+    @Override
     public void sample() throws AWTException {
-        //Obtain only one instance of the SystemTray object
-        var tray = SystemTray.getSystemTray();
+        var toolkit = Toolkit.getDefaultToolkit();
+        System.err.println(toolkit);
+        if(SystemTray.isSupported()) {
+            //Obtain only one instance of the SystemTray object
+            var tray = SystemTray.getSystemTray();
+            System.err.println(tray);
+            //If the icon is a file
+            var image = Toolkit.getDefaultToolkit().createImage("icon.png");
 
-        //If the icon is a file
-        var image = Toolkit.getDefaultToolkit().createImage("icon.png");
-        //Alternative (if the icon is on the classpath):
-        //Image image = Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon.png"));
+            var trayIcon = new TrayIcon(image, "Tray Demo");
+            //Let the system resize the image if needed
+            trayIcon.setImageAutoSize(true);
+            //Set tooltip text for the tray icon
+            trayIcon.setToolTip("System tray icon demo");
+            trayIcon.addActionListener(e -> {
+                System.out.println(e);
+                System.out.println(Thread.currentThread());
+            });
+            tray.add(trayIcon);
 
-        var trayIcon = new TrayIcon(image, "Tray Demo");
-        //Let the system resize the image if needed
-        trayIcon.setImageAutoSize(true);
-        //Set tooltip text for the tray icon
-        trayIcon.setToolTip("System tray icon demo");
-        tray.add(trayIcon);
-
-        trayIcon.displayMessage("Hello, World", "notification demo", MessageType.INFO);
+            trayIcon.displayMessage("Hello, World", "notification demo", TrayIcon.MessageType.NONE);
+        }
     }
 }

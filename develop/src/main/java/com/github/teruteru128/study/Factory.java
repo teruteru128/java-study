@@ -2,7 +2,9 @@ package com.github.teruteru128.study;
 
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.sample.CloneSample;
+import com.github.teruteru128.sample.TrayIconDemo;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -19,7 +21,7 @@ import java.util.random.RandomGenerator;
 public class Factory {
     public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
 
-    static void create(String[] args) throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException {
+    static void create(String[] args) throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException {
         switch (args[0]) {
             case "clone" -> CloneSample.cloneSample();
             case "getPubKeySpam" ->
@@ -37,14 +39,13 @@ public class Factory {
                 }
             }
             case "unitSpam2" -> {
-                if (args.length >= 2)
+                if (args.length >= 2) {
                     Spammer.unitSpam2(Files.readAllLines(Path.of(args[1])), 2500, args.length >= 3 ? Integer.parseInt(args[2]) : 0);
+                }
             }
             case "hash-base64" -> {
                 if (args.length >= 2) {
-                    var sha256 = MessageDigest.getInstance("SHA-256");
-                    var hash = sha256.digest(Files.readAllBytes(Path.of(args[1])));
-                    System.out.println(Base64.getEncoder().encodeToString(hash));
+                    System.out.println(Base64.getEncoder().encodeToString(MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(Path.of(args[1])))));
                 }
             }
             case "search-tor" -> {
@@ -66,6 +67,7 @@ public class Factory {
                     Takarakuji.getLoto7Numbers(1);
                 }
             }
+            case "tray" -> new TrayIconDemo().sample();
             case null, default -> {
                 System.err.println("unknown command");
                 Runtime.getRuntime().exit(1);
