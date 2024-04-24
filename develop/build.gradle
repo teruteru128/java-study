@@ -88,7 +88,7 @@ dependencies {
     implementation 'com.unboundid:unboundid-ldapsdk:7.0.0'
 
     // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
-    implementation "org.apache.tomcat.embed:tomcat-embed-core:10.1.20"
+    implementation "org.apache.tomcat.embed:tomcat-embed-core:10.1.23"
 
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
     implementation 'org.xerial:sqlite-jdbc:3.45.3.0'
