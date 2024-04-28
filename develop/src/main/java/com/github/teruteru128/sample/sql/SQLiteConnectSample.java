@@ -1,7 +1,8 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.sql;
 
 import java.sql.SQLException;
 
+import com.github.teruteru128.sample.Sample;
 import org.sqlite.SQLiteDataSource;
 
 public class SQLiteConnectSample implements Sample {

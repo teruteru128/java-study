@@ -1,4 +1,6 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.dist;
+
+import com.github.teruteru128.sample.Sample;
 
 import java.util.concurrent.ThreadLocalRandom;
 

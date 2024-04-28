@@ -44,7 +44,7 @@ public final class MyB extends BigInteger implements Cloneable {
         try {
             return (MyB) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
+            throw new AssertionError("clone failed", e);
         }
     }
 }

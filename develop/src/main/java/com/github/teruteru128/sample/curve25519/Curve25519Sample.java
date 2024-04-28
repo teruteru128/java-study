@@ -1,4 +1,6 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.curve25519;
+
+import com.github.teruteru128.sample.Sample;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;

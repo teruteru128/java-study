@@ -1,4 +1,6 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.awt;
+
+import com.github.teruteru128.sample.Sample;
 
 import java.awt.*;
 
@@ -6,11 +8,9 @@ public class TrayIconDemo implements Sample {
     @Override
     public void sample() throws AWTException {
         var toolkit = Toolkit.getDefaultToolkit();
-        System.err.println(toolkit);
-        if(SystemTray.isSupported()) {
+        if (SystemTray.isSupported()) {
             //Obtain only one instance of the SystemTray object
             var tray = SystemTray.getSystemTray();
-            System.err.println(tray);
             //If the icon is a file
             var image = Toolkit.getDefaultToolkit().createImage("icon.png");
 

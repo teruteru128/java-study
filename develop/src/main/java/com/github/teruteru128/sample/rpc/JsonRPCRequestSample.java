@@ -1,4 +1,6 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.rpc;
+
+import com.github.teruteru128.sample.Sample;
 
 import java.io.IOException;
 import java.net.URI;

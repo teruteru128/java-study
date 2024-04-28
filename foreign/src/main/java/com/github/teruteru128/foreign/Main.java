@@ -1,117 +1,49 @@
 package com.github.teruteru128.foreign;
 
+import java.io.IOException;
 import java.lang.foreign.*;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
+import java.security.Provider;
+import java.security.Security;
 import java.util.Arrays;
 import java.util.HexFormat;
-import java.util.Objects;
+import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.github.teruteru128.foreign.opencl.opencl_h.*;
 import static com.github.teruteru128.foreign.windows.Windows_h.*;
-import static java.lang.foreign.FunctionDescriptor.of;
 import static java.lang.foreign.MemoryLayout.*;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.*;
 
 public class Main implements Callable<Void> {
 
-    private static final String[] clMessageStrings = {      // Error Codes
-            "CL_SUCCESS"                                  //   0
-            , "CL_DEVICE_NOT_FOUND"                         //  -1
-            , "CL_DEVICE_NOT_AVAILABLE"                     //  -2
-            , "CL_COMPILER_NOT_AVAILABLE"                   //  -3
-            , "CL_MEM_OBJECT_ALLOCATION_FAILURE"            //  -4
-            , "CL_OUT_OF_RESOURCES"                         //  -5
-            , "CL_OUT_OF_HOST_MEMORY"                       //  -6
-            , "CL_PROFILING_INFO_NOT_AVAILABLE"             //  -7
-            , "CL_MEM_COPY_OVERLAP"                         //  -8
-            , "CL_IMAGE_FORMAT_MISMATCH"                    //  -9
-            , "CL_IMAGE_FORMAT_NOT_SUPPORTED"               //  -10
-            , "CL_BUILD_PROGRAM_FAILURE"                    //  -11
-            , "CL_MAP_FAILURE"                              //  -12
-            , ""    //  -13
-            , ""    //  -14
-            , ""    //  -15
-            , ""    //  -16
-            , ""    //  -17
-            , ""    //  -18
-            , ""    //  -19
-            , ""    //  -20
-            , ""    //  -21
-            , ""    //  -22
-            , ""    //  -23
-            , ""    //  -24
-            , ""    //  -25
-            , ""    //  -26
-            , ""    //  -27
-            , ""    //  -28
-            , ""    //  -29
-            , "CL_INVALID_VALUE"                            //  -30
-            , "CL_INVALID_DEVICE_TYPE"                      //  -31
-            , "CL_INVALID_PLATFORM"                         //  -32
-            , "CL_INVALID_DEVICE"                           //  -33
-            , "CL_INVALID_CONTEXT"                          //  -34
-            , "CL_INVALID_QUEUE_PROPERTIES"                 //  -35
-            , "CL_INVALID_COMMAND_QUEUE"                    //  -36
-            , "CL_INVALID_HOST_PTR"                         //  -37
-            , "CL_INVALID_MEM_OBJECT"                       //  -38
-            , "CL_INVALID_IMAGE_FORMAT_DESCRIPTOR"          //  -39
-            , "CL_INVALID_IMAGE_SIZE"                       //  -40
-            , "CL_INVALID_SAMPLER"                          //  -41
-            , "CL_INVALID_BINARY"                           //  -42
-            , "CL_INVALID_BUILD_OPTIONS"                    //  -43
-            , "CL_INVALID_PROGRAM"                          //  -44
-            , "CL_INVALID_PROGRAM_EXECUTABLE"               //  -45
-            , "CL_INVALID_KERNEL_NAME"                      //  -46
-            , "CL_INVALID_KERNEL_DEFINITION"                //  -47
-            , "CL_INVALID_KERNEL"                           //  -48
-            , "CL_INVALID_ARG_INDEX"                        //  -49
-            , "CL_INVALID_ARG_VALUE"                        //  -50
-            , "CL_INVALID_ARG_SIZE"                         //  -51
-            , "CL_INVALID_KERNEL_ARGS"                      //  -52
-            , "CL_INVALID_WORK_DIMENSION"                   //  -53
-            , "CL_INVALID_WORK_GROUP_SIZE"                  //  -54
-            , "CL_INVALID_WORK_ITEM_SIZE"                   //  -55
-            , "CL_INVALID_GLOBAL_OFFSET"                    //  -56
-            , "CL_INVALID_EVENT_WAIT_LIST"                  //  -57
-            , "CL_INVALID_EVENT"                            //  -58
-            , "CL_INVALID_OPERATION"                        //  -59
-            , "CL_INVALID_GL_OBJECT"                        //  -60
-            , "CL_INVALID_BUFFER_SIZE"                      //  -61
-            , "CL_INVALID_MIP_LEVEL"                        //  -62
-            , "CL_INVALID_GLOBAL_WORK_SIZE"                 //  -63
-            , "CL_UNKNOWN_ERROR_CODE"};
-    private static final Linker linker = Linker.nativeLinker();
-    private static final SymbolLookup defaultLookup = linker.defaultLookup();
+    static final Linker linker = Linker.nativeLinker();
+    static final SymbolLookup defaultLookup = linker.defaultLookup();
     private final String[] args;
 
     public Main(String[] args) {
         this.args = args;
     }
 
-    private static String clGetErrorString(int error) {
-        if (error >= -63 && error <= 0) {
-            return clMessageStrings[-error];
-        } else {
-            return clMessageStrings[64];
+    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, IOException {
+        for (var provider : ServiceLoader.load(Provider.class)) {
+            if (Security.getProvider(provider.getName()) == null) {
+                Security.addProvider(provider);
+            }
         }
-    }
-
-    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException {
         var main = new Main(args);
         main.call();
     }
 
-    private static void callback(MemorySegment program, MemorySegment user_data) {
+    private static void callback() {
         System.out.println("ウンチが漏れました！");
-        System.err.println("callback:" + Thread.currentThread());
     }
 
     @Override
-    public Void call() throws NoSuchMethodException, IllegalAccessException {
+    public Void call() throws NoSuchMethodException, IllegalAccessException, IOException {
         // でも本当にほしいのはSocketとかファイルとかMessageDigestとかの連携なんだよね……
         // もしかしてネイティブライブラリにアクセスできるならOpenSSLにアクセスもできる……？
         // OpenCLもアクセスできるっぽい
@@ -124,12 +56,16 @@ public class Main implements Callable<Void> {
         ValueLayout.ADDRESS.targetLayout().ifPresent(memoryLayout -> System.out.printf("address value layout: %s%n", memoryLayout));
         try (var arena = Arena.ofConfined()) {
             System.out.printf("strlen(arena.allocateFrom(s)) = %s%n", strlen(arena.allocateFrom(s)));
-            cl(arena);
-            BCryptSHA256(arena, s);
-            mutexSample(arena);
-            var k = System.mapLibraryName("opengl32");
-            SymbolLookup.libraryLookup(k, arena);
-            System.err.println("opengl32 looked up");
+            int ret;
+            if ((ret = cl(arena)) != 0) {
+                throw new RuntimeException("cl:" + ret);
+            }
+            if ((ret = BCryptSHA256(arena, s)) != 0) {
+                throw new RuntimeException("BCryptSHA256:" + ret);
+            }
+            if ((ret = mutexSample(arena)) != 0) {
+                throw new RuntimeException("mutexSample:" + ret);
+            }
         }
         return null;
     }
@@ -146,10 +82,10 @@ public class Main implements Callable<Void> {
     }
 
     private int BCryptSHA256(Arena arena, String str) {
-        var locale = setlocale(0, arena.allocateFrom("Japanese_Japan.65001"));
+        var locale = Locale.setlocale(0, arena.allocateFrom("Japanese_Japan.65001"));
         var len = strlen(locale);
         var loc = locale.reinterpret(len + 1);
-        System.err.println(loc.getString(0));
+        System.out.println(loc.getString(0));
 
         //プロバイダーハンドルを作成
         int status;
@@ -227,33 +163,33 @@ public class Main implements Callable<Void> {
         var numEntriesPtr = arena.allocate(JAVA_INT);
         int ret;
         if ((ret = clGetPlatformIDs(0, NULL, numEntriesPtr)) != 0) {
-            throw new RuntimeException(clGetErrorString(ret));
+            throw new RuntimeException(CLMessage.clGetErrorString(ret));
         }
         var numEntries = numEntriesPtr.get(JAVA_INT, 0);
         var platformIds = arena.allocate(ADDRESS, numEntries);
 
         if ((ret = clGetPlatformIDs(numEntries, platformIds, NULL)) != 0) {
-            throw new RuntimeException(clGetErrorString(ret));
+            throw new RuntimeException(CLMessage.clGetErrorString(ret));
         }
         var num_devices = arena.allocate(JAVA_INT);
         var platform = platformIds.get(ADDRESS, 0);
         if ((ret = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), 0, NULL, num_devices)) != 0) {
-            throw new RuntimeException(clGetErrorString(ret));
+            throw new RuntimeException(CLMessage.clGetErrorString(ret));
         }
         var numDevices = num_devices.get(JAVA_INT, 0);
         var deviceIds = arena.allocate(ADDRESS, numDevices);
         if ((ret = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), numDevices, deviceIds, NULL)) != 0) {
-            throw new RuntimeException(clGetErrorString(ret));
+            throw new RuntimeException(CLMessage.clGetErrorString(ret));
         }
         var ret_ptr = arena.allocate(JAVA_INT);
         var context = clCreateContext(NULL, numDevices, deviceIds, NULL, NULL, ret_ptr);
         if (ret_ptr.get(JAVA_INT, 0) != 0) {
-            throw new RuntimeException(clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
+            throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
         }
         var device = deviceIds.get(ADDRESS, 0);
         var commandQueue = clCreateCommandQueueWithProperties(context, device, NULL, ret_ptr);
         if (ret_ptr.get(JAVA_INT, 0) != 0) {
-            throw new RuntimeException(clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
+            throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
         }
         // 実際にやるならリソースとしてファイルに出すんかな、動的に生成とかロードとかしてみたいな
         final var sourceString = arena.allocateFrom("""
@@ -271,10 +207,12 @@ public class Main implements Callable<Void> {
         if (ret_ptr.get(JAVA_INT, 0) != 0) {
             return 1;
         }
-        System.err.println("main:" + Thread.currentThread());
-        var callbackHandle = MethodHandles.lookup().findStatic(getClass(), "callback", MethodType.methodType(void.class, MemorySegment.class, MemorySegment.class));
-        var callbackDesc = FunctionDescriptor.ofVoid(ADDRESS, ADDRESS);
-        var callback = linker.upcallStub(callbackHandle, callbackDesc, arena);
+        System.out.println("main:" + Thread.currentThread());
+        var lookup = MethodHandles.lookup();
+        var type = MethodType.methodType(void.class);
+        var callback1 = lookup.findStatic(getClass(), "callback", type);
+        var function = FunctionDescriptor.ofVoid();
+        var callback = linker.upcallStub(callback1, function, arena);
         if ((ret = clBuildProgram(program, 0, NULL, NULL, callback, NULL)) != 0) {
             return ret;
         }
@@ -343,12 +281,4 @@ public class Main implements Callable<Void> {
         return 0;
     }
 
-    public MemorySegment setlocale(int category, final MemorySegment locale) {
-        var setlocale = Objects.requireNonNull(defaultLookup.find("setlocale").map(addr -> linker.downcallHandle(addr, of(ADDRESS, JAVA_INT, ADDRESS))).orElse(null), "setlocale");
-        try {
-            return (MemorySegment) setlocale.invokeExact(category, locale);
-        } catch (Throwable e) {
-            throw new AssertionError("should not reach here", e);
-        }
-    }
 }

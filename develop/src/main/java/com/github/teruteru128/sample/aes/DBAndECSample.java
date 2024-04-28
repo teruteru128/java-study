@@ -1,4 +1,4 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.aes;
 
 import java.math.BigInteger;
 import java.security.AlgorithmParameters;
@@ -13,6 +13,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
 import java.sql.SQLException;
 
+import com.github.teruteru128.sample.Sample;
 import org.sqlite.SQLiteDataSource;
 
 // TODO 引数ありのsampleってどうしようね -> 引数のないメソッドを増設してそこから呼び出すか？

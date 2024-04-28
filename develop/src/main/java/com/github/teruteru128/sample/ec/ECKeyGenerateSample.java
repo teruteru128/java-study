@@ -1,4 +1,4 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.ec;
 
 import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyPairGenerator;
@@ -8,6 +8,7 @@ import java.security.Security;
 import java.security.spec.ECGenParameterSpec;
 import java.util.HexFormat;
 
+import com.github.teruteru128.sample.Sample;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 

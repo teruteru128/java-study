@@ -1,9 +1,8 @@
 package com.github.teruteru128.study;
 
 import java.lang.reflect.InvocationTargetException;
-import java.security.*;
-
-import static java.lang.Math.min;
+import java.security.Provider;
+import java.security.Security;
 
 /**
  * Main
@@ -30,7 +29,7 @@ public class Main {
      * @throws Exception 何か起こるかもしれない
      */
     public static void main(String[] args) throws Exception {
-        if (args.length < 1) {
+        if (args.length < 1 || args[0].isEmpty()) {
             Runtime.getRuntime().exit(1);
         }
         Factory.create(args);

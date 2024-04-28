@@ -1,4 +1,6 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.aes;
+
+import com.github.teruteru128.sample.Sample;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
