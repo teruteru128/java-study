@@ -1,9 +1,8 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.study;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.github.teruteru128.study.Random;
 import org.junit.jupiter.api.Test;
 
 import java.util.random.RandomGenerator;
@@ -11,7 +10,7 @@ import java.util.random.RandomGenerator;
 /**
  * @see <a href="https://oohira.github.io/junit5-doc-jp/user-guide/#writing-tests">テストを書く</a>
  */
-public class MainTest {
+public class RandomTest {
 
     @Test
     public void myFirstTest() {
