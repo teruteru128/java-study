@@ -1,0 +1,8 @@
+plugins {
+    id 'com.github.teruteru128.study.java-application-conventions'
+}
+application {
+    mainClass = 'com.github.teruteru128.cyclic.Main'
+}
+dependencies {
+}

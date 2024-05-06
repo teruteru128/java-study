@@ -25,3 +25,5 @@ include("time")
 include("windows")
 include("setjmp")
 include 'sample'
+include 'scheduled-pathping'
+

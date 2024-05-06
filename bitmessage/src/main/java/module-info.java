@@ -6,7 +6,6 @@ module com.github.teruteru.bitmessage {
     requires org.apache.commons.codec;
     requires org.slf4j;
     requires com.github.teruteru.encode;
-    requires com.github.teruteru.time;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.annotation;
     requires org.openapitools.jackson.nullable;

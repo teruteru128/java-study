@@ -121,6 +121,10 @@ public class Factory {
                 System.err.printf("stdout.encoding=%s%n", System.getProperty("stdout.encoding"));
                 System.err.printf("file.encoding=%s%n", Charset.defaultCharset().displayName());
             }
+            case "ssl"->{
+                var factory = KeyFactory.getInstance("Ed25519");
+                var p = factory.generatePrivate(new PKCS8EncodedKeySpec(Files.readAllBytes(Path.of(args[1]))));
+            }
             case null, default -> {
                 System.err.println("unknown command");
                 Runtime.getRuntime().exit(1);

@@ -210,7 +210,7 @@ public class Spammer {
 
     private static byte[] addressToRipe(String address) {
         if (!address.startsWith("BM-")) {
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException("invalid prefix");
         }
         var encoded = Base58.decode(address.substring(3));
         var shortedRipe = Arrays.copyOfRange(encoded, 2, encoded.length - 4);
