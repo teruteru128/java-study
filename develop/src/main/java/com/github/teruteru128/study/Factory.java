@@ -2,9 +2,9 @@ package com.github.teruteru128.study;
 
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.fx.App;
+import com.github.teruteru128.sample.awt.TrayIconDemo;
 import com.github.teruteru128.sample.clone.CloneSample;
 import com.github.teruteru128.sample.kdf.PBKDF2Sample;
-import com.github.teruteru128.sample.awt.TrayIconDemo;
 import javafx.application.Application;
 
 import javax.crypto.SecretKeyFactory;
@@ -20,14 +20,16 @@ import java.security.*;
 import java.security.spec.*;
 import java.sql.SQLException;
 import java.time.Duration;
-import java.util.Base64;
-import java.util.EnumSet;
-import java.util.HexFormat;
+import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
+import java.util.zip.DataFormatException;
 import java.util.zip.GZIPInputStream;
+
+import static java.lang.Integer.*;
 
 public class Factory {
     public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
@@ -43,11 +45,11 @@ public class Factory {
      * @throws AWTException
      * @throws ExecutionException
      */
-    static void create(String[] args) throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, ExecutionException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, ClassNotFoundException {
+    static void create(String[] args) throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, ExecutionException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, ClassNotFoundException, DataFormatException {
         switch (args[0]) {
             case "clone" -> CloneSample.cloneSample();
             case "getPubKeySpam" ->
-                    Spammer.getPubKeySpam((SecureRandom) SECURE_RANDOM_GENERATOR, args.length >= 2 ? Integer.parseInt(args[1]) : 10000);
+                    Spammer.getPubKeySpam((SecureRandom) SECURE_RANDOM_GENERATOR, args.length >= 2 ? parseInt(args[1]) : 10000);
             case "random" -> Random.doubleSample(RandomGenerator.getDefault());
             case "random2" -> Random.random2();
             case "random3" -> Random.random3();
@@ -57,12 +59,12 @@ public class Factory {
             case "ts3" -> TeamSpeak.ts3();
             case "unitSpam" -> {
                 if (args.length >= 2) {
-                    Spammer.unitSpam(Files.readAllLines(Path.of(args[1])), 2500, Duration.ofHours(12), args.length >= 3 ? Integer.parseInt(args[2]) : 0);
+                    Spammer.unitSpam(Files.readAllLines(Path.of(args[1])), 2500, Duration.ofHours(12), args.length >= 3 ? parseInt(args[2]) : 0);
                 }
             }
             case "unitSpam2" -> {
                 if (args.length >= 2) {
-                    Spammer.unitSpam2(Files.readAllLines(Path.of(args[1])), 2500, args.length >= 3 ? Integer.parseInt(args[2]) : 0);
+                    Spammer.unitSpam2(Files.readAllLines(Path.of(args[1])), 2500, args.length >= 3 ? parseInt(args[2]) : 0);
                 }
             }
             case "hash-base64" -> {
@@ -71,22 +73,37 @@ public class Factory {
                 }
             }
             case "search-tor" -> {
-                var min = args.length >= 2 ? Integer.parseInt(args[1]) : (4299 + 9473);
-                var max = args.length >= 3 ? Integer.parseInt(args[2]) : 23000;
+                var min = args.length >= 2 ? parseInt(args[1]) : (4299 + 9473);
+                var max = args.length >= 3 ? parseInt(args[2]) : 23000;
                 SiteChecker.searchTor(min, max);
             }
             case "check-tor" -> SiteChecker.siteCheck();
             case "map" -> System.out.println("System.mapLibraryName(\"OpenCL\") = " + System.mapLibraryName("OpenCL"));
             case "telnet-tor" -> {
                 var hostname = args[1];
-                var port = Integer.parseInt(args[2]);
+                var port = parseInt(args[2]);
                 Telnet.extracted(hostname, port);
             }
             case "loto7" -> {
                 if (args.length >= 2) {
-                    Takarakuji.getLoto7Numbers(Integer.parseInt(args[1]));
+                    Lottery.getLotto7Numbers(parseInt(args[1]));
                 } else {
-                    Takarakuji.getLoto7Numbers(1);
+                    Lottery.getLotto7Numbers(1);
+                }
+            }
+            case "loto7-p1" -> {
+                if (args.length >= 2) {
+                    Lottery.pattern1(parseInt(args[1]));
+                } else {
+                    Lottery.pattern1(1);
+                }
+            }
+            case "loto7-p2" -> {
+                if (args.length >= 5) {
+                    Lottery.pattern2(new int[]{parseInt(args[1]), parseInt(args[2]), parseInt(args[3])}, parseInt(args[4]));
+                } else {
+                    System.err.println("引数不足");
+                    System.exit(1);
                 }
             }
             case "tray" -> new TrayIconDemo().sample();
@@ -121,9 +138,31 @@ public class Factory {
                 System.err.printf("stdout.encoding=%s%n", System.getProperty("stdout.encoding"));
                 System.err.printf("file.encoding=%s%n", Charset.defaultCharset().displayName());
             }
-            case "ssl"->{
+            case "ssl" -> {
                 var factory = KeyFactory.getInstance("Ed25519");
                 var p = factory.generatePrivate(new PKCS8EncodedKeySpec(Files.readAllBytes(Path.of(args[1]))));
+            }
+            case "yattaze" -> {
+                if (args.length < 2) {
+                    return;
+                }
+                List<String> list;
+                try (var f = new BufferedReader(new InputStreamReader(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(args[1])), StandardCharsets.UTF_8))) {
+                    list = f.lines().toList();
+                }
+                while (true) {
+                    for (var l : list) {
+                        System.out.println(l);
+                        Thread.sleep(1000);
+                    }
+                }
+            }
+            case "nbt" -> {
+                var b = HexFormat.of().parseHex(System.getenv("TXT"));
+                try (var in = new GZIPInputStream(new ByteArrayInputStream(b))) {
+                    var d = in.readAllBytes();
+                    System.out.println(HexFormat.of().formatHex(d));
+                }
             }
             case null, default -> {
                 System.err.println("unknown command");
@@ -135,7 +174,7 @@ public class Factory {
     private static void extracted(String path, String patternArg) throws IOException {
         var p = Paths.get(path);
         var pattern = Pattern.compile(patternArg);
-        Files.walkFileTree(p, EnumSet.noneOf(FileVisitOption.class), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
+        Files.walkFileTree(p, EnumSet.noneOf(FileVisitOption.class), MAX_VALUE, new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 var fileName = file.getFileName().toString();

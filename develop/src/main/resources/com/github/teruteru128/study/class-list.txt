@@ -40,7 +40,7 @@ com.github.teruteru128.study.PrimeSearch
 com.github.teruteru128.study.SerializeSample
 com.github.teruteru128.study.SleeptillQueryGenerator
 com.github.teruteru128.study.SlimeSearch
-com.github.teruteru128.study.Takarakuji
+com.github.teruteru128.study.Lottery
 com.github.teruteru128.study.TarMaker
 com.github.teruteru128.study.ToranoanaPasswordGenerator
 com.github.teruteru128.study.UniqueIdentity
