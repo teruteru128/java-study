@@ -5,6 +5,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+/**
+ * <ul>
+ *   <li>TODO {@link javafx.application.Application}のサブクラスをサービスローダーで読み込む</li>
+ *   <li>TODO {@link Class#forName(String)}で呼び出す</li>
+ * </ul>
+ */
 public class App extends Application {
 	public App() {
 	}
