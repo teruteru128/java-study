@@ -1,6 +1,5 @@
 package com.github.teruteru128.study;
 
-import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.parseInt;
 
 import com.github.teruteru128.bitmessage.app.Spammer;
@@ -19,7 +18,6 @@ import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileVisitOption;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -53,7 +51,6 @@ import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Base64;
-import java.util.EnumSet;
 import java.util.HexFormat;
 import java.util.function.Function;
 import java.util.random.RandomGenerator;
@@ -217,9 +214,8 @@ public class Factory {
 
   private static void extracted(Path p, String patternArg) throws IOException {
     var pattern = Pattern.compile(patternArg);
-    var options = EnumSet.noneOf(FileVisitOption.class);
-    var visitor = new PathSimpleFileVisitor(pattern);
-    Files.walkFileTree(p, options, MAX_VALUE, visitor);
+    var visitor = new ZGrepFileVisitor(pattern);
+    Files.walkFileTree(p, visitor);
   }
 
   static void signSample()
@@ -249,11 +245,11 @@ public class Factory {
     }
   }
 
-  private static class PathSimpleFileVisitor extends SimpleFileVisitor<Path> {
+  private static class ZGrepFileVisitor extends SimpleFileVisitor<Path> {
 
     private final Pattern pattern;
 
-    public PathSimpleFileVisitor(Pattern pattern) {
+    public ZGrepFileVisitor(Pattern pattern) {
       this.pattern = pattern;
     }
 
