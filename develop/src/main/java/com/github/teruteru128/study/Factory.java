@@ -1,6 +1,41 @@
 package com.github.teruteru128.study;
 
 import static java.lang.Integer.parseInt;
+import static org.bukkit.Material.ANVIL;
+import static org.bukkit.Material.BEACON;
+import static org.bukkit.Material.BLACK_SHULKER_BOX;
+import static org.bukkit.Material.BLUE_SHULKER_BOX;
+import static org.bukkit.Material.BREWING_STAND;
+import static org.bukkit.Material.BROWN_SHULKER_BOX;
+import static org.bukkit.Material.CAKE;
+import static org.bukkit.Material.CANDLE_CAKE;
+import static org.bukkit.Material.CARTOGRAPHY_TABLE;
+import static org.bukkit.Material.CHEST_MINECART;
+import static org.bukkit.Material.CHIPPED_ANVIL;
+import static org.bukkit.Material.COMMAND_BLOCK;
+import static org.bukkit.Material.CRAFTING_TABLE;
+import static org.bukkit.Material.CYAN_SHULKER_BOX;
+import static org.bukkit.Material.DAMAGED_ANVIL;
+import static org.bukkit.Material.DAYLIGHT_DETECTOR;
+import static org.bukkit.Material.FURNACE_MINECART;
+import static org.bukkit.Material.GRAY_SHULKER_BOX;
+import static org.bukkit.Material.GREEN_SHULKER_BOX;
+import static org.bukkit.Material.HOPPER_MINECART;
+import static org.bukkit.Material.LIGHT_BLUE_SHULKER_BOX;
+import static org.bukkit.Material.LIGHT_GRAY_SHULKER_BOX;
+import static org.bukkit.Material.LIME_SHULKER_BOX;
+import static org.bukkit.Material.LOOM;
+import static org.bukkit.Material.MAGENTA_SHULKER_BOX;
+import static org.bukkit.Material.ORANGE_SHULKER_BOX;
+import static org.bukkit.Material.PINK_SHULKER_BOX;
+import static org.bukkit.Material.PURPLE_SHULKER_BOX;
+import static org.bukkit.Material.RED_SHULKER_BOX;
+import static org.bukkit.Material.RESPAWN_ANCHOR;
+import static org.bukkit.Material.SHULKER_BOX;
+import static org.bukkit.Material.SMITHING_TABLE;
+import static org.bukkit.Material.STONECUTTER;
+import static org.bukkit.Material.WHITE_SHULKER_BOX;
+import static org.bukkit.Material.YELLOW_SHULKER_BOX;
 
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.fx.App;
@@ -44,6 +79,8 @@ import java.security.spec.InvalidParameterSpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -51,13 +88,18 @@ import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Base64;
+import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.HexFormat;
+import java.util.StringJoiner;
 import java.util.function.Function;
 import java.util.random.RandomGenerator;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
 import javax.crypto.SecretKeyFactory;
+import org.bukkit.Bukkit;
 
 public class Factory {
 
@@ -205,6 +247,36 @@ public class Factory {
         var f = new DecimalFormat("0.0#");
         System.out.println(f.format(0.2041446));
       }
+      case "jpg", "jpeg" -> {
+        if(args.length >= 2) {
+          var visitor = new FileCollisionFileVisitor();
+          Files.walkFileTree(Path.of(args[1]), visitor);
+        }
+      }
+      case "normalize" -> {
+        System.err.printf("native.encoding=%s%n", System.getProperty("native.encoding"));
+        System.err.printf("stderr.encoding=%s%n", System.getProperty("stderr.encoding"));
+        System.err.printf("stdout.encoding=%s%n", System.getProperty("stdout.encoding"));
+        System.err.printf("file.encoding=%s%n", Charset.defaultCharset().displayName());
+        for(var form : Normalizer.Form.values()) {
+          var normalize = Normalizer.normalize("\ufdfd", form).getBytes();
+          System.out.printf("%s: %s%n", form, HexFormat.of().formatHex(normalize));
+        }
+      }
+      case "spigot" -> {
+        var joiner = new StringJoiner(", ");
+        for (var e : EnumSet.of(CRAFTING_TABLE, CHIPPED_ANVIL, DAMAGED_ANVIL, BEACON, BREWING_STAND,
+            FURNACE_MINECART, HOPPER_MINECART, CAKE, CANDLE_CAKE, CHEST_MINECART, COMMAND_BLOCK,
+            DAYLIGHT_DETECTOR, RESPAWN_ANCHOR, STONECUTTER, CARTOGRAPHY_TABLE, SMITHING_TABLE, LOOM,
+            SHULKER_BOX, RED_SHULKER_BOX, ORANGE_SHULKER_BOX, YELLOW_SHULKER_BOX, LIME_SHULKER_BOX,
+            GREEN_SHULKER_BOX, CYAN_SHULKER_BOX, BLUE_SHULKER_BOX, PURPLE_SHULKER_BOX,
+            MAGENTA_SHULKER_BOX, LIGHT_BLUE_SHULKER_BOX, PINK_SHULKER_BOX, BROWN_SHULKER_BOX,
+            WHITE_SHULKER_BOX, GRAY_SHULKER_BOX, LIGHT_GRAY_SHULKER_BOX, BLACK_SHULKER_BOX,
+            ANVIL)) {
+          joiner.add(e.toString());
+        }
+        System.out.println(joiner);
+      }
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
@@ -264,6 +336,31 @@ public class Factory {
         } catch (UncheckedIOException e) {
           System.err.println("ERROR: " + file);
           return FileVisitResult.CONTINUE;
+        }
+      }
+      return FileVisitResult.CONTINUE;
+    }
+  }
+
+  private static class FileCollisionFileVisitor extends SimpleFileVisitor<Path> {
+
+    private static final Pattern jpegExtensionPattern = Pattern.compile("(.*\\.)(jpe?g)$",
+        Pattern.CASE_INSENSITIVE);
+
+    private final HashMap<String, Path> map = new HashMap<>();
+
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+      var filename = file.getFileName().toString();
+      var matcher = jpegExtensionPattern.matcher(filename);
+      if (matcher.find()) {
+        if (matcher.group(2).equalsIgnoreCase("jpeg")) {
+          filename = matcher.replaceAll("$1jpg");
+        }
+        var v = map.put(filename, file);
+        if (v != null) {
+          System.err.println(filename);
+          System.out.println("collision!: " + file + ", " + v);
         }
       }
       return FileVisitResult.CONTINUE;
