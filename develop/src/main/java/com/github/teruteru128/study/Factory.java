@@ -8,24 +8,14 @@ import com.github.teruteru128.sample.awt.TrayIconDemo;
 import com.github.teruteru128.sample.clone.CloneSample;
 import com.github.teruteru128.sample.kdf.PBKDF2Sample;
 import java.awt.AWTException;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.io.UncheckedIOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.StandardOpenOption;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.GroupPrincipal;
-import java.nio.file.attribute.UserPrincipal;
 import java.security.AlgorithmParameters;
 import java.security.DigestException;
 import java.security.InvalidKeyException;
@@ -47,14 +37,10 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.HexFormat;
 import java.util.function.Function;
 import java.util.random.RandomGenerator;
-import java.util.regex.Pattern;
-import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
-import javax.crypto.SecretKeyFactory;
 
 public class Factory {
 
@@ -146,27 +132,12 @@ public class Factory {
         if (args.length < 3) {
           return;
         }
-        extracted(Path.of(args[1]), args[2]);
+        FileChecker.extracted(Path.of(args[1]), args[2]);
       }
       case "sign" -> signSample();
       case "fx" -> Application.launch(App.class, args);
-      case "pbkdf2" -> {
-        if (args.length >= 2) {
-          byte[] salt;
-          if (args.length == 2) {
-            salt = new byte[16];
-            SECURE_RANDOM_GENERATOR.nextBytes(salt);
-          } else {
-            salt = HexFormat.of().parseHex(args[2]);
-          }
-          PBKDF2Sample.getFormatName(args[1].toCharArray(), salt);
-        }
-      }
-      case "pbkdf2-2" -> {
-        var factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA3-512");
-        System.out.printf("algo: %s(%s)%n", factory.getAlgorithm(), factory.getProvider());
-        System.out.println(factory);
-      }
+      case "pbkdf2" -> PBKDF2Sample.extracted1(args);
+      case "pbkdf2-2" -> PBKDF2Sample.extracted2();
       case "list-encodings" -> {
         System.err.printf("native.encoding=%s%n", System.getProperty("native.encoding"));
         System.err.printf("stderr.encoding=%s%n", System.getProperty("stderr.encoding"));
@@ -175,8 +146,8 @@ public class Factory {
       }
       case "jpg", "jpeg" -> {
         if (args.length >= 2) {
-          var visitor = new FileCollisionFileVisitor();
-          Files.walkFileTree(Path.of(args[1]), visitor);
+          var arg = args[1];
+          FileChecker.extracted(arg);
         }
       }
       case "b" -> {
@@ -213,17 +184,19 @@ public class Factory {
         System.out.printf("%s%n", b ? "prime" : "not prime");
         System.out.printf("diff: %s%n", Duration.between(start, finish));
       }
+      case "ownerCheck" -> {
+        if (args.length < 3) {
+          return;
+        }
+        var arg = args[1];
+        var targetOwnerName = args[2];
+        FileChecker.extracted(arg, targetOwnerName);
+      }
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
       }
     }
-  }
-
-  private static void extracted(Path p, String patternArg) throws IOException {
-    var pattern = Pattern.compile(patternArg);
-    var visitor = new ZGrepFileVisitor(pattern);
-    Files.walkFileTree(p, visitor);
   }
 
   static void signSample()
@@ -253,53 +226,4 @@ public class Factory {
     }
   }
 
-  private static class ZGrepFileVisitor extends SimpleFileVisitor<Path> {
-
-    private final Pattern pattern;
-
-    public ZGrepFileVisitor(Pattern pattern) {
-      this.pattern = pattern;
-    }
-
-    @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-      var fileName = file.getFileName().toString();
-      if (fileName.endsWith(".gz")) {
-        try (var s = new BufferedReader(new InputStreamReader(
-            new GZIPInputStream(Files.newInputStream(file, StandardOpenOption.READ)),
-            StandardCharsets.UTF_8))) {
-          s.lines().filter(l -> pattern.matcher(l).find()).forEach(System.out::println);
-        } catch (UncheckedIOException e) {
-          System.err.println("ERROR: " + file);
-          return FileVisitResult.CONTINUE;
-        }
-      }
-      return FileVisitResult.CONTINUE;
-    }
-  }
-
-  private static class FileCollisionFileVisitor extends SimpleFileVisitor<Path> {
-
-    private static final Pattern jpegExtensionPattern = Pattern.compile("jpe?g$",
-        Pattern.CASE_INSENSITIVE);
-
-    private final HashMap<String, Path> map = new HashMap<>();
-
-    @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-      var fileName = file.getFileName().toString();
-      var matcher = jpegExtensionPattern.matcher(fileName);
-      if (matcher.find()) {
-        if (matcher.group(0).equalsIgnoreCase("jpeg")) {
-          fileName = matcher.replaceAll("jpg");
-        }
-        var oldFile = map.put(fileName, file);
-        if (oldFile != null) {
-          System.err.println(fileName);
-          System.out.println("collision!: " + file + ", " + oldFile);
-        }
-      }
-      return FileVisitResult.CONTINUE;
-    }
-  }
 }

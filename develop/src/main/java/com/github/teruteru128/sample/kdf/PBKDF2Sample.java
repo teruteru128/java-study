@@ -1,5 +1,6 @@
 package com.github.teruteru128.sample.kdf;
 
+import com.github.teruteru128.study.Factory;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.interfaces.PBEKey;
 import javax.crypto.spec.PBEKeySpec;
@@ -28,4 +29,23 @@ public class PBKDF2Sample {
         System.out.printf("Format: %s%n", formatName);
     }
 
+  public static void extracted1(String[] args)
+      throws NoSuchAlgorithmException, InvalidKeySpecException {
+    if (args.length >= 2) {
+      byte[] salt;
+      if (args.length == 2) {
+        salt = new byte[16];
+        Factory.SECURE_RANDOM_GENERATOR.nextBytes(salt);
+      } else {
+        salt = HexFormat.of().parseHex(args[2]);
+      }
+      getFormatName(args[1].toCharArray(), salt);
+    }
+  }
+
+  public static void extracted2() throws NoSuchAlgorithmException {
+    var factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA3-512");
+    System.out.printf("algo: %s(%s)%n", factory.getAlgorithm(), factory.getProvider());
+    System.out.println(factory);
+  }
 }
