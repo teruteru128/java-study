@@ -1,41 +1,6 @@
 package com.github.teruteru128.study;
 
 import static java.lang.Integer.parseInt;
-import static org.bukkit.Material.ANVIL;
-import static org.bukkit.Material.BEACON;
-import static org.bukkit.Material.BLACK_SHULKER_BOX;
-import static org.bukkit.Material.BLUE_SHULKER_BOX;
-import static org.bukkit.Material.BREWING_STAND;
-import static org.bukkit.Material.BROWN_SHULKER_BOX;
-import static org.bukkit.Material.CAKE;
-import static org.bukkit.Material.CANDLE_CAKE;
-import static org.bukkit.Material.CARTOGRAPHY_TABLE;
-import static org.bukkit.Material.CHEST_MINECART;
-import static org.bukkit.Material.CHIPPED_ANVIL;
-import static org.bukkit.Material.COMMAND_BLOCK;
-import static org.bukkit.Material.CRAFTING_TABLE;
-import static org.bukkit.Material.CYAN_SHULKER_BOX;
-import static org.bukkit.Material.DAMAGED_ANVIL;
-import static org.bukkit.Material.DAYLIGHT_DETECTOR;
-import static org.bukkit.Material.FURNACE_MINECART;
-import static org.bukkit.Material.GRAY_SHULKER_BOX;
-import static org.bukkit.Material.GREEN_SHULKER_BOX;
-import static org.bukkit.Material.HOPPER_MINECART;
-import static org.bukkit.Material.LIGHT_BLUE_SHULKER_BOX;
-import static org.bukkit.Material.LIGHT_GRAY_SHULKER_BOX;
-import static org.bukkit.Material.LIME_SHULKER_BOX;
-import static org.bukkit.Material.LOOM;
-import static org.bukkit.Material.MAGENTA_SHULKER_BOX;
-import static org.bukkit.Material.ORANGE_SHULKER_BOX;
-import static org.bukkit.Material.PINK_SHULKER_BOX;
-import static org.bukkit.Material.PURPLE_SHULKER_BOX;
-import static org.bukkit.Material.RED_SHULKER_BOX;
-import static org.bukkit.Material.RESPAWN_ANCHOR;
-import static org.bukkit.Material.SHULKER_BOX;
-import static org.bukkit.Material.SMITHING_TABLE;
-import static org.bukkit.Material.STONECUTTER;
-import static org.bukkit.Material.WHITE_SHULKER_BOX;
-import static org.bukkit.Material.YELLOW_SHULKER_BOX;
 
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.fx.App;
@@ -44,11 +9,11 @@ import com.github.teruteru128.sample.clone.CloneSample;
 import com.github.teruteru128.sample.kdf.PBKDF2Sample;
 import java.awt.AWTException;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.io.UncheckedIOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
@@ -59,6 +24,8 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.GroupPrincipal;
+import java.nio.file.attribute.UserPrincipal;
 import java.security.AlgorithmParameters;
 import java.security.DigestException;
 import java.security.InvalidKeyException;
@@ -76,30 +43,18 @@ import java.security.spec.ECPrivateKeySpec;
 import java.security.spec.ECPublicKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.Normalizer;
-import java.text.Normalizer.Form;
 import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HexFormat;
-import java.util.StringJoiner;
 import java.util.function.Function;
 import java.util.random.RandomGenerator;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
 import javax.crypto.SecretKeyFactory;
-import org.bukkit.Bukkit;
 
 public class Factory {
 
@@ -218,64 +173,45 @@ public class Factory {
         System.err.printf("stdout.encoding=%s%n", System.getProperty("stdout.encoding"));
         System.err.printf("file.encoding=%s%n", Charset.defaultCharset().displayName());
       }
-      case "ssl" -> {
-        var factory = KeyFactory.getInstance("Ed25519");
-        var p = factory.generatePrivate(
-            new PKCS8EncodedKeySpec(Files.readAllBytes(Path.of(args[1]))));
-        System.out.println(HexFormat.of().formatHex(p.getEncoded()));
-      }
-      case "nbt" -> {
-        var b = HexFormat.of().parseHex(System.getenv("TXT"));
-        try (var in = new GZIPInputStream(new ByteArrayInputStream(b))) {
-          var d = in.readAllBytes();
-          System.out.println(HexFormat.of().formatHex(d));
-        }
-      }
-      case "2038" -> {
-        var e = Instant.ofEpochSecond(2147483647L);
-        var t = OffsetDateTime.ofInstant(e, ZoneId.systemDefault());
-        var d = Period.between(LocalDate.now(), t.toLocalDate());
-        System.out.println(d.getDays());
-      }
-      case "r" -> {
-        var builder = new StringBuilder(":".repeat(20));
-        var rate = 20;
-        builder.insert(rate, 'A');
-        System.out.println(builder);
-      }
-      case "round" -> {
-        var f = new DecimalFormat("0.0#");
-        System.out.println(f.format(0.2041446));
-      }
       case "jpg", "jpeg" -> {
-        if(args.length >= 2) {
+        if (args.length >= 2) {
           var visitor = new FileCollisionFileVisitor();
           Files.walkFileTree(Path.of(args[1]), visitor);
         }
       }
-      case "normalize" -> {
-        System.err.printf("native.encoding=%s%n", System.getProperty("native.encoding"));
-        System.err.printf("stderr.encoding=%s%n", System.getProperty("stderr.encoding"));
-        System.err.printf("stdout.encoding=%s%n", System.getProperty("stdout.encoding"));
-        System.err.printf("file.encoding=%s%n", Charset.defaultCharset().displayName());
-        for(var form : Normalizer.Form.values()) {
-          var normalize = Normalizer.normalize("\ufdfd", form).getBytes();
-          System.out.printf("%s: %s%n", form, HexFormat.of().formatHex(normalize));
+      case "b" -> {
+        var b = new B();
+        b.b();
+      }
+      case "c" -> {
+        var d = new BigDecimal("1");
+        var e = new BigDecimal(args.length >= 2 ? args[1] : "1.15");
+        System.out.println(d);
+        for (int i = 0; i < 25; i++) {
+          d = d.multiply(e);
+          System.out.println(d);
         }
       }
-      case "spigot" -> {
-        var joiner = new StringJoiner(", ");
-        for (var e : EnumSet.of(CRAFTING_TABLE, CHIPPED_ANVIL, DAMAGED_ANVIL, BEACON, BREWING_STAND,
-            FURNACE_MINECART, HOPPER_MINECART, CAKE, CANDLE_CAKE, CHEST_MINECART, COMMAND_BLOCK,
-            DAYLIGHT_DETECTOR, RESPAWN_ANCHOR, STONECUTTER, CARTOGRAPHY_TABLE, SMITHING_TABLE, LOOM,
-            SHULKER_BOX, RED_SHULKER_BOX, ORANGE_SHULKER_BOX, YELLOW_SHULKER_BOX, LIME_SHULKER_BOX,
-            GREEN_SHULKER_BOX, CYAN_SHULKER_BOX, BLUE_SHULKER_BOX, PURPLE_SHULKER_BOX,
-            MAGENTA_SHULKER_BOX, LIGHT_BLUE_SHULKER_BOX, PINK_SHULKER_BOX, BROWN_SHULKER_BOX,
-            WHITE_SHULKER_BOX, GRAY_SHULKER_BOX, LIGHT_GRAY_SHULKER_BOX, BLACK_SHULKER_BOX,
-            ANVIL)) {
-          joiner.add(e.toString());
+      case "f" -> {
+        if (args.length < 2) {
+          return;
         }
-        System.out.println(joiner);
+        var path = Path.of(args[1]);
+        var owner = Files.getOwner(path);
+        System.out.println(owner);
+        var service = path.getFileSystem().getUserPrincipalLookupService();
+        var p = service.lookupPrincipalByName("DESKTOP-S2SMNNQ\\terut");
+        var p2 = service.lookupPrincipalByGroupName("BUILTIN\\Administrators");
+        var p3 = service.lookupPrincipalByName("DESKTOP-S2SMNNQ\\Administrator");
+      }
+      case "p" -> {
+        final var p = new BigInteger(90000000, (SecureRandom) SECURE_RANDOM_GENERATOR).setBit(0);
+        System.out.printf("%x%n", p);
+        var start = LocalDateTime.now();
+        var b = p.isProbablePrime(10);
+        var finish = LocalDateTime.now();
+        System.out.printf("%s%n", b ? "prime" : "not prime");
+        System.out.printf("diff: %s%n", Duration.between(start, finish));
       }
       case null, default -> {
         System.err.println("unknown command");
@@ -344,23 +280,23 @@ public class Factory {
 
   private static class FileCollisionFileVisitor extends SimpleFileVisitor<Path> {
 
-    private static final Pattern jpegExtensionPattern = Pattern.compile("(.*\\.)(jpe?g)$",
+    private static final Pattern jpegExtensionPattern = Pattern.compile("jpe?g$",
         Pattern.CASE_INSENSITIVE);
 
     private final HashMap<String, Path> map = new HashMap<>();
 
     @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-      var filename = file.getFileName().toString();
-      var matcher = jpegExtensionPattern.matcher(filename);
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+      var fileName = file.getFileName().toString();
+      var matcher = jpegExtensionPattern.matcher(fileName);
       if (matcher.find()) {
-        if (matcher.group(2).equalsIgnoreCase("jpeg")) {
-          filename = matcher.replaceAll("$1jpg");
+        if (matcher.group(0).equalsIgnoreCase("jpeg")) {
+          fileName = matcher.replaceAll("jpg");
         }
-        var v = map.put(filename, file);
-        if (v != null) {
-          System.err.println(filename);
-          System.out.println("collision!: " + file + ", " + v);
+        var oldFile = map.put(fileName, file);
+        if (oldFile != null) {
+          System.err.println(fileName);
+          System.out.println("collision!: " + file + ", " + oldFile);
         }
       }
       return FileVisitResult.CONTINUE;
