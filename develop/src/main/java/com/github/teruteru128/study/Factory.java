@@ -9,36 +9,24 @@ import com.github.teruteru128.sample.clone.CloneSample;
 import com.github.teruteru128.sample.kdf.PBKDF2Sample;
 import java.awt.AWTException;
 import java.io.IOException;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.security.AlgorithmParameters;
 import java.security.DigestException;
 import java.security.InvalidKeyException;
-import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.security.Signature;
 import java.security.SignatureException;
-import java.security.SignedObject;
-import java.security.spec.ECGenParameterSpec;
-import java.security.spec.ECParameterSpec;
-import java.security.spec.ECPoint;
-import java.security.spec.ECPrivateKeySpec;
-import java.security.spec.ECPublicKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.HexFormat;
-import java.util.function.Function;
 import java.util.random.RandomGenerator;
 import javafx.application.Application;
 
@@ -97,8 +85,8 @@ public class Factory {
         SiteChecker.searchTor(min, max);
       }
       case "check-tor" -> SiteChecker.siteCheck();
-      case "map" -> System.out.println(
-          "System.mapLibraryName(\"OpenCL\") = " + System.mapLibraryName("OpenCL"));
+      case "map" -> System.out.printf("System.mapLibraryName(\"OpenCL\") = %s%n",
+          System.mapLibraryName("OpenCL"));
       case "telnet-tor" -> {
         var hostname = args[1];
         var port = parseInt(args[2]);
@@ -134,7 +122,7 @@ public class Factory {
         }
         FileChecker.extracted(Path.of(args[1]), args[2]);
       }
-      case "sign" -> signSample();
+      case "sign" -> SerializeSample.signSample();
       case "fx" -> Application.launch(App.class, args);
       case "pbkdf2" -> PBKDF2Sample.extracted1(args);
       case "pbkdf2-2" -> PBKDF2Sample.extracted2();
@@ -167,13 +155,7 @@ public class Factory {
         if (args.length < 2) {
           return;
         }
-        var path = Path.of(args[1]);
-        var owner = Files.getOwner(path);
-        System.out.println(owner);
-        var service = path.getFileSystem().getUserPrincipalLookupService();
-        var p = service.lookupPrincipalByName("DESKTOP-S2SMNNQ\\terut");
-        var p2 = service.lookupPrincipalByGroupName("BUILTIN\\Administrators");
-        var p3 = service.lookupPrincipalByName("DESKTOP-S2SMNNQ\\Administrator");
+        FileChecker.extracted1(args[1]);
       }
       case "p" -> {
         final var p = new BigInteger(90000000, (SecureRandom) SECURE_RANDOM_GENERATOR).setBit(0);
@@ -196,33 +178,6 @@ public class Factory {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
       }
-    }
-  }
-
-  static void signSample()
-      throws NoSuchAlgorithmException, InvalidParameterSpecException, InvalidKeySpecException, IOException, InvalidKeyException, SignatureException {
-    // 処理をシリアライズするなら普通にクラスをシリアライズしろってなｗ
-    AlgorithmParameters parameters = AlgorithmParameters.getInstance("EC");
-    parameters.init(new ECGenParameterSpec("secp256k1"));
-    var params = parameters.getParameterSpec(ECParameterSpec.class);
-    var factory = KeyFactory.getInstance("ECDSA");
-
-    var hexFormat = HexFormat.of();
-    var sign = Signature.getInstance("ECDSA");
-    var signObject = new SignedObject(
-        (Function<String, String> & Serializable) i -> i.repeat(3) + "って？",
-        factory.generatePrivate(new ECPrivateKeySpec(new BigInteger(1,
-            hexFormat.parseHex("2071778BC323CE82095CB4D26C8B62F94DB4748CE5A9F61C6D2DDFFADE2BB446")),
-            params)), sign);
-    if (signObject.verify(factory.generatePublic(new ECPublicKeySpec(new ECPoint(new BigInteger(1,
-            hexFormat.parseHex("F166D9114137A496AE1BEDE6B6CA6EAB19B84D34984897183B7426650C33ED8A")),
-            new BigInteger(1,
-                hexFormat.parseHex(
-                    "A8E145E1A671C4C4D40EDA5CF858273798E5746EB277A568C1B710ABB440E46F"))), params)),
-        sign)) {
-      System.out.println("check ok");
-    } else {
-      System.out.println("check ng");
     }
   }
 

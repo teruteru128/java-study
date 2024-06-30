@@ -37,6 +37,16 @@ public class FileChecker {
     Files.walkFileTree(Path.of(arg), new FileCollisionFileVisitor());
   }
 
+  static void extracted1(String arg) throws IOException {
+    var path = Path.of(arg);
+    var owner = Files.getOwner(path);
+    System.out.println(owner);
+    var service = path.getFileSystem().getUserPrincipalLookupService();
+    var p = service.lookupPrincipalByName("DESKTOP-S2SMNNQ\\terut");
+    var p2 = service.lookupPrincipalByGroupName("BUILTIN\\Administrators");
+    var p3 = service.lookupPrincipalByName("DESKTOP-S2SMNNQ\\Administrator");
+  }
+
   private static class FileOwnerChecker extends SimpleFileVisitor<Path> {
 
     private final UserPrincipal principal;
