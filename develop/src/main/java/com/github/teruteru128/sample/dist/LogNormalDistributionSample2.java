@@ -1,13 +1,14 @@
 package com.github.teruteru128.sample.dist;
 
+import com.github.teruteru128.sample.Sample;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.statistics.distribution.LogNormalDistribution;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
 
-public class LogNormalDistributionSample2 {
-    public static void sample2() {
+public class LogNormalDistributionSample2 implements Sample {
+    public void sample() {
         var dist = LogNormalDistribution.of(44. / 16, 44. / 64);
         var sampler = dist.createSampler(new JDKRandomWrapper(new SecureRandom()));
         double[] samples = sampler.samples(100000).toArray();

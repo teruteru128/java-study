@@ -12,18 +12,26 @@ public class Lottery {
   private static final RandomGenerator random = RandomGenerator.of("SecureRandom");
 
   public static void getLotto7Numbers(int counts) {
-    ArrayList<Integer> numberOriginalList = IntStream.rangeClosed(1, 37).boxed()
-        .collect(Collectors.toCollection(ArrayList<Integer>::new));
-    var selectedNumberArray = new int[7];
+    var numberOriginalList = IntStream.rangeClosed(1, 37).mapToObj(Integer::toString)
+        .collect(Collectors.toCollection(ArrayList<String>::new));
+    var list = new ArrayList<String>(7);
+    var tmp = new ArrayList<String>();
     for (int i = 0; i < counts; i++) {
-      Collections.shuffle(numberOriginalList, random);
-      for (int j = 0; j < 7; j++) {
-        selectedNumberArray[j] = numberOriginalList.get(j);
-      }
-      Arrays.sort(selectedNumberArray);
-      System.out.printf("%d, %d, %d, %d, %d, %d, %d%n", selectedNumberArray[0],
-          selectedNumberArray[1], selectedNumberArray[2], selectedNumberArray[3],
-          selectedNumberArray[4], selectedNumberArray[5], selectedNumberArray[6]);
+      tmp.clear();
+      tmp.addAll(numberOriginalList);
+      Collections.shuffle(tmp, random);
+      list.add(tmp.removeFirst());
+      list.add(tmp.removeLast());
+      Collections.shuffle(tmp, random);
+      list.add(tmp.removeFirst());
+      list.add(tmp.removeLast());
+      Collections.shuffle(tmp, random);
+      list.add(tmp.removeFirst());
+      list.add(tmp.removeLast());
+      Collections.shuffle(tmp, random);
+      list.add(tmp.removeFirst());
+      Collections.sort(list);
+      System.out.println(String.join(", ", list));
     }
   }
 

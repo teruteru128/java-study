@@ -22,8 +22,8 @@ public class B {
   public static final long MASK = 1L << (64 - 45);
   public static final int KEY_ARRAY_LENGTH = 16777216;
 
-  public void b() throws IOException, NoSuchAlgorithmException, DigestException {
-    var path = Path.of("D:\\keys\\public\\publicKeys0.bin");
+  public void b(String pathStr) throws IOException, NoSuchAlgorithmException, DigestException {
+    var path = Path.of(pathStr);
     var b = Files.readAllBytes(path);
     try (var pool = (ForkJoinPool) Executors.newWorkStealingPool(); var o = new PrintStream(
         Files.newOutputStream(Path.of("out.txt"), StandardOpenOption.WRITE,

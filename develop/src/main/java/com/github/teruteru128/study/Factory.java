@@ -6,10 +6,11 @@ import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.fx.App;
 import com.github.teruteru128.sample.awt.TrayIconDemo;
 import com.github.teruteru128.sample.clone.CloneSample;
+import com.github.teruteru128.sample.dist.LogNormalDistributionSample;
+import com.github.teruteru128.sample.dist.LogNormalDistributionSample2;
 import com.github.teruteru128.sample.kdf.PBKDF2Sample;
 import java.awt.AWTException;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
@@ -52,9 +53,9 @@ public class Factory {
       throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException {
     switch (args[0]) {
       case "clone" -> CloneSample.cloneSample();
-      case "getPubKeySpam" -> Spammer.getPubKeySpam((SecureRandom) SECURE_RANDOM_GENERATOR,
-          args.length >= 2 ? parseInt(args[1]) : 10000);
       case "random" -> Random.doubleSample(RandomGenerator.getDefault());
+      case "logNormal" -> new LogNormalDistributionSample().sample();
+      case "logNormal2" -> new LogNormalDistributionSample2().sample();
       case "random2" -> Random.random2();
       case "random3" -> Random.random3();
       case "random4" -> Random.random4();
@@ -107,13 +108,12 @@ public class Factory {
         }
       }
       case "lotto7-p2" -> {
-        if (args.length >= 5) {
-          Lottery.pattern2(new int[]{parseInt(args[1]), parseInt(args[2]), parseInt(args[3])},
-              parseInt(args[4]));
-        } else {
+        if (args.length < 5) {
           System.err.println("引数不足");
           System.exit(1);
         }
+        Lottery.pattern2(new int[]{parseInt(args[1]), parseInt(args[2]), parseInt(args[3])},
+            parseInt(args[4]));
       }
       case "tray" -> new TrayIconDemo().sample();
       case "zgrep" -> {
@@ -140,22 +140,23 @@ public class Factory {
       }
       case "b" -> {
         var b = new B();
-        b.b();
+        b.b(args[1]);
       }
       case "c" -> {
-        var d = new BigDecimal("1");
-        var e = new BigDecimal(args.length >= 2 ? args[1] : "1.15");
-        System.out.println(d);
-        for (int i = 0; i < 25; i++) {
-          d = d.multiply(e);
-          System.out.println(d);
-        }
+        var m = 'm';
+        System.out.printf("%c, %c, %c%n", m, m - 3, m - 6);
       }
       case "f" -> {
         if (args.length < 2) {
           return;
         }
         FileChecker.extracted1(args[1]);
+      }
+      case "file" -> {
+        var n = SECURE_RANDOM_GENERATOR.nextLong(60000000);
+        System.err.printf("skipped: %d%n", n);
+        Files.readAllLines(Path.of(args[1])).stream().skip(n)
+            .limit(Long.parseLong(args[2])).forEach(System.out::println);
       }
       case "p" -> {
         final var p = new BigInteger(90000000, (SecureRandom) SECURE_RANDOM_GENERATOR).setBit(0);
