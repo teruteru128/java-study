@@ -1,12 +1,15 @@
 package com.github.teruteru128.sample.dist;
 
 import com.github.teruteru128.sample.Sample;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.OptionalDouble;
 import java.util.stream.DoubleStream;
+import java.util.zip.GZIPOutputStream;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.statistics.distribution.LogNormalDistribution;
 
@@ -28,20 +31,21 @@ public class LogNormalDistributionSample implements Sample {
     var sampler = distribution.createSampler(new JDKRandomWrapper(new SecureRandom()));
 
     // var results = sampler.samples(60000000).toArray();
-    var samples = sampler.samples(6000_0000).toArray();
-    var name = "out6";
-    try(var f = new PrintStream(name + ".txt")) {
+    var samples = sampler.samples(2_000_000_000).toArray();
+    var name = "out7";
+    System.out.println(name);
+    try(var stream = new PrintStream(new GZIPOutputStream(new BufferedOutputStream(new FileOutputStream(name + ".txt.gz"), 1024 * 1024 * 1024), 1024 * 1024 * 1024, false))) {
       System.out.printf("μ=log(%f), σ=%s%n", expMu, sigma);
-      f.printf("μ=log(%f), σ=%s%n", expMu, sigma);
-      Arrays.stream(samples).forEach(f::println);
+      stream.printf("μ=log(%f), σ=%s%n", expMu, sigma);
+      Arrays.stream(samples).forEach(stream::println);
       Arrays.stream(samples).average().ifPresent(a-> {
         System.out.printf("avg: %s%n", a);
-        f.printf("avg: %s%n", a);
+        stream.printf("avg: %s%n", a);
       });
     }
-    try(var f = new PrintStream(name + "-sorted.txt")) {
+    try(var stream = new PrintStream(new GZIPOutputStream(new BufferedOutputStream(new FileOutputStream(name + "-sorted.txt.gz"), 1024 * 1024 * 1024), 1024 * 1024 * 1024, false))) {
       Arrays.sort(samples);
-      Arrays.stream(samples).forEach(f::println);
+      Arrays.stream(samples).forEach(stream::println);
     }
   }
 }

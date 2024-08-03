@@ -2,6 +2,7 @@ package com.github.teruteru128.study;
 
 import static java.lang.Integer.parseInt;
 
+import com.github.teruteru128.bitmessage.app.DeterministicAddressGenerator;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.fx.App;
 import com.github.teruteru128.sample.awt.TrayIconDemo;
@@ -10,6 +11,7 @@ import com.github.teruteru128.sample.dist.LogNormalDistributionSample;
 import com.github.teruteru128.sample.dist.LogNormalDistributionSample2;
 import com.github.teruteru128.sample.kdf.PBKDF2Sample;
 import java.awt.AWTException;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
@@ -20,7 +22,6 @@ import java.security.DigestException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
@@ -28,8 +29,10 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.UUID;
 import java.util.random.RandomGenerator;
 import javafx.application.Application;
+import org.bouncycastle.crypto.ec.CustomNamedCurves;
 
 public class Factory {
 
@@ -159,13 +162,18 @@ public class Factory {
             .limit(Long.parseLong(args[2])).forEach(System.out::println);
       }
       case "p" -> {
-        final var p = new BigInteger(90000000, (SecureRandom) SECURE_RANDOM_GENERATOR).setBit(0);
-        System.out.printf("%x%n", p);
         var start = LocalDateTime.now();
-        var b = p.isProbablePrime(10);
+        var p = BigInteger.probablePrime(2048, (java.util.Random) SECURE_RANDOM_GENERATOR);
         var finish = LocalDateTime.now();
+        System.out.printf("%x%n", p);
+        var b = p.isProbablePrime(10);
         System.out.printf("%s%n", b ? "prime" : "not prime");
         System.out.printf("diff: %s%n", Duration.between(start, finish));
+      }
+      case "p2" -> {
+        var n = new byte[30];
+        SECURE_RANDOM_GENERATOR.nextBytes(n);
+        System.out.println(Base64.getEncoder().encodeToString(n));
       }
       case "ownerCheck" -> {
         if (args.length < 3) {
@@ -174,6 +182,26 @@ public class Factory {
         var arg = args[1];
         var targetOwnerName = args[2];
         FileChecker.extracted(arg, targetOwnerName);
+      }
+      case "de" -> {
+        var a = new DeterministicAddressGenerator().apply(args[1]);
+        a.addresses().forEach(System.out::println);
+        System.out.println(a.signingKey());
+        System.out.println(a.encryptingKey());
+      }
+      case "bomb" -> {
+        var d = new byte[1024 * 1024];
+        SECURE_RANDOM_GENERATOR.nextBytes(d);
+        try (var f = new BufferedOutputStream(
+            Files.newOutputStream(Path.of("bomb-" + UUID.randomUUID() + ".txt")))) {
+          f.write(Base64.getMimeEncoder().encode(d));
+          f.write("\r\n".getBytes());
+        }
+      }
+      case "x" -> {
+        var curve = CustomNamedCurves.getByName("curve25519");
+        var g = curve.getG();
+        System.out.println(g);
       }
       case null, default -> {
         System.err.println("unknown command");

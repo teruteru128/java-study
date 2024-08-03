@@ -91,7 +91,7 @@ public class BMAddressGenerator implements Runnable {
         Objects.requireNonNull(key);
         // ???: support other key length?
         if (key.length != 32)
-            throw new IllegalArgumentException("key length must be 32 bytes");
+            throw new IllegalArgumentException("key length must be 32 bytes: " + key.length);
         byte[] checksum = new byte[Const.SHA256_DIGEST_LENGTH];
         // 37 = 1 + 32 + 4
         var buffer = ByteBuffer.allocate(37).put((byte) 0x80).put(key);
