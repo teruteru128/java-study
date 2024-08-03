@@ -88,7 +88,7 @@ public class Factory {
         var max = args.length >= 3 ? parseInt(args[2]) : 23000;
         SiteChecker.searchTor(min, max);
       }
-      case "check-tor" -> SiteChecker.siteCheck();
+      case "check-tor" -> SiteChecker.siteCheck(args[1]);
       case "map" -> System.out.printf("System.mapLibraryName(\"OpenCL\") = %s%n",
           System.mapLibraryName("OpenCL"));
       case "telnet-tor" -> {
