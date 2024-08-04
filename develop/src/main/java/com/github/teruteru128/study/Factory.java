@@ -220,7 +220,7 @@ public class Factory {
       }
       case "gz" -> {
         if (args.length < 2) {
-          System.err.println("引数語りませぬぞ");
+          System.err.println("引数が足りませぬぞ");
           return;
         }
         try (var s = new BufferedReader(new InputStreamReader(new GZIPInputStream(
@@ -231,7 +231,7 @@ public class Factory {
       }
       case "addressSearch" -> {
         if (args.length < 2) {
-          System.err.println("引数語りませぬぞ");
+          System.err.println("引数が足りませぬぞ");
           return;
         }
         var keys = new byte[PUBLIC_KEY_SIZE_PER_FILE + (PUBLIC_KEY_SIZE_PER_FILE / 2)];
@@ -291,7 +291,7 @@ public class Factory {
             ripemd160.digest(hash, 0, ripemd160DigestLength);
             if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0
                 && (level = Long.numberOfLeadingZeros(buffer.getLong(0))) >= report_threshold) {
-              System.out.printf("i found!:%d, %d(%d)%n", index, j, level);
+              System.out.printf("i found!:%d, %d(%d)%n", index, j / 65, level);
               if (level >= exit_threshold) {
                 return null;
               }
