@@ -2,6 +2,7 @@ package com.github.teruteru128.study;
 
 import static java.lang.Integer.parseInt;
 
+import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.app.DeterministicAddressGenerator;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.fx.App;
@@ -11,10 +12,14 @@ import com.github.teruteru128.sample.dist.LogNormalDistributionSample;
 import com.github.teruteru128.sample.dist.LogNormalDistributionSample2;
 import com.github.teruteru128.sample.kdf.PBKDF2Sample;
 import java.awt.AWTException;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,15 +33,25 @@ import java.security.spec.InvalidParameterSpecException;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.UUID;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import java.util.random.RandomGenerator;
+import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 
 public class Factory {
 
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
+  public static final int PUBLIC_KEY_LENGTH = Const.PUBLIC_KEY_LENGTH;
+  public static final int PUBLIC_KEY_NUM_PER_FILE = 16777216;
+  public static final int PUBLIC_KEY_SIZE_PER_FILE = 1090519040;
 
   /**
    * @param args コマンドライン引数
@@ -158,8 +173,8 @@ public class Factory {
       case "file" -> {
         var n = SECURE_RANDOM_GENERATOR.nextLong(60000000);
         System.err.printf("skipped: %d%n", n);
-        Files.readAllLines(Path.of(args[1])).stream().skip(n)
-            .limit(Long.parseLong(args[2])).forEach(System.out::println);
+        Files.readAllLines(Path.of(args[1])).stream().skip(n).limit(Long.parseLong(args[2]))
+            .forEach(System.out::println);
       }
       case "p" -> {
         var start = LocalDateTime.now();
@@ -203,11 +218,91 @@ public class Factory {
         var g = curve.getG();
         System.out.println(g);
       }
+      case "gz" -> {
+        if (args.length < 2) {
+          System.err.println("引数語りませぬぞ");
+          return;
+        }
+        try (var s = new BufferedReader(new InputStreamReader(new GZIPInputStream(
+            new BufferedInputStream(Files.newInputStream(Path.of(args[1])), 1024 * 1024 * 1024))),
+            1024 * 1024 * 1024)) {
+          System.out.println(s.lines().count());
+        }
+      }
+      case "addressSearch" -> {
+        if (args.length < 2) {
+          System.err.println("引数語りませぬぞ");
+          return;
+        }
+        var keys = new byte[PUBLIC_KEY_SIZE_PER_FILE + (PUBLIC_KEY_SIZE_PER_FILE / 2)];
+        {
+          var keys1 = Files.readAllBytes(Path.of(args[1]));
+          System.arraycopy(keys1, 0, keys, 0, PUBLIC_KEY_SIZE_PER_FILE);
+        }
+        {
+          var keys2 = Files.readAllBytes(Path.of(args[1]));
+          System.arraycopy(keys2, 0, keys, PUBLIC_KEY_SIZE_PER_FILE, PUBLIC_KEY_SIZE_PER_FILE / 2);
+        }
+        var nThreads = 8;
+        try (var service = Executors.newFixedThreadPool(nThreads)) {
+          var tasks = getCallables(keys, nThreads);
+          service.invokeAny(tasks);
+          while (!service.awaitTermination(6, TimeUnit.HOURS)) {
+            System.err.println("an hour!");
+          }
+        } catch (ExecutionException e) {
+          throw new RuntimeException(e);
+        }
+      }
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
       }
     }
+  }
+
+  private static ArrayList<Callable<Void>> getCallables(final byte[] keys, final int threads) {
+    final var tasks = new ArrayList<Callable<Void>>();
+    for (int i = 0; i < threads; i++) {
+      tasks.add(() -> {
+        final var sha512 = MessageDigest.getInstance("SHA-512");
+        final var ripemd160 = MessageDigest.getInstance("RIPEMD160");
+        final var sha512DigestLength = sha512.getDigestLength();
+        final var ripemd160DigestLength = ripemd160.getDigestLength();
+        final var buffer = ByteBuffer.allocate(sha512DigestLength);
+        final var hash = buffer.array();
+        final var report_threshold = 45;
+        final var exit_threshold = 48;
+        int level;
+        int offset;
+        int j;
+        // FIXME 毎回65バイトupdateするのとcloneするのはどっちが早いんだろうか
+        int index = ThreadLocalRandom.current().nextInt(PUBLIC_KEY_NUM_PER_FILE + (PUBLIC_KEY_NUM_PER_FILE / 2));
+        System.err.printf("start: %d%n", index);
+        final var MAX = PUBLIC_KEY_SIZE_PER_FILE + (PUBLIC_KEY_SIZE_PER_FILE / 2);
+        for (; index < MAX; index++) {
+          offset = index * PUBLIC_KEY_LENGTH;
+          // 1090519040 = 16777216 * 65
+          for (j = 0; j < MAX; j += PUBLIC_KEY_LENGTH) {
+            sha512.update(keys, offset, PUBLIC_KEY_LENGTH);
+            sha512.update(keys, j, PUBLIC_KEY_LENGTH);
+            sha512.digest(hash, 0, sha512DigestLength);
+            ripemd160.update(hash, 0, sha512DigestLength);
+            ripemd160.digest(hash, 0, ripemd160DigestLength);
+            if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0
+                && (level = Long.numberOfLeadingZeros(buffer.getLong(0))) >= report_threshold) {
+              System.out.printf("i found!:%d, %d(%d)%n", index, j, level);
+              if (level >= exit_threshold) {
+                return null;
+              }
+            }
+          }
+        }
+        System.err.println("最後まで到達しました。シャットダウンします");
+        return null;
+      });
+    }
+    return tasks;
   }
 
 }
