@@ -51,6 +51,7 @@ public class Factory {
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   public static final int PUBLIC_KEY_LENGTH = Const.PUBLIC_KEY_LENGTH;
   public static final int PUBLIC_KEY_NUM_PER_FILE = 16777216;
+  /** PUBLIC_KEY_SIZE_PER_FILE = 1090519040 = 16777216 * 65 */
   public static final int PUBLIC_KEY_SIZE_PER_FILE = 1090519040;
 
   /**
@@ -272,34 +273,31 @@ public class Factory {
         final var buffer = ByteBuffer.allocate(sha512DigestLength);
         final var hash = buffer.array();
         final var report_threshold = 45;
-        final var exit_threshold = 48;
+        final var exit_threshold = 64;
         int level;
         int offset;
-        int j;
+        int encIndex;
         // FIXME 毎回65バイトupdateするのとcloneするのはどっちが早いんだろうか
-        int index = ThreadLocalRandom.current().nextInt(PUBLIC_KEY_NUM_PER_FILE + (PUBLIC_KEY_NUM_PER_FILE / 2));
-        System.err.printf("start: %d%n", index);
+        final var sIndex = PUBLIC_KEY_NUM_PER_FILE + (PUBLIC_KEY_NUM_PER_FILE / 2);
+        int index = ThreadLocalRandom.current().nextInt(sIndex);
         final var MAX = PUBLIC_KEY_SIZE_PER_FILE + (PUBLIC_KEY_SIZE_PER_FILE / 2);
-        for (; index < MAX; index++) {
+        for (; ; index = ThreadLocalRandom.current().nextInt(sIndex)) {
           offset = index * PUBLIC_KEY_LENGTH;
-          // 1090519040 = 16777216 * 65
-          for (j = 0; j < MAX; j += PUBLIC_KEY_LENGTH) {
+          for (encIndex = 0; encIndex < MAX; encIndex += PUBLIC_KEY_LENGTH) {
             sha512.update(keys, offset, PUBLIC_KEY_LENGTH);
-            sha512.update(keys, j, PUBLIC_KEY_LENGTH);
+            sha512.update(keys, encIndex, PUBLIC_KEY_LENGTH);
             sha512.digest(hash, 0, sha512DigestLength);
             ripemd160.update(hash, 0, sha512DigestLength);
             ripemd160.digest(hash, 0, ripemd160DigestLength);
             if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0
                 && (level = Long.numberOfLeadingZeros(buffer.getLong(0))) >= report_threshold) {
-              System.out.printf("i found!:%d, %d(%d)%n", index, j / 65, level);
-              if (level >= exit_threshold) {
+              System.out.printf("i found!:%d, %d(%d)%n", index, encIndex / 65, level);
+              if (level == exit_threshold) {
                 return null;
               }
             }
           }
         }
-        System.err.println("最後まで到達しました。シャットダウンします");
-        return null;
       });
     }
     return tasks;
