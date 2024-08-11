@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.OptionalDouble;
-import java.util.stream.DoubleStream;
 import java.util.zip.GZIPOutputStream;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.statistics.distribution.LogNormalDistribution;
