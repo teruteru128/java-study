@@ -60,6 +60,7 @@ public class Factory {
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   public static final int PUBLIC_KEY_LENGTH = Const.PUBLIC_KEY_LENGTH;
   public static final int PUBLIC_KEY_NUM_PER_FILE = 16777216;
+  public static final int BOUND = PUBLIC_KEY_NUM_PER_FILE * 2;
   /**
    * PUBLIC_KEY_SIZE_PER_FILE = 1090519040 = 16777216 * 65
    */
@@ -244,18 +245,13 @@ public class Factory {
         }
       }
       case "addressSearch" -> {
-        if (args.length < 2) {
+        if (args.length < 3) {
           System.err.println("引数が足りませぬぞ");
           return;
         }
-        var keys = new byte[PUBLIC_KEY_SIZE_PER_FILE + (PUBLIC_KEY_SIZE_PER_FILE / 2)];
-        {
-          var keys1 = Files.readAllBytes(Path.of(args[1]));
-          System.arraycopy(keys1, 0, keys, 0, PUBLIC_KEY_SIZE_PER_FILE);
-        }
-        {
-          var keys2 = Files.readAllBytes(Path.of(args[1]));
-          System.arraycopy(keys2, 0, keys, PUBLIC_KEY_SIZE_PER_FILE, PUBLIC_KEY_SIZE_PER_FILE / 2);
+        var keys = new byte[2][];
+        for (int i = 0; i < 2; i++) {
+          keys[i] = Files.readAllBytes(Path.of(args[i + 1]));
         }
         var nThreads = 8;
         try (var service = Executors.newFixedThreadPool(nThreads)) {
@@ -282,7 +278,7 @@ public class Factory {
         System.out.println(((SecureRandom) SECURE_RANDOM_GENERATOR).getAlgorithm());
       }
       case "8192" -> {
-        long a = ThreadLocalRandom.current().nextInt(0x1fff);
+        long a = ThreadLocalRandom.current().nextInt(8192);
         System.out.printf("%04x%n", a & 0x1fff);
         while ((a & 0x1fff) != 0x1fff) {
           a = (a << 1) | ThreadLocalRandom.current().nextInt(2);
@@ -300,43 +296,46 @@ public class Factory {
     }
   }
 
-  private static ArrayList<Callable<Void>> getCallables(final byte[] keys, final int threads) {
+  private static ArrayList<Callable<Void>> getCallables(final byte[][] keysArray, final int threads) {
     logger.info("start");
     final var tasks = new ArrayList<Callable<Void>>();
     for (int i = 0; i < threads; i++) {
       tasks.add(() -> {
         final var sha512 = MessageDigest.getInstance("SHA-512");
         final var ripemd160 = MessageDigest.getInstance("RIPEMD160");
-        final var sha512DigestLength = sha512.getDigestLength();
-        final var ripemd160DigestLength = ripemd160.getDigestLength();
-        final var buffer = ByteBuffer.allocate(sha512DigestLength);
+        final var buffer = ByteBuffer.allocate(Const.SHA512_DIGEST_LENGTH);
         final var hash = buffer.array();
-        final var report_threshold = 45;
-        final var exit_threshold = 64;
-        int level;
-        int offset;
-        int encIndex;
+        int signOffset;
+        int encryptOffset;
         // FIXME 毎回65バイトupdateするのとcloneするのはどっちが早いんだろうか
-        final var sIndex = PUBLIC_KEY_NUM_PER_FILE + (PUBLIC_KEY_NUM_PER_FILE / 2);
-        int index = ThreadLocalRandom.current().nextInt(sIndex);
-        final var MAX = PUBLIC_KEY_SIZE_PER_FILE + (PUBLIC_KEY_SIZE_PER_FILE / 2);
-        for (; ; index = ThreadLocalRandom.current().nextInt(sIndex)) {
-          offset = index * PUBLIC_KEY_LENGTH;
-          for (encIndex = 0; encIndex < MAX; encIndex += PUBLIC_KEY_LENGTH) {
-            sha512.update(keys, offset, PUBLIC_KEY_LENGTH);
-            sha512.update(keys, encIndex, PUBLIC_KEY_LENGTH);
-            sha512.digest(hash, 0, sha512DigestLength);
-            ripemd160.update(hash, 0, sha512DigestLength);
-            ripemd160.digest(hash, 0, ripemd160DigestLength);
-            if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0
-                && (level = Long.numberOfLeadingZeros(buffer.getLong(0))) >= report_threshold) {
-              // System.out.printf("i found!:%d, %d(%d)%n", index, encIndex / 65, level);
-              logger.info("i found!:{}, {}({})", index, encIndex / 65, level);
-              if (level == exit_threshold) {
-                return null;
+        int blocki;
+        int index = ThreadLocalRandom.current().nextInt(BOUND);
+        long start;
+        int blockj;
+        for (; ; index = ThreadLocalRandom.current().nextInt(BOUND)) {
+          blocki = index >> 24;
+          signOffset = (index & 0xffffff) * PUBLIC_KEY_LENGTH;
+          start = System.nanoTime();
+          for (blockj = 0; blockj < 2; blockj++) {
+            for (encryptOffset = 0; encryptOffset < PUBLIC_KEY_SIZE_PER_FILE;
+                encryptOffset += PUBLIC_KEY_LENGTH) {
+              sha512.update(keysArray[blocki], signOffset, PUBLIC_KEY_LENGTH);
+              sha512.update(keysArray[blockj], encryptOffset, PUBLIC_KEY_LENGTH);
+              sha512.digest(hash, 0, Const.SHA512_DIGEST_LENGTH);
+              ripemd160.update(hash, 0, Const.SHA512_DIGEST_LENGTH);
+              ripemd160.digest(hash, 0, Const.RIPEMD160_DIGEST_LENGTH);
+              if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0 && hash[4] == 0
+                  && (hash[5] & 0xe0) == 0x00) {
+                logger.info("i found!:{}, {}({})", index, (blockj << 24) | (encryptOffset / 65),
+                    Long.numberOfLeadingZeros(buffer.getLong(0)));
+                if (hash[5] == 0 && hash[6] == 0 && hash[7] == 0) {
+                  logger.info("シャットダウン要件を達成しました。シャットダウンします");
+                  return null;
+                }
               }
             }
           }
+          logger.debug("! {}, {}%n", index, (System.nanoTime() - start) / 1e9);
         }
       });
     }
