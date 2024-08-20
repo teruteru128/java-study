@@ -38,7 +38,8 @@ module com.github.teruteru.study {
   requires com.github.teruteru.time;
   requires javafx.graphics;
   requires javafx.controls;
-  requires org.bukkit;
+  //requires org.bukkit;
+  requires org.apache.logging.log4j;
 
   opens com.github.teruteru128.fx;
   opens com.github.teruteru128.study;

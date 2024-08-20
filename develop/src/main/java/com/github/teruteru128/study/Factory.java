@@ -21,12 +21,15 @@ import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.DigestException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.Security;
 import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
@@ -35,6 +38,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HexFormat;
+import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -44,15 +49,22 @@ import java.util.concurrent.TimeUnit;
 import java.util.random.RandomGenerator;
 import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
+import org.apache.commons.rng.simple.JDKRandomWrapper;
+import org.apache.commons.statistics.distribution.LogNormalDistribution;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Factory {
 
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   public static final int PUBLIC_KEY_LENGTH = Const.PUBLIC_KEY_LENGTH;
   public static final int PUBLIC_KEY_NUM_PER_FILE = 16777216;
-  /** PUBLIC_KEY_SIZE_PER_FILE = 1090519040 = 16777216 * 65 */
+  /**
+   * PUBLIC_KEY_SIZE_PER_FILE = 1090519040 = 16777216 * 65
+   */
   public static final int PUBLIC_KEY_SIZE_PER_FILE = 1090519040;
+  private static final Logger logger = LoggerFactory.getLogger(Factory.class);
 
   /**
    * @param args コマンドライン引数
@@ -93,6 +105,7 @@ public class Factory {
               args.length >= 3 ? parseInt(args[2]) : 0);
         }
       }
+      case "spam" -> new Spam().call();
       case "hash-base64" -> {
         if (args.length >= 2) {
           System.out.println(Base64.getEncoder().encodeToString(
@@ -255,6 +268,31 @@ public class Factory {
           throw new RuntimeException(e);
         }
       }
+      case "i want to cum1" -> cum1();
+      case "i want to cum2" -> cum2();
+      case "providers" -> {
+        var map = new TreeMap<>();
+        for (var provider : Security.getProviders()) {
+          var name = provider.getName();
+          for (var entry : provider.entrySet()) {
+            map.put(name + "." + entry.getKey(), entry.getValue());
+          }
+        }
+        map.forEach((k, v) -> System.out.println(k + "=" + v));
+        System.out.println(((SecureRandom) SECURE_RANDOM_GENERATOR).getAlgorithm());
+      }
+      case "8192" -> {
+        long a = ThreadLocalRandom.current().nextInt(0x1fff);
+        System.out.printf("%04x%n", a & 0x1fff);
+        while ((a & 0x1fff) != 0x1fff) {
+          a = (a << 1) | ThreadLocalRandom.current().nextInt(2);
+          System.out.printf("%04x%n", a & 0x1fff);
+          if ((a & 0x1fff) == 0) {
+            System.out.println("逆1/8192!");
+          }
+        }
+        System.out.println("終わり！");
+      }
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
@@ -263,6 +301,7 @@ public class Factory {
   }
 
   private static ArrayList<Callable<Void>> getCallables(final byte[] keys, final int threads) {
+    logger.info("start");
     final var tasks = new ArrayList<Callable<Void>>();
     for (int i = 0; i < threads; i++) {
       tasks.add(() -> {
@@ -291,7 +330,8 @@ public class Factory {
             ripemd160.digest(hash, 0, ripemd160DigestLength);
             if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0
                 && (level = Long.numberOfLeadingZeros(buffer.getLong(0))) >= report_threshold) {
-              System.out.printf("i found!:%d, %d(%d)%n", index, encIndex / 65, level);
+              // System.out.printf("i found!:%d, %d(%d)%n", index, encIndex / 65, level);
+              logger.info("i found!:{}, {}({})", index, encIndex / 65, level);
               if (level == exit_threshold) {
                 return null;
               }
@@ -303,4 +343,30 @@ public class Factory {
     return tasks;
   }
 
+  private static void cum1() throws NoSuchAlgorithmException, DigestException {
+    final var bufSize = 1024 * 1024 * 1024;
+    final var buf = new byte[bufSize];
+    final var msg = "射精したい".getBytes(StandardCharsets.UTF_8);
+    final var msgLength = msg.length;
+    var i = 0;
+    for (; (i + msgLength) < bufSize; i += msgLength) {
+      System.arraycopy(msg, 0, buf, i, msgLength);
+    }
+    System.out.println("msgLength = " + msgLength);
+    System.out.println("i = " + i);
+    var sha256 = MessageDigest.getInstance("SHA256");
+    sha256.update(buf, 0, i);
+    var hash = new byte[sha256.getDigestLength()];
+    sha256.digest(hash, 0, sha256.getDigestLength());
+    System.out.println(HexFormat.of().formatHex(hash));
+  }
+
+  private static void cum2() throws NoSuchAlgorithmException {
+    var expMu = 1145141919.0;
+    var sigma = 1;
+    var distribution = LogNormalDistribution.of(Math.log(expMu), sigma);
+    var sampler = distribution.createSampler(
+        new JDKRandomWrapper(SecureRandom.getInstanceStrong()));
+    System.out.println(sampler.sample());
+  }
 }
