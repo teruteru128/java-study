@@ -23,7 +23,7 @@ import java.util.HexFormat;
 
 public class BCrypt {
 
-  static int BCryptSHA256(Arena arena, String str) {
+  static int SHA256(Arena arena, String str) {
     //プロバイダーハンドルを作成
     int status;
     // wchar_tの中身がUTF-16だったりUTF-32だったりSHIFT-JISだったりしろ

@@ -3,6 +3,7 @@ package com.github.teruteru128.foreign;
 import static com.github.teruteru128.foreign.opencl.opencl_h.CL_DEVICE_TYPE_ALL;
 import static com.github.teruteru128.foreign.opencl.opencl_h.CL_KERNEL_WORK_GROUP_SIZE;
 import static com.github.teruteru128.foreign.opencl.opencl_h.CL_MEM_READ_WRITE;
+import static com.github.teruteru128.foreign.opencl.opencl_h.CL_MEM_COPY_HOST_PTR;
 import static com.github.teruteru128.foreign.opencl.opencl_h.CL_TRUE;
 import static com.github.teruteru128.foreign.opencl.opencl_h.clBuildProgram;
 import static com.github.teruteru128.foreign.opencl.opencl_h.clCreateBuffer;
@@ -41,6 +42,7 @@ import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
+import java.lang.foreign.MemorySegment;
 import java.lang.foreign.SymbolLookup;
 import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandles;
@@ -77,8 +79,8 @@ public class Main implements Callable<Void> {
     main.call();
   }
 
-  private static void callback() {
-    System.out.println("ウンチが漏れました！");
+  private static void callback(MemorySegment cal, MemorySegment v) {
+    System.out.printf("ウンチが漏れました！: 0x%016x, 0x%016x%n", cal.address(), v.address());
   }
 
   @Override
@@ -105,8 +107,8 @@ public class Main implements Callable<Void> {
       var len = strlen(locale);
       var loc = locale.reinterpret(len + 1);
       System.out.println(loc.getString(0));
-      if ((ret = BCrypt.BCryptSHA256(arena, s)) != 0) {
-        throw new RuntimeException("BCryptSHA256:" + ret);
+      if ((ret = BCrypt.SHA256(arena, s)) != 0) {
+        throw new RuntimeException("BCrypt.SHA256:" + ret);
       }
       if ((ret = mutexSample(arena)) != 0) {
         throw new RuntimeException("mutexSample:" + ret);
@@ -128,7 +130,7 @@ public class Main implements Callable<Void> {
   }
 
   /**
-   * jextractさんマジでありがとう……！
+   * jextractさんマジでありがとう……！ で、どれが再利用可能でどれが再利用不可能なんでしょうね？
    *
    * @param arena メモリ割当
    * @return 正常に終了した場合0、異常時非ゼロ
@@ -149,26 +151,31 @@ public class Main implements Callable<Void> {
     if ((ret = clGetPlatformIDs(numEntries, platformIds, NULL)) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
+    // デバイス数
     var num_devices = arena.allocate(JAVA_INT);
     var platform = platformIds.get(ADDRESS, 0);
     if ((ret = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), 0, NULL, num_devices)) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
+    // デバイス情報
     var numDevices = num_devices.get(JAVA_INT, 0);
     var deviceIds = arena.allocate(ADDRESS, numDevices);
     if ((ret = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), numDevices, deviceIds, NULL)) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
+    // コンテキスト
     var ret_ptr = arena.allocate(JAVA_INT);
     var context = clCreateContext(NULL, numDevices, deviceIds, NULL, NULL, ret_ptr);
     if (ret_ptr.get(JAVA_INT, 0) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
     }
+    // コマンドキュー
     var device = deviceIds.get(ADDRESS, 0);
     var commandQueue = clCreateCommandQueueWithProperties(context, device, NULL, ret_ptr);
     if (ret_ptr.get(JAVA_INT, 0) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
     }
+    // ソースコード読み込み
     // ファイルシステムを読み込んでリソースから文字列を読み込む
     // 面倒くさい
     String s;
@@ -183,80 +190,84 @@ public class Main implements Callable<Void> {
       throw new RuntimeException(e);
     }
     final var sourceString = arena.allocateFrom(s);
+    // プログラムオブジェクトを作成し、ソースコードをプログラムオブジェクトに読み込む
     var program = clCreateProgramWithSource(context, 1, arena.allocateFrom(ADDRESS, sourceString),
         NULL, ret_ptr);
     if (ret_ptr.get(JAVA_INT, 0) != 0) {
       return 1;
     }
-    System.out.println("main:" + Thread.currentThread());
+    // プログラム実行可能ファイルをビルド(コンパイル及びリンク)する
     var lookup = MethodHandles.lookup();
-    var type = MethodType.methodType(void.class);
+    var type = MethodType.methodType(void.class, MemorySegment.class, MemorySegment.class);
     var callback1 = lookup.findStatic(getClass(), "callback", type);
-    var function = FunctionDescriptor.ofVoid();
+    var function = FunctionDescriptor.ofVoid(ADDRESS, ADDRESS);
     var callback = linker.upcallStub(callback1, function, arena);
-    if ((ret = clBuildProgram(program, 0, NULL, NULL, callback, NULL)) != 0) {
-      return ret;
+    if ((ret = clBuildProgram(program, numDevices, deviceIds, NULL, callback, NULL)) != 0) {
+      throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
+    // カーネルオブジェクトを作成する
     var kernel = clCreateKernel(program, arena.allocateFrom("func"), ret_ptr);
     if (ret_ptr.get(JAVA_INT, 0) != 0) {
-      return ret_ptr.get(JAVA_INT, 0);
+      throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
     var workGroupSize = arena.allocate(JAVA_LONG);
     if ((ret = clGetKernelWorkGroupInfo(kernel, device, CL_KERNEL_WORK_GROUP_SIZE(),
         JAVA_LONG.byteSize(), workGroupSize, NULL)) != 0) {
-      return ret;
+      throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
+    System.out.printf("kernel work group size: %d%n", workGroupSize.get(JAVA_LONG, 0));
     // device オブジェクトをリリースする
     for (int i = 0; i < numDevices; i++) {
       if ((ret = clReleaseDevice(deviceIds.getAtIndex(ADDRESS, i))) != 0) {
-        return ret;
+        throw new RuntimeException(CLMessage.clGetErrorString(ret));
       }
     }
-    var num = 1000;
+    // 入出力引数準備
+    var num = 1000000;
     var outBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), JAVA_BYTE.byteSize() * num, NULL,
         ret_ptr);
     if (ret_ptr.get(JAVA_INT, 0) != 0) {
-      return 1;
+      throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
     }
-    var inBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), JAVA_BYTE.byteSize() * num, NULL,
-        ret_ptr);
-    if (ret_ptr.get(JAVA_INT, 0) != 0) {
-      return 1;
-    }
+    // ファイルのデータmemory-mapped file扱いで全部ぶっこめるんじゃねえの？-> 2ファイル……
     var in = arena.allocate(JAVA_BYTE, num);
     for (int i = 0; i < num; i++) {
       in.setAtIndex(JAVA_BYTE, i, (byte) ThreadLocalRandom.current().nextInt(16));
     }
-    if ((ret = clEnqueueWriteBuffer(commandQueue, inBuffer, CL_TRUE(), 0,
-        JAVA_BYTE.byteSize() * num, in, 0, NULL, NULL)) != 0) {
-      return 1;
+    var inBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE() | CL_MEM_COPY_HOST_PTR(), JAVA_BYTE.byteSize() * num, in,
+        ret_ptr);
+    if (ret_ptr.get(JAVA_INT, 0) != 0) {
+      throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
     }
+    // カーネル引数設定
     if ((ret = clSetKernelArg(kernel, 0, ADDRESS.byteSize(),
         arena.allocateFrom(ADDRESS, outBuffer))) != 0) {
-      return 1;
+      throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
     if ((ret = clSetKernelArg(kernel, 1, ADDRESS.byteSize(), arena.allocateFrom(ADDRESS, inBuffer)))
         != 0) {
-      return 1;
+      throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
-    var globalWorkSize = arena.allocateFrom(JAVA_LONG, 10, 10, 10);
-    var localWorkSize = arena.allocateFrom(JAVA_LONG, 1, 1, 1);
+    // カーネル実行
+    var globalWorkSize = arena.allocateFrom(JAVA_LONG, 256*2000, 1, 1);
+    var localWorkSize = arena.allocateFrom(JAVA_LONG, 256, 1, 1);
     long start = System.nanoTime();
     if ((ret = clEnqueueNDRangeKernel(commandQueue, kernel, 3, NULL, globalWorkSize, localWorkSize,
         0, NULL, NULL)) != 0) {
-      return 1;
+      System.err.printf("error!: %s%n", CLMessage.clGetErrorString(ret));
+      throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
     clFinish(commandQueue);
     long end = System.nanoTime();
     var out = arena.allocate(JAVA_BYTE, num);
     if ((ret = clEnqueueReadBuffer(commandQueue, outBuffer, CL_TRUE(), 0,
         JAVA_BYTE.byteSize() * num, out, 0, NULL, NULL)) != 0) {
-      return 1;
+      throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
     boolean eq = true;
     // チェック
     for (int i = 0; i < num; i++) {
-      eq &= (in.getAtIndex(JAVA_BYTE, i) << 2) == out.getAtIndex(JAVA_BYTE, i);
+      eq &= (in.getAtIndex(JAVA_BYTE, i) * 3) + 1 == out.getAtIndex(JAVA_BYTE, i);
     }
     System.out.printf("CL: status: %s%n", eq ? "ok" : "ng");
     System.out.printf("CL: %f seconds%n", (end - start) / 1e9);
