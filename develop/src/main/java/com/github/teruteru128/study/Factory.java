@@ -106,7 +106,8 @@ public class Factory {
               args.length >= 3 ? parseInt(args[2]) : 0);
         }
       }
-      case "spam" -> new Spam().call();
+      case "spam" -> new Spam(args[1]).call();
+      case "update" -> new Updater(args[1]).call();
       case "hash-base64" -> {
         if (args.length >= 2) {
           System.out.println(Base64.getEncoder().encodeToString(
@@ -265,7 +266,7 @@ public class Factory {
         }
       }
       case "i want to cum1" -> cum1();
-      case "i want to cum2" -> cum2();
+      case "i want to cum2" -> cum2((SecureRandom) SECURE_RANDOM_GENERATOR);
       case "providers" -> {
         var map = new TreeMap<>();
         for (var provider : Security.getProviders()) {
@@ -289,6 +290,17 @@ public class Factory {
         }
         System.out.println("終わり！");
       }
+      case "sum" -> {
+        var r = new byte[32];
+        SECURE_RANDOM_GENERATOR.nextBytes(r);
+        System.out.print(HexFormat.of().formatHex(r));
+        System.out.print(":");
+        byte sum = 0;
+        for (byte b : r) {
+          sum ^= b;
+        }
+        System.out.printf("%02x%n", sum);
+      }
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
@@ -296,7 +308,8 @@ public class Factory {
     }
   }
 
-  private static ArrayList<Callable<Void>> getCallables(final byte[][] keysArray, final int threads) {
+  private static ArrayList<Callable<Void>> getCallables(final byte[][] keysArray,
+      final int threads) {
     logger.info("start");
     final var tasks = new ArrayList<Callable<Void>>();
     for (int i = 0; i < threads; i++) {
@@ -360,12 +373,8 @@ public class Factory {
     System.out.println(HexFormat.of().formatHex(hash));
   }
 
-  private static void cum2() throws NoSuchAlgorithmException {
-    var expMu = 1145141919.0;
-    var sigma = 1;
-    var distribution = LogNormalDistribution.of(Math.log(expMu), sigma);
-    var sampler = distribution.createSampler(
-        new JDKRandomWrapper(SecureRandom.getInstanceStrong()));
-    System.out.println(sampler.sample());
+  private static void cum2(SecureRandom instanceStrong) {
+    System.out.println(LogNormalDistribution.of(Math.log(1145141919.0), 1)
+        .createSampler(new JDKRandomWrapper(instanceStrong)).sample());
   }
 }

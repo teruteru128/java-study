@@ -10,13 +10,16 @@ import org.sqlite.SQLiteDataSource;
 
 public class Spam implements Callable<Void> {
 
-  public Spam() {
+  private String url;
+
+  public Spam(String url) {
+    this.url = url;
   }
 
   @Override
   public Void call() throws SQLException {
     var source = new SQLiteDataSource();
-    source.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
+    source.setUrl(url);
     try (var connect = source.getConnection()) {
       var toAddressList = new ArrayList<String>(1300000);
       try (var statement = connect.createStatement()) {
@@ -29,8 +32,7 @@ public class Spam implements Callable<Void> {
       }
       try (var prep = connect.prepareStatement("update sent set sleeptill = ? where toaddress = ? and date(senttime, 'unixepoch', 'localtime') in ('2023-03-26', '2023-03-27');")) {
         long i = 0;
-        var zoneId = ZoneId.of("Asia/Tokyo");
-        var rules = zoneId.getRules();
+        var rules = ZoneId.of("Asia/Tokyo").getRules();
         var newSleepTillTime = LocalDateTime.of(2024, 9, 1, 0, 0, 0);
         long newSleepTill = newSleepTillTime.toInstant(rules.getOffset(newSleepTillTime)).getEpochSecond();
         prep.setInt(1, (int)newSleepTill);
