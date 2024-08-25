@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
-import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -36,16 +35,11 @@ import java.security.spec.InvalidParameterSpecException;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HexFormat;
 import java.util.TreeMap;
 import java.util.UUID;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 import java.util.random.RandomGenerator;
 import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
@@ -59,12 +53,6 @@ public class Factory {
 
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   public static final int PUBLIC_KEY_LENGTH = Const.PUBLIC_KEY_LENGTH;
-  public static final int PUBLIC_KEY_NUM_PER_FILE = 16777216;
-  public static final int BOUND = PUBLIC_KEY_NUM_PER_FILE * 2;
-  /**
-   * PUBLIC_KEY_SIZE_PER_FILE = 1090519040 = 16777216 * 65
-   */
-  public static final int PUBLIC_KEY_SIZE_PER_FILE = 1090519040;
   private static final Logger logger = LoggerFactory.getLogger(Factory.class);
 
   /**
@@ -245,26 +233,7 @@ public class Factory {
           System.out.println(s.lines().count());
         }
       }
-      case "addressSearch" -> {
-        if (args.length < 3) {
-          System.err.println("引数が足りませぬぞ");
-          return;
-        }
-        var keys = new byte[2][];
-        for (int i = 0; i < 2; i++) {
-          keys[i] = Files.readAllBytes(Path.of(args[i + 1]));
-        }
-        var nThreads = 8;
-        try (var service = Executors.newFixedThreadPool(nThreads)) {
-          var tasks = getCallables(keys, nThreads);
-          service.invokeAny(tasks);
-          while (!service.awaitTermination(6, TimeUnit.HOURS)) {
-            System.err.println("an hour!");
-          }
-        } catch (ExecutionException e) {
-          throw new RuntimeException(e);
-        }
-      }
+      case "addressSearch" -> new AddressCalc(args).call();
       case "i want to cum1" -> cum1();
       case "i want to cum2" -> cum2((SecureRandom) SECURE_RANDOM_GENERATOR);
       case "providers" -> {
@@ -306,53 +275,6 @@ public class Factory {
         Runtime.getRuntime().exit(1);
       }
     }
-  }
-
-  private static ArrayList<Callable<Void>> getCallables(final byte[][] keysArray,
-      final int threads) {
-    logger.info("start");
-    final var tasks = new ArrayList<Callable<Void>>();
-    for (int i = 0; i < threads; i++) {
-      tasks.add(() -> {
-        final var sha512 = MessageDigest.getInstance("SHA-512");
-        final var ripemd160 = MessageDigest.getInstance("RIPEMD160");
-        final var buffer = ByteBuffer.allocate(Const.SHA512_DIGEST_LENGTH);
-        final var hash = buffer.array();
-        int signOffset;
-        int encryptOffset;
-        // FIXME 毎回65バイトupdateするのとcloneするのはどっちが早いんだろうか
-        int blocki;
-        int index = ThreadLocalRandom.current().nextInt(BOUND);
-        long start;
-        int blockj;
-        for (; ; index = ThreadLocalRandom.current().nextInt(BOUND)) {
-          blocki = index >> 24;
-          signOffset = (index & 0xffffff) * PUBLIC_KEY_LENGTH;
-          start = System.nanoTime();
-          for (blockj = 0; blockj < 2; blockj++) {
-            for (encryptOffset = 0; encryptOffset < PUBLIC_KEY_SIZE_PER_FILE;
-                encryptOffset += PUBLIC_KEY_LENGTH) {
-              sha512.update(keysArray[blocki], signOffset, PUBLIC_KEY_LENGTH);
-              sha512.update(keysArray[blockj], encryptOffset, PUBLIC_KEY_LENGTH);
-              sha512.digest(hash, 0, Const.SHA512_DIGEST_LENGTH);
-              ripemd160.update(hash, 0, Const.SHA512_DIGEST_LENGTH);
-              ripemd160.digest(hash, 0, Const.RIPEMD160_DIGEST_LENGTH);
-              if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0 && hash[4] == 0
-                  && (hash[5] & 0xe0) == 0x00) {
-                logger.info("i found!:{}, {}({})", index, (blockj << 24) | (encryptOffset / 65),
-                    Long.numberOfLeadingZeros(buffer.getLong(0)));
-                if (hash[5] == 0 && hash[6] == 0 && hash[7] == 0) {
-                  logger.info("シャットダウン要件を達成しました。シャットダウンします");
-                  return null;
-                }
-              }
-            }
-          }
-          logger.debug("! {}, {}%n", index, (System.nanoTime() - start) / 1e9);
-        }
-      });
-    }
-    return tasks;
   }
 
   private static void cum1() throws NoSuchAlgorithmException, DigestException {
