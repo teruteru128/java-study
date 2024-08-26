@@ -88,7 +88,7 @@ public class AddressCalc implements Callable<Void> {
               ripemd160.update(hash, 0, Const.SHA512_DIGEST_LENGTH);
               ripemd160.digest(hash, 0, Const.RIPEMD160_DIGEST_LENGTH);
               if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0 && hash[4] == 0
-                  && (hash[5] & 0xe0) == 0x00) {
+                  && (hash[5] & 0xf8) == 0x00) {
                 logger.info("i found!:{}, {}({})", index, (blockj << 24) | (encryptOffset / 65),
                     Long.numberOfLeadingZeros(buffer.getLong(0)));
                 if (hash[5] == 0 && hash[6] == 0 && hash[7] == 0) {

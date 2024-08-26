@@ -36,6 +36,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
 import java.lang.foreign.MemorySegment;
+import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.net.URISyntaxException;
@@ -49,23 +50,26 @@ public class CL implements AutoCloseable {
 
   static final Linker linker = Linker.nativeLinker();
   private final Arena confined = Arena.ofConfined();
+  private int numDevices;
+  private MemorySegment deviceIds;
+  private MemorySegment context;
+  private MemorySegment commandQueue;
+  private MemorySegment program;
+  private MemorySegment kernel;
+
+  public CL() {
+    initCL();
+  }
 
   private static void callback(MemorySegment cal, MemorySegment v) {
     System.out.printf("ウンチが漏れました！: 0x%016x, 0x%016x%n", cal.address(), v.address());
   }
 
-  /**
-   * jextractさんマジでありがとう……！ で、どれが再利用可能でどれが再利用不可能なんでしょうね？
-   *
-   * @param confined メモリ割当
-   * @return 正常に終了した場合0、異常時非ゼロ
-   * @see <a
-   * href="https://docs.oracle.com/javase/jp/21/core/call-native-functions-jextract.html#GUID-480A7E64-531A-4C88-800F-810FF87F24A1">jextract</a>
-   */
-  static int cl(Arena confined) throws NoSuchMethodException, IllegalAccessException {
+  private void initCL() {
     var auto = Arena.ofAuto();
-    var numEntriesPtr = auto.allocate(JAVA_INT);
     int ret;
+    var ret_ptr = auto.allocate(JAVA_INT);
+    var numEntriesPtr = auto.allocate(JAVA_INT);
     // get number of platforms
     if ((ret = clGetPlatformIDs(0, NULL, numEntriesPtr)) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
@@ -78,29 +82,29 @@ public class CL implements AutoCloseable {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
     // デバイス数
-    var num_devices = confined.allocate(JAVA_INT);
-    var platform = platformIds.get(ADDRESS, 0);
+    MemorySegment num_devices = confined.allocate(JAVA_INT);
+    MemorySegment platform = platformIds.get(ADDRESS, 0);
     if ((ret = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), 0, NULL, num_devices)) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
     // デバイス情報
-    var numDevices = num_devices.get(JAVA_INT, 0);
-    var deviceIds = confined.allocate(ADDRESS, numDevices);
+    numDevices = Objects.requireNonNull(num_devices).get(JAVA_INT, 0);
+    deviceIds = confined.allocate(ADDRESS, numDevices);
     if ((ret = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), numDevices, deviceIds, NULL)) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
     // コンテキスト
-    var ret_ptr = auto.allocate(JAVA_INT);
-    var context = clCreateContext(NULL, numDevices, deviceIds, NULL, NULL, ret_ptr);
+    context = clCreateContext(NULL, numDevices, deviceIds, NULL, NULL, ret_ptr);
     if (ret_ptr.get(JAVA_INT, 0) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
     }
     // コマンドキュー
-    var device = deviceIds.get(ADDRESS, 0);
-    var commandQueue = clCreateCommandQueueWithProperties(context, device, NULL, ret_ptr);
+    commandQueue = clCreateCommandQueueWithProperties(context, Objects.requireNonNull(deviceIds)
+        .get(ADDRESS, 0), NULL, ret_ptr);
     if (ret_ptr.get(JAVA_INT, 0) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
     }
+    Objects.requireNonNull(commandQueue).reinterpret(confined, opencl_h::clReleaseCommandQueue);
     // ソースコード読み込み
     // ファイルシステムを読み込んでリソースから文字列を読み込む
     // 面倒くさい
@@ -118,27 +122,45 @@ public class CL implements AutoCloseable {
     final var sourceString = confined.allocateFrom(s);
     // プログラムオブジェクトを作成し、ソースコードをプログラムオブジェクトに読み込む
     // FIXME clCreateProgramWithSourceが終わったあとにsourceStringを開放してもええんか？
-    var program = clCreateProgramWithSource(context, 1,
+    program = clCreateProgramWithSource(context, 1,
         confined.allocateFrom(ADDRESS, sourceString), NULL, ret_ptr);
-    if (ret_ptr.get(JAVA_INT, 0) != 0) {
-      return 1;
+    if ((ret = ret_ptr.get(JAVA_INT, 0)) != 0) {
+      throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
     // プログラム実行可能ファイルをビルド(コンパイル及びリンク)する
     var lookup = MethodHandles.lookup();
     var type = MethodType.methodType(void.class, MemorySegment.class, MemorySegment.class);
-    var callback1 = lookup.findStatic(CL.class, "callback", type);
+    MethodHandle callback1;
+    try {
+      callback1 = lookup.findStatic(CL.class, "callback", type);
+    } catch (NoSuchMethodException | IllegalAccessException e) {
+      throw new RuntimeException(e);
+    }
     var function = FunctionDescriptor.ofVoid(ADDRESS, ADDRESS);
     var callback = linker.upcallStub(callback1, function, confined);
     if ((ret = clBuildProgram(program, numDevices, deviceIds, NULL, callback, NULL)) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
     // カーネルオブジェクトを作成する
-    var kernel = clCreateKernel(program, confined.allocateFrom("func"), ret_ptr);
+    kernel = clCreateKernel(program, confined.allocateFrom("func"), ret_ptr);
     if (ret_ptr.get(JAVA_INT, 0) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
+  }
+
+  /**
+   * jextractさんマジでありがとう……！ で、どれが再利用可能でどれが再利用不可能なんでしょうね？
+   *
+   * @return 正常に終了した場合0、異常時非ゼロ
+   * @see <a
+   * href="https://docs.oracle.com/javase/jp/21/core/call-native-functions-jextract.html#GUID-480A7E64-531A-4C88-800F-810FF87F24A1">jextract</a>
+   */
+  int cl() {
+    var auto = Arena.ofAuto();
+    int ret;
+    var ret_ptr = auto.allocate(JAVA_INT);
     var workGroupSize = confined.allocate(JAVA_LONG);
-    if ((ret = clGetKernelWorkGroupInfo(kernel, device, CL_KERNEL_WORK_GROUP_SIZE(),
+    if ((ret = clGetKernelWorkGroupInfo(kernel, deviceIds.get(ADDRESS, 0), CL_KERNEL_WORK_GROUP_SIZE(),
         JAVA_LONG.byteSize(), workGroupSize, NULL)) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
@@ -156,7 +178,8 @@ public class CL implements AutoCloseable {
     if (ret_ptr.get(JAVA_INT, 0) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
     }
-    outBuffer.reinterpret(confined, opencl_h::clReleaseMemObject);
+    // FIXME これメモリリークよね？confinedがcloseされるまでの間だけど。confinedなcontextで生成したbufferはconfinedでリリースしないとダメか？autoでリリースできないか？ 順番問題が発生しそう、bufferがreleaseされる前にcontextがreleaseされると死にそう。
+    outBuffer.reinterpret(auto, opencl_h::clReleaseMemObject);
     // ファイルのデータmemory-mapped file扱いで全部ぶっこめるんじゃねえの？-> 2ファイル……
     var in = confined.allocate(JAVA_BYTE, num);
     for (int i = 0; i < num; i++) {
@@ -167,7 +190,7 @@ public class CL implements AutoCloseable {
     if (ret_ptr.get(JAVA_INT, 0) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
     }
-    inBuffer.reinterpret(confined, opencl_h::clReleaseMemObject);
+    inBuffer.reinterpret(auto, opencl_h::clReleaseMemObject);
     // カーネル引数設定
     if ((ret = clSetKernelArg(kernel, 0, ADDRESS.byteSize(),
         confined.allocateFrom(ADDRESS, outBuffer))) != 0) {

@@ -11,8 +11,6 @@ import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 
 import java.io.IOException;
 import java.lang.foreign.Arena;
-import java.lang.foreign.Linker;
-import java.lang.foreign.SymbolLookup;
 import java.lang.foreign.ValueLayout;
 import java.security.Provider;
 import java.security.Security;
@@ -55,10 +53,10 @@ public class Main implements Callable<Void> {
     // TODO ConfinedとAutoを使い分ける
     // Confined: malloc
     // Auto: alloca
-    try (var arena = Arena.ofConfined()) {
+    try (var arena = Arena.ofConfined(); var cl = new CL()) {
       System.out.printf("strlen(arena.allocateFrom(s)) = %s%n", strlen(arena.allocateFrom(s)));
       int ret;
-      if ((ret = CL.cl(arena)) != 0) {
+      if ((ret = cl.cl()) != 0) {
         throw new RuntimeException("cl:" + ret);
       }
       var locale = Locale.setlocale(0, arena.allocateFrom("Japanese_Japan.65001"));
