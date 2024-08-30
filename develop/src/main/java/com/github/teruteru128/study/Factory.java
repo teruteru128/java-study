@@ -5,6 +5,10 @@ import static java.lang.Integer.parseInt;
 import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.app.DeterministicAddressGenerator;
 import com.github.teruteru128.bitmessage.app.Spammer;
+import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
+import com.github.teruteru128.bitmessage.genaddress.Response;
+import com.github.teruteru128.bitmessage.spec.AddressFactory;
+import com.github.teruteru128.bitmessage.spec.KeyPair;
 import com.github.teruteru128.fx.App;
 import com.github.teruteru128.sample.awt.TrayIconDemo;
 import com.github.teruteru128.sample.clone.CloneSample;
@@ -17,6 +21,7 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
@@ -35,12 +40,14 @@ import java.security.spec.InvalidParameterSpecException;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.HexFormat;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
@@ -233,7 +240,41 @@ public class Factory {
           System.out.println(s.lines().count());
         }
       }
-      case "addressSearch" -> new AddressCalc(args).call();
+      case "addressSearch" -> new AddressCalc(args,
+          hash -> (hash[0] | hash[1] | hash[2] | hash[3] | hash[4] | (hash[5] & 0xf8))
+                  == 0x00).call();
+      case "addressSearch2" -> {
+        var pattern = Pattern.compile(".*twitter.*", Pattern.CASE_INSENSITIVE);
+        new AddressCalc(args, hash -> hash[0] == 0 && pattern.matcher(
+            AddressFactory.encodeAddress(Arrays.copyOf(hash, 20))).matches()).call();
+      }
+      case "addressSearch4" -> new AddressCalc4(args[1]).call();
+      case "addressSearch5" -> new AddressCalc5(args[1]).call();
+      case "addressEncode" -> {
+        var signKey = new byte[32];
+        var encKey = new byte[32];
+        try (var file = new RandomAccessFile(args[1], "r")) {
+          file.seek(Long.parseLong(args[3]) * 32);
+          file.readFully(signKey);
+        }
+        try (var file = new RandomAccessFile(args[2], "r")) {
+          file.seek(Long.parseLong(args[4]) * 32);
+          file.readFully(encKey);
+        }
+        var secP256K1G = Const.SEC_P256_K1_G;
+        var signPublicKey = secP256K1G.multiply(new BigInteger(1, signKey))
+            .getEncoded(false);
+        var encryptionPublicKey = secP256K1G.multiply(new BigInteger(1, encKey))
+            .getEncoded(false);
+        var sha512 = MessageDigest.getInstance("SHA-512");
+        var ripemd160 = MessageDigest.getInstance("RIPEMD160");
+        sha512.update(signPublicKey);
+        sha512.update(encryptionPublicKey);
+        System.out.println(BMAddressGenerator.exportAddress(
+            new Response(new KeyPair(signKey, signPublicKey),
+                new KeyPair(encKey, encryptionPublicKey),
+                ripemd160.digest(sha512.digest()))));
+      }
       case "i want to cum1" -> cum1();
       case "i want to cum2" -> cum2((SecureRandom) SECURE_RANDOM_GENERATOR);
       case "providers" -> {

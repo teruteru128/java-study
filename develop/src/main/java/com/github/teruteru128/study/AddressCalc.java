@@ -4,6 +4,7 @@ import static com.github.teruteru128.bitmessage.Const.PUBLIC_KEY_LENGTH;
 
 import com.github.teruteru128.bitmessage.Const;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,6 +15,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,9 +33,18 @@ public class AddressCalc implements Callable<Void> {
   private static final Logger logger = LoggerFactory.getLogger(AddressCalc.class);
 
   private final String[] args;
+  private final Predicate<byte[]> predicate;
 
-  public AddressCalc(String[] args) {
+  public AddressCalc(String[] args, Predicate<byte[]> predicate) {
     this.args = args;
+    this.predicate = predicate;
+  }
+
+  public static void loadPublicKey(byte[] keys, Path file, int index) throws IOException {
+    try (var raf = new RandomAccessFile(file.toFile(), "r")) {
+      raf.seek(index * 65L);
+      raf.readFully(keys);
+    }
   }
 
   @Override
@@ -47,7 +58,7 @@ public class AddressCalc implements Callable<Void> {
     }
     var nThreads = 8;
     try (var service = Executors.newFixedThreadPool(nThreads)) {
-      var tasks = getCallables(keys, nThreads);
+      var tasks = getCallables(keys, nThreads, predicate);
       service.invokeAny(tasks);
       while (!service.awaitTermination(6, TimeUnit.HOURS)) {
         System.err.println("an hour!");
@@ -58,8 +69,8 @@ public class AddressCalc implements Callable<Void> {
     return null;
   }
 
-  private static ArrayList<Callable<Void>> getCallables(final byte[][] keysArray,
-      final int threads) {
+  private ArrayList<Callable<Void>> getCallables(final byte[][] keysArray, final int threads,
+      Predicate<byte[]> p) {
     logger.info("start");
     final var tasks = new ArrayList<Callable<Void>>();
     for (int i = 0; i < threads; i++) {
@@ -87,11 +98,11 @@ public class AddressCalc implements Callable<Void> {
               sha512.digest(hash, 0, Const.SHA512_DIGEST_LENGTH);
               ripemd160.update(hash, 0, Const.SHA512_DIGEST_LENGTH);
               ripemd160.digest(hash, 0, Const.RIPEMD160_DIGEST_LENGTH);
-              if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0 && hash[4] == 0
-                  && (hash[5] & 0xf8) == 0x00) {
+              if (p.test(hash)) {
+                var number = Long.numberOfLeadingZeros(buffer.getLong(0));
                 logger.info("i found!:{}, {}({})", index, (blockj << 24) | (encryptOffset / 65),
-                    Long.numberOfLeadingZeros(buffer.getLong(0)));
-                if (hash[5] == 0 && hash[6] == 0 && hash[7] == 0) {
+                    number);
+                if (number == 64) {
                   logger.info("シャットダウン要件を達成しました。シャットダウンします");
                   return null;
                 }
