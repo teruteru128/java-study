@@ -262,18 +262,15 @@ public class Factory {
           file.readFully(encKey);
         }
         var secP256K1G = Const.SEC_P256_K1_G;
-        var signPublicKey = secP256K1G.multiply(new BigInteger(1, signKey))
-            .getEncoded(false);
-        var encryptionPublicKey = secP256K1G.multiply(new BigInteger(1, encKey))
-            .getEncoded(false);
+        var signPublicKey = secP256K1G.multiply(new BigInteger(1, signKey)).getEncoded(false);
+        var encryptionPublicKey = secP256K1G.multiply(new BigInteger(1, encKey)).getEncoded(false);
         var sha512 = MessageDigest.getInstance("SHA-512");
         var ripemd160 = MessageDigest.getInstance("RIPEMD160");
         sha512.update(signPublicKey);
         sha512.update(encryptionPublicKey);
         System.out.println(BMAddressGenerator.exportAddress(
             new Response(new KeyPair(signKey, signPublicKey),
-                new KeyPair(encKey, encryptionPublicKey),
-                ripemd160.digest(sha512.digest()))));
+                new KeyPair(encKey, encryptionPublicKey), ripemd160.digest(sha512.digest()))));
       }
       case "i want to cum1" -> cum1();
       case "i want to cum2" -> cum2((SecureRandom) SECURE_RANDOM_GENERATOR);
@@ -310,6 +307,17 @@ public class Factory {
           sum ^= b;
         }
         System.out.printf("%02x%n", sum);
+      }
+      case "wtf" -> {
+        byte[] data;
+        try (var in = Base64.getDecoder()
+            .wrap(new BufferedInputStream(Files.newInputStream(Path.of(args[1]))))) {
+          data = in.readAllBytes();
+        }
+        try (var out = Base64.getMimeEncoder()
+            .wrap(new BufferedOutputStream(Files.newOutputStream(Path.of(args[2]))))) {
+          out.write(data);
+        }
       }
       case null, default -> {
         System.err.println("unknown command");
