@@ -51,6 +51,7 @@ public class AddressCalc5 implements Callable<Void> {
     var buffer = ByteBuffer.allocate(64);
     var hash = buffer.array();
     var random = new SecureRandom();
+    var max = -1;
     while (true) {
       // 0b1/signFileNumber/signKeyNumber/encFileNumber/encKeyNumber/L
       // 0b1_00000000_00000000000000_00000000_00000000000000L
