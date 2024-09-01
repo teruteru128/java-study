@@ -24,17 +24,24 @@ import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.AlgorithmParameters;
 import java.security.DigestException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.Security;
+import java.security.NoSuchProviderException;
 import java.security.SignatureException;
+import java.security.spec.ECGenParameterSpec;
+import java.security.spec.ECParameterSpec;
+import java.security.spec.ECPoint;
+import java.security.spec.ECPrivateKeySpec;
+import java.security.spec.ECPublicKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
 import java.sql.SQLException;
@@ -42,19 +49,21 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.HexFormat;
-import java.util.TreeMap;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
-import org.apache.commons.rng.simple.JDKRandomWrapper;
-import org.apache.commons.statistics.distribution.LogNormalDistribution;
+import javax.crypto.Cipher;
+import javax.crypto.KeyAgreement;
+import javax.crypto.Mac;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlite.SQLiteDataSource;
 
 public class Factory {
 
@@ -77,7 +86,7 @@ public class Factory {
    * @throws InvalidKeyException           key
    */
   static void create(String[] args)
-      throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException {
+      throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, NoSuchPaddingException, NoSuchProviderException, InvalidAlgorithmParameterException {
     switch (args[0]) {
       case "clone" -> CloneSample.cloneSample();
       case "random" -> Random.doubleSample(RandomGenerator.getDefault());
@@ -250,75 +259,8 @@ public class Factory {
       }
       case "addressSearch4" -> new AddressCalc4(args[1]).call();
       case "addressSearch5" -> new AddressCalc5(args[1]).call();
-      case "addressEncode" -> {
-        var signKey = new byte[32];
-        var encKey = new byte[32];
-        try (var file = new RandomAccessFile(args[1], "r")) {
-          file.seek(Long.parseLong(args[3]) * 32);
-          file.readFully(signKey);
-        }
-        try (var file = new RandomAccessFile(args[2], "r")) {
-          file.seek(Long.parseLong(args[4]) * 32);
-          file.readFully(encKey);
-        }
-        var secP256K1G = Const.SEC_P256_K1_G;
-        var signPublicKey = secP256K1G.multiply(new BigInteger(1, signKey)).getEncoded(false);
-        var encryptionPublicKey = secP256K1G.multiply(new BigInteger(1, encKey)).getEncoded(false);
-        var sha512 = MessageDigest.getInstance("SHA-512");
-        var ripemd160 = MessageDigest.getInstance("RIPEMD160");
-        sha512.update(signPublicKey);
-        sha512.update(encryptionPublicKey);
-        System.out.println(BMAddressGenerator.exportAddress(
-            new Response(new KeyPair(signKey, signPublicKey),
-                new KeyPair(encKey, encryptionPublicKey), ripemd160.digest(sha512.digest()))));
-      }
-      case "i want to cum1" -> cum1();
-      case "i want to cum2" -> cum2((SecureRandom) SECURE_RANDOM_GENERATOR);
-      case "providers" -> {
-        var map = new TreeMap<>();
-        for (var provider : Security.getProviders()) {
-          var name = provider.getName();
-          for (var entry : provider.entrySet()) {
-            map.put(name + "." + entry.getKey(), entry.getValue());
-          }
-        }
-        map.forEach((k, v) -> System.out.println(k + "=" + v));
-        System.out.println(((SecureRandom) SECURE_RANDOM_GENERATOR).getAlgorithm());
-      }
-      case "8192" -> {
-        long a = ThreadLocalRandom.current().nextInt(8192);
-        System.out.printf("%04x%n", a & 0x1fff);
-        while ((a & 0x1fff) != 0x1fff) {
-          a = (a << 1) | ThreadLocalRandom.current().nextInt(2);
-          System.out.printf("%04x%n", a & 0x1fff);
-          if ((a & 0x1fff) == 0) {
-            System.out.println("逆1/8192!");
-          }
-        }
-        System.out.println("終わり！");
-      }
-      case "sum" -> {
-        var r = new byte[32];
-        SECURE_RANDOM_GENERATOR.nextBytes(r);
-        System.out.print(HexFormat.of().formatHex(r));
-        System.out.print(":");
-        byte sum = 0;
-        for (byte b : r) {
-          sum ^= b;
-        }
-        System.out.printf("%02x%n", sum);
-      }
-      case "wtf" -> {
-        byte[] data;
-        try (var in = Base64.getDecoder()
-            .wrap(new BufferedInputStream(Files.newInputStream(Path.of(args[1]))))) {
-          data = in.readAllBytes();
-        }
-        try (var out = Base64.getMimeEncoder()
-            .wrap(new BufferedOutputStream(Files.newOutputStream(Path.of(args[2]))))) {
-          out.write(data);
-        }
-      }
+      case "addressEncode" -> extracted(args);
+      case "bitmessageDecryptTest" -> extracted1(args);
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
@@ -326,26 +268,97 @@ public class Factory {
     }
   }
 
-  private static void cum1() throws NoSuchAlgorithmException, DigestException {
-    final var bufSize = 1024 * 1024 * 1024;
-    final var buf = new byte[bufSize];
-    final var msg = "射精したい".getBytes(StandardCharsets.UTF_8);
-    final var msgLength = msg.length;
-    var i = 0;
-    for (; (i + msgLength) < bufSize; i += msgLength) {
-      System.arraycopy(msg, 0, buf, i, msgLength);
+  // FIXME ベタ書きを構造化するにはどうしたら良いのか
+  /**
+   *
+   * @param args
+   * @throws SQLException
+   * @throws NoSuchAlgorithmException
+   * @throws NoSuchProviderException
+   * @throws InvalidParameterSpecException
+   * @throws InvalidKeySpecException
+   * @throws InvalidKeyException
+   * @throws NoSuchPaddingException
+   * @throws InvalidAlgorithmParameterException
+   */
+  private static void extracted1(String[] args)
+      throws SQLException, NoSuchAlgorithmException, NoSuchProviderException, InvalidParameterSpecException, InvalidKeySpecException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException {
+    var source = new SQLiteDataSource();
+    source.setUrl(args[1]);
+    byte[] payload = new byte[0];
+    try (var connection = source.getConnection(); var statement = connection.createStatement()) {
+      var set = statement.executeQuery(
+          "select payload from inventory where objecttype = 2 limit 1;");
+      while (set.next()) {
+        payload = set.getBytes("payload");
+      }
     }
-    System.out.println("msgLength = " + msgLength);
-    System.out.println("i = " + i);
-    var sha256 = MessageDigest.getInstance("SHA256");
-    sha256.update(buf, 0, i);
-    var hash = new byte[sha256.getDigestLength()];
-    sha256.digest(hash, 0, sha256.getDigestLength());
-    System.out.println(HexFormat.of().formatHex(hash));
+    var buffer = ByteBuffer.wrap(payload);
+    var nonce = buffer.getLong();
+    var expiresTime = buffer.getLong();
+    var objecttype = buffer.getInt();
+    var version = buffer.get();
+    var streamNumber = buffer.get();
+    var iv = new byte[16];
+    buffer.get(iv);
+    var curveType = buffer.getShort();
+    assert curveType == 0x02CA;
+    System.err.printf("curveType: %04x%n", curveType);
+    var xLength = buffer.getShort();
+    var x = new byte[xLength];
+    buffer.get(x);
+    var yLength = buffer.getShort();
+    var y = new byte[yLength];
+    buffer.get(y);
+    var parameters = AlgorithmParameters.getInstance("EC", "SunEC");
+    parameters.init(new ECGenParameterSpec("secp256k1"));
+    var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
+    var spec = new ECPublicKeySpec(new ECPoint(new BigInteger(1, x), new BigInteger(1, y)),
+        parameterSpec);
+    var factory = KeyFactory.getInstance("EC");
+    var publicKey = factory.generatePublic(spec);
+    var agreement = KeyAgreement.getInstance("ECDH");
+    // すべての鍵について、成功するまでループ。すべて失敗なら無視
+    var key = factory.generatePrivate(new ECPrivateKeySpec(BigInteger.ONE, parameterSpec));
+    agreement.init(key);
+    agreement.doPhase(publicKey, true);
+    var sha512 = MessageDigest.getInstance("SHA-512");
+    var hash = sha512.digest(agreement.generateSecret());
+    var mac = Mac.getInstance("HmacSHA256");
+    mac.init(new SecretKeySpec(hash, 32, 32, "mac"));
+    mac.update(payload, 22, payload.length - (22 + 32));
+    var digestB = Arrays.copyOfRange(payload, payload.length - 32, payload.length);
+    if (MessageDigest.isEqual(mac.doFinal(), digestB)) {
+      System.out.println("OK");
+    } else {
+      System.out.println("NG");
+      return;
+    }
+    var cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+    cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(hash, 0, 32, "AES"),
+        new IvParameterSpec(iv));
   }
 
-  private static void cum2(SecureRandom instanceStrong) {
-    System.out.println(LogNormalDistribution.of(Math.log(1145141919.0), 1)
-        .createSampler(new JDKRandomWrapper(instanceStrong)).sample());
+  private static void extracted(String[] args) throws IOException, NoSuchAlgorithmException {
+    var signKey = new byte[32];
+    var encKey = new byte[32];
+    try (var file = new RandomAccessFile(args[1], "r")) {
+      file.seek(Long.parseLong(args[3]) * 32);
+      file.readFully(signKey);
+    }
+    try (var file = new RandomAccessFile(args[2], "r")) {
+      file.seek(Long.parseLong(args[4]) * 32);
+      file.readFully(encKey);
+    }
+    var secP256K1G = Const.SEC_P256_K1_G;
+    var signPublicKey = secP256K1G.multiply(new BigInteger(1, signKey)).getEncoded(false);
+    var encryptionPublicKey = secP256K1G.multiply(new BigInteger(1, encKey)).getEncoded(false);
+    var sha512 = MessageDigest.getInstance("SHA-512");
+    var ripemd160 = MessageDigest.getInstance("RIPEMD160");
+    sha512.update(signPublicKey);
+    sha512.update(encryptionPublicKey);
+    System.out.println(BMAddressGenerator.exportAddress(
+        new Response(new KeyPair(signKey, signPublicKey), new KeyPair(encKey, encryptionPublicKey),
+            ripemd160.digest(sha512.digest()))));
   }
 }
