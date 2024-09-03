@@ -9,6 +9,7 @@ import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
 import com.github.teruteru128.bitmessage.genaddress.Response;
 import com.github.teruteru128.bitmessage.spec.AddressFactory;
 import com.github.teruteru128.bitmessage.spec.KeyPair;
+import com.github.teruteru128.encode.Base58;
 import com.github.teruteru128.fx.App;
 import com.github.teruteru128.sample.awt.TrayIconDemo;
 import com.github.teruteru128.sample.clone.CloneSample;
@@ -54,13 +55,16 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.HexFormat;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyAgreement;
 import javax.crypto.Mac;
 import javax.crypto.NoSuchPaddingException;
@@ -88,7 +92,7 @@ public class Factory {
    * @throws InvalidKeyException           key
    */
   static void create(String[] args)
-      throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, NoSuchPaddingException, NoSuchProviderException, InvalidAlgorithmParameterException {
+      throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, NoSuchPaddingException, NoSuchProviderException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
     switch (args[0]) {
       case "clone" -> CloneSample.cloneSample();
       case "random" -> Random.doubleSample(RandomGenerator.getDefault());
@@ -290,9 +294,9 @@ public class Factory {
     }
   }
 
-  // FIXME ベタ書きを構造化するにはどうしたら良いのか
 
   /**
+   * FIXME ベタ書きを構造化するにはどうしたら良いのか
    *
    * @param args
    * @throws SQLException
@@ -305,61 +309,75 @@ public class Factory {
    * @throws InvalidAlgorithmParameterException
    */
   private static void extracted1(String[] args)
-      throws SQLException, NoSuchAlgorithmException, NoSuchProviderException, InvalidParameterSpecException, InvalidKeySpecException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException {
+      throws SQLException, NoSuchAlgorithmException, NoSuchProviderException, InvalidParameterSpecException, InvalidKeySpecException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
     var source = new SQLiteDataSource();
     source.setUrl(args[1]);
-    byte[] payload = new byte[0];
-    try (var connection = source.getConnection(); var statement = connection.createStatement()) {
-      var set = statement.executeQuery(
-          "select payload from inventory where objecttype = 2 limit 1;");
-      while (set.next()) {
-        payload = set.getBytes("payload");
-      }
-    }
-    var buffer = ByteBuffer.wrap(payload);
-    var nonce = buffer.getLong();
-    var expiresTime = buffer.getLong();
-    var objecttype = buffer.getInt();
-    var version = buffer.get();
-    var streamNumber = buffer.get();
-    var iv = new byte[16];
-    buffer.get(iv);
-    var curveType = buffer.getShort();
-    assert curveType == 0x02CA;
-    System.err.printf("curveType: %04x%n", curveType);
-    var xLength = buffer.getShort();
-    var x = new byte[xLength];
-    buffer.get(x);
-    var yLength = buffer.getShort();
-    var y = new byte[yLength];
-    buffer.get(y);
-    var parameters = AlgorithmParameters.getInstance("EC", "SunEC");
-    parameters.init(new ECGenParameterSpec("secp256k1"));
-    var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
-    var spec = new ECPublicKeySpec(new ECPoint(new BigInteger(1, x), new BigInteger(1, y)),
-        parameterSpec);
     var factory = KeyFactory.getInstance("EC");
-    var publicKey = factory.generatePublic(spec);
-    var agreement = KeyAgreement.getInstance("ECDH");
-    // すべての鍵について、成功するまでループ。すべて失敗なら無視
-    var key = factory.generatePrivate(new ECPrivateKeySpec(BigInteger.ONE, parameterSpec));
-    agreement.init(key);
-    agreement.doPhase(publicKey, true);
+    final var parameters = AlgorithmParameters.getInstance("EC");
+    parameters.init(new ECGenParameterSpec("secp256k1"));
+    final var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
+    KeyAgreement agreement = KeyAgreement.getInstance("ECDH");
+    var privateKey = Base58.decode("5JrDcFtQDv5ydcHRW6dfGUEvThoxCCLNEUaxQfy8LXXgTJzVAcq");
+    var key = factory.generatePrivate(
+        new ECPrivateKeySpec(new BigInteger(1, privateKey, 1, 32), parameterSpec));
+    long[] counts = new long[2];
     var sha512 = MessageDigest.getInstance("SHA-512");
-    var hash = sha512.digest(agreement.generateSecret());
     var mac = Mac.getInstance("HmacSHA256");
-    mac.init(new SecretKeySpec(hash, 32, 32, "mac"));
-    mac.update(payload, 22, payload.length - (22 + 32));
-    var digestB = Arrays.copyOfRange(payload, payload.length - 32, payload.length);
-    if (MessageDigest.isEqual(mac.doFinal(), digestB)) {
-      System.out.println("OK");
-    } else {
-      System.out.println("NG");
-      return;
+    try (var connection = source.getConnection(); var statement = connection.createStatement()) {
+      var set = statement.executeQuery("select payload from inventory where objecttype = 2;");
+      var format = HexFormat.of();
+      while (set.next()) {
+        byte[] payload = set.getBytes("payload");
+        ByteBuffer buffer = ByteBuffer.wrap(payload);
+        long nonce = buffer.getLong();
+        long expiresTime = buffer.getLong();
+        int objecttype = buffer.getInt();
+        byte version = buffer.get();
+        byte streamNumber = buffer.get();
+        if (buffer.remaining() == 32) {
+          // non stealth message ackdata
+          continue;
+        }
+        var iv = new byte[16];
+        buffer.get(iv);
+        var curveType = buffer.getShort();
+        //System.out.println(format.formatHex(payload, 0, 50));
+        assert curveType == 0x02CA;
+        var xLength = buffer.getShort();
+        var x = new byte[xLength];
+        buffer.get(x);
+        var yLength = buffer.getShort();
+        var y = new byte[yLength];
+        buffer.get(y);
+        var spec = new ECPublicKeySpec(new ECPoint(new BigInteger(1, x), new BigInteger(1, y)),
+            parameterSpec);
+        var publicKey = factory.generatePublic(spec);
+        // すべての鍵について、成功するまでループ。すべて失敗なら無視
+        agreement.init(key);
+        agreement.doPhase(publicKey, true);
+        var sharedSecret = agreement.generateSecret();
+        var hash = sha512.digest(sharedSecret);
+        mac.init(new SecretKeySpec(hash, 32, 32, "MAC"));
+        mac.update(payload, 22, payload.length - (22 + 32));
+        if (MessageDigest.isEqual(mac.doFinal(),
+            Arrays.copyOfRange(payload, payload.length - 32, payload.length))) {
+          // OK
+          counts[0]++;
+        } else {
+          // NG
+          counts[1]++;
+          continue;
+        }
+        var ciphertextOffset = 44 + xLength + yLength;
+        var ciphertextLength = payload.length - (ciphertextOffset + 32);
+        var cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(hash, 0, 32, "AES"),
+            new IvParameterSpec(iv));
+        var theMessage = format.formatHex(
+            cipher.doFinal(payload, ciphertextOffset, ciphertextLength));
+      }
+      System.out.printf("OK: %d, NG: %d%n", counts[0], counts[1]);
     }
-    var cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-    cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(hash, 0, 32, "AES"),
-        new IvParameterSpec(iv));
   }
 
   private static void extracted(String[] args) throws IOException, NoSuchAlgorithmException {
