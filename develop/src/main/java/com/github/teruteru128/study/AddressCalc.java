@@ -75,6 +75,8 @@ public class AddressCalc implements Callable<Void> {
     final var tasks = new ArrayList<Callable<Void>>();
     for (int i = 0; i < threads; i++) {
       tasks.add(() -> {
+        Void result = null;
+        var finished = false;
         final var sha512 = MessageDigest.getInstance("SHA-512");
         final var ripemd160 = MessageDigest.getInstance("RIPEMD160");
         final var buffer = ByteBuffer.allocate(Const.SHA512_DIGEST_LENGTH);
@@ -83,7 +85,7 @@ public class AddressCalc implements Callable<Void> {
         int encryptOffset;
         // FIXME 毎回65バイトupdateするのとcloneするのはどっちが早いんだろうか
         int blocki;
-        int index = ThreadLocalRandom.current().nextInt(BOUND);
+        var index = ThreadLocalRandom.current().nextInt(BOUND);
         long start;
         int blockj;
         for (; ; index = ThreadLocalRandom.current().nextInt(BOUND)) {
@@ -104,13 +106,19 @@ public class AddressCalc implements Callable<Void> {
                     number);
                 if (number == 64) {
                   logger.info("シャットダウン要件を達成しました。シャットダウンします");
-                  return null;
+                  finished = true;
+                  break;
                 }
               }
             }
+            if (finished)
+              break;
           }
+          if (finished)
+            break;
           logger.debug("! {}, {}%n", index, (System.nanoTime() - start) / 1e9);
         }
+        return result;
       });
     }
     return tasks;

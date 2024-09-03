@@ -1,8 +1,8 @@
 package com.github.teruteru128.study;
 
+import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
 import static java.lang.Integer.parseInt;
 
-import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.app.DeterministicAddressGenerator;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
@@ -45,11 +45,17 @@ import java.security.spec.ECPublicKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -61,15 +67,11 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
 
 public class Factory {
 
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
-  public static final int PUBLIC_KEY_LENGTH = Const.PUBLIC_KEY_LENGTH;
-  private static final Logger logger = LoggerFactory.getLogger(Factory.class);
 
   /**
    * @param args コマンドライン引数
@@ -261,6 +263,26 @@ public class Factory {
       case "addressSearch5" -> new AddressCalc5(args[1]).call();
       case "addressEncode" -> extracted(args);
       case "bitmessageDecryptTest" -> extracted1(args);
+      case "D" -> {
+        try (var reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(
+            new BufferedInputStream(Files.newInputStream(Path.of(args[1])), 0x70000000),
+            0x70000000)), 0x70000000)) {
+          System.out.println(reader.lines().count() + "件");
+        }
+      }
+      case "sample" -> {
+        var id = ZoneId.of("Asia/Tokyo");
+        var start = LocalDateTime.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY))
+            .truncatedTo(ChronoUnit.DAYS);
+        var rules = id.getRules();
+        var startI = start.toInstant(rules.getOffset(start)).getEpochSecond();
+        var end = start.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+        var endI = end.toInstant(rules.getOffset(end)).getEpochSecond();
+        for (int i = 0; i < 10; i++) {
+          System.out.println(LocalDateTime.ofInstant(
+              Instant.ofEpochSecond(ThreadLocalRandom.current().nextLong(startI, endI)), id));
+        }
+      }
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
@@ -269,6 +291,7 @@ public class Factory {
   }
 
   // FIXME ベタ書きを構造化するにはどうしたら良いのか
+
   /**
    *
    * @param args
@@ -350,9 +373,8 @@ public class Factory {
       file.seek(Long.parseLong(args[4]) * 32);
       file.readFully(encKey);
     }
-    var secP256K1G = Const.SEC_P256_K1_G;
-    var signPublicKey = secP256K1G.multiply(new BigInteger(1, signKey)).getEncoded(false);
-    var encryptionPublicKey = secP256K1G.multiply(new BigInteger(1, encKey)).getEncoded(false);
+    var signPublicKey = SEC_P256_K1_G.multiply(new BigInteger(1, signKey)).getEncoded(false);
+    var encryptionPublicKey = SEC_P256_K1_G.multiply(new BigInteger(1, encKey)).getEncoded(false);
     var sha512 = MessageDigest.getInstance("SHA-512");
     var ripemd160 = MessageDigest.getInstance("RIPEMD160");
     sha512.update(signPublicKey);
