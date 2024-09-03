@@ -37,6 +37,7 @@ import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.Signature;
 import java.security.SignatureException;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.ECParameterSpec;
@@ -55,7 +56,6 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.HexFormat;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
@@ -301,7 +301,6 @@ public class Factory {
    * @param args
    * @throws SQLException
    * @throws NoSuchAlgorithmException
-   * @throws NoSuchProviderException
    * @throws InvalidParameterSpecException
    * @throws InvalidKeySpecException
    * @throws InvalidKeyException
@@ -309,25 +308,26 @@ public class Factory {
    * @throws InvalidAlgorithmParameterException
    */
   private static void extracted1(String[] args)
-      throws SQLException, NoSuchAlgorithmException, NoSuchProviderException, InvalidParameterSpecException, InvalidKeySpecException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+      throws SQLException, NoSuchAlgorithmException, InvalidParameterSpecException, InvalidKeySpecException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, SignatureException {
     var source = new SQLiteDataSource();
     source.setUrl(args[1]);
     var factory = KeyFactory.getInstance("EC");
     final var parameters = AlgorithmParameters.getInstance("EC");
     parameters.init(new ECGenParameterSpec("secp256k1"));
-    final var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
+    final var secp256k1Parameter = parameters.getParameterSpec(ECParameterSpec.class);
     KeyAgreement agreement = KeyAgreement.getInstance("ECDH");
     var privateKey = Base58.decode("5JrDcFtQDv5ydcHRW6dfGUEvThoxCCLNEUaxQfy8LXXgTJzVAcq");
     var key = factory.generatePrivate(
-        new ECPrivateKeySpec(new BigInteger(1, privateKey, 1, 32), parameterSpec));
+        new ECPrivateKeySpec(new BigInteger(1, privateKey, 1, 32), secp256k1Parameter));
     long[] counts = new long[2];
     var sha512 = MessageDigest.getInstance("SHA-512");
     var mac = Mac.getInstance("HmacSHA256");
     try (var connection = source.getConnection(); var statement = connection.createStatement()) {
       var set = statement.executeQuery("select payload from inventory where objecttype = 2;");
-      var format = HexFormat.of();
+      // 本来は新しいオブジェクトを受信する度にすべての秘密鍵についてループを回すんだろうな
       while (set.next()) {
         byte[] payload = set.getBytes("payload");
+        // オブジェクト解析
         ByteBuffer buffer = ByteBuffer.wrap(payload);
         long nonce = buffer.getLong();
         long expiresTime = buffer.getLong();
@@ -340,6 +340,7 @@ public class Factory {
         }
         var iv = new byte[16];
         buffer.get(iv);
+        var ivParameterSpec = new IvParameterSpec(iv);
         var curveType = buffer.getShort();
         //System.out.println(format.formatHex(payload, 0, 50));
         assert curveType == 0x02CA;
@@ -349,32 +350,66 @@ public class Factory {
         var yLength = buffer.getShort();
         var y = new byte[yLength];
         buffer.get(y);
-        var spec = new ECPublicKeySpec(new ECPoint(new BigInteger(1, x), new BigInteger(1, y)),
-            parameterSpec);
-        var publicKey = factory.generatePublic(spec);
+        // 公開鍵組み立て
+        var publicKey = factory.generatePublic(
+            new ECPublicKeySpec(new ECPoint(new BigInteger(1, x), new BigInteger(1, y)),
+                secp256k1Parameter));
         // すべての鍵について、成功するまでループ。すべて失敗なら無視
+        // ここ推定ボトルネック
+        // 共有秘密導出
         agreement.init(key);
         agreement.doPhase(publicKey, true);
-        var sharedSecret = agreement.generateSecret();
-        var hash = sha512.digest(sharedSecret);
+        var hash = sha512.digest(agreement.generateSecret());
+        // destination verifyメッセージ認証符号を用いて宛先を特定
         mac.init(new SecretKeySpec(hash, 32, 32, "MAC"));
         mac.update(payload, 22, payload.length - (22 + 32));
         if (MessageDigest.isEqual(mac.doFinal(),
             Arrays.copyOfRange(payload, payload.length - 32, payload.length))) {
-          // OK
+          // OK, 宛先特定
           counts[0]++;
         } else {
-          // NG
+          // NG, 宛先不一致
           counts[1]++;
           continue;
         }
+        // メッセージ復号
         var ciphertextOffset = 44 + xLength + yLength;
         var ciphertextLength = payload.length - (ciphertextOffset + 32);
-        var cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(hash, 0, 32, "AES"),
-            new IvParameterSpec(iv));
-        var theMessage = format.formatHex(
-            cipher.doFinal(payload, ciphertextOffset, ciphertextLength));
+        var cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
+        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(hash, 0, 32, "AES"), ivParameterSpec);
+        var plaintext = cipher.doFinal(payload, ciphertextOffset, ciphertextLength);
+        var buffer1 = ByteBuffer.wrap(plaintext);
+        buffer1.position(161);
+        int messageLength = buffer1.get();
+        if (messageLength == (byte) 0xfd) {
+          messageLength = buffer1.getShort();
+        }
+        buffer1.position(buffer1.position() + messageLength);
+        int ackLength = buffer1.get();
+        if (ackLength == (byte) 0xfd) {
+          ackLength = buffer1.getShort();
+        }
+        buffer1.position(buffer1.position() + ackLength);
+        int finalPosition = buffer1.position();
+        var ecdsa = Signature.getInstance("ECDSA");
+        ecdsa.initVerify(factory.generatePublic(new ECPublicKeySpec(
+            new ECPoint(new BigInteger(1, plaintext, 6, 32), new BigInteger(1, plaintext, 38, 32)),
+            secp256k1Parameter)));
+        // expires time, object type, version, stream number
+        ecdsa.update(payload, 8, 14);
+        /*
+         * address version, stream, bitfield, public sign key, public enc key, nonce_trials_per_byte,
+         * extra_bytes, destination ripe, encoding, message length, message, ack_length, ack_data
+         */
+        ecdsa.update(plaintext, 0, finalPosition);
+        int signOffset = finalPosition + 1;
+        int signLength = buffer1.get();
+        if (signLength == (byte) 0xfd) {
+          signLength = buffer1.getShort();
+          signOffset += 2;
+        }
+        System.out.println("message verify: " + ecdsa.verify(plaintext, signOffset, signLength));
+        break;
       }
       System.out.printf("OK: %d, NG: %d%n", counts[0], counts[1]);
     }
