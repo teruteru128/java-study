@@ -316,10 +316,10 @@ public class Factory {
     parameters.init(new ECGenParameterSpec("secp256k1"));
     final var secp256k1Parameter = parameters.getParameterSpec(ECParameterSpec.class);
     KeyAgreement agreement = KeyAgreement.getInstance("ECDH");
-    var privateKey = Base58.decode("5JrDcFtQDv5ydcHRW6dfGUEvThoxCCLNEUaxQfy8LXXgTJzVAcq");
+    var privateKey = Base58.decode("5HwugVWm31gnxtoYcvcK7oywH2ezYTh6Y4tzRxsndAeMi6NHqpA");
     var key = factory.generatePrivate(
         new ECPrivateKeySpec(new BigInteger(1, privateKey, 1, 32), secp256k1Parameter));
-    long[] counts = new long[2];
+    long[] counts = new long[4];
     var sha512 = MessageDigest.getInstance("SHA-512");
     var mac = Mac.getInstance("HmacSHA256");
     try (var connection = source.getConnection(); var statement = connection.createStatement()) {
@@ -380,13 +380,18 @@ public class Factory {
         var plaintext = cipher.doFinal(payload, ciphertextOffset, ciphertextLength);
         var buffer1 = ByteBuffer.wrap(plaintext);
         buffer1.position(161);
-        int messageLength = buffer1.get();
-        if (messageLength == (byte) 0xfd) {
+        int messageLength = buffer1.get() & 0xff;
+        if (messageLength == 0xfe) {
+          messageLength = buffer1.getInt();
+        } else if (messageLength == 0xfd) {
           messageLength = buffer1.getShort();
         }
-        buffer1.position(buffer1.position() + messageLength);
-        int ackLength = buffer1.get();
-        if (ackLength == (byte) 0xfd) {
+        var message = new byte[messageLength];
+        buffer1.get(message);
+        int ackLength = buffer1.get() & 0xff;
+        if (ackLength == 0xfe) {
+          ackLength = buffer1.getInt();
+        } else if (ackLength == 0xfd) {
           ackLength = buffer1.getShort();
         }
         buffer1.position(buffer1.position() + ackLength);
@@ -403,15 +408,18 @@ public class Factory {
          */
         ecdsa.update(plaintext, 0, finalPosition);
         int signOffset = finalPosition + 1;
-        int signLength = buffer1.get();
-        if (signLength == (byte) 0xfd) {
-          signLength = buffer1.getShort();
+        int signLength = buffer1.get() & 0xff;
+        if (signLength == 0xfd) {
+          signLength = buffer1.getShort() & 0xffff;
           signOffset += 2;
         }
-        System.out.println("message verify: " + ecdsa.verify(plaintext, signOffset, signLength));
-        break;
+        if (ecdsa.verify(plaintext, signOffset, signLength)) {
+          counts[2]++;
+        }else{
+          counts[3]++;
+        }
       }
-      System.out.printf("OK: %d, NG: %d%n", counts[0], counts[1]);
+      System.out.printf("OK: %d(verified: %d, %d, %d), NG: %d%n", counts[0], counts[2], counts[3], counts[2] + counts[3], counts[1]);
     }
   }
 
