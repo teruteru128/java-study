@@ -36,7 +36,6 @@ import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.security.spec.ECGenParameterSpec;
@@ -47,17 +46,11 @@ import java.security.spec.ECPublicKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -92,7 +85,7 @@ public class Factory {
    * @throws InvalidKeyException           key
    */
   static void create(String[] args)
-      throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, NoSuchPaddingException, NoSuchProviderException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+      throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
     switch (args[0]) {
       case "clone" -> CloneSample.cloneSample();
       case "random" -> Random.doubleSample(RandomGenerator.getDefault());
@@ -274,19 +267,6 @@ public class Factory {
           System.out.println(reader.lines().count() + "件");
         }
       }
-      case "sample" -> {
-        var id = ZoneId.of("Asia/Tokyo");
-        var start = LocalDateTime.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY))
-            .truncatedTo(ChronoUnit.DAYS);
-        var rules = id.getRules();
-        var startI = start.toInstant(rules.getOffset(start)).getEpochSecond();
-        var end = start.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-        var endI = end.toInstant(rules.getOffset(end)).getEpochSecond();
-        for (int i = 0; i < 10; i++) {
-          System.out.println(LocalDateTime.ofInstant(
-              Instant.ofEpochSecond(ThreadLocalRandom.current().nextLong(startI, endI)), id));
-        }
-      }
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
@@ -298,14 +278,14 @@ public class Factory {
   /**
    * FIXME ベタ書きを構造化するにはどうしたら良いのか
    *
-   * @param args
-   * @throws SQLException
-   * @throws NoSuchAlgorithmException
-   * @throws InvalidParameterSpecException
-   * @throws InvalidKeySpecException
-   * @throws InvalidKeyException
-   * @throws NoSuchPaddingException
-   * @throws InvalidAlgorithmParameterException
+   * @param args a
+   * @throws SQLException b
+   * @throws NoSuchAlgorithmException c
+   * @throws InvalidParameterSpecException d
+   * @throws InvalidKeySpecException e
+   * @throws InvalidKeyException f
+   * @throws NoSuchPaddingException g
+   * @throws InvalidAlgorithmParameterException h
    */
   private static void extracted1(String[] args)
       throws SQLException, NoSuchAlgorithmException, InvalidParameterSpecException, InvalidKeySpecException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, SignatureException {
@@ -315,34 +295,39 @@ public class Factory {
     final var parameters = AlgorithmParameters.getInstance("EC");
     parameters.init(new ECGenParameterSpec("secp256k1"));
     final var secp256k1Parameter = parameters.getParameterSpec(ECParameterSpec.class);
-    KeyAgreement agreement = KeyAgreement.getInstance("ECDH");
-    var privateKey = Base58.decode("5HwugVWm31gnxtoYcvcK7oywH2ezYTh6Y4tzRxsndAeMi6NHqpA");
+    var agreement = KeyAgreement.getInstance("ECDH");
+    var privateKey = Base58.decode(System.getenv("KEY"));
     var key = factory.generatePrivate(
         new ECPrivateKeySpec(new BigInteger(1, privateKey, 1, 32), secp256k1Parameter));
-    long[] counts = new long[4];
+    var counts = new long[4];
     var sha512 = MessageDigest.getInstance("SHA-512");
     var mac = Mac.getInstance("HmacSHA256");
     try (var connection = source.getConnection(); var statement = connection.createStatement()) {
-      var set = statement.executeQuery("select payload from inventory where objecttype = 2;");
+      var set = statement.executeQuery("select hash, payload from inventory where objecttype = 2;");
       // 本来は新しいオブジェクトを受信する度にすべての秘密鍵についてループを回すんだろうな
       while (set.next()) {
-        byte[] payload = set.getBytes("payload");
+        var payload = set.getBytes("payload");
         // オブジェクト解析
-        ByteBuffer buffer = ByteBuffer.wrap(payload);
-        long nonce = buffer.getLong();
-        long expiresTime = buffer.getLong();
-        int objecttype = buffer.getInt();
-        byte version = buffer.get();
-        byte streamNumber = buffer.get();
+        var buffer = ByteBuffer.wrap(payload);
+        // nonce
+        buffer.getLong();
+        // expiresTime
+        buffer.getLong();
+        // object type
+        buffer.getInt();
+        // version
+        var version = decodeVarInt(buffer);
+        // stream Number
+        var streamNumber = decodeVarInt(buffer);
+        int headerLength = buffer.position() - 8;
         if (buffer.remaining() == 32) {
-          // non stealth message ackdata
+          // non-stealth message ack data
           continue;
         }
         var iv = new byte[16];
         buffer.get(iv);
         var ivParameterSpec = new IvParameterSpec(iv);
         var curveType = buffer.getShort();
-        //System.out.println(format.formatHex(payload, 0, 50));
         assert curveType == 0x02CA;
         var xLength = buffer.getShort();
         var x = new byte[xLength];
@@ -359,9 +344,9 @@ public class Factory {
         // 共有秘密導出
         agreement.init(key);
         agreement.doPhase(publicKey, true);
-        var hash = sha512.digest(agreement.generateSecret());
+        var sharedSecret = sha512.digest(agreement.generateSecret());
         // destination verifyメッセージ認証符号を用いて宛先を特定
-        mac.init(new SecretKeySpec(hash, 32, 32, "MAC"));
+        mac.init(new SecretKeySpec(sharedSecret, 32, 32, "MAC"));
         mac.update(payload, 22, payload.length - (22 + 32));
         if (MessageDigest.isEqual(mac.doFinal(),
             Arrays.copyOfRange(payload, payload.length - 32, payload.length))) {
@@ -376,50 +361,60 @@ public class Factory {
         var ciphertextOffset = 44 + xLength + yLength;
         var ciphertextLength = payload.length - (ciphertextOffset + 32);
         var cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
-        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(hash, 0, 32, "AES"), ivParameterSpec);
+        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(sharedSecret, 0, 32, "AES"), ivParameterSpec);
         var plaintext = cipher.doFinal(payload, ciphertextOffset, ciphertextLength);
         var buffer1 = ByteBuffer.wrap(plaintext);
-        buffer1.position(161);
-        int messageLength = buffer1.get() & 0xff;
-        if (messageLength == 0xfe) {
-          messageLength = buffer1.getInt();
-        } else if (messageLength == 0xfd) {
-          messageLength = buffer1.getShort();
-        }
+        var addressVersion = decodeVarInt(buffer1);
+        var stream = decodeVarInt(buffer1);
+        // bitfield
+        buffer1.getInt();
+        var publicSignKey = new byte[64];
+        var publicEncKey = new byte[64];
+        buffer1.get(publicSignKey).get(publicEncKey);
+        var nonceTrialsPerByte = decodeVarInt(buffer1);
+        var extraBytes = decodeVarInt(buffer1);
+        var destinationRipe = new byte[20];
+        buffer1.get(destinationRipe);
+        var encodingType = buffer1.get();
+        var messageLength = (int) decodeVarInt(buffer1);
         var message = new byte[messageLength];
         buffer1.get(message);
-        int ackLength = buffer1.get() & 0xff;
-        if (ackLength == 0xfe) {
-          ackLength = buffer1.getInt();
-        } else if (ackLength == 0xfd) {
-          ackLength = buffer1.getShort();
-        }
-        buffer1.position(buffer1.position() + ackLength);
-        int finalPosition = buffer1.position();
+        var ackLength = (int) decodeVarInt(buffer1);
+        var ackData = new byte[ackLength];
+        buffer1.get(ackData);
+        var finalPosition = buffer1.position();
         var ecdsa = Signature.getInstance("ECDSA");
         ecdsa.initVerify(factory.generatePublic(new ECPublicKeySpec(
             new ECPoint(new BigInteger(1, plaintext, 6, 32), new BigInteger(1, plaintext, 38, 32)),
             secp256k1Parameter)));
+        //ecdsa.initVerify(signPublicKey);
         // expires time, object type, version, stream number
-        ecdsa.update(payload, 8, 14);
+        ecdsa.update(payload, 8, headerLength);
         /*
          * address version, stream, bitfield, public sign key, public enc key, nonce_trials_per_byte,
          * extra_bytes, destination ripe, encoding, message length, message, ack_length, ack_data
          */
         ecdsa.update(plaintext, 0, finalPosition);
-        int signOffset = finalPosition + 1;
-        int signLength = buffer1.get() & 0xff;
-        if (signLength == 0xfd) {
-          signLength = buffer1.getShort() & 0xffff;
-          signOffset += 2;
-        }
-        if (ecdsa.verify(plaintext, signOffset, signLength)) {
+        int signLength = (int) decodeVarInt(buffer1);
+        if (ecdsa.verify(plaintext, buffer1.position(), signLength)) {
           counts[2]++;
-        }else{
-          counts[3]++;
         }
       }
-      System.out.printf("OK: %d(verified: %d, %d, %d), NG: %d%n", counts[0], counts[2], counts[3], counts[2] + counts[3], counts[1]);
+      System.out.printf("OK: %d(verified: %d), NG: %d%n", counts[0], counts[2], counts[1]);
+    }
+  }
+
+  private static long decodeVarInt(ByteBuffer buffer) {
+    var first = buffer.get();
+    if (Byte.compareUnsigned(first, (byte) 0xfd) < 0) {
+      return first & 0xffL;
+    } else if (first == (byte) 0xfd) {
+      return buffer.getShort() & 0xffffL;
+    } else if (first == (byte) 0xfe) {
+      return buffer.getInt() & 0xffffffffL;
+    } else {
+      assert first == (byte) 0xff;
+      return buffer.getLong();
     }
   }
 
