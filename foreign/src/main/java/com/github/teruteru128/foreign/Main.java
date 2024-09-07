@@ -1,6 +1,5 @@
 package com.github.teruteru128.foreign;
 
-import static com.github.teruteru128.foreign.windows.Windows_h.CloseHandle;
 import static com.github.teruteru128.foreign.windows.Windows_h.CreateMutexExA;
 import static com.github.teruteru128.foreign.windows.Windows_h.strlen;
 import static java.lang.foreign.MemoryLayout.sequenceLayout;
@@ -9,6 +8,7 @@ import static java.lang.foreign.MemoryLayout.unionLayout;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 
+import com.github.teruteru128.foreign.windows.Windows_h;
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.ValueLayout;
@@ -41,7 +41,6 @@ public class Main implements Callable<Void> {
     // でも本当にほしいのはSocketとかファイルとかMessageDigestとかの連携なんだよね……
     // もしかしてネイティブライブラリにアクセスできるならOpenSSLにアクセスもできる……？
     // OpenCLもアクセスできるっぽい
-    var s = args.length >= 1 ? args[0] : "\uD83D\uDCA9";
     var sequenceLayout = sequenceLayout(32, JAVA_BYTE);
     var structLayout = structLayout(JAVA_BYTE.withName("prefix"), sequenceLayout.withName("x"),
         sequenceLayout.withName("y")).withName("b");
@@ -54,35 +53,29 @@ public class Main implements Callable<Void> {
     // Confined: malloc
     // Auto: alloca
     try (var arena = Arena.ofConfined(); var cl = new CL()) {
-      System.out.printf("strlen(arena.allocateFrom(s)) = %s%n", strlen(arena.allocateFrom(s)));
-      int ret;
-      if ((ret = cl.cl()) != 0) {
-        throw new RuntimeException("cl:" + ret);
+      var length = args.length;
+      for (int i = 0; i < length; i++) {
+        System.out.printf("strlen(args[%d]) = %s%n", i, strlen(arena.allocateFrom(args[i])));
       }
+      cl.cl();
       var locale = Locale.setlocale(0, arena.allocateFrom("Japanese_Japan.65001"));
       var len = strlen(locale);
       var loc = locale.reinterpret(len + 1);
       System.out.println(loc.getString(0));
-      if ((ret = BCrypt.SHA256(arena, s)) != 0) {
-        throw new RuntimeException("BCrypt.SHA256:" + ret);
-      }
-      if ((ret = mutexSample(arena)) != 0) {
-        throw new RuntimeException("mutexSample:" + ret);
-      }
+      BCrypt.SHA256(args.length >= 1 ? args[0] : "\uD83D\uDCA9");
+      mutexSample(arena);
     }
     return null;
   }
 
-  public int mutexSample(Arena arena) {
+  public void mutexSample(Arena arena) {
     System.loadLibrary("Kernel32");
     var name = arena.allocateFrom("munchie");
-    var mutexHandle = CreateMutexExA(NULL, name, 0, 0);
+    var mutexHandle = CreateMutexExA(NULL, name, 0, 0).reinterpret(arena, Windows_h::CloseHandle);
     if (mutexHandle.equals(NULL)) {
-      return 1;
+      throw new RuntimeException("mutexSample: mutex is null");
     }
     System.out.println("mutex create test:ok");
-    CloseHandle(mutexHandle);
-    return 0;
   }
 
 }

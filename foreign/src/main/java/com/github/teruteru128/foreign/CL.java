@@ -154,7 +154,7 @@ public class CL implements AutoCloseable {
    * @see <a
    * href="https://docs.oracle.com/javase/jp/21/core/call-native-functions-jextract.html#GUID-480A7E64-531A-4C88-800F-810FF87F24A1">jextract</a>
    */
-  int cl() {
+  void cl() {
     var auto = Arena.ofAuto();
     int ret;
     var ret_ptr = auto.allocate(JAVA_INT);
@@ -227,7 +227,6 @@ public class CL implements AutoCloseable {
     clReleaseKernel(kernel);
     clReleaseProgram(program);
     clReleaseContext(context);
-    return 0;
   }
 
   @Override
