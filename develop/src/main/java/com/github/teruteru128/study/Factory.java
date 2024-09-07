@@ -53,6 +53,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.random.RandomGenerator;
@@ -273,7 +274,19 @@ public class Factory {
         }
       }
       case "sort" -> {
-        var lines = (ArrayList<String>) Files.readAllLines(Path.of(args[1]),
+        extracted2(args);
+      }
+      case "DB" -> {
+        var source = new SQLiteDataSource();
+        source.setUrl(args[1]);
+        var inboxMap = new HashMap<String, Integer>();
+        try (var connection = source.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
+            "SELECT toaddress, count(*) from inbox group by toaddress;")) {
+          while (set.next()) {
+            inboxMap.put(set.getString("toaddress"), set.getInt("count(*)"));
+          }
+        }
+        var lines = (ArrayList<String>) Files.readAllLines(Path.of(args[2]),
             StandardCharsets.UTF_8);
         int i = 0;
         for (var line : lines) {
@@ -282,48 +295,90 @@ public class Factory {
           }
           i++;
         }
-        var subLines = lines.subList(i, lines.size());
-        var addressPattern = Pattern.compile("\\[(BM-.*)]");
-        var labelPattern = Pattern.compile("^label = (.*)$");
-        var map = new TreeMap<Label, String>();
-        String address = "";
-        Label label = new Label("", 0);
-        StringBuilder block = new StringBuilder();
-        Matcher matcher;
-
-        var str = System.lineSeparator();
-        for (var line : subLines) {
-          if (line.isEmpty()) {
-            var collidedBlock = map.put(label, block.append(str).toString());
-            if (collidedBlock != null) {
-              System.err.printf("collision!: %s%n", collidedBlock);
-            }
-            label = new Label("", 0);
-            block.setLength(0);
-          } else {
-            block.append(line).append(str);
-            if ((matcher = addressPattern.matcher(line)).matches()) {
-              address = matcher.group(1);
-            } else if ((matcher = labelPattern.matcher(line)).matches()) {
-              var de = Base58.decode(address.replaceAll("^BM-", ""));
-              label = new Label(matcher.group(1), de[0] & 0xff);
-            }
-          }
+        var keyMap = getStringStringHashMap(lines, i);
+        keyMap.remove("[Broadcast subscribers]");
+        for (var a : inboxMap.keySet()) {
+          keyMap.remove(a);
         }
-        try (var writer = Files.newBufferedWriter(Path.of(args[2]), StandardCharsets.UTF_8)) {
-          map.forEach((k, v) -> {
-            try {
-              writer.write(v);
-            } catch (IOException e) {
-              throw new UncheckedIOException(e);
-            }
-          });
-        }
+        keyMap.forEach((k, v) -> System.out.println(v + " <" + k + ">"));
       }
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
       }
+    }
+  }
+
+  private static HashMap<String, String> getStringStringHashMap(ArrayList<String> lines, int i) {
+    var subLines = lines.subList(i, lines.size());
+    var addressPattern = Pattern.compile("\\[(BM-.*)]");
+    var labelPattern = Pattern.compile("^label = (.*)$");
+    var keyMap = new HashMap<String, String>();
+    Matcher matcher;
+    String address = "";
+    String label = "";
+    for (var line : subLines) {
+      if (line.isEmpty()) {
+        if(label.startsWith("[chan] "))
+          keyMap.put(address, label);
+        address = "";
+        label = "";
+      } else {
+        if ((matcher = addressPattern.matcher(line)).matches()) {
+          address = matcher.group(1);
+        } else if ((matcher = labelPattern.matcher(line)).matches()) {
+          label = matcher.group(1);
+        }
+      }
+    }
+    return keyMap;
+  }
+
+  private static void extracted2(String[] args) throws IOException {
+    var lines = (ArrayList<String>) Files.readAllLines(Path.of(args[1]), StandardCharsets.UTF_8);
+    int i = 0;
+    for (var line : lines) {
+      if (line.startsWith("[BM-")) {
+        break;
+      }
+      i++;
+    }
+    var subLines = lines.subList(i, lines.size());
+    var addressPattern = Pattern.compile("\\[(BM-.*)]");
+    var labelPattern = Pattern.compile("^label = (.*)$");
+    var map = new TreeMap<Label, String>();
+    String address = "";
+    Label label = new Label("", 0);
+    StringBuilder block = new StringBuilder();
+    Matcher matcher;
+
+    var str = System.lineSeparator();
+    for (var line : subLines) {
+      if (line.isEmpty()) {
+        var collidedBlock = map.put(label, block.append(str).toString());
+        if (collidedBlock != null) {
+          System.err.printf("collision!: %s%n", collidedBlock);
+        }
+        label = new Label("", 0);
+        block.setLength(0);
+      } else {
+        block.append(line).append(str);
+        if ((matcher = addressPattern.matcher(line)).matches()) {
+          address = matcher.group(1);
+        } else if ((matcher = labelPattern.matcher(line)).matches()) {
+          var de = Base58.decode(address.replaceAll("^BM-", ""));
+          label = new Label(matcher.group(1), de[0] & 0xff);
+        }
+      }
+    }
+    try (var writer = Files.newBufferedWriter(Path.of(args[2]), StandardCharsets.UTF_8)) {
+      map.forEach((k, v) -> {
+        try {
+          writer.write(v);
+        } catch (IOException e) {
+          throw new UncheckedIOException(e);
+        }
+      });
     }
   }
 
@@ -355,8 +410,8 @@ public class Factory {
     var counts = new long[4];
     var sha512 = MessageDigest.getInstance("SHA-512");
     var mac = Mac.getInstance("HmacSHA256");
-    try (var connection = source.getConnection(); var statement = connection.createStatement()) {
-      var set = statement.executeQuery("select hash, payload from inventory where objecttype = 2;");
+    try (var connection = source.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
+        "select hash, payload from inventory where objecttype = 2;")) {
       // 本来は新しいオブジェクトを受信する度にすべての秘密鍵についてループを回すんだろうな
       while (set.next()) {
         var payload = set.getBytes("payload");
