@@ -106,4 +106,14 @@ dependencies {
     // https://mvnrepository.com/artifact/org.openapitools/jackson-databind-nullable
     implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
 
+    // https://picocli.info/
+    // https://mvnrepository.com/artifact/info.picocli/picocli
+    implementation 'info.picocli:picocli:4.7.6'
+
+    // https://mvnrepository.com/artifact/picocli-codegen/picocli
+    annotationProcessor 'info.picocli:picocli-codegen:4.7.6'
+}
+
+compileJava {
+    options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
 }

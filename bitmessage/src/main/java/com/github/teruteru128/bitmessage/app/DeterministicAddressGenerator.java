@@ -17,56 +17,6 @@ import java.util.function.Function;
 
 public class DeterministicAddressGenerator implements Function<String, DeterministicAddress> {
 
-  @Override
-  public DeterministicAddress apply(String passphrase) {
-    int numberOfNullBytesDemandedOnFrontOfRipeHash = 8;
-    long signingKeyNonce = 0;
-    long encryptionKeyNonce = 1;
-    final byte[] potentialPrivateSigningKey = new byte[64];
-    byte[] potentialPubSigningKey = null;
-    final byte[] potentialPrivateEncryptionKey = new byte[64];
-    byte[] potentialPubEncryptionKey = null;
-
-    var hashBuffer = ByteBuffer.allocate(20);
-    var hashLongBuffer = hashBuffer.asLongBuffer();
-    final byte[] ripe = hashBuffer.array();
-    final byte[] passphraseBytes = passphrase.getBytes(StandardCharsets.UTF_8);
-    ByteBuffer nonceBuffer = ByteBuffer.allocate(9);
-
-    try {
-      MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
-      MessageDigest sha512work = null;
-      MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
-      sha512.update(passphraseBytes);
-      while (true) {
-        sha512work = (MessageDigest) sha512.clone();
-        nonceBuffer.put(Structs.encodeVarint(signingKeyNonce));
-        nonceBuffer.flip();
-        sha512work.update(nonceBuffer);
-        sha512work.digest(potentialPrivateSigningKey, 0, 64);
-        sha512work = (MessageDigest) sha512.clone();
-        nonceBuffer.clear();
-        nonceBuffer.put(Structs.encodeVarint(encryptionKeyNonce));
-        nonceBuffer.flip();
-        sha512work.update(nonceBuffer);
-        sha512work.digest(potentialPrivateEncryptionKey, 0, 64);
-        potentialPubSigningKey = deriviedPublicKey(potentialPrivateSigningKey);
-        potentialPubEncryptionKey = deriviedPublicKey(potentialPrivateEncryptionKey);
-        deriviedRipeHash(ripe, potentialPubSigningKey, potentialPubEncryptionKey, sha512work, ripemd160);
-        if (Long.numberOfLeadingZeros(hashLongBuffer.get(0)) >= numberOfNullBytesDemandedOnFrontOfRipeHash) {
-          return new DeterministicAddress(passphrase, List.of(AddressFactory.encodeAddress(3, 1, ripe), AddressFactory.encodeAddress(4, 1, ripe)),
-              BMAddressGenerator.encodeWIF(Arrays.copyOf(potentialPrivateSigningKey, 32)),
-              BMAddressGenerator.encodeWIF(Arrays.copyOf(potentialPrivateEncryptionKey, 32)));
-        }
-        signingKeyNonce += 2;
-        encryptionKeyNonce += 2;
-        nonceBuffer.clear();
-      }
-    } catch (CloneNotSupportedException | DigestException | NoSuchAlgorithmException e) {
-      throw new InternalError(e);
-    }
-  }
-
   /**
    *
    * @param privateKey
@@ -77,8 +27,8 @@ public class DeterministicAddressGenerator implements Function<String, Determini
     if (privateKey.length < Const.PRIVATE_KEY_LENGTH) {
       throw new IllegalArgumentException("public key is too short");
     }
-    return Const.SEC_P256_K1_G.multiply(new BigInteger(1, privateKey, 0, Const.PRIVATE_KEY_LENGTH)).normalize()
-        .getEncoded(false);
+    return Const.SEC_P256_K1_G.multiply(new BigInteger(1, privateKey, 0, Const.PRIVATE_KEY_LENGTH))
+        .normalize().getEncoded(false);
   }
 
   public static void deriviedRipeHash(byte[] ripe, byte[] signPubKey, byte[] encPubKey) {
@@ -91,8 +41,8 @@ public class DeterministicAddressGenerator implements Function<String, Determini
     }
   }
 
-  public static void deriviedRipeHash(byte[] ripe, byte[] signPubKey, byte[] encPubKey, MessageDigest sha512,
-      MessageDigest ripemd160) {
+  public static void deriviedRipeHash(byte[] ripe, byte[] signPubKey, byte[] encPubKey,
+      MessageDigest sha512, MessageDigest ripemd160) {
     Objects.requireNonNull(ripe);
     if (ripe.length < 20) {
       throw new IllegalArgumentException("ripe is too short");
@@ -109,6 +59,60 @@ public class DeterministicAddressGenerator implements Function<String, Determini
       ripemd160.digest(ripe, 0, Const.RIPEMD160_DIGEST_LENGTH);
     } catch (DigestException e) {
       throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public DeterministicAddress apply(String passphrase) {
+    int numberOfNullBytesDemandedOnFrontOfRipeHash = 8;
+    long signingKeyNonce = 0;
+    long encryptionKeyNonce = 1;
+    final byte[] potentialPrivateSigningKey = new byte[64];
+    byte[] potentialPubSigningKey;
+    final byte[] potentialPrivateEncryptionKey = new byte[64];
+    byte[] potentialPubEncryptionKey;
+
+    var hashBuffer = ByteBuffer.allocate(20);
+    final byte[] ripe = hashBuffer.array();
+    final byte[] passphraseBytes = passphrase.getBytes(StandardCharsets.UTF_8);
+    ByteBuffer nonceBuffer = ByteBuffer.allocate(9);
+
+    try {
+      MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
+      MessageDigest sha512work;
+      MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
+      sha512.update(passphraseBytes);
+      while (true) {
+        sha512work = (MessageDigest) sha512.clone();
+        nonceBuffer.put(Structs.encodeVarint(signingKeyNonce));
+        nonceBuffer.flip();
+        sha512work.update(nonceBuffer);
+        sha512work.digest(potentialPrivateSigningKey, 0, 64);
+        sha512work = (MessageDigest) sha512.clone();
+        nonceBuffer.clear();
+        nonceBuffer.put(Structs.encodeVarint(encryptionKeyNonce));
+        nonceBuffer.flip();
+        sha512work.update(nonceBuffer);
+        sha512work.digest(potentialPrivateEncryptionKey, 0, 64);
+        potentialPubSigningKey = deriviedPublicKey(potentialPrivateSigningKey);
+        potentialPubEncryptionKey = deriviedPublicKey(potentialPrivateEncryptionKey);
+        deriviedRipeHash(ripe, potentialPubSigningKey, potentialPubEncryptionKey, sha512work,
+            ripemd160);
+        if (Long.numberOfLeadingZeros(hashBuffer.getLong(0))
+            >= numberOfNullBytesDemandedOnFrontOfRipeHash) {
+          var e1 = AddressFactory.encodeAddress(3, 1, ripe);
+          var e2 = AddressFactory.encodeAddress(4, 1, ripe);
+          var addresses = List.of(e1, e2);
+          var signingKey = BMAddressGenerator.encodeWIF(potentialPrivateSigningKey);
+          var encryptingKey = BMAddressGenerator.encodeWIF(potentialPrivateEncryptionKey);
+          return new DeterministicAddress(passphrase, addresses, signingKey, encryptingKey);
+        }
+        signingKeyNonce += 2;
+        encryptionKeyNonce += 2;
+        nonceBuffer.clear();
+      }
+    } catch (CloneNotSupportedException | DigestException | NoSuchAlgorithmException e) {
+      throw new InternalError(e);
     }
   }
 

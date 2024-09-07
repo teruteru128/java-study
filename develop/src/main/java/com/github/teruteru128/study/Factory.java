@@ -23,10 +23,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
+import java.io.UncheckedIOException;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.AlgorithmParameters;
@@ -48,10 +50,13 @@ import java.security.spec.InvalidParameterSpecException;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.TreeMap;
 import java.util.UUID;
 import java.util.random.RandomGenerator;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
@@ -267,6 +272,54 @@ public class Factory {
           System.out.println(reader.lines().count() + "件");
         }
       }
+      case "sort" -> {
+        var lines = (ArrayList<String>) Files.readAllLines(Path.of(args[1]),
+            StandardCharsets.UTF_8);
+        int i = 0;
+        for (var line : lines) {
+          if (line.startsWith("[BM-")) {
+            break;
+          }
+          i++;
+        }
+        var subLines = lines.subList(i, lines.size());
+        var addressPattern = Pattern.compile("\\[(BM-.*)]");
+        var labelPattern = Pattern.compile("^label = (.*)$");
+        var map = new TreeMap<Label, String>();
+        String address = "";
+        Label label = new Label("", 0);
+        StringBuilder block = new StringBuilder();
+        Matcher matcher;
+
+        var str = System.lineSeparator();
+        for (var line : subLines) {
+          if (line.isEmpty()) {
+            var collidedBlock = map.put(label, block.append(str).toString());
+            if (collidedBlock != null) {
+              System.err.printf("collision!: %s%n", collidedBlock);
+            }
+            label = new Label("", 0);
+            block.setLength(0);
+          } else {
+            block.append(line).append(str);
+            if ((matcher = addressPattern.matcher(line)).matches()) {
+              address = matcher.group(1);
+            } else if ((matcher = labelPattern.matcher(line)).matches()) {
+              var de = Base58.decode(address.replaceAll("^BM-", ""));
+              label = new Label(matcher.group(1), de[0] & 0xff);
+            }
+          }
+        }
+        try (var writer = Files.newBufferedWriter(Path.of(args[2]), StandardCharsets.UTF_8)) {
+          map.forEach((k, v) -> {
+            try {
+              writer.write(v);
+            } catch (IOException e) {
+              throw new UncheckedIOException(e);
+            }
+          });
+        }
+      }
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
@@ -361,7 +414,8 @@ public class Factory {
         var ciphertextOffset = 44 + xLength + yLength;
         var ciphertextLength = payload.length - (ciphertextOffset + 32);
         var cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
-        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(sharedSecret, 0, 32, "AES"), ivParameterSpec);
+        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(sharedSecret, 0, 32, "AES"),
+            ivParameterSpec);
         var plaintext = cipher.doFinal(payload, ciphertextOffset, ciphertextLength);
         var buffer1 = ByteBuffer.wrap(plaintext);
         var addressVersion = decodeVarInt(buffer1);

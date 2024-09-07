@@ -1,10 +1,9 @@
 package com.github.teruteru128.study;
 
-import com.github.teruteru128.study.Homo;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 class HomoTest {
 

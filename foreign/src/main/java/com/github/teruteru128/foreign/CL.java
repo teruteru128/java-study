@@ -82,8 +82,8 @@ public class CL implements AutoCloseable {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
     // デバイス数
-    MemorySegment num_devices = confined.allocate(JAVA_INT);
-    MemorySegment platform = platformIds.get(ADDRESS, 0);
+    var num_devices = confined.allocate(JAVA_INT);
+    var platform = platformIds.get(ADDRESS, 0);
     if ((ret = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), 0, NULL, num_devices)) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
@@ -104,7 +104,7 @@ public class CL implements AutoCloseable {
     if (ret_ptr.get(JAVA_INT, 0) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
     }
-    Objects.requireNonNull(commandQueue).reinterpret(confined, opencl_h::clReleaseCommandQueue);
+    commandQueue = Objects.requireNonNull(commandQueue).reinterpret(auto, opencl_h::clReleaseCommandQueue);
     // ソースコード読み込み
     // ファイルシステムを読み込んでリソースから文字列を読み込む
     // 面倒くさい
@@ -128,11 +128,10 @@ public class CL implements AutoCloseable {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
     // プログラム実行可能ファイルをビルド(コンパイル及びリンク)する
-    var lookup = MethodHandles.lookup();
-    var type = MethodType.methodType(void.class, MemorySegment.class, MemorySegment.class);
     MethodHandle callback1;
     try {
-      callback1 = lookup.findStatic(CL.class, "callback", type);
+      callback1 = MethodHandles.lookup().findStatic(CL.class, "callback",
+          MethodType.methodType(void.class, MemorySegment.class, MemorySegment.class));
     } catch (NoSuchMethodException | IllegalAccessException e) {
       throw new RuntimeException(e);
     }
