@@ -279,28 +279,20 @@ public class Factory {
       case "DB" -> {
         var source = new SQLiteDataSource();
         source.setUrl(args[1]);
-        var inboxMap = new HashMap<String, Integer>();
         try (var connection = source.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
-            "SELECT toaddress, count(*) from inbox group by toaddress;")) {
+            "SELECT msgid, ackdata from sent where octet_length(ackdata) = 35;"); var prep = connection.prepareStatement(
+            "UPDATE sent set ackdata = ? where msgid = ?;")) {
           while (set.next()) {
-            inboxMap.put(set.getString("toaddress"), set.getInt("count(*)"));
+            var msgid = set.getBytes("msgid");
+            var ackdata = set.getBytes("ackdata");
+            var newAckdata = new byte[38];
+            System.arraycopy(ackdata, 0, newAckdata, 3, 35);
+            prep.setBytes(1, newAckdata);
+            prep.setBytes(2, msgid);
+            prep.addBatch();
           }
+          System.out.println(Arrays.stream(prep.executeBatch()).sum());
         }
-        var lines = (ArrayList<String>) Files.readAllLines(Path.of(args[2]),
-            StandardCharsets.UTF_8);
-        int i = 0;
-        for (var line : lines) {
-          if (line.startsWith("[BM-")) {
-            break;
-          }
-          i++;
-        }
-        var keyMap = getStringStringHashMap(lines, i);
-        keyMap.remove("[Broadcast subscribers]");
-        for (var a : inboxMap.keySet()) {
-          keyMap.remove(a);
-        }
-        keyMap.forEach((k, v) -> System.out.println(v + " <" + k + ">"));
       }
       case null, default -> {
         System.err.println("unknown command");
@@ -319,8 +311,9 @@ public class Factory {
     String label = "";
     for (var line : subLines) {
       if (line.isEmpty()) {
-        if(label.startsWith("[chan] "))
+        if (label.startsWith("[chan] ")) {
           keyMap.put(address, label);
+        }
         address = "";
         label = "";
       } else {
