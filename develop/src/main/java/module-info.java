@@ -40,6 +40,7 @@ module com.github.teruteru.study {
   requires javafx.controls;
   //requires org.bukkit;
   requires org.apache.logging.log4j;
+  requires unboundid.ldapsdk;
 
   opens com.github.teruteru128.fx;
   opens com.github.teruteru128.study;

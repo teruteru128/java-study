@@ -10,7 +10,7 @@ import org.sqlite.SQLiteDataSource;
 
 public class Spam implements Callable<Void> {
 
-  private String url;
+  private final String url;
 
   public Spam(String url) {
     this.url = url;

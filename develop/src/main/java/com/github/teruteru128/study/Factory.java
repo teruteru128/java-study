@@ -2,6 +2,9 @@ package com.github.teruteru128.study;
 
 import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
 import static java.lang.Integer.parseInt;
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
+import static java.net.HttpURLConnection.HTTP_OK;
+import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
 import com.github.teruteru128.bitmessage.app.DeterministicAddressGenerator;
 import com.github.teruteru128.bitmessage.app.Spammer;
@@ -25,12 +28,17 @@ import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.io.UncheckedIOException;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.security.AlgorithmParameters;
 import java.security.DigestException;
 import java.security.InvalidAlgorithmParameterException;
@@ -53,12 +61,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.HashMap;
+import java.util.HashSet;
+import java.util.HexFormat;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.random.RandomGenerator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
 import javax.crypto.BadPaddingException;
@@ -116,6 +128,13 @@ public class Factory {
         }
       }
       case "spam" -> new Spam(args[1]).call();
+      case "spam2" -> {
+        var spam2 = new Spam2(args[1]);
+        if (args.length >= 3) {
+          spam2.setSkip(Long.parseLong(args[2]));
+        }
+        spam2.call();
+      }
       case "update" -> new Updater(args[1]).call();
       case "hash-base64" -> {
         if (args.length >= 2) {
@@ -128,6 +147,7 @@ public class Factory {
         var max = args.length >= 3 ? parseInt(args[2]) : 23000;
         SiteChecker.searchTor(min, max);
       }
+      case "check-" -> extracted3(args);
       case "check-tor" -> SiteChecker.siteCheck(args[1]);
       case "map" -> System.out.printf("System.mapLibraryName(\"OpenCL\") = %s%n",
           System.mapLibraryName("OpenCL"));
@@ -273,26 +293,33 @@ public class Factory {
           System.out.println(reader.lines().count() + "件");
         }
       }
-      case "sort" -> {
-        extracted2(args);
+      case "sort" -> extracted2(args);
+      case "search" -> {
+        try (var client = HttpClient.newHttpClient()) {
+          System.out.println(client.send(Spammer.requestBuilder.POST(ofString(
+                  "{\"jsonrpc\":\"2.0\",\"method\":\"getSentMessageByAckData\", \"params\":[\""
+                  + args[1] + "\"], \"id\": 19}")).build(), HttpResponse.BodyHandlers.ofString())
+              .body());
+        }
       }
       case "DB" -> {
         var source = new SQLiteDataSource();
-        source.setUrl(args[1]);
-        try (var connection = source.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
-            "SELECT msgid, ackdata from sent where octet_length(ackdata) = 35;"); var prep = connection.prepareStatement(
-            "UPDATE sent set ackdata = ? where msgid = ?;")) {
-          while (set.next()) {
-            var msgid = set.getBytes("msgid");
-            var ackdata = set.getBytes("ackdata");
-            var newAckdata = new byte[38];
-            System.arraycopy(ackdata, 0, newAckdata, 3, 35);
-            prep.setBytes(1, newAckdata);
-            prep.setBytes(2, msgid);
-            prep.addBatch();
+        source.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
+        var hashSet = new HashSet<Key>(1313507);
+        try (var connect = source.getConnection(); var statement = connect.createStatement(); var resultSet = statement.executeQuery(
+            "SELECT transmitdata from pubkeys;")) {
+          var key = new byte[65];
+          key[0] = 4;
+          byte[] data;
+          while (resultSet.next()) {
+            data = resultSet.getBytes("transmitdata");
+            System.arraycopy(data, 6, key, 1, 64);
+            hashSet.add(new Key(key.clone()));
+            System.arraycopy(data, 70, key, 1, 64);
+            hashSet.add(new Key(key.clone()));
           }
-          System.out.println(Arrays.stream(prep.executeBatch()).sum());
         }
+        System.out.println(hashSet.size());
       }
       case null, default -> {
         System.err.println("unknown command");
@@ -301,30 +328,65 @@ public class Factory {
     }
   }
 
-  private static HashMap<String, String> getStringStringHashMap(ArrayList<String> lines, int i) {
-    var subLines = lines.subList(i, lines.size());
-    var addressPattern = Pattern.compile("\\[(BM-.*)]");
-    var labelPattern = Pattern.compile("^label = (.*)$");
-    var keyMap = new HashMap<String, String>();
-    Matcher matcher;
-    String address = "";
-    String label = "";
-    for (var line : subLines) {
-      if (line.isEmpty()) {
-        if (label.startsWith("[chan] ")) {
-          keyMap.put(address, label);
-        }
-        address = "";
-        label = "";
-      } else {
-        if ((matcher = addressPattern.matcher(line)).matches()) {
-          address = matcher.group(1);
-        } else if ((matcher = labelPattern.matcher(line)).matches()) {
-          label = matcher.group(1);
-        }
-      }
+  private static void extracted3(String[] args) throws URISyntaxException, IOException {
+    var map = new TreeMap<Integer, String>();
+    var path = Path.of(args[1]);
+    try (var lines = Files.lines(path)) {
+      var pattern = Pattern.compile("<>");
+      lines.map(l -> pattern.split(l, 0)).filter(l -> l.length >= 2)
+          .forEach(l -> map.put(Integer.valueOf(l[0]), l[1].intern()));
     }
-    return keyMap;
+    System.err.println("map size: " + map.size());
+    var indexes = IntStream.range(10000, 25960).boxed()
+        .collect(Collectors.toCollection(ArrayList<Integer>::new));
+    indexes.removeAll(map.keySet());
+    System.err.println("indexes size: " + indexes.size());
+    int responseCode;
+    HttpURLConnection connection = null;
+    long start;
+    for (var i : indexes) {
+      System.err.println("start: " + i);
+      start = System.nanoTime();
+      var url = new URI(
+          "http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/tor/%d/l50".formatted(
+              i)).toURL();
+      do {
+        try {
+          connection = (HttpURLConnection) url.openConnection(SiteChecker.PROXY);
+          responseCode = connection.getResponseCode();
+          System.err.println(responseCode);
+          if (responseCode != HTTP_OK) {
+            System.err.println("sleep a little...");
+            try {
+              Thread.sleep(3000);
+            } catch (InterruptedException e) {
+              throw new RuntimeException(e);
+            }
+          }
+        } catch (IOException e) {
+          e.printStackTrace(System.err);
+          responseCode = -1;
+        }
+      } while (responseCode != HTTP_OK && responseCode != HTTP_NOT_FOUND);
+      if (responseCode == HTTP_NOT_FOUND) {
+        System.err.println("not found: " + i);
+        continue;
+      }
+      try (var in = new BufferedReader(
+          new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
+        var matcher = in.lines().map(SiteChecker.PATTERN_2::matcher).filter(Matcher::find)
+            .toList().getFirst();
+        var title = matcher.group(1);
+        map.put(i, title);
+        System.err.write((i + "<>" + title).getBytes(StandardCharsets.UTF_8));
+        System.err.println();
+      }
+      connection.disconnect();
+      System.err.println((System.nanoTime() - start) / 1e9 + "秒");
+    }
+    var lines = map.entrySet().stream().map(e -> e.getKey() + "<>" + e.getValue()).toList();
+    Files.write(path, lines, StandardCharsets.UTF_8, StandardOpenOption.WRITE,
+        StandardOpenOption.TRUNCATE_EXISTING);
   }
 
   private static void extracted2(String[] args) throws IOException {
@@ -374,7 +436,6 @@ public class Factory {
       });
     }
   }
-
 
   /**
    * FIXME ベタ書きを構造化するにはどうしたら良いのか
@@ -540,5 +601,40 @@ public class Factory {
     System.out.println(BMAddressGenerator.exportAddress(
         new Response(new KeyPair(signKey, signPublicKey), new KeyPair(encKey, encryptionPublicKey),
             ripemd160.digest(sha512.digest()))));
+  }
+
+  private record Key(byte[] key) implements Comparable<Key> {
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+      return super.clone();
+    }
+
+    @Override
+    public String toString() {
+      return "Key{" + "key=" + HexFormat.of().formatHex(key) + '}';
+    }
+
+    @Override
+    public int compareTo(Key o) {
+      return Arrays.compare(this.key, o.key);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (!(o instanceof Key key1)) {
+        return false;
+      }
+
+      return Arrays.equals(key, key1.key);
+    }
+
+    @Override
+    public int hashCode() {
+      return Arrays.hashCode(key);
+    }
   }
 }

@@ -43,7 +43,7 @@ public class SiteChecker {
           connection.connect();
           if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
             connection.disconnect();
-            System.out.println("found!");
+            System.out.write("found!".getBytes(StandardCharsets.UTF_8));
             synchronized (block) {
               block.notify();
             }
@@ -65,7 +65,7 @@ public class SiteChecker {
     // TODO スレッド名をDBかなにかにまとめる
     System.err.printf("min: %d, max: %d%n", min, max);
     try (var bos = new BufferedWriter(
-        new OutputStreamWriter(new FileOutputStream("subjects-old.txt", true),
+        new OutputStreamWriter(new FileOutputStream("subjects.txt", true),
             StandardCharsets.UTF_8), 16384)) {
       // 4299
       IntStream.range(min, max).mapToObj(i -> {
@@ -73,8 +73,10 @@ public class SiteChecker {
           return (HttpURLConnection) new URI(
               "http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/tor/%d/l50".formatted(
                   i)).toURL().openConnection(PROXY);
-        } catch (URISyntaxException | IOException e) {
+        } catch (URISyntaxException e) {
           throw new RuntimeException(e);
+        } catch (IOException e) {
+          throw new UncheckedIOException(e);
         }
       }).filter(connection -> {
         try {
@@ -116,10 +118,11 @@ public class SiteChecker {
             bos.write(line);
             bos.newLine();
             bos.flush();
+            System.out.write(line.getBytes(StandardCharsets.UTF_8));
+            System.out.println();
           } catch (IOException e) {
             throw new UncheckedIOException(e);
           }
-          System.out.println(line);
           try {
             Thread.sleep(5000);
           } catch (InterruptedException e) {

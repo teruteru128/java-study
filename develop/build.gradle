@@ -40,43 +40,11 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-statistics-distribution
     implementation 'org.apache.commons:commons-statistics-distribution:1.0'
 
-    // https://mvnrepository.com/artifact/commons-codec/commons-codec
-    //implementation 'commons-codec:commons-codec:1.16.1'
-
     // https://mvnrepository.com/artifact/commons-io/commons-io
     implementation 'commons-io:commons-io:2.16.1'
 
-    // This dependency is used by the application.
-    //implementation 'com.google.guava:guava:33.1.0-jre'
-
-    // https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core
-    //implementation 'org.twitter4j:twitter4j-core:4.1.2'
-
     // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk18on
     implementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
-
-    // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
-    //implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
-
-    // jaxb-runtime -> jaxb-core -> jakarta.xml.bind-api
-    // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
-    //implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
-
-    // https://mvnrepository.com/artifact/org.json/json
-    //implementation 'org.json:json:20240303'
-
-    // https://mvnrepository.com/artifact/com.google.code.gson/gson
-    //implementation 'com.google.code.gson:gson:2.10.1'
-
-    // https://mvnrepository.com/artifact/jakarta.json/jakarta.json-api
-    //implementation 'jakarta.json:jakarta.json-api:2.1.1'
-
-    // https://mvnrepository.com/artifact/org.glassfish/jakarta.json
-    //implementation 'org.glassfish:jakarta.json:2.0.1'
-
-    //implementation 'org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT'
-
-    // implementation 'io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT'
 
     // https://mvnrepository.com/artifact/com.twitter.twittertext/twitter-text
     implementation 'com.twitter.twittertext:twitter-text:3.1.0'

@@ -76,9 +76,10 @@ public class Lottery {
     var listB = new ArrayList<Integer>();
     for (int c = 0; c < counts; c++) {
       listB.addAll(listA);
-      for (int i = 0; i < 4; i++) {
+      for (int i = 0; i < 2; i++) {
         Collections.shuffle(listB, random);
-        randomChoice[i] = listB.removeFirst();
+        randomChoice[i * 2] = listB.removeFirst();
+        randomChoice[i * 2 + 1] = listB.removeLast();
       }
       System.arraycopy(fixed, 0, numbers, 0, 3);
       System.arraycopy(randomChoice, 0, numbers, 3, 4);

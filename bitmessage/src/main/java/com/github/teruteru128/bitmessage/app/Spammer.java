@@ -17,24 +17,19 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.random.RandomGenerator;
 
 public class Spammer {
 
-  public static final HttpRequest.Builder requestBuilder;
+  public static final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(
+          URI.create(Objects.requireNonNull(
+              System.getenv("BM_API_SERVER_URL"), "BM API URL NOT FOUND")))
+      .header("Content-Type", "application/json-rpc")
+      .header("Authorization", "Basic " + System.getenv("BM_TOKEN"));
   private static final SecureRandom RANDOM = (SecureRandom) RandomGenerator.of("SecureRandom");
-
-  static {
-    var bmApiServerUrl = System.getenv("BM_API_SERVER_URL");
-    var bmApiServerUrl2 = URI.create(
-        (bmApiServerUrl == null || bmApiServerUrl.isEmpty()) ? "http://localhost:8442/"
-            : bmApiServerUrl);
-    requestBuilder = HttpRequest.newBuilder(bmApiServerUrl2);
-    requestBuilder.header("Content-Type", "application/json-rpc");
-    requestBuilder.header("Authorization", "Basic " + System.getenv("BM_TOKEN"));
-  }
 
 
   public Spammer() {
@@ -59,9 +54,8 @@ public class Spammer {
           joiner.add(builder.toString());
           builder.setLength(prefixLength);
         }
-        var r = client.send(requestBuilder.POST(ofString(joiner.toString())).build(),
-            HttpResponse.BodyHandlers.ofString());
-        System.out.println(r.body());
+        System.out.println(client.send(requestBuilder.POST(ofString(joiner.toString())).build(),
+            HttpResponse.BodyHandlers.ofString()).body());
         Thread.sleep(d);
       }
     }
