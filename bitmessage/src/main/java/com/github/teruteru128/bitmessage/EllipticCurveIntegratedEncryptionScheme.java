@@ -14,7 +14,6 @@ import java.security.SecureRandom;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -24,7 +23,6 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.ShortBufferException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-
 import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.interfaces.ECPrivateKey;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
@@ -39,150 +37,170 @@ import org.bouncycastle.math.ec.ECCurve;
  * @see <a href="https://w.wiki/6yVA">Integrated Encryption Scheme</a>
  */
 public class EllipticCurveIntegratedEncryptionScheme {
-    public EllipticCurveIntegratedEncryptionScheme() {
+
+  public static final SecureRandom SECURE_RANDOM = new SecureRandom();
+  private static final KeyPairGenerator KEY_PAIR_GENERATOR;
+  private static final ECParameterSpec SECP_256_K_1 = ECNamedCurveTable.getParameterSpec(
+      "secp256k1");
+  private static final ECCurve SECP_256_K_1_CURVE = SECP_256_K_1.getCurve();
+  private static final KeyFactory KEY_FACTORY;
+
+  static {
+    try {
+      KEY_PAIR_GENERATOR = KeyPairGenerator.getInstance("EC", "BC");
+      KEY_PAIR_GENERATOR.initialize(new ECGenParameterSpec("secp256k1"));
+      KEY_FACTORY = KeyFactory.getInstance("EC", "BC");
+    } catch (NoSuchAlgorithmException | NoSuchProviderException |
+             InvalidAlgorithmParameterException e) {
+      throw new InternalError(e);
     }
+  }
 
-    public static byte[] encrypt(byte[] message, ECPublicKey publicKey) {
-        try {
-            // generate ephemeral ec key
-            var ephemeralKeyPair = generateEcKeyPair();
+  private EllipticCurveIntegratedEncryptionScheme() {
+  }
 
-            var secret = generateSecret(publicKey, ephemeralKeyPair);
-            var key = MessageDigest.getInstance("SHA-512").digest(secret);
-            var key_e = Arrays.copyOfRange(key, 0, 32);
-            var key_m = Arrays.copyOfRange(key, 32, 64);
+  public static byte[] encrypt(byte[] message, ECPublicKey publicKey) {
+    try {
+      // generate ephemeral ec key
+      var ephemeralKeyPair = generateEcKeyPair();
 
-            // init encrypt context
-            var aes = Cipher.getInstance("AES/CBC/PKCS7Padding");
-            var iv = new byte[aes.getBlockSize()];
-            new SecureRandom().nextBytes(iv);
-            aes.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key_e, "AES"), new IvParameterSpec(iv));
+      var secret = generateSharedSecret(publicKey, (ECPrivateKey) ephemeralKeyPair.getPrivate());
 
-            // encode iv and pubkey
-            var pubKey = getPubkey((ECPublicKey) ephemeralKeyPair.getPublic());
-            var ciphertext = new byte[iv.length + pubKey.length + aes.getOutputSize(message.length)];
-            System.arraycopy(iv, 0, ciphertext, 0, iv.length);
-            System.arraycopy(pubKey, 0, ciphertext, iv.length, pubKey.length);
-            int prefixLength = iv.length + pubKey.length;
+      // init encrypt context
+      var aes = Cipher.getInstance("AES/CBC/PKCS7Padding");
+      var ivSize = aes.getBlockSize();
+      var iv = new byte[ivSize];
+      SECURE_RANDOM.nextBytes(iv);
+      aes.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(secret.key_e(), "AES"),
+          new IvParameterSpec(iv));
 
-            // encrypt
-            int len = aes.doFinal(message, 0, message.length, ciphertext, prefixLength);
+      var mac = Mac.getInstance("HmacSHA256");
+      // encode iv and public key
+      var pubKey = getPublicKey((ECPublicKey) ephemeralKeyPair.getPublic());
+      var publicKeyLength = pubKey.length;
+      var messageLength = message.length;
+      var outputSize = aes.getOutputSize(messageLength);
+      int prefixLength = ivSize + publicKeyLength;
+      var encryptedLength = prefixLength + outputSize;
+      var ciphertext = new byte[encryptedLength + mac.getMacLength()];
+      System.arraycopy(iv, 0, ciphertext, 0, ivSize);
+      System.arraycopy(pubKey, 0, ciphertext, ivSize, publicKeyLength);
 
-            // generate mac code
-            var mac = Mac.getInstance("HmacSHA256");
-            mac.init(new SecretKeySpec(key_m, "MAC"));
-            mac.update(ciphertext);
-            var cipherTextLength = len + prefixLength;
-            var cipherTextWithMAC = Arrays.copyOf(ciphertext, cipherTextLength + mac.getMacLength());
-            mac.doFinal(cipherTextWithMAC, cipherTextLength);
-            return cipherTextWithMAC;
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException | InvalidKeyException
-                | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException
-                | ShortBufferException e) {
-            throw new RuntimeException(e);
-        }
+      // encrypt
+      aes.doFinal(message, 0, messageLength, ciphertext, prefixLength);
+
+      // generate mac code
+      mac.init(new SecretKeySpec(secret.key_m(), "MAC"));
+      mac.update(ciphertext, 0, encryptedLength);
+      mac.doFinal(ciphertext, encryptedLength);
+      return ciphertext;
+    } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException |
+             InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException |
+             BadPaddingException | ShortBufferException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    /** generate shared keys */
-    private static byte[] generateSecret(ECPublicKey publicKey, KeyPair ephem)
-            throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException {
-        var agreement = KeyAgreement.getInstance("ECDH", "BC");
-        agreement.init(ephem.getPrivate());
-        agreement.doPhase(publicKey, true);
-        return agreement.generateSecret();
+  private static SharedKeys generateSharedSecret(ECPublicKey publicKey, ECPrivateKey privateKey)
+      throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException {
+    var key = generateKey(publicKey, privateKey);
+    var key_e = Arrays.copyOfRange(key, 0, 32);
+    var key_m = Arrays.copyOfRange(key, 32, 64);
+    return new SharedKeys(key_e, key_m);
+  }
+
+  private static SharedKeys2 generateSharedSecret2(ECPublicKey publicKey, ECPrivateKey privateKey)
+      throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException {
+    var key = generateKey(publicKey, privateKey);
+    return new SharedKeys2(key, 0, 32, 32, 32);
+  }
+
+  private static byte[] generateKey(ECPublicKey publicKey, ECPrivateKey privateKey)
+      throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException {
+    var agreement = KeyAgreement.getInstance("ECDH", "BC");
+    agreement.init(privateKey);
+    agreement.doPhase(publicKey, true);
+    var secret = agreement.generateSecret();
+    return MessageDigest.getInstance("SHA-512").digest(secret);
+  }
+
+  private static byte[] getPublicKey(ECPublicKey key) {
+    // key.getEncoded()では長さと鍵の組み合わせに変換するのが面倒だから
+    var q = key.getQ();
+    var x = q.getXCoord().getEncoded();
+    var y = q.getYCoord().getEncoded();
+    return ByteBuffer.allocate(6 + x.length + y.length).putShort((short) 0x02CA)
+        .putShort((short) x.length).put(x).putShort((short) y.length).put(y).array();
+  }
+
+  public static KeyPair generateEcKeyPair() {
+    return KEY_PAIR_GENERATOR.generateKeyPair();
+  }
+
+  public static ECPublicKey generateEcPublicKey() {
+    return (ECPublicKey) generateEcKeyPair().getPublic();
+  }
+
+  /**
+   * @param message encrypted text
+   * @param privateKey private key
+   * @return clear text
+   */
+  public static byte[] decrypt(byte[] message, ECPrivateKey privateKey) {
+    try {
+      var aes = Cipher.getInstance("AES/CBC/PKCS7Padding");
+      var ivSize = aes.getBlockSize();
+      var keysLength = getKeysLength(message, ivSize);
+      var headerLength = 6 + ivSize + keysLength.xLength() + keysLength.yLength();
+
+      var x = new BigInteger(1, message, ivSize + 4, keysLength.xLength());
+      var y = new BigInteger(1, message, ivSize + 6 + keysLength.xLength(),
+          keysLength.yLength());
+      var keySpec = new ECPublicKeySpec(SECP_256_K_1_CURVE.createPoint(x, y), SECP_256_K_1);
+
+      var pubKey = (ECPublicKey) KEY_FACTORY.generatePublic(keySpec);
+
+      var secret = generateSharedSecret2(pubKey, privateKey);
+      var hmacSHA256 = Mac.getInstance("HmacSHA256");
+      hmacSHA256.init(new SecretKeySpec(secret.key(), secret.m_offset(), secret.m_length(), "MAC"));
+      var macLength = hmacSHA256.getMacLength();
+      var macOffset = message.length - macLength;
+      hmacSHA256.update(message, 0, macOffset);
+      var mac = Arrays.copyOfRange(message, macOffset, message.length);
+      if (!MessageDigest.isEqual(mac, hmacSHA256.doFinal())) {
+        throw new RuntimeException("Fail to verify data");
+      }
+      aes.init(Cipher.DECRYPT_MODE, new SecretKeySpec(secret.key(), secret.e_offset(), secret.e_length(), "AES"),
+          new IvParameterSpec(message, 0, ivSize));
+      var ciphertextLength = message.length - (macLength + headerLength);
+      return aes.doFinal(message, headerLength, ciphertextLength);
+    } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException |
+             InvalidKeySpecException | InvalidKeyException | InvalidAlgorithmParameterException |
+             IllegalBlockSizeException | BadPaddingException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    private static byte[] getPubkey(ECPublicKey key) {
-        var q = key.getQ();
-        var x = q.getXCoord().getEncoded();
-        var y = q.getYCoord().getEncoded();
-        return ByteBuffer.allocate(6 + x.length + y.length).putShort((short) 0x02CA).putShort((short) x.length).put(x)
-                .putShort((short) y.length).put(y).array();
-    }
+  private static KeysLength getKeysLength(byte[] message, int blockSize) {
+    var buf = ByteBuffer.wrap(message, blockSize, message.length - blockSize);
+    // curve type
+    buf.getShort();
+    short xLength = buf.getShort();
+    byte[] x1 = new byte[xLength];
+    buf.get(x1);
+    short yLength = buf.getShort();
+    return new KeysLength(xLength, yLength);
+  }
 
-    private static final KeyPairGenerator generator;
+  private record KeysLength(short xLength, short yLength) {
 
-    static {
-        try {
-            generator = KeyPairGenerator.getInstance("EC", "BC");
-            generator.initialize(new ECGenParameterSpec("secp256k1"));
-        } catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidAlgorithmParameterException e) {
-            throw new InternalError(e);
-        }
-    }
+  }
 
-    public static KeyPair generateEcKeyPair() {
-        return generator.generateKeyPair();
-    }
+  private record SharedKeys(byte[] key_e, byte[] key_m) {
 
-    public static ECPublicKey generateEcPublicKey() {
-        return (ECPublicKey) generateEcKeyPair().getPublic();
-    }
+  }
 
-    private static record DecodedPubKey(short curve, byte[] x, byte[] y, int usedLength) {
-    }
+  private record SharedKeys2(byte[] key, int e_offset, int e_length, int m_offset, int m_length) {
 
-    private static DecodedPubKey decodePubKey(byte[] pubkey, int offset) {
-        var buf = ByteBuffer.wrap(pubkey, offset, pubkey.length - offset);
-        short curve = buf.getShort();
-        short xLength = buf.getShort();
-        byte[] x = new byte[xLength];
-        buf.get(x);
-        short yLength = buf.getShort();
-        byte[] y = new byte[yLength];
-        buf.get(y);
-        return new DecodedPubKey(curve, x, y, buf.position() - offset);
-    }
-
-    private static final ECParameterSpec spec = ECNamedCurveTable.getParameterSpec("secp256k1");
-    private static final ECCurve curve = spec.getCurve();
-
-    private static final KeyFactory factory;
-
-    static {
-        try {
-            factory = KeyFactory.getInstance("EC", "BC");
-        } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-            throw new InternalError(e);
-        }
-    }
-
-    public static byte[] decrypt(byte[] message, ECPrivateKey privKey) {
-        try {
-            var aes = Cipher.getInstance("AES/CBC/PKCS7Padding");
-            var blockSize = aes.getBlockSize();
-            var iv = Arrays.copyOf(message, blockSize);
-            var offset = blockSize;
-            var decoded = decodePubKey(message, offset);
-            offset += decoded.usedLength();
-            var ciphertext = Arrays.copyOfRange(message, offset, message.length - 32);
-            offset += ciphertext.length;
-            var mac = Arrays.copyOfRange(message, offset, message.length);
-
-            var x = new BigInteger(1, decoded.x());
-            var y = new BigInteger(1, decoded.y());
-            var keySpec = new ECPublicKeySpec(curve.createPoint(x, y), spec);
-
-            var pubKey = factory.generatePublic(keySpec);
-
-            var agreement = KeyAgreement.getInstance("ECDH", "BC");
-            agreement.init(privKey);
-            agreement.doPhase(pubKey, true);
-            var key = MessageDigest.getInstance("SHA-512").digest(agreement.generateSecret());
-            var key_e = Arrays.copyOfRange(key, 0, 32);
-            var key_m = Arrays.copyOfRange(key, 32, 64);
-            var hmacSHA256 = Mac.getInstance("HmacSHA256");
-            hmacSHA256.init(new SecretKeySpec(key_m, "MAC"));
-            hmacSHA256.update(message, 0, message.length - hmacSHA256.getMacLength());
-            if (!MessageDigest.isEqual(mac, hmacSHA256.doFinal())) {
-                return null;
-            }
-            aes.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key_e, "AES"), new IvParameterSpec(iv));
-            return aes.doFinal(ciphertext);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException
-                | InvalidKeySpecException | InvalidKeyException | InvalidAlgorithmParameterException
-                | IllegalBlockSizeException | BadPaddingException e) {
-            throw new RuntimeException(e);
-        }
-    }
+  }
 }

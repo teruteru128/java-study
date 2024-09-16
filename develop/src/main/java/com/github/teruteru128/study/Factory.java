@@ -61,7 +61,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.HashSet;
 import java.util.HexFormat;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -87,6 +86,17 @@ import org.sqlite.SQLiteDataSource;
 public class Factory {
 
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
+  private static final ECParameterSpec secp256k1Parameter;
+
+  static {
+    try {
+      final var parameters = AlgorithmParameters.getInstance("EC");
+      parameters.init(new ECGenParameterSpec("secp256k1"));
+      secp256k1Parameter = parameters.getParameterSpec(ECParameterSpec.class);
+    } catch (NoSuchAlgorithmException | InvalidParameterSpecException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   /**
    * @param args コマンドライン引数
@@ -285,7 +295,7 @@ public class Factory {
       case "addressSearch4" -> new AddressCalc4(args[1]).call();
       case "addressSearch5" -> new AddressCalc5(args[1]).call();
       case "addressEncode" -> extracted(args);
-      case "bitmessageDecryptTest" -> extracted1(args);
+      case "bitmessageDecryptTest" -> extracted1();
       case "D" -> {
         try (var reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(
             new BufferedInputStream(Files.newInputStream(Path.of(args[1])), 0x70000000),
@@ -302,29 +312,46 @@ public class Factory {
               .body());
         }
       }
-      case "DB" -> {
-        var source = new SQLiteDataSource();
-        source.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
-        var hashSet = new HashSet<Key>(1313507);
-        try (var connect = source.getConnection(); var statement = connect.createStatement(); var resultSet = statement.executeQuery(
-            "SELECT transmitdata from pubkeys;")) {
-          var key = new byte[65];
-          key[0] = 4;
-          byte[] data;
-          while (resultSet.next()) {
-            data = resultSet.getBytes("transmitdata");
-            System.arraycopy(data, 6, key, 1, 64);
-            hashSet.add(new Key(key.clone()));
-            System.arraycopy(data, 70, key, 1, 64);
-            hashSet.add(new Key(key.clone()));
-          }
-        }
-        System.out.println(hashSet.size());
-      }
+      case "DB" -> extracted1(args);
+      case "eciessample" -> ECIESSample.ecIesSample();
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
       }
+    }
+  }
+
+  private static void extracted1(String[] args) throws SQLException {
+    var source = new SQLiteDataSource();
+    source.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
+    var msgid = new byte[16];
+    {
+      var buffer = ByteBuffer.wrap(msgid);
+      var uuid = UUID.randomUUID();
+      buffer.putLong(uuid.getMostSignificantBits());
+      buffer.putLong(uuid.getLeastSignificantBits());
+    }
+    var toAddress = args[1];
+    var toripe = Base58.decode(
+        toAddress.startsWith("BM-") ? toAddress.substring(3) : toAddress);
+    toripe = Arrays.copyOfRange(toripe, 2, toripe.length - 4);
+    {
+      var x00string = new byte[20];
+      System.arraycopy(toripe, 0, x00string, 20 - toripe.length, toripe.length);
+      toripe = x00string;
+    }
+    var fromAddress = "BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM";
+    var subject = "";
+    var message = "";
+    try (var connect = source.getConnection(); var ps = connect.prepareStatement(
+        "insert into sent(msgid, toaddress, toripe, fromaddress, subject, message, ackdata, senttime, lastactiontime, sleeptill, status, retrynumber, folder, encodingtype, ttl) "
+        + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")) {
+      ps.setBytes(1, msgid);
+      ps.setString(2, toAddress);
+      ps.setBytes(3, toripe);
+      ps.setString(4, fromAddress);
+      ps.setString(5, subject);
+      ps.setString(6, message);
     }
   }
 
@@ -374,8 +401,8 @@ public class Factory {
       }
       try (var in = new BufferedReader(
           new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
-        var matcher = in.lines().map(SiteChecker.PATTERN_2::matcher).filter(Matcher::find)
-            .toList().getFirst();
+        var matcher = in.lines().map(SiteChecker.PATTERN_2::matcher).filter(Matcher::find).toList()
+            .getFirst();
         var title = matcher.group(1);
         map.put(i, title);
         System.err.write((i + "<>" + title).getBytes(StandardCharsets.UTF_8));
@@ -440,23 +467,18 @@ public class Factory {
   /**
    * FIXME ベタ書きを構造化するにはどうしたら良いのか
    *
-   * @param args a
    * @throws SQLException b
    * @throws NoSuchAlgorithmException c
-   * @throws InvalidParameterSpecException d
    * @throws InvalidKeySpecException e
    * @throws InvalidKeyException f
    * @throws NoSuchPaddingException g
    * @throws InvalidAlgorithmParameterException h
    */
-  private static void extracted1(String[] args)
-      throws SQLException, NoSuchAlgorithmException, InvalidParameterSpecException, InvalidKeySpecException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, SignatureException {
+  private static void extracted1()
+      throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, SignatureException {
     var source = new SQLiteDataSource();
-    source.setUrl(args[1]);
+    source.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
     var factory = KeyFactory.getInstance("EC");
-    final var parameters = AlgorithmParameters.getInstance("EC");
-    parameters.init(new ECGenParameterSpec("secp256k1"));
-    final var secp256k1Parameter = parameters.getParameterSpec(ECParameterSpec.class);
     var agreement = KeyAgreement.getInstance("ECDH");
     var privateKey = Base58.decode(System.getenv("KEY"));
     var key = factory.generatePrivate(
@@ -486,23 +508,18 @@ public class Factory {
           // non-stealth message ack data
           continue;
         }
-        var iv = new byte[16];
-        buffer.get(iv);
-        var ivParameterSpec = new IvParameterSpec(iv);
+        var ivParameterSpec = getIV(buffer);
         var curveType = buffer.getShort();
         assert curveType == 0x02CA;
         var xLength = buffer.getShort();
-        var x = new byte[xLength];
-        buffer.get(x);
+        var x = getBytes(new byte[xLength], buffer);
         var yLength = buffer.getShort();
-        var y = new byte[yLength];
-        buffer.get(y);
+        var y = getBytes(new byte[yLength], buffer);
         // 公開鍵組み立て
-        var publicKey = factory.generatePublic(
-            new ECPublicKeySpec(new ECPoint(new BigInteger(1, x), new BigInteger(1, y)),
-                secp256k1Parameter));
+        var w = new ECPoint(new BigInteger(1, x), new BigInteger(1, y));
+        var publicKey = factory.generatePublic(new ECPublicKeySpec(w, secp256k1Parameter));
+        // 宛先特定
         // すべての鍵について、成功するまでループ。すべて失敗なら無視
-        // ここ推定ボトルネック
         // 共有秘密導出
         agreement.init(key);
         agreement.doPhase(publicKey, true);
@@ -531,20 +548,16 @@ public class Factory {
         var stream = decodeVarInt(buffer1);
         // bitfield
         buffer1.getInt();
-        var publicSignKey = new byte[64];
-        var publicEncKey = new byte[64];
-        buffer1.get(publicSignKey).get(publicEncKey);
+        var publicSignKey = getBytes(new byte[64], buffer1);
+        var publicEncKey = getBytes(new byte[64], buffer1);
         var nonceTrialsPerByte = decodeVarInt(buffer1);
         var extraBytes = decodeVarInt(buffer1);
-        var destinationRipe = new byte[20];
-        buffer1.get(destinationRipe);
+        var destinationRipe = getBytes(new byte[20], buffer1);
         var encodingType = buffer1.get();
         var messageLength = (int) decodeVarInt(buffer1);
-        var message = new byte[messageLength];
-        buffer1.get(message);
+        var message = getBytes(new byte[messageLength], buffer1);
         var ackLength = (int) decodeVarInt(buffer1);
-        var ackData = new byte[ackLength];
-        buffer1.get(ackData);
+        var ackData = getBytes(new byte[ackLength], buffer1);
         var finalPosition = buffer1.position();
         var ecdsa = Signature.getInstance("ECDSA");
         ecdsa.initVerify(factory.generatePublic(new ECPublicKeySpec(
@@ -565,6 +578,16 @@ public class Factory {
       }
       System.out.printf("OK: %d(verified: %d), NG: %d%n", counts[0], counts[2], counts[1]);
     }
+  }
+
+  public static byte[] getBytes(byte[] x, ByteBuffer buffer) {
+    buffer.get(x);
+    return x;
+  }
+
+  private static IvParameterSpec getIV(ByteBuffer buffer) {
+    var iv = getBytes(new byte[16], buffer);
+    return new IvParameterSpec(iv);
   }
 
   private static long decodeVarInt(ByteBuffer buffer) {
