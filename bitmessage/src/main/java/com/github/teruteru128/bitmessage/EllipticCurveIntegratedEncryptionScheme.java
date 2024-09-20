@@ -33,6 +33,7 @@ import org.bouncycastle.math.ec.ECCurve;
 /**
  * 楕円曲線暗号統合暗号化スキーム
  * MAC付きじゃねえかお前んちぃ！
+ * 暗号化はともかく復号は宛先特定も含むからセットにすると面倒だな……
  *
  * @see <a href="https://w.wiki/6yVA">Integrated Encryption Scheme</a>
  */
@@ -64,14 +65,14 @@ public class EllipticCurveIntegratedEncryptionScheme {
       // generate ephemeral ec key
       var ephemeralKeyPair = generateEcKeyPair();
 
-      var secret = generateSharedSecret(publicKey, (ECPrivateKey) ephemeralKeyPair.getPrivate());
+      var key = generateKey(publicKey, (ECPrivateKey) ephemeralKeyPair.getPrivate());
 
       // init encrypt context
       var aes = Cipher.getInstance("AES/CBC/PKCS7Padding");
       var ivSize = aes.getBlockSize();
       var iv = new byte[ivSize];
       SECURE_RANDOM.nextBytes(iv);
-      aes.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(secret.key_e(), "AES"),
+      aes.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, 0 , 32, "AES"),
           new IvParameterSpec(iv));
 
       var mac = Mac.getInstance("HmacSHA256");
@@ -80,21 +81,21 @@ public class EllipticCurveIntegratedEncryptionScheme {
       var q = ((ECPublicKey) ephemeralKeyPair.getPublic()).getQ();
       var x = q.getXCoord().getEncoded();
       var y = q.getYCoord().getEncoded();
-      var outputSize = aes.getOutputSize(message.length);
+      var ciphertextLength = aes.getOutputSize(message.length);
       var prefixLength = ivSize + 6 + x.length + y.length;
-      var encryptedLength = prefixLength + outputSize;
-      var ciphertext = new byte[encryptedLength + mac.getMacLength()];
-      var buf = putPublicKey(ciphertext, encryptedLength, iv, x, y);
+      var length = prefixLength + ciphertextLength;
+      var ciphertextWithMAC = new byte[length + mac.getMacLength()];
+      // write header
+      putHeader(ciphertextWithMAC, length, iv, x, y);
 
       // encrypt
-      aes.doFinal(ByteBuffer.wrap(message), buf);
-      buf.flip();
+      aes.doFinal(message, 0, message.length, ciphertextWithMAC, prefixLength);
 
       // generate mac code
-      mac.init(new SecretKeySpec(secret.key_m(), "MAC"));
-      mac.update(buf);
-      mac.doFinal(ciphertext, encryptedLength);
-      return ciphertext;
+      mac.init(new SecretKeySpec(key, 32, 32, "MAC"));
+      mac.update(ciphertextWithMAC, 0, length);
+      mac.doFinal(ciphertextWithMAC, length);
+      return ciphertextWithMAC;
     } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException |
              InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException |
              BadPaddingException | ShortBufferException e) {
@@ -102,20 +103,10 @@ public class EllipticCurveIntegratedEncryptionScheme {
     }
   }
 
-  private static ByteBuffer putPublicKey(byte[] ciphertext, int encryptedLength, byte[] iv,
-      byte[] x, byte[] y) {
-    var buf = ByteBuffer.wrap(ciphertext, 0, encryptedLength);
-    buf.put(iv).putShort((short) 0x02CA)
-        .putShort((short) x.length).put(x).putShort((short) y.length).put(y).array();
-    return buf;
-  }
-
-  private static SharedKeys generateSharedSecret(ECPublicKey publicKey, ECPrivateKey privateKey)
-      throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException {
-    var key = generateKey(publicKey, privateKey);
-    var key_e = Arrays.copyOfRange(key, 0, 32);
-    var key_m = Arrays.copyOfRange(key, 32, 64);
-    return new SharedKeys(key_e, key_m);
+  private static void putHeader(byte[] ciphertextWithMAC, int length, byte[] iv, byte[] x,
+      byte[] y) {
+    ByteBuffer.wrap(ciphertextWithMAC, 0, length).put(iv).putShort((short) 0x02CA)
+        .putShort((short) x.length).put(x).putShort((short) y.length).put(y);
   }
 
   private static SharedKeys2 generateSharedSecret2(ECPublicKey publicKey, ECPrivateKey privateKey)
@@ -126,11 +117,15 @@ public class EllipticCurveIntegratedEncryptionScheme {
 
   private static byte[] generateKey(ECPublicKey publicKey, ECPrivateKey privateKey)
       throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException {
+    return MessageDigest.getInstance("SHA-512").digest(generateSecret(publicKey, privateKey));
+  }
+
+  private static byte[] generateSecret(ECPublicKey publicKey, ECPrivateKey privateKey)
+      throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException {
     var agreement = KeyAgreement.getInstance("ECDH", "BC");
     agreement.init(privateKey);
     agreement.doPhase(publicKey, true);
-    var secret = agreement.generateSecret();
-    return MessageDigest.getInstance("SHA-512").digest(secret);
+    return agreement.generateSecret();
   }
 
   public static KeyPair generateEcKeyPair() {

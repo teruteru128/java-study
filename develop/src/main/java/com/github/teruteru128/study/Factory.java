@@ -65,6 +65,7 @@ import java.util.HexFormat;
 import java.util.Objects;
 import java.util.TreeMap;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.random.RandomGenerator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -117,7 +118,7 @@ public class Factory {
    * @throws InvalidKeyException           key
    */
   static void create(String[] args)
-      throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+      throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, ClassNotFoundException, ExecutionException {
     switch (args[0]) {
       case "clone" -> CloneSample.cloneSample();
       case "random" -> Random.doubleSample(RandomGenerator.getDefault());
@@ -319,6 +320,13 @@ public class Factory {
       case "DB" -> extracted1(args);
       case "DB2" -> extracted4();
       case "eciessample" -> ECIESSample.ecIesSample();
+      case "primecheck" -> {
+      }
+      case "createSmallSieve" -> {
+        var bitLength = 1L << 33;
+        PrimeSearch.getSieve(bitLength, bitLength + "bit-smallsieve.obj");
+      }
+      case "attack" -> PrimeSearch.getConvertedStep(0);
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
