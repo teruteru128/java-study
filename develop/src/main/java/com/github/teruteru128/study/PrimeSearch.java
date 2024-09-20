@@ -31,8 +31,12 @@ public class PrimeSearch {
   public static void getConvertedStep(int firstStep) throws IOException, ClassNotFoundException {
     var base = PrimeSearch.loadEvenNumber();
     var sieve = PrimeSearch.loadLargeSieve();
-    int step = sieve.nextClearBit(firstStep);
+    var a = new BitSet(sieve.length());
+    a.set(0, sieve.length());
+    a.andNot(sieve);
+    int step = a.nextSetBit(firstStep);
     int convertedStep = (step * 2) + 1;
+    // WorkStealingPoolを有効活用したい
     while (true) {
       var p = base.add(BigInteger.valueOf(convertedStep));
       System.err.println("start: covered step: " + step);
@@ -41,7 +45,7 @@ public class PrimeSearch {
         break;
       }
       System.out.printf("not prime: step %d is not prime%n", step);
-      step = sieve.nextClearBit(step + 1);
+      step = a.nextSetBit(step + 1);
       convertedStep = (step * 2) + 1;
     }
   }
@@ -62,8 +66,8 @@ public class PrimeSearch {
       return;
     }
     try (var oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(
-        String.format("largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-%dbit-2.obj",
-            searchLen))))) {
+        "largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-" + searchLen
+        + "bit-2.obj")))) {
       oos.writeInt(searchLen);
       oos.writeObject(bis);
     }
