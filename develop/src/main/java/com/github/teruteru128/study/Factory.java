@@ -80,19 +80,23 @@ import javax.crypto.Mac;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import org.apache.logging.log4j.util.InternalException;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.sqlite.SQLiteDataSource;
 
 public class Factory {
 
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
+  public static final HexFormat FORMAT = HexFormat.of();
   private static final ECParameterSpec secp256k1Parameter;
+  private static final KeyFactory factory;
 
   static {
     try {
       final var parameters = AlgorithmParameters.getInstance("EC");
       parameters.init(new ECGenParameterSpec("secp256k1"));
       secp256k1Parameter = parameters.getParameterSpec(ECParameterSpec.class);
+      factory = KeyFactory.getInstance("EC");
     } catch (NoSuchAlgorithmException | InvalidParameterSpecException e) {
       throw new RuntimeException(e);
     }
@@ -295,7 +299,7 @@ public class Factory {
       case "addressSearch4" -> new AddressCalc4(args[1]).call();
       case "addressSearch5" -> new AddressCalc5(args[1]).call();
       case "addressEncode" -> extracted(args);
-      case "bitmessageDecryptTest" -> extracted1();
+      case "bitmessageDecryptTest" -> bitmessageDecryptTest();
       case "D" -> {
         try (var reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(
             new BufferedInputStream(Files.newInputStream(Path.of(args[1])), 0x70000000),
@@ -313,6 +317,7 @@ public class Factory {
         }
       }
       case "DB" -> extracted1(args);
+      case "DB2" -> extracted4();
       case "eciessample" -> ECIESSample.ecIesSample();
       case null, default -> {
         System.err.println("unknown command");
@@ -321,25 +326,29 @@ public class Factory {
     }
   }
 
+  private static void extracted4() throws SQLException {
+    var source = new SQLiteDataSource();
+    source.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
+    try (var connect = source.getConnection(); var statement = connect.createStatement(); var resultSet = statement.executeQuery(
+        "SELECT address, transmitdata from pubkeys;")) {
+      var signKeyAddressMap = new TreeMap<Key, String>();
+      var encryptKeyAddressMap = new TreeMap<Key, String>();
+      while (resultSet.next()) {
+        var address = resultSet.getString("address");
+        var transmitData = resultSet.getBytes("transmitdata");
+        signKeyAddressMap.put(new Key(Arrays.copyOfRange(transmitData, 6, 70)), address);
+        encryptKeyAddressMap.put(new Key(Arrays.copyOfRange(transmitData, 70, 134)), address);
+      }
+      System.out.println(signKeyAddressMap.size());
+      System.out.println(encryptKeyAddressMap.size());
+    }
+  }
+
   private static void extracted1(String[] args) throws SQLException {
     var source = new SQLiteDataSource();
     source.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
-    var msgid = new byte[16];
-    {
-      var buffer = ByteBuffer.wrap(msgid);
-      var uuid = UUID.randomUUID();
-      buffer.putLong(uuid.getMostSignificantBits());
-      buffer.putLong(uuid.getLeastSignificantBits());
-    }
-    var toAddress = args[1];
-    var toripe = Base58.decode(
-        toAddress.startsWith("BM-") ? toAddress.substring(3) : toAddress);
-    toripe = Arrays.copyOfRange(toripe, 2, toripe.length - 4);
-    {
-      var x00string = new byte[20];
-      System.arraycopy(toripe, 0, x00string, 20 - toripe.length, toripe.length);
-      toripe = x00string;
-    }
+    var msgid = getUUIDBytes(new byte[16]);
+    var result5 = decodeAddress(args[1]);
     var fromAddress = "BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM";
     var subject = "";
     var message = "";
@@ -347,12 +356,49 @@ public class Factory {
         "insert into sent(msgid, toaddress, toripe, fromaddress, subject, message, ackdata, senttime, lastactiontime, sleeptill, status, retrynumber, folder, encodingtype, ttl) "
         + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")) {
       ps.setBytes(1, msgid);
-      ps.setString(2, toAddress);
-      ps.setBytes(3, toripe);
+      ps.setString(2, result5.toAddress());
+      ps.setBytes(3, result5.toripe());
       ps.setString(4, fromAddress);
       ps.setString(5, subject);
       ps.setString(6, message);
     }
+  }
+
+  private static DecodedAddress decodeAddress(String toAddress) {
+    var rawData = Base58.decode(toAddress.startsWith("BM-") ? toAddress.substring(3) : toAddress);
+    if (!verifyAddress(rawData)) {
+      throw new IllegalArgumentException("checksum failed");
+    }
+    var toRipe = new byte[20];
+    var trimmedRipeLength = rawData.length - 6;
+    System.arraycopy(rawData, 2, toRipe, 20 - trimmedRipeLength, trimmedRipeLength);
+    return new DecodedAddress(toAddress, toRipe);
+  }
+
+  private static boolean verifyAddress(byte[] rawData) {
+    var length = rawData.length;
+    var checksumLength = length - 4;
+    var checksum = Arrays.copyOfRange(rawData, checksumLength, length);
+    byte[] hash = doubleSha512(Arrays.copyOf(rawData, checksumLength));
+    return MessageDigest.isEqual(Arrays.copyOf(hash, 4), checksum);
+  }
+
+  private static byte[] doubleSha512(byte[] rawdata) {
+    try {
+      var sha512 = MessageDigest.getInstance("SHA-512");
+      sha512.update(rawdata, 0, rawdata.length);
+      return sha512.digest(sha512.digest());
+    } catch (NoSuchAlgorithmException e) {
+      throw new InternalException(e);
+    }
+  }
+
+  private static byte[] getUUIDBytes(byte[] msgid) {
+    var buffer = ByteBuffer.wrap(msgid);
+    var uuid = UUID.randomUUID();
+    buffer.putLong(uuid.getMostSignificantBits());
+    buffer.putLong(uuid.getLeastSignificantBits());
+    return msgid;
   }
 
   private static void extracted3(String[] args) throws URISyntaxException, IOException {
@@ -474,18 +520,24 @@ public class Factory {
    * @throws NoSuchPaddingException g
    * @throws InvalidAlgorithmParameterException h
    */
-  private static void extracted1()
+  private static void bitmessageDecryptTest()
       throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, SignatureException {
     var source = new SQLiteDataSource();
     source.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
-    var factory = KeyFactory.getInstance("EC");
     var agreement = KeyAgreement.getInstance("ECDH");
     var privateKey = Base58.decode(System.getenv("KEY"));
     var key = factory.generatePrivate(
         new ECPrivateKeySpec(new BigInteger(1, privateKey, 1, 32), secp256k1Parameter));
-    var counts = new long[4];
+    long okCount = 0;
+    long ngCount = 0;
+    long verified = 0;
     var sha512 = MessageDigest.getInstance("SHA-512");
     var mac = Mac.getInstance("HmacSHA256");
+    var peek = true;
+    var generalRipe = new byte[20];
+    var tmp = Base58.decode("2cW67GEKkHGonXKZLCzouLLxnLym3azS8r");
+    System.arraycopy(tmp, 2, generalRipe, 20 - (tmp.length - 6), tmp.length - 6);
+    var generalCount = 0L;
     try (var connection = source.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
         "select hash, payload from inventory where objecttype = 2;")) {
       // 本来は新しいオブジェクトを受信する度にすべての秘密鍵についてループを回すんだろうな
@@ -530,10 +582,10 @@ public class Factory {
         if (MessageDigest.isEqual(mac.doFinal(),
             Arrays.copyOfRange(payload, payload.length - 32, payload.length))) {
           // OK, 宛先特定
-          counts[0]++;
+          okCount++;
         } else {
           // NG, 宛先不一致
-          counts[1]++;
+          ngCount++;
           continue;
         }
         // メッセージ復号
@@ -544,25 +596,34 @@ public class Factory {
             ivParameterSpec);
         var plaintext = cipher.doFinal(payload, ciphertextOffset, ciphertextLength);
         var buffer1 = ByteBuffer.wrap(plaintext);
-        var addressVersion = decodeVarInt(buffer1);
-        var stream = decodeVarInt(buffer1);
+        var fromAddressVersionNumber = decodeVarInt(buffer1);
+        var fromStreamNumber = decodeVarInt(buffer1);
         // bitfield
-        buffer1.getInt();
+        var fromAddressBitfield = buffer1.getInt();
         var publicSignKey = getBytes(new byte[64], buffer1);
         var publicEncKey = getBytes(new byte[64], buffer1);
-        var nonceTrialsPerByte = decodeVarInt(buffer1);
-        var extraBytes = decodeVarInt(buffer1);
-        var destinationRipe = getBytes(new byte[20], buffer1);
-        var encodingType = buffer1.get();
+        long nonceTrialsPerByte = 0;
+        long extraBytes = 0;
+        if (3 <= fromAddressVersionNumber) {
+          nonceTrialsPerByte = decodeVarInt(buffer1);
+          extraBytes = decodeVarInt(buffer1);
+        }
+        var toRipe = getBytes(new byte[20], buffer1);
+        var encodingType = decodeVarInt(buffer1);
         var messageLength = (int) decodeVarInt(buffer1);
         var message = getBytes(new byte[messageLength], buffer1);
         var ackLength = (int) decodeVarInt(buffer1);
-        var ackData = getBytes(new byte[ackLength], buffer1);
+        byte[] ackData = null;
+        if (ackLength != 0) {
+          ackData = getBytes(new byte[ackLength], buffer1);
+        }
         var finalPosition = buffer1.position();
         var ecdsa = Signature.getInstance("ECDSA");
-        ecdsa.initVerify(factory.generatePublic(new ECPublicKeySpec(
-            new ECPoint(new BigInteger(1, plaintext, 6, 32), new BigInteger(1, plaintext, 38, 32)),
-            secp256k1Parameter)));
+        var x1 = new BigInteger(1, publicSignKey, 0, 32);
+        var y1 = new BigInteger(1, publicSignKey, 32, 32);
+        var keySpec = new ECPublicKeySpec(new ECPoint(x1, y1), secp256k1Parameter);
+        var publicKey1 = factory.generatePublic(keySpec);
+        ecdsa.initVerify(publicKey1);
         //ecdsa.initVerify(signPublicKey);
         // expires time, object type, version, stream number
         ecdsa.update(payload, 8, headerLength);
@@ -573,10 +634,22 @@ public class Factory {
         ecdsa.update(plaintext, 0, finalPosition);
         int signLength = (int) decodeVarInt(buffer1);
         if (ecdsa.verify(plaintext, buffer1.position(), signLength)) {
-          counts[2]++;
+          verified++;
+        } else {
+          if (Arrays.equals(generalRipe, toRipe)) {
+            generalCount++;
+          }
+          if (peek) {
+            peek = false;
+            ecdsa.initVerify(publicKey1);
+            ecdsa.update((byte) 3);
+            ecdsa.update(plaintext, 1, finalPosition);
+            System.out.println(ecdsa.verify(plaintext, buffer1.position(), signLength));
+          }
         }
       }
-      System.out.printf("OK: %d(verified: %d), NG: %d%n", counts[0], counts[2], counts[1]);
+      System.out.printf("OK: %d(verified: %d), NG: %d%n", okCount, verified, ngCount);
+      System.out.println("is general: " + generalCount);
     }
   }
 
@@ -592,16 +665,12 @@ public class Factory {
 
   private static long decodeVarInt(ByteBuffer buffer) {
     var first = buffer.get();
-    if (Byte.compareUnsigned(first, (byte) 0xfd) < 0) {
-      return first & 0xffL;
-    } else if (first == (byte) 0xfd) {
-      return buffer.getShort() & 0xffffL;
-    } else if (first == (byte) 0xfe) {
-      return buffer.getInt() & 0xffffffffL;
-    } else {
-      assert first == (byte) 0xff;
-      return buffer.getLong();
-    }
+    return switch (first) {
+      case (byte) 0xff -> buffer.getLong();
+      case (byte) 0xfe -> buffer.getInt() & 0xffffffffL;
+      case (byte) 0xfd -> buffer.getShort() & 0xffffL;
+      default -> first & 0xffL;
+    };
   }
 
   private static void extracted(String[] args) throws IOException, NoSuchAlgorithmException {
@@ -626,16 +695,15 @@ public class Factory {
             ripemd160.digest(sha512.digest()))));
   }
 
+  private record DecodedAddress(String toAddress, byte[] toripe) {
+
+  }
+
   private record Key(byte[] key) implements Comparable<Key> {
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-      return super.clone();
-    }
-
-    @Override
     public String toString() {
-      return "Key{" + "key=" + HexFormat.of().formatHex(key) + '}';
+      return "Key{key=" + FORMAT.formatHex(key) + '}';
     }
 
     @Override

@@ -76,22 +76,23 @@ public class EllipticCurveIntegratedEncryptionScheme {
 
       var mac = Mac.getInstance("HmacSHA256");
       // encode iv and public key
-      var pubKey = getPublicKey((ECPublicKey) ephemeralKeyPair.getPublic());
-      var publicKeyLength = pubKey.length;
-      var messageLength = message.length;
-      var outputSize = aes.getOutputSize(messageLength);
-      int prefixLength = ivSize + publicKeyLength;
+      // key.getEncoded()では長さと鍵の組み合わせに変換するのが面倒だから
+      var q = ((ECPublicKey) ephemeralKeyPair.getPublic()).getQ();
+      var x = q.getXCoord().getEncoded();
+      var y = q.getYCoord().getEncoded();
+      var outputSize = aes.getOutputSize(message.length);
+      var prefixLength = ivSize + 6 + x.length + y.length;
       var encryptedLength = prefixLength + outputSize;
       var ciphertext = new byte[encryptedLength + mac.getMacLength()];
-      System.arraycopy(iv, 0, ciphertext, 0, ivSize);
-      System.arraycopy(pubKey, 0, ciphertext, ivSize, publicKeyLength);
+      var buf = putPublicKey(ciphertext, encryptedLength, iv, x, y);
 
       // encrypt
-      aes.doFinal(message, 0, messageLength, ciphertext, prefixLength);
+      aes.doFinal(ByteBuffer.wrap(message), buf);
+      buf.flip();
 
       // generate mac code
       mac.init(new SecretKeySpec(secret.key_m(), "MAC"));
-      mac.update(ciphertext, 0, encryptedLength);
+      mac.update(buf);
       mac.doFinal(ciphertext, encryptedLength);
       return ciphertext;
     } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException |
@@ -99,6 +100,14 @@ public class EllipticCurveIntegratedEncryptionScheme {
              BadPaddingException | ShortBufferException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private static ByteBuffer putPublicKey(byte[] ciphertext, int encryptedLength, byte[] iv,
+      byte[] x, byte[] y) {
+    var buf = ByteBuffer.wrap(ciphertext, 0, encryptedLength);
+    buf.put(iv).putShort((short) 0x02CA)
+        .putShort((short) x.length).put(x).putShort((short) y.length).put(y).array();
+    return buf;
   }
 
   private static SharedKeys generateSharedSecret(ECPublicKey publicKey, ECPrivateKey privateKey)
@@ -122,15 +131,6 @@ public class EllipticCurveIntegratedEncryptionScheme {
     agreement.doPhase(publicKey, true);
     var secret = agreement.generateSecret();
     return MessageDigest.getInstance("SHA-512").digest(secret);
-  }
-
-  private static byte[] getPublicKey(ECPublicKey key) {
-    // key.getEncoded()では長さと鍵の組み合わせに変換するのが面倒だから
-    var q = key.getQ();
-    var x = q.getXCoord().getEncoded();
-    var y = q.getYCoord().getEncoded();
-    return ByteBuffer.allocate(6 + x.length + y.length).putShort((short) 0x02CA)
-        .putShort((short) x.length).put(x).putShort((short) y.length).put(y).array();
   }
 
   public static KeyPair generateEcKeyPair() {
