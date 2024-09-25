@@ -23,8 +23,10 @@ import java.awt.AWTException;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.RandomAccessFile;
 import java.io.UncheckedIOException;
 import java.math.BigInteger;
@@ -38,6 +40,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.AlgorithmParameters;
 import java.security.DigestException;
@@ -62,6 +65,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.HexFormat;
+import java.util.List;
 import java.util.Objects;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -83,6 +87,8 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import org.apache.logging.log4j.util.InternalException;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
 
 public class Factory {
@@ -91,8 +97,12 @@ public class Factory {
   public static final HexFormat FORMAT = HexFormat.of();
   private static final ECParameterSpec secp256k1Parameter;
   private static final KeyFactory factory;
+  private static final Logger logger = LoggerFactory.getLogger(Factory.class);
+  private static final byte[] generalRipe = new byte[20];
 
   static {
+    var tmp = Base58.decode("2cW67GEKkHGonXKZLCzouLLxnLym3azS8r");
+    System.arraycopy(tmp, 2, generalRipe, 20 - (tmp.length - 6), tmp.length - 6);
     try {
       final var parameters = AlgorithmParameters.getInstance("EC");
       parameters.init(new ECGenParameterSpec("secp256k1"));
@@ -326,7 +336,70 @@ public class Factory {
         var bitLength = 1L << 33;
         PrimeSearch.getSieve(bitLength, bitLength + "bit-smallsieve.obj");
       }
-      case "attack" -> PrimeSearch.getConvertedStep(0);
+      case "attack" -> {
+        if (args.length == 1) {
+          PrimeSearch.getConvertedStep();
+        } else {
+          PrimeSearch.getConvertedStep(Integer.parseInt(args[1]));
+        }
+      }
+      case "create" -> PrimeSearch.createLargeSieve();
+      case "diff" -> {
+        long[] array1;
+        try (var a = new ObjectInputStream(
+            new ByteArrayInputStream(Files.readAllBytes(Path.of(args[1]))))) {
+          a.readInt();
+          array1 = (long[]) a.readObject();
+        }
+        long[] array2;
+        try (var b = new ObjectInputStream(
+            new ByteArrayInputStream(Files.readAllBytes(Path.of(args[2]))))) {
+          b.readInt();
+          array2 = (long[]) b.readObject();
+        }
+        for (int i = 0; i < array1.length; i++) {
+          System.out.printf("%016x", array1[i] ^ array2[i]);
+          switch (i % 8) {
+            case 7:
+              System.out.println();
+              break;
+            case 3:
+              System.out.print("  ");
+              break;
+            default:
+              System.out.print(' ');
+              break;
+          }
+        }
+      }
+      case "out" -> {
+        long[] array1;
+        try (var a = new ObjectInputStream(
+            new ByteArrayInputStream(Files.readAllBytes(Path.of(args[1]))))) {
+          a.readInt();
+          array1 = (long[]) a.readObject();
+        }
+        for (int i = 0; i < array1.length; i++) {
+          System.out.printf("%016x", ~array1[i]);
+          switch (i % 8) {
+            case 7:
+              System.out.println();
+              break;
+            case 3:
+              System.out.print("  ");
+              break;
+            default:
+              System.out.print(' ');
+              break;
+          }
+        }
+      }
+      case "export" -> {
+        var p = PrimeSearch.loadEvenNumber(
+            Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"));
+        Files.write(Path.of("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.txt"),
+            List.of(p.toString()), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+      }
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
@@ -542,9 +615,6 @@ public class Factory {
     var sha512 = MessageDigest.getInstance("SHA-512");
     var mac = Mac.getInstance("HmacSHA256");
     var peek = true;
-    var generalRipe = new byte[20];
-    var tmp = Base58.decode("2cW67GEKkHGonXKZLCzouLLxnLym3azS8r");
-    System.arraycopy(tmp, 2, generalRipe, 20 - (tmp.length - 6), tmp.length - 6);
     var generalCount = 0L;
     try (var connection = source.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
         "select hash, payload from inventory where objecttype = 2;")) {
@@ -616,6 +686,7 @@ public class Factory {
           nonceTrialsPerByte = decodeVarInt(buffer1);
           extraBytes = decodeVarInt(buffer1);
         }
+        // encryptionKey が同じアドレスの場合、toRipeででしか宛て先を特定できない
         var toRipe = getBytes(new byte[20], buffer1);
         var encodingType = decodeVarInt(buffer1);
         var messageLength = (int) decodeVarInt(buffer1);

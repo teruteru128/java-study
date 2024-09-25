@@ -1,28 +1,28 @@
 package com.github.teruteru128.foreign;
 
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.CL_DEVICE_TYPE_ALL;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.CL_MEM_COPY_HOST_PTR;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.CL_MEM_READ_WRITE;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clBuildProgram;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clCreateBuffer;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clCreateCommandQueueWithProperties;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clCreateContext;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clCreateKernel;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clCreateProgramWithSource;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clEnqueueNDRangeKernel;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clEnqueueReadBuffer;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clFinish;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clGetDeviceIDs;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clGetKernelWorkGroupInfo;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clGetPlatformIDs;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clReleaseCommandQueue;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clReleaseContext;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clReleaseDevice;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clReleaseKernel;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clReleaseProgram;
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.clSetKernelArg;
-import static com.github.teruteru128.foreign.opencl.opencl_h_2.CL_KERNEL_WORK_GROUP_SIZE;
-import static com.github.teruteru128.foreign.opencl.opencl_h_2.CL_TRUE;
+import static com.github.teruteru128.foreign.opencl.opencl_h.CL_DEVICE_TYPE_ALL;
+import static com.github.teruteru128.foreign.opencl.opencl_h.CL_KERNEL_WORK_GROUP_SIZE;
+import static com.github.teruteru128.foreign.opencl.opencl_h.CL_MEM_COPY_HOST_PTR;
+import static com.github.teruteru128.foreign.opencl.opencl_h.CL_MEM_READ_WRITE;
+import static com.github.teruteru128.foreign.opencl.opencl_h.CL_TRUE;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clBuildProgram;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clCreateBuffer;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clCreateCommandQueueWithProperties;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clCreateContext;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clCreateKernel;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clCreateProgramWithSource;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clEnqueueNDRangeKernel;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clEnqueueReadBuffer;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clFinish;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clGetDeviceIDs;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clGetKernelWorkGroupInfo;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clGetPlatformIDs;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clReleaseCommandQueue;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clReleaseContext;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clReleaseDevice;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clReleaseKernel;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clReleaseProgram;
+import static com.github.teruteru128.foreign.opencl.opencl_h.clSetKernelArg;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.ADDRESS;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
@@ -44,9 +44,12 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
+import picocli.CommandLine.Command;
 
-public class CL implements AutoCloseable {
+@Command(name = "cl")
+public class CL implements AutoCloseable, Callable<Integer> {
 
   static final Linker linker = Linker.nativeLinker();
   private final Arena confined = Arena.ofConfined();
@@ -58,11 +61,10 @@ public class CL implements AutoCloseable {
   private MemorySegment kernel;
 
   public CL() {
-    initCL();
   }
 
   private static void callback(MemorySegment cal, MemorySegment v) {
-    System.out.printf("ウンチが漏れました！: 0x%016x, 0x%016x%n", cal.address(), v.address());
+    System.out.printf("う　ん　こ　も　り　も　り: 0x%016x, 0x%016x%n", cal.address(), v.address());
   }
 
   private void initCL() {
@@ -104,13 +106,14 @@ public class CL implements AutoCloseable {
     if (ret_ptr.get(JAVA_INT, 0) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
     }
-    commandQueue = Objects.requireNonNull(commandQueue).reinterpret(auto, opencl_h::clReleaseCommandQueue);
+    commandQueue = Objects.requireNonNull(commandQueue)
+        .reinterpret(auto, opencl_h::clReleaseCommandQueue);
     // ソースコード読み込み
     // ファイルシステムを読み込んでリソースから文字列を読み込む
     // 面倒くさい
     String s;
     try {
-      var uri = Objects.requireNonNull(Main.class.getResource("sample.cl")).toURI();
+      var uri = Objects.requireNonNull(getClass().getResource("sample.cl")).toURI();
       try (var jarFS = FileSystems.newFileSystem(uri, Map.of("create", "true"))) {
         s = Files.readString(jarFS.provider().getPath(uri));
       }
@@ -154,12 +157,14 @@ public class CL implements AutoCloseable {
    * @see <a
    * href="https://docs.oracle.com/javase/jp/21/core/call-native-functions-jextract.html#GUID-480A7E64-531A-4C88-800F-810FF87F24A1">jextract</a>
    */
-  void cl() {
+  public Integer call() {
+    initCL();
     var auto = Arena.ofAuto();
     int ret;
     var ret_ptr = auto.allocate(JAVA_INT);
     var workGroupSize = confined.allocate(JAVA_LONG);
-    if ((ret = clGetKernelWorkGroupInfo(kernel, deviceIds.get(ADDRESS, 0), CL_KERNEL_WORK_GROUP_SIZE(),
+    if ((ret = clGetKernelWorkGroupInfo(kernel, deviceIds.get(ADDRESS, 0),
+        CL_KERNEL_WORK_GROUP_SIZE(),
         JAVA_LONG.byteSize(), workGroupSize, NULL)) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
@@ -227,6 +232,7 @@ public class CL implements AutoCloseable {
     clReleaseKernel(kernel);
     clReleaseProgram(program);
     clReleaseContext(context);
+    return 0;
   }
 
   @Override

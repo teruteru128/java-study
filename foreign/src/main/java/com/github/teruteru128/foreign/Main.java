@@ -16,13 +16,17 @@ import java.security.Provider;
 import java.security.Security;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Parameters;
 
-public class Main implements Callable<Void> {
+public class Main implements Callable<Integer> {
 
-  private final String[] args;
+  private final Arena arena = Arena.ofConfined();
+  @Parameters
+  private String[] msg = {"\uD83D\uDCA9"};
 
-  public Main(String[] args) {
-    this.args = args;
+  public Main() {
   }
 
   public static void main(String[] args)
@@ -32,12 +36,13 @@ public class Main implements Callable<Void> {
         Security.addProvider(provider);
       }
     }
-    var main = new Main(args);
-    main.call();
+    int exitCode = new CommandLine(new Main()).addSubcommand("cl", new CL())
+        .addSubcommand("gmp", new GMP()).execute(args);
+    Runtime.getRuntime().exit(exitCode);
   }
 
   @Override
-  public Void call() throws NoSuchMethodException, IllegalAccessException, IOException {
+  public Integer call() throws NoSuchMethodException, IllegalAccessException, IOException {
     // でも本当にほしいのはSocketとかファイルとかMessageDigestとかの連携なんだよね……
     // もしかしてネイティブライブラリにアクセスできるならOpenSSLにアクセスもできる……？
     // OpenCLもアクセスできるっぽい
@@ -52,23 +57,29 @@ public class Main implements Callable<Void> {
     // TODO ConfinedとAutoを使い分ける
     // Confined: malloc
     // Auto: alloca
-    try (var arena = Arena.ofConfined(); var cl = new CL()) {
-      var length = args.length;
-      for (int i = 0; i < length; i++) {
-        System.out.printf("strlen(args[%d]) = %s%n", i, strlen(arena.allocateFrom(args[i])));
-      }
-      cl.cl();
-      var locale = Locale.setlocale(0, arena.allocateFrom("Japanese_Japan.65001"));
-      var len = strlen(locale);
-      var loc = locale.reinterpret(len + 1);
-      System.out.println(loc.getString(0));
-      BCrypt.SHA256(args.length >= 1 ? args[0] : "\uD83D\uDCA9");
-      mutexSample(arena);
+    var length = msg.length;
+    for (int i = 0; i < length; i++) {
+      System.out.printf("strlen(args[%d]) = %s%n", i, strlen(arena.allocateFrom(msg[i])));
+    }
+    if (msg.length >= 1) {
+      BCrypt.SHA256(msg[0]);
     }
     return null;
   }
 
-  public void mutexSample(Arena arena) {
+  @Command(name = "locale")
+  int locale() {
+    try (var arena = Arena.ofConfined()) {
+      var locale = Locale.setlocale(0, arena.allocateFrom("Japanese_Japan.65001"));
+      var len = strlen(locale);
+      var loc = locale.reinterpret(len + 1);
+      System.out.println(loc.getString(0));
+    }
+    return 0;
+  }
+
+  @Command(name = "mutex")
+  public void mutexSample() {
     System.loadLibrary("Kernel32");
     var name = arena.allocateFrom("munchie");
     var mutexHandle = CreateMutexExA(NULL, name, 0, 0).reinterpret(arena, Windows_h::CloseHandle);

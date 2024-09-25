@@ -18,6 +18,7 @@ include("christmas")
 include("develop")
 include("encode")
 include("foreign")
+include("gmp")
 include("resources")
 include("opencl")
 include("slime")
@@ -26,4 +27,3 @@ include("windows")
 include("setjmp")
 include 'sample'
 include 'scheduled-pathping'
-

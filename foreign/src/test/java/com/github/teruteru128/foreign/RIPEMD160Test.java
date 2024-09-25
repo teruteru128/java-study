@@ -61,7 +61,7 @@ public class RIPEMD160Test {
       throw new RuntimeException();
     }
     String s;
-    var uri = Objects.requireNonNull(RIPEMD160Test.class.getResource("ripemd160.cl")).toURI();
+    var uri = Objects.requireNonNull(RIPEMD160Test.class.getResource("ripemd160.call")).toURI();
     try (var jarFS = FileSystems.newFileSystem(uri, Map.of("create", "true"))) {
       s = Files.readString(jarFS.provider().getPath(uri));
     }
