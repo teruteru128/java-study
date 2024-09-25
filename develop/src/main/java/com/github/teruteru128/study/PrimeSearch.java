@@ -33,11 +33,12 @@ public class PrimeSearch {
   public static void getConvertedStep(int firstStep) throws IOException, ClassNotFoundException {
     var base = PrimeSearch.loadEvenNumber(
         Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"));
-    var sieve = PrimeSearch.loadLargeSieve();
+    var sieve = PrimeSearch.loadLargeSieve(Paths.get(
+        "largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-5.obj"));
     var a = new BitSet(sieve.length());
     a.set(0, sieve.length());
     a.andNot(sieve);
-    var q = a.stream().filter(i -> i >= firstStep).mapToLong(i -> i).filter(i -> {
+    var q = a.stream().filter(i -> i >= firstStep).asLongStream().filter(i -> {
       logger.debug("start: {}", i);
       var probablePrime = base.add(BigInteger.valueOf(2 * i + 1)).isProbablePrime(1);
       logger.info("step {} is {}", i, probablePrime);
@@ -94,10 +95,9 @@ public class PrimeSearch {
     PrimeSearch.outputObj(path, PrimeSearch.createEvenNumber(bitLength));
   }
 
-  static BitSet loadLargeSieve() throws IOException, ClassNotFoundException {
+  static BitSet loadLargeSieve(Path path) throws IOException, ClassNotFoundException {
     long[] n = null;
-    try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(Paths.get(
-        "largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-5.obj"))))) {
+    try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(path)))) {
       ois.readInt();
       n = (long[]) ois.readObject();
     }

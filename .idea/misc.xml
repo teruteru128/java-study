@@ -5,6 +5,7 @@
       <item index="0" class="java.lang.String" itemvalue="picocli.CommandLine.Command" />
     </list>
     <writeAnnotations>
+      <writeAnnotation name="picocli.CommandLine.Option" />
       <writeAnnotation name="picocli.CommandLine.Parameters" />
     </writeAnnotations>
   </component>
