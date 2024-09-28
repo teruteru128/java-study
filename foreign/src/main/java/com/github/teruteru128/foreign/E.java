@@ -31,17 +31,14 @@ public class E implements Callable<Integer> {
 
   @Override
   public Integer call() throws Exception {
-    MemorySegment prefixSegment;
-    MemorySegment primeSegment;
-    MemorySegment f;
     long start;
     long finish;
     try (var arena = Arena.ofConfined()) {
-      prefixSegment = arena.allocate(__mpz_struct.layout(), 2);
-      primeSegment = prefixSegment.asSlice(__mpz_struct.sizeof(), __mpz_struct.sizeof());
+      MemorySegment prefixSegment = arena.allocate(__mpz_struct.layout(), 2);
+      MemorySegment primeSegment = prefixSegment.asSlice(__mpz_struct.sizeof(),
+          __mpz_struct.sizeof());
       var byteArray = prefixNumber.toByteArray();
-      __gmpz_inits.makeInvoker(ADDRESS, ADDRESS)
-          .apply(prefixSegment, primeSegment, NULL);
+      __gmpz_inits.makeInvoker(ADDRESS, ADDRESS).apply(prefixSegment, primeSegment, NULL);
       // set
       __gmpz_import(prefixSegment, byteArray.length, 1, JAVA_BYTE.byteSize(), 1, 0,
           arena.allocateFrom(JAVA_BYTE, byteArray));
@@ -63,12 +60,11 @@ public class E implements Callable<Integer> {
         __gmpz_add_ui(prefixSegment, prefixSegment, 1);
       }
       var e = __gmpz_sizeinbase(primeSegment, 10) + 2;
-      f = arena.allocate(e);
+      MemorySegment formatedPrime = arena.allocate(e);
+      __gmpz_get_str(formatedPrime, 10, prefixSegment);
+      System.out.println(prefixNumber.toString().equals(formatedPrime.getString(0)));
+      __gmpz_clears.makeInvoker(ADDRESS, ADDRESS).apply(prefixSegment, primeSegment, NULL);
     }
-    __gmpz_get_str(f, 10, prefixSegment);
-    System.out.println(prefixNumber.toString().equals(f.getString(0)));
-    __gmpz_clears.makeInvoker(ADDRESS, ADDRESS)
-        .apply(prefixSegment, primeSegment, NULL);
     return 0;
   }
 }
