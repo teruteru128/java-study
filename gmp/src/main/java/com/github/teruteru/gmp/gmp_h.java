@@ -1121,7 +1121,7 @@ public class gmp_h {
      * void __gmp_randinit_lc_2exp(gmp_randstate_ptr, mpz_srcptr, unsigned long, mp_bitcnt_t)
      * }
      */
-    public static void __gmp_randinit_lc_2exp(MemorySegment x0, MemorySegment x1, int x2, int x3) {
+    public static void __gmp_randinit_lc_2exp(MemorySegment x0, MemorySegment x1, long x2, long x3) {
         var mh$ = __gmp_randinit_lc_2exp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -1169,7 +1169,7 @@ public class gmp_h {
      * int __gmp_randinit_lc_2exp_size(gmp_randstate_ptr, mp_bitcnt_t)
      * }
      */
-    public static int __gmp_randinit_lc_2exp_size(MemorySegment x0, int x1) {
+    public static int __gmp_randinit_lc_2exp_size(MemorySegment x0, long x1) {
         var mh$ = __gmp_randinit_lc_2exp_size.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -1941,7 +1941,7 @@ public class gmp_h {
      * void *__gmpz_realloc(mpz_ptr, mp_size_t)
      * }
      */
-    public static MemorySegment __gmpz_realloc(MemorySegment x0, int x1) {
+    public static MemorySegment __gmpz_realloc(MemorySegment x0, long x1) {
         var mh$ = __gmpz_realloc.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -2229,7 +2229,7 @@ public class gmp_h {
      * void __gmpz_array_init(mpz_ptr, mp_size_t, mp_size_t)
      * }
      */
-    public static void __gmpz_array_init(MemorySegment x0, int x1, int x2) {
+    public static void __gmpz_array_init(MemorySegment x0, long x1, long x2) {
         var mh$ = __gmpz_array_init.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -2421,7 +2421,7 @@ public class gmp_h {
      * void __gmpz_cdiv_q_2exp(mpz_ptr, mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_cdiv_q_2exp(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpz_cdiv_q_2exp(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_cdiv_q_2exp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -2665,7 +2665,7 @@ public class gmp_h {
      * void __gmpz_cdiv_r_2exp(mpz_ptr, mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_cdiv_r_2exp(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpz_cdiv_r_2exp(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_cdiv_r_2exp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -2919,7 +2919,7 @@ public class gmp_h {
      * void __gmpz_clrbit(mpz_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_clrbit(MemorySegment x0, int x1) {
+    public static void __gmpz_clrbit(MemorySegment x0, long x1) {
         var mh$ = __gmpz_clrbit.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -3349,7 +3349,7 @@ public class gmp_h {
      * void __gmpz_combit(mpz_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_combit(MemorySegment x0, int x1) {
+    public static void __gmpz_combit(MemorySegment x0, long x1) {
         var mh$ = __gmpz_combit.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -3447,7 +3447,7 @@ public class gmp_h {
      * int __gmpz_congruent_2exp_p(mpz_srcptr, mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static int __gmpz_congruent_2exp_p(MemorySegment x0, MemorySegment x1, int x2) {
+    public static int __gmpz_congruent_2exp_p(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_congruent_2exp_p.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -3736,7 +3736,7 @@ public class gmp_h {
      * int __gmpz_divisible_2exp_p(mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static int __gmpz_divisible_2exp_p(MemorySegment x0, int x1) {
+    public static int __gmpz_divisible_2exp_p(MemorySegment x0, long x1) {
         var mh$ = __gmpz_divisible_2exp_p.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -4120,7 +4120,7 @@ public class gmp_h {
      * void __gmpz_fdiv_q_2exp(mpz_ptr, mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_fdiv_q_2exp(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpz_fdiv_q_2exp(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_fdiv_q_2exp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -4364,7 +4364,7 @@ public class gmp_h {
      * void __gmpz_fdiv_r_2exp(mpz_ptr, mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_fdiv_r_2exp(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpz_fdiv_r_2exp(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_fdiv_r_2exp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -5083,13 +5083,13 @@ public class gmp_h {
      * mp_bitcnt_t __gmpz_hamdist(mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static int __gmpz_hamdist(MemorySegment x0, MemorySegment x1) {
+    public static long __gmpz_hamdist(MemorySegment x0, MemorySegment x1) {
         var mh$ = __gmpz_hamdist.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpz_hamdist", x0, x1);
             }
-            return (int)mh$.invokeExact(x0, x1);
+            return (long)mh$.invokeExact(x0, x1);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -5228,7 +5228,7 @@ public class gmp_h {
      * void __gmpz_init2(mpz_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_init2(MemorySegment x0, int x1) {
+    public static void __gmpz_init2(MemorySegment x0, long x1) {
         var mh$ = __gmpz_init2.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6777,7 +6777,7 @@ public class gmp_h {
      * void __gmpz_random(mpz_ptr, mp_size_t)
      * }
      */
-    public static void __gmpz_random(MemorySegment x0, int x1) {
+    public static void __gmpz_random(MemorySegment x0, long x1) {
         var mh$ = __gmpz_random.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6824,7 +6824,7 @@ public class gmp_h {
      * void __gmpz_random2(mpz_ptr, mp_size_t)
      * }
      */
-    public static void __gmpz_random2(MemorySegment x0, int x1) {
+    public static void __gmpz_random2(MemorySegment x0, long x1) {
         var mh$ = __gmpz_random2.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -7120,7 +7120,7 @@ public class gmp_h {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpz_scan0", x0, x1);
             }
-            return (int)mh$.invokeExact(x0, x1);
+            return (long)mh$.invokeExact(x0, x1);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -7168,7 +7168,7 @@ public class gmp_h {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpz_scan1", x0, x1);
             }
-            return (int)mh$.invokeExact(x0, x1);
+            return (long)mh$.invokeExact(x0, x1);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -8067,7 +8067,7 @@ public class gmp_h {
      * void __gmpz_tdiv_q_2exp(mpz_ptr, mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_tdiv_q_2exp(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpz_tdiv_q_2exp(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_tdiv_q_2exp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -8311,7 +8311,7 @@ public class gmp_h {
      * void __gmpz_tdiv_r_2exp(mpz_ptr, mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_tdiv_r_2exp(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpz_tdiv_r_2exp(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_tdiv_r_2exp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -8408,7 +8408,7 @@ public class gmp_h {
      * int __gmpz_tstbit(mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static int __gmpz_tstbit(MemorySegment x0, int x1) {
+    public static int __gmpz_tstbit(MemorySegment x0, long x1) {
         var mh$ = __gmpz_tstbit.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -8504,7 +8504,7 @@ public class gmp_h {
      * void __gmpz_urandomb(mpz_ptr, gmp_randstate_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_urandomb(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpz_urandomb(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_urandomb.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -8695,7 +8695,7 @@ public class gmp_h {
      * mp_ptr __gmpz_limbs_write(mpz_ptr, mp_size_t)
      * }
      */
-    public static MemorySegment __gmpz_limbs_write(MemorySegment x0, int x1) {
+    public static MemorySegment __gmpz_limbs_write(MemorySegment x0, long x1) {
         var mh$ = __gmpz_limbs_write.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -8743,7 +8743,7 @@ public class gmp_h {
      * mp_ptr __gmpz_limbs_modify(mpz_ptr, mp_size_t)
      * }
      */
-    public static MemorySegment __gmpz_limbs_modify(MemorySegment x0, int x1) {
+    public static MemorySegment __gmpz_limbs_modify(MemorySegment x0, long x1) {
         var mh$ = __gmpz_limbs_modify.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -8790,7 +8790,7 @@ public class gmp_h {
      * void __gmpz_limbs_finish(mpz_ptr, mp_size_t)
      * }
      */
-    public static void __gmpz_limbs_finish(MemorySegment x0, int x1) {
+    public static void __gmpz_limbs_finish(MemorySegment x0, long x1) {
         var mh$ = __gmpz_limbs_finish.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -8839,7 +8839,7 @@ public class gmp_h {
      * mpz_srcptr __gmpz_roinit_n(mpz_ptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static MemorySegment __gmpz_roinit_n(MemorySegment x0, MemorySegment x1, int x2) {
+    public static MemorySegment __gmpz_roinit_n(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_roinit_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -9333,7 +9333,7 @@ public class gmp_h {
      * void __gmpq_div_2exp(mpq_ptr, mpq_srcptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpq_div_2exp(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpq_div_2exp(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpq_div_2exp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -9824,7 +9824,7 @@ public class gmp_h {
      * void __gmpq_mul_2exp(mpq_ptr, mpq_srcptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpq_mul_2exp(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpq_mul_2exp(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpq_mul_2exp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -10982,7 +10982,7 @@ public class gmp_h {
      * void __gmpf_div_2exp(mpf_ptr, mpf_srcptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpf_div_2exp(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpf_div_2exp(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpf_div_2exp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -11125,7 +11125,7 @@ public class gmp_h {
      * int __gmpf_eq(mpf_srcptr, mpf_srcptr, mp_bitcnt_t)
      * }
      */
-    public static int __gmpf_eq(MemorySegment x0, MemorySegment x1, int x2) {
+    public static int __gmpf_eq(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpf_eq.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -11594,13 +11594,13 @@ public class gmp_h {
      * mp_bitcnt_t __gmpf_get_default_prec()
      * }
      */
-    public static int __gmpf_get_default_prec() {
+    public static long __gmpf_get_default_prec() {
         var mh$ = __gmpf_get_default_prec.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpf_get_default_prec");
             }
-            return (int)mh$.invokeExact();
+            return (long)mh$.invokeExact();
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -11641,13 +11641,13 @@ public class gmp_h {
      * mp_bitcnt_t __gmpf_get_prec(mpf_srcptr)
      * }
      */
-    public static int __gmpf_get_prec(MemorySegment x0) {
+    public static long __gmpf_get_prec(MemorySegment x0) {
         var mh$ = __gmpf_get_prec.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpf_get_prec", x0);
             }
-            return (int)mh$.invokeExact(x0);
+            return (long)mh$.invokeExact(x0);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -11739,7 +11739,7 @@ public class gmp_h {
      * char *__gmpf_get_str(char *, mp_exp_t *, int, size_t, mpf_srcptr)
      * }
      */
-    public static MemorySegment __gmpf_get_str(MemorySegment x0, MemorySegment x1, int x2, long x3, MemorySegment x4) {
+    public static MemorySegment __gmpf_get_str(MemorySegment x0, MemorySegment x1, long x2, long x3, MemorySegment x4) {
         var mh$ = __gmpf_get_str.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -11879,7 +11879,7 @@ public class gmp_h {
      * void __gmpf_init2(mpf_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpf_init2(MemorySegment x0, int x1) {
+    public static void __gmpf_init2(MemorySegment x0, long x1) {
         var mh$ = __gmpf_init2.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -12323,7 +12323,7 @@ public class gmp_h {
      * void __gmpf_mul_2exp(mpf_ptr, mpf_srcptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpf_mul_2exp(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpf_mul_2exp(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpf_mul_2exp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -12514,7 +12514,7 @@ public class gmp_h {
      * void __gmpf_random2(mpf_ptr, mp_size_t, mp_exp_t)
      * }
      */
-    public static void __gmpf_random2(MemorySegment x0, int x1, int x2) {
+    public static void __gmpf_random2(MemorySegment x0, long x1, long x2) {
         var mh$ = __gmpf_random2.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -12702,7 +12702,7 @@ public class gmp_h {
      * void __gmpf_set_default_prec(mp_bitcnt_t)
      * }
      */
-    public static void __gmpf_set_default_prec(int x0) {
+    public static void __gmpf_set_default_prec(long x0) {
         var mh$ = __gmpf_set_default_prec.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -12749,7 +12749,7 @@ public class gmp_h {
      * void __gmpf_set_prec(mpf_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpf_set_prec(MemorySegment x0, int x1) {
+    public static void __gmpf_set_prec(MemorySegment x0, long x1) {
         var mh$ = __gmpf_set_prec.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -12796,7 +12796,7 @@ public class gmp_h {
      * void __gmpf_set_prec_raw(mpf_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpf_set_prec_raw(MemorySegment x0, int x1) {
+    public static void __gmpf_set_prec_raw(MemorySegment x0, long x1) {
         var mh$ = __gmpf_set_prec_raw.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -13508,7 +13508,7 @@ public class gmp_h {
      * void __gmpf_urandomb(mpf_ptr, gmp_randstate_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpf_urandomb(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpf_urandomb(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpf_urandomb.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -13558,7 +13558,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_add_n(mp_ptr, mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static long __gmpn_add_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3) {
+    public static long __gmpn_add_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_add_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -13608,7 +13608,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_addmul_1(mp_ptr, mp_srcptr, mp_size_t, mp_limb_t)
      * }
      */
-    public static long __gmpn_addmul_1(MemorySegment x0, MemorySegment x1, int x2, long x3) {
+    public static long __gmpn_addmul_1(MemorySegment x0, MemorySegment x1, long x2, long x3) {
         var mh$ = __gmpn_addmul_1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -13657,7 +13657,7 @@ public class gmp_h {
      * void __gmpn_divexact_1(mp_ptr, mp_srcptr, mp_size_t, mp_limb_t)
      * }
      */
-    public static void __gmpn_divexact_1(MemorySegment x0, MemorySegment x1, int x2, long x3) {
+    public static void __gmpn_divexact_1(MemorySegment x0, MemorySegment x1, long x2, long x3) {
         var mh$ = __gmpn_divexact_1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -13707,7 +13707,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_divexact_by3c(mp_ptr, mp_srcptr, mp_size_t, mp_limb_t)
      * }
      */
-    public static long __gmpn_divexact_by3c(MemorySegment x0, MemorySegment x1, int x2, long x3) {
+    public static long __gmpn_divexact_by3c(MemorySegment x0, MemorySegment x1, long x2, long x3) {
         var mh$ = __gmpn_divexact_by3c.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -13759,7 +13759,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_divrem(mp_ptr, mp_size_t, mp_ptr, mp_size_t, mp_srcptr, mp_size_t)
      * }
      */
-    public static long __gmpn_divrem(MemorySegment x0, int x1, MemorySegment x2, int x3, MemorySegment x4, int x5) {
+    public static long __gmpn_divrem(MemorySegment x0, long x1, MemorySegment x2, long x3, MemorySegment x4, long x5) {
         var mh$ = __gmpn_divrem.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -13810,7 +13810,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_divrem_1(mp_ptr, mp_size_t, mp_srcptr, mp_size_t, mp_limb_t)
      * }
      */
-    public static long __gmpn_divrem_1(MemorySegment x0, int x1, MemorySegment x2, int x3, long x4) {
+    public static long __gmpn_divrem_1(MemorySegment x0, long x1, MemorySegment x2, long x3, long x4) {
         var mh$ = __gmpn_divrem_1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -13861,7 +13861,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_divrem_2(mp_ptr, mp_size_t, mp_ptr, mp_size_t, mp_srcptr)
      * }
      */
-    public static long __gmpn_divrem_2(MemorySegment x0, int x1, MemorySegment x2, int x3, MemorySegment x4) {
+    public static long __gmpn_divrem_2(MemorySegment x0, long x1, MemorySegment x2, long x3, MemorySegment x4) {
         var mh$ = __gmpn_divrem_2.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -13912,7 +13912,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_div_qr_1(mp_ptr, mp_limb_t *, mp_srcptr, mp_size_t, mp_limb_t)
      * }
      */
-    public static long __gmpn_div_qr_1(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3, long x4) {
+    public static long __gmpn_div_qr_1(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3, long x4) {
         var mh$ = __gmpn_div_qr_1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -13963,7 +13963,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_div_qr_2(mp_ptr, mp_ptr, mp_srcptr, mp_size_t, mp_srcptr)
      * }
      */
-    public static long __gmpn_div_qr_2(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3, MemorySegment x4) {
+    public static long __gmpn_div_qr_2(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3, MemorySegment x4) {
         var mh$ = __gmpn_div_qr_2.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14014,13 +14014,13 @@ public class gmp_h {
      * mp_size_t __gmpn_gcd(mp_ptr, mp_ptr, mp_size_t, mp_ptr, mp_size_t)
      * }
      */
-    public static int __gmpn_gcd(MemorySegment x0, MemorySegment x1, int x2, MemorySegment x3, int x4) {
+    public static long __gmpn_gcd(MemorySegment x0, MemorySegment x1, long x2, MemorySegment x3, long x4) {
         var mh$ = __gmpn_gcd.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_gcd", x0, x1, x2, x3, x4);
             }
-            return (int)mh$.invokeExact(x0, x1, x2, x3, x4);
+            return (long)mh$.invokeExact(x0, x1, x2, x3, x4);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -14111,7 +14111,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_gcd_1(mp_srcptr, mp_size_t, mp_limb_t)
      * }
      */
-    public static long __gmpn_gcd_1(MemorySegment x0, int x1, long x2) {
+    public static long __gmpn_gcd_1(MemorySegment x0, long x1, long x2) {
         var mh$ = __gmpn_gcd_1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14214,13 +14214,13 @@ public class gmp_h {
      * mp_size_t __gmpn_gcdext(mp_ptr, mp_ptr, mp_size_t *, mp_ptr, mp_size_t, mp_ptr, mp_size_t)
      * }
      */
-    public static int __gmpn_gcdext(MemorySegment x0, MemorySegment x1, MemorySegment x2, MemorySegment x3, int x4, MemorySegment x5, int x6) {
+    public static long __gmpn_gcdext(MemorySegment x0, MemorySegment x1, MemorySegment x2, MemorySegment x3, long x4, MemorySegment x5, long x6) {
         var mh$ = __gmpn_gcdext.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_gcdext", x0, x1, x2, x3, x4, x5, x6);
             }
-            return (int)mh$.invokeExact(x0, x1, x2, x3, x4, x5, x6);
+            return (long)mh$.invokeExact(x0, x1, x2, x3, x4, x5, x6);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -14264,7 +14264,7 @@ public class gmp_h {
      * size_t __gmpn_get_str(unsigned char *, int, mp_ptr, mp_size_t)
      * }
      */
-    public static long __gmpn_get_str(MemorySegment x0, int x1, MemorySegment x2, int x3) {
+    public static long __gmpn_get_str(MemorySegment x0, int x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_get_str.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14313,13 +14313,13 @@ public class gmp_h {
      * mp_bitcnt_t __gmpn_hamdist(mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static int __gmpn_hamdist(MemorySegment x0, MemorySegment x1, int x2) {
+    public static long __gmpn_hamdist(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpn_hamdist.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_hamdist", x0, x1, x2);
             }
-            return (int)mh$.invokeExact(x0, x1, x2);
+            return (long)mh$.invokeExact(x0, x1, x2);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -14363,7 +14363,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_lshift(mp_ptr, mp_srcptr, mp_size_t, unsigned int)
      * }
      */
-    public static long __gmpn_lshift(MemorySegment x0, MemorySegment x1, int x2, int x3) {
+    public static long __gmpn_lshift(MemorySegment x0, MemorySegment x1, long x2, int x3) {
         var mh$ = __gmpn_lshift.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14412,7 +14412,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_mod_1(mp_srcptr, mp_size_t, mp_limb_t)
      * }
      */
-    public static long __gmpn_mod_1(MemorySegment x0, int x1, long x2) {
+    public static long __gmpn_mod_1(MemorySegment x0, long x1, long x2) {
         var mh$ = __gmpn_mod_1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14463,7 +14463,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_mul(mp_ptr, mp_srcptr, mp_size_t, mp_srcptr, mp_size_t)
      * }
      */
-    public static long __gmpn_mul(MemorySegment x0, MemorySegment x1, int x2, MemorySegment x3, int x4) {
+    public static long __gmpn_mul(MemorySegment x0, MemorySegment x1, long x2, MemorySegment x3, long x4) {
         var mh$ = __gmpn_mul.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14513,7 +14513,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_mul_1(mp_ptr, mp_srcptr, mp_size_t, mp_limb_t)
      * }
      */
-    public static long __gmpn_mul_1(MemorySegment x0, MemorySegment x1, int x2, long x3) {
+    public static long __gmpn_mul_1(MemorySegment x0, MemorySegment x1, long x2, long x3) {
         var mh$ = __gmpn_mul_1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14562,7 +14562,7 @@ public class gmp_h {
      * void __gmpn_mul_n(mp_ptr, mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_mul_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3) {
+    public static void __gmpn_mul_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_mul_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14610,7 +14610,7 @@ public class gmp_h {
      * void __gmpn_sqr(mp_ptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_sqr(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpn_sqr(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpn_sqr.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14658,7 +14658,7 @@ public class gmp_h {
      * void __gmpn_com(mp_ptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_com(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpn_com(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpn_com.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14706,7 +14706,7 @@ public class gmp_h {
      * int __gmpn_perfect_square_p(mp_srcptr, mp_size_t)
      * }
      */
-    public static int __gmpn_perfect_square_p(MemorySegment x0, int x1) {
+    public static int __gmpn_perfect_square_p(MemorySegment x0, long x1) {
         var mh$ = __gmpn_perfect_square_p.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14754,7 +14754,7 @@ public class gmp_h {
      * int __gmpn_perfect_power_p(mp_srcptr, mp_size_t)
      * }
      */
-    public static int __gmpn_perfect_power_p(MemorySegment x0, int x1) {
+    public static int __gmpn_perfect_power_p(MemorySegment x0, long x1) {
         var mh$ = __gmpn_perfect_power_p.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14802,13 +14802,13 @@ public class gmp_h {
      * mp_bitcnt_t __gmpn_popcount(mp_srcptr, mp_size_t)
      * }
      */
-    public static int __gmpn_popcount(MemorySegment x0, int x1) {
+    public static long __gmpn_popcount(MemorySegment x0, long x1) {
         var mh$ = __gmpn_popcount.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_popcount", x0, x1);
             }
-            return (int)mh$.invokeExact(x0, x1);
+            return (long)mh$.invokeExact(x0, x1);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -14853,13 +14853,13 @@ public class gmp_h {
      * mp_size_t __gmpn_pow_1(mp_ptr, mp_srcptr, mp_size_t, mp_limb_t, mp_ptr)
      * }
      */
-    public static int __gmpn_pow_1(MemorySegment x0, MemorySegment x1, int x2, long x3, MemorySegment x4) {
+    public static long __gmpn_pow_1(MemorySegment x0, MemorySegment x1, long x2, long x3, MemorySegment x4) {
         var mh$ = __gmpn_pow_1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_pow_1", x0, x1, x2, x3, x4);
             }
-            return (int)mh$.invokeExact(x0, x1, x2, x3, x4);
+            return (long)mh$.invokeExact(x0, x1, x2, x3, x4);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -14903,7 +14903,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_preinv_mod_1(mp_srcptr, mp_size_t, mp_limb_t, mp_limb_t)
      * }
      */
-    public static long __gmpn_preinv_mod_1(MemorySegment x0, int x1, long x2, long x3) {
+    public static long __gmpn_preinv_mod_1(MemorySegment x0, long x1, long x2, long x3) {
         var mh$ = __gmpn_preinv_mod_1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14950,7 +14950,7 @@ public class gmp_h {
      * void __gmpn_random(mp_ptr, mp_size_t)
      * }
      */
-    public static void __gmpn_random(MemorySegment x0, int x1) {
+    public static void __gmpn_random(MemorySegment x0, long x1) {
         var mh$ = __gmpn_random.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -14997,7 +14997,7 @@ public class gmp_h {
      * void __gmpn_random2(mp_ptr, mp_size_t)
      * }
      */
-    public static void __gmpn_random2(MemorySegment x0, int x1) {
+    public static void __gmpn_random2(MemorySegment x0, long x1) {
         var mh$ = __gmpn_random2.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15047,7 +15047,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_rshift(mp_ptr, mp_srcptr, mp_size_t, unsigned int)
      * }
      */
-    public static long __gmpn_rshift(MemorySegment x0, MemorySegment x1, int x2, int x3) {
+    public static long __gmpn_rshift(MemorySegment x0, MemorySegment x1, long x2, int x3) {
         var mh$ = __gmpn_rshift.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15095,13 +15095,13 @@ public class gmp_h {
      * mp_bitcnt_t __gmpn_scan0(mp_srcptr, mp_bitcnt_t)
      * }
      */
-    public static int __gmpn_scan0(MemorySegment x0, int x1) {
+    public static long __gmpn_scan0(MemorySegment x0, long x1) {
         var mh$ = __gmpn_scan0.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_scan0", x0, x1);
             }
-            return (int)mh$.invokeExact(x0, x1);
+            return (long)mh$.invokeExact(x0, x1);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -15143,13 +15143,13 @@ public class gmp_h {
      * mp_bitcnt_t __gmpn_scan1(mp_srcptr, mp_bitcnt_t)
      * }
      */
-    public static int __gmpn_scan1(MemorySegment x0, int x1) {
+    public static long __gmpn_scan1(MemorySegment x0, long x1) {
         var mh$ = __gmpn_scan1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_scan1", x0, x1);
             }
-            return (int)mh$.invokeExact(x0, x1);
+            return (long)mh$.invokeExact(x0, x1);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -15193,13 +15193,13 @@ public class gmp_h {
      * mp_size_t __gmpn_set_str(mp_ptr, const unsigned char *, size_t, int)
      * }
      */
-    public static int __gmpn_set_str(MemorySegment x0, MemorySegment x1, long x2, int x3) {
+    public static long __gmpn_set_str(MemorySegment x0, MemorySegment x1, long x2, int x3) {
         var mh$ = __gmpn_set_str.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_set_str", x0, x1, x2, x3);
             }
-            return (int)mh$.invokeExact(x0, x1, x2, x3);
+            return (long)mh$.invokeExact(x0, x1, x2, x3);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -15242,7 +15242,7 @@ public class gmp_h {
      * size_t __gmpn_sizeinbase(mp_srcptr, mp_size_t, int)
      * }
      */
-    public static long __gmpn_sizeinbase(MemorySegment x0, int x1, int x2) {
+    public static long __gmpn_sizeinbase(MemorySegment x0, long x1, int x2) {
         var mh$ = __gmpn_sizeinbase.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15292,13 +15292,13 @@ public class gmp_h {
      * mp_size_t __gmpn_sqrtrem(mp_ptr, mp_ptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static int __gmpn_sqrtrem(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3) {
+    public static long __gmpn_sqrtrem(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_sqrtrem.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_sqrtrem", x0, x1, x2, x3);
             }
-            return (int)mh$.invokeExact(x0, x1, x2, x3);
+            return (long)mh$.invokeExact(x0, x1, x2, x3);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -15342,7 +15342,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_sub_n(mp_ptr, mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static long __gmpn_sub_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3) {
+    public static long __gmpn_sub_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_sub_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15392,7 +15392,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_submul_1(mp_ptr, mp_srcptr, mp_size_t, mp_limb_t)
      * }
      */
-    public static long __gmpn_submul_1(MemorySegment x0, MemorySegment x1, int x2, long x3) {
+    public static long __gmpn_submul_1(MemorySegment x0, MemorySegment x1, long x2, long x3) {
         var mh$ = __gmpn_submul_1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15444,7 +15444,7 @@ public class gmp_h {
      * void __gmpn_tdiv_qr(mp_ptr, mp_ptr, mp_size_t, mp_srcptr, mp_size_t, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_tdiv_qr(MemorySegment x0, MemorySegment x1, int x2, MemorySegment x3, int x4, MemorySegment x5, int x6) {
+    public static void __gmpn_tdiv_qr(MemorySegment x0, MemorySegment x1, long x2, MemorySegment x3, long x4, MemorySegment x5, long x6) {
         var mh$ = __gmpn_tdiv_qr.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15493,7 +15493,7 @@ public class gmp_h {
      * void __gmpn_and_n(mp_ptr, mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_and_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3) {
+    public static void __gmpn_and_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_and_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15542,7 +15542,7 @@ public class gmp_h {
      * void __gmpn_andn_n(mp_ptr, mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_andn_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3) {
+    public static void __gmpn_andn_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_andn_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15591,7 +15591,7 @@ public class gmp_h {
      * void __gmpn_nand_n(mp_ptr, mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_nand_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3) {
+    public static void __gmpn_nand_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_nand_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15640,7 +15640,7 @@ public class gmp_h {
      * void __gmpn_ior_n(mp_ptr, mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_ior_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3) {
+    public static void __gmpn_ior_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_ior_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15689,7 +15689,7 @@ public class gmp_h {
      * void __gmpn_iorn_n(mp_ptr, mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_iorn_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3) {
+    public static void __gmpn_iorn_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_iorn_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15738,7 +15738,7 @@ public class gmp_h {
      * void __gmpn_nior_n(mp_ptr, mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_nior_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3) {
+    public static void __gmpn_nior_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_nior_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15787,7 +15787,7 @@ public class gmp_h {
      * void __gmpn_xor_n(mp_ptr, mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_xor_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3) {
+    public static void __gmpn_xor_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_xor_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15836,7 +15836,7 @@ public class gmp_h {
      * void __gmpn_xnor_n(mp_ptr, mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_xnor_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3) {
+    public static void __gmpn_xnor_n(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_xnor_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15884,7 +15884,7 @@ public class gmp_h {
      * void __gmpn_copyi(mp_ptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_copyi(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpn_copyi(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpn_copyi.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15932,7 +15932,7 @@ public class gmp_h {
      * void __gmpn_copyd(mp_ptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static void __gmpn_copyd(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpn_copyd(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpn_copyd.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -15979,7 +15979,7 @@ public class gmp_h {
      * void __gmpn_zero(mp_ptr, mp_size_t)
      * }
      */
-    public static void __gmpn_zero(MemorySegment x0, int x1) {
+    public static void __gmpn_zero(MemorySegment x0, long x1) {
         var mh$ = __gmpn_zero.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16030,7 +16030,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_cnd_add_n(mp_limb_t, mp_ptr, mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static long __gmpn_cnd_add_n(long x0, MemorySegment x1, MemorySegment x2, MemorySegment x3, int x4) {
+    public static long __gmpn_cnd_add_n(long x0, MemorySegment x1, MemorySegment x2, MemorySegment x3, long x4) {
         var mh$ = __gmpn_cnd_add_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16081,7 +16081,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_cnd_sub_n(mp_limb_t, mp_ptr, mp_srcptr, mp_srcptr, mp_size_t)
      * }
      */
-    public static long __gmpn_cnd_sub_n(long x0, MemorySegment x1, MemorySegment x2, MemorySegment x3, int x4) {
+    public static long __gmpn_cnd_sub_n(long x0, MemorySegment x1, MemorySegment x2, MemorySegment x3, long x4) {
         var mh$ = __gmpn_cnd_sub_n.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16132,7 +16132,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_sec_add_1(mp_ptr, mp_srcptr, mp_size_t, mp_limb_t, mp_ptr)
      * }
      */
-    public static long __gmpn_sec_add_1(MemorySegment x0, MemorySegment x1, int x2, long x3, MemorySegment x4) {
+    public static long __gmpn_sec_add_1(MemorySegment x0, MemorySegment x1, long x2, long x3, MemorySegment x4) {
         var mh$ = __gmpn_sec_add_1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16179,13 +16179,13 @@ public class gmp_h {
      * mp_size_t __gmpn_sec_add_1_itch(mp_size_t)
      * }
      */
-    public static int __gmpn_sec_add_1_itch(int x0) {
+    public static long __gmpn_sec_add_1_itch(long x0) {
         var mh$ = __gmpn_sec_add_1_itch.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_sec_add_1_itch", x0);
             }
-            return (int)mh$.invokeExact(x0);
+            return (long)mh$.invokeExact(x0);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -16230,7 +16230,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_sec_sub_1(mp_ptr, mp_srcptr, mp_size_t, mp_limb_t, mp_ptr)
      * }
      */
-    public static long __gmpn_sec_sub_1(MemorySegment x0, MemorySegment x1, int x2, long x3, MemorySegment x4) {
+    public static long __gmpn_sec_sub_1(MemorySegment x0, MemorySegment x1, long x2, long x3, MemorySegment x4) {
         var mh$ = __gmpn_sec_sub_1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16277,13 +16277,13 @@ public class gmp_h {
      * mp_size_t __gmpn_sec_sub_1_itch(mp_size_t)
      * }
      */
-    public static int __gmpn_sec_sub_1_itch(int x0) {
+    public static long __gmpn_sec_sub_1_itch(long x0) {
         var mh$ = __gmpn_sec_sub_1_itch.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_sec_sub_1_itch", x0);
             }
-            return (int)mh$.invokeExact(x0);
+            return (long)mh$.invokeExact(x0);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -16326,7 +16326,7 @@ public class gmp_h {
      * void __gmpn_cnd_swap(mp_limb_t, volatile mp_limb_t *, volatile mp_limb_t *, mp_size_t)
      * }
      */
-    public static void __gmpn_cnd_swap(long x0, MemorySegment x1, MemorySegment x2, int x3) {
+    public static void __gmpn_cnd_swap(long x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpn_cnd_swap.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16377,7 +16377,7 @@ public class gmp_h {
      * void __gmpn_sec_mul(mp_ptr, mp_srcptr, mp_size_t, mp_srcptr, mp_size_t, mp_ptr)
      * }
      */
-    public static void __gmpn_sec_mul(MemorySegment x0, MemorySegment x1, int x2, MemorySegment x3, int x4, MemorySegment x5) {
+    public static void __gmpn_sec_mul(MemorySegment x0, MemorySegment x1, long x2, MemorySegment x3, long x4, MemorySegment x5) {
         var mh$ = __gmpn_sec_mul.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16425,13 +16425,13 @@ public class gmp_h {
      * mp_size_t __gmpn_sec_mul_itch(mp_size_t, mp_size_t)
      * }
      */
-    public static int __gmpn_sec_mul_itch(int x0, int x1) {
+    public static long __gmpn_sec_mul_itch(long x0, long x1) {
         var mh$ = __gmpn_sec_mul_itch.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_sec_mul_itch", x0, x1);
             }
-            return (int)mh$.invokeExact(x0, x1);
+            return (long)mh$.invokeExact(x0, x1);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -16474,7 +16474,7 @@ public class gmp_h {
      * void __gmpn_sec_sqr(mp_ptr, mp_srcptr, mp_size_t, mp_ptr)
      * }
      */
-    public static void __gmpn_sec_sqr(MemorySegment x0, MemorySegment x1, int x2, MemorySegment x3) {
+    public static void __gmpn_sec_sqr(MemorySegment x0, MemorySegment x1, long x2, MemorySegment x3) {
         var mh$ = __gmpn_sec_sqr.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16521,7 +16521,7 @@ public class gmp_h {
      * mp_size_t __gmpn_sec_sqr_itch(mp_size_t)
      * }
      */
-    public static int __gmpn_sec_sqr_itch(int x0) {
+    public static long __gmpn_sec_sqr_itch(long x0) {
         var mh$ = __gmpn_sec_sqr_itch.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16574,7 +16574,7 @@ public class gmp_h {
      * void __gmpn_sec_powm(mp_ptr, mp_srcptr, mp_size_t, mp_srcptr, mp_bitcnt_t, mp_srcptr, mp_size_t, mp_ptr)
      * }
      */
-    public static void __gmpn_sec_powm(MemorySegment x0, MemorySegment x1, int x2, MemorySegment x3, int x4, MemorySegment x5, int x6, MemorySegment x7) {
+    public static void __gmpn_sec_powm(MemorySegment x0, MemorySegment x1, long x2, MemorySegment x3, long x4, MemorySegment x5, long x6, MemorySegment x7) {
         var mh$ = __gmpn_sec_powm.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16623,13 +16623,13 @@ public class gmp_h {
      * mp_size_t __gmpn_sec_powm_itch(mp_size_t, mp_bitcnt_t, mp_size_t)
      * }
      */
-    public static int __gmpn_sec_powm_itch(int x0, int x1, int x2) {
+    public static long __gmpn_sec_powm_itch(long x0, long x1, long x2) {
         var mh$ = __gmpn_sec_powm_itch.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_sec_powm_itch", x0, x1, x2);
             }
-            return (int)mh$.invokeExact(x0, x1, x2);
+            return (long)mh$.invokeExact(x0, x1, x2);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -16673,7 +16673,7 @@ public class gmp_h {
      * void __gmpn_sec_tabselect(volatile mp_limb_t *, const volatile mp_limb_t *, mp_size_t, mp_size_t, mp_size_t)
      * }
      */
-    public static void __gmpn_sec_tabselect(MemorySegment x0, MemorySegment x1, int x2, int x3, int x4) {
+    public static void __gmpn_sec_tabselect(MemorySegment x0, MemorySegment x1, long x2, long x3, long x4) {
         var mh$ = __gmpn_sec_tabselect.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16725,7 +16725,7 @@ public class gmp_h {
      * mp_limb_t __gmpn_sec_div_qr(mp_ptr, mp_ptr, mp_size_t, mp_srcptr, mp_size_t, mp_ptr)
      * }
      */
-    public static long __gmpn_sec_div_qr(MemorySegment x0, MemorySegment x1, int x2, MemorySegment x3, int x4, MemorySegment x5) {
+    public static long __gmpn_sec_div_qr(MemorySegment x0, MemorySegment x1, long x2, MemorySegment x3, long x4, MemorySegment x5) {
         var mh$ = __gmpn_sec_div_qr.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16773,13 +16773,13 @@ public class gmp_h {
      * mp_size_t __gmpn_sec_div_qr_itch(mp_size_t, mp_size_t)
      * }
      */
-    public static int __gmpn_sec_div_qr_itch(int x0, int x1) {
+    public static long __gmpn_sec_div_qr_itch(long x0, long x1) {
         var mh$ = __gmpn_sec_div_qr_itch.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_sec_div_qr_itch", x0, x1);
             }
-            return (int)mh$.invokeExact(x0, x1);
+            return (long)mh$.invokeExact(x0, x1);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -16823,7 +16823,7 @@ public class gmp_h {
      * void __gmpn_sec_div_r(mp_ptr, mp_size_t, mp_srcptr, mp_size_t, mp_ptr)
      * }
      */
-    public static void __gmpn_sec_div_r(MemorySegment x0, int x1, MemorySegment x2, int x3, MemorySegment x4) {
+    public static void __gmpn_sec_div_r(MemorySegment x0, long x1, MemorySegment x2, long x3, MemorySegment x4) {
         var mh$ = __gmpn_sec_div_r.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16871,7 +16871,7 @@ public class gmp_h {
      * mp_size_t __gmpn_sec_div_r_itch(mp_size_t, mp_size_t)
      * }
      */
-    public static int __gmpn_sec_div_r_itch(int x0, int x1) {
+    public static long __gmpn_sec_div_r_itch(long x0, long x1) {
         var mh$ = __gmpn_sec_div_r_itch.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16923,7 +16923,7 @@ public class gmp_h {
      * int __gmpn_sec_invert(mp_ptr, mp_ptr, mp_srcptr, mp_size_t, mp_bitcnt_t, mp_ptr)
      * }
      */
-    public static int __gmpn_sec_invert(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3, int x4, MemorySegment x5) {
+    public static int __gmpn_sec_invert(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3, long x4, MemorySegment x5) {
         var mh$ = __gmpn_sec_invert.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16970,13 +16970,13 @@ public class gmp_h {
      * mp_size_t __gmpn_sec_invert_itch(mp_size_t)
      * }
      */
-    public static int __gmpn_sec_invert_itch(int x0) {
+    public static long __gmpn_sec_invert_itch(long x0) {
         var mh$ = __gmpn_sec_invert_itch.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_sec_invert_itch", x0);
             }
-            return (int)mh$.invokeExact(x0);
+            return (long)mh$.invokeExact(x0);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
