@@ -6249,7 +6249,7 @@ public class gmp_h {
      * void __gmpz_mul_2exp(mpz_ptr, mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_mul_2exp(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpz_mul_2exp(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_mul_2exp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6871,7 +6871,7 @@ public class gmp_h {
      * void __gmpz_realloc2(mpz_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_realloc2(MemorySegment x0, int x1) {
+    public static void __gmpz_realloc2(MemorySegment x0, long x1) {
         var mh$ = __gmpz_realloc2.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6920,13 +6920,13 @@ public class gmp_h {
      * mp_bitcnt_t __gmpz_remove(mpz_ptr, mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static int __gmpz_remove(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+    public static long __gmpz_remove(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
         var mh$ = __gmpz_remove.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpz_remove", x0, x1, x2);
             }
-            return (int)mh$.invokeExact(x0, x1, x2);
+            return (long)mh$.invokeExact(x0, x1, x2);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -7066,7 +7066,7 @@ public class gmp_h {
      * void __gmpz_rrandomb(mpz_ptr, gmp_randstate_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_rrandomb(MemorySegment x0, MemorySegment x1, int x2) {
+    public static void __gmpz_rrandomb(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_rrandomb.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -7114,7 +7114,7 @@ public class gmp_h {
      * mp_bitcnt_t __gmpz_scan0(mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static int __gmpz_scan0(MemorySegment x0, int x1) {
+    public static long __gmpz_scan0(MemorySegment x0, long x1) {
         var mh$ = __gmpz_scan0.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -7162,7 +7162,7 @@ public class gmp_h {
      * mp_bitcnt_t __gmpz_scan1(mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static int __gmpz_scan1(MemorySegment x0, int x1) {
+    public static long __gmpz_scan1(MemorySegment x0, long x1) {
         var mh$ = __gmpz_scan1.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -7493,7 +7493,7 @@ public class gmp_h {
      * void __gmpz_setbit(mpz_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_setbit(MemorySegment x0, int x1) {
+    public static void __gmpz_setbit(MemorySegment x0, long x1) {
         var mh$ = __gmpz_setbit.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -17071,7 +17071,7 @@ public class gmp_h {
     public static long GMP_NAIL_MASK() {
         return GMP_NAIL_MASK;
     }
-    private static final MemorySegment NULL = MemorySegment.ofAddress(0L);
+    private static final MemorySegment NULL = MemorySegment.NULL;
     /**
      * {@snippet lang=c :
      * #define NULL (void*) 0

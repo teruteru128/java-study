@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.random.RandomGenerator;
 import java.util.random.RandomGeneratorFactory;
 
-public class Random {
+public class MyRandom {
     static void random2() {
         var feats = (101. / 64) * nextDouble(Factory.SECURE_RANDOM_GENERATOR) + 1;
         System.out.printf("%f feats, %f cm%n", feats, feats * 30.48);

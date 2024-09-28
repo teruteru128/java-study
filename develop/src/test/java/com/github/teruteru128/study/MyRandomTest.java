@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @see <a href="https://oohira.github.io/junit5-doc-jp/user-guide/#writing-tests">テストを書く</a>
  */
-public class RandomTest {
+public class MyRandomTest {
 
     @Test
     public void myFirstTest() {
@@ -17,6 +17,6 @@ public class RandomTest {
 
     @Test
     void nextDouble() {
-        assertEquals(0.5, Random.nextDouble(RandomGenerator.getDefault()), 0.5);
+        assertEquals(0.5, MyRandom.nextDouble(RandomGenerator.getDefault()), 0.5);
     }
 }

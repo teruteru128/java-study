@@ -67,6 +67,7 @@ import java.util.Base64;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
@@ -131,12 +132,12 @@ public class Factory {
       throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, ClassNotFoundException, ExecutionException {
     switch (args[0]) {
       case "clone" -> CloneSample.cloneSample();
-      case "random" -> Random.doubleSample(RandomGenerator.getDefault());
+      case "random" -> MyRandom.doubleSample(RandomGenerator.getDefault());
       case "logNormal" -> new LogNormalDistributionSample().sample();
       case "logNormal2" -> new LogNormalDistributionSample2().sample();
-      case "random2" -> Random.random2();
-      case "random3" -> Random.random3();
-      case "random4" -> Random.random4();
+      case "random2" -> MyRandom.random2();
+      case "random3" -> MyRandom.random3();
+      case "random4" -> MyRandom.random4();
       case "ts1" -> TeamSpeak.ts1();
       case "ts2" -> TeamSpeak.ts2();
       case "ts3" -> TeamSpeak.ts3();
@@ -343,7 +344,8 @@ public class Factory {
           PrimeSearch.getConvertedStep(Integer.parseInt(args[1]));
         }
       }
-      case "create" -> PrimeSearch.createLargeSieve();
+      case "create" -> PrimeSearch.createLargeSieve(
+          Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"));
       case "diff" -> {
         long[] array1;
         try (var a = new ObjectInputStream(
@@ -394,10 +396,16 @@ public class Factory {
           }
         }
       }
+      case "generate" -> {
+        var bitLength = 1048576;
+        var evenNumber = PrimeSearch.createEvenNumber(bitLength, (Random) SECURE_RANDOM_GENERATOR);
+        PrimeSearch.exportEvenNumberObj(
+            Path.of("even-number-" + bitLength + "bit-" + UUID.randomUUID() + ".obj"), evenNumber);
+      }
       case "export" -> {
         var p = PrimeSearch.loadEvenNumber(
-            Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"));
-        Files.write(Path.of("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.txt"),
+            Paths.get("even-number-1048576bit-85c53395-9d78-44d2-9c95-9c53ff90f30a.obj"));
+        Files.write(Path.of("even-number-1048576bit-85c53395-9d78-44d2-9c95-9c53ff90f30a.txt"),
             List.of(p.toString()), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
       }
       case null, default -> {

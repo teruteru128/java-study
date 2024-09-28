@@ -37,7 +37,7 @@ public class Main implements Callable<Integer> {
       }
     }
     int exitCode = new CommandLine(new Main()).addSubcommand("cl", new CL())
-        .addSubcommand("gmp", new GMP()).execute(args);
+        .addSubcommand("gmp", new GMP()).addSubcommand("e", new E()).execute(args);
     Runtime.getRuntime().exit(exitCode);
   }
 

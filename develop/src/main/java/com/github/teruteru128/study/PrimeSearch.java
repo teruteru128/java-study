@@ -16,14 +16,12 @@ import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.BitSet;
+import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PrimeSearch {
 
-  private static final long ADDEND = 0xbL;
-  private static final long MASK = 0xffffffffffffL;
-  private static final long MULTIPLIER = 0x5deece66dL;
   private static final Logger logger = LoggerFactory.getLogger(PrimeSearch.class);
 
   public static void getConvertedStep() throws IOException, ClassNotFoundException {
@@ -33,8 +31,8 @@ public class PrimeSearch {
   public static void getConvertedStep(int firstStep) throws IOException, ClassNotFoundException {
     var base = PrimeSearch.loadEvenNumber(
         Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"));
-    var sieve = PrimeSearch.loadLargeSieve(Paths.get(
-        "largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-5.obj"));
+    var sieve = PrimeSearch.loadLargeSieve(
+        Paths.get("large-sieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-5.obj"));
     var a = new BitSet(sieve.length());
     a.set(0, sieve.length());
     a.andNot(sieve);
@@ -51,18 +49,17 @@ public class PrimeSearch {
     }
   }
 
-  public static void createLargeSieve()
+  public static void createLargeSieve(Path inPath)
       throws IOException, ClassNotFoundException, FileNotFoundException {
     // 小さなふるいを使って大きなふるいから合成数を除外
     // 大きな篩の長さ->1048576 / 20 * 64 = 3355444
 
     var smallSieve = PrimeSearch.loadSmallSieve();
-    var base = PrimeSearch.loadEvenNumber(
-        Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"));
+    var base = PrimeSearch.loadEvenNumber(inPath);
     logger.debug("base: {} bits", base.bitLength());
     var searchLen = base.bitLength() / 20 * 64;
     logger.debug("search Length: {} bits", searchLen);
-    logger.debug("small sieve: {} bits", smallSieve.length * 64);
+    logger.debug("small sieve: {} entries, {} bits", smallSieve.length, smallSieve.length * 64L);
     var bis = PrimeSearch.setABitForNonPrimeNumbers(smallSieve, base, searchLen);
     var set = BitSet.valueOf(bis);
     var nextClearBit = set.nextClearBit(0);
@@ -70,9 +67,9 @@ public class PrimeSearch {
       logger.error("失敗！");
       return;
     }
-    var path = Path.of(
-        "largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-" + searchLen + "bit-5.obj");
-    try (var oos = new ObjectOutputStream(new BufferedOutputStream(Files.newOutputStream(path)))) {
+    var out = Path.of(
+        "large-sieve-1048576bit-85c53395-9d78-44d2-9c95-9c53ff90f30a-" + searchLen + "bit-1.obj");
+    try (var oos = new ObjectOutputStream(new BufferedOutputStream(Files.newOutputStream(out)))) {
       oos.writeInt(searchLen);
       oos.writeObject(bis);
     }
@@ -86,13 +83,12 @@ public class PrimeSearch {
 
   /**
    * generate even number and export to file
-   * @param bitLength
    * @param path
-   * @throws NoSuchAlgorithmException
+   * @param evenNumber
    * @throws IOException
    */
-  public static void getS(int bitLength, Path path) throws NoSuchAlgorithmException, IOException {
-    PrimeSearch.outputObj(path, PrimeSearch.createEvenNumber(bitLength));
+  public static void exportEvenNumberObj(Path path, BigInteger evenNumber) throws IOException {
+    outputObj(path, evenNumber);
   }
 
   static BitSet loadLargeSieve(Path path) throws IOException, ClassNotFoundException {
@@ -133,11 +129,9 @@ public class PrimeSearch {
       if (start % 2 == 0) {
         start += convertedStep;
       }
-      logger.debug("clear start: {}", convertedStep);
-      PrimeSearch.sieveSingle(bis, searchLen, (start - 1) / 2, convertedStep);
-      logger.debug("clear end: {}", convertedStep);
+      sieveSingle(bis, searchLen, (start - 1) / 2, convertedStep);
 
-      step = PrimeSearch.sieveSearch(smallSieve, smallSieve.length, step + 1);
+      step = sieveSearch(smallSieve, smallSieve.length, step + 1);
       convertedStep = (step * 2) + 1;
     } while (step > 0);
     return bis;
@@ -214,14 +208,8 @@ public class PrimeSearch {
     Files.write(path, baos.toByteArray(), StandardOpenOption.WRITE, StandardOpenOption.CREATE);
   }
 
-  static <T> T inputObj(Path path) throws IOException, ClassCastException, ClassNotFoundException {
-    try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(path)))) {
-      return (T) ois.readObject();
-    }
-  }
-
-  static BigInteger createEvenNumber(int bitLength) throws NoSuchAlgorithmException {
-    return new BigInteger(bitLength, SecureRandom.getInstanceStrong()).setBit(bitLength - 1)
-        .clearBit(0);
+  public static BigInteger createEvenNumber(int bitLength, Random instanceStrong)
+      throws NoSuchAlgorithmException {
+    return new BigInteger(bitLength, instanceStrong).setBit(bitLength - 1).clearBit(0);
   }
 }

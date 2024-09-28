@@ -1,4 +1,4 @@
-package com.github.teruteru128.foreign;
+package com.github.teruteru128.foreign.converters;
 
 import java.nio.file.Path;
 import picocli.CommandLine;
