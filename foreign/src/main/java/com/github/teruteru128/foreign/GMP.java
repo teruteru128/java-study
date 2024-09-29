@@ -1,11 +1,13 @@
 package com.github.teruteru128.foreign;
 
-import static com.github.teruteru.gmp.gmp_h.*;
+import static com.github.teruteru.gmp.gmp_h.__gmpz_clears;
 import static com.github.teruteru.gmp.gmp_h.__gmpz_set_str;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.ADDRESS;
+import static java.util.concurrent.ForkJoinPool.defaultForkJoinWorkerThreadFactory;
 
 import com.github.teruteru.gmp.__mpz_struct;
+import com.github.teruteru.gmp.gmp_h;
 import com.github.teruteru.gmp.gmp_h.__gmpz_inits;
 import com.github.teruteru128.foreign.converters.PathConverter;
 import java.io.ByteArrayInputStream;
@@ -15,11 +17,10 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemoryLayout;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +40,6 @@ public class GMP implements Callable<Integer> {
   private Path sieve;
   @Option(names = "--from", description = "Specify the starting step.")
   private int fromIndex = 0;
-  @Parameters(arity = "1", converter = PathConverter.class)
-  private Path outPath = null;
 
   static BitSet loadLargeSieve(Path path) throws IOException, ClassNotFoundException {
     long[] n;
@@ -52,54 +51,54 @@ public class GMP implements Callable<Integer> {
   }
 
   @Override
-  public Integer call() throws Exception {
-    var layout = MemoryLayout.sequenceLayout(2, __mpz_struct.layout());
-    var p = arena.allocate(layout);
-    // 配列の2番目の要素のメモリーセグメントを取得する方法がわからない
-    // var q = &p[1];
-    var q = p.asSlice(__mpz_struct.sizeof(), __mpz_struct.sizeof());
-    __gmpz_inits.makeInvoker(ADDRESS, ADDRESS).apply(p, q, NULL);
-    __gmpz_set_str(p, arena.allocateFrom(Files.readAllLines(path).getFirst()), 10);
-    BitSet setB;
-    {
-      var setA = loadLargeSieve(sieve);
-      setB = new BitSet(setA.length());
-      setB.set(0, setA.length());
-      setB.andNot(setA);
-    }
-    long step = -1;
-    long start;
-    long finish;
-    int checkResult;
-    logger.info("start");
-    for (int i = setB.nextSetBit(fromIndex); i >= 0; i = setB.nextSetBit(i + 1)) {
-      logger.debug("current step : {}", i);
-      __gmpz_add_ui(q, p, i * 2L + 1);
-      start = System.nanoTime();
-      checkResult = __gmpz_probab_prime_p(q, 100);
-      finish = System.nanoTime();
-      logger.info("step {}: {}({} hours)", i, checkResult, (finish - start) / 3.6e12);
-      if (checkResult == 2 || checkResult == 1) {
-        step = i;
-        var qLength = __gmpz_sizeinbase(q, 10) + 2;
-        var segment = arena.allocate(qLength, 1);
-        __gmpz_get_str(segment, 10, q);
-        if (outPath != null) {
-          Files.write(outPath, List.of(segment.getString(0)), StandardOpenOption.CREATE,
-              StandardOpenOption.WRITE);
-        } else {
-          System.out.println(segment.getString(0));
-        }
-        break;
+  public Integer call() throws IOException, ClassNotFoundException, InterruptedException {
+    try (var pool = new ForkJoinPool(8, defaultForkJoinWorkerThreadFactory, null, true)) {
+      var layout = MemoryLayout.sequenceLayout(2, __mpz_struct.layout());
+      var p = arena.allocate(layout);
+      // 配列の2番目の要素のメモリーセグメントを取得する方法がわからない
+      // var q = &p[1];
+      var q = p.asSlice(__mpz_struct.sizeof(), __mpz_struct.sizeof());
+      __gmpz_inits.makeInvoker(ADDRESS, ADDRESS).apply(p, q, NULL);
+      __gmpz_set_str(p, arena.allocateFrom(Files.readAllLines(path).getFirst()), 10);
+      BitSet setB;
+      {
+        var setA = loadLargeSieve(sieve);
+        setB = new BitSet(setA.length());
+        setB.set(0, setA.length());
+        setB.andNot(setA);
       }
-    }
-    __gmpz_clears.makeInvoker(ADDRESS, ADDRESS).apply(p, q, NULL);
-    if (step != -1) {
-      logger.info("find prime, step is {}", step);
-      return 0;
-    } else {
-      logger.error("prime not found");
-      return 1;
+      logger.info("start");
+      int i = setB.nextSetBit(fromIndex);
+      var list = new ArrayList<PrimeSearchTask2>(16);
+      boolean found = false;
+      while (i >= 0) {
+        while (i >= 0 && list.size() < 16) {
+          list.add(new PrimeSearchTask2(p, i));
+          i = setB.nextSetBit(i + 1);
+        }
+        var a = pool.invokeAll(list);
+        for (var b : a) {
+          var c = b.get();
+          if (c.isPresent()) {
+            found = true;
+            logger.info("find prime: step {}", c.get());
+          }
+        }
+        list.clear();
+        if (found) {
+          break;
+        }
+      }
+      __gmpz_clears.makeInvoker(ADDRESS, ADDRESS).apply(p, q, NULL);
+      if (found) {
+        logger.info("find prime");
+        return 0;
+      } else {
+        logger.error("prime not found");
+        return 1;
+      }
+    } catch (ExecutionException e) {
+      throw new RuntimeException(e);
     }
   }
 }
