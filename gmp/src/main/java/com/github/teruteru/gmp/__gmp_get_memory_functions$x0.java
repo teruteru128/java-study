@@ -26,7 +26,8 @@ public class __gmp_get_memory_functions$x0 {
     /**
      * The function pointer signature, expressed as a functional interface
      */
-    public interface Function {
+    @FunctionalInterface
+    public interface Function extends LongFunction<MemorySegment> {
         MemorySegment apply(long _x0);
     }
 
