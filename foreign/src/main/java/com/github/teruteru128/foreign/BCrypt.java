@@ -1,5 +1,8 @@
 package com.github.teruteru128.foreign;
 
+import static com.github.teruteru128.foreign.windows.Windows_h.BCRYPT_HASH_REUSABLE_FLAG;
+import static com.github.teruteru128.foreign.windows.Windows_h.BCRYPT_OBJECT_LENGTH;
+import static com.github.teruteru128.foreign.windows.Windows_h.BCRYPT_SHA256_ALGORITHM;
 import static com.github.teruteru128.foreign.windows.Windows_h.BCryptCloseAlgorithmProvider;
 import static com.github.teruteru128.foreign.windows.Windows_h.BCryptCreateHash;
 import static com.github.teruteru128.foreign.windows.Windows_h.BCryptDestroyHash;
@@ -8,9 +11,6 @@ import static com.github.teruteru128.foreign.windows.Windows_h.BCryptGetProperty
 import static com.github.teruteru128.foreign.windows.Windows_h.BCryptHashData;
 import static com.github.teruteru128.foreign.windows.Windows_h.BCryptOpenAlgorithmProvider;
 import static com.github.teruteru128.foreign.windows.Windows_h.strlen;
-import static com.github.teruteru128.foreign.windows.Windows_h_3.BCRYPT_OBJECT_LENGTH;
-import static com.github.teruteru128.foreign.windows.Windows_h_3.BCRYPT_SHA256_ALGORITHM;
-import static com.github.teruteru128.foreign.windows.Windows_h.BCRYPT_HASH_REUSABLE_FLAG;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.ADDRESS;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;

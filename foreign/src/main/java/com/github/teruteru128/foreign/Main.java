@@ -9,7 +9,6 @@ import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 
 import com.github.teruteru128.foreign.windows.Windows_h;
-import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.ValueLayout;
 import java.security.Provider;
@@ -29,8 +28,7 @@ public class Main implements Callable<Integer> {
   public Main() {
   }
 
-  public static void main(String[] args)
-      throws NoSuchMethodException, IllegalAccessException, IOException {
+  public static void main(String[] args) {
     for (var provider : ServiceLoader.load(Provider.class)) {
       if (Security.getProvider(provider.getName()) == null) {
         Security.addProvider(provider);
@@ -42,7 +40,7 @@ public class Main implements Callable<Integer> {
   }
 
   @Override
-  public Integer call() throws NoSuchMethodException, IllegalAccessException, IOException {
+  public Integer call() {
     // でも本当にほしいのはSocketとかファイルとかMessageDigestとかの連携なんだよね……
     // もしかしてネイティブライブラリにアクセスできるならOpenSSLにアクセスもできる……？
     // OpenCLもアクセスできるっぽい
