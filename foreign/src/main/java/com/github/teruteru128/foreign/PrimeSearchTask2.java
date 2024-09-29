@@ -5,6 +5,7 @@ import static com.github.teruteru.gmp.gmp_h.__gmpz_init;
 import static com.github.teruteru.gmp.gmp_h.__gmpz_probab_prime_p;
 
 import com.github.teruteru.gmp.__mpz_struct;
+import com.github.teruteru.gmp.gmp_h;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class PrimeSearchTask2 implements Callable<Optional<Integer>> {
   @Override
   public Optional<Integer> call() {
     var arena = Arena.ofAuto();
-    var candidate = arena.allocate(__mpz_struct.layout());
+    var candidate = arena.allocate(__mpz_struct.layout()).reinterpret(arena, gmp_h::__gmpz_clear);
     __gmpz_init(candidate);
     log.debug("current step : {}", step);
     __gmpz_add_ui(candidate, even, step * 2L + 1);
