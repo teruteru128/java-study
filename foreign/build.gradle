@@ -24,9 +24,9 @@ application {
     applicationDefaultJvmArgs = [
             '--enable-preview',
             '--enable-native-access=com.github.teruteru.foreign,com.github.teruteru.gmp,com.github.teruteru.foreign.opencl,com.github.teruteru.foreign.setjmp,com.github.teruteru.foreign.windows',
-            '-Xms16G',
-            '-Xmx16G',
-            //'-Djextract.trace.downcalls=true'
+            //'-Xms16G',
+            //'-Xmx16G',
+            '-Djextract.trace.downcalls=true'
     ]
 }
 
