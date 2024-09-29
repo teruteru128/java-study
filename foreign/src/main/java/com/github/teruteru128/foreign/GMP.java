@@ -68,13 +68,13 @@ public class GMP implements Callable<Integer> {
         setB.andNot(setA);
       }
       logger.info("start");
-      int i = setB.nextSetBit(fromIndex);
+      int step = setB.nextSetBit(fromIndex);
       var list = new ArrayList<PrimeSearchTask2>(16);
       boolean found = false;
-      while (i >= 0) {
-        while (i >= 0 && list.size() < 16) {
-          list.add(new PrimeSearchTask2(p, i));
-          i = setB.nextSetBit(i + 1);
+      while (step >= 0) {
+        while (step >= 0 && list.size() < 16) {
+          list.add(new PrimeSearchTask2(p, step));
+          step = setB.nextSetBit(step + 1);
         }
         var a = pool.invokeAll(list);
         for (var b : a) {
