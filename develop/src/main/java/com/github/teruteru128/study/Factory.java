@@ -335,7 +335,7 @@ public class Factory {
       }
       case "createSmallSieve" -> {
         var bitLength = 1L << 33;
-        PrimeSearch.getSieve(bitLength, bitLength + "bit-smallsieve.obj");
+        PrimeSearch.getSieve(bitLength, bitLength + "bit-small-sieve.obj");
       }
       case "attack" -> {
         if (args.length == 1) {

@@ -33,7 +33,7 @@ public class PrimeSearchTask2 implements Callable<Optional<Integer>> {
     __gmpz_add_ui(candidate, even, step * 2L + 1);
     int result;
     long start = System.nanoTime();
-    result = __gmpz_probab_prime_p(candidate, 15);
+    result = __gmpz_probab_prime_p(candidate, 25);
     long finish = System.nanoTime();
     log.info("step {}: {}({} hours)", step, result, (finish - start) / 3.6e12);
     return result == 1 || result == 2 ? Optional.of(step) : Optional.empty();

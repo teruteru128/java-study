@@ -19,9 +19,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
@@ -60,28 +63,25 @@ public class GMP implements Callable<Integer> {
       var q = p.asSlice(__mpz_struct.sizeof(), __mpz_struct.sizeof());
       __gmpz_inits.makeInvoker(ADDRESS, ADDRESS).apply(p, q, NULL);
       __gmpz_set_str(p, arena.allocateFrom(Files.readAllLines(path).getFirst()), 10);
-      BitSet setB;
-      {
-        var setA = loadLargeSieve(sieve);
-        setB = new BitSet(setA.length());
-        setB.set(0, setA.length());
-        setB.andNot(setA);
-      }
+      var largeSieve = getBitSet();
       logger.info("start");
-      int step = setB.nextSetBit(fromIndex);
+      logger.debug("prime candidates: {}", largeSieve.cardinality());
+      var step = largeSieve.nextSetBit(fromIndex);
       var list = new ArrayList<PrimeSearchTask2>(16);
       boolean found = false;
+      List<Future<Optional<Integer>>> futureList;
+      Optional<Integer> foundStep;
       while (step >= 0) {
         while (step >= 0 && list.size() < 16) {
           list.add(new PrimeSearchTask2(p, step));
-          step = setB.nextSetBit(step + 1);
+          step = largeSieve.nextSetBit(step + 1);
         }
-        var a = pool.invokeAll(list);
-        for (var b : a) {
-          var c = b.get();
-          if (c.isPresent()) {
+        futureList = pool.invokeAll(list);
+        for (var optionalFuture : futureList) {
+          foundStep = optionalFuture.get();
+          if (foundStep.isPresent()) {
             found = true;
-            logger.info("find prime: step {}", c.get());
+            logger.info("find prime: step {}", foundStep.get());
           }
         }
         list.clear();
@@ -100,5 +100,13 @@ public class GMP implements Callable<Integer> {
     } catch (ExecutionException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private BitSet getBitSet() throws IOException, ClassNotFoundException {
+    var setA = loadLargeSieve(sieve);
+    var setB = new BitSet(setA.length());
+    setB.set(0, setA.length());
+    setB.andNot(setA);
+    return setB;
   }
 }
