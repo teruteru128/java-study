@@ -3,7 +3,6 @@ package com.github.teruteru128.study;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,9 +14,14 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.BitSet;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
-import java.util.stream.LongStream;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,25 +56,36 @@ public class PrimeSearch {
   }
 
   public static void createLargeSieve(Path inPath)
-      throws IOException, ClassNotFoundException, FileNotFoundException {
+      throws IOException, ClassNotFoundException, ExecutionException, InterruptedException {
     // 小さなふるいを使って大きなふるいから合成数を除外
     // 大きな篩の長さ->1048576 / 20 * 64 = 3355444
 
     var smallSieve = loadSmallSieve();
     var base = loadEvenNumber(inPath);
-    long sum = LongStream.of(smallSieve).parallel().map(l -> Long.bitCount(~l)).sum();
+    long sum = Arrays.stream(smallSieve).parallel().map(l -> Long.bitCount(~l)).sum();
     logger.debug("base: {} bits", base.bitLength());
     var searchLen = (int) (64L * base.bitLength() / 20);
     logger.debug("search Length: {} bits", searchLen);
     logger.debug("small sieve: {} elements, {} bits, {} primes", smallSieve.length,
         (long) smallSieve.length * Long.SIZE, sum);
-    var bis = setBitsForNonPrimeNumbers(smallSieve, base, searchLen);
-    var set = BitSet.valueOf(bis);
+    var sieve = new Sieve(smallSieve);
+    List<Future<long[]>> list;
+    var parallelism = Runtime.getRuntime().availableProcessors() / 2;
+    try (var pool = new ForkJoinPool(parallelism,
+        ForkJoinPool.defaultForkJoinWorkerThreadFactory, null, true)) {
+      list = pool.invokeAll(
+          Collections.nCopies(parallelism, () -> setBitsForNonPrimeNumbers(sieve, base, searchLen)));
+    }
+    var set = new BitSet(searchLen);
+    for (var array : list) {
+      set.or(BitSet.valueOf(array.get()));
+    }
     var nextClearBit = set.nextClearBit(0);
     if (nextClearBit == searchLen || nextClearBit == -1) {
       logger.error("失敗！");
       return;
     }
+    var bis = set.toLongArray();
     var setB = new BitSet(set.length());
     setB.set(0, set.length());
     setB.andNot(set);
@@ -81,6 +96,7 @@ public class PrimeSearch {
       oos.writeInt(searchLen);
       oos.writeObject(bis);
     }
+    logger.info("終わり！");
   }
 
   public static void getSieve(long bitLength, String outputPath) throws IOException {
@@ -149,6 +165,26 @@ public class PrimeSearch {
 
       step = sieveSearch(smallSieve, limit, step + 1);
       convertedStep = (step * 2L) + 1;
+    } while (step > 0);
+    return bis;
+  }
+
+  static long[] setBitsForNonPrimeNumbers(Sieve sieve, BigInteger base, int searchLen) {
+    long[] bis = new long[unitIndex(searchLen - 1) + 1];
+    long start;
+    long step = sieve.nextStep();
+    long convertedStep = step * 2 + 1;
+    do {
+      start = base.mod(BigInteger.valueOf(convertedStep)).longValueExact();
+
+      start = convertedStep - start;
+      if ((start & 1) == 0) {
+        start += convertedStep;
+      }
+      sieveSingle(bis, searchLen, (start - 1) / 2, convertedStep);
+
+      step = sieve.nextStep();
+      convertedStep = step * 2 + 1;
     } while (step > 0);
     return bis;
   }

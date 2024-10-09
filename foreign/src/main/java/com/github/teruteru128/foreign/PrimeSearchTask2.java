@@ -1,7 +1,7 @@
 package com.github.teruteru128.foreign;
 
 import static com.github.teruteru.gmp.gmp_h.__gmpz_add_ui;
-import static com.github.teruteru.gmp.gmp_h.__gmpz_init;
+import static com.github.teruteru.gmp.gmp_h.__gmpz_init_set;
 import static com.github.teruteru.gmp.gmp_h.__gmpz_probab_prime_p;
 
 import com.github.teruteru.gmp.__mpz_struct;
@@ -28,9 +28,9 @@ public class PrimeSearchTask2 implements Callable<Optional<Integer>> {
   public Optional<Integer> call() {
     var arena = Arena.ofAuto();
     var candidate = arena.allocate(__mpz_struct.layout()).reinterpret(arena, gmp_h::__gmpz_clear);
-    __gmpz_init(candidate);
+    __gmpz_init_set(candidate, even);
     log.debug("current step : {}", step);
-    __gmpz_add_ui(candidate, even, step * 2L + 1);
+    __gmpz_add_ui(candidate, candidate, step * 2L + 1);
     int result;
     long start = System.nanoTime();
     result = __gmpz_probab_prime_p(candidate, 25);

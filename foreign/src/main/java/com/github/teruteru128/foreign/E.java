@@ -16,6 +16,8 @@ import com.github.teruteru.gmp.gmp_h.__gmpz_clears;
 import com.github.teruteru.gmp.gmp_h.__gmpz_inits;
 import com.github.teruteru128.foreign.converters.BigIntegerHexConverter;
 import java.lang.foreign.Arena;
+import java.lang.foreign.MemoryLayout;
+import java.lang.foreign.MemoryLayout.PathElement;
 import java.lang.foreign.MemorySegment;
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -34,9 +36,11 @@ public class E implements Callable<Integer> {
     long start;
     long finish;
     try (var arena = Arena.ofConfined()) {
-      MemorySegment prefixSegment = arena.allocate(__mpz_struct.layout(), 2);
-      MemorySegment primeSegment = prefixSegment.asSlice(__mpz_struct.sizeof(),
-          __mpz_struct.sizeof());
+      var mpzStructLayout = __mpz_struct.layout();
+      var layout = MemoryLayout.sequenceLayout(2, mpzStructLayout);
+      var offset = layout.byteOffset(PathElement.sequenceElement(1));
+      var prefixSegment = arena.allocate(layout);
+      var primeSegment = prefixSegment.asSlice(offset, mpzStructLayout);
       var byteArray = prefixNumber.toByteArray();
       __gmpz_inits.makeInvoker(ADDRESS, ADDRESS).apply(prefixSegment, primeSegment, NULL);
       // set
