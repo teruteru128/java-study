@@ -101,8 +101,8 @@ public class CL implements AutoCloseable, Callable<Integer> {
       throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
     }
     // コマンドキュー
-    commandQueue = clCreateCommandQueueWithProperties(context, Objects.requireNonNull(deviceIds)
-        .get(ADDRESS, 0), NULL, ret_ptr);
+    commandQueue = clCreateCommandQueueWithProperties(context,
+        Objects.requireNonNull(deviceIds).get(ADDRESS, 0), NULL, ret_ptr);
     if (ret_ptr.get(JAVA_INT, 0) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret_ptr.get(JAVA_INT, 0)));
     }
@@ -125,16 +125,17 @@ public class CL implements AutoCloseable, Callable<Integer> {
     final var sourceString = confined.allocateFrom(s);
     // プログラムオブジェクトを作成し、ソースコードをプログラムオブジェクトに読み込む
     // FIXME clCreateProgramWithSourceが終わったあとにsourceStringを開放してもええんか？
-    program = clCreateProgramWithSource(context, 1,
-        confined.allocateFrom(ADDRESS, sourceString), NULL, ret_ptr);
+    var strings = confined.allocateFrom(ADDRESS, sourceString);
+    program = clCreateProgramWithSource(context, 1, strings, NULL, ret_ptr);
     if ((ret = ret_ptr.get(JAVA_INT, 0)) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
     // プログラム実行可能ファイルをビルド(コンパイル及びリンク)する
     MethodHandle callback1;
     try {
-      callback1 = MethodHandles.lookup().findStatic(CL.class, "callback",
-          MethodType.methodType(void.class, MemorySegment.class, MemorySegment.class));
+      var lookup = MethodHandles.lookup();
+      var type = MethodType.methodType(void.class, MemorySegment.class, MemorySegment.class);
+      callback1 = lookup.findStatic(CL.class, "callback", type);
     } catch (NoSuchMethodException | IllegalAccessException e) {
       throw new RuntimeException(e);
     }
@@ -164,8 +165,7 @@ public class CL implements AutoCloseable, Callable<Integer> {
     var ret_ptr = auto.allocate(JAVA_INT);
     var workGroupSize = confined.allocate(JAVA_LONG);
     if ((ret = clGetKernelWorkGroupInfo(kernel, deviceIds.get(ADDRESS, 0),
-        CL_KERNEL_WORK_GROUP_SIZE(),
-        JAVA_LONG.byteSize(), workGroupSize, NULL)) != 0) {
+        CL_KERNEL_WORK_GROUP_SIZE(), JAVA_LONG.byteSize(), workGroupSize, NULL)) != 0) {
       throw new RuntimeException(CLMessage.clGetErrorString(ret));
     }
     System.out.printf("kernel work group size: %d%n", workGroupSize.get(JAVA_LONG, 0));

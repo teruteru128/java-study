@@ -22,12 +22,15 @@ import java.lang.foreign.MemorySegment;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.concurrent.Callable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
 @Command(name = "e")
 public class E implements Callable<Integer> {
 
+  private static final Logger log = LoggerFactory.getLogger(E.class);
   @Option(names = "prefix", converter = BigIntegerHexConverter.class)
   BigInteger prefixNumber = new BigInteger(1024, new SecureRandom());
 
@@ -37,37 +40,43 @@ public class E implements Callable<Integer> {
     long finish;
     try (var arena = Arena.ofConfined()) {
       var mpzStructLayout = __mpz_struct.layout();
-      var layout = MemoryLayout.sequenceLayout(2, mpzStructLayout);
-      var offset = layout.byteOffset(PathElement.sequenceElement(1));
-      var prefixSegment = arena.allocate(layout);
-      var primeSegment = prefixSegment.asSlice(offset, mpzStructLayout);
+      var mpzArrayLayout = MemoryLayout.sequenceLayout(2, mpzStructLayout);
+      var offset = mpzArrayLayout.byteOffset(PathElement.sequenceElement(1));
+      MemorySegment prefixSegment;
+      MemorySegment candidateSegment;
+      {
+        var segment = arena.allocate(mpzArrayLayout);
+        prefixSegment = segment.asSlice(0, mpzStructLayout);
+        candidateSegment = segment.asSlice(offset, mpzStructLayout);
+      }
       var byteArray = prefixNumber.toByteArray();
-      __gmpz_inits.makeInvoker(ADDRESS, ADDRESS).apply(prefixSegment, primeSegment, NULL);
+      __gmpz_inits.makeInvoker(ADDRESS, ADDRESS).apply(prefixSegment, candidateSegment, NULL);
       // set
       __gmpz_import(prefixSegment, byteArray.length, 1, JAVA_BYTE.byteSize(), 1, 0,
           arena.allocateFrom(JAVA_BYTE, byteArray));
-      long prefixLength;
+      int ret;
+      final var shiftWidth = 1047552;
       while (true) {
-        prefixLength = __gmpz_sizeinbase(prefixSegment, 16) + 2;
+        var prefixLength = __gmpz_sizeinbase(prefixSegment, 16) + 2;
         var prefixStr = arena.allocate(prefixLength);
         __gmpz_get_str(prefixStr, 16, prefixSegment);
-        System.out.println("prefix: " + prefixStr.getString(0));
-        __gmpz_mul_2exp(primeSegment, prefixSegment, 1047552);
-        __gmpz_setbit(primeSegment, 0);
+        log.info("prefix: {}", prefixStr.getString(0));
+        __gmpz_mul_2exp(candidateSegment, prefixSegment, shiftWidth);
+        __gmpz_setbit(candidateSegment, 0);
         start = System.nanoTime();
-        var ret = __gmpz_probab_prime_p(primeSegment, 15);
+        ret = __gmpz_probab_prime_p(candidateSegment, 15);
         finish = System.nanoTime();
-        System.err.println((finish - start) / 1e9 + " seconds");
+        log.debug("{} seconds", (finish - start) / 1e9);
         if (ret == 2 || ret == 1) {
           break;
         }
         __gmpz_add_ui(prefixSegment, prefixSegment, 1);
       }
-      var e = __gmpz_sizeinbase(primeSegment, 10) + 2;
-      MemorySegment formatedPrime = arena.allocate(e);
-      __gmpz_get_str(formatedPrime, 10, prefixSegment);
-      System.out.println(prefixNumber.toString().equals(formatedPrime.getString(0)));
-      __gmpz_clears.makeInvoker(ADDRESS, ADDRESS).apply(prefixSegment, primeSegment, NULL);
+      var decimalSize = __gmpz_sizeinbase(candidateSegment, 10) + 2;
+      var decimalFormattedPrime = arena.allocate(decimalSize);
+      __gmpz_get_str(decimalFormattedPrime, 10, prefixSegment);
+      log.info("({} << {}) | 1: {}", decimalFormattedPrime.getString(0), shiftWidth, ret);
+      __gmpz_clears.makeInvoker(ADDRESS, ADDRESS).apply(prefixSegment, candidateSegment, NULL);
     }
     return 0;
   }

@@ -5,13 +5,11 @@
  */
 module com.github.teruteru.study {
   requires java.desktop;
-  requires java.logging;
   requires java.management;
   requires java.naming;
   requires java.net.http;
   requires java.rmi;
   requires java.scripting;
-  requires java.sql;
 
   //requires com.google.gson;
   requires org.apache.commons.rng.simple;
@@ -41,6 +39,7 @@ module com.github.teruteru.study {
   //requires org.bukkit;
   requires org.apache.logging.log4j;
   requires unboundid.ldapsdk;
+  requires info.picocli;
 
   opens com.github.teruteru128.fx;
   opens com.github.teruteru128.study;

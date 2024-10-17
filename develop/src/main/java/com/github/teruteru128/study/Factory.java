@@ -36,6 +36,8 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
 import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -70,6 +72,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.UUID;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.random.RandomGenerator;
 import java.util.regex.Matcher;
@@ -92,7 +95,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
 
-public class Factory {
+public class Factory implements Callable<Void> {
 
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   public static final HexFormat FORMAT = HexFormat.of();
@@ -115,6 +118,8 @@ public class Factory {
   }
 
   /**
+   * 本来はCallableとかをnewして呼び出すクラスのはずだったんだけどなあ……
+   *
    * @param args コマンドライン引数
    * @throws IOException                   F
    * @throws InterruptedException          割り込み
@@ -344,8 +349,7 @@ public class Factory {
           PrimeSearch.getConvertedStep(Integer.parseInt(args[1]));
         }
       }
-      case "create" -> PrimeSearch.createLargeSieve(
-          Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"));
+      case "create" -> PrimeSearch.createLargeSieve(Paths.get(args[1]), args[2]);
       case "diff" -> {
         long[] array1;
         try (var a = new ObjectInputStream(
@@ -407,6 +411,20 @@ public class Factory {
             Paths.get("even-number-1048576bit-85c53395-9d78-44d2-9c95-9c53ff90f30a.obj"));
         Files.write(Path.of("even-number-1048576bit-85c53395-9d78-44d2-9c95-9c53ff90f30a.txt"),
             List.of(p.toString()), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+      }
+      case "temp" -> {
+        var path = Path.of(System.getenv("TEMP"));
+        var tempDir = Files.createTempDirectory(path, "java-tmp-");
+        var tempPath = Files.createTempFile(tempDir, "work", null);
+        System.out.println(tempDir);
+        System.out.println(tempPath);
+        try (var channel = FileChannel.open(tempPath, StandardOpenOption.CREATE,
+            StandardOpenOption.WRITE, StandardOpenOption.READ,
+            StandardOpenOption.DELETE_ON_CLOSE)) {
+          // NONE
+          var segment = channel.map(MapMode.READ_WRITE, 0, 1 << 30);
+          System.out.println(segment.capacity());
+        }
       }
       case null, default -> {
         System.err.println("unknown command");
@@ -780,6 +798,11 @@ public class Factory {
     System.out.println(BMAddressGenerator.exportAddress(
         new Response(new KeyPair(signKey, signPublicKey), new KeyPair(encKey, encryptionPublicKey),
             ripemd160.digest(sha512.digest()))));
+  }
+
+  @Override
+  public Void call() throws Exception {
+    return null;
   }
 
   private record DecodedAddress(String toAddress, byte[] toripe) {

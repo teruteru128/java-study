@@ -10,16 +10,14 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.lang.foreign.Arena;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
@@ -33,9 +31,9 @@ public class GMP implements Callable<Integer> {
   private final Arena arena = Arena.ofAuto();
 
   @Parameters(arity = "1", converter = PathConverter.class, description = "even number (text) file")
-  private Path path;
+  private Path evenNumberPath;
   @Parameters(arity = "1", converter = PathConverter.class, description = "large sieve object file.")
-  private Path sieve;
+  private Path sievePath;
   @Option(names = "--from", description = "Specify the starting step.")
   private int fromIndex = 0;
 
@@ -51,53 +49,50 @@ public class GMP implements Callable<Integer> {
   @Override
   public Integer call() throws IOException, ClassNotFoundException, InterruptedException {
     var availableProcessors = Runtime.getRuntime().availableProcessors();
-    try (var pool = new ForkJoinPool(availableProcessors / 2, defaultForkJoinWorkerThreadFactory,
+    var p = arena.allocate(__mpz_struct.layout());
+    __gmpz_init_set_str(p,
+        arena.allocateFrom(Files.readAllLines(evenNumberPath).getFirst(), StandardCharsets.UTF_8),
+        10);
+    var largeSieve = getBitSet(sievePath);
+    if (fromIndex != 0) {
+      largeSieve.set(0, fromIndex - 1, false);
+    }
+    logger.info("start");
+    logger.debug("Number of prime number candidates: {}", largeSieve.cardinality());
+    var list = new ArrayList<PrimeSearchTask2>(availableProcessors);
+    boolean found = false;
+    var threads = availableProcessors / 2;
+    for (var step = largeSieve.nextSetBit(fromIndex); step >= 0;
+        step = largeSieve.nextSetBit(step + 1)) {
+      list.add(new PrimeSearchTask2(p, step));
+    }
+    try (var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory,
         null, true)) {
-      var p = arena.allocate(__mpz_struct.layout());
-      __gmpz_init_set_str(p, arena.allocateFrom(Files.readAllLines(path).getFirst()), 10);
-      var largeSieve = getBitSet();
-      logger.info("start");
-      logger.debug("prime candidates: {}", largeSieve.cardinality());
-      var step = largeSieve.nextSetBit(fromIndex);
-      var list = new ArrayList<PrimeSearchTask2>(availableProcessors);
-      boolean found = false;
-      List<Future<Optional<Integer>>> futureList;
-      Optional<Integer> foundStep;
-      while (step >= 0) {
-        while (step >= 0 && list.size() < availableProcessors) {
-          list.add(new PrimeSearchTask2(p, step));
-          step = largeSieve.nextSetBit(step + 1);
-        }
-        if(!list.isEmpty()) {
-          futureList = pool.invokeAll(list);
-          for (var optionalFuture : futureList) {
-            foundStep = optionalFuture.get();
-            if (foundStep.isPresent()) {
-              found = true;
-              logger.info("find prime: step {}", foundStep.get());
-            }
-          }
-          list.clear();
-          if (found) {
-            break;
+      if (!list.isEmpty()) {
+        var futureList = pool.invokeAll(list);
+        for (var optionalFuture : futureList) {
+          var foundStep = optionalFuture.get();
+          if (foundStep.isPresent()) {
+            found = true;
+            logger.info("find prime: step {}", foundStep.get());
           }
         }
-      }
-      __gmpz_clear(p);
-      if (found) {
-        logger.info("find prime");
-        return 0;
-      } else {
-        logger.error("prime not found");
-        return 1;
       }
     } catch (ExecutionException e) {
       throw new RuntimeException(e);
     }
+    __gmpz_clear(p);
+    if (found) {
+      logger.info("find prime");
+      return 0;
+    } else {
+      logger.error("prime not found");
+      return 1;
+    }
   }
 
-  private BitSet getBitSet() throws IOException, ClassNotFoundException {
-    var setA = loadLargeSieve(sieve);
+  private BitSet getBitSet(Path sievePath) throws IOException, ClassNotFoundException {
+    var setA = loadLargeSieve(sievePath);
     var setB = new BitSet(setA.length());
     setB.set(0, setA.length());
     setB.andNot(setA);

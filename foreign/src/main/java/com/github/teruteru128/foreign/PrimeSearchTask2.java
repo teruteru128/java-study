@@ -29,7 +29,7 @@ public class PrimeSearchTask2 implements Callable<Optional<Integer>> {
     var arena = Arena.ofAuto();
     var candidate = arena.allocate(__mpz_struct.layout()).reinterpret(arena, gmp_h::__gmpz_clear);
     __gmpz_init_set(candidate, even);
-    log.debug("current step : {}", step);
+    log.debug("current step: {}", step);
     __gmpz_add_ui(candidate, candidate, step * 2L + 1);
     int result;
     long start = System.nanoTime();

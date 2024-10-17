@@ -20,7 +20,10 @@ javafx {
 application {
     mainModule = 'com.github.teruteru.study'
     mainClass = 'com.github.teruteru128.study.Main'
-    applicationDefaultJvmArgs = ['-Xms16G', '-Xmx16G']
+    applicationDefaultJvmArgs = [
+            //'-Xms16G',
+            //'-Xmx16G'
+    ]
 }
 
 run {

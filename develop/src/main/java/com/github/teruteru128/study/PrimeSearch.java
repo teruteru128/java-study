@@ -55,7 +55,7 @@ public class PrimeSearch {
     }
   }
 
-  public static void createLargeSieve(Path inPath)
+  public static void createLargeSieve(Path inPath, String outPath)
       throws IOException, ClassNotFoundException, ExecutionException, InterruptedException {
     // 小さなふるいを使って大きなふるいから合成数を除外
     // 大きな篩の長さ->1048576 / 20 * 64 = 3355444
@@ -71,10 +71,10 @@ public class PrimeSearch {
     var sieve = new Sieve(smallSieve);
     List<Future<long[]>> list;
     var parallelism = Runtime.getRuntime().availableProcessors() / 2;
-    try (var pool = new ForkJoinPool(parallelism,
-        ForkJoinPool.defaultForkJoinWorkerThreadFactory, null, true)) {
-      list = pool.invokeAll(
-          Collections.nCopies(parallelism, () -> setBitsForNonPrimeNumbers(sieve, base, searchLen)));
+    try (var pool = new ForkJoinPool(parallelism, ForkJoinPool.defaultForkJoinWorkerThreadFactory,
+        null, true)) {
+      list = pool.invokeAll(Collections.nCopies(parallelism,
+          () -> setBitsForNonPrimeNumbers(sieve, base, searchLen)));
     }
     var set = new BitSet(searchLen);
     for (var array : list) {
@@ -90,9 +90,8 @@ public class PrimeSearch {
     setB.set(0, set.length());
     setB.andNot(set);
     logger.info("cardinality: {}", setB.cardinality());
-    try (var oos = new ObjectOutputStream(new BufferedOutputStream(Files.newOutputStream(Path.of(
-        "large-sieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-" + searchLen
-        + "bit-7.obj"))))) {
+    try (var oos = new ObjectOutputStream(
+        new BufferedOutputStream(Files.newOutputStream(Path.of(outPath.formatted(searchLen)))))) {
       oos.writeInt(searchLen);
       oos.writeObject(bis);
     }

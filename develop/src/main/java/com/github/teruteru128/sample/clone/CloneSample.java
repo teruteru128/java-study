@@ -5,7 +5,7 @@ import com.github.teruteru128.study.MyB;
 import java.math.BigInteger;
 
 public class CloneSample {
-    public static void cloneSample() {
+    public static int cloneSample() {
         var signNumber = 0;
         var magnitude = new byte[0];
         var myZero = new MyB(signNumber, magnitude);
@@ -15,5 +15,6 @@ public class CloneSample {
         System.out.println(myZero.equals(cloned));
         System.out.println(zero.equals(cloned));
         System.out.println(zero.getClass() == myZero.getClass());
+        return 0;
     }
 }
