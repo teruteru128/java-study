@@ -118,7 +118,7 @@ public class Factory implements Callable<Void> {
   }
 
   /**
-   * 本来はCallableとかをnewして呼び出すクラスのはずだったんだけどなあ……
+   * Callableをnewして返すファクトリにするはずだったんだけどなあ……
    *
    * @param args コマンドライン引数
    * @throws IOException                   F
