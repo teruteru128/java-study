@@ -8,18 +8,32 @@ import static java.lang.foreign.MemoryLayout.unionLayout;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 
+import com.github.teruteru.gmp.__mpz_struct;
+import com.github.teruteru.gmp.gmp_h;
 import com.github.teruteru128.foreign.windows.Windows_h;
 import java.lang.foreign.Arena;
 import java.lang.foreign.ValueLayout;
+import java.math.BigInteger;
 import java.security.Provider;
 import java.security.Security;
+import java.util.Random;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
+import java.util.random.RandomGenerator;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
+@Command(name = "foreign", subcommands = {CL.class, GMP.class, E.class})
 public class Main implements Callable<Integer> {
+
+  static {
+    for (var provider : ServiceLoader.load(Provider.class)) {
+      if (Security.getProvider(provider.getName()) == null) {
+        Security.addProvider(provider);
+      }
+    }
+  }
 
   private final Arena arena = Arena.ofConfined();
   @Parameters
@@ -29,40 +43,14 @@ public class Main implements Callable<Integer> {
   }
 
   public static void main(String[] args) {
-    for (var provider : ServiceLoader.load(Provider.class)) {
-      if (Security.getProvider(provider.getName()) == null) {
-        Security.addProvider(provider);
-      }
-    }
-    int exitCode = new CommandLine(new Main()).addSubcommand("cl", new CL())
-        .addSubcommand("gmp", new GMP()).addSubcommand("e", new E()).execute(args);
+    int exitCode = new CommandLine(new Main()).execute(args);
     Runtime.getRuntime().exit(exitCode);
   }
 
   @Override
   public Integer call() {
-    // でも本当にほしいのはSocketとかファイルとかMessageDigestとかの連携なんだよね……
-    // もしかしてネイティブライブラリにアクセスできるならOpenSSLにアクセスもできる……？
-    // OpenCLもアクセスできるっぽい
-    var sequenceLayout = sequenceLayout(32, JAVA_BYTE);
-    var structLayout = structLayout(JAVA_BYTE.withName("prefix"), sequenceLayout.withName("x"),
-        sequenceLayout.withName("y")).withName("b");
-    var publicKeyLayout = unionLayout(sequenceLayout(65, JAVA_BYTE).withName("a"), structLayout);
-    System.out.println(publicKeyLayout);
-    System.loadLibrary("BCrypt");
-    ValueLayout.ADDRESS.targetLayout()
-        .ifPresent(memoryLayout -> System.out.printf("address value layout: %s%n", memoryLayout));
-    // TODO ConfinedとAutoを使い分ける
-    // Confined: malloc
-    // Auto: alloca
-    var length = msg.length;
-    for (int i = 0; i < length; i++) {
-      System.out.printf("strlen(args[%d]) = %s%n", i, strlen(arena.allocateFrom(msg[i])));
-    }
-    if (msg.length >= 1) {
-      BCrypt.SHA256(msg[0]);
-    }
-    return null;
+    System.err.println("ナニモナイヨー");
+    return 1;
   }
 
   @Command(name = "locale")
@@ -85,6 +73,45 @@ public class Main implements Callable<Integer> {
       throw new RuntimeException("mutexSample: mutex is null");
     }
     System.out.println("mutex create test:ok");
+  }
+
+  @Command(name = "foreign")
+  public int foreign() {
+    // でも本当にほしいのはSocketとかファイルとかMessageDigestとかの連携なんだよね……
+    // もしかしてネイティブライブラリにアクセスできるならOpenSSLにアクセスもできる……？
+    // OpenCLもアクセスできるっぽい
+    var sequenceLayout = sequenceLayout(32, JAVA_BYTE);
+    var structLayout = structLayout(JAVA_BYTE.withName("prefix"), sequenceLayout.withName("x"),
+        sequenceLayout.withName("y")).withName("b");
+    var publicKeyLayout = unionLayout(sequenceLayout(65, JAVA_BYTE).withName("a"), structLayout);
+    System.out.println(publicKeyLayout);
+    System.loadLibrary("BCrypt");
+    ValueLayout.ADDRESS.targetLayout()
+        .ifPresent(memoryLayout -> System.out.printf("address value layout: %s%n", memoryLayout));
+    // TODO ConfinedとAutoを使い分ける
+    // Confined: malloc
+    // Auto: alloca
+    var length = msg.length;
+    for (int i = 0; i < length; i++) {
+      System.out.printf("strlen(args[%d]) = %s%n", i, strlen(arena.allocateFrom(msg[i])));
+    }
+    if (msg.length >= 1) {
+      BCrypt.SHA256(msg[0]);
+    }
+    return 0;
+  }
+
+  @Command(name = "prime")
+  public void prime() {
+    var random = RandomGenerator.of("SecureRandom");
+    var p = new BigInteger(8192, 25, (Random) random);
+    var auto = Arena.ofAuto();
+    var pM = auto.allocate(__mpz_struct.layout());
+    var string = p.toString(16);
+    System.out.println(string);
+    gmp_h.__gmpz_init_set_str(pM, auto.allocateFrom(string), 16);
+    var a = gmp_h.__gmpz_probab_prime_p(pM, 25);
+    System.out.printf("probab_prime: %d%n", a);
   }
 
 }
