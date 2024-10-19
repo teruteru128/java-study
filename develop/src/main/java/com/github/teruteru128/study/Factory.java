@@ -426,6 +426,15 @@ public class Factory implements Callable<Void> {
           System.out.println(segment.capacity());
         }
       }
+      case "randomDouble" -> {
+        long a;
+        double b;
+        for (int i = 0; i < 10; i++) {
+          a = RandomGenerator.getDefault().nextLong() & 0x7fffffffffffffffL;
+          b = Double.longBitsToDouble(a);
+          System.out.printf("%016x, %a, exp: %d%n", a, b, ((a >> 52) & 0x7ff) - 1023);
+        }
+      }
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
