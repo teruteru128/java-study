@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import org.slf4j.Logger;
@@ -55,16 +56,17 @@ public class GMP implements Callable<Integer> {
         10);
     var largeSieve = getBitSet(sievePath);
     if (fromIndex != 0) {
-      largeSieve.set(0, fromIndex - 1, false);
+      largeSieve.clear(0, fromIndex - 1);
     }
     logger.info("start");
     logger.debug("Number of prime number candidates: {}", largeSieve.cardinality());
     var list = new ArrayList<PrimeSearchTask2>(availableProcessors);
     boolean found = false;
     var threads = availableProcessors / 2;
+    var barrier = new CyclicBarrier(threads);
     for (var step = largeSieve.nextSetBit(fromIndex); step >= 0;
         step = largeSieve.nextSetBit(step + 1)) {
-      list.add(new PrimeSearchTask2(p, step));
+      list.add(new PrimeSearchTask2(p, step, barrier));
     }
     try (var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory,
         null, true)) {
