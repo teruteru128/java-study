@@ -10,6 +10,7 @@ import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 
 import com.github.teruteru.gmp.__mpz_struct;
 import com.github.teruteru.gmp.gmp_h;
+import com.github.teruteru.mpz_aprcl.mpz_aprcl_h;
 import com.github.teruteru128.foreign.windows.Windows_h;
 import java.lang.foreign.Arena;
 import java.lang.foreign.ValueLayout;
@@ -112,6 +113,16 @@ public class Main implements Callable<Integer> {
     gmp_h.__gmpz_init_set_str(pM, auto.allocateFrom(string), 16);
     var a = gmp_h.__gmpz_probab_prime_p(pM, 25);
     System.out.printf("probab_prime: %d%n", a);
+  }
+
+  @Command(name = "prime2")
+  public void prime2(){
+    var auto = Arena.ofAuto();
+    var layout = __mpz_struct.layout();
+    System.out.printf("%d, %d%n", layout.byteSize(), layout.byteAlignment());
+    var p = auto.allocate(layout);
+    gmp_h.__gmpz_init_set_str(p, auto.allocateFrom("100000"), 10);
+    mpz_aprcl_h.mpz_aprtcle(p, mpz_aprcl_h.APRTCLE_VERBOSE2());
   }
 
 }

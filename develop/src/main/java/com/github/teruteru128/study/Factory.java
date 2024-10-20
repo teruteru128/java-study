@@ -435,6 +435,9 @@ public class Factory implements Callable<Void> {
           System.out.printf("%016x, %a, exp: %d%n", a, b, ((a >> 52) & 0x7ff) - 1023);
         }
       }
+      case "path" -> {
+        System.out.println(Factory.class.getResource("").getPath());
+      }
       case null, default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);

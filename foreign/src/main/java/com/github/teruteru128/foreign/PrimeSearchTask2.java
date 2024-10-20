@@ -1,11 +1,11 @@
 package com.github.teruteru128.foreign;
 
 import static com.github.teruteru.gmp.gmp_h.__gmpz_add_ui;
+import static com.github.teruteru.gmp.gmp_h.__gmpz_clear;
 import static com.github.teruteru.gmp.gmp_h.__gmpz_init2;
 import static com.github.teruteru.gmp.gmp_h.__gmpz_probab_prime_p;
 
 import com.github.teruteru.gmp.__mpz_struct;
-import com.github.teruteru.gmp.gmp_h;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.util.Optional;
@@ -21,10 +21,11 @@ public class PrimeSearchTask2 implements Callable<Optional<Integer>> {
   private static final Arena auto = Arena.ofAuto();
   private static final ThreadLocal<MemorySegment> threadCandidate = ThreadLocal.withInitial(() -> {
     var candidate = auto.allocate(__mpz_struct.layout()).reinterpret(auto, x0 -> {
-      log.debug("Candidates have been released: {}", x0.address());
-      gmp_h.__gmpz_clear(x0);
+      log.trace("Candidate have been released: {}", x0.address());
+      __gmpz_clear(x0);
     });
     __gmpz_init2(candidate, 1048576);
+    log.trace("candidate storage have been initialized");
     return candidate;
   });
   private final MemorySegment even;
