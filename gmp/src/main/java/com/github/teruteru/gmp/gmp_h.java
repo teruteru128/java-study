@@ -826,7 +826,7 @@ public class gmp_h {
      * void __gmp_get_memory_functions(void *(**)(size_t), void *(**)(void *, size_t, size_t), void (**)(void *, size_t))
      * }
      */
-    public static void __gmp_get_memory_functions(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+    private static void __gmp_get_memory_functions(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
         var mh$ = __gmp_get_memory_functions.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -836,6 +836,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mp_get_memory_functions(void *(**)(size_t), void *(**)(void *, size_t, size_t), void (**)(void *, size_t))
+     * }
+     */
+    public static void mp_get_memory_functions(MemorySegment x0, MemorySegment x1, MemorySegment x2){
+        __gmp_get_memory_functions(x0, x1, x2);
     }
 
     private static class __gmp_bits_per_limb$constants {
@@ -2037,7 +2045,7 @@ public class gmp_h {
      * void __gmpz_add_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static void __gmpz_add_ui(MemorySegment x0, MemorySegment x1, long x2) {
+    private static void __gmpz_add_ui(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_add_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -2047,6 +2055,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_add_ui(mpz_ptr, mpz_srcptr, unsigned long)
+     * }
+     */
+    public static void mpz_add_ui(MemorySegment x0, MemorySegment x1, long x2) {
+        __gmpz_add_ui(x0, x1, x2);
     }
 
     private static class __gmpz_addmul {
@@ -2808,7 +2824,7 @@ public class gmp_h {
      * void __gmpz_clear(mpz_ptr)
      * }
      */
-    public static void __gmpz_clear(MemorySegment x0) {
+    private static void __gmpz_clear(MemorySegment x0) {
         var mh$ = __gmpz_clear.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -2819,6 +2835,14 @@ public class gmp_h {
            throw new AssertionError("should not reach here", ex$);
         }
     }
+    /**
+     * {@snippet lang=c :
+     * void mpz_clear(mpz_ptr)
+     * }
+     */
+    public static void mpz_clear(MemorySegment x0) {
+        __gmpz_clear(x0);
+    }
 
     /**
      * Variadic invoker class for:
@@ -2826,11 +2850,11 @@ public class gmp_h {
      * void __gmpz_clears(mpz_ptr, ...)
      * }
      */
-    public static class __gmpz_clears {
-        private static final FunctionDescriptor BASE_DESC = FunctionDescriptor.ofVoid(
+    private static class __gmpz_clears {
+        protected static final FunctionDescriptor BASE_DESC = FunctionDescriptor.ofVoid(
                 gmp_h.C_POINTER
             );
-        private static final MemorySegment ADDR = gmp_h.findOrThrow("__gmpz_clears");
+        protected static final MemorySegment ADDR = gmp_h.findOrThrow("__gmpz_clears");
 
         private final MethodHandle handle;
         private final FunctionDescriptor descriptor;
@@ -2881,6 +2905,32 @@ public class gmp_h {
             } catch (Throwable ex$) {
                throw new AssertionError("should not reach here", ex$);
             }
+        }
+    }
+    /**
+     * Variadic invoker class for:
+     * {@snippet lang=c :
+     * void mpz_clears(mpz_ptr, ...)
+     * }
+     */
+    public static class mpz_clears extends __gmpz_clears {
+        public mpz_clears(MethodHandle handle, FunctionDescriptor descriptor,
+            MethodHandle spreader) {
+            super(handle, descriptor, spreader);
+        }
+
+        /**
+         * Variadic invoker factory for:
+         * {@snippet lang=c :
+         * void __gmpz_clears(mpz_ptr, ...)
+         * }
+         */
+        public static mpz_clears makeInvoker(MemoryLayout... layouts) {
+            FunctionDescriptor desc$ = BASE_DESC.appendArgumentLayouts(layouts);
+            Linker.Option fva$ = Linker.Option.firstVariadicArg(BASE_DESC.argumentLayouts().size());
+            var mh$ = Linker.nativeLinker().downcallHandle(ADDR, desc$, fva$);
+            var spreader$ = mh$.asSpreader(Object[].class, layouts.length);
+            return new mpz_clears(mh$, desc$, spreader$);
         }
     }
 
@@ -3835,7 +3885,7 @@ public class gmp_h {
      * void *__gmpz_export(void *, size_t *, int, size_t, int, size_t, mpz_srcptr)
      * }
      */
-    public static MemorySegment __gmpz_export(MemorySegment x0, MemorySegment x1, int x2, long x3, int x4, long x5, MemorySegment x6) {
+    private static MemorySegment __gmpz_export(MemorySegment x0, MemorySegment x1, int x2, long x3, int x4, long x5, MemorySegment x6) {
         var mh$ = __gmpz_export.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -3845,6 +3895,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void *mpz_export(void *, size_t *, int, size_t, int, size_t, mpz_srcptr)
+     * }
+     */
+    public static MemorySegment mpz_export(MemorySegment x0, MemorySegment x1, int x2, long x3, int x4, long x5, MemorySegment x6) {
+        return __gmpz_export(x0, x1, x2, x3, x4, x5, x6);
     }
 
     private static class __gmpz_fac_ui {
@@ -5035,7 +5093,7 @@ public class gmp_h {
      * char *__gmpz_get_str(char *, int, mpz_srcptr)
      * }
      */
-    public static MemorySegment __gmpz_get_str(MemorySegment x0, int x1, MemorySegment x2) {
+    private static MemorySegment __gmpz_get_str(MemorySegment x0, int x1, MemorySegment x2) {
         var mh$ = __gmpz_get_str.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -5045,6 +5103,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * char *mpz_get_str(char *, int, mpz_srcptr)
+     * }
+     */
+    public static MemorySegment mpz_get_str(MemorySegment x0, int x1, MemorySegment x2) {
+        return __gmpz_get_str(x0, x1, x2);
     }
 
     private static class __gmpz_hamdist {
@@ -5135,7 +5201,7 @@ public class gmp_h {
      * void __gmpz_import(mpz_ptr, size_t, int, size_t, int, size_t, const void *)
      * }
      */
-    public static void __gmpz_import(MemorySegment x0, long x1, int x2, long x3, int x4, long x5, MemorySegment x6) {
+    private static void __gmpz_import(MemorySegment x0, long x1, int x2, long x3, int x4, long x5, MemorySegment x6) {
         var mh$ = __gmpz_import.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -5145,6 +5211,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_import(mpz_ptr, size_t, int, size_t, int, size_t, const void *)
+     * }
+     */
+    public static void mpz_import(MemorySegment x0, long x1, int x2, long x3, int x4, long x5, MemorySegment x6) {
+        __gmpz_import(x0, x1, x2, x3, x4, x5, x6);
     }
 
     private static class __gmpz_init {
@@ -5181,7 +5255,7 @@ public class gmp_h {
      * void __gmpz_init(mpz_ptr)
      * }
      */
-    public static void __gmpz_init(MemorySegment x0) {
+    private static void __gmpz_init(MemorySegment x0) {
         var mh$ = __gmpz_init.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -5191,6 +5265,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_init(mpz_ptr)
+     * }
+     */
+    public static void mpz_init(MemorySegment x0) {
+        __gmpz_init(x0);
     }
 
     private static class __gmpz_init2 {
@@ -5228,7 +5310,7 @@ public class gmp_h {
      * void __gmpz_init2(mpz_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_init2(MemorySegment x0, long x1) {
+    private static void __gmpz_init2(MemorySegment x0, long x1) {
         var mh$ = __gmpz_init2.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -5239,6 +5321,14 @@ public class gmp_h {
            throw new AssertionError("should not reach here", ex$);
         }
     }
+    /**
+     * {@snippet lang=c :
+     * void mpz_init2(mpz_ptr, mp_bitcnt_t)
+     * }
+     */
+    public static void mpz_init2(MemorySegment x0, long x1) {
+        __gmpz_init2(x0, x1);
+    }
 
     /**
      * Variadic invoker class for:
@@ -5246,11 +5336,11 @@ public class gmp_h {
      * void __gmpz_inits(mpz_ptr, ...)
      * }
      */
-    public static class __gmpz_inits {
-        private static final FunctionDescriptor BASE_DESC = FunctionDescriptor.ofVoid(
+    private static class __gmpz_inits {
+        protected static final FunctionDescriptor BASE_DESC = FunctionDescriptor.ofVoid(
                 gmp_h.C_POINTER
             );
-        private static final MemorySegment ADDR = gmp_h.findOrThrow("__gmpz_inits");
+        protected static final MemorySegment ADDR = gmp_h.findOrThrow("__gmpz_inits");
 
         private final MethodHandle handle;
         private final FunctionDescriptor descriptor;
@@ -5303,6 +5393,32 @@ public class gmp_h {
             }
         }
     }
+    /**
+     * Variadic invoker class for:
+     * {@snippet lang=c :
+     * void mpz_inits(mpz_ptr, ...)
+     * }
+     */
+    public static class mpz_inits extends __gmpz_inits {
+        public mpz_inits(MethodHandle handle, FunctionDescriptor descriptor,
+            MethodHandle spreader) {
+            super(handle, descriptor, spreader);
+        }
+
+        /**
+         * Variadic invoker factory for:
+         * {@snippet lang=c :
+         * void mpz_inits(mpz_ptr, ...)
+         * }
+         */
+        public static mpz_inits makeInvoker(MemoryLayout... layouts) {
+            FunctionDescriptor desc$ = BASE_DESC.appendArgumentLayouts(layouts);
+            Linker.Option fva$ = Linker.Option.firstVariadicArg(BASE_DESC.argumentLayouts().size());
+            var mh$ = Linker.nativeLinker().downcallHandle(ADDR, desc$, fva$);
+            var spreader$ = mh$.asSpreader(Object[].class, layouts.length);
+            return new mpz_inits(mh$, desc$, spreader$);
+        }
+    }
 
     private static class __gmpz_init_set {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
@@ -5339,7 +5455,7 @@ public class gmp_h {
      * void __gmpz_init_set(mpz_ptr, mpz_srcptr)
      * }
      */
-    public static void __gmpz_init_set(MemorySegment x0, MemorySegment x1) {
+    private static void __gmpz_init_set(MemorySegment x0, MemorySegment x1) {
         var mh$ = __gmpz_init_set.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -5349,6 +5465,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_init_set(mpz_ptr, mpz_srcptr)
+     * }
+     */
+    public static void mpz_init_set(MemorySegment x0, MemorySegment x1) {
+        __gmpz_init_set(x0, x1);
     }
 
     private static class __gmpz_init_set_d {
@@ -5482,7 +5606,7 @@ public class gmp_h {
      * int __gmpz_init_set_str(mpz_ptr, const char *, int)
      * }
      */
-    public static int __gmpz_init_set_str(MemorySegment x0, MemorySegment x1, int x2) {
+    private static int __gmpz_init_set_str(MemorySegment x0, MemorySegment x1, int x2) {
         var mh$ = __gmpz_init_set_str.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -5492,6 +5616,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * int mpz_init_set_str(mpz_ptr, const char *, int)
+     * }
+     */
+    public static int mpz_init_set_str(MemorySegment x0, MemorySegment x1, int x2) {
+        return __gmpz_init_set_str(x0, x1, x2);
     }
 
     private static class __gmpz_init_set_ui {
@@ -5529,7 +5661,7 @@ public class gmp_h {
      * void __gmpz_init_set_ui(mpz_ptr, unsigned long)
      * }
      */
-    public static void __gmpz_init_set_ui(MemorySegment x0, long x1) {
+    private static void __gmpz_init_set_ui(MemorySegment x0, long x1) {
         var mh$ = __gmpz_init_set_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -5539,6 +5671,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_init_set_ui(mpz_ptr, unsigned long)
+     * }
+     */
+    public static void mpz_init_set_ui(MemorySegment x0, long x1){
+        __gmpz_init_set_ui(x0, x1);
     }
 
     private static class __gmpz_invert {
@@ -5578,7 +5718,7 @@ public class gmp_h {
      * int __gmpz_invert(mpz_ptr, mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static int __gmpz_invert(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+    private static int __gmpz_invert(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
         var mh$ = __gmpz_invert.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -5588,6 +5728,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * int __gmpz_invert(mpz_ptr, mpz_srcptr, mpz_srcptr)
+     * }
+     */
+    public static int mpz_invert(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+        return __gmpz_invert(x0, x1, x2);
     }
 
     private static class __gmpz_ior {
@@ -6153,7 +6301,7 @@ public class gmp_h {
      * void __gmpz_mod(mpz_ptr, mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static void __gmpz_mod(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+    private static void __gmpz_mod(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
         var mh$ = __gmpz_mod.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6163,6 +6311,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_mod(mpz_ptr, mpz_srcptr, mpz_srcptr)
+     * }
+     */
+    public static void mpz_mod(MemorySegment x0, MemorySegment x1, MemorySegment x2){
+        __gmpz_mod(x0, x1, x2);
     }
 
     private static class __gmpz_mul {
@@ -6201,7 +6357,7 @@ public class gmp_h {
      * void __gmpz_mul(mpz_ptr, mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static void __gmpz_mul(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+    private static void __gmpz_mul(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
         var mh$ = __gmpz_mul.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6211,6 +6367,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_mul(mpz_ptr, mpz_srcptr, mpz_srcptr)
+     * }
+     */
+    public static void mpz_mul(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+        __gmpz_mul(x0, x1, x2);
     }
 
     private static class __gmpz_mul_2exp {
@@ -6249,7 +6413,7 @@ public class gmp_h {
      * void __gmpz_mul_2exp(mpz_ptr, mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_mul_2exp(MemorySegment x0, MemorySegment x1, long x2) {
+    private static void __gmpz_mul_2exp(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_mul_2exp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6259,6 +6423,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_mul_2exp(mpz_ptr, mpz_srcptr, mp_bitcnt_t)
+     * }
+     */
+    public static void mpz_mul_2exp(MemorySegment x0, MemorySegment x1, long x2) {
+        __gmpz_mul_2exp(x0, x1, x2);
     }
 
     private static class __gmpz_mul_si {
@@ -6730,7 +6902,7 @@ public class gmp_h {
      * int __gmpz_probab_prime_p(mpz_srcptr, int)
      * }
      */
-    public static int __gmpz_probab_prime_p(MemorySegment x0, int x1) {
+    private static int __gmpz_probab_prime_p(MemorySegment x0, int x1) {
         var mh$ = __gmpz_probab_prime_p.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6740,6 +6912,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * int mpz_probab_prime_p(mpz_srcptr, int)
+     * }
+     */
+    public static int mpz_probab_prime_p(MemorySegment x0, int x1) {
+        return __gmpz_probab_prime_p(x0, x1);
     }
 
     private static class __gmpz_random {
@@ -7493,7 +7673,7 @@ public class gmp_h {
      * void __gmpz_setbit(mpz_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_setbit(MemorySegment x0, long x1) {
+    private static void __gmpz_setbit(MemorySegment x0, long x1) {
         var mh$ = __gmpz_setbit.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -7503,6 +7683,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_setbit(mpz_ptr, mp_bitcnt_t)
+     * }
+     */
+    public static void mpz_setbit(MemorySegment x0, long x1) {
+        __gmpz_setbit(x0, x1);
     }
 
     private static class __gmpz_sizeinbase {
@@ -7541,7 +7729,7 @@ public class gmp_h {
      * size_t __gmpz_sizeinbase(mpz_srcptr, int)
      * }
      */
-    public static long __gmpz_sizeinbase(MemorySegment x0, int x1) {
+    private static long __gmpz_sizeinbase(MemorySegment x0, int x1) {
         var mh$ = __gmpz_sizeinbase.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -7551,6 +7739,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * size_t mpz_sizeinbase(mpz_srcptr, int)
+     * }
+     */
+    public static long mpz_sizeinbase(MemorySegment x0, int x1) {
+        return __gmpz_sizeinbase(x0, x1);
     }
 
     private static class __gmpz_sqrt {
@@ -7732,7 +7928,7 @@ public class gmp_h {
      * void __gmpz_sub_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static void __gmpz_sub_ui(MemorySegment x0, MemorySegment x1, int x2) {
+    private static void __gmpz_sub_ui(MemorySegment x0, MemorySegment x1, int x2) {
         var mh$ = __gmpz_sub_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -7742,6 +7938,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_sub_ui(mpz_ptr, mpz_srcptr, unsigned long)
+     * }
+     */
+    public static void mpz_sub_ui(MemorySegment x0, MemorySegment x1, int x2){
+        __gmpz_sub_ui(x0, x1, x2);
     }
 
     private static class __gmpz_ui_sub {

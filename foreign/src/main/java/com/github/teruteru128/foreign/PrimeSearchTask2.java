@@ -1,9 +1,9 @@
 package com.github.teruteru128.foreign;
 
-import static com.github.teruteru.gmp.gmp_h.__gmpz_add_ui;
-import static com.github.teruteru.gmp.gmp_h.__gmpz_clear;
-import static com.github.teruteru.gmp.gmp_h.__gmpz_init2;
-import static com.github.teruteru.gmp.gmp_h.__gmpz_probab_prime_p;
+import static com.github.teruteru.gmp.gmp_h.mpz_add_ui;
+import static com.github.teruteru.gmp.gmp_h.mpz_clear;
+import static com.github.teruteru.gmp.gmp_h.mpz_init2;
+import static com.github.teruteru.gmp.gmp_h.mpz_probab_prime_p;
 
 import com.github.teruteru.gmp.__mpz_struct;
 import java.lang.foreign.Arena;
@@ -17,15 +17,15 @@ import org.slf4j.LoggerFactory;
 
 public class PrimeSearchTask2 implements Callable<Optional<Integer>> {
 
-  private static final Logger log = LoggerFactory.getLogger(PrimeSearchTask2.class);
+  private static final Logger logger = LoggerFactory.getLogger(PrimeSearchTask2.class);
   private static final Arena auto = Arena.ofAuto();
   private static final ThreadLocal<MemorySegment> threadCandidate = ThreadLocal.withInitial(() -> {
     var candidate = auto.allocate(__mpz_struct.layout()).reinterpret(auto, x0 -> {
-      log.trace("Candidate have been released: {}", x0.address());
-      __gmpz_clear(x0);
+      logger.trace("Candidate have been released: {}", x0.address());
+      mpz_clear(x0);
     });
-    __gmpz_init2(candidate, 1048576);
-    log.trace("candidate storage have been initialized");
+    mpz_init2(candidate, 1048576);
+    logger.trace("candidate storage have been initialized");
     return candidate;
   });
   private final MemorySegment even;
@@ -41,15 +41,15 @@ public class PrimeSearchTask2 implements Callable<Optional<Integer>> {
   @Override
   public Optional<Integer> call() {
     var candidate = threadCandidate.get();
-    __gmpz_add_ui(candidate, even, step * 2L + 1);
+    mpz_add_ui(candidate, even, step * 2L + 1);
     int result;
     long start;
     long finish;
-    log.debug("current step: {}", step);
+    logger.debug("current step: {}", step);
     start = System.nanoTime();
-    result = __gmpz_probab_prime_p(candidate, 25);
+    result = mpz_probab_prime_p(candidate, 25);
     finish = System.nanoTime();
-    log.info("step {}: {}({} hours)", step, result, (finish - start) / 3.6e12);
+    logger.info("step {}: {}({} hours)", step, result, (finish - start) / 3.6e12);
     try {
       barrier.await();
     } catch (InterruptedException | BrokenBarrierException e) {

@@ -1,7 +1,11 @@
 package com.github.teruteru128.foreign;
 
+import static com.github.teruteru.gmp.gmp_h.mpz_init_set;
+import static com.github.teruteru.gmp.gmp_h.mpz_add_ui;
+import static com.github.teruteru.gmp.gmp_h.mpz_clear;
+import static com.github.teruteru.gmp.gmp_h.mpz_probab_prime_p;
+
 import com.github.teruteru.gmp.__mpz_struct;
-import com.github.teruteru.gmp.gmp_h;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.util.Set;
@@ -32,14 +36,14 @@ public class PrimeSearchTask extends RecursiveTask<Set<Integer>> {
       var arena = Arena.ofAuto();
       // generate prime number candidate
       var candidate = arena.allocate(__mpz_struct.layout());
-      gmp_h.__gmpz_init_set(candidate, even);
-      gmp_h.__gmpz_add_ui(candidate, candidate, sieve[from] * 2L + 1);
+      mpz_init_set(candidate, even);
+      mpz_add_ui(candidate, candidate, sieve[from] * 2L + 1);
       int ret;
       log.debug("start step: {}", sieve[from]);
       long start = System.nanoTime();
-      ret = gmp_h.__gmpz_probab_prime_p(candidate, 15);
+      ret = mpz_probab_prime_p(candidate, 15);
       long finish = System.nanoTime();
-      gmp_h.__gmpz_clear(candidate);
+      mpz_clear(candidate);
       log.info("step {}: {}({} hours)", sieve[from], ret, (finish - start) / 3.6e12);
       if (ret == 0) {
         return Set.of();

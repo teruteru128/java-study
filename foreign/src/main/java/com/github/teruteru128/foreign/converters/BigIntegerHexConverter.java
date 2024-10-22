@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.HexFormat;
 import picocli.CommandLine;
 
-public class BigIntegerHexConverter implements CommandLine.ITypeConverter<BigInteger>{
+public class BigIntegerHexConverter implements CommandLine.ITypeConverter<BigInteger> {
 
   @Override
   public BigInteger convert(String value) {

@@ -47,6 +47,7 @@ import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.ExitCode;
 
 @Command(name = "cl")
 public class CL implements AutoCloseable, Callable<Integer> {
@@ -232,7 +233,7 @@ public class CL implements AutoCloseable, Callable<Integer> {
     clReleaseKernel(kernel);
     clReleaseProgram(program);
     clReleaseContext(context);
-    return 0;
+    return ExitCode.OK;
   }
 
   @Override

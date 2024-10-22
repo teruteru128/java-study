@@ -22,9 +22,10 @@ include("gmp")
 include("resources")
 include("mpz_aprcl")
 include("opencl")
+include('openssl')
 include("slime")
 include("time")
 include("windows")
 include("setjmp")
-include 'sample'
-include 'scheduled-pathping'
+include('sample')
+include('scheduled-pathping')

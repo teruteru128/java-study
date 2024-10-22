@@ -1,7 +1,10 @@
 package com.github.teruteru128.foreign;
 
-import static com.github.teruteru.gmp.gmp_h.__gmpz_clear;
-import static com.github.teruteru.gmp.gmp_h.__gmpz_init_set_str;
+import static com.github.teruteru.gmp.gmp_h.mpz_add_ui;
+import static com.github.teruteru.gmp.gmp_h.mpz_clear;
+import static com.github.teruteru.gmp.gmp_h.mpz_init2;
+import static com.github.teruteru.gmp.gmp_h.mpz_init_set_str;
+import static com.github.teruteru.gmp.gmp_h.mpz_probab_prime_p;
 import static java.util.concurrent.ForkJoinPool.defaultForkJoinWorkerThreadFactory;
 
 import com.github.teruteru.gmp.__mpz_struct;
@@ -10,7 +13,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.lang.foreign.Arena;
-import java.nio.charset.StandardCharsets;
+import java.lang.foreign.MemorySegment;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ import java.util.concurrent.ForkJoinPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
@@ -29,8 +33,17 @@ import picocli.CommandLine.Parameters;
 public class GMP implements Callable<Integer> {
 
   private static final Logger logger = LoggerFactory.getLogger(GMP.class);
+  private static final Arena auto = Arena.ofAuto();
+  private static final ThreadLocal<MemorySegment> threadCandidate = ThreadLocal.withInitial(() -> {
+    var candidate = auto.allocate(__mpz_struct.layout()).reinterpret(auto, x0 -> {
+      logger.trace("Candidate have been released: {}", x0.address());
+      mpz_clear(x0);
+    });
+    mpz_init2(candidate, 1048576);
+    logger.trace("candidate storage have been initialized");
+    return candidate;
+  });
   private final Arena arena = Arena.ofAuto();
-
   @Parameters(arity = "1", converter = PathConverter.class, description = "even number (text) file")
   private Path evenNumberPath;
   @Parameters(arity = "1", converter = PathConverter.class, description = "large sieve object file.")
@@ -51,9 +64,11 @@ public class GMP implements Callable<Integer> {
   public Integer call() throws IOException, ClassNotFoundException, InterruptedException {
     var availableProcessors = Runtime.getRuntime().availableProcessors();
     var p = arena.allocate(__mpz_struct.layout());
-    __gmpz_init_set_str(p,
-        arena.allocateFrom(Files.readAllLines(evenNumberPath).getFirst(), StandardCharsets.UTF_8),
-        10);
+    {
+      var evenStr = Files.readAllLines(evenNumberPath).getFirst();
+      var str = arena.allocateFrom(evenStr);
+      mpz_init_set_str(p, str, 10);
+    }
     var largeSieve = getBitSet(sievePath);
     if (fromIndex != 0) {
       largeSieve.clear(0, fromIndex - 1);
@@ -64,6 +79,31 @@ public class GMP implements Callable<Integer> {
     boolean found = false;
     var threads = availableProcessors / 2;
     var barrier = new CyclicBarrier(threads);
+    /* スレッド数はシステムプロパティ`java.util.concurrent.ForkJoinPool.common.parallelism`
+     * で調整してクレメンス */
+    /*
+    var optionalStep = largeSieve.stream().parallel().asLongStream().filter(step -> {
+      var candidate = threadCandidate.get();
+      mpz_add_ui(candidate, p, step * 2 + 1);
+      int result;
+      long start;
+      long finish;
+      logger.debug("current step: {}", step);
+      start = System.nanoTime();
+      result = mpz_probab_prime_p(candidate, 25);
+      finish = System.nanoTime();
+      logger.info("step {}: {}({} hours)", step, result, (finish - start) / 3.6e12);
+      return result != 0;
+    }).findAny();
+    mpz_clear(p);
+    if (optionalStep.isPresent()) {
+      logger.info("find prime: step {}", optionalStep.getAsLong());
+      return ExitCode.OK;
+    } else {
+      logger.error("prime not found");
+      return ExitCode.SOFTWARE;
+    }
+    */
     for (var step = largeSieve.nextSetBit(fromIndex); step >= 0;
         step = largeSieve.nextSetBit(step + 1)) {
       list.add(new PrimeSearchTask2(p, step, barrier));
@@ -83,13 +123,13 @@ public class GMP implements Callable<Integer> {
     } catch (ExecutionException e) {
       throw new RuntimeException(e);
     }
-    __gmpz_clear(p);
+    mpz_clear(p);
     if (found) {
       logger.info("find prime");
-      return 0;
+      return ExitCode.OK;
     } else {
       logger.error("prime not found");
-      return 1;
+      return ExitCode.SOFTWARE;
     }
   }
 
