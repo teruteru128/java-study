@@ -3,7 +3,6 @@ package com.github.teruteru128.foreign;
 import static com.github.teruteru.gmp.__mpz_struct.allocateArray;
 import static com.github.teruteru.gmp.__mpz_struct.asSlice;
 import static com.github.teruteru.gmp.__mpz_struct.layout;
-import static com.github.teruteru.gmp.gmp_h.mp_get_memory_functions;
 import static com.github.teruteru.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru.gmp.gmp_h.mpz_export;
 import static com.github.teruteru.gmp.gmp_h.mpz_init2;
@@ -46,6 +45,8 @@ import java.security.Security;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.RSAPrivateCrtKeySpec;
+import java.security.spec.RSAPublicKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Random;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
@@ -95,15 +96,13 @@ public class Main implements Callable<Integer> {
     var pSegment = mpz_export(seg, countP, 0, JAVA_BYTE.byteSize(), 0, 0, x0);
     pSegment = pSegment.reinterpret(countP.getAtIndex(JAVA_LONG, 0));
     var pA = pSegment.toArray(JAVA_BYTE);
+    var sign = BigInteger.valueOf(Integer.compare(__mpz_struct._mp_size(x0), 0));
     if ((pA[0] & 0x80) != 0) {
       var tmp = new byte[pA.length + 1];
       System.arraycopy(pA, 0, tmp, 1, pA.length);
-      return new BigInteger(tmp).multiply(BigInteger.valueOf(
-          Integer.compare(__mpz_struct._mp_size(x0), 0)));
-    } else {
-      return new BigInteger(pA).multiply(BigInteger.valueOf(
-          Integer.compare(__mpz_struct._mp_size(x0), 0)));
+      return new BigInteger(tmp).multiply(sign);
     }
+    return new BigInteger(pA).multiply(sign);
   }
 
   @Override
@@ -190,16 +189,21 @@ public class Main implements Callable<Integer> {
 
   /**
    * 素数2つをRSA Private CRT key に変換してファイルに書き出す
-   * @param outPath 出力ファイル
-   * @param pPath 入力素数ファイルP
-   * @param qPath 入力素数ファイルQ
+   *
+   * @param privateKeyOutPath 秘密鍵出力ファイル
+   * @param publicKeyOutPath 公開鍵出力ファイル
+   * @param pPath             入力素数ファイルP
+   * @param qPath             入力素数ファイルQ
    * @return 終了コード(if ( success) return 0; else 1)
    * @throws IOException file I/O Error
    */
   @Command(name = "rsaEncode")
-  public int rsaEncode(@Parameters(converter = PathConverter.class) Path outPath,
-      @Parameters(converter = PathConverter.class) Path pPath,
-      @Parameters(converter = PathConverter.class) Path qPath) throws IOException {
+  public int rsaEncode(
+      @Parameters(converter = PathConverter.class, description = "private key output path") Path privateKeyOutPath,
+      @Parameters(converter = PathConverter.class, description = "public key output path") Path publicKeyOutPath,
+      @Parameters(converter = PathConverter.class, description = "prime p input path") Path pPath,
+      @Parameters(converter = PathConverter.class, description = "prime p input path") Path qPath)
+      throws IOException {
     var auto = Arena.ofAuto();
     var variables = allocateArray(11, auto);
     // asSliceメソッドはcleanupアクションを受け継ぐんだろうか？
@@ -217,6 +221,9 @@ public class Main implements Callable<Integer> {
 
     mpz_init_set_str(p, arena.allocateFrom(Files.readAllLines(pPath).getFirst()), 16);
     mpz_init_set_str(q, arena.allocateFrom(Files.readAllLines(qPath).getFirst()), 16);
+    if (gmp_h.mpz_cmp(p, q) < 0) {
+      gmp_h.mpz_swap(p, q);
+    }
     mpz_init2(n, mpz_sizeinbase(p, 2) + mpz_sizeinbase(q, 2) + 1);
     mpz_mul(n, p, q);
     mpz_init_set(pSub1, p);
@@ -235,9 +242,6 @@ public class Main implements Callable<Integer> {
     mpz_init2(coefficient, mpz_sizeinbase(p, 2));
     mpz_invert(coefficient, q, p);
 
-    var freeFuncPtr = auto.allocate(ADDRESS);
-    mp_get_memory_functions(NULL, NULL, freeFuncPtr);
-
     // こんな面倒くさいことするんだったら普通に10進数なり16進数なりにエンコードして読み込ませたほうがいいような
     var pBI = mpzToBigInteger(p);
     var qBI = mpzToBigInteger(q);
@@ -247,12 +251,16 @@ public class Main implements Callable<Integer> {
     var exponent1BI = mpzToBigInteger(exponent1);
     var exponent2BI = mpzToBigInteger(exponent2);
     var coefficientBI = mpzToBigInteger(coefficient);
-    var spec = new RSAPrivateCrtKeySpec(nBI, eBI, dBI, pBI, qBI, exponent1BI, exponent2BI,
+    var privateSpec = new RSAPrivateCrtKeySpec(nBI, eBI, dBI, pBI, qBI, exponent1BI, exponent2BI,
         coefficientBI);
+    var pubSpec = new RSAPublicKeySpec(nBI, eBI);
     try {
       var f = KeyFactory.getInstance("RSA");
-      var spec2 = f.getKeySpec(f.generatePrivate(spec), PKCS8EncodedKeySpec.class);
-      Files.write(outPath, spec2.getEncoded(), StandardOpenOption.CREATE,
+      var spec2 = f.getKeySpec(f.generatePrivate(privateSpec), PKCS8EncodedKeySpec.class);
+      var spec3 = f.getKeySpec(f.generatePublic(pubSpec), X509EncodedKeySpec.class);
+      Files.write(privateKeyOutPath, spec2.getEncoded(), StandardOpenOption.CREATE,
+          StandardOpenOption.CREATE);
+      Files.write(publicKeyOutPath, spec3.getEncoded(), StandardOpenOption.CREATE,
           StandardOpenOption.CREATE);
     } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
       throw new RuntimeException(ex);

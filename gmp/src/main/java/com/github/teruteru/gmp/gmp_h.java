@@ -3017,7 +3017,7 @@ public class gmp_h {
      * int __gmpz_cmp(mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static int __gmpz_cmp(MemorySegment x0, MemorySegment x1) {
+    private static int __gmpz_cmp(MemorySegment x0, MemorySegment x1) {
         var mh$ = __gmpz_cmp.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -3027,6 +3027,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * int mpz_cmp(mpz_srcptr, mpz_srcptr)
+     * }
+     */
+    public static int mpz_cmp(MemorySegment x0, MemorySegment x1) {
+        return __gmpz_cmp(x0, x1);
     }
 
     private static class __gmpz_cmp_d {
@@ -8127,7 +8135,7 @@ public class gmp_h {
      * void __gmpz_swap(mpz_ptr, mpz_ptr)
      * }
      */
-    public static void __gmpz_swap(MemorySegment x0, MemorySegment x1) {
+    private static void __gmpz_swap(MemorySegment x0, MemorySegment x1) {
         var mh$ = __gmpz_swap.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -8137,6 +8145,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_swap(mpz_ptr, mpz_ptr)
+     * }
+     */
+    public static void mpz_swap(MemorySegment x0, MemorySegment x1){
+        __gmpz_swap(x0, x1);
     }
 
     private static class __gmpz_tdiv_ui {
