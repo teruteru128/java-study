@@ -4490,6 +4490,22 @@ public class gmp_h {
            throw new AssertionError("should not reach here", ex$);
         }
     }
+    /**
+     * {@snippet lang=c :
+     * unsigned long mpz_mod_ui(mpz_ptr, mpz_srcptr, unsigned long)
+     * }
+     */
+    public static long mpz_mod_ui(MemorySegment x0, MemorySegment x1, long x2) {
+        return mpz_fdiv_r_ui(x0, x1, x2);
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned long mpz_fdiv_r_ui(mpz_ptr, mpz_srcptr, unsigned long)
+     * }
+     */
+    public static long mpz_fdiv_r_ui(MemorySegment x0, MemorySegment x1, long x2) {
+        return __gmpz_fdiv_r_ui(x0, x1, x2);
+    }
 
     private static class __gmpz_fdiv_ui {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
@@ -4533,10 +4549,18 @@ public class gmp_h {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpz_fdiv_ui", x0, x1);
             }
-            return (int)mh$.invokeExact(x0, x1);
+            return (long)mh$.invokeExact(x0, x1);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned long mpz_fdiv_ui(mpz_srcptr, unsigned long)
+     * }
+     */
+    public static long mpz_fdiv_ui(MemorySegment x0, long x1) {
+        return __gmpz_fdiv_ui(x0, x1);
     }
 
     private static class __gmpz_fib_ui {

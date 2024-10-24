@@ -19,6 +19,9 @@ public class Sieve {
   }
 
   private final long[] sieve;
+  /**
+   * sieveのリミット。bit単位。
+   */
   private final long limit;
   private long step;
 
@@ -29,16 +32,15 @@ public class Sieve {
   public Sieve(long[] sieve, long limit, long start) {
     this.sieve = sieve;
     this.limit = limit;
-    this.step = start;
+    this.step = sieveSearch(sieve, limit, start);
   }
 
   public synchronized long nextStep() {
     if (step < 0) {
       return -1;
     }
-    if (step == 0) {
-      return this.step = sieveSearch(sieve, limit, step);
-    }
-    return this.step = sieveSearch(sieve, limit, step + 1);
+    var st = this.step;
+    this.step = sieveSearch(sieve, limit, st + 1);
+    return st;
   }
 }

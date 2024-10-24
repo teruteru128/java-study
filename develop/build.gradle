@@ -17,6 +17,12 @@ javafx {
     modules = [ 'javafx.controls' ]
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(22)
+    }
+}
+
 application {
     mainModule = 'com.github.teruteru.study'
     mainClass = 'com.github.teruteru128.study.Main'
@@ -33,6 +39,7 @@ run {
 dependencies {
     implementation project(':bitmessage')
     implementation project(':encode')
+    implementation project(':gmp')
     implementation project(':resources')
     implementation project(':sample')
     implementation project(':time')

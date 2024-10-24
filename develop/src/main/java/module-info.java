@@ -40,6 +40,7 @@ module com.github.teruteru.study {
   requires org.apache.logging.log4j;
   requires unboundid.ldapsdk;
   requires info.picocli;
+  requires com.github.teruteru.foreign.gmp;
 
   opens com.github.teruteru128.fx;
   opens com.github.teruteru128.study;

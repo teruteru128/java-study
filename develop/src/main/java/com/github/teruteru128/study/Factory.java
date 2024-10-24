@@ -401,8 +401,18 @@ public class Factory implements Callable<Void> {
         }
       }
       case "generate" -> {
-        var bitLength = 1048576;
-        var evenNumber = PrimeSearch.createEvenNumber(bitLength, (Random) SECURE_RANDOM_GENERATOR);
+        if (args.length < 2) {
+          return;
+        }
+        var bitLength = Integer.parseInt(args[1]);
+        var evenNumber = new BigInteger(bitLength, (Random) SECURE_RANDOM_GENERATOR).setBit(
+            bitLength - 1).clearBit(0);
+        var th = BigInteger.TEN.pow(100000000);
+        while (evenNumber.compareTo(th) < 0) {
+          logger.info("だめぽ");
+          evenNumber = new BigInteger(bitLength, (Random) SECURE_RANDOM_GENERATOR).setBit(
+              bitLength - 1).clearBit(0);
+        }
         PrimeSearch.exportEvenNumberObj(
             Path.of("even-number-" + bitLength + "bit-" + UUID.randomUUID() + ".obj"), evenNumber);
       }

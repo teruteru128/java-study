@@ -1,5 +1,13 @@
 package com.github.teruteru128.study;
 
+import static com.github.teruteru.gmp.gmp_h.mpz_fdiv_ui;
+import static com.github.teruteru.gmp.gmp_h.mpz_import;
+import static com.github.teruteru.gmp.gmp_h.mpz_init2;
+import static java.lang.foreign.ValueLayout.JAVA_BYTE;
+import static java.lang.foreign.ValueLayout.JAVA_LONG;
+
+import com.github.teruteru.gmp.__mpz_struct;
+import com.github.teruteru.gmp.gmp_h;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -7,6 +15,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.foreign.Arena;
+import java.lang.foreign.MemorySegment;
+import java.lang.invoke.VarHandle;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,7 +29,6 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
@@ -62,24 +72,32 @@ public class PrimeSearch {
 
     var smallSieve = loadSmallSieve();
     var base = loadEvenNumber(inPath);
+    var arena = Arena.ofAuto();
+    var mpzBase = arena.allocate(__mpz_struct.layout());
+    var bitLength = base.bitLength();
+    var baseByteArray = base.toByteArray();
+    var baseCopied = arena.allocate(JAVA_BYTE, baseByteArray.length);
+    MemorySegment.copy(baseByteArray, 1, baseCopied, JAVA_BYTE, 0, baseByteArray.length - 1);
+    mpz_init2(mpzBase, bitLength);
+    mpz_import(mpzBase, baseByteArray.length, 1, 1, 1, 0, baseCopied);
     long sum = Arrays.stream(smallSieve).parallel().map(l -> Long.bitCount(~l)).sum();
-    logger.debug("base: {} bits", base.bitLength());
-    var searchLen = (int) (64L * base.bitLength() / 20);
+    logger.debug("base: {} bits, {}", bitLength, gmp_h.mpz_sizeinbase(mpzBase, 2));
+    var searchLen = (int) (bitLength * 5L);
     logger.debug("search Length: {} bits", searchLen);
     logger.debug("small sieve: {} elements, {} bits, {} primes", smallSieve.length,
         (long) smallSieve.length * Long.SIZE, sum);
     var sieve = new Sieve(smallSieve);
     List<Future<long[]>> list;
     var parallelism = Runtime.getRuntime().availableProcessors() / 2;
+    var largeSieve = arena.allocate(JAVA_LONG, (unitIndex(searchLen - 1) + 1));
     try (var pool = new ForkJoinPool(parallelism, ForkJoinPool.defaultForkJoinWorkerThreadFactory,
         null, true)) {
+      var handle = JAVA_LONG.arrayElementVarHandle();
       list = pool.invokeAll(Collections.nCopies(parallelism,
-          () -> setBitsForNonPrimeNumbers(sieve, base, searchLen)));
+          () -> setBitsForNonPrimeNumbers(largeSieve, searchLen, mpzBase, sieve, handle)));
     }
-    var set = new BitSet(searchLen);
-    for (var array : list) {
-      set.or(BitSet.valueOf(array.get()));
-    }
+    list.getFirst().get();
+    var set = BitSet.valueOf(largeSieve.toArray(JAVA_LONG));
     var nextClearBit = set.nextClearBit(0);
     if (nextClearBit == searchLen || nextClearBit == -1) {
       logger.error("失敗！");
@@ -168,24 +186,37 @@ public class PrimeSearch {
     return bis;
   }
 
-  static long[] setBitsForNonPrimeNumbers(Sieve sieve, BigInteger base, int searchLen) {
-    long[] bis = new long[unitIndex(searchLen - 1) + 1];
+  /**
+   * @param ms        large Sieve
+   * @param searchLen size of large sieve (bits)
+   * @param mpzBase   base
+   * @param sieve     small sieve
+   * @param handle    var handle of large sieve elements
+   * @return large sieve long array
+   */
+  static long[] setBitsForNonPrimeNumbers(MemorySegment ms, int searchLen, MemorySegment mpzBase,
+      Sieve sieve, VarHandle handle) {
     long start;
     long step = sieve.nextStep();
     long convertedStep = step * 2 + 1;
+    long start1;
     do {
-      start = base.mod(BigInteger.valueOf(convertedStep)).longValueExact();
+      start = mpz_fdiv_ui(mpzBase, convertedStep);
 
       start = convertedStep - start;
       if ((start & 1) == 0) {
         start += convertedStep;
       }
-      sieveSingle(bis, searchLen, (start - 1) / 2, convertedStep);
+      start1 = (start - 1) / 2;
+      while (start1 < (long) searchLen) {
+        handle.getAndBitwiseOr(ms, 0, unitIndex(start1), bit(start1));
+        start1 += convertedStep;
+      }
 
       step = sieve.nextStep();
       convertedStep = step * 2 + 1;
     } while (step > 0);
-    return bis;
+    return ms.toArray(JAVA_LONG);
   }
 
   static long[] createSmallSieve(long length) {
@@ -218,13 +249,13 @@ public class PrimeSearch {
    *
    * @see java.util.BitSet#nextClearBit(int)
    * @param bits
-   * @param limit
+   * @param limit bitsのリミット。bit単位
    * @param start
    * @return
    */
   static long sieveSearch(long[] bits, long limit, long start) {
     if (start >= limit) {
-      return -1;
+      return -2;
     }
     int u = unitIndex(start);
     long wordLimit = unitIndex(limit - 1) + 1;
@@ -234,7 +265,7 @@ public class PrimeSearch {
         return (long) u * 64 + Long.numberOfTrailingZeros(word);
       }
       if (++u == wordLimit) {
-        return -1;
+        return -2;
       }
       word = ~bits[u];
     }
@@ -260,7 +291,7 @@ public class PrimeSearch {
   }
 
   static long bit(long bitIndex) {
-    return 1L << (bitIndex & ((1 << 6) - 1));
+    return 1L << (bitIndex & 0x3f);
   }
 
   static void outputObj(Path path, Serializable s) throws IOException {
@@ -269,11 +300,6 @@ public class PrimeSearch {
       oos.writeObject(s);
     }
     Files.write(path, baos.toByteArray(), StandardOpenOption.WRITE, StandardOpenOption.CREATE);
-  }
-
-  public static BigInteger createEvenNumber(int bitLength, Random instanceStrong)
-      throws NoSuchAlgorithmException {
-    return new BigInteger(bitLength, instanceStrong).setBit(bitLength - 1).clearBit(0);
   }
 
   record LargeSieve(int searchLength, BitSet sieve) {

@@ -33,6 +33,7 @@ import com.github.teruteru128.foreign.converters.PathConverter;
 import com.github.teruteru128.foreign.windows.Windows_h;
 import java.io.IOException;
 import java.lang.foreign.Arena;
+import java.lang.foreign.MemoryLayout;
 import java.lang.foreign.MemorySegment;
 import java.math.BigInteger;
 import java.nio.file.Files;
