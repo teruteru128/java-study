@@ -53,7 +53,7 @@ public class E implements Callable<Integer> {
       var byteArray = prefixNumber.toByteArray();
       mpz_inits.makeInvoker(ADDRESS, ADDRESS).apply(prefixSegment, candidateSegment, NULL);
       // set
-      mpz_import(prefixSegment, byteArray.length, 1, JAVA_BYTE.byteSize(), 1, 0,
+      mpz_import(prefixSegment, byteArray.length, 1, JAVA_BYTE.byteSize(), 0, 0,
           arena.allocateFrom(JAVA_BYTE, byteArray));
       int ret;
       final var shiftWidth = 1047552;
