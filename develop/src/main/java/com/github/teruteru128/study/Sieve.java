@@ -4,10 +4,16 @@ import static com.github.teruteru128.study.PrimeSearch.sieveSearch;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ *
+ */
 public class Sieve {
 
   private static final VarHandle stepVarHandle;
+  private static final Logger log = LoggerFactory.getLogger(Sieve.class);
 
   static {
     var lookup = MethodHandles.lookup();
@@ -35,11 +41,17 @@ public class Sieve {
     this.step = sieveSearch(sieve, limit, start);
   }
 
+  // FIXME {@code VarHandle}を使って{@code synchronized}を外したい
+
+  /**
+   *
+   * @return next step
+   */
   public synchronized long nextStep() {
-    if (step < 0) {
+    var st = this.step;
+    if (st < 0) {
       return -1;
     }
-    var st = this.step;
     this.step = sieveSearch(sieve, limit, st + 1);
     return st;
   }

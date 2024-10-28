@@ -4,13 +4,10 @@ package com.github.teruteru.gmp;
 
 import java.lang.invoke.*;
 import java.lang.foreign.*;
-import java.nio.ByteOrder;
 import java.util.*;
-import java.util.function.*;
 import java.util.stream.*;
 
 import static java.lang.foreign.ValueLayout.*;
-import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 public class gmp_h {
 
@@ -4884,16 +4881,24 @@ public class gmp_h {
      * unsigned long __gmpz_gcd_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static int __gmpz_gcd_ui(MemorySegment x0, MemorySegment x1, int x2) {
+    private static long __gmpz_gcd_ui(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_gcd_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpz_gcd_ui", x0, x1, x2);
             }
-            return (int)mh$.invokeExact(x0, x1, x2);
+            return (long)mh$.invokeExact(x0, x1, x2);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned long mpz_gcd_ui(mpz_ptr, mpz_srcptr, unsigned long)
+     * }
+     */
+    public static long mpz_gcd_ui(MemorySegment x0, MemorySegment x1, long x2) {
+        return __gmpz_gcd_ui(x0, x1, x2);
     }
 
     private static class __gmpz_gcdext {
@@ -5249,8 +5254,8 @@ public class gmp_h {
      * void mpz_import(mpz_ptr, size_t, int, size_t, int, size_t, const void *)
      * }
      */
-    public static void mpz_import(MemorySegment x0, long x1, int x2, long x3, int x4, long x5, MemorySegment x6) {
-        __gmpz_import(x0, x1, x2, x3, x4, x5, x6);
+    public static void mpz_import(MemorySegment rop, long count, int order, long size, int endian, long nails, MemorySegment op) {
+        __gmpz_import(rop, count, order, size, endian, nails, op);
     }
 
     private static class __gmpz_init {
@@ -6644,7 +6649,7 @@ public class gmp_h {
      * int __gmpz_prevprime(mpz_ptr, mpz_srcptr)
      * }
      */
-    public static int __gmpz_prevprime(MemorySegment x0, MemorySegment x1) {
+    private static int __gmpz_prevprime(MemorySegment x0, MemorySegment x1) {
         var mh$ = __gmpz_prevprime.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6654,6 +6659,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * int mpz_prevprime(mpz_ptr, mpz_srcptr)
+     * }
+     */
+    public static int mpz_prevprime(MemorySegment p, MemorySegment n) {
+        return __gmpz_prevprime(p, n);
     }
 
     private static class __gmpz_perfect_power_p {
@@ -7669,6 +7682,14 @@ public class gmp_h {
            throw new AssertionError("should not reach here", ex$);
         }
     }
+    /**
+     * {@snippet lang=c :
+     * void mpz_set_ui(mpz_ptr, unsigned long)
+     * }
+     */
+    public static void mpz_set_ui(MemorySegment dest, long val) {
+        __gmpz_set_ui(dest, val);
+    }
 
     private static class __gmpz_setbit {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
@@ -8215,16 +8236,24 @@ public class gmp_h {
      * unsigned long __gmpz_tdiv_ui(mpz_srcptr, unsigned long)
      * }
      */
-    public static int __gmpz_tdiv_ui(MemorySegment x0, int x1) {
+    private static long __gmpz_tdiv_ui(MemorySegment x0, long x1) {
         var mh$ = __gmpz_tdiv_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpz_tdiv_ui", x0, x1);
             }
-            return (int)mh$.invokeExact(x0, x1);
+            return (long)mh$.invokeExact(x0, x1);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned long mpz_tdiv_ui(mpz_srcptr, unsigned long)
+     * }
+     */
+    public static long mpz_tdiv_ui(MemorySegment x0, long x1) {
+        return __gmpz_tdiv_ui(x0, x1);
     }
 
     private static class __gmpz_tdiv_q {
@@ -8360,16 +8389,24 @@ public class gmp_h {
      * unsigned long __gmpz_tdiv_q_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static int __gmpz_tdiv_q_ui(MemorySegment x0, MemorySegment x1, int x2) {
+    private static long __gmpz_tdiv_q_ui(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_tdiv_q_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpz_tdiv_q_ui", x0, x1, x2);
             }
-            return (int)mh$.invokeExact(x0, x1, x2);
+            return (long)mh$.invokeExact(x0, x1, x2);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned long mpz_tdiv_q_ui(mpz_ptr, mpz_srcptr, unsigned long)
+     * }
+     */
+    public static long mpz_tdiv_q_ui(MemorySegment x0, MemorySegment x1, long x2) {
+        return __gmpz_tdiv_q_ui(x0, x1, x2);
     }
 
     private static class __gmpz_tdiv_qr {
@@ -8459,16 +8496,24 @@ public class gmp_h {
      * unsigned long __gmpz_tdiv_qr_ui(mpz_ptr, mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static int __gmpz_tdiv_qr_ui(MemorySegment x0, MemorySegment x1, MemorySegment x2, int x3) {
+    private static long __gmpz_tdiv_qr_ui(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpz_tdiv_qr_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpz_tdiv_qr_ui", x0, x1, x2, x3);
             }
-            return (int)mh$.invokeExact(x0, x1, x2, x3);
+            return (long)mh$.invokeExact(x0, x1, x2, x3);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned long mpz_tdiv_qr_ui(mpz_ptr, mpz_ptr, mpz_srcptr, unsigned long)
+     * }
+     */
+    public static long mpz_tdiv_qr_ui(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
+        return __gmpz_tdiv_qr_ui(x0, x1, x2, x3);
     }
 
     private static class __gmpz_tdiv_r {
@@ -8604,16 +8649,24 @@ public class gmp_h {
      * unsigned long __gmpz_tdiv_r_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static int __gmpz_tdiv_r_ui(MemorySegment x0, MemorySegment x1, int x2) {
+    private static long __gmpz_tdiv_r_ui(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_tdiv_r_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpz_tdiv_r_ui", x0, x1, x2);
             }
-            return (int)mh$.invokeExact(x0, x1, x2);
+            return (long)mh$.invokeExact(x0, x1, x2);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned long mpz_tdiv_r_ui(mpz_ptr, mpz_srcptr, unsigned long)
+     * }
+     */
+    public static long mpz_tdiv_r_ui(MemorySegment x0, MemorySegment x1, long x2) {
+        return __gmpz_tdiv_r_ui(x0, x1, x2);
     }
 
     private static class __gmpz_tstbit {
@@ -9384,7 +9437,7 @@ public class gmp_h {
      * int __gmpq_cmp_si(mpq_srcptr, long, unsigned long)
      * }
      */
-    public static int __gmpq_cmp_si(MemorySegment x0, int x1, int x2) {
+    public static int __gmpq_cmp_si(MemorySegment x0, long x1, long x2) {
         var mh$ = __gmpq_cmp_si.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -9433,7 +9486,7 @@ public class gmp_h {
      * int __gmpq_cmp_ui(mpq_srcptr, unsigned long, unsigned long)
      * }
      */
-    public static int __gmpq_cmp_ui(MemorySegment x0, int x1, int x2) {
+    public static int __gmpq_cmp_ui(MemorySegment x0, long x1, long x2) {
         var mh$ = __gmpq_cmp_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -11082,7 +11135,7 @@ public class gmp_h {
      * int __gmpf_cmp_si(mpf_srcptr, long)
      * }
      */
-    public static int __gmpf_cmp_si(MemorySegment x0, int x1) {
+    public static int __gmpf_cmp_si(MemorySegment x0, long x1) {
         var mh$ = __gmpf_cmp_si.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -11130,7 +11183,7 @@ public class gmp_h {
      * int __gmpf_cmp_ui(mpf_srcptr, unsigned long)
      * }
      */
-    public static int __gmpf_cmp_ui(MemorySegment x0, int x1) {
+    public static int __gmpf_cmp_ui(MemorySegment x0, long x1) {
         var mh$ = __gmpf_cmp_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -16771,7 +16824,7 @@ public class gmp_h {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_sec_sqr_itch", x0);
             }
-            return (int)mh$.invokeExact(x0);
+            return (long)mh$.invokeExact(x0);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -17121,7 +17174,7 @@ public class gmp_h {
             if (TRACE_DOWNCALLS) {
                 traceDowncall("__gmpn_sec_div_r_itch", x0, x1);
             }
-            return (int)mh$.invokeExact(x0, x1);
+            return (long)mh$.invokeExact(x0, x1);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }

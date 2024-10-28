@@ -4,13 +4,7 @@ package com.github.teruteru.gmp;
 
 import java.lang.invoke.*;
 import java.lang.foreign.*;
-import java.nio.ByteOrder;
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
-
-import static java.lang.foreign.ValueLayout.*;
-import static java.lang.foreign.MemoryLayout.PathElement.*;
+import java.util.function.ObjLongConsumer;
 
 /**
  * {@snippet lang=c :
@@ -26,8 +20,9 @@ public class __gmp_get_memory_functions$x2 {
     /**
      * The function pointer signature, expressed as a functional interface
      */
-    public interface Function {
-        void apply(MemorySegment _x0, long _x1);
+    @FunctionalInterface
+    public interface Function extends ObjLongConsumer<MemorySegment> {
+        void accept(MemorySegment _x0, long _x1);
     }
 
     private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
@@ -42,7 +37,7 @@ public class __gmp_get_memory_functions$x2 {
         return $DESC;
     }
 
-    private static final MethodHandle UP$MH = gmp_h.upcallHandle(__gmp_get_memory_functions$x2.Function.class, "apply", $DESC);
+    private static final MethodHandle UP$MH = gmp_h.upcallHandle(__gmp_get_memory_functions$x2.Function.class, "accept", $DESC);
 
     /**
      * Allocates a new upcall stub, whose implementation is defined by {@code fi}.

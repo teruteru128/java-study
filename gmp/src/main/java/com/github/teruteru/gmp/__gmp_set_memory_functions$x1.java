@@ -26,6 +26,7 @@ public class __gmp_set_memory_functions$x1 {
     /**
      * The function pointer signature, expressed as a functional interface
      */
+    @FunctionalInterface
     public interface Function {
         MemorySegment apply(MemorySegment _x0, long _x1, long _x2);
     }

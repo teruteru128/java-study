@@ -27,6 +27,8 @@ application {
     mainModule = 'com.github.teruteru.study'
     mainClass = 'com.github.teruteru128.study.Main'
     applicationDefaultJvmArgs = [
+            '--enable-native-access=com.github.teruteru.study,com.github.teruteru.foreign.gmp',
+            '-Djava.util.concurrent.ForkJoinPool.common.parallelism=3'
             //'-Xms16G',
             //'-Xmx16G'
     ]

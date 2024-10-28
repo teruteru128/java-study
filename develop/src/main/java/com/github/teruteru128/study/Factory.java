@@ -27,6 +27,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 import java.io.UncheckedIOException;
 import java.math.BigInteger;
@@ -66,6 +67,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Formatter;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Objects;
@@ -339,8 +341,34 @@ public class Factory implements Callable<Void> {
       case "primecheck" -> {
       }
       case "createSmallSieve" -> {
-        var bitLength = 1L << 33;
-        PrimeSearch.getSieve(bitLength, bitLength + "bit-small-sieve.obj");
+        var bitLength = 2147483645L << 6;
+        logger.info("create {}bit small sieve...", bitLength);
+        // 小さな既知素数ふるいを作成、もしくは読み込む
+        var sieve = PrimeSearch.createSmallSieve(bitLength);
+        var primeCount = Arrays.stream(sieve).parallel().map(l -> Long.bitCount(~l)).sum();
+        logger.info("{} primes", primeCount);
+        var path = Paths.get(bitLength + "bit-small-sieve.obj");
+        logger.info("write to {}", path);
+        try (var oos = new ObjectOutputStream(new BufferedOutputStream(
+            Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE),
+            2147483645))) {
+          oos.writeLong(bitLength);
+          var length = sieve.length;
+          if (length == 2147483645) {
+            for (long l : sieve) {
+              oos.writeLong(l);
+            }
+          } else {
+            oos.writeObject(sieve);
+          }
+          logger.info("done. 1");
+        }
+        logger.info("done. 2");
+      }
+      case "check" -> {
+        var sieve = PrimeSearch.loadSmallSieve(Path.of("137438953280bit-small-sieve.obj"));
+        var primeCount = Arrays.stream(sieve).parallel().map(l -> Long.bitCount(~l)).sum();
+        System.out.printf("%d primes%n", primeCount);
       }
       case "attack" -> {
         if (args.length == 1) {
@@ -349,32 +377,32 @@ public class Factory implements Callable<Void> {
           PrimeSearch.getConvertedStep(Integer.parseInt(args[1]));
         }
       }
-      case "create" -> PrimeSearch.createLargeSieve(Paths.get(args[1]), args[2]);
+      case "create" -> PrimeSearch.createLargeSieve(Paths.get(args[1]), args[2],
+          Path.of(args.length >= 4 ? args[3] : "8589934592bit-smallsieve.obj"),
+          args.length >= 5 ? Path.of(args[4]) : null);
       case "diff" -> {
-        long[] array1;
-        try (var a = new ObjectInputStream(
-            new ByteArrayInputStream(Files.readAllBytes(Path.of(args[1]))))) {
-          a.readInt();
-          array1 = (long[]) a.readObject();
+        if (args.length < 3) {
+          return;
         }
-        long[] array2;
-        try (var b = new ObjectInputStream(
-            new ByteArrayInputStream(Files.readAllBytes(Path.of(args[2]))))) {
-          b.readInt();
-          array2 = (long[]) b.readObject();
-        }
-        for (int i = 0; i < array1.length; i++) {
-          System.out.printf("%016x", array1[i] ^ array2[i]);
-          switch (i % 8) {
-            case 7:
-              System.out.println();
-              break;
-            case 3:
-              System.out.print("  ");
-              break;
-            default:
-              System.out.print(' ');
-              break;
+        var a = PrimeSearch.loadLargeSieve(Path.of(args[1]));
+        long[] array1 = a.sieve().toLongArray();
+        var b = PrimeSearch.loadLargeSieve(Path.of(args[2]));
+        long[] array2 = b.sieve().toLongArray();
+        var minLength = Math.min(array1.length, array2.length);
+        var app = new StringBuilder(256);
+        var f = new Formatter(app);
+        for (int i = 0; i < minLength; i++) {
+          if (array1[i] != array2[i]) {
+            f.format("%016x", ~array1[i]);
+            var string1 = app.toString();
+            app.setLength(0);
+            f.format("%016x", ~array2[i]);
+            var string2 = app.toString();
+            app.setLength(0);
+            f.format("%016x", array1[i] ^ array2[i]);
+            var string3 = app.toString();
+            app.setLength(0);
+            logger.info("{}, {}, {}, {}", i, string1, string2, string3);
           }
         }
       }
