@@ -53,8 +53,8 @@ public class BCrypt {
           "**** Error 0x%x returned by BCryptGetProperty".formatted(status));
     }
     var cbHashObject = cbHashObjectPtr.getAtIndex(DWORD, 0);
-    var value = HeapAlloc(GetProcessHeap(), 0, cbHashObject);
-    if (value.equals(NULL)) {
+    var pbHashObject = HeapAlloc(GetProcessHeap(), 0, cbHashObject);
+    if (pbHashObject.equals(NULL)) {
       throw new RuntimeException("**** memory allocation failed");
     }
     if (!NT_SUCCESS(
@@ -63,12 +63,12 @@ public class BCrypt {
       throw new IllegalArgumentException(
           "**** Error 0x%x returned by BCryptGetProperty".formatted(status));
     }
-    var value1 = HeapAlloc(GetProcessHeap(), 0, cbHash.getAtIndex(C_LONG, 0));
-    if (value1.equals(NULL)) {
+    var pbHash = HeapAlloc(GetProcessHeap(), 0, cbHash.getAtIndex(C_LONG, 0));
+    if (pbHash.equals(NULL)) {
       throw new RuntimeException("**** memory allocation failed");
     }
     if (!NT_SUCCESS(
-        status = BCryptCreateHash(hAlg, hHashPtr, value, cbHashObject, NULL, 0, 0))) {
+        status = BCryptCreateHash(hAlg, hHashPtr, pbHashObject, cbHashObject, NULL, 0, 0))) {
       throw new IllegalArgumentException(
           "**** Error 0x%x returned by BCryptCreateHash".formatted(status));
     }
@@ -78,15 +78,15 @@ public class BCrypt {
       throw new IllegalArgumentException(
           "**** Error 0x%x returned by BCryptHashData".formatted(status));
     }
-    if (!NT_SUCCESS(status = BCryptFinishHash(hHash, value1, cbHash.getAtIndex(C_LONG, 0), 0))) {
+    if (!NT_SUCCESS(status = BCryptFinishHash(hHash, pbHash, cbHash.getAtIndex(C_LONG, 0), 0))) {
       throw new IllegalArgumentException(
           "**** Error 0x%x returned by BCryptFinishHash".formatted(status));
     }
     System.out.println("Success!");
     BCryptCloseAlgorithmProvider(hAlg, 0);
     BCryptDestroyHash(hHash);
-    HeapFree(GetProcessHeap(), 0, value);
-    HeapFree(GetProcessHeap(), 0, value1);
+    HeapFree(GetProcessHeap(), 0, pbHashObject);
+    HeapFree(GetProcessHeap(), 0, pbHash);
   }
 
   static boolean NT_SUCCESS(int status) {
