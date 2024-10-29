@@ -17,12 +17,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.random.RandomGenerator;
 
+/**
+ * CompletableFutureでbitmessageのripeを計算してみる
+ */
 public class B {
 
-  public static final long MASK = 1L << (64 - 45);
+  public static final long MASK = 0xFFFFFFFFFFF80000L;
   public static final int KEY_ARRAY_LENGTH = 16777216;
 
-  public void b(String pathStr) throws IOException, NoSuchAlgorithmException, DigestException {
+  public void b(String pathStr) throws IOException, NoSuchAlgorithmException {
     var path = Path.of(pathStr);
     var b = Files.readAllBytes(path);
     try (var pool = (ForkJoinPool) Executors.newWorkStealingPool(); var o = new PrintStream(
@@ -48,7 +51,8 @@ public class B {
               ripemd160.update(hash, 0, 64);
               ripemd160.digest(hash, 0, 20);
               var aLong = buf.getLong(0);
-              if (Long.compareUnsigned(aLong, MASK) < 0) {
+              if ((aLong & MASK) == 0) {
+                // 先頭45ビット以上がゼロならば
                 o.printf("[%s] %016x, %d, %d%n", LocalDateTime.now(), aLong, finalIndex, finalJ);
                 System.out.printf("%016x, %d, %d%n", aLong, finalIndex, finalJ);
               }

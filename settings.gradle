@@ -14,6 +14,7 @@ plugins {
 
 rootProject.name = 'java.study'
 include("bitmessage")
+include('bcrypt')
 include("christmas")
 include("develop")
 include("encode")
@@ -28,3 +29,5 @@ include("windows")
 include("setjmp")
 include('sample')
 include('scheduled-pathping')
+include 'heapapi'
+

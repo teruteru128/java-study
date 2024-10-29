@@ -19,6 +19,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.foreign.Arena;
+import java.lang.foreign.GroupLayout;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.VarHandle;
 import java.math.BigInteger;
@@ -32,12 +33,11 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
-import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,22 +89,9 @@ public class PrimeSearch {
     logger.debug("small sieve has finished loading.");
     var arena = Arena.ofAuto();
     var layout = __mpz_struct.layout();
-    var mpzBase = arena.allocate(layout).reinterpret(arena, gmp_h::mpz_clear);
-    int bitLength;
-    {
-      logger.trace("loading target even number...");
-      var base = loadEvenNumber(inPath);
-      logger.trace("target even number has finished loading from file.");
-      bitLength = base.bitLength();
-      mpz_init2(mpzBase, bitLength);
-      logger.trace("The memory area has been initialized.");
-      var baseByteArray = base.toByteArray();
-      var baseCopied = arena.allocate(JAVA_BYTE, baseByteArray.length);
-      copy(baseByteArray, 0, baseCopied, JAVA_BYTE, 0, baseByteArray.length);
-      logger.trace("copied");
-      mpz_import(mpzBase, baseByteArray.length, 1, 1, 0, 0, baseCopied);
-      logger.trace("target even number has finished importing.");
-    }
+    var result = getResult(inPath, arena, layout);
+    var mpzBase = result.mpzBase();
+    var bitLength = result.bitLength();
     // 素数の数が多すぎてBitSet.cardinality()ではカウントしきれない
     long sum = Arrays.stream(smallSieve).parallel().map(l -> Long.bitCount(~l)).sum();
     logger.info("original base: {} bits, imported base: {} bits", bitLength,
@@ -126,15 +113,23 @@ public class PrimeSearch {
       logger.trace("old cardinality: {}", tmp);
       //MemorySegment.copy(sieveArray, 0, largeSieve, JAVA_LONG, 0, sieveArray.length);
     }
-    var tmpSet = new TreeSet<Long>();
-    for (int i = 1; i < 16; i++) {
+    final Map<Long, Long> pSet;
+    if (logger.isInfoEnabled()) {
+      var tmpSet = new TreeMap<Long, Long>();
+      tmpSet.put(2147483647L, 0L);
+      int n = 16;
       // i * l1 * 2 / 16
-      tmpSet.add(previousClearBit(smallSieve, l1 * i >> 3));
+      for (int i = 1; i < n; i++) {
+        tmpSet.put((previousClearBit(smallSieve, l1 * i / n) << 1) + 1, (long) i);
+      }
+      pSet = Collections.unmodifiableMap(tmpSet);
+    } else {
+      pSet = null;
     }
-    var pSet = Collections.unmodifiableSet(tmpSet);
     try (var pool = new ForkJoinPool(parallelism, ForkJoinPool.defaultForkJoinWorkerThreadFactory,
         null, true)) {
       var handle = JAVA_LONG.arrayElementVarHandle();
+      logger.info("start");
       list = pool.invokeAll(Collections.nCopies(parallelism,
           () -> setBitsForNonPrimeNumbers(largeSieve, searchLen, mpzBase, sieve, handle, pSet)));
     }
@@ -161,6 +156,25 @@ public class PrimeSearch {
       oos.writeObject(bis);
     }
     logger.info("終わり！");
+  }
+
+  private static Result getResult(Path inPath, Arena arena, GroupLayout layout)
+      throws IOException, ClassNotFoundException {
+    var mpzBase = arena.allocate(layout).reinterpret(arena, gmp_h::mpz_clear);
+    int bitLength;
+    logger.trace("loading target even number...");
+    var base = loadEvenNumber(inPath);
+    logger.trace("target even number has finished loading from file.");
+    bitLength = base.bitLength();
+    mpz_init2(mpzBase, bitLength);
+    logger.trace("The memory area has been initialized.");
+    var baseByteArray = base.toByteArray();
+    var baseCopied = arena.allocate(JAVA_BYTE, baseByteArray.length);
+    copy(baseByteArray, 0, baseCopied, JAVA_BYTE, 0, baseByteArray.length);
+    logger.trace("copied");
+    mpz_import(mpzBase, baseByteArray.length, 1, 1, 0, 0, baseCopied);
+    logger.trace("target even number has finished importing.");
+    return new Result(mpzBase, bitLength);
   }
 
   /**
@@ -239,16 +253,16 @@ public class PrimeSearch {
    * @param loggingPrimesSet ロギングする素数のセット
    * @return large sieve long array
    */
-  static Void setBitsForNonPrimeNumbers(final MemorySegment ms, final int searchLen,
+  static Void setBitsForNonPrimeNumbers(final MemorySegment ms, final long searchLen,
       final MemorySegment mpzBase, final Sieve sieve, VarHandle handle,
-      Set<Long> loggingPrimesSet) {
+      Map<Long, Long> loggingPrimesSet) {
     long start;
     long step = sieve.nextStep();
-    long convertedStep = step * 2 + 1;
+    long convertedStep = step * 2L + 1;
     long start1;
     do {
-      if (loggingPrimesSet != null && loggingPrimesSet.contains(convertedStep)) {
-        logger.info("prime: {}", convertedStep);
+      if (loggingPrimesSet != null && loggingPrimesSet.containsKey(convertedStep)) {
+        logger.info("prime: {}, {}", loggingPrimesSet.get(convertedStep), convertedStep);
       }
       start = mpz_fdiv_ui(mpzBase, convertedStep);
 
@@ -257,13 +271,13 @@ public class PrimeSearch {
         start += convertedStep;
       }
       start1 = (start - 1) / 2;
-      while (start1 < (long) searchLen) {
-        handle.getAndBitwiseOr(ms, 0, unitIndex(start1), bit(start1));
+      while (start1 < searchLen) {
+        handle.getAndBitwiseOr(ms, 0, start1 >>> 6, 1L << (start1 & 0x3f));
         start1 += convertedStep;
       }
 
       step = sieve.nextStep();
-      convertedStep = step * 2 + 1;
+      convertedStep = step * 2L + 1;
     } while (step > 0);
     return null;
   }
@@ -381,6 +395,32 @@ public class PrimeSearch {
       }
       word = ~words[u];
     }
+  }
+
+  private static long nextClearBit(long[] words, long fromIndex) {
+    if (fromIndex < 0) {
+      throw new IndexOutOfBoundsException("fromIndex < 0: " + fromIndex);
+    }
+    int u = unitIndex(fromIndex);
+    var wordsInUse = words.length;
+    if (u >= wordsInUse) {
+      return fromIndex;
+    }
+
+    long word = ~words[u] & (-1L << fromIndex);
+    while (true) {
+      if (word != 0) {
+        return (u * 64L) + Long.numberOfTrailingZeros(word);
+      }
+      if (++u == wordsInUse) {
+        return wordsInUse * 64L;
+      }
+      word = ~words[u];
+    }
+  }
+
+  private record Result(MemorySegment mpzBase, int bitLength) {
+
   }
 
   record LargeSieve(int searchLength, BitSet sieve) {

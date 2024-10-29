@@ -239,6 +239,8 @@ public class Factory implements Callable<Void> {
         b.b(args[1]);
       }
       case "c" -> {
+        // バストサイズのカップ数計算
+        // Mカップの3つ下と6つ下は何だったかなってアホかな？
         var m = 'm';
         System.out.printf("%c, %c, %c%n", m, m - 3, m - 6);
       }
@@ -246,15 +248,18 @@ public class Factory implements Callable<Void> {
         if (args.length < 2) {
           return;
         }
+        // pathのプリンシパルを確認する
         FileChecker.extracted1(args[1]);
       }
       case "file" -> {
+        // javaで(Linuxの)headコマンドを実装しようとした名残
         var n = SECURE_RANDOM_GENERATOR.nextLong(60000000);
         System.err.printf("skipped: %d%n", n);
         Files.readAllLines(Path.of(args[1])).stream().skip(n).limit(Long.parseLong(args[2]))
             .forEach(System.out::println);
       }
       case "p" -> {
+        // 素数生成ベンチマーク
         var start = LocalDateTime.now();
         var p = BigInteger.probablePrime(2048, (java.util.Random) SECURE_RANDOM_GENERATOR);
         var finish = LocalDateTime.now();
@@ -274,7 +279,7 @@ public class Factory implements Callable<Void> {
         }
         var arg = args[1];
         var targetOwnerName = args[2];
-        FileChecker.extracted(arg, targetOwnerName);
+        FileChecker.extracted3(Path.of(arg), targetOwnerName);
       }
       case "de" -> {
         var a = new DeterministicAddressGenerator().apply(args[1]);

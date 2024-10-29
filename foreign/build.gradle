@@ -8,6 +8,8 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(22)
     }
+    sourceCompatibility = '22'
+    targetCompatibility = '22'
 }
 
 compileJava {
@@ -25,7 +27,7 @@ application {
     mainClass = 'com.github.teruteru128.foreign.Main'
     applicationDefaultJvmArgs = [
             //'--enable-preview',
-            '--enable-native-access=com.github.teruteru.foreign,com.github.teruteru.foreign.gmp,com.github.teruteru.foreign.opencl,com.github.teruteru.foreign.setjmp,com.github.teruteru.foreign.windows',
+            '--enable-native-access=com.github.teruteru.bcrypt,com.github.teruteru.foreign,com.github.teruteru.foreign.gmp,com.github.teruteru.heapapi,com.github.teruteru.foreign.opencl,com.github.teruteru.foreign.setjmp,com.github.teruteru.foreign.windows',
             //'-Xms16G',
             //'-Xmx16G',
             //'-Djextract.trace.downcalls=true'
@@ -33,7 +35,9 @@ application {
 }
 
 dependencies {
+    implementation project(":bcrypt")
     implementation project(":gmp")
+    implementation project(":heapapi")
     implementation project(":mpz_aprcl")
     implementation project(":opencl")
     implementation project(":setjmp")

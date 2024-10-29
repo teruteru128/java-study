@@ -4,6 +4,11 @@ import static com.github.teruteru128.study.PrimeSearch.sieveSearch;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
+import java.util.Comparator;
+import java.util.Objects;
+import java.util.Spliterator;
+import java.util.function.LongConsumer;
+import java.util.stream.LongStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,5 +59,62 @@ public class Sieve {
     }
     this.step = sieveSearch(sieve, limit, st + 1);
     return st;
+  }
+
+  public LongStream stream() {
+    class SieveSpliterator implements Spliterator.OfLong {
+
+      private long index;
+      private long fence;
+      private long est;
+      private boolean root;
+
+      SieveSpliterator(long origin, long fence, long est, boolean root) {
+        this.index = origin;
+        this.fence = fence;
+        this.est = est;
+        this.root = root;
+      }
+
+      private long getFence() {
+        long hi;
+        if ((hi = fence) < 0) {
+
+        }
+        return hi;
+      }
+
+      @Override
+      public OfLong trySplit() {
+        return null;
+      }
+
+      @Override
+      public long estimateSize() {
+        return 0;
+      }
+
+      @Override
+      public int characteristics() {
+        return 0;
+      }
+
+      @Override
+      public boolean tryAdvance(LongConsumer action) {
+        Objects.requireNonNull(action);
+        return false;
+      }
+
+      @Override
+      public Comparator<? super Long> getComparator() {
+        return null;
+      }
+
+      @Override
+      public void forEachRemaining(LongConsumer action) {
+        Objects.requireNonNull(action);
+      }
+    }
+    return null;
   }
 }

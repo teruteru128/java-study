@@ -19,10 +19,16 @@ import java.util.zip.GZIPInputStream;
 
 public class FileChecker {
 
-  static void extracted(String arg, String targetOwnerName) throws IOException {
-    var dirPath = Path.of(arg);
-    var targetOwner = FileSystems.getDefault().getUserPrincipalLookupService().lookupPrincipalByName(
-        targetOwnerName);
+  /**
+   * ディレクトリ内のコンテンツのオーナーが指定したオーナーと一致しているか検査する
+   * @param dirPath オーナーを検査するディレクトリ。
+   * @param targetOwnerName 基準オーナー
+   * @throws IOException ファイルの読み取りに失敗した場合。
+   */
+  static void extracted3(Path dirPath, String targetOwnerName) throws IOException {
+    var defaultFileSystem = FileSystems.getDefault();
+    var targetOwner = defaultFileSystem.getUserPrincipalLookupService()
+        .lookupPrincipalByName(targetOwnerName);
     var checker = new FileOwnerChecker(targetOwner);
     System.err.printf("target path: %s%n", dirPath);
     System.err.printf("target owner: %s%n", targetOwner);
@@ -42,9 +48,10 @@ public class FileChecker {
     var owner = Files.getOwner(path);
     System.out.println(owner);
     var service = path.getFileSystem().getUserPrincipalLookupService();
-    var p = service.lookupPrincipalByName("DESKTOP-S2SMNNQ\\terut");
+    var computerName = System.getenv("COMPUTERNAME");
+    var p = service.lookupPrincipalByName(computerName + "\\terut");
     var p2 = service.lookupPrincipalByGroupName("BUILTIN\\Administrators");
-    var p3 = service.lookupPrincipalByName("DESKTOP-S2SMNNQ\\Administrator");
+    var p3 = service.lookupPrincipalByName(computerName + "\\Administrator");
   }
 
   private static class FileOwnerChecker extends SimpleFileVisitor<Path> {
