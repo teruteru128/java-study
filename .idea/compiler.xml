@@ -15,7 +15,7 @@
         <module name="java.study.develop.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="21">
+    <bytecodeTargetLevel target="22">
       <module name="java.study.preview.main" target="22" />
       <module name="java.study.preview.test" target="22" />
     </bytecodeTargetLevel>

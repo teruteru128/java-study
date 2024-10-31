@@ -23,7 +23,6 @@ import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.ADDRESS;
 
 import java.lang.foreign.Arena;
-import java.lang.foreign.MemorySegment;
 
 public class BCrypt {
 
@@ -47,8 +46,7 @@ public class BCrypt {
     }
     var hAlg = hAlgPtr.getAtIndex(ADDRESS, 0);
     if (!NT_SUCCESS(status = BCryptGetProperty(hAlg, BCRYPT_OBJECT_LENGTH(), cbHashObjectPtr,
-        (int) DWORD.byteSize(), cbData,
-        0))) {
+        (int) DWORD.byteSize(), cbData, 0))) {
       throw new IllegalArgumentException(
           "**** Error 0x%x returned by BCryptGetProperty".formatted(status));
     }

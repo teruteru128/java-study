@@ -1,10 +1,8 @@
 package com.github.teruteru128.foreign;
 
-import static com.github.teruteru.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru.gmp.gmp_h.mpz_clear;
 import static com.github.teruteru.gmp.gmp_h.mpz_init2;
 import static com.github.teruteru.gmp.gmp_h.mpz_init_set_str;
-import static com.github.teruteru.gmp.gmp_h.mpz_probab_prime_p;
 import static java.util.concurrent.ForkJoinPool.defaultForkJoinWorkerThreadFactory;
 
 import com.github.teruteru.gmp.__mpz_struct;
@@ -63,28 +61,31 @@ public class GMP implements Callable<Integer> {
   @Override
   public Integer call() throws IOException, ClassNotFoundException, InterruptedException {
     var availableProcessors = Runtime.getRuntime().availableProcessors();
-    var p = arena.allocate(__mpz_struct.layout());
+    var even = arena.allocate(__mpz_struct.layout());
     {
       var evenStr = Files.readAllLines(evenNumberPath).getFirst();
       var str = arena.allocateFrom(evenStr);
-      mpz_init_set_str(p, str, 10);
+      mpz_init_set_str(even, str, 10);
     }
     var largeSieve = getBitSet(sievePath);
     if (fromIndex != 0) {
       largeSieve.clear(0, fromIndex - 1);
     }
     logger.info("start");
-    logger.debug("Number of prime number candidates: {}", largeSieve.cardinality());
-    var list = new ArrayList<PrimeSearchTask2>(availableProcessors);
+    var cardinality = largeSieve.cardinality();
+    logger.debug("Number of prime number candidates: {}", cardinality);
+    var list = new ArrayList<PrimeSearchTask2>(cardinality);
     boolean found = false;
-    var threads = availableProcessors / 2;
+    var threads = Math.max(1, availableProcessors - 1);
     var barrier = new CyclicBarrier(threads);
-    /* スレッド数はシステムプロパティ`java.util.concurrent.ForkJoinPool.common.parallelism`
+    /*
+     * Stream版
+     * スレッド数はシステムプロパティ`java.util.concurrent.ForkJoinPool.common.parallelism`
      * で調整してクレメンス */
     /*
     var optionalStep = largeSieve.stream().parallel().asLongStream().filter(step -> {
       var candidate = threadCandidate.get();
-      mpz_add_ui(candidate, p, step * 2 + 1);
+      mpz_add_ui(candidate, even, step * 2 + 1);
       int result;
       long start;
       long finish;
@@ -95,7 +96,7 @@ public class GMP implements Callable<Integer> {
       logger.info("step {}: {}({} hours)", step, result, (finish - start) / 3.6e12);
       return result != 0;
     }).findAny();
-    mpz_clear(p);
+    mpz_clear(even);
     if (optionalStep.isPresent()) {
       logger.info("find prime: step {}", optionalStep.getAsLong());
       return ExitCode.OK;
@@ -104,12 +105,18 @@ public class GMP implements Callable<Integer> {
       return ExitCode.SOFTWARE;
     }
     */
+    final var s = (cardinality / threads) * threads;
+    var i = 0;
     for (var step = largeSieve.nextSetBit(fromIndex); step >= 0;
-        step = largeSieve.nextSetBit(step + 1)) {
-      list.add(new PrimeSearchTask2(p, step, barrier));
+        step = largeSieve.nextSetBit(step + 1), i++) {
+      if (i < s) {
+        list.add(new PrimeSearchTask2(even, step, barrier));
+      } else {
+      // 最後のタスクがbarrierでハングしないようにする
+        list.add(new PrimeSearchTask2(even, step, null));
+      }
     }
-    try (var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory,
-        null, true)) {
+    try (var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory, null, true)) {
       if (!list.isEmpty()) {
         var futureList = pool.invokeAll(list);
         for (var optionalFuture : futureList) {
@@ -123,7 +130,7 @@ public class GMP implements Callable<Integer> {
     } catch (ExecutionException e) {
       throw new RuntimeException(e);
     }
-    mpz_clear(p);
+    mpz_clear(even);
     if (found) {
       logger.info("find prime");
       return ExitCode.OK;

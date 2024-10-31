@@ -67,7 +67,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.Formatter;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Objects;
@@ -394,20 +393,11 @@ public class Factory implements Callable<Void> {
         var b = PrimeSearch.loadLargeSieve(Path.of(args[2]));
         long[] array2 = b.sieve().toLongArray();
         var minLength = Math.min(array1.length, array2.length);
-        var app = new StringBuilder(256);
-        var f = new Formatter(app);
+        var format = HexFormat.of();
         for (int i = 0; i < minLength; i++) {
           if (array1[i] != array2[i]) {
-            f.format("%016x", ~array1[i]);
-            var string1 = app.toString();
-            app.setLength(0);
-            f.format("%016x", ~array2[i]);
-            var string2 = app.toString();
-            app.setLength(0);
-            f.format("%016x", array1[i] ^ array2[i]);
-            var string3 = app.toString();
-            app.setLength(0);
-            logger.info("{}, {}, {}, {}", i, string1, string2, string3);
+            logger.info("{}, {}, {}, {}", format.toHexDigits(i), format.toHexDigits(~array1[i]),
+                format.toHexDigits(~array2[i]), format.toHexDigits(array1[i] ^ array2[i]));
           }
         }
       }
