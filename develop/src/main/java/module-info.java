@@ -10,6 +10,7 @@ module com.github.teruteru.study {
   requires java.net.http;
   requires java.rmi;
   requires java.scripting;
+  requires java.xml;
 
   //requires com.google.gson;
   requires org.apache.commons.rng.simple;

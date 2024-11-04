@@ -12,5 +12,6 @@ module com.github.teruteru.foreign {
   opens com.github.teruteru128.foreign;
   opens com.github.teruteru128.foreign.converters;
   exports com.github.teruteru128.foreign;
+  exports com.github.teruteru128.foreign.converters;
   uses java.security.Provider;
 }

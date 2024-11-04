@@ -1,9 +1,7 @@
 package com.github.teruteru128.study;
 
-import static com.github.teruteru.gmp.gmp_h.mpz_fdiv_ui;
 import static com.github.teruteru.gmp.gmp_h.mpz_import;
 import static com.github.teruteru.gmp.gmp_h.mpz_init2;
-import static com.github.teruteru.gmp.gmp_h.mpz_sizeinbase;
 import static java.lang.foreign.MemorySegment.copy;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
@@ -11,8 +9,8 @@ import static java.lang.foreign.ValueLayout.JAVA_LONG;
 import com.github.teruteru.gmp.__mpz_struct;
 import com.github.teruteru.gmp.gmp_h;
 import com.github.teruteru128.foreign.GMP;
+import com.github.teruteru128.foreign.converters.PathConverter;
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,7 +20,6 @@ import java.io.Serializable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.GroupLayout;
 import java.lang.foreign.MemorySegment;
-import java.lang.invoke.VarHandle;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,19 +27,26 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.BitSet;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Parameters;
 
-public class PrimeSearch {
+@Command(name = "attack")
+public class PrimeSearch implements Callable<Void> {
+
+  @Parameters(converter = PathConverter.class)
+  private Path base;
+  @Parameters(converter = PathConverter.class)
+  private Path largeSieve;
+
+  @Override
+  public Void call() throws Exception {
+    return null;
+  }
 
   private static final Logger logger = LoggerFactory.getLogger(PrimeSearch.class);
 
@@ -82,84 +86,9 @@ public class PrimeSearch {
   public static void createLargeSieve(Path inPath, String outPath, Path smallSievepath,
       Path oldInPath)
       throws IOException, ClassNotFoundException, ExecutionException, InterruptedException {
-    // 小さなふるいを使って大きなふるいから合成数を除外
-    // 大きな篩の長さ->1048576 / 20 * 64 = 3355444
-
-    logger.debug("loading small sieve...");
-    var smallSieve = loadSmallSieve(smallSievepath);
-    logger.debug("small sieve has finished loading.");
-    var arena = Arena.ofAuto();
-    var layout = __mpz_struct.layout();
-    var result = getResult(inPath, arena, layout);
-    var mpzBase = result.mpzBase();
-    var bitLength = result.bitLength();
-    // 素数の数が多すぎてBitSet.cardinality()ではカウントしきれない
-    long sum = Arrays.stream(smallSieve).parallel().map(l -> Long.bitCount(~l)).sum();
-    logger.info("original base: {} bits, imported base: {} bits", bitLength,
-        mpz_sizeinbase(mpzBase, 2));
-    var searchLen = bitLength * 5;
-    logger.info("search Length: {} bits", searchLen);
-    var l1 = (long) smallSieve.length * Long.SIZE;
-    logger.info("small sieve: {} elements, {} bits, {} primes", smallSieve.length, l1, sum);
-    var sieve = new Sieve(smallSieve);
-    List<Future<Void>> list;
-    var processors = Runtime.getRuntime().availableProcessors();
-    var parallelism = processors >> 1;
-    var largeSieve = arena.allocate(JAVA_LONG, (unitIndex(searchLen - 1) + 1));
-    if (oldInPath != null) {
-      var s = GMP.loadLargeSieve(oldInPath);
-      var sieve1 = s.sieve();
-      var sieveArray = sieve1.toLongArray();
-      var tmp = Arrays.stream(sieveArray).map(l -> Long.bitCount(~l)).sum();
-      logger.trace("old cardinality: {}", tmp);
-      //MemorySegment.copy(sieveArray, 0, largeSieve, JAVA_LONG, 0, sieveArray.length);
-    }
-    final Map<Long, Long> pSet;
-    if (logger.isInfoEnabled()) {
-      var tmpSet = new TreeMap<Long, Long>();
-      tmpSet.put(2147483647L, 0L);
-      int n = 16;
-      // i * l1 * 2 / 16
-      for (int i = 1; i < n; i++) {
-        tmpSet.put((previousClearBit(smallSieve, l1 * i / n) << 1) + 1, (long) i);
-      }
-      pSet = Collections.unmodifiableMap(tmpSet);
-    } else {
-      pSet = null;
-    }
-    try (var pool = new ForkJoinPool(parallelism, ForkJoinPool.defaultForkJoinWorkerThreadFactory,
-        null, true)) {
-      var handle = JAVA_LONG.arrayElementVarHandle();
-      logger.info("start");
-      list = pool.invokeAll(Collections.nCopies(parallelism,
-          () -> setBitsForNonPrimeNumbers(largeSieve, searchLen, mpzBase, sieve, handle, pSet)));
-    }
-    for (var f : list) {
-      f.get();
-    }
-    var set = BitSet.valueOf(largeSieve.toArray(JAVA_LONG));
-    var nextClearBit = set.nextClearBit(0);
-    if (nextClearBit == searchLen || nextClearBit == -1) {
-      logger.error("失敗！");
-      return;
-    }
-    var bis = set.toLongArray();
-    {
-      var setB = new BitSet(set.length());
-      setB.set(0, set.length());
-      setB.andNot(set);
-      logger.info("cardinality: {}", setB.cardinality());
-    }
-    var path = Path.of(outPath.formatted(searchLen));
-    logger.info("write to {}", path);
-    try (var oos = new ObjectOutputStream(new BufferedOutputStream(Files.newOutputStream(path)))) {
-      oos.writeInt(searchLen);
-      oos.writeObject(bis);
-    }
-    logger.info("終わり！");
   }
 
-  private static Result getResult(Path inPath, Arena arena, GroupLayout layout)
+  static Result getResult(Path inPath, Arena arena, GroupLayout layout)
       throws IOException, ClassNotFoundException {
     var mpzBase = arena.allocate(layout).reinterpret(arena, gmp_h::mpz_clear);
     int bitLength;
@@ -233,44 +162,6 @@ public class PrimeSearch {
       convertedStep = (step * 2L) + 1;
     } while (step > 0);
     return bis;
-  }
-
-  /**
-   * @param ms               large Sieve
-   * @param searchLen        size of large sieve (bits)
-   * @param mpzBase          base
-   * @param sieve            small sieve
-   * @param handle           var handle of large sieve elements
-   * @param loggingPrimesSet ロギングする素数のセット
-   * @return large sieve long array
-   */
-  static Void setBitsForNonPrimeNumbers(final MemorySegment ms, final long searchLen,
-      final MemorySegment mpzBase, final Sieve sieve, VarHandle handle,
-      Map<Long, Long> loggingPrimesSet) {
-    long start;
-    long step = sieve.nextStep();
-    long convertedStep = step * 2L + 1;
-    long start1;
-    do {
-      if (loggingPrimesSet != null && loggingPrimesSet.containsKey(convertedStep)) {
-        logger.info("prime: {}, {}", loggingPrimesSet.get(convertedStep), convertedStep);
-      }
-      start = mpz_fdiv_ui(mpzBase, convertedStep);
-
-      start = convertedStep - start;
-      if ((start & 1) == 0) {
-        start += convertedStep;
-      }
-      start1 = (start - 1) / 2;
-      while (start1 < searchLen) {
-        handle.getAndBitwiseOr(ms, 0, start1 >>> 6, 1L << (start1 & 0x3f));
-        start1 += convertedStep;
-      }
-
-      step = sieve.nextStep();
-      convertedStep = step * 2L + 1;
-    } while (step > 0);
-    return null;
   }
 
   // FIXME Cで書かないと遅すぎてダメかもしれねえ
@@ -347,7 +238,7 @@ public class PrimeSearch {
     bits[unitIndex(bitIndex)] |= bit(bitIndex);
   }
 
-  private static int unitIndex(long bitIndex) {
+  static int unitIndex(long bitIndex) {
     return (int) (bitIndex >>> 6);
   }
 
@@ -363,7 +254,7 @@ public class PrimeSearch {
     Files.write(path, baos.toByteArray(), StandardOpenOption.WRITE, StandardOpenOption.CREATE);
   }
 
-  private static long previousClearBit(long[] words, long fromIndex) {
+  static long previousClearBit(long[] words, long fromIndex) {
     if (fromIndex < 0) {
       if (fromIndex == -1) {
         return -1;
@@ -410,7 +301,7 @@ public class PrimeSearch {
     }
   }
 
-  private record Result(MemorySegment mpzBase, int bitLength) {
+  record Result(MemorySegment mpzBase, int bitLength) {
 
   }
 

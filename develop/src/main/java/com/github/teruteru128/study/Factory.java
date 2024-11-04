@@ -6,6 +6,9 @@ import static com.github.teruteru.gmp.gmp_h.mpz_init;
 import static com.github.teruteru.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
 import static java.lang.Integer.parseInt;
+import static java.lang.Math.abs;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
@@ -21,6 +24,7 @@ import com.github.teruteru128.bitmessage.spec.KeyPair;
 import com.github.teruteru128.encode.Base58;
 import com.github.teruteru128.foreign.GMP;
 import com.github.teruteru128.fx.App;
+import com.github.teruteru128.ncv.xml.Transform;
 import com.github.teruteru128.sample.awt.TrayIconDemo;
 import com.github.teruteru128.sample.clone.CloneSample;
 import com.github.teruteru128.sample.dist.LogNormalDistributionSample;
@@ -99,12 +103,15 @@ import javax.crypto.Mac;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import org.apache.logging.log4j.util.InternalException;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
 import org.sqlite.javax.SQLiteConnectionPoolDataSource;
+import org.xml.sax.SAXException;
 
 public class Factory implements Callable<Void> {
 
@@ -145,7 +152,7 @@ public class Factory implements Callable<Void> {
    * @throws InvalidKeyException           key
    */
   static void create(String[] args)
-      throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, ClassNotFoundException, ExecutionException {
+      throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, ClassNotFoundException, ExecutionException, ParserConfigurationException, SAXException, TransformerException {
     switch (args[0]) {
       case "clone" -> CloneSample.cloneSample();
       case "random" -> MyRandom.doubleSample(RandomGenerator.getDefault());
@@ -391,9 +398,9 @@ public class Factory implements Callable<Void> {
           PrimeSearch.getConvertedStep(Integer.parseInt(args[1]));
         }
       }
-      case "create" -> PrimeSearch.createLargeSieve(Paths.get(args[1]), args[2],
+      case "createLargeSieve" -> new CreateLargeSieveTask(Paths.get(args[1]), args[2],
           Path.of(args.length >= 4 ? args[3] : "8589934592bit-smallsieve.obj"),
-          args.length >= 5 ? Path.of(args[4]) : null);
+          args.length >= 5 ? Path.of(args[4]) : null).call();
       case "diff" -> {
         if (args.length < 3) {
           return;
@@ -402,7 +409,7 @@ public class Factory implements Callable<Void> {
         long[] array1 = a.sieve().toLongArray();
         var b = GMP.loadLargeSieve(Path.of(args[2]));
         long[] array2 = b.sieve().toLongArray();
-        var minLength = Math.min(array1.length, array2.length);
+        var minLength = min(array1.length, array2.length);
         var format = HexFormat.of();
         for (int i = 0; i < minLength; i++) {
           if (array1[i] != array2[i]) {
@@ -518,6 +525,123 @@ public class Factory implements Callable<Void> {
         var base = args.length < 3 ? 10 : parseInt(args[2]);
         assert base >= 2;
         System.out.println("mpz_sizeinbase(a, 10) = " + mpz_sizeinbase(a, base));
+      }
+      case "trans" ->
+          new Transform(Path.of(args[1]), args.length >= 3 ? Path.of(args[2]) : null).call();
+      case "colorFix" -> {
+        // RGB color fixer
+        // HLS color space
+        int p;
+        int r;
+        int g;
+        int b;
+        if (args.length == 2) {
+          p = Integer.parseInt(args[1]);
+          r = p >> 16 & 0xff;
+          g = p >> 8 & 0xff;
+          b = p & 0xff;
+        } else if (args.length == 4) {
+          r = Integer.parseInt(args[1]);
+          g = Integer.parseInt(args[2]);
+          b = Integer.parseInt(args[3]);
+          p = 0xff000000 | r << 16 | g << 8 | b;
+        } else {
+          System.err.println("err! args is 2 or 4");
+          return;
+        }
+        System.out.printf("input: R: %d, G: %d, B: %d(%d, %<08x)%n", r, g, b, p);
+        var dr = (double) r / 255;
+        var dg = (double) g / 255;
+        var db = (double) b / 255;
+        var max = max(max(r, g), b);
+        var min = min(min(r, g), b);
+        var dmax = max(max(dr, dg), db);
+        var dmin = min(min(dr, dg), db);
+        // double型で==を使って比較したくなかった
+        while (max == min) {
+          System.err.println("Achromatic!");
+          if (min >= 192) {
+            System.out.println("But vivid enough. Does nothing.");
+            return;
+          }
+          p = SECURE_RANDOM_GENERATOR.nextInt(0x1000000);
+          r = p >> 16 & 0xff;
+          g = p >> 8 & 0xff;
+          b = p & 0xff;
+          dr = (double) r / 255;
+          dg = (double) g / 255;
+          db = (double) b / 255;
+          max = max(max(r, g), b);
+          min = min(min(r, g), b);
+          dmax = max(max(dr, dg), db);
+          dmin = min(min(dr, dg), db);
+        }
+        var dMaxSubMin = dmax - dmin;
+        var dMaxAddMin = dmax + dmin;
+        double h;
+        if (dmin == db) {
+          h = (dg - dr) / dMaxSubMin + 1;
+        } else if (dmin == dr) {
+          h = (db - dg) / dMaxSubMin + 3;
+        } else {
+          h = (dr - db) / dMaxSubMin + 5;
+        }
+
+        var l = (dMaxAddMin) / 2;
+        // 円柱モデル
+        var s = dMaxSubMin / (1 - abs(dMaxAddMin - 1));
+        System.out.printf("old: Windows: h: %f, l: %f, s: %f%n", h * 40, l * 240, s * 240);
+        System.out.printf("old: degrees: h: %f, l: %f, s: %f%n", h * 60, l * 100, s * 100);
+        if (s >= 0.75) {
+          System.out.println("Vivid enough. Does nothing.");
+          return;
+        }
+        var newL = 0.5;
+        var newS = (double) SECURE_RANDOM_GENERATOR.nextInt(192, 256) / 255;
+        var v = (newS * (1 - abs(2 * newL - 1))) / 2;
+        dmax = newL + v;
+        dmin = newL - v;
+        dMaxSubMin = dmax - dmin;
+        switch ((int) h) {
+          case 0:
+            dr = dmax;
+            dg = dmin + dMaxSubMin * h;
+            db = dmin;
+            break;
+          case 1:
+            dr = dmin + dMaxSubMin * (2 - h);
+            dg = dmax;
+            db = dmin;
+            break;
+          case 2:
+            dr = dmin;
+            dg = dmax;
+            db = dmin + dMaxSubMin * (h - 2);
+            break;
+          case 3:
+            dr = dmin;
+            dg = dmin + dMaxSubMin * (4 - h);
+            db = dmax;
+            break;
+          case 4:
+            dr = dmin + dMaxSubMin * (h - 4);
+            dg = dmin;
+            db = dmax;
+            break;
+          case 5:
+            dr = dmax;
+            dg = dmin;
+            db = dmin + dMaxSubMin * (6 - h);
+            break;
+        }
+        r = (int) (dr * 255);
+        g = (int) (dg * 255);
+        b = (int) (db * 255);
+        System.out.printf("new: R: %d, G: %d, B %d%n", r, g, b);
+        System.out.printf("new: Windows: h: %f, l: %f, s: %f%n", h * 40, newL * 240, newS * 240);
+        System.out.printf("new: degrees: h: %f, l: %f, s: %f%n", h * 60, newL * 100, newS * 100);
+        var i = 0xff000000 | r << 16 | g << 8 | b;
+        System.out.printf("color=%d, %<08x%n", i);
       }
       case null -> {
         System.err.println("command required");
