@@ -10,6 +10,7 @@ import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
 import com.github.teruteru.gmp.__mpz_struct;
 import com.github.teruteru.gmp.gmp_h;
+import com.github.teruteru128.foreign.GMP;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -52,7 +53,7 @@ public class PrimeSearch {
   public static void getConvertedStep(int firstStep) throws IOException, ClassNotFoundException {
     var base = loadEvenNumber(
         Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"));
-    var largeSieve = loadLargeSieve(
+    var largeSieve = GMP.loadLargeSieve(
         Paths.get("large-sieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-6.obj"));
     var sieve = largeSieve.sieve();
     var a = new BitSet(sieve.length());
@@ -106,7 +107,7 @@ public class PrimeSearch {
     var parallelism = processors >> 1;
     var largeSieve = arena.allocate(JAVA_LONG, (unitIndex(searchLen - 1) + 1));
     if (oldInPath != null) {
-      var s = loadLargeSieve(oldInPath);
+      var s = GMP.loadLargeSieve(oldInPath);
       var sieve1 = s.sieve();
       var sieveArray = sieve1.toLongArray();
       var tmp = Arrays.stream(sieveArray).map(l -> Long.bitCount(~l)).sum();
@@ -172,7 +173,7 @@ public class PrimeSearch {
     var baseCopied = arena.allocate(JAVA_BYTE, baseByteArray.length);
     copy(baseByteArray, 0, baseCopied, JAVA_BYTE, 0, baseByteArray.length);
     logger.trace("copied");
-    mpz_import(mpzBase, baseByteArray.length, 1, 1, 0, 0, baseCopied);
+    mpz_import(mpzBase, baseByteArray.length, 1, JAVA_BYTE.byteSize(), 0, 0, baseCopied);
     logger.trace("target even number has finished importing.");
     return new Result(mpzBase, bitLength);
   }
@@ -185,16 +186,6 @@ public class PrimeSearch {
    */
   public static void exportEvenNumberObj(Path path, BigInteger evenNumber) throws IOException {
     outputObj(path, evenNumber);
-  }
-
-  static LargeSieve loadLargeSieve(Path path) throws IOException, ClassNotFoundException {
-    int searchLength;
-    long[] n;
-    try (var ois = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(path)))) {
-      searchLength = ois.readInt();
-      n = (long[]) ois.readObject();
-    }
-    return new LargeSieve(searchLength, BitSet.valueOf(n));
   }
 
   static BigInteger loadEvenNumber(Path path) throws IOException, ClassNotFoundException {
@@ -423,7 +414,4 @@ public class PrimeSearch {
 
   }
 
-  record LargeSieve(int searchLength, BitSet sieve) {
-
-  }
 }

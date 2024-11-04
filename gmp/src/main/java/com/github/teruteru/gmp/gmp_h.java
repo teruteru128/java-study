@@ -2058,8 +2058,8 @@ public class gmp_h {
      * void mpz_add_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static void mpz_add_ui(MemorySegment x0, MemorySegment x1, long x2) {
-        __gmpz_add_ui(x0, x1, x2);
+    public static void mpz_add_ui(MemorySegment w, MemorySegment u, long vval) {
+        __gmpz_add_ui(w, u, vval);
     }
 
     private static class __gmpz_addmul {
@@ -5360,11 +5360,11 @@ public class gmp_h {
     }
     /**
      * {@snippet lang=c :
-     * void mpz_init2(mpz_ptr, mp_bitcnt_t)
+     * void mpz_init2(mpz_ptr x, mp_bitcnt_t bits)
      * }
      */
-    public static void mpz_init2(MemorySegment x0, long x1) {
-        __gmpz_init2(x0, x1);
+    public static void mpz_init2(MemorySegment x, long bits) {
+        __gmpz_init2(x, bits);
     }
 
     /**
@@ -6290,7 +6290,7 @@ public class gmp_h {
      * int __gmpz_millerrabin(mpz_srcptr, int)
      * }
      */
-    public static int __gmpz_millerrabin(MemorySegment x0, int x1) {
+    private static int __gmpz_millerrabin(MemorySegment x0, int x1) {
         var mh$ = __gmpz_millerrabin.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6300,6 +6300,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * int mpz_millerrabin(mpz_srcptr n, int reps)
+     * }
+     */
+    public static int mpz_millerrabin(MemorySegment n, int reps) {
+        return __gmpz_millerrabin(n, reps);
     }
 
     private static class __gmpz_mod {
@@ -7795,11 +7803,11 @@ public class gmp_h {
     }
     /**
      * {@snippet lang=c :
-     * size_t mpz_sizeinbase(mpz_srcptr, int)
+     * size_t mpz_sizeinbase(mpz_srcptr x, int base)
      * }
      */
-    public static long mpz_sizeinbase(MemorySegment x0, int x1) {
-        return __gmpz_sizeinbase(x0, x1);
+    public static long mpz_sizeinbase(MemorySegment x, int base) {
+        return __gmpz_sizeinbase(x, base);
     }
 
     private static class __gmpz_sqrt {

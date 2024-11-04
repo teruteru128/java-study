@@ -53,4 +53,6 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
     implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    implementation 'org.xerial:sqlite-jdbc:3.45.3.0'
 }

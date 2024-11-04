@@ -7,6 +7,9 @@ import java.util.random.RandomGenerator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * 宝くじ抽選クラス
+ */
 public class Lottery {
 
   private static final RandomGenerator random = RandomGenerator.of("SecureRandom");

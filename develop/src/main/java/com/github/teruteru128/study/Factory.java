@@ -1,11 +1,17 @@
 package com.github.teruteru128.study;
 
+import static com.github.teruteru.gmp.gmp_h.C_CHAR;
+import static com.github.teruteru.gmp.gmp_h.mpz_import;
+import static com.github.teruteru.gmp.gmp_h.mpz_init;
+import static com.github.teruteru.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
 import static java.lang.Integer.parseInt;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
+import com.github.teruteru.gmp.__mpz_struct;
+import com.github.teruteru.gmp.gmp_h;
 import com.github.teruteru128.bitmessage.app.DeterministicAddressGenerator;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
@@ -13,6 +19,7 @@ import com.github.teruteru128.bitmessage.genaddress.Response;
 import com.github.teruteru128.bitmessage.spec.AddressFactory;
 import com.github.teruteru128.bitmessage.spec.KeyPair;
 import com.github.teruteru128.encode.Base58;
+import com.github.teruteru128.foreign.GMP;
 import com.github.teruteru128.fx.App;
 import com.github.teruteru128.sample.awt.TrayIconDemo;
 import com.github.teruteru128.sample.clone.CloneSample;
@@ -30,6 +37,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 import java.io.UncheckedIOException;
+import java.lang.foreign.Arena;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -52,6 +60,7 @@ import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.security.spec.ECGenParameterSpec;
@@ -67,10 +76,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.BitSet;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.Callable;
@@ -95,6 +104,7 @@ import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
+import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
 public class Factory implements Callable<Void> {
 
@@ -388,9 +398,9 @@ public class Factory implements Callable<Void> {
         if (args.length < 3) {
           return;
         }
-        var a = PrimeSearch.loadLargeSieve(Path.of(args[1]));
+        var a = GMP.loadLargeSieve(Path.of(args[1]));
         long[] array1 = a.sieve().toLongArray();
-        var b = PrimeSearch.loadLargeSieve(Path.of(args[2]));
+        var b = GMP.loadLargeSieve(Path.of(args[2]));
         long[] array2 = b.sieve().toLongArray();
         var minLength = Math.min(array1.length, array2.length);
         var format = HexFormat.of();
@@ -427,17 +437,15 @@ public class Factory implements Callable<Void> {
         if (args.length < 2) {
           return;
         }
-        var bitLength = Integer.parseInt(args[1]);
-        var evenNumber = new BigInteger(bitLength, (Random) SECURE_RANDOM_GENERATOR).setBit(
-            bitLength - 1).clearBit(0);
-        var th = BigInteger.TEN.pow(100000000);
-        while (evenNumber.compareTo(th) < 0) {
-          logger.info("だめぽ");
-          evenNumber = new BigInteger(bitLength, (Random) SECURE_RANDOM_GENERATOR).setBit(
-              bitLength - 1).clearBit(0);
-        }
-        PrimeSearch.exportEvenNumberObj(
-            Path.of("even-number-" + bitLength + "bit-" + UUID.randomUUID() + ".obj"), evenNumber);
+        final var bitLength = Integer.parseInt(args[1]);
+        final var instanceStrong = SecureRandom.getInstanceStrong();
+        BigInteger evenNumber;
+        final var th = BigInteger.TEN.pow(99999999);
+        do {
+          evenNumber = new BigInteger(bitLength, instanceStrong).setBit(bitLength - 1).clearBit(0);
+        } while (evenNumber.compareTo(th) < 0);
+        var path = Path.of("even-number-" + bitLength + "bit-" + UUID.randomUUID() + ".obj");
+        PrimeSearch.exportEvenNumberObj(path, evenNumber);
       }
       case "export" -> {
         var p = PrimeSearch.loadEvenNumber(
@@ -468,10 +476,54 @@ public class Factory implements Callable<Void> {
           System.out.printf("%016x, %a, exp: %d%n", a, b, ((a >> 52) & 0x7ff) - 1023);
         }
       }
-      case "path" -> {
-        System.out.println(Factory.class.getResource("").getPath());
+      case "createDB" -> {
+        var source = new SQLiteConnectionPoolDataSource();
+        source.setUrl(args[1]);
+        try (var con = source.getConnection()) {
+          try (var st = con.createStatement()) {
+            st.execute(
+                "create table if not exists candidates(id long, step int, composite int, probably_prime int, definitely_prime int, primary key(id, step));");
+          }
+
+          try (var prep = con.prepareStatement(
+              "insert into candidates(id, step, composite, probably_prime, definitely_prime) values(?, ?, 0, 0, 0);")) {
+            prep.setLong(1, 0x32ec7597040b4f0cL);
+            BitSet p;
+            {
+              var largeSieve = GMP.loadLargeSieve2(Path.of(args[2]));
+              p = new BitSet(largeSieve.length());
+              p.set(0, largeSieve.length());
+              p.andNot(largeSieve);
+            }
+            p.clear(0, args.length >= 4 ? Integer.parseInt(args[3]) : 0);
+            p.stream().forEach(s -> {
+              try {
+                prep.setInt(2, s);
+                prep.addBatch();
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+            });
+            prep.executeBatch();
+          }
+        }
       }
-      case null, default -> {
+      case "sizeInBase" -> {
+        var even = PrimeSearch.loadEvenNumber(Path.of(args[1]));
+        var auto = Arena.ofAuto();
+        var a = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+        mpz_init(a);
+        var b = even.toByteArray();
+        mpz_import(a, b.length, 1, C_CHAR.byteSize(), 0, 0, auto.allocateFrom(C_CHAR, b));
+        var base = args.length < 3 ? 10 : parseInt(args[2]);
+        assert base >= 2;
+        System.out.println("mpz_sizeinbase(a, 10) = " + mpz_sizeinbase(a, base));
+      }
+      case null -> {
+        System.err.println("command required");
+        Runtime.getRuntime().exit(1);
+      }
+      default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
       }

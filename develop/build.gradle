@@ -41,6 +41,7 @@ run {
 dependencies {
     implementation project(':bitmessage')
     implementation project(':encode')
+    implementation project(':foreign')
     implementation project(':gmp')
     implementation project(':resources')
     implementation project(':sample')

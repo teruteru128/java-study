@@ -41,6 +41,7 @@ module com.github.teruteru.study {
   requires unboundid.ldapsdk;
   requires info.picocli;
   requires com.github.teruteru.foreign.gmp;
+  requires com.github.teruteru.foreign;
   requires jsr305;
 
   opens com.github.teruteru128.fx;
