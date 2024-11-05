@@ -46,6 +46,7 @@ module com.github.teruteru.study {
   requires jsr305;
 
   exports com.github.teruteru128.study;
+  exports com.github.teruteru128.net;
   opens com.github.teruteru128.fx;
   opens com.github.teruteru128.study;
   opens com.github.teruteru128.util;

@@ -1,4 +1,5 @@
 module com.github.teruteru.sample {
+  requires java.desktop;
   requires java.net.http;
   requires java.sql;
   requires com.github.teruteru.study;
