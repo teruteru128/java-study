@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class AnyDistributionSample implements Sample {
 
     /**
-     * @see org.apache.commons.math3.distribution.ExponentialDistribution
+     * @see org.apache.commons.statistics.distribution.ExponentialDistribution
      */
     @Override
     public void sample() {
