@@ -1,7 +1,7 @@
 package com.github.teruteru128.study;
 
-import static com.github.teruteru.gmp.gmp_h.mpz_fdiv_ui;
-import static com.github.teruteru.gmp.gmp_h.mpz_sizeinbase;
+import static com.github.teruteru128.gmp.gmp_h.mpz_fdiv_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.study.PrimeSearch.getResult;
 import static com.github.teruteru128.study.PrimeSearch.loadSmallSieve;
 import static com.github.teruteru128.study.PrimeSearch.previousClearBit;
@@ -9,7 +9,7 @@ import static com.github.teruteru128.study.PrimeSearch.unitIndex;
 import static java.lang.Math.max;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
-import com.github.teruteru.gmp.__mpz_struct;
+import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.foreign.GMP;
 import com.github.teruteru128.foreign.converters.PathConverter;
 import java.io.BufferedOutputStream;

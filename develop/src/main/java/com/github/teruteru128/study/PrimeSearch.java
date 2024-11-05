@@ -1,13 +1,13 @@
 package com.github.teruteru128.study;
 
-import static com.github.teruteru.gmp.gmp_h.mpz_import;
-import static com.github.teruteru.gmp.gmp_h.mpz_init2;
+import static com.github.teruteru128.gmp.gmp_h.mpz_import;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init2;
 import static java.lang.foreign.MemorySegment.copy;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
-import com.github.teruteru.gmp.__mpz_struct;
-import com.github.teruteru.gmp.gmp_h;
+import com.github.teruteru128.gmp.__mpz_struct;
+import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.foreign.GMP;
 import com.github.teruteru128.foreign.converters.PathConverter;
 import java.io.BufferedInputStream;

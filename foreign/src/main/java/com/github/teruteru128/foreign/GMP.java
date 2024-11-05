@@ -1,12 +1,12 @@
 package com.github.teruteru128.foreign;
 
-import static com.github.teruteru.gmp.gmp_h.mpz_add_ui;
-import static com.github.teruteru.gmp.gmp_h.mpz_init;
-import static com.github.teruteru.gmp.gmp_h.mpz_init_set_str;
-import static com.github.teruteru.gmp.gmp_h.mpz_probab_prime_p;
+import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
 
-import com.github.teruteru.gmp.__mpz_struct;
-import com.github.teruteru.gmp.gmp_h;
+import com.github.teruteru128.gmp.__mpz_struct;
+import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.foreign.converters.PathConverter;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -16,14 +16,11 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutionException;
-import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;

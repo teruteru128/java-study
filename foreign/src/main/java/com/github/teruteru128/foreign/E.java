@@ -1,19 +1,19 @@
 package com.github.teruteru128.foreign;
 
-import static com.github.teruteru.gmp.gmp_h.mpz_add_ui;
-import static com.github.teruteru.gmp.gmp_h.mpz_get_str;
-import static com.github.teruteru.gmp.gmp_h.mpz_import;
-import static com.github.teruteru.gmp.gmp_h.mpz_mul_2exp;
-import static com.github.teruteru.gmp.gmp_h.mpz_probab_prime_p;
-import static com.github.teruteru.gmp.gmp_h.mpz_setbit;
-import static com.github.teruteru.gmp.gmp_h.mpz_sizeinbase;
+import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_import;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
+import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
+import static com.github.teruteru128.gmp.gmp_h.mpz_setbit;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.ADDRESS;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 
-import com.github.teruteru.gmp.__mpz_struct;
-import com.github.teruteru.gmp.gmp_h.mpz_clears;
-import com.github.teruteru.gmp.gmp_h.mpz_inits;
+import com.github.teruteru128.gmp.__mpz_struct;
+import com.github.teruteru128.gmp.gmp_h.mpz_clears;
+import com.github.teruteru128.gmp.gmp_h.mpz_inits;
 import com.github.teruteru128.foreign.converters.BigIntegerHexConverter;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemoryLayout;

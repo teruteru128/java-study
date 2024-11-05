@@ -3,4 +3,11 @@ plugins {
 }
 
 dependencies {
+    implementation project(':develop')
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-rng-simple
+    implementation 'org.apache.commons:commons-rng-simple:1.5'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-statistics-distribution
+    implementation 'org.apache.commons:commons-statistics-distribution:1.0'
 }

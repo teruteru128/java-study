@@ -1,9 +1,9 @@
 package com.github.teruteru128.study;
 
-import static com.github.teruteru.gmp.gmp_h.C_CHAR;
-import static com.github.teruteru.gmp.gmp_h.mpz_import;
-import static com.github.teruteru.gmp.gmp_h.mpz_init;
-import static com.github.teruteru.gmp.gmp_h.mpz_sizeinbase;
+import static com.github.teruteru128.gmp.gmp_h.C_CHAR;
+import static com.github.teruteru128.gmp.gmp_h.mpz_import;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.abs;
@@ -13,8 +13,8 @@ import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
-import com.github.teruteru.gmp.__mpz_struct;
-import com.github.teruteru.gmp.gmp_h;
+import com.github.teruteru128.gmp.__mpz_struct;
+import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.bitmessage.app.DeterministicAddressGenerator;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
@@ -25,11 +25,6 @@ import com.github.teruteru128.encode.Base58;
 import com.github.teruteru128.foreign.GMP;
 import com.github.teruteru128.fx.App;
 import com.github.teruteru128.ncv.xml.Transform;
-import com.github.teruteru128.sample.awt.TrayIconDemo;
-import com.github.teruteru128.sample.clone.CloneSample;
-import com.github.teruteru128.sample.dist.LogNormalDistributionSample;
-import com.github.teruteru128.sample.dist.LogNormalDistributionSample2;
-import com.github.teruteru128.sample.kdf.PBKDF2Sample;
 import java.awt.AWTException;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -154,13 +149,6 @@ public class Factory implements Callable<Void> {
   static void create(String[] args)
       throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, ClassNotFoundException, ExecutionException, ParserConfigurationException, SAXException, TransformerException {
     switch (args[0]) {
-      case "clone" -> CloneSample.cloneSample();
-      case "random" -> MyRandom.doubleSample(RandomGenerator.getDefault());
-      case "logNormal" -> new LogNormalDistributionSample().sample();
-      case "logNormal2" -> new LogNormalDistributionSample2().sample();
-      case "random2" -> MyRandom.random2();
-      case "random3" -> MyRandom.random3();
-      case "random4" -> MyRandom.random4();
       case "ts1" -> TeamSpeak.ts1();
       case "ts2" -> TeamSpeak.ts2();
       case "ts3" -> TeamSpeak.ts3();
@@ -227,7 +215,6 @@ public class Factory implements Callable<Void> {
         Lottery.pattern2(new int[]{parseInt(args[1]), parseInt(args[2]), parseInt(args[3])},
             parseInt(args[4]));
       }
-      case "tray" -> new TrayIconDemo().sample();
       case "zgrep" -> {
         if (args.length < 3) {
           return;
@@ -236,8 +223,6 @@ public class Factory implements Callable<Void> {
       }
       case "sign" -> SerializeSample.signSample();
       case "fx" -> Application.launch(App.class, args);
-      case "pbkdf2" -> PBKDF2Sample.extracted1(args);
-      case "pbkdf2-2" -> PBKDF2Sample.extracted2();
       case "list-encodings" -> {
         System.err.printf("native.encoding=%s%n", System.getProperty("native.encoding"));
         System.err.printf("stderr.encoding=%s%n", System.getProperty("stderr.encoding"));
@@ -541,117 +526,141 @@ public class Factory implements Callable<Void> {
           g = p >> 8 & 0xff;
           b = p & 0xff;
         } else if (args.length == 4) {
-          r = Integer.parseInt(args[1]);
-          g = Integer.parseInt(args[2]);
-          b = Integer.parseInt(args[3]);
+          r = Integer.parseInt(args[1]) & 0xff;
+          g = Integer.parseInt(args[2]) & 0xff;
+          b = Integer.parseInt(args[3]) & 0xff;
           p = 0xff000000 | r << 16 | g << 8 | b;
         } else {
           System.err.println("err! args is 2 or 4");
           return;
         }
         System.out.printf("input: R: %d, G: %d, B: %d(%d, %<08x)%n", r, g, b, p);
-        var dr = (double) r / 255;
-        var dg = (double) g / 255;
-        var db = (double) b / 255;
         var max = max(max(r, g), b);
         var min = min(min(r, g), b);
-        var dmax = max(max(dr, dg), db);
-        var dmin = min(min(dr, dg), db);
         // double型で==を使って比較したくなかった
+        if (max == min && min >= 192) {
+          System.out.println("Achromatic, but vivid enough. Does nothing.");
+          return;
+        }
         while (max == min) {
           System.err.println("Achromatic!");
-          if (min >= 192) {
-            System.out.println("But vivid enough. Does nothing.");
-            return;
-          }
           p = SECURE_RANDOM_GENERATOR.nextInt(0x1000000);
           r = p >> 16 & 0xff;
           g = p >> 8 & 0xff;
           b = p & 0xff;
-          dr = (double) r / 255;
-          dg = (double) g / 255;
-          db = (double) b / 255;
           max = max(max(r, g), b);
           min = min(min(r, g), b);
-          dmax = max(max(dr, dg), db);
-          dmin = min(min(dr, dg), db);
         }
-        var dMaxSubMin = dmax - dmin;
-        var dMaxAddMin = dmax + dmin;
-        double h;
-        if (dmin == db) {
-          h = (dg - dr) / dMaxSubMin + 1;
-        } else if (dmin == dr) {
-          h = (db - dg) / dMaxSubMin + 3;
-        } else {
-          h = (dr - db) / dMaxSubMin + 5;
-        }
-
-        var l = (dMaxAddMin) / 2;
-        // 円柱モデル
-        var s = dMaxSubMin / (1 - abs(dMaxAddMin - 1));
-        System.out.printf("old: Windows: h: %f, l: %f, s: %f%n", h * 40, l * 240, s * 240);
-        System.out.printf("old: degrees: h: %f, l: %f, s: %f%n", h * 60, l * 100, s * 100);
+        var hls = RGBToHLS(new RGBColor(r, g, b));
+        var h = hls.h();
+        var l = hls.l();
+        var s = hls.s();
+        System.out.printf("old: Windows: H: %f, L: %f, S: %f%n", h * 40, l * 240, s * 240);
+        System.out.printf("old: degrees: H: %f, L: %f, S: %f%n", h * 60, l * 100, s * 100);
         if (s >= 0.75) {
           System.out.println("Vivid enough. Does nothing.");
           return;
         }
         var newL = 0.5;
         var newS = (double) SECURE_RANDOM_GENERATOR.nextInt(192, 256) / 255;
-        var v = (newS * (1 - abs(2 * newL - 1))) / 2;
-        dmax = newL + v;
-        dmin = newL - v;
-        dMaxSubMin = dmax - dmin;
-        switch ((int) h) {
-          case 0:
-            dr = dmax;
-            dg = dmin + dMaxSubMin * h;
-            db = dmin;
-            break;
-          case 1:
-            dr = dmin + dMaxSubMin * (2 - h);
-            dg = dmax;
-            db = dmin;
-            break;
-          case 2:
-            dr = dmin;
-            dg = dmax;
-            db = dmin + dMaxSubMin * (h - 2);
-            break;
-          case 3:
-            dr = dmin;
-            dg = dmin + dMaxSubMin * (4 - h);
-            db = dmax;
-            break;
-          case 4:
-            dr = dmin + dMaxSubMin * (h - 4);
-            dg = dmin;
-            db = dmax;
-            break;
-          case 5:
-            dr = dmax;
-            dg = dmin;
-            db = dmin + dMaxSubMin * (6 - h);
-            break;
+        var newRGB = HLSToRGB(new HLSColor(h, newL, newS));
+        System.out.printf("new: R: %d, G: %d, B %d%n", newRGB.r(), newRGB.g(), newRGB.b());
+        System.out.printf("new: Windows: H: %f, L: %f, S: %f%n", h * 40, newL * 240, newS * 240);
+        System.out.printf("new: degrees: H: %f, L: %f, S: %f%n", h * 60, newL * 100, newS * 100);
+        System.out.printf("color=%d, %<08x%n", 0xff000000 | newRGB.r() << 16 | newRGB.g() << 8 | newRGB.b());
+      }
+      case "newColor" -> {
+        var h = MyRandom.nextDouble(SECURE_RANDOM_GENERATOR) * 6;
+        var l = 0.5;
+        double s;
+        if (args.length >= 2 && Boolean.parseBoolean(args[1])) {
+          s = 1;
+        } else {
+          s = (double) SECURE_RANDOM_GENERATOR.nextInt(192, 256) / 255;
         }
-        r = (int) (dr * 255);
-        g = (int) (dg * 255);
-        b = (int) (db * 255);
-        System.out.printf("new: R: %d, G: %d, B %d%n", r, g, b);
-        System.out.printf("new: Windows: h: %f, l: %f, s: %f%n", h * 40, newL * 240, newS * 240);
-        System.out.printf("new: degrees: h: %f, l: %f, s: %f%n", h * 60, newL * 100, newS * 100);
-        var i = 0xff000000 | r << 16 | g << 8 | b;
-        System.out.printf("color=%d, %<08x%n", i);
+        var rgb = HLSToRGB(new HLSColor(h, l, s));
+        var r = rgb.r();
+        var g = rgb.g();
+        var b = rgb.b();
+        var v = 0xff000000 | r << 16 | g << 8 | b;
+        System.out.printf("%d, %d, %d(%d, %<08x)%n", r, g, b, v);
       }
       case null -> {
         System.err.println("command required");
-        Runtime.getRuntime().exit(1);
+        Runtime.getRuntime().exit(2);
       }
       default -> {
         System.err.println("unknown command");
         Runtime.getRuntime().exit(1);
       }
     }
+  }
+
+  private static RGBColor HLSToRGB(HLSColor HLSColor) {
+    var h = HLSColor.h();
+    var l = HLSColor.l();
+    var s = HLSColor.s();
+    var v = (s * (1 - abs(2 * l - 1))) / 2;
+    double dMax = l + v;
+    double dMin = l - v;
+    double dMaxSubMin = dMax - dMin;
+    double dr = 0, dg = 0, db = 0;
+    switch ((int) h) {
+      case 0 -> {
+        dr = dMax;
+        dg = dMin + dMaxSubMin * h;
+        db = dMin;
+      }
+      case 1 -> {
+        dr = dMin + dMaxSubMin * (2 - h);
+        dg = dMax;
+        db = dMin;
+      }
+      case 2 -> {
+        dr = dMin;
+        dg = dMax;
+        db = dMin + dMaxSubMin * (h - 2);
+      }
+      case 3 -> {
+        dr = dMin;
+        dg = dMin + dMaxSubMin * (4 - h);
+        db = dMax;
+      }
+      case 4 -> {
+        dr = dMin + dMaxSubMin * (h - 4);
+        dg = dMin;
+        db = dMax;
+      }
+      case 5 -> {
+        dr = dMax;
+        dg = dMin;
+        db = dMin + dMaxSubMin * (6 - h);
+      }
+    }
+    return new RGBColor((int) (dr * 255), (int) (dg * 255), (int) (db * 255));
+  }
+
+  private static HLSColor RGBToHLS(RGBColor RGBColor) {
+    var dr = (double) RGBColor.r() / 255;
+    var dg = (double) RGBColor.g() / 255;
+    var db = (double) RGBColor.b() / 255;
+    var dMax = max(max(dr, dg), db);
+    var dMin = min(min(dr, dg), db);
+    var dMaxSubMin = dMax - dMin;
+    var dMaxAddMin = dMax + dMin;
+    double h;
+    if (dMin == db) {
+      h = (dg - dr) / dMaxSubMin + 1;
+    } else if (dMin == dr) {
+      h = (db - dg) / dMaxSubMin + 3;
+    } else {
+      h = (dr - db) / dMaxSubMin + 5;
+    }
+
+    var l = dMaxAddMin / 2;
+    // 円柱モデル
+    var s = dMaxSubMin / (1 - abs(dMaxAddMin - 1));
+    return new HLSColor(h, l, s);
   }
 
   private static void extracted4() throws SQLException {
@@ -1026,6 +1035,27 @@ public class Factory implements Callable<Void> {
     return null;
   }
 
+  /**
+   *
+   * @param r Red, [0, 255]
+   * @param g Green, [0, 255]
+   * @param b Blue, [0, 255]
+   */
+  private record RGBColor(int r, int g, int b) {
+
+    RGBColor {
+      if (r < 0 || 255 < r) {
+        throw new IllegalArgumentException("");
+      }
+      if (g < 0 || 255 < g) {
+        throw new IllegalArgumentException("");
+      }
+      if (b < 0 || 255 < b) {
+        throw new IllegalArgumentException("");
+      }
+    }
+  }
+
   private record DecodedAddress(String toAddress, byte[] toripe) {
 
   }
@@ -1057,6 +1087,27 @@ public class Factory implements Callable<Void> {
     @Override
     public int hashCode() {
       return Arrays.hashCode(key);
+    }
+  }
+
+  /**
+   *
+   * @param h Hue, [0, 6)
+   * @param l Lightness, [0, 1]
+   * @param s Saturation, [0, 1]
+   */
+  private record HLSColor(double h, double l, double s) {
+
+    HLSColor {
+      if (h < 0 || 6 <= h) {
+        throw new IllegalArgumentException("");
+      }
+      if (l < 0 || 1 < l) {
+        throw new IllegalArgumentException("");
+      }
+      if (s < 0 || 1 < s) {
+        throw new IllegalArgumentException("");
+      }
     }
   }
 }
