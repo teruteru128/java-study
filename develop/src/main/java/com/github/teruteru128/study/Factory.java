@@ -43,6 +43,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
@@ -79,6 +80,7 @@ import java.util.BitSet;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.Callable;
@@ -262,7 +264,7 @@ public class Factory implements Callable<Void> {
       case "p" -> {
         // 素数生成ベンチマーク
         var start = LocalDateTime.now();
-        var p = BigInteger.probablePrime(2048, (java.util.Random) SECURE_RANDOM_GENERATOR);
+        var p = BigInteger.probablePrime(2048, (Random) SECURE_RANDOM_GENERATOR);
         var finish = LocalDateTime.now();
         System.out.printf("%x%n", p);
         var b = p.isProbablePrime(10);
@@ -337,7 +339,7 @@ public class Factory implements Callable<Void> {
         try (var client = HttpClient.newHttpClient()) {
           System.out.println(client.send(Spammer.requestBuilder.POST(ofString(
                   "{\"jsonrpc\":\"2.0\",\"method\":\"getSentMessageByAckData\", \"params\":[\""
-                  + args[1] + "\"], \"id\": 19}")).build(), HttpResponse.BodyHandlers.ofString())
+                  + args[1] + "\"], \"id\": 19}")).build(), BodyHandlers.ofString())
               .body());
         }
       }
@@ -380,7 +382,7 @@ public class Factory implements Callable<Void> {
         if (args.length == 1) {
           PrimeSearch.getConvertedStep();
         } else {
-          PrimeSearch.getConvertedStep(Integer.parseInt(args[1]));
+          PrimeSearch.getConvertedStep(parseInt(args[1]));
         }
       }
       case "createLargeSieve" -> new CreateLargeSieveTask(Paths.get(args[1]), args[2],
@@ -429,7 +431,7 @@ public class Factory implements Callable<Void> {
         if (args.length < 2) {
           return;
         }
-        final var bitLength = Integer.parseInt(args[1]);
+        final var bitLength = parseInt(args[1]);
         final var instanceStrong = SecureRandom.getInstanceStrong();
         BigInteger evenNumber;
         final var th = BigInteger.TEN.pow(99999999);
@@ -487,7 +489,7 @@ public class Factory implements Callable<Void> {
               p.set(0, largeSieve.length());
               p.andNot(largeSieve);
             }
-            p.clear(0, args.length >= 4 ? Integer.parseInt(args[3]) : 0);
+            p.clear(0, args.length >= 4 ? parseInt(args[3]) : 0);
             p.stream().forEach(s -> {
               try {
                 prep.setInt(2, s);
@@ -521,14 +523,14 @@ public class Factory implements Callable<Void> {
         int g;
         int b;
         if (args.length == 2) {
-          p = Integer.parseInt(args[1]);
+          p = parseInt(args[1]);
           r = p >> 16 & 0xff;
           g = p >> 8 & 0xff;
           b = p & 0xff;
         } else if (args.length == 4) {
-          r = Integer.parseInt(args[1]) & 0xff;
-          g = Integer.parseInt(args[2]) & 0xff;
-          b = Integer.parseInt(args[3]) & 0xff;
+          r = parseInt(args[1]) & 0xff;
+          g = parseInt(args[2]) & 0xff;
+          b = parseInt(args[3]) & 0xff;
           p = 0xff000000 | r << 16 | g << 8 | b;
         } else {
           System.err.println("err! args is 2 or 4");
@@ -604,7 +606,7 @@ public class Factory implements Callable<Void> {
     double dMax = l + v;
     double dMin = l - v;
     double dMaxSubMin = dMax - dMin;
-    double dr = 0, dg = 0, db = 0;
+    double dr, dg, db;
     switch ((int) h) {
       case 0 -> {
         dr = dMax;
@@ -636,6 +638,7 @@ public class Factory implements Callable<Void> {
         dg = dMin;
         db = dMin + dMaxSubMin * (6 - h);
       }
+      default -> throw new IllegalStateException("Unexpected value: " + (int) h);
     }
     return new RGBColor((int) (dr * 255), (int) (dg * 255), (int) (db * 255));
   }
