@@ -77,7 +77,7 @@ public class TOTP {
      * @param returnDigits: number of digits to return
      *
      * @return: a numeric String in base 10 that includes
-     *              {@link truncationDigits} digits
+     *              {@code truncationDigits} digits
      */
 
     public static String generateTOTP(String key, long time, int returnDigits){
@@ -93,7 +93,7 @@ public class TOTP {
      * @param returnDigits: number of digits to return
      *
      * @return: a numeric String in base 10 that includes
-     *              {@link truncationDigits} digits
+     *              {@code truncationDigits} digits
      */
     public static String generateTOTP256(String key, long time, int returnDigits){
         return generateTOTP(key, time, returnDigits, "HmacSHA256");
@@ -108,7 +108,7 @@ public class TOTP {
      * @param returnDigits: number of digits to return
      *
      * @return: a numeric String in base 10 that includes
-     *              {@link truncationDigits} digits
+     *              {@code truncationDigits} digits
      */
 
     public static String generateTOTP512(String key, long time, int returnDigits){
@@ -136,7 +136,7 @@ public class TOTP {
      * @param crypto: the crypto function to use
      *
      * @return: a numeric String in base 10 that includes
-     *              {@link truncationDigits} digits
+     *              {@code truncationDigits} digits
      */
 
     public static String generateTOTP(String key, long time, int returnDigits, String crypto){
