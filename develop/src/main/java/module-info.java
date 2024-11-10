@@ -33,7 +33,7 @@ module com.github.teruteru.study {
 
   requires com.github.teruteru.bitmessage;
   requires com.github.teruteru.encode;
-  requires com.github.teruteru.sample;
+  //requires com.github.teruteru.sample;
   requires com.github.teruteru.time;
   requires javafx.graphics;
   requires javafx.controls;
@@ -45,11 +45,12 @@ module com.github.teruteru.study {
   requires com.github.teruteru.foreign;
   requires jsr305;
 
+  exports com.github.teruteru128.color;
   exports com.github.teruteru128.study;
   exports com.github.teruteru128.net;
   opens com.github.teruteru128.fx;
   opens com.github.teruteru128.study;
   opens com.github.teruteru128.util;
   opens com.github.teruteru128.util.function;
-  uses com.github.teruteru128.sample.Sample;
+  //uses com.github.teruteru128.sample.Sample;
 }

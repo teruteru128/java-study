@@ -1,4 +1,4 @@
-package com.github.teruteru128.foreign;
+package com.github.teruteru128.foreign.prime.search;
 
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
@@ -9,7 +9,6 @@ import com.github.teruteru128.gmp.gmp_h;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
@@ -20,7 +19,7 @@ import org.slf4j.LoggerFactory;
 /**
  * {@code even + step * 2L + 1}の素数判定を行うタスククラス。
  */
-public class PrimeSearchTask2 implements Callable<Optional<Integer>> {
+public class PrimeSearchTask2 implements Callable<Result> {
 
   private static final Logger logger = LoggerFactory.getLogger(PrimeSearchTask2.class);
   private static final Arena auto = Arena.ofAuto();
@@ -63,7 +62,7 @@ public class PrimeSearchTask2 implements Callable<Optional<Integer>> {
   }
 
   @Override
-  public Optional<Integer> call() throws SQLException {
+  public Result call() throws SQLException {
     var candidate = threadCandidates.get();
     mpz_add_ui(candidate, even, step * 2L + 1);
     int result;
@@ -83,12 +82,6 @@ public class PrimeSearchTask2 implements Callable<Optional<Integer>> {
     }
     // {@code result != 0} で十分だと思うんだが
     // return result == 1 || result == 2 ? Optional.of(step) : Optional.empty();
-    return switch (result) {
-      case 0 -> Optional.empty();
-      case 1, 2 -> Optional.of(step);
-      // おそらく有り得ない
-      // FIXME 適切な{@code Exception}に変える
-      default -> throw new RuntimeException("Illegal result " + result + " in " + step);
-    };
+    return new Result(step, result);
   }
 }

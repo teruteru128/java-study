@@ -1,29 +1,32 @@
 package com.github.teruteru128.study;
 
+import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
 import static com.github.teruteru128.gmp.gmp_h.C_CHAR;
 import static com.github.teruteru128.gmp.gmp_h.mpz_import;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
-import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
 import static java.lang.Integer.parseInt;
-import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
-import com.github.teruteru128.gmp.__mpz_struct;
-import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.bitmessage.app.DeterministicAddressGenerator;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
 import com.github.teruteru128.bitmessage.genaddress.Response;
 import com.github.teruteru128.bitmessage.spec.AddressFactory;
 import com.github.teruteru128.bitmessage.spec.KeyPair;
+import com.github.teruteru128.color.ColorConverter;
+import com.github.teruteru128.color.HLSColor;
+import com.github.teruteru128.color.RGBColor;
 import com.github.teruteru128.encode.Base58;
-import com.github.teruteru128.foreign.GMP;
+import com.github.teruteru128.foreign.prime.search.PrimeSearch;
 import com.github.teruteru128.fx.App;
+import com.github.teruteru128.gmp.__mpz_struct;
+import com.github.teruteru128.gmp.gmp_h;
+import com.github.teruteru128.ncv.xml.ListUp;
 import com.github.teruteru128.ncv.xml.Transform;
 import java.awt.AWTException;
 import java.io.BufferedInputStream;
@@ -42,7 +45,6 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
-import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -338,9 +340,8 @@ public class Factory implements Callable<Void> {
       case "search" -> {
         try (var client = HttpClient.newHttpClient()) {
           System.out.println(client.send(Spammer.requestBuilder.POST(ofString(
-                  "{\"jsonrpc\":\"2.0\",\"method\":\"getSentMessageByAckData\", \"params\":[\""
-                  + args[1] + "\"], \"id\": 19}")).build(), BodyHandlers.ofString())
-              .body());
+              "{\"jsonrpc\":\"2.0\",\"method\":\"getSentMessageByAckData\", \"params\":[\""
+              + args[1] + "\"], \"id\": 19}")).build(), BodyHandlers.ofString()).body());
         }
       }
       case "DB" -> extracted1(args);
@@ -352,7 +353,7 @@ public class Factory implements Callable<Void> {
         var bitLength = 2147483645L << 6;
         logger.info("create {}bit small sieve...", bitLength);
         // 小さな既知素数ふるいを作成、もしくは読み込む
-        var sieve = PrimeSearch.createSmallSieve(bitLength);
+        var sieve = com.github.teruteru128.study.PrimeSearch.createSmallSieve(bitLength);
         var primeCount = Arrays.stream(sieve).parallel().map(l -> Long.bitCount(~l)).sum();
         logger.info("{} primes", primeCount);
         var path = Paths.get(bitLength + "bit-small-sieve.obj");
@@ -374,15 +375,15 @@ public class Factory implements Callable<Void> {
         logger.info("done. 2");
       }
       case "check" -> {
-        var sieve = PrimeSearch.loadSmallSieve(Path.of("137438953280bit-small-sieve.obj"));
+        var sieve = com.github.teruteru128.study.PrimeSearch.loadSmallSieve(Path.of("137438953280bit-small-sieve.obj"));
         var primeCount = Arrays.stream(sieve).parallel().map(l -> Long.bitCount(~l)).sum();
         System.out.printf("%d primes%n", primeCount);
       }
       case "attack" -> {
         if (args.length == 1) {
-          PrimeSearch.getConvertedStep();
+          com.github.teruteru128.study.PrimeSearch.getConvertedStep();
         } else {
-          PrimeSearch.getConvertedStep(parseInt(args[1]));
+          com.github.teruteru128.study.PrimeSearch.getConvertedStep(parseInt(args[1]));
         }
       }
       case "createLargeSieve" -> new CreateLargeSieveTask(Paths.get(args[1]), args[2],
@@ -392,9 +393,9 @@ public class Factory implements Callable<Void> {
         if (args.length < 3) {
           return;
         }
-        var a = GMP.loadLargeSieve(Path.of(args[1]));
+        var a = PrimeSearch.loadLargeSieve(Path.of(args[1]));
         long[] array1 = a.sieve().toLongArray();
-        var b = GMP.loadLargeSieve(Path.of(args[2]));
+        var b = PrimeSearch.loadLargeSieve(Path.of(args[2]));
         long[] array2 = b.sieve().toLongArray();
         var minLength = min(array1.length, array2.length);
         var format = HexFormat.of();
@@ -439,10 +440,10 @@ public class Factory implements Callable<Void> {
           evenNumber = new BigInteger(bitLength, instanceStrong).setBit(bitLength - 1).clearBit(0);
         } while (evenNumber.compareTo(th) < 0);
         var path = Path.of("even-number-" + bitLength + "bit-" + UUID.randomUUID() + ".obj");
-        PrimeSearch.exportEvenNumberObj(path, evenNumber);
+        com.github.teruteru128.study.PrimeSearch.exportEvenNumberObj(path, evenNumber);
       }
       case "export" -> {
-        var p = PrimeSearch.loadEvenNumber(
+        var p = com.github.teruteru128.study.PrimeSearch.loadEvenNumber(
             Paths.get("even-number-1048576bit-85c53395-9d78-44d2-9c95-9c53ff90f30a.obj"));
         Files.write(Path.of("even-number-1048576bit-85c53395-9d78-44d2-9c95-9c53ff90f30a.txt"),
             List.of(p.toString()), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
@@ -484,7 +485,7 @@ public class Factory implements Callable<Void> {
             prep.setLong(1, 0x32ec7597040b4f0cL);
             BitSet p;
             {
-              var largeSieve = GMP.loadLargeSieve2(Path.of(args[2]));
+              var largeSieve = PrimeSearch.loadLargeSieve2(Path.of(args[2]));
               p = new BitSet(largeSieve.length());
               p.set(0, largeSieve.length());
               p.andNot(largeSieve);
@@ -503,7 +504,7 @@ public class Factory implements Callable<Void> {
         }
       }
       case "sizeInBase" -> {
-        var even = PrimeSearch.loadEvenNumber(Path.of(args[1]));
+        var even = com.github.teruteru128.study.PrimeSearch.loadEvenNumber(Path.of(args[1]));
         var auto = Arena.ofAuto();
         var a = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
         mpz_init(a);
@@ -515,6 +516,7 @@ public class Factory implements Callable<Void> {
       }
       case "trans" ->
           new Transform(Path.of(args[1]), args.length >= 3 ? Path.of(args[2]) : null).call();
+      case "listUp" -> new ListUp(Path.of(args[1])).call();
       case "colorFix" -> {
         // RGB color fixer
         // HLS color space
@@ -553,7 +555,7 @@ public class Factory implements Callable<Void> {
           max = max(max(r, g), b);
           min = min(min(r, g), b);
         }
-        var hls = RGBToHLS(new RGBColor(r, g, b));
+        var hls = ColorConverter.RGBToHLS(new RGBColor(r, g, b));
         var h = hls.h();
         var l = hls.l();
         var s = hls.s();
@@ -565,11 +567,12 @@ public class Factory implements Callable<Void> {
         }
         var newL = 0.5;
         var newS = (double) SECURE_RANDOM_GENERATOR.nextInt(192, 256) / 255;
-        var newRGB = HLSToRGB(new HLSColor(h, newL, newS));
+        var newRGB = ColorConverter.HLSToRGB(new HLSColor(h, newL, newS));
         System.out.printf("new: R: %d, G: %d, B %d%n", newRGB.r(), newRGB.g(), newRGB.b());
         System.out.printf("new: Windows: H: %f, L: %f, S: %f%n", h * 40, newL * 240, newS * 240);
         System.out.printf("new: degrees: H: %f, L: %f, S: %f%n", h * 60, newL * 100, newS * 100);
-        System.out.printf("color=%d, %<08x%n", 0xff000000 | newRGB.r() << 16 | newRGB.g() << 8 | newRGB.b());
+        System.out.printf("color=%d, %<08x%n",
+            0xff000000 | newRGB.r() << 16 | newRGB.g() << 8 | newRGB.b());
       }
       case "newColor" -> {
         var h = MyRandom.nextDouble(SECURE_RANDOM_GENERATOR) * 6;
@@ -580,7 +583,7 @@ public class Factory implements Callable<Void> {
         } else {
           s = (double) SECURE_RANDOM_GENERATOR.nextInt(192, 256) / 255;
         }
-        var rgb = HLSToRGB(new HLSColor(h, l, s));
+        var rgb = ColorConverter.HLSToRGB(new HLSColor(h, l, s));
         var r = rgb.r();
         var g = rgb.g();
         var b = rgb.b();
@@ -596,74 +599,6 @@ public class Factory implements Callable<Void> {
         Runtime.getRuntime().exit(1);
       }
     }
-  }
-
-  private static RGBColor HLSToRGB(HLSColor HLSColor) {
-    var h = HLSColor.h();
-    var l = HLSColor.l();
-    var s = HLSColor.s();
-    var v = (s * (1 - abs(2 * l - 1))) / 2;
-    double dMax = l + v;
-    double dMin = l - v;
-    double dMaxSubMin = dMax - dMin;
-    double dr, dg, db;
-    switch ((int) h) {
-      case 0 -> {
-        dr = dMax;
-        dg = dMin + dMaxSubMin * h;
-        db = dMin;
-      }
-      case 1 -> {
-        dr = dMin + dMaxSubMin * (2 - h);
-        dg = dMax;
-        db = dMin;
-      }
-      case 2 -> {
-        dr = dMin;
-        dg = dMax;
-        db = dMin + dMaxSubMin * (h - 2);
-      }
-      case 3 -> {
-        dr = dMin;
-        dg = dMin + dMaxSubMin * (4 - h);
-        db = dMax;
-      }
-      case 4 -> {
-        dr = dMin + dMaxSubMin * (h - 4);
-        dg = dMin;
-        db = dMax;
-      }
-      case 5 -> {
-        dr = dMax;
-        dg = dMin;
-        db = dMin + dMaxSubMin * (6 - h);
-      }
-      default -> throw new IllegalStateException("Unexpected value: " + (int) h);
-    }
-    return new RGBColor((int) (dr * 255), (int) (dg * 255), (int) (db * 255));
-  }
-
-  private static HLSColor RGBToHLS(RGBColor RGBColor) {
-    var dr = (double) RGBColor.r() / 255;
-    var dg = (double) RGBColor.g() / 255;
-    var db = (double) RGBColor.b() / 255;
-    var dMax = max(max(dr, dg), db);
-    var dMin = min(min(dr, dg), db);
-    var dMaxSubMin = dMax - dMin;
-    var dMaxAddMin = dMax + dMin;
-    double h;
-    if (dMin == db) {
-      h = (dg - dr) / dMaxSubMin + 1;
-    } else if (dMin == dr) {
-      h = (db - dg) / dMaxSubMin + 3;
-    } else {
-      h = (dr - db) / dMaxSubMin + 5;
-    }
-
-    var l = dMaxAddMin / 2;
-    // 円柱モデル
-    var s = dMaxSubMin / (1 - abs(dMaxAddMin - 1));
-    return new HLSColor(h, l, s);
   }
 
   private static void extracted4() throws SQLException {
@@ -1038,27 +973,6 @@ public class Factory implements Callable<Void> {
     return null;
   }
 
-  /**
-   *
-   * @param r Red, [0, 255]
-   * @param g Green, [0, 255]
-   * @param b Blue, [0, 255]
-   */
-  private record RGBColor(int r, int g, int b) {
-
-    RGBColor {
-      if (r < 0 || 255 < r) {
-        throw new IllegalArgumentException("");
-      }
-      if (g < 0 || 255 < g) {
-        throw new IllegalArgumentException("");
-      }
-      if (b < 0 || 255 < b) {
-        throw new IllegalArgumentException("");
-      }
-    }
-  }
-
   private record DecodedAddress(String toAddress, byte[] toripe) {
 
   }
@@ -1093,24 +1007,4 @@ public class Factory implements Callable<Void> {
     }
   }
 
-  /**
-   *
-   * @param h Hue, [0, 6)
-   * @param l Lightness, [0, 1]
-   * @param s Saturation, [0, 1]
-   */
-  private record HLSColor(double h, double l, double s) {
-
-    HLSColor {
-      if (h < 0 || 6 <= h) {
-        throw new IllegalArgumentException("");
-      }
-      if (l < 0 || 1 < l) {
-        throw new IllegalArgumentException("");
-      }
-      if (s < 0 || 1 < s) {
-        throw new IllegalArgumentException("");
-      }
-    }
-  }
 }

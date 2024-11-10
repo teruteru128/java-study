@@ -20,6 +20,7 @@ import static com.github.teruteru128.mpz_aprcl.mpz_aprcl_h.mpz_aprtcle;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
+import com.github.teruteru128.foreign.prime.search.PrimeSearch;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.foreign.converters.PathConverter;
@@ -51,7 +52,7 @@ import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-@Command(name = "foreign", subcommands = {CL.class, GMP.class, E.class})
+@Command(name = "foreign", subcommands = {CL.class, PrimeSearch.class, E.class})
 public class Main implements Callable<Integer> {
 
   private static final Logger log = LoggerFactory.getLogger(Main.class);

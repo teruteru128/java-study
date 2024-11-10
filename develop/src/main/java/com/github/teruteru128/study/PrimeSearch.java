@@ -8,7 +8,6 @@ import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
-import com.github.teruteru128.foreign.GMP;
 import com.github.teruteru128.foreign.converters.PathConverter;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -57,7 +56,7 @@ public class PrimeSearch implements Callable<Void> {
   public static void getConvertedStep(int firstStep) throws IOException, ClassNotFoundException {
     var base = loadEvenNumber(
         Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"));
-    var largeSieve = GMP.loadLargeSieve(
+    var largeSieve = com.github.teruteru128.foreign.prime.search.PrimeSearch.loadLargeSieve(
         Paths.get("large-sieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-6.obj"));
     var sieve = largeSieve.sieve();
     var a = new BitSet(sieve.length());

@@ -10,7 +10,7 @@ import static java.lang.Math.max;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
 import com.github.teruteru128.gmp.__mpz_struct;
-import com.github.teruteru128.foreign.GMP;
+import com.github.teruteru128.foreign.prime.search.PrimeSearch;
 import com.github.teruteru128.foreign.converters.PathConverter;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -85,7 +85,7 @@ public class CreateLargeSieveTask implements Callable<Void> {
     var parallelism = max(1, processors - 1);
     var largeSieve = arena.allocate(JAVA_LONG, (unitIndex(searchLen - 1) + 1));
     if (oldInPath != null) {
-      var s = GMP.loadLargeSieve(oldInPath);
+      var s = PrimeSearch.loadLargeSieve(oldInPath);
       var sieve1 = s.sieve();
       var sieveArray = sieve1.toLongArray();
       var tmp = Arrays.stream(sieveArray).map(l -> ~l).map(Long::bitCount).sum();

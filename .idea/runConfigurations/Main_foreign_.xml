@@ -8,7 +8,7 @@
     <option name="VM_PARAMETERS" value="--enable-native-access=ALL-UNNAMED" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="com.github.teruteru128.foreign.*" />
+        <option name="PATTERN" value="com.github.teruteru128.foreign.prime.search.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

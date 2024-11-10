@@ -2,9 +2,13 @@ plugins {
     id 'com.github.teruteru128.study.java-library-conventions'
 }
 
-dependencies {
-    implementation project(':develop')
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(22)
+    }
+}
 
+dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-rng-simple
     implementation 'org.apache.commons:commons-rng-simple:1.5'
 

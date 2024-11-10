@@ -1,4 +1,4 @@
-package com.github.teruteru128.foreign;
+package com.github.teruteru128.foreign.prime.search;
 
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;

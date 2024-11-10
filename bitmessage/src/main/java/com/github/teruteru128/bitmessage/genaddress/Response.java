@@ -1,16 +1,18 @@
 package com.github.teruteru128.bitmessage.genaddress;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.github.teruteru128.bitmessage.spec.KeyPair;
 
 public class Response implements Cloneable, Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1;
 
-    private KeyPair signingKeyPair;
-    private KeyPair encryptionKeyPair;
-    private byte[] ripe;
+    private final KeyPair signingKeyPair;
+    private final KeyPair encryptionKeyPair;
+    private final byte[] ripe;
 
     public Response(KeyPair signingKeyPair, KeyPair encryptionKeyPair, byte[] ripe) {
         this.signingKeyPair = signingKeyPair;
@@ -75,7 +77,7 @@ public class Response implements Cloneable, Serializable {
         Response response = null;
         try {
             response = (Response) super.clone();
-        } catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException ignored) {
         }
         return response;
     }

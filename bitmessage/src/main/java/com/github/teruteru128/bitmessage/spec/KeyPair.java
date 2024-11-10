@@ -1,10 +1,12 @@
 package com.github.teruteru128.bitmessage.spec;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 
 public class KeyPair implements Cloneable, Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1;
 
     private byte[] privateKey;
@@ -40,7 +42,7 @@ public class KeyPair implements Cloneable, Serializable {
             pair = (KeyPair) super.clone();
             pair.privateKey = privateKey.clone();
             pair.publicKey = publicKey.clone();
-        } catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException ignored) {
         }
         return pair;
     }

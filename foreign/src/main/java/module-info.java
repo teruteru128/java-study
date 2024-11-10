@@ -13,5 +13,7 @@ module com.github.teruteru.foreign {
   opens com.github.teruteru128.foreign.converters;
   exports com.github.teruteru128.foreign;
   exports com.github.teruteru128.foreign.converters;
+  exports com.github.teruteru128.foreign.prime.search;
+  opens com.github.teruteru128.foreign.prime.search;
   uses java.security.Provider;
 }
