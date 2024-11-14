@@ -22,6 +22,7 @@ import com.github.teruteru128.color.ColorConverter;
 import com.github.teruteru128.color.HLSColor;
 import com.github.teruteru128.color.RGBColor;
 import com.github.teruteru128.encode.Base58;
+import com.github.teruteru128.foreign.converters.PathConverter;
 import com.github.teruteru128.foreign.prime.search.PrimeSearch;
 import com.github.teruteru128.fx.App;
 import com.github.teruteru128.gmp.__mpz_struct;
@@ -37,9 +38,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.io.RandomAccessFile;
 import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -105,12 +108,13 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.apache.logging.log4j.util.InternalException;
-import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
 import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 import org.xml.sax.SAXException;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Parameters;
 
 public class Factory implements Callable<Void> {
 
@@ -153,173 +157,6 @@ public class Factory implements Callable<Void> {
   static void create(String[] args)
       throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, ClassNotFoundException, ExecutionException, ParserConfigurationException, SAXException, TransformerException {
     switch (args[0]) {
-      case "ts1" -> TeamSpeak.ts1();
-      case "ts2" -> TeamSpeak.ts2();
-      case "ts3" -> TeamSpeak.ts3();
-      case "unitSpam" -> {
-        if (args.length >= 2) {
-          Spammer.unitSpam(Files.readAllLines(Path.of(args[1])), 2500, Duration.ofHours(12),
-              args.length >= 3 ? parseInt(args[2]) : 0);
-        }
-      }
-      case "unitSpam2" -> {
-        if (args.length >= 2) {
-          Spammer.unitSpam2(Files.readAllLines(Path.of(args[1])), 2500,
-              args.length >= 3 ? parseInt(args[2]) : 0);
-        }
-      }
-      case "spam" -> new Spam(args[1]).call();
-      case "spam2" -> {
-        var spam2 = new Spam2(args[1]);
-        if (args.length >= 3) {
-          spam2.setSkip(Long.parseLong(args[2]));
-        }
-        spam2.call();
-      }
-      case "update" -> new Updater(args[1]).call();
-      case "hash-base64" -> {
-        if (args.length >= 2) {
-          System.out.println(Base64.getEncoder().encodeToString(
-              MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(Path.of(args[1])))));
-        }
-      }
-      case "search-tor" -> {
-        var min = args.length >= 2 ? parseInt(args[1]) : (4299 + 9473);
-        var max = args.length >= 3 ? parseInt(args[2]) : 23000;
-        SiteChecker.searchTor(min, max);
-      }
-      case "check-" -> extracted3(args);
-      case "check-tor" -> SiteChecker.siteCheck(args[1]);
-      case "map" -> System.out.printf("System.mapLibraryName(\"OpenCL\") = %s%n",
-          System.mapLibraryName("OpenCL"));
-      case "telnet-tor" -> {
-        var hostname = args[1];
-        var port = parseInt(args[2]);
-        Telnet.extracted(hostname, port);
-      }
-      case "lotto7" -> {
-        if (args.length >= 2) {
-          Lottery.getLotto7Numbers(parseInt(args[1]));
-        } else {
-          Lottery.getLotto7Numbers(1);
-        }
-      }
-      case "lotto7-p1" -> {
-        if (args.length >= 2) {
-          Lottery.pattern1(parseInt(args[1]));
-        } else {
-          Lottery.pattern1(1);
-        }
-      }
-      case "lotto7-p2" -> {
-        if (args.length < 5) {
-          System.err.println("引数不足");
-          System.exit(1);
-        }
-        Lottery.pattern2(new int[]{parseInt(args[1]), parseInt(args[2]), parseInt(args[3])},
-            parseInt(args[4]));
-      }
-      case "zgrep" -> {
-        if (args.length < 3) {
-          return;
-        }
-        FileChecker.extracted(Path.of(args[1]), args[2]);
-      }
-      case "sign" -> SerializeSample.signSample();
-      case "fx" -> Application.launch(App.class, args);
-      case "list-encodings" -> {
-        System.err.printf("native.encoding=%s%n", System.getProperty("native.encoding"));
-        System.err.printf("stderr.encoding=%s%n", System.getProperty("stderr.encoding"));
-        System.err.printf("stdout.encoding=%s%n", System.getProperty("stdout.encoding"));
-        System.err.printf("file.encoding=%s%n", Charset.defaultCharset().displayName());
-      }
-      case "jpg", "jpeg" -> {
-        if (args.length >= 2) {
-          var arg = args[1];
-          FileChecker.extracted(arg);
-        }
-      }
-      case "b" -> {
-        var b = new B();
-        b.b(args[1]);
-      }
-      case "c" -> {
-        // バストサイズのカップ数計算
-        // Mカップの3つ下と6つ下は何だったかなってアホかな？
-        var m = 'm';
-        System.out.printf("%c, %c, %c%n", m, m - 3, m - 6);
-      }
-      case "f" -> {
-        if (args.length < 2) {
-          return;
-        }
-        // pathのプリンシパルを確認する
-        FileChecker.extracted1(args[1]);
-      }
-      case "file" -> {
-        // javaで(Linuxの)headコマンドを実装しようとした名残
-        var n = SECURE_RANDOM_GENERATOR.nextLong(60000000);
-        System.err.printf("skipped: %d%n", n);
-        Files.readAllLines(Path.of(args[1])).stream().skip(n).limit(Long.parseLong(args[2]))
-            .forEach(System.out::println);
-      }
-      case "p" -> {
-        // 素数生成ベンチマーク
-        var start = LocalDateTime.now();
-        var p = BigInteger.probablePrime(2048, (Random) SECURE_RANDOM_GENERATOR);
-        var finish = LocalDateTime.now();
-        System.out.printf("%x%n", p);
-        var b = p.isProbablePrime(10);
-        System.out.printf("%s%n", b ? "prime" : "not prime");
-        System.out.printf("diff: %s%n", Duration.between(start, finish));
-      }
-      case "p2" -> {
-        var n = new byte[30];
-        SECURE_RANDOM_GENERATOR.nextBytes(n);
-        System.out.println(Base64.getEncoder().encodeToString(n));
-      }
-      case "ownerCheck" -> {
-        if (args.length < 3) {
-          return;
-        }
-        var arg = args[1];
-        var targetOwnerName = args[2];
-        FileChecker.extracted3(Path.of(arg), targetOwnerName);
-      }
-      case "de" -> {
-        var a = new DeterministicAddressGenerator().apply(args[1]);
-        a.addresses().forEach(System.out::println);
-        System.out.println(a.signingKey());
-        System.out.println(a.encryptingKey());
-      }
-      case "bomb" -> {
-        var d = new byte[1024 * 1024];
-        SECURE_RANDOM_GENERATOR.nextBytes(d);
-        try (var f = new BufferedOutputStream(
-            Files.newOutputStream(Path.of("bomb-" + UUID.randomUUID() + ".txt")))) {
-          f.write(Base64.getMimeEncoder().encode(d));
-          f.write("\r\n".getBytes());
-        }
-      }
-      case "x" -> {
-        var curve = CustomNamedCurves.getByName("curve25519");
-        var g = curve.getG();
-        System.out.println(g);
-      }
-      case "gz" -> {
-        if (args.length < 2) {
-          System.err.println("引数が足りませぬぞ");
-          return;
-        }
-        try (var s = new BufferedReader(new InputStreamReader(new GZIPInputStream(
-            new BufferedInputStream(Files.newInputStream(Path.of(args[1])), 1024 * 1024 * 1024))),
-            1024 * 1024 * 1024)) {
-          System.out.println(s.lines().count());
-        }
-      }
-      case "addressSearch" -> new AddressCalc(args,
-          hash -> (hash[0] | hash[1] | hash[2] | hash[3] | hash[4] | (hash[5] & 0xf8))
-                  == 0x00).call();
       case "addressSearch2" -> {
         var pattern = Pattern.compile(".*twitter.*", Pattern.CASE_INSENSITIVE);
         new AddressCalc(args, hash -> hash[0] == 0 && pattern.matcher(
@@ -375,7 +212,8 @@ public class Factory implements Callable<Void> {
         logger.info("done. 2");
       }
       case "check" -> {
-        var sieve = com.github.teruteru128.study.PrimeSearch.loadSmallSieve(Path.of("137438953280bit-small-sieve.obj"));
+        var sieve = com.github.teruteru128.study.PrimeSearch.loadSmallSieve(
+            Path.of("137438953280bit-small-sieve.obj"));
         var primeCount = Arrays.stream(sieve).parallel().map(l -> Long.bitCount(~l)).sum();
         System.out.printf("%d primes%n", primeCount);
       }
@@ -601,6 +439,201 @@ public class Factory implements Callable<Void> {
     }
   }
 
+  @Command(name = "addressSearch")
+  private static Void getCall(String[] args) throws IOException {
+    return new AddressCalc(args,
+        hash -> (hash[0] | hash[1] | hash[2] | hash[3] | hash[4] | (hash[5] & 0xf8))
+                == 0x00).call();
+  }
+
+  @Command(name = "gz")
+  private static void gz(@Parameters(converter = PathConverter.class) Path path) throws IOException {
+    try (var s = new BufferedReader(new InputStreamReader(new GZIPInputStream(
+        new BufferedInputStream(Files.newInputStream(path), 1024 * 1024 * 1024))),
+        1024 * 1024 * 1024)) {
+      System.out.println(s.lines().count());
+    }
+  }
+
+  @Command(name = "curve25519")
+  private static void curve25519()
+      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    var clazz = Class.forName("org.bouncycastle.crypto.ec.CustomNamedCurves");
+    var method = clazz.getMethod("getByName", String.class);
+    var curve = method.invoke(null, "curve25519");
+    var x9Clazz = Class.forName("org.bouncycastle.asn1.x9.X9ECParameters");
+    var getGMethod = x9Clazz.getMethod("getG");
+    var g = getGMethod.invoke(curve);
+    System.out.println(g);
+  }
+
+  @Command(name = "bomb", description = "zip bomb base generator")
+  private static void bomb() throws IOException {
+    var d = new byte[1024 * 1024];
+    SECURE_RANDOM_GENERATOR.nextBytes(d);
+    try (var f = new BufferedOutputStream(
+        Files.newOutputStream(Path.of("bomb-" + UUID.randomUUID() + ".txt")))) {
+      f.write(Base64.getMimeEncoder().encode(d));
+      f.write("\r\n".getBytes());
+    }
+  }
+
+  @Command(name = "de")
+  private static void de(String[] args) {
+    var a = new DeterministicAddressGenerator().apply(args[1]);
+    a.addresses().forEach(System.out::println);
+    System.out.println(a.signingKey());
+    System.out.println(a.encryptingKey());
+  }
+
+  @Command(name = "ownerCheck")
+  private static void ownerCheck(@Parameters(converter = PathConverter.class) Path arg,
+      @Parameters String targetOwnerName) throws IOException {
+    FileChecker.extracted3(arg, targetOwnerName);
+  }
+
+  @Command(name = "list-encodings")
+  private static void listEncodings() {
+    System.err.printf("native.encoding=%s%n", System.getProperty("native.encoding"));
+    System.err.printf("stderr.encoding=%s%n", System.getProperty("stderr.encoding"));
+    System.err.printf("stdout.encoding=%s%n", System.getProperty("stdout.encoding"));
+    System.err.printf("file.encoding=%s%n", Charset.defaultCharset().displayName());
+  }
+
+  @Command(name = "p2", description = "30バイトの乱数を生成し、Base64に変換して出力する。何に使うんでしたっけ……？")
+  private static void p2() {
+    var n = new byte[30];
+    SECURE_RANDOM_GENERATOR.nextBytes(n);
+    var encoder = Base64.getEncoder();
+    var encode = encoder.encode(n);
+    System.out.write(encode, 0, encode.length);
+    System.out.println();
+  }
+
+  @Command(name = "prime1")
+  private static void prime1() {
+    // 素数生成ベンチマーク
+    // TODO 10秒以内に素数を生成できる限界のビット数を探索する
+    var start = LocalDateTime.now();
+    var p = BigInteger.probablePrime(2048, (Random) SECURE_RANDOM_GENERATOR);
+    var finish = LocalDateTime.now();
+    System.out.printf("%x%n", p);
+    var b = p.isProbablePrime(10);
+    System.out.printf("%s%n", b ? "prime" : "not prime");
+    System.out.printf("diff: %s%n", Duration.between(start, finish));
+  }
+
+  @Command(name = "f", aliases = {"head"})
+  private static void file(String[] args) throws IOException {
+    // javaで(Linuxの)headコマンドを実装しようとした名残
+    var n = SECURE_RANDOM_GENERATOR.nextLong(60000000);
+    System.err.printf("skipped: %d%n", n);
+    Files.readAllLines(Path.of(args[1])).stream().skip(n).limit(Long.parseLong(args[2]))
+        .forEach(System.out::println);
+  }
+
+  @Command(name = "calcBustSize")
+  private static void calcBustSize() {
+    // バストサイズのカップ数計算
+    // Mカップの3つ下と6つ下は何だったかなってアホかな？
+    var m = 'm';
+    System.out.printf("%c, %c, %c%n", m, m - 3, m - 6);
+  }
+
+  @Command(name = "jpeg", aliases = {" jpg "})
+  private static void jpeg(String[] args) throws IOException {
+    if (args.length >= 2) {
+      var arg = args[1];
+      FileChecker.extracted(arg);
+    }
+  }
+
+  @Command(name = "fx")
+  private static void getLaunch(String[] args) {
+    Application.launch(App.class, args);
+  }
+
+  @Command(name = "lotto7-p2")
+  private static void lotto7p2(String[] args) {
+    if (args.length < 5) {
+      System.err.println("引数不足");
+      System.exit(1);
+    }
+    Lottery.pattern2(new int[]{parseInt(args[1]), parseInt(args[2]), parseInt(args[3])},
+        parseInt(args[4]));
+  }
+
+  @Command(name = "lotto7-p1")
+  private static void lotto7p1(String[] args) {
+    if (args.length >= 2) {
+      Lottery.pattern1(parseInt(args[1]));
+    } else {
+      Lottery.pattern1(1);
+    }
+  }
+
+  @Command(name = "lotto7")
+  private static void lotto7(String[] args) {
+    if (args.length >= 2) {
+      Lottery.getLotto7Numbers(parseInt(args[1]));
+    } else {
+      Lottery.getLotto7Numbers(1);
+    }
+  }
+
+  @Command(name = "telnet-tor")
+  private static void telnetTor(String[] args) throws IOException, InterruptedException {
+    var hostname = args[1];
+    var port = parseInt(args[2]);
+    Telnet.extracted(hostname, port);
+  }
+
+  @Command(name = "map")
+  private static PrintStream getOpenCL() {
+    return System.out.printf("System.mapLibraryName(\"OpenCL\") = %s%n",
+        System.mapLibraryName("OpenCL"));
+  }
+
+  @Command(name = "search-tor")
+  private static void searchTor(String[] args) throws IOException {
+    var min = args.length >= 2 ? parseInt(args[1]) : (4299 + 9473);
+    var max = args.length >= 3 ? parseInt(args[2]) : 23000;
+    SiteChecker.searchTor(min, max);
+  }
+
+  @Command(name = "hash-base64")
+  private static void hashBase64(String[] args) throws NoSuchAlgorithmException, IOException {
+    if (args.length >= 2) {
+      System.out.println(Base64.getEncoder().encodeToString(
+          MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(Path.of(args[1])))));
+    }
+  }
+
+  @Command(name = "spam2")
+  private static void spam2(String[] args) throws IOException, InterruptedException {
+    var spam2 = new Spam2(args[1]);
+    if (args.length >= 3) {
+      spam2.setSkip(Long.parseLong(args[2]));
+    }
+    spam2.call();
+  }
+
+  @Command(name = "unitSpam2")
+  private static void unitSpam2(String[] args) throws SQLException, IOException {
+    if (args.length >= 2) {
+      Spammer.unitSpam2(Files.readAllLines(Path.of(args[1])), 2500,
+          args.length >= 3 ? parseInt(args[2]) : 0);
+    }
+  }
+
+  @Command(name = "unitSpam")
+  private static void unitSpam(String[] args) throws IOException, InterruptedException {
+    if (args.length >= 2) {
+      Spammer.unitSpam(Files.readAllLines(Path.of(args[1])), 2500, Duration.ofHours(12),
+          args.length >= 3 ? parseInt(args[2]) : 0);
+    }
+  }
+
   private static void extracted4() throws SQLException {
     var source = new SQLiteDataSource();
     source.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
@@ -676,6 +709,7 @@ public class Factory implements Callable<Void> {
     return msgid;
   }
 
+  @Command(name = "check-")
   private static void extracted3(String[] args) throws URISyntaxException, IOException {
     var map = new TreeMap<Integer, String>();
     var path = Path.of(args[1]);

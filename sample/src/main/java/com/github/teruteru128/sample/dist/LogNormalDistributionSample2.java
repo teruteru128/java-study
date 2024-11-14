@@ -6,7 +6,9 @@ import org.apache.commons.statistics.distribution.LogNormalDistribution;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
+import picocli.CommandLine.Command;
 
+@Command
 public class LogNormalDistributionSample2 implements Sample {
     public void sample() {
         var dist = LogNormalDistribution.of(44. / 16, 44. / 64);

@@ -21,6 +21,9 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import picocli.CommandLine.Command;
 
 public class SiteChecker {
 
@@ -31,31 +34,37 @@ public class SiteChecker {
       "http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/tor/(\\d+)/l50");
   public static final Proxy PROXY = new Proxy(Proxy.Type.SOCKS,
       new InetSocketAddress("localhost", 9150));
+  private static final Logger log = LoggerFactory.getLogger(SiteChecker.class);
 
+  @Command(name = "check-tor")
   static void siteCheck(String url) throws IOException, URISyntaxException {
     try (var service = new ScheduledThreadPoolExecutor(1)) {
       var uri = new URI(url);
       var target = uri.toURL();
       final var block = new Object();
-      service.scheduleWithFixedDelay(() -> {
+      var future = service.scheduleWithFixedDelay(() -> {
         try {
-          var connection = (HttpURLConnection) target.openConnection(PROXY);
+          HttpURLConnection connection = (HttpURLConnection) target.openConnection(PROXY);
           connection.connect();
-          if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+          var responseCode = connection.getResponseCode();
+          log.trace("responce code: {}", responseCode);
+          var responseCodeHead = responseCode / 100;
+          if (responseCodeHead == 2 || responseCodeHead == 3) {
             connection.disconnect();
-            System.out.write("found!".getBytes(StandardCharsets.UTF_8));
+            log.info("connected!");
             synchronized (block) {
               block.notify();
             }
           }
-        } catch (SocketException e) {
-          e.printStackTrace(System.err);
+        } catch (SocketException ignored) {
+          //log.error("socket exception: ", ignored);
         } catch (IOException ignored) {
         }
       }, 0, 5, TimeUnit.MINUTES);
       synchronized (block) {
         block.wait();
       }
+      future.cancel(false);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
@@ -65,8 +74,8 @@ public class SiteChecker {
     // TODO スレッド名をDBかなにかにまとめる
     System.err.printf("min: %d, max: %d%n", min, max);
     try (var bos = new BufferedWriter(
-        new OutputStreamWriter(new FileOutputStream("subjects.txt", true),
-            StandardCharsets.UTF_8), 16384)) {
+        new OutputStreamWriter(new FileOutputStream("subjects.txt", true), StandardCharsets.UTF_8),
+        16384)) {
       // 4299
       IntStream.range(min, max).mapToObj(i -> {
         try {

@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.HexFormat;
 import java.util.Objects;
+import picocli.CommandLine.Command;
 
 import static java.lang.Math.min;
 
@@ -20,6 +21,7 @@ public class TeamSpeak {
     public static final int PK_PUBLIC = 0;
     private static final byte[] TEAM_SPEAK_KEY = "b9dfaa7bee6ac57ac7b65f1094a1c155e747327bc2fe5d51c512023fe54a280201004e90ad1daaae1075d53b7d571c30e063b5a62a4a017bb394833aa0983e6e".getBytes();
 
+    @Command(name = "ts3")
     static void ts3() throws NoSuchAlgorithmException, DigestException {
         var decoder = Base64.getDecoder();
         var privateKey = decoder.decode(System.getenv("KEY"));
@@ -34,6 +36,7 @@ public class TeamSpeak {
         System.out.println("point.equals(point1) = " + point.equals(point1));
     }
 
+    @Command(name="ts2")
     static void ts2() throws NoSuchAlgorithmException, DigestException {
         var decoder = Base64.getDecoder();
         var privateKey = decoder.decode(System.getenv("KEY"));
@@ -41,6 +44,7 @@ public class TeamSpeak {
         ts2(privateKey, publicKey);
     }
 
+    @Command(name = "ts1")
     static void ts1() throws NoSuchAlgorithmException, DigestException {
         var decoder = Base64.getDecoder();
         var keys = decoder.decode(System.getenv("KEY"));

@@ -6,5 +6,6 @@ module com.github.teruteru.sample {
   requires org.apache.commons.rng.simple;
   requires org.xerial.sqlitejdbc;
   requires org.bouncycastle.provider;
+  requires info.picocli;
   exports com.github.teruteru128.sample;
 }

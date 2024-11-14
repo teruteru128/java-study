@@ -11,21 +11,35 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.random.RandomGenerator;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Parameters;
 
 /**
  * CompletableFutureでbitmessageのripeを計算してみる
  */
-public class B {
+@Command(name = "b")
+public class B implements Callable<Void> {
 
   public static final long MASK = 0xFFFFFFFFFFF80000L;
   public static final int KEY_ARRAY_LENGTH = 16777216;
+  @Parameters
+  private String pathStr;
 
-  public void b(String pathStr) throws IOException, NoSuchAlgorithmException {
+  public B() {
+    this.pathStr = null;
+  }
+
+  public B(String pathStr) {
+    this.pathStr = pathStr;
+  }
+
+  public Void call() throws IOException, NoSuchAlgorithmException {
     var path = Path.of(pathStr);
     var b = Files.readAllBytes(path);
     try (var pool = (ForkJoinPool) Executors.newWorkStealingPool(); var o = new PrintStream(
@@ -71,5 +85,6 @@ public class B {
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
+    return null;
   }
 }

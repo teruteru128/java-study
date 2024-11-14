@@ -1,5 +1,6 @@
 package com.github.teruteru128.study;
 
+import com.github.teruteru128.foreign.converters.PathConverter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,6 +17,8 @@ import java.nio.file.attribute.UserPrincipal;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Parameters;
 
 public class FileChecker {
 
@@ -35,7 +38,8 @@ public class FileChecker {
     Files.walkFileTree(dirPath, checker);
   }
 
-  static void extracted(Path p, String patternArg) throws IOException {
+  @Command(name = "zgrep")
+  static void zgrep(Path p, String patternArg) throws IOException {
     Files.walkFileTree(p, new ZGrepFileVisitor(Pattern.compile(patternArg)));
   }
 
@@ -43,8 +47,8 @@ public class FileChecker {
     Files.walkFileTree(Path.of(arg), new FileCollisionFileVisitor());
   }
 
-  static void extracted1(String arg) throws IOException {
-    var path = Path.of(arg);
+  @Command(name = "f")
+  static void extracted1(@Parameters(converter = PathConverter.class) Path path) throws IOException {
     var owner = Files.getOwner(path);
     System.out.println(owner);
     var service = path.getFileSystem().getUserPrincipalLookupService();

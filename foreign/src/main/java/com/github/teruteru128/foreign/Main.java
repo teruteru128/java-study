@@ -52,7 +52,7 @@ import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-@Command(name = "foreign", subcommands = {CL.class, PrimeSearch.class, E.class})
+@Command(name = "foreign", subcommands = {CL.class, PrimeSearch.class, E.class, CommandLine.HelpCommand.class})
 public class Main implements Callable<Integer> {
 
   private static final Logger log = LoggerFactory.getLogger(Main.class);

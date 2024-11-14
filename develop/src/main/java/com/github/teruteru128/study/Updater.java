@@ -6,7 +6,9 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import org.sqlite.SQLiteDataSource;
+import picocli.CommandLine.Command;
 
+@Command(name = "update")
 public class Updater implements Callable<Void> {
 
   private final String url;

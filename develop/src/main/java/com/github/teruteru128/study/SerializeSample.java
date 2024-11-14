@@ -23,6 +23,7 @@ import java.util.HexFormat;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.random.RandomGenerator;
+import picocli.CommandLine.Command;
 
 public class SerializeSample {
 
@@ -71,6 +72,7 @@ public class SerializeSample {
      * @throws InvalidKeyException a
      * @throws SignatureException a
      */
+    @Command(name = "sign")
     static void signSample()
         throws NoSuchAlgorithmException, InvalidParameterSpecException, InvalidKeySpecException, IOException, InvalidKeyException, SignatureException {
       // 処理をシリアライズするなら普通にクラスをシリアライズしろってなｗ

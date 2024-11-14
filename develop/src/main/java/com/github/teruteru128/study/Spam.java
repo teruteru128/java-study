@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
 import org.sqlite.SQLiteDataSource;
+import picocli.CommandLine.Command;
 
+@Command(name = "spam")
 public class Spam implements Callable<Void> {
 
   private final String url;
