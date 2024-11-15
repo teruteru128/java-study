@@ -10,19 +10,14 @@ import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import picocli.CommandLine.Command;
 
+@Command(name = "addressSearch5")
 public class AddressCalc5 implements Callable<Void> {
-
-  private static final byte[] target = new byte[20];
-
-  static {
-    Arrays.fill(target, (byte) 0);
-  }
 
   private final String pathSource;
   private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -51,7 +46,6 @@ public class AddressCalc5 implements Callable<Void> {
     var buffer = ByteBuffer.allocate(64);
     var hash = buffer.array();
     var random = new SecureRandom();
-    var max = -1;
     while (true) {
       // 0b1/signFileNumber/signKeyNumber/encFileNumber/encKeyNumber/L
       // 0b1_00000000_00000000000000_00000000_00000000000000L
@@ -69,7 +63,7 @@ public class AddressCalc5 implements Callable<Void> {
           sha512.digest(hash, 0, 64);
           ripemd160.update(hash, 0, 64);
           ripemd160.digest(hash, 0, 20);
-          if (Arrays.equals(hash, 0, 5, target, 0, 5) && (hash[5] & 0xf8) == 0) {
+          if ((hash[0] | hash[1] | hash[2] | hash[3] | hash[4] | (hash[5] & 0xf8)) == 0) {
             logger.info("Found! {}, {}, {}, {}({})", signFileNumber, signKeyNumber + (i / 65),
                 encFileNumber, encKeyNumber + (j / 65),
                 Long.numberOfLeadingZeros(buffer.getLong(0)));
@@ -79,7 +73,9 @@ public class AddressCalc5 implements Callable<Void> {
                 && hash[15] == 0 && hash[16] == 0 && hash[17] == 0 && hash[18] == 0
                 && hash[19] == 0)*/
             /*if (IntStream.range(0, 20).allMatch(k -> hash[k] == 0))*/
-            if (Arrays.equals(hash, 0, 20, target, 0, 20)) {
+            if (((hash[5] & 0x07) | hash[6] | hash[7] | hash[8] | hash[9] | hash[10] | hash[11]
+                 | hash[12] | hash[13] | hash[14] | hash[15] | hash[16] | hash[17] | hash[18]
+                 | hash[19]) == 0) {
               return null;
             }
           }

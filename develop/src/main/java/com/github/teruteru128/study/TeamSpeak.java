@@ -16,6 +16,7 @@ import picocli.CommandLine.Command;
 
 import static java.lang.Math.min;
 
+@Command(name = "ts")
 public class TeamSpeak {
     public static final int PK_PRIVATE = 1;
     public static final int PK_PUBLIC = 0;

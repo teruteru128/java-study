@@ -11,7 +11,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
+import picocli.CommandLine.Command;
 
+@Command(name = "addressSearch4")
 public class AddressCalc4 implements Callable<Void> {
 
   public final String fileTemplate;

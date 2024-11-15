@@ -1,6 +1,6 @@
 package com.github.teruteru128.sample.clone;
 
-import com.github.teruteru128.study.MyB;
+import com.github.teruteru128.math.MyB;
 
 import java.math.BigInteger;
 

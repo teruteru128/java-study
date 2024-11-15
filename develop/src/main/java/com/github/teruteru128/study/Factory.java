@@ -29,7 +29,7 @@ import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.ncv.xml.ListUp;
 import com.github.teruteru128.ncv.xml.Transform;
-import java.awt.AWTException;
+import com.github.teruteru128.semen.CumShoot;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -59,7 +59,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.AlgorithmParameters;
-import java.security.DigestException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -89,7 +88,6 @@ import java.util.Random;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.random.RandomGenerator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -105,29 +103,32 @@ import javax.crypto.Mac;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import org.apache.logging.log4j.util.InternalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
 import org.sqlite.javax.SQLiteConnectionPoolDataSource;
-import org.xml.sax.SAXException;
+import picocli.CommandLine;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.ExitCode;
+import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-public class Factory implements Callable<Void> {
+@Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
+    ECIESSample.class, FileChecker.class, com.github.teruteru128.study.PrimeSearch.class,
+    SiteChecker.class, Spam.class, TeamSpeak.class, Updater.class, CommandLine.HelpCommand.class,
+    ListUp.class, Transform.class, CumShoot.class})
+public class Factory implements Callable<Integer> {
 
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   public static final HexFormat FORMAT = HexFormat.of();
   private static final ECParameterSpec secp256k1Parameter;
   private static final KeyFactory factory;
   private static final Logger logger = LoggerFactory.getLogger(Factory.class);
-  private static final byte[] generalRipe = new byte[20];
+  private static final Pattern pattern11 = Pattern.compile("\\d{11}");
+  private static final Pattern pattern12 = Pattern.compile("\\d{12}");
 
   static {
-    var tmp = Base58.decode("2cW67GEKkHGonXKZLCzouLLxnLym3azS8r");
-    System.arraycopy(tmp, 2, generalRipe, 20 - (tmp.length - 6), tmp.length - 6);
     try {
       final var parameters = AlgorithmParameters.getInstance("EC");
       parameters.init(new ECGenParameterSpec("secp256k1"));
@@ -141,302 +142,306 @@ public class Factory implements Callable<Void> {
   /**
    * Callableをnewして返すファクトリにするはずだったんだけどなあ……
    *
-   * @param args コマンドライン引数
-   * @throws IOException                   F
-   * @throws InterruptedException          割り込み
-   * @throws NoSuchAlgorithmException      アルゴリズム
-   * @throws DigestException               ダイジェスト
-   * @throws SQLException                  SQL
-   * @throws URISyntaxException            URI
-   * @throws AWTException                  AWT
-   * @throws InvalidParameterSpecException param
-   * @throws InvalidKeySpecException       key spec
-   * @throws SignatureException            sign
-   * @throws InvalidKeyException           key
    */
-  static void create(String[] args)
-      throws IOException, InterruptedException, NoSuchAlgorithmException, DigestException, SQLException, URISyntaxException, AWTException, InvalidParameterSpecException, InvalidKeySpecException, SignatureException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, ClassNotFoundException, ExecutionException, ParserConfigurationException, SAXException, TransformerException {
-    switch (args[0]) {
-      case "addressSearch2" -> {
-        var pattern = Pattern.compile(".*twitter.*", Pattern.CASE_INSENSITIVE);
-        new AddressCalc(args, hash -> hash[0] == 0 && pattern.matcher(
-            AddressFactory.encodeAddress(Arrays.copyOf(hash, 20))).matches()).call();
-      }
-      case "addressSearch4" -> new AddressCalc4(args[1]).call();
-      case "addressSearch5" -> new AddressCalc5(args[1]).call();
-      case "addressEncode" -> extracted(args);
-      case "bitmessageDecryptTest" -> bitmessageDecryptTest();
-      case "D" -> {
-        try (var reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(
-            new BufferedInputStream(Files.newInputStream(Path.of(args[1])), 0x70000000),
-            0x70000000)), 0x70000000)) {
-          System.out.println(reader.lines().count() + "件");
-        }
-      }
-      case "sort" -> extracted2(args);
-      case "search" -> {
-        try (var client = HttpClient.newHttpClient()) {
-          System.out.println(client.send(Spammer.requestBuilder.POST(ofString(
-              "{\"jsonrpc\":\"2.0\",\"method\":\"getSentMessageByAckData\", \"params\":[\""
-              + args[1] + "\"], \"id\": 19}")).build(), BodyHandlers.ofString()).body());
-        }
-      }
-      case "DB" -> extracted1(args);
-      case "DB2" -> extracted4();
-      case "eciessample" -> ECIESSample.ecIesSample();
-      case "primecheck" -> {
-      }
-      case "createSmallSieve" -> {
-        var bitLength = 2147483645L << 6;
-        logger.info("create {}bit small sieve...", bitLength);
-        // 小さな既知素数ふるいを作成、もしくは読み込む
-        var sieve = com.github.teruteru128.study.PrimeSearch.createSmallSieve(bitLength);
-        var primeCount = Arrays.stream(sieve).parallel().map(l -> Long.bitCount(~l)).sum();
-        logger.info("{} primes", primeCount);
-        var path = Paths.get(bitLength + "bit-small-sieve.obj");
-        logger.info("write to {}", path);
-        try (var oos = new ObjectOutputStream(new BufferedOutputStream(
-            Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE),
-            2147483645))) {
-          oos.writeLong(bitLength);
-          var length = sieve.length;
-          if (length == 2147483645) {
-            for (long l : sieve) {
-              oos.writeLong(l);
-            }
-          } else {
-            oos.writeObject(sieve);
-          }
-          logger.info("done. 1");
-        }
-        logger.info("done. 2");
-      }
-      case "check" -> {
-        var sieve = com.github.teruteru128.study.PrimeSearch.loadSmallSieve(
-            Path.of("137438953280bit-small-sieve.obj"));
-        var primeCount = Arrays.stream(sieve).parallel().map(l -> Long.bitCount(~l)).sum();
-        System.out.printf("%d primes%n", primeCount);
-      }
-      case "attack" -> {
-        if (args.length == 1) {
-          com.github.teruteru128.study.PrimeSearch.getConvertedStep();
-        } else {
-          com.github.teruteru128.study.PrimeSearch.getConvertedStep(parseInt(args[1]));
-        }
-      }
-      case "createLargeSieve" -> new CreateLargeSieveTask(Paths.get(args[1]), args[2],
-          Path.of(args.length >= 4 ? args[3] : "8589934592bit-smallsieve.obj"),
-          args.length >= 5 ? Path.of(args[4]) : null).call();
-      case "diff" -> {
-        if (args.length < 3) {
-          return;
-        }
-        var a = PrimeSearch.loadLargeSieve(Path.of(args[1]));
-        long[] array1 = a.sieve().toLongArray();
-        var b = PrimeSearch.loadLargeSieve(Path.of(args[2]));
-        long[] array2 = b.sieve().toLongArray();
-        var minLength = min(array1.length, array2.length);
-        var format = HexFormat.of();
-        for (int i = 0; i < minLength; i++) {
-          if (array1[i] != array2[i]) {
-            logger.info("{}, {}, {}, {}", format.toHexDigits(i), format.toHexDigits(~array1[i]),
-                format.toHexDigits(~array2[i]), format.toHexDigits(array1[i] ^ array2[i]));
-          }
-        }
-      }
-      case "out" -> {
-        long[] array1;
-        try (var a = new ObjectInputStream(
-            new ByteArrayInputStream(Files.readAllBytes(Path.of(args[1]))))) {
-          a.readInt();
-          array1 = (long[]) a.readObject();
-        }
-        for (int i = 0; i < array1.length; i++) {
-          System.out.printf("%016x", ~array1[i]);
-          switch (i % 8) {
-            case 7:
-              System.out.println();
-              break;
-            case 3:
-              System.out.print("  ");
-              break;
-            default:
-              System.out.print(' ');
-              break;
-          }
-        }
-      }
-      case "generate" -> {
-        if (args.length < 2) {
-          return;
-        }
-        final var bitLength = parseInt(args[1]);
-        final var instanceStrong = SecureRandom.getInstanceStrong();
-        BigInteger evenNumber;
-        final var th = BigInteger.TEN.pow(99999999);
-        do {
-          evenNumber = new BigInteger(bitLength, instanceStrong).setBit(bitLength - 1).clearBit(0);
-        } while (evenNumber.compareTo(th) < 0);
-        var path = Path.of("even-number-" + bitLength + "bit-" + UUID.randomUUID() + ".obj");
-        com.github.teruteru128.study.PrimeSearch.exportEvenNumberObj(path, evenNumber);
-      }
-      case "export" -> {
-        var p = com.github.teruteru128.study.PrimeSearch.loadEvenNumber(
-            Paths.get("even-number-1048576bit-85c53395-9d78-44d2-9c95-9c53ff90f30a.obj"));
-        Files.write(Path.of("even-number-1048576bit-85c53395-9d78-44d2-9c95-9c53ff90f30a.txt"),
-            List.of(p.toString()), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
-      }
-      case "temp" -> {
-        var path = Path.of(System.getenv("TEMP"));
-        var tempDir = Files.createTempDirectory(path, "java-tmp-");
-        var tempPath = Files.createTempFile(tempDir, "work", null);
-        System.out.println(tempDir);
-        System.out.println(tempPath);
-        try (var channel = FileChannel.open(tempPath, StandardOpenOption.CREATE,
-            StandardOpenOption.WRITE, StandardOpenOption.READ,
-            StandardOpenOption.DELETE_ON_CLOSE)) {
-          // NONE
-          var segment = channel.map(MapMode.READ_WRITE, 0, 1 << 30);
-          System.out.println(segment.capacity());
-        }
-      }
-      case "randomDouble" -> {
-        long a;
-        double b;
-        for (int i = 0; i < 10; i++) {
-          a = RandomGenerator.getDefault().nextLong() & 0x7fffffffffffffffL;
-          b = Double.longBitsToDouble(a);
-          System.out.printf("%016x, %a, exp: %d%n", a, b, ((a >> 52) & 0x7ff) - 1023);
-        }
-      }
-      case "createDB" -> {
-        var source = new SQLiteConnectionPoolDataSource();
-        source.setUrl(args[1]);
-        try (var con = source.getConnection()) {
-          try (var st = con.createStatement()) {
-            st.execute(
-                "create table if not exists candidates(id long, step int, composite int, probably_prime int, definitely_prime int, primary key(id, step));");
-          }
+  static Callable<Integer> create() {
+    return new Factory();
+  }
 
-          try (var prep = con.prepareStatement(
-              "insert into candidates(id, step, composite, probably_prime, definitely_prime) values(?, ?, 0, 0, 0);")) {
-            prep.setLong(1, 0x32ec7597040b4f0cL);
-            BitSet p;
-            {
-              var largeSieve = PrimeSearch.loadLargeSieve2(Path.of(args[2]));
-              p = new BitSet(largeSieve.length());
-              p.set(0, largeSieve.length());
-              p.andNot(largeSieve);
-            }
-            p.clear(0, args.length >= 4 ? parseInt(args[3]) : 0);
-            p.stream().forEach(s -> {
-              try {
-                prep.setInt(2, s);
-                prep.addBatch();
-              } catch (SQLException e) {
-                throw new RuntimeException(e);
-              }
-            });
-            prep.executeBatch();
-          }
-        }
-      }
-      case "sizeInBase" -> {
-        var even = com.github.teruteru128.study.PrimeSearch.loadEvenNumber(Path.of(args[1]));
-        var auto = Arena.ofAuto();
-        var a = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-        mpz_init(a);
-        var b = even.toByteArray();
-        mpz_import(a, b.length, 1, C_CHAR.byteSize(), 0, 0, auto.allocateFrom(C_CHAR, b));
-        var base = args.length < 3 ? 10 : parseInt(args[2]);
-        assert base >= 2;
-        System.out.println("mpz_sizeinbase(a, 10) = " + mpz_sizeinbase(a, base));
-      }
-      case "trans" ->
-          new Transform(Path.of(args[1]), args.length >= 3 ? Path.of(args[2]) : null).call();
-      case "listUp" -> new ListUp(Path.of(args[1])).call();
-      case "colorFix" -> {
-        // RGB color fixer
-        // HLS color space
-        int p;
-        int r;
-        int g;
-        int b;
-        if (args.length == 2) {
-          p = parseInt(args[1]);
-          r = p >> 16 & 0xff;
-          g = p >> 8 & 0xff;
-          b = p & 0xff;
-        } else if (args.length == 4) {
-          r = parseInt(args[1]) & 0xff;
-          g = parseInt(args[2]) & 0xff;
-          b = parseInt(args[3]) & 0xff;
-          p = 0xff000000 | r << 16 | g << 8 | b;
-        } else {
-          System.err.println("err! args is 2 or 4");
-          return;
-        }
-        System.out.printf("input: R: %d, G: %d, B: %d(%d, %<08x)%n", r, g, b, p);
-        var max = max(max(r, g), b);
-        var min = min(min(r, g), b);
-        // double型で==を使って比較したくなかった
-        if (max == min && min >= 192) {
-          System.out.println("Achromatic, but vivid enough. Does nothing.");
-          return;
-        }
-        while (max == min) {
-          System.err.println("Achromatic!");
-          p = SECURE_RANDOM_GENERATOR.nextInt(0x1000000);
-          r = p >> 16 & 0xff;
-          g = p >> 8 & 0xff;
-          b = p & 0xff;
-          max = max(max(r, g), b);
-          min = min(min(r, g), b);
-        }
-        var hls = ColorConverter.RGBToHLS(new RGBColor(r, g, b));
-        var h = hls.h();
-        var l = hls.l();
-        var s = hls.s();
-        System.out.printf("old: Windows: H: %f, L: %f, S: %f%n", h * 40, l * 240, s * 240);
-        System.out.printf("old: degrees: H: %f, L: %f, S: %f%n", h * 60, l * 100, s * 100);
-        if (s >= 0.75) {
-          System.out.println("Vivid enough. Does nothing.");
-          return;
-        }
-        var newL = 0.5;
-        var newS = (double) SECURE_RANDOM_GENERATOR.nextInt(192, 256) / 255;
-        var newRGB = ColorConverter.HLSToRGB(new HLSColor(h, newL, newS));
-        System.out.printf("new: R: %d, G: %d, B %d%n", newRGB.r(), newRGB.g(), newRGB.b());
-        System.out.printf("new: Windows: H: %f, L: %f, S: %f%n", h * 40, newL * 240, newS * 240);
-        System.out.printf("new: degrees: H: %f, L: %f, S: %f%n", h * 60, newL * 100, newS * 100);
-        System.out.printf("color=%d, %<08x%n",
-            0xff000000 | newRGB.r() << 16 | newRGB.g() << 8 | newRGB.b());
-      }
-      case "newColor" -> {
-        var h = MyRandom.nextDouble(SECURE_RANDOM_GENERATOR) * 6;
-        var l = 0.5;
-        double s;
-        if (args.length >= 2 && Boolean.parseBoolean(args[1])) {
-          s = 1;
-        } else {
-          s = (double) SECURE_RANDOM_GENERATOR.nextInt(192, 256) / 255;
-        }
-        var rgb = ColorConverter.HLSToRGB(new HLSColor(h, l, s));
-        var r = rgb.r();
-        var g = rgb.g();
-        var b = rgb.b();
-        var v = 0xff000000 | r << 16 | g << 8 | b;
-        System.out.printf("%d, %d, %d(%d, %<08x)%n", r, g, b, v);
-      }
-      case null -> {
-        System.err.println("command required");
-        Runtime.getRuntime().exit(2);
-      }
-      default -> {
-        System.err.println("unknown command");
-        Runtime.getRuntime().exit(1);
+  @Command(name = "countKnownPrimeNumbersFromSmallSieve")
+  private static void countKnownPrimeNumbersFromSmallSieve()
+      throws IOException, ClassNotFoundException {
+    var sieve = com.github.teruteru128.study.PrimeSearch.loadSmallSieve(
+        Path.of("137438953280bit-small-sieve.obj"));
+    var primeCount = Arrays.stream(sieve).parallel().map(l -> Long.bitCount(~l)).sum();
+    System.out.printf("%d primes%n", primeCount);
+  }
+
+  @Command(name = "diffLargeSieves")
+  private static void diffLargeSieves(Path inPath1, Path inPath2)
+      throws IOException, ClassNotFoundException {
+    var a = PrimeSearch.loadLargeSieve(inPath1);
+    long[] array1 = a.sieve().toLongArray();
+    var b = PrimeSearch.loadLargeSieve(inPath2);
+    long[] array2 = b.sieve().toLongArray();
+    var minLength = min(array1.length, array2.length);
+    for (int i = 0; i < minLength; i++) {
+      if (array1[i] != array2[i]) {
+        System.err.printf("%016x: %016x, %016x, %016x%n", i, ~array1[i], ~array2[i],
+            array1[i] ^ array2[i]);
       }
     }
+  }
+
+  @Command(name = "generateNewColor")
+  private static void generateNewColor(@Option(names = {"--fix-saturation-to-1",
+      "-S"}, defaultValue = "false") boolean fixSaturationTo1) {
+    var h = MyRandom.nextDouble(SECURE_RANDOM_GENERATOR) * 6;
+    var l = 0.5;
+    double s;
+    if (fixSaturationTo1) {
+      s = 1;
+    } else {
+      s = (double) SECURE_RANDOM_GENERATOR.nextInt(192, 256) / 255;
+    }
+    var rgb = ColorConverter.HLSToRGB(new HLSColor(h, l, s));
+    var r = rgb.r();
+    var g = rgb.g();
+    var b = rgb.b();
+    var v = 0xff000000 | r << 16 | g << 8 | b;
+    System.out.printf("%d, %d, %d(%d, %<08x)%n", r, g, b, v);
+  }
+
+  @Command(name = "fixColor")
+  private static void fixColor(int[] color) {
+    // RGB color fixer
+    // HLS color space
+    int p;
+    int r;
+    int g;
+    int b;
+    if (color.length == 1) {
+      p = color[0];
+      r = p >> 16 & 0xff;
+      g = p >> 8 & 0xff;
+      b = p & 0xff;
+    } else if (color.length == 4) {
+      r = color[0] & 0xff;
+      g = color[1] & 0xff;
+      b = color[2] & 0xff;
+      p = 0xff000000 | r << 16 | g << 8 | b;
+    } else {
+      System.err.println("err! args is 2 or 4");
+      return;
+    }
+    System.out.printf("input: R: %d, G: %d, B: %d(%d, %<08x)%n", r, g, b, p);
+    var max = max(max(r, g), b);
+    var min = min(min(r, g), b);
+    // double型で==を使って比較したくなかった
+    if (max == min && min >= 192) {
+      System.out.println("Achromatic, but vivid enough. Does nothing.");
+      return;
+    }
+    while (max == min) {
+      System.err.println("Achromatic!");
+      p = SECURE_RANDOM_GENERATOR.nextInt(0x1000000);
+      r = p >> 16 & 0xff;
+      g = p >> 8 & 0xff;
+      b = p & 0xff;
+      max = max(max(r, g), b);
+      min = min(min(r, g), b);
+    }
+    var hls = ColorConverter.RGBToHLS(new RGBColor(r, g, b));
+    var h = hls.h();
+    var l = hls.l();
+    var s = hls.s();
+    System.out.printf("old: Windows: H: %f, L: %f, S: %f%n", h * 40, l * 240, s * 240);
+    System.out.printf("old: degrees: H: %f, L: %f, S: %f%n", h * 60, l * 100, s * 100);
+    if (s >= 0.75) {
+      System.out.println("Vivid enough. Does nothing.");
+      return;
+    }
+    var newL = 0.5;
+    var newS = (double) SECURE_RANDOM_GENERATOR.nextInt(192, 256) / 255;
+    var newRGB = ColorConverter.HLSToRGB(new HLSColor(h, newL, newS));
+    System.out.printf("new: R: %d, G: %d, B %d%n", newRGB.r(), newRGB.g(), newRGB.b());
+    System.out.printf("new: Windows: H: %f, L: %f, S: %f%n", h * 40, newL * 240, newS * 240);
+    System.out.printf("new: degrees: H: %f, L: %f, S: %f%n", h * 60, newL * 100, newS * 100);
+    System.out.printf("color=%d, %<08x%n",
+        0xff000000 | newRGB.r() << 16 | newRGB.g() << 8 | newRGB.b());
+  }
+
+  @Command(name = "sizeInBase")
+  private static void sizeInBase(Path path, int base) throws IOException, ClassNotFoundException {
+    var even = com.github.teruteru128.study.PrimeSearch.loadEvenNumber(path);
+    var auto = Arena.ofAuto();
+    var a = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(a);
+    var b = even.toByteArray();
+    mpz_import(a, b.length, 1, C_CHAR.byteSize(), 0, 0, auto.allocateFrom(C_CHAR, b));
+    assert base >= 2;
+    System.out.println("mpz_sizeinbase(a, 10) = " + mpz_sizeinbase(a, base));
+  }
+
+  /**
+   * Create a database of prime number candidates
+   * @param args
+   * @throws SQLException
+   * @throws IOException
+   * @throws ClassNotFoundException
+   */
+  @Command(name = "createPrimeNumberCandidateDB")
+  private static void createPrimeNumberCandidateDB(String[] args)
+      throws SQLException, IOException, ClassNotFoundException {
+    var source = new SQLiteConnectionPoolDataSource();
+    source.setUrl(args[1]);
+    try (var con = source.getConnection()) {
+      try (var st = con.createStatement()) {
+        st.execute(
+            "create table if not exists candidates(id long, step int, composite int, probably_prime int, definitely_prime int, primary key(id, step));");
+      }
+
+      try (var prep = con.prepareStatement(
+          "insert into candidates(id, step, composite, probably_prime, definitely_prime) values(?, ?, 0, 0, 0);")) {
+        prep.setLong(1, 0x32ec7597040b4f0cL);
+        BitSet p;
+        {
+          var largeSieve = PrimeSearch.loadLargeSieve2(Path.of(args[2]));
+          p = new BitSet(largeSieve.length());
+          p.set(0, largeSieve.length());
+          p.andNot(largeSieve);
+        }
+        p.clear(0, args.length >= 4 ? parseInt(args[3]) : 0);
+        p.stream().forEach(s -> {
+          try {
+            prep.setInt(2, s);
+            prep.addBatch();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
+        prep.executeBatch();
+      }
+    }
+  }
+
+  /**
+   * doubleを指数部も含めて乱数で生成するテスト
+   */
+  @Command(name = "randomExpDoubleTest")
+  private static void randomExpDoubleTest() {
+    long a;
+    double b;
+    for (int i = 0; i < 10; i++) {
+      a = RandomGenerator.getDefault().nextLong() & 0x7fffffffffffffffL;
+      b = Double.longBitsToDouble(a);
+      System.out.printf("%016x, %a, exp: %d%n", a, b, ((a >> 52) & 0x7ff) - 1023);
+    }
+  }
+
+  @Command(name = "temporaryDirectoriesAndFilesSample")
+  private static void temporaryDirectoriesAndFilesSample() throws IOException {
+    var path = Path.of(System.getenv("TEMP"));
+    var tempDir = Files.createTempDirectory(path, "java-tmp-");
+    var tempPath = Files.createTempFile(tempDir, "work", null);
+    System.out.println(tempDir);
+    System.out.println(tempPath);
+    try (var channel = FileChannel.open(tempPath, StandardOpenOption.CREATE,
+        StandardOpenOption.WRITE, StandardOpenOption.READ, StandardOpenOption.DELETE_ON_CLOSE)) {
+      // NONE
+      var segment = channel.map(MapMode.READ_WRITE, 0, 1 << 30);
+      System.out.println(segment.capacity());
+    }
+  }
+
+  @Command(name = "exportBigIntegerAsDecimalText")
+  private static void exportBigIntegerAsDecimalText(Path inPath, Path outPath)
+      throws IOException, ClassNotFoundException {
+    var p = com.github.teruteru128.study.PrimeSearch.loadEvenNumber(inPath);
+    Files.write(outPath, List.of(p.toString()), StandardOpenOption.CREATE,
+        StandardOpenOption.WRITE);
+  }
+
+  @Command(name = "generateLargeEvenNumber")
+  private static void generateLargeEven(int bitLength)
+      throws NoSuchAlgorithmException, IOException {
+    final var instanceStrong = SecureRandom.getInstanceStrong();
+    BigInteger evenNumber;
+    final var th = BigInteger.TEN.pow(99999999);
+    do {
+      evenNumber = new BigInteger(bitLength, instanceStrong).setBit(bitLength - 1).clearBit(0);
+    } while (evenNumber.compareTo(th) < 0);
+    var path = Path.of("even-number-" + bitLength + "bit-" + UUID.randomUUID() + ".obj");
+    com.github.teruteru128.study.PrimeSearch.exportEvenNumberObj(path, evenNumber);
+  }
+
+  /**
+   * [int,long[]]形式のオブジェクト出力をフォーマットする。
+   * @param args
+   * @throws IOException
+   * @throws ClassNotFoundException
+   */
+  @Command(name = "formatSieve", description = "[int,long[]]形式のオブジェクト出力をフォーマットする。")
+  private static void formatSieve(String[] args) throws IOException, ClassNotFoundException {
+    long[] array1;
+    try (var a = new ObjectInputStream(
+        new ByteArrayInputStream(Files.readAllBytes(Path.of(args[1]))))) {
+      a.readInt();
+      Object obj = a.readObject();
+      if (obj instanceof long[]) {
+        array1 = (long[]) obj;
+      } else {
+        throw new ClassCastException(
+            "only supported for long[], not supported object type: " + obj.getClass().getName());
+      }
+    }
+    for (int i = 0; i < array1.length; i++) {
+      System.out.printf("%016x", ~array1[i]);
+      switch (i % 8) {
+        case 7:
+          System.out.println();
+          break;
+        case 3:
+          System.out.print("  ");
+          break;
+        default:
+          System.out.print(' ');
+          break;
+      }
+    }
+  }
+
+  @Command(name = "createSmallSieve", description = "既知素数リストを作成する")
+  private static void createSmallSieve(
+      @Parameters(description = "素数リストのビット長。(0x7ffffffdL << 6)ビットまで。") long bitLength)
+      throws IOException {
+    logger.info("create {}bit small sieve...", bitLength);
+    // 小さな既知素数ふるいを作成、もしくは読み込む
+    var sieve = com.github.teruteru128.study.PrimeSearch.createSmallSieve(bitLength);
+    var primeCount = Arrays.stream(sieve).parallel().map(l -> Long.bitCount(~l)).sum();
+    logger.info("{} primes", primeCount);
+    var path = Paths.get(bitLength + "bit-small-sieve.obj");
+    logger.info("write to {}", path);
+    try (var oos = new ObjectOutputStream(new BufferedOutputStream(
+        Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE),
+        2147483645))) {
+      oos.writeLong(bitLength);
+      var length = sieve.length;
+      if (length == 2147483645) {
+        for (long l : sieve) {
+          oos.writeLong(l);
+        }
+      } else {
+        oos.writeObject(sieve);
+      }
+      logger.info("done. 1");
+    }
+    logger.info("done. 2");
+  }
+
+  @Command(name = "getSentMessageByAckData")
+  private static void getSentMessageByAckData(String[] args)
+      throws IOException, InterruptedException {
+    try (var client = HttpClient.newHttpClient()) {
+      System.out.println(client.send(Spammer.requestBuilder.POST(ofString(
+          "{\"jsonrpc\":\"2.0\",\"method\":\"getSentMessageByAckData\", \"params\":[\"" + args[1]
+          + "\"], \"id\": 19}")).build(), BodyHandlers.ofString()).body());
+    }
+  }
+
+  @Command(name = "D")
+  private static void D(String[] args) throws IOException {
+    try (var reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(
+        new BufferedInputStream(Files.newInputStream(Path.of(args[1])), 0x70000000), 0x70000000)),
+        0x70000000)) {
+      System.out.println(reader.lines().count() + "件");
+    }
+  }
+
+  @Command(name = "addressSearch2")
+  private static void addressSearch2(String[] args) throws IOException {
+    var pattern = Pattern.compile(".*twitter.*", Pattern.CASE_INSENSITIVE);
+    new AddressCalc(args, hash -> hash[0] == 0 && pattern.matcher(
+        AddressFactory.encodeAddress(Arrays.copyOf(hash, 20))).matches()).call();
   }
 
   @Command(name = "addressSearch")
@@ -447,7 +452,8 @@ public class Factory implements Callable<Void> {
   }
 
   @Command(name = "gz")
-  private static void gz(@Parameters(converter = PathConverter.class) Path path) throws IOException {
+  private static void gz(@Parameters(converter = PathConverter.class) Path path)
+      throws IOException {
     try (var s = new BufferedReader(new InputStreamReader(new GZIPInputStream(
         new BufferedInputStream(Files.newInputStream(path), 1024 * 1024 * 1024))),
         1024 * 1024 * 1024)) {
@@ -634,7 +640,8 @@ public class Factory implements Callable<Void> {
     }
   }
 
-  private static void extracted4() throws SQLException {
+  @Command(name = "db2")
+  private static void db2() throws SQLException {
     var source = new SQLiteDataSource();
     source.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
     try (var connect = source.getConnection(); var statement = connect.createStatement(); var resultSet = statement.executeQuery(
@@ -652,7 +659,8 @@ public class Factory implements Callable<Void> {
     }
   }
 
-  private static void extracted1(String[] args) throws SQLException {
+  @Command(name = "DB1")
+  private static void db1(String[] args) throws SQLException {
     var source = new SQLiteDataSource();
     source.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
     var msgid = getUUIDBytes(new byte[16]);
@@ -771,8 +779,10 @@ public class Factory implements Callable<Void> {
         StandardOpenOption.TRUNCATE_EXISTING);
   }
 
-  private static void extracted2(String[] args) throws IOException {
-    var lines = (ArrayList<String>) Files.readAllLines(Path.of(args[1]), StandardCharsets.UTF_8);
+  @Command(name = "sort")
+  private static void extracted2(@Parameters(converter = PathConverter.class) Path inPath,
+      @Parameters(converter = PathConverter.class) Path outPath) throws IOException {
+    var lines = (ArrayList<String>) Files.readAllLines(inPath, StandardCharsets.UTF_8);
     int i = 0;
     for (var line : lines) {
       if (line.startsWith("[BM-")) {
@@ -808,7 +818,7 @@ public class Factory implements Callable<Void> {
         }
       }
     }
-    try (var writer = Files.newBufferedWriter(Path.of(args[2]), StandardCharsets.UTF_8)) {
+    try (var writer = Files.newBufferedWriter(outPath, StandardCharsets.UTF_8)) {
       map.forEach((k, v) -> {
         try {
           writer.write(v);
@@ -829,6 +839,7 @@ public class Factory implements Callable<Void> {
    * @throws NoSuchPaddingException g
    * @throws InvalidAlgorithmParameterException h
    */
+  @Command(name = "bitmessageDecryptTest")
   private static void bitmessageDecryptTest()
       throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, SignatureException {
     var source = new SQLiteDataSource();
@@ -844,6 +855,8 @@ public class Factory implements Callable<Void> {
     var mac = Mac.getInstance("HmacSHA256");
     var peek = true;
     var generalCount = 0L;
+    final byte[] generalRipe = new byte[]{-92, 6, 83, 41, -112, -51, -47, 106, 52, 14, 94, 93, 1,
+        -126, -85, 50, 59};
     try (var connection = source.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
         "select hash, payload from inventory where objecttype = 2;")) {
       // 本来は新しいオブジェクトを受信する度にすべての秘密鍵についてループを回すんだろうな
@@ -980,7 +993,8 @@ public class Factory implements Callable<Void> {
     };
   }
 
-  private static void extracted(String[] args) throws IOException, NoSuchAlgorithmException {
+  @Command(name = "addressEncode")
+  private static void addressEncode(String[] args) throws IOException, NoSuchAlgorithmException {
     var signKey = new byte[32];
     var encKey = new byte[32];
     try (var file = new RandomAccessFile(args[1], "r")) {
@@ -1002,9 +1016,31 @@ public class Factory implements Callable<Void> {
             ripemd160.digest(sha512.digest()))));
   }
 
+  @Command(name = "calcCheckDigit")
+  private int checkDigit(String code) {
+    if (!pattern11.matcher(code).matches()) {
+      return ExitCode.SOFTWARE;
+    }
+    var charArray = code.toCharArray();
+    var coefficient = new int[]{6, 5, 4, 3, 2, 7, 6, 5, 4, 3, 2};
+    int sum = 0;
+    for (int i = 0, charArrayLength = charArray.length; i < charArrayLength; i++) {
+      sum += coefficient[i] * (charArray[i] - '0');
+    }
+    var mods = sum % 11;
+    int d;
+    if (mods <= 1) {
+      d = 0;
+    } else {
+      d = 11 - mods;
+    }
+    System.out.println(d);
+    return ExitCode.OK;
+  }
+
   @Override
-  public Void call() throws Exception {
-    return null;
+  public Integer call() throws Exception {
+    return ExitCode.USAGE;
   }
 
   private record DecodedAddress(String toAddress, byte[] toripe) {

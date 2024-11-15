@@ -8,9 +8,12 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 import org.bouncycastle.jce.interfaces.ECPrivateKey;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
+import picocli.CommandLine.Command;
 
+@Command(name = "ecies")
 public class ECIESSample {
 
+  @Command(name = "eciessample")
   public static void ecIesSample() {
     var random = RandomGenerator.of("SecureRandom");
     var pair = EllipticCurveIntegratedEncryptionScheme.generateEcKeyPair();

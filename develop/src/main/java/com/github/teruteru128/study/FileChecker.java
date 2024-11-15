@@ -20,6 +20,7 @@ import java.util.zip.GZIPInputStream;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
+@Command(name = "filechecker")
 public class FileChecker {
 
   /**

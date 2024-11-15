@@ -7,5 +7,7 @@ module com.github.teruteru.sample {
   requires org.xerial.sqlitejdbc;
   requires org.bouncycastle.provider;
   requires info.picocli;
+  requires com.github.teruteru.study;
+  requires com.github.teruteru.math;
   exports com.github.teruteru128.sample;
 }

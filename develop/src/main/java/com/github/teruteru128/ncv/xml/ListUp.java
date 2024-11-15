@@ -15,7 +15,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
+import picocli.CommandLine.Command;
 
+@Command(name = "listUp")
 public class ListUp implements Callable<Void> {
 
   private final Path inputPath;

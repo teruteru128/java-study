@@ -34,6 +34,9 @@ import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
+/**
+ * TODO create prime (or math?) package
+ */
 @Command(name = "attack")
 public class PrimeSearch implements Callable<Void> {
 

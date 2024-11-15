@@ -8,6 +8,7 @@ import static com.github.teruteru128.study.PrimeSearch.previousClearBit;
 import static com.github.teruteru128.study.PrimeSearch.unitIndex;
 import static java.lang.Math.max;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
+import static picocli.CommandLine.Parameters.NULL_VALUE;
 
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.foreign.prime.search.PrimeSearch;
@@ -42,12 +43,23 @@ public class CreateLargeSieveTask implements Callable<Void> {
   Path inPath;
   @Parameters
   String outPath;
-  @Parameters
+  @Option(names = "--small-sieve", defaultValue = "524288bit-small-sieve.obj")
   Path smallSievepath;
-  @Option(names = "--oldSieve")
+  @Option(names = "--oldSieve", defaultValue = NULL_VALUE)
   Path oldInPath;
 
   public CreateLargeSieveTask() {
+  }
+
+  public CreateLargeSieveTask(Path inPath, String outPath) {
+    this.inPath = inPath;
+    this.outPath = outPath;
+  }
+
+  public CreateLargeSieveTask(Path inPath, String outPath, Path oldInPath) {
+    this.inPath = inPath;
+    this.outPath = outPath;
+    this.oldInPath = oldInPath;
   }
 
   public CreateLargeSieveTask(Path inPath, String outPath, Path smallSievepath, Path oldInPath) {

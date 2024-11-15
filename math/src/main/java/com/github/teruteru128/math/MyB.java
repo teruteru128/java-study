@@ -1,4 +1,4 @@
-package com.github.teruteru128.study;
+package com.github.teruteru128.math;
 
 import java.math.BigInteger;
 import java.util.Random;
