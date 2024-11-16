@@ -5143,11 +5143,11 @@ public class gmp_h {
     }
     /**
      * {@snippet lang=c :
-     * char *mpz_get_str(char *, int, mpz_srcptr)
+     * char *mpz_get_str(char *res_str, int base, mpz_srcptr x)
      * }
      */
-    public static MemorySegment mpz_get_str(MemorySegment x0, int x1, MemorySegment x2) {
-        return __gmpz_get_str(x0, x1, x2);
+    public static MemorySegment mpz_get_str(MemorySegment res_str, int base, MemorySegment x) {
+        return __gmpz_get_str(res_str, base, x);
     }
 
     private static class __gmpz_hamdist {
@@ -6609,7 +6609,7 @@ public class gmp_h {
      * void __gmpz_nextprime(mpz_ptr, mpz_srcptr)
      * }
      */
-    public static void __gmpz_nextprime(MemorySegment x0, MemorySegment x1) {
+    private static void __gmpz_nextprime(MemorySegment x0, MemorySegment x1) {
         var mh$ = __gmpz_nextprime.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6619,6 +6619,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void __gmpz_nextprime(mpz_ptr, mpz_srcptr)
+     * }
+     */
+    public static void mpz_nextprime(MemorySegment p, MemorySegment n) {
+        __gmpz_nextprime(p, n);
     }
 
     private static class __gmpz_prevprime {

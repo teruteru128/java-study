@@ -31,6 +31,7 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         var exitCode = new CommandLine(Factory.create()).execute(args);
+        Runtime.getRuntime().exit(exitCode);
     }
 
 }

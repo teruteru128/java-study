@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.StringJoiner;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -24,9 +25,16 @@ import java.util.stream.IntStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.ExitCode;
+import picocli.CommandLine.Parameters;
 
 @Command(name = "sc")
-public class SiteChecker {
+public class SiteChecker implements Callable<Integer> {
+
+  @Override
+  public Integer call() throws Exception {
+    return ExitCode.USAGE;
+  }
 
   public static final Pattern PATTERN_1 = Pattern.compile(
       "<title>(.*(?:荒らし共栄圏|園田亮平).*)</title>");
@@ -40,8 +48,7 @@ public class SiteChecker {
   @Command(name = "check-tor")
   static void siteCheck(String url) throws IOException, URISyntaxException {
     try (var service = new ScheduledThreadPoolExecutor(1)) {
-      var uri = new URI(url);
-      var target = uri.toURL();
+      var target = new URI(url).toURL();
       final var block = new Object();
       var future = service.scheduleWithFixedDelay(() -> {
         try {
@@ -49,19 +56,17 @@ public class SiteChecker {
           connection.connect();
           var responseCode = connection.getResponseCode();
           log.trace("responce code: {}", responseCode);
-          var responseCodeHead = responseCode / 100;
-          if (responseCodeHead == 2 || responseCodeHead == 3) {
-            connection.disconnect();
-            log.info("connected!");
-            synchronized (block) {
-              block.notify();
-            }
+          connection.disconnect();
+          log.info("connected!");
+          synchronized (block) {
+            block.notify();
           }
-        } catch (SocketException ignored) {
-          //log.error("socket exception: ", ignored);
-        } catch (IOException ignored) {
+        } catch (SocketException e) {
+          log.error("socket exception");
+        } catch (IOException e) {
+          log.error("io exception");
         }
-      }, 0, 5, TimeUnit.MINUTES);
+      }, 0, 1, TimeUnit.DAYS);
       synchronized (block) {
         block.wait();
       }
@@ -71,7 +76,9 @@ public class SiteChecker {
     }
   }
 
-  static void searchTor(int min, int max) throws IOException {
+  @Command(name = "search-tor")
+  static void searchTor(@Parameters(defaultValue = "13772") int min,
+      @Parameters(defaultValue = "23000") int max) throws IOException {
     // TODO スレッド名をDBかなにかにまとめる
     System.err.printf("min: %d, max: %d%n", min, max);
     try (var bos = new BufferedWriter(

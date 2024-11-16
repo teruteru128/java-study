@@ -2,12 +2,16 @@ package com.github.teruteru128.study;
 
 import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
 import static com.github.teruteru128.gmp.gmp_h.C_CHAR;
+import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_import;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init2;
+import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
@@ -117,11 +121,12 @@ import picocli.CommandLine.Parameters;
 @Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
     ECIESSample.class, FileChecker.class, com.github.teruteru128.study.PrimeSearch.class,
     SiteChecker.class, Spam.class, TeamSpeak.class, Updater.class, CommandLine.HelpCommand.class,
-    ListUp.class, Transform.class, CumShoot.class})
+    ListUp.class, Transform.class, CumShoot.class, SlimeSearch.class})
 public class Factory implements Callable<Integer> {
 
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   public static final HexFormat FORMAT = HexFormat.of();
+  public static final BigInteger BASE = BigInteger.ONE.shiftLeft(48);
   private static final ECParameterSpec secp256k1Parameter;
   private static final KeyFactory factory;
   private static final Logger logger = LoggerFactory.getLogger(Factory.class);
@@ -600,13 +605,6 @@ public class Factory implements Callable<Integer> {
         System.mapLibraryName("OpenCL"));
   }
 
-  @Command(name = "search-tor")
-  private static void searchTor(String[] args) throws IOException {
-    var min = args.length >= 2 ? parseInt(args[1]) : (4299 + 9473);
-    var max = args.length >= 3 ? parseInt(args[2]) : 23000;
-    SiteChecker.searchTor(min, max);
-  }
-
   @Command(name = "hash-base64")
   private static void hashBase64(String[] args) throws NoSuchAlgorithmException, IOException {
     if (args.length >= 2) {
@@ -1038,6 +1036,36 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
+  @Command(name = "pam")
+  private Integer pam(int bitLength) throws IOException {
+    var auto = Arena.ofAuto();
+    var mpzArray = __mpz_struct.allocateArray(2, auto);
+    var n = __mpz_struct.asSlice(mpzArray, 0).reinterpret(auto, gmp_h::mpz_clear);
+    var p = __mpz_struct.asSlice(mpzArray, 1).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init2(n, bitLength);
+    mpz_init2(p, bitLength);
+    var n2 = new BigInteger(bitLength, (Random) SECURE_RANDOM_GENERATOR).setBit(bitLength - 1)
+        .clearBit(0);
+    var byteArray = n2.toByteArray();
+    mpz_import(mpzArray, byteArray.length, 1, JAVA_BYTE.byteSize(), 0, 0,
+        auto.allocateFrom(JAVA_BYTE, byteArray));
+    mpz_nextprime(p, n);
+    var sizeInBase10 = mpz_sizeinbase(p, 10);
+    System.out.println(sizeInBase10);
+    var str = auto.allocate(sizeInBase10 + 1, 1);
+    mpz_get_str(str, 10, p);
+    var a = str.getString(0).replaceAll("\\d{5}", "$0 ")
+        .replaceAll("((\\d{5} ){9}\\d{5}) ", "$1" + System.lineSeparator());
+    var uuid = UUID.randomUUID();
+    var path = Path.of(
+        bitLength + "bit-" + uuid.toString().replaceAll("-", "").toUpperCase() + ".txt");
+    Files.writeString(path, a, StandardCharsets.UTF_8, StandardOpenOption.CREATE,
+        StandardOpenOption.WRITE);
+    return ExitCode.OK;
+  }
+
+
+
   @Override
   public Integer call() throws Exception {
     return ExitCode.USAGE;
@@ -1061,14 +1089,17 @@ public class Factory implements Callable<Integer> {
 
     @Override
     public boolean equals(Object o) {
+      if (o == null) {
+        return false;
+      }
       if (this == o) {
         return true;
       }
-      if (!(o instanceof Key key1)) {
+      if (!(o instanceof Key(byte[] key1))) {
         return false;
       }
 
-      return Arrays.equals(key, key1.key);
+      return Arrays.equals(key, key1);
     }
 
     @Override
