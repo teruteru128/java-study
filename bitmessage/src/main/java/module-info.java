@@ -15,4 +15,5 @@ module com.github.teruteru.bitmessage {
     // exports com.github.teruteru128.bitmessage.dandelion;
     exports com.github.teruteru128.bitmessage.genaddress;
     exports com.github.teruteru128.bitmessage.spec;
+    opens com.github.teruteru128.bitmessage.app to com.fasterxml.jackson.databind;
 }

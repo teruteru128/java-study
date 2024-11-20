@@ -18,6 +18,7 @@ import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
 import com.github.teruteru128.bitmessage.app.DeterministicAddressGenerator;
 import com.github.teruteru128.bitmessage.app.Spammer;
+import com.github.teruteru128.bitmessage.app.Spammer.Address;
 import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
 import com.github.teruteru128.bitmessage.genaddress.Response;
 import com.github.teruteru128.bitmessage.spec.AddressFactory;
@@ -52,6 +53,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -89,9 +91,11 @@ import java.util.HexFormat;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.StringJoiner;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.Callable;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.random.RandomGenerator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -638,6 +642,24 @@ public class Factory implements Callable<Integer> {
     }
   }
 
+  @Command(name = "pk2")
+  private static int pk2() throws IOException, InterruptedException {
+    var decoder = Base64.getDecoder();
+    var counter = new AtomicLong();
+    var s = Spammer.getFakeAddresses().stream().parallel().map(
+            a -> new Address(new String(decoder.decode(a.label()), StandardCharsets.UTF_8),
+                a.address())).filter(a -> a.label().startsWith("fake-"))
+        .collect(() -> new StringJoiner(",", "[", "]"), (i, j) -> i.add(new StringBuilder(
+            "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"").append(j.address())
+            .append("\",\"BM-2cVPhC8Bdrx2ZemLw98oGUsgjDAfwsigyc\",\"\",\"\",2,3600],\"id\":")
+            .append(counter.getAndIncrement()).append('}')), StringJoiner::merge).toString();
+    try (var client = HttpClient.newHttpClient()) {
+      client.send(Spammer.requestBuilder.POST(ofString(s)).build(),
+          HttpResponse.BodyHandlers.ofString());
+    }
+    return ExitCode.OK;
+  }
+
   @Command(name = "db2")
   private static void db2() throws SQLException {
     var source = new SQLiteDataSource();
@@ -853,10 +875,11 @@ public class Factory implements Callable<Integer> {
     var mac = Mac.getInstance("HmacSHA256");
     var peek = true;
     var generalCount = 0L;
-    final byte[] generalRipe = new byte[]{-92, 6, 83, 41, -112, -51, -47, 106, 52, 14, 94, 93, 1,
-        -126, -85, 50, 59};
+    var generalRipe = new byte[]{-92, 6, 83, 41, -112, -51, -47, 106, 52, 14, 94, 93, 1, -126, -85,
+        50, 59};
     try (var connection = source.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
-        "select hash, payload from inventory where objecttype = 2;")) {
+        "select hash, payload from inventory where objecttype = 2;"); var prep = connection.prepareStatement(
+        "insert into inventory(hash, objecttype, streamnumber, payload, expirestime, tag) values (?,?,?,?,?,?);")) {
       // 本来は新しいオブジェクトを受信する度にすべての秘密鍵についてループを回すんだろうな
       while (set.next()) {
         var payload = set.getBytes("payload");
@@ -869,9 +892,9 @@ public class Factory implements Callable<Integer> {
         // object type
         buffer.getInt();
         // version
-        var version = decodeVarInt(buffer);
+        decodeVarInt(buffer);
         // stream Number
-        var streamNumber = decodeVarInt(buffer);
+        decodeVarInt(buffer);
         int headerLength = buffer.position() - 8;
         if (buffer.remaining() == 32) {
           // non-stealth message ack data
@@ -914,11 +937,13 @@ public class Factory implements Callable<Integer> {
         var plaintext = cipher.doFinal(payload, ciphertextOffset, ciphertextLength);
         var buffer1 = ByteBuffer.wrap(plaintext);
         var fromAddressVersionNumber = decodeVarInt(buffer1);
-        var fromStreamNumber = decodeVarInt(buffer1);
-        // bitfield
-        var fromAddressBitfield = buffer1.getInt();
+        // fromStreamNumber
+        decodeVarInt(buffer1);
+        // fromAddressBitfield
+        buffer1.getInt();
         var publicSignKey = getBytes(new byte[64], buffer1);
-        var publicEncKey = getBytes(new byte[64], buffer1);
+        // publicEncKey
+        getBytes(new byte[64], buffer1);
         long nonceTrialsPerByte = 0;
         long extraBytes = 0;
         if (3 <= fromAddressVersionNumber) {
@@ -1063,8 +1088,6 @@ public class Factory implements Callable<Integer> {
         StandardOpenOption.WRITE);
     return ExitCode.OK;
   }
-
-
 
   @Override
   public Integer call() throws Exception {

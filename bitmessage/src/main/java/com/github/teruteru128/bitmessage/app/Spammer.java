@@ -2,10 +2,13 @@ package com.github.teruteru128.bitmessage.app;
 
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.teruteru128.bitmessage.Structs;
 import com.github.teruteru128.encode.Base58;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -24,15 +27,26 @@ import java.util.random.RandomGenerator;
 
 public class Spammer {
 
-  public static final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(
-          URI.create(Objects.requireNonNull(
-              System.getenv("BM_API_SERVER_URL"), "BM API URL NOT FOUND")))
+  public static final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(URI.create(
+          Objects.requireNonNull(System.getenv("BM_API_SERVER_URL"), "BM API URL NOT FOUND")))
       .header("Content-Type", "application/json-rpc")
       .header("Authorization", "Basic " + System.getenv("BM_TOKEN"));
   private static final SecureRandom RANDOM = (SecureRandom) RandomGenerator.of("SecureRandom");
 
 
   public Spammer() {
+  }
+
+  public static List<Address> getFakeAddresses()
+      throws IOException, InterruptedException {
+    var req = "{\"jsonrpc\": \"2.0\",\"method\":\"listAddressBookEntries\",\"id\":1}";
+    var mapper = new ObjectMapper();
+    try (var client = HttpClient.newHttpClient(); var in = client.send(
+            requestBuilder.POST(ofString(req)).build(), HttpResponse.BodyHandlers.ofInputStream())
+        .body()) {
+      return Arrays.asList(
+          mapper.treeToValue(mapper.readTree(in).get("result").get("addresses"), Address[].class));
+    }
   }
 
   public static void unitSpam(List<String> addresses, int unitSize, Duration d, int offset)
@@ -118,8 +132,8 @@ public class Spammer {
           var streamNumberPacket = Structs.encodeVarint(1);
           ps.setBytes(7, ByteBuffer.allocate(
                   ackTypePacket.limit() + versionPacket.length + streamNumberPacket.length
-                  + ackData.length).put(ackTypePacket).put(versionPacket)
-              .put(streamNumberPacket).put(ackData).array());
+                  + ackData.length).put(ackTypePacket).put(versionPacket).put(streamNumberPacket)
+              .put(ackData).array());
           // sent time & last action time
           var epochSecond = Instant.now().getEpochSecond();
           ps.setLong(8, epochSecond);
@@ -131,6 +145,10 @@ public class Spammer {
             "Arrays.stream(ps.executeBatch()).sum() = " + Arrays.stream(ps.executeBatch()).sum());
       }
     }
+  }
+
+  public record Address(String label, String address) implements Serializable {
+
   }
 
 }
