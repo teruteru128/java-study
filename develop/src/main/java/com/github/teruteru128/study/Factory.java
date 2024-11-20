@@ -716,7 +716,7 @@ public class Factory implements Callable<Integer> {
             }
           }
           if (list.isEmpty()) {
-            // 見つかりませんでした
+            logger.info("送信すべきアドレスが見つかりませんでした");
             return;
           }
           // 送信する
@@ -743,6 +743,7 @@ public class Factory implements Callable<Integer> {
             }
             prep.executeBatch();
           }
+          logger.info("{}件送信しました", list.size());
         } catch (SQLException | IOException | InterruptedException e) {
           logger.error("exception in task", e);
           synchronized (lockObject) {
