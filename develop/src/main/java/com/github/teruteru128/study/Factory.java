@@ -82,20 +82,25 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
 import java.sql.SQLException;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.BitSet;
 import java.util.HexFormat;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.StringJoiner;
+import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.Callable;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.random.RandomGenerator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -643,19 +648,112 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command(name = "pk2")
-  private static int pk2() throws IOException, InterruptedException {
+  private static int pk2() throws IOException, InterruptedException, SQLException {
     var decoder = Base64.getDecoder();
-    var counter = new AtomicLong();
     var s = Spammer.getFakeAddresses().stream().parallel().map(
-            a -> new Address(new String(decoder.decode(a.label()), StandardCharsets.UTF_8),
-                a.address())).filter(a -> a.label().startsWith("fake-"))
-        .collect(() -> new StringJoiner(",", "[", "]"), (i, j) -> i.add(new StringBuilder(
-            "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"").append(j.address())
-            .append("\",\"BM-2cVPhC8Bdrx2ZemLw98oGUsgjDAfwsigyc\",\"\",\"\",2,3600],\"id\":")
-            .append(counter.getAndIncrement()).append('}')), StringJoiner::merge).toString();
-    try (var client = HttpClient.newHttpClient()) {
-      client.send(Spammer.requestBuilder.POST(ofString(s)).build(),
-          HttpResponse.BodyHandlers.ofString());
+        a -> new Address(new String(decoder.decode(a.label()), StandardCharsets.UTF_8),
+            a.address())).filter(a -> a.label().startsWith("fake-")).toList();
+    var dataSource = new SQLiteDataSource();
+    var databaseUrl = System.getenv("DATABASE_URL");
+    if (databaseUrl == null || databaseUrl.isEmpty()) {
+      System.err.println("$DATABASE_URL NOT FOUND");
+      return ExitCode.SOFTWARE;
+    }
+    dataSource.setUrl(databaseUrl);
+    var date = LocalDateTime.now().plusDays(1).truncatedTo(ChronoUnit.DAYS);
+    var timeZone = TimeZone.getDefault();
+    var rules = timeZone.toZoneId().getRules();
+    var u = date.toEpochSecond(rules.getOffset(date));
+    try (var connection = dataSource.getConnection()) {
+      connection.setAutoCommit(false);
+      try (var statement = connection.createStatement()) {
+        statement.execute(
+            "CREATE TABLE IF NOT EXISTS TASK(toAddress text, label text, senttime integer, primary key (toaddress));");
+      }
+      connection.commit();
+      try (var ps = connection.prepareStatement(
+          "INSERT INTO TASK(toAddress, label, senttime) values (?, ?, ?);")) {
+        long count = 0;
+        for (var a : s) {
+          ps.setString(1, a.address());
+          ps.setString(2, a.label());
+          ps.setLong(3, u + SECURE_RANDOM_GENERATOR.nextInt(86400));
+          ps.addBatch();
+          if (++count >= 100) {
+            count = 0;
+            u += 86400;
+          }
+        }
+        logger.info("{}", Arrays.stream(ps.executeBatch()).asLongStream().sum());
+      }
+      connection.commit();
+    }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "pk3")
+  private static int pk3() throws InterruptedException {
+    var lockObject = new Object();
+    var dataSource = new SQLiteDataSource();
+    var databaseUrl = System.getenv("DATABASE_URL");
+    if (databaseUrl == null || databaseUrl.isEmpty()) {
+      System.err.println("$DATABASE_URL NOT FOUND");
+      return ExitCode.SOFTWARE;
+    }
+    dataSource.setUrl(databaseUrl);
+    try (var sch = new ScheduledThreadPoolExecutor(1)) {
+      var task = sch.scheduleAtFixedRate(() -> {
+        try (var connection = dataSource.getConnection()) {
+          // DBからアドレスを読み込む
+          var list = new LinkedList<String>();
+          try (var prep = connection.prepareStatement(
+              "select toaddress from task where senttime < ?;")) {
+            prep.setLong(1, Instant.now().getEpochSecond());
+            try (var set = prep.executeQuery()) {
+              while (set.next()) {
+                list.add(set.getString("toaddress"));
+              }
+            }
+          }
+          if (list.isEmpty()) {
+            // 見つかりませんでした
+            return;
+          }
+          // 送信する
+          var joiner = new StringJoiner(",", "[", "]");
+          var builder = new StringBuilder();
+          var counter = 1L;
+          for (var address : list) {
+            builder.append("{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"")
+                .append(address)
+                .append("\",\"BM-2cW67GEKkHGonXKZLCzouLLxnLym3azS8r\",\"\",\"\",2,3600],\"id\":")
+                .append(counter++).append("}");
+            joiner.add(builder);
+            builder.setLength(0);
+          }
+          try (var client = HttpClient.newHttpClient()) {
+            client.send(Spammer.requestBuilder.POST(ofString(joiner.toString())).build(),
+                HttpResponse.BodyHandlers.ofString());
+          }
+          // DBから削除する
+          try (var prep = connection.prepareStatement("delete from task where toaddress = ?;")) {
+            for (var address : list) {
+              prep.setString(1, address);
+              prep.addBatch();
+            }
+            prep.executeBatch();
+          }
+        } catch (SQLException | IOException | InterruptedException e) {
+          logger.error("exception in task", e);
+          synchronized (lockObject) {
+            lockObject.notify();
+          }
+        }
+      }, 0, 5, TimeUnit.MINUTES);
+      synchronized (lockObject) {
+        lockObject.wait();
+      }
+      task.cancel(false);
     }
     return ExitCode.OK;
   }
