@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
+import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
@@ -122,7 +123,8 @@ public class PrimeSearch implements Callable<Integer> {
           }
         }
       } finally {
-        futures.forEach(f -> f.cancel(true));
+        futures.stream().filter(((Predicate<Future<Result>>) Future::isDone).negate())
+            .forEach(f -> f.cancel(true));
       }
     }
     if (found) {
