@@ -71,6 +71,7 @@ import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.Security;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.security.spec.ECGenParameterSpec;
@@ -80,6 +81,8 @@ import java.security.spec.ECPrivateKeySpec;
 import java.security.spec.ECPublicKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
+import java.security.spec.RSAPublicKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.Instant;
@@ -133,14 +136,14 @@ import picocli.CommandLine.Parameters;
     ListUp.class, Transform.class, CumShoot.class, SlimeSearch.class})
 public class Factory implements Callable<Integer> {
 
-  public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
-  public static final HexFormat FORMAT = HexFormat.of();
-  public static final BigInteger BASE = BigInteger.ONE.shiftLeft(48);
+  private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
+  private static final HexFormat FORMAT = HexFormat.of();
   private static final ECParameterSpec secp256k1Parameter;
   private static final KeyFactory factory;
   private static final Logger logger = LoggerFactory.getLogger(Factory.class);
   private static final Pattern pattern11 = Pattern.compile("\\d{11}");
   private static final Pattern pattern12 = Pattern.compile("\\d{12}");
+  private static final int[] coefficient = new int[]{6, 5, 4, 3, 2, 7, 6, 5, 4, 3, 2};
 
   static {
     try {
@@ -152,6 +155,9 @@ public class Factory implements Callable<Integer> {
       throw new RuntimeException(e);
     }
   }
+
+  @Option(names = "--ttl", defaultValue = "345600")
+  private int ttl;
 
   /**
    * Callableをnewして返すファクトリにするはずだったんだけどなあ……
@@ -691,74 +697,6 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command(name = "pk3")
-  private static int pk3() throws InterruptedException {
-    var lockObject = new Object();
-    var dataSource = new SQLiteDataSource();
-    var databaseUrl = System.getenv("DATABASE_URL");
-    if (databaseUrl == null || databaseUrl.isEmpty()) {
-      System.err.println("$DATABASE_URL NOT FOUND");
-      return ExitCode.SOFTWARE;
-    }
-    dataSource.setUrl(databaseUrl);
-    try (var sch = new ScheduledThreadPoolExecutor(1)) {
-      var task = sch.scheduleAtFixedRate(() -> {
-        try (var connection = dataSource.getConnection()) {
-          // DBからアドレスを読み込む
-          var list = new LinkedList<String>();
-          try (var prep = connection.prepareStatement(
-              "select toaddress from task where senttime < ?;")) {
-            prep.setLong(1, Instant.now().getEpochSecond());
-            try (var set = prep.executeQuery()) {
-              while (set.next()) {
-                list.add(set.getString("toaddress"));
-              }
-            }
-          }
-          if (list.isEmpty()) {
-            logger.info("送信すべきアドレスが見つかりませんでした");
-            return;
-          }
-          // 送信する
-          var joiner = new StringJoiner(",", "[", "]");
-          var builder = new StringBuilder();
-          var counter = 1L;
-          for (var address : list) {
-            builder.append("{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"")
-                .append(address)
-                .append("\",\"BM-2cW67GEKkHGonXKZLCzouLLxnLym3azS8r\",\"\",\"\",2,3600],\"id\":")
-                .append(counter++).append("}");
-            joiner.add(builder);
-            builder.setLength(0);
-          }
-          try (var client = HttpClient.newHttpClient()) {
-            client.send(Spammer.requestBuilder.POST(ofString(joiner.toString())).build(),
-                HttpResponse.BodyHandlers.ofString());
-          }
-          // DBから削除する
-          try (var prep = connection.prepareStatement("delete from task where toaddress = ?;")) {
-            for (var address : list) {
-              prep.setString(1, address);
-              prep.addBatch();
-            }
-            prep.executeBatch();
-          }
-          logger.info("{}件送信しました", list.size());
-        } catch (SQLException | IOException | InterruptedException e) {
-          logger.error("exception in task", e);
-          synchronized (lockObject) {
-            lockObject.notify();
-          }
-        }
-      }, 0, 5, TimeUnit.MINUTES);
-      synchronized (lockObject) {
-        lockObject.wait();
-      }
-      task.cancel(false);
-    }
-    return ExitCode.OK;
-  }
-
   @Command(name = "db2")
   private static void db2() throws SQLException {
     var source = new SQLiteDataSource();
@@ -1138,26 +1076,143 @@ public class Factory implements Callable<Integer> {
             ripemd160.digest(sha512.digest()))));
   }
 
+  private static int getD(char[] charArray, int offset, int length) {
+    int sum = 0;
+    for (int i = offset, charArrayLength = offset + length; i < charArrayLength; i++) {
+      sum += coefficient[i] * (charArray[i] - '0');
+    }
+    var mods = sum % 11;
+    if (mods <= 1) {
+      return 0;
+    } else {
+      return 11 - mods;
+    }
+  }
+
+  @Command(name = "pk3")
+  private int pk3() throws InterruptedException {
+    var lockObject = new Object();
+    var dataSource = new SQLiteDataSource();
+    var databaseUrl = System.getenv("DATABASE_URL");
+    if (databaseUrl == null || databaseUrl.isEmpty()) {
+      System.err.println("$DATABASE_URL NOT FOUND");
+      return ExitCode.SOFTWARE;
+    }
+    dataSource.setUrl(databaseUrl);
+    try (var sch = new ScheduledThreadPoolExecutor(1)) {
+      var task = sch.scheduleAtFixedRate(() -> {
+        try (var connection = dataSource.getConnection()) {
+          long taskNum = 0;
+          try (var statement = connection.createStatement(); var set = statement.executeQuery(
+              "select count(toaddress) A from task;")) {
+            if (set.next()) {
+              taskNum = set.getLong("A");
+            }
+          }
+          if (taskNum == 0) {
+            logger.trace("すべてのタスクが完了しています");
+            synchronized (lockObject) {
+              lockObject.notify();
+            }
+            return;
+          }
+          // DBからアドレスを読み込む
+          var list = new LinkedList<String>();
+          try (var prep = connection.prepareStatement(
+              "select toaddress from task where senttime < ?;")) {
+            prep.setLong(1, Instant.now().getEpochSecond());
+            try (var set = prep.executeQuery()) {
+              while (set.next()) {
+                list.add(set.getString("toaddress"));
+              }
+            }
+          }
+          if (list.isEmpty()) {
+            logger.trace("送信すべきアドレスが見つかりませんでした");
+            return;
+          }
+          // 送信する
+          var joiner = new StringJoiner(",", "[", "]");
+          var builder = new StringBuilder();
+          var counter = 1L;
+          for (var address : list) {
+            builder.append("{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"")
+                .append(address).append("\",\"BM-2cW67GEKkHGonXKZLCzouLLxnLym3azS8r\",\"\",\"\",2,")
+                .append(ttl).append("],\"id\":").append(counter++).append("}");
+            joiner.add(builder);
+            builder.setLength(0);
+          }
+          try (var client = HttpClient.newHttpClient()) {
+            client.send(Spammer.requestBuilder.POST(ofString(joiner.toString())).build(),
+                HttpResponse.BodyHandlers.ofString());
+          }
+          // DBから削除する
+          try (var prep = connection.prepareStatement("delete from task where toaddress = ?;")) {
+            for (var address : list) {
+              prep.setString(1, address);
+              prep.addBatch();
+            }
+            prep.executeBatch();
+          }
+          logger.info("{}件送信しました", list.size());
+        } catch (SQLException | IOException | InterruptedException e) {
+          logger.error("exception in task", e);
+          synchronized (lockObject) {
+            lockObject.notify();
+          }
+        }
+      }, 0, 5, TimeUnit.MINUTES);
+      logger.info("launched");
+      synchronized (lockObject) {
+        lockObject.wait();
+      }
+      task.cancel(false);
+    }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "loadPem")
+  private int loadPem(Path inPath)
+      throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+    var factory = KeyFactory.getInstance("RSA", Security.getProvider("BC"));
+    var rsaPublicKey = factory.getKeySpec(
+        factory.generatePublic(new X509EncodedKeySpec(Base64.getMimeDecoder().decode(
+            Files.readString(inPath).replace("-----BEGIN PUBLIC KEY-----", "")
+                .replace("-----END PUBLIC KEY-----", "")))), RSAPublicKeySpec.class);
+    var publicExponent = rsaPublicKey.getPublicExponent();
+    var modulus = rsaPublicKey.getModulus();
+    logger.info("{}bits", modulus.bitLength());
+    logger.info("{}", publicExponent);
+    var outFileName = Path.of(inPath.getFileName().toString().replace("-pub.pem", "-oos.bin"));
+    var parent = inPath.getParent();
+    var outPath = parent.resolve(outFileName);
+    try (var oos = new ObjectOutputStream(
+        new BufferedOutputStream(Files.newOutputStream(outPath), 1024 * 1024 * 128))) {
+      oos.writeObject(publicExponent);
+      oos.writeObject(modulus);
+    }
+    return ExitCode.OK;
+  }
+
   @Command(name = "calcCheckDigit")
-  private int checkDigit(String code) {
+  private int calcDigit(String code) {
     if (!pattern11.matcher(code).matches()) {
       return ExitCode.SOFTWARE;
     }
     var charArray = code.toCharArray();
-    var coefficient = new int[]{6, 5, 4, 3, 2, 7, 6, 5, 4, 3, 2};
-    int sum = 0;
-    for (int i = 0, charArrayLength = charArray.length; i < charArrayLength; i++) {
-      sum += coefficient[i] * (charArray[i] - '0');
-    }
-    var mods = sum % 11;
-    int d;
-    if (mods <= 1) {
-      d = 0;
-    } else {
-      d = 11 - mods;
-    }
+    var d = getD(charArray, 0, charArray.length);
     System.out.println(d);
     return ExitCode.OK;
+  }
+
+  @Command(name = "verifyCheckDigit")
+  private int checkDigit(String code) {
+    if (!pattern12.matcher(code).matches()) {
+      return ExitCode.SOFTWARE;
+    }
+    var charArray = code.toCharArray();
+    var d = getD(charArray, 0, charArray.length - 1);
+    return d == (charArray[11] - '0') ? ExitCode.OK : ExitCode.SOFTWARE;
   }
 
   @Command(name = "pam")
