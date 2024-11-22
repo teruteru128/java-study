@@ -16,6 +16,7 @@ import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
+import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.app.DeterministicAddressGenerator;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.bitmessage.app.Spammer.Address;
@@ -65,6 +66,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.AlgorithmParameters;
+import java.security.DigestException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -103,6 +105,7 @@ import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.random.RandomGenerator;
 import java.util.regex.Matcher;
@@ -144,6 +147,15 @@ public class Factory implements Callable<Integer> {
   private static final Pattern pattern11 = Pattern.compile("\\d{11}");
   private static final Pattern pattern12 = Pattern.compile("\\d{12}");
   private static final int[] coefficient = new int[]{6, 5, 4, 3, 2, 7, 6, 5, 4, 3, 2};
+  /**
+   * UNITS is only a power of 2.
+   * 32768にすると1時間ぐらいになる
+   */
+  private static final int UNITS = 2048;
+  private static final int MASK = UNITS - 1;
+  private static final int TRAILING_ZEROS = Long.numberOfTrailingZeros(UNITS);
+  private static final int BOUND = 16777216 / UNITS;
+  private static final int LENGTH = UNITS * Const.PUBLIC_KEY_LENGTH;
 
   static {
     try {
@@ -475,8 +487,8 @@ public class Factory implements Callable<Integer> {
   private static void gz(@Parameters(converter = PathConverter.class) Path path)
       throws IOException {
     try (var s = new BufferedReader(new InputStreamReader(new GZIPInputStream(
-        new BufferedInputStream(Files.newInputStream(path), 1024 * 1024 * 1024))),
-        1024 * 1024 * 1024)) {
+        new BufferedInputStream(Files.newInputStream(path), UNITS * UNITS * UNITS))),
+        UNITS * UNITS * UNITS)) {
       System.out.println(s.lines().count());
     }
   }
@@ -495,7 +507,7 @@ public class Factory implements Callable<Integer> {
 
   @Command(name = "bomb", description = "zip bomb base generator")
   private static void bomb() throws IOException {
-    var d = new byte[1024 * 1024];
+    var d = new byte[BOUND];
     SECURE_RANDOM_GENERATOR.nextBytes(d);
     try (var f = new BufferedOutputStream(
         Files.newOutputStream(Path.of("bomb-" + UUID.randomUUID() + ".txt")))) {
@@ -1175,8 +1187,8 @@ public class Factory implements Callable<Integer> {
   private int loadPem(Path inPath)
       throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
     var factory = KeyFactory.getInstance("RSA", Security.getProvider("BC"));
-    var rsaPublicKey = factory.getKeySpec(
-        factory.generatePublic(new X509EncodedKeySpec(Base64.getMimeDecoder().decode(
+    var rsaPublicKey = factory.getKeySpec(factory.generatePublic(new X509EncodedKeySpec(
+        Base64.getMimeDecoder().decode(
             Files.readString(inPath).replace("-----BEGIN PUBLIC KEY-----", "")
                 .replace("-----END PUBLIC KEY-----", "")))), RSAPublicKeySpec.class);
     var publicExponent = rsaPublicKey.getPublicExponent();
@@ -1187,7 +1199,7 @@ public class Factory implements Callable<Integer> {
     var parent = inPath.getParent();
     var outPath = parent.resolve(outFileName);
     try (var oos = new ObjectOutputStream(
-        new BufferedOutputStream(Files.newOutputStream(outPath), 1024 * 1024 * 128))) {
+        new BufferedOutputStream(Files.newOutputStream(outPath), UNITS * UNITS * 128))) {
       oos.writeObject(publicExponent);
       oos.writeObject(modulus);
     }
@@ -1243,6 +1255,67 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
+  @Command(name = "pac")
+  private Integer pac()
+      throws IOException, NoSuchAlgorithmException, CloneNotSupportedException, DigestException {
+    var p = Path.of("D:\\keys\\public\\publicKeys0.bin");
+    var c = Files.readAllBytes(p);
+    var sigBuf = new byte[LENGTH];
+    var encBuf = new byte[LENGTH];
+    int q;
+    int r;
+    int s;
+    int i;
+    int j;
+    var sha512_1 = MessageDigest.getInstance("SHA512");
+    //MessageDigest sha512_2;
+    var ripemd160 = MessageDigest.getInstance("RIPEMD160");
+    var hash = new byte[64];
+    long start;
+    long finish;
+    for (int k = 0; k < 10; k++) {
+      q = ThreadLocalRandom.current().nextInt(BOUND);
+      // r = q / UNITS;
+      r = q >> TRAILING_ZEROS;
+      // s = q % UNITS;
+      s = q & MASK;
+      System.arraycopy(c, r * LENGTH, sigBuf, 0, LENGTH);
+      System.arraycopy(c, s * LENGTH, encBuf, 0, LENGTH);
+      start = System.nanoTime();
+      for (i = 0; i < LENGTH; i += Const.PUBLIC_KEY_LENGTH) {
+        for (j = 0; j < LENGTH; j += Const.PUBLIC_KEY_LENGTH) {
+          sha512_1.update(sigBuf, i, Const.PUBLIC_KEY_LENGTH);
+          sha512_1.update(encBuf, j, Const.PUBLIC_KEY_LENGTH);
+          sha512_1.digest(hash, 0, 64);
+          ripemd160.update(hash, 0, 64);
+          ripemd160.digest(hash, 0, 20);
+          if (hash[0] != 0) {
+            continue;
+          }
+          if (hash[1] != 0) {
+            continue;
+          }
+          if (hash[2] != 0) {
+            continue;
+          }
+          if (hash[3] != 0) {
+            continue;
+          }
+          if (hash[4] != 0) {
+            continue;
+          }
+          if (hash[5] != 0) {
+            continue;
+          }
+          logger.info("found! {}, {}, {}, {}: {}", r, i, s, j, FORMAT.formatHex(hash, 0, 20));
+        }
+      }
+      finish = System.nanoTime();
+      logger.info("{} seconds", (finish - start) / 1e9);
+    }
+    return ExitCode.OK;
+  }
+
   @Override
   public Integer call() throws Exception {
     return ExitCode.USAGE;
@@ -1266,12 +1339,6 @@ public class Factory implements Callable<Integer> {
 
     @Override
     public boolean equals(Object o) {
-      if (o == null) {
-        return false;
-      }
-      if (this == o) {
-        return true;
-      }
       if (!(o instanceof Key(byte[] key1))) {
         return false;
       }

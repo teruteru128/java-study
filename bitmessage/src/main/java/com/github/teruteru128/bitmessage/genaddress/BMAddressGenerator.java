@@ -3,6 +3,7 @@ package com.github.teruteru128.bitmessage.genaddress;
 import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.spec.AddressFactory;
 import com.github.teruteru128.encode.Base58;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.System.Logger;
 import java.math.BigInteger;
@@ -35,31 +36,6 @@ public class BMAddressGenerator implements Runnable {
 
   public BMAddressGenerator(String[] args) {
     this.args = args;
-  }
-
-  /**
-   * @param args
-   * @see <a href="https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/class_addressGenerator.py#L131">class_addressGenerator.py</a>
-   * @see <a href="https://en.bitcoin.it/wiki/Wallet_import_format">Wallet import format</a>
-   * @see <a href="https://stackoverflow.com/questions/49204787/deriving-ecdsa-public-key-from-private-key">Deriving ECDSA Public Key from Private Key - stack overflow</a>
-   */
-  public static void main(String[] args) throws Exception {
-    Path privateKeyPath = Paths.get("privateKeys.bin");
-    Path publicKeyPath = Paths.get("publicKeys.bin");
-    byte[] potentialPublicEncryptionKey = null;
-    byte[] privateKeys = Files.readAllBytes(privateKeyPath);
-    byte[] publicKeys = new byte[(1 << 24) * Const.PUBLIC_KEY_LENGTH];
-    ByteBuffer buffer = ByteBuffer.allocateDirect((1 << 24) * Const.PUBLIC_KEY_LENGTH);
-    for (int i = 0; i < 16777216; i++) {
-      potentialPublicEncryptionKey = Const.SEC_P256_K1_G
-          .multiply(new BigInteger(1, privateKeys, i * Const.PRIVATE_KEY_LENGTH,
-              Const.PRIVATE_KEY_LENGTH))
-          .normalize().getEncoded(false);
-      buffer.put(potentialPublicEncryptionKey, 0, Const.PUBLIC_KEY_LENGTH);
-      System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * Const.PUBLIC_KEY_LENGTH,
-          Const.PUBLIC_KEY_LENGTH);
-    }
-    Files.write(publicKeyPath, publicKeys);
   }
 
   // TODO: 秘密鍵２個渡せばbitmessageエクスポート形式まで一発になるようになりませんか？

@@ -9,6 +9,7 @@ module com.github.teruteru.bitmessage {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.annotation;
     requires org.openapitools.jackson.nullable;
+    requires info.picocli;
 
     exports com.github.teruteru128.bitmessage;
     exports com.github.teruteru128.bitmessage.app;
