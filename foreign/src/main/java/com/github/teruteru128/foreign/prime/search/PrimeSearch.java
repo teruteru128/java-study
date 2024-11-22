@@ -1,6 +1,5 @@
 package com.github.teruteru128.foreign.prime.search;
 
-import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static java.util.concurrent.ForkJoinPool.defaultForkJoinWorkerThreadFactory;
 
@@ -15,8 +14,10 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutionException;
@@ -29,7 +30,6 @@ import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
-import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 @Command(name = "search", description = {"うんち！"})
@@ -37,21 +37,17 @@ public class PrimeSearch implements Callable<Integer> {
 
   private static final Logger logger = LoggerFactory.getLogger(PrimeSearch.class);
   private static final Arena auto = Arena.ofAuto();
-  private static final ThreadLocal<MemorySegment> threadCandidates = ThreadLocal.withInitial(() -> {
-    var candidate = auto.allocate(__mpz_struct.layout()).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(candidate);
-    return candidate;
-  });
+  private static final String dbURL;
+
+  static {
+    dbURL = Objects.requireNonNull(System.getenv("DB_URL"), "$DB_URL NOT FOUND");
+    if (dbURL.isEmpty()) {
+      throw new RuntimeException("$DB_URL IS EMPTY");
+    }
+  }
+
   @Parameters(arity = "1", converter = PathConverter.class, description = "even number (text) file")
   private Path evenNumberPath;
-  @Parameters(arity = "1", converter = PathConverter.class, description = "large sieve object file.")
-  private Path sievePath;
-  @Option(names = "--from", description = "Specify the starting step.")
-  private int fromIndex = 0;
-  @Option(names = "--to", description = "Specify the starting step.")
-  private int toIndex = Integer.MAX_VALUE;
-  @Option(names = "--url")
-  private String dbURL;
 
   public static BitSet loadLargeSieve2(Path path) throws IOException, ClassNotFoundException {
     long[] n;
@@ -70,39 +66,36 @@ public class PrimeSearch implements Callable<Integer> {
 
   @Override
   public Integer call()
-      throws IOException, ClassNotFoundException, InterruptedException, ExecutionException {
+      throws IOException, ClassNotFoundException, InterruptedException, ExecutionException, SQLException {
     var availableProcessors = Runtime.getRuntime().availableProcessors();
     var even = auto.allocate(__mpz_struct.layout()).reinterpret(auto, gmp_h::mpz_clear);
-    {
-      var evenStr = Files.readAllLines(evenNumberPath).getFirst();
-      var str = auto.allocateFrom(evenStr);
-      mpz_init_set_str(even, str, 10);
+    loadEvenToMpz(even);
+    var source = new SQLiteDataSource();
+    source.setUrl(dbURL);
+    var list2 = new ArrayList<Integer>();
+    try (var connection = source.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
+        "SELECT step from candidates where composite == 0 and probably_prime == 0 and definitely_prime == 0;")) {
+      while (set.next()) {
+        list2.add(set.getInt("step"));
+      }
     }
-    var largeSieve = getBitSet(sievePath);
-    final var originalCardinality = largeSieve.cardinality();
-    largeSieve.clear(0, fromIndex);
-    largeSieve.clear(toIndex, Integer.MAX_VALUE);
     logger.info("start");
-    final var cardinality = largeSieve.cardinality();
-    logger.trace("Number of original prime number candidates: {}, diff: {}", originalCardinality,
-        originalCardinality - cardinality);
-    logger.debug("Number of prime number candidates: {}", cardinality);
-    var list = new ArrayList<PrimeSearchTask2>(cardinality);
+    logger.debug("Number of prime number candidates: {}", list2.size());
+    var list = new ArrayList<PrimeSearchTask2>(list2.size());
     var found = false;
     var threads = Math.max(1, availableProcessors - 1);
     var barrier = new CyclicBarrier(threads);
-    var source = new SQLiteDataSource();
-    source.setUrl(dbURL);
-    final var threshold = cardinality / threads * threads;
+    var id = 3669437087868473100L;
+    var threshold = list2.size() / threads * threads;
     var i = 0;
-    for (var step = largeSieve.nextSetBit(fromIndex); step >= 0;
-        step = largeSieve.nextSetBit(step + 1), i++) {
+    for (var step : list2) {
       if (i < threshold) {
-        list.add(new PrimeSearchTask2(even, step, barrier, null));
+        list.add(new PrimeSearchTask2(even, id, step, barrier, source));
       } else {
         // 最後のタスクがbarrierでハングしないようにする
-        list.add(new PrimeSearchTask2(even, step, null, null));
+        list.add(new PrimeSearchTask2(even, id, step, null, source));
       }
+      i++;
     }
     try (var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory, null, true)) {
       var service = new ExecutorCompletionService<Result>(pool);
@@ -134,6 +127,12 @@ public class PrimeSearch implements Callable<Integer> {
       logger.error("prime not found");
       return ExitCode.SOFTWARE;
     }
+  }
+
+  private void loadEvenToMpz(MemorySegment even) throws IOException {
+    var evenStr = Files.readAllLines(evenNumberPath).getFirst();
+    var str = auto.allocateFrom(evenStr);
+    mpz_init_set_str(even, str, 10);
   }
 
   private BitSet getBitSet(Path sievePath) throws IOException, ClassNotFoundException {

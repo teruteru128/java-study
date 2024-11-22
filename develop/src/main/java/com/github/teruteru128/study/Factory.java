@@ -672,9 +672,9 @@ public class Factory implements Callable<Integer> {
         a -> new Address(new String(decoder.decode(a.label()), StandardCharsets.UTF_8),
             a.address())).filter(a -> a.label().startsWith("fake-")).toList();
     var dataSource = new SQLiteDataSource();
-    var databaseUrl = System.getenv("DATABASE_URL");
+    var databaseUrl = System.getenv("DB_URL");
     if (databaseUrl == null || databaseUrl.isEmpty()) {
-      System.err.println("$DATABASE_URL NOT FOUND");
+      System.err.println("$DB_URL NOT FOUND");
       return ExitCode.SOFTWARE;
     }
     dataSource.setUrl(databaseUrl);
@@ -1105,9 +1105,9 @@ public class Factory implements Callable<Integer> {
   private int pk3() throws InterruptedException {
     var lockObject = new Object();
     var dataSource = new SQLiteDataSource();
-    var databaseUrl = System.getenv("DATABASE_URL");
+    var databaseUrl = System.getenv("DB_URL");
     if (databaseUrl == null || databaseUrl.isEmpty()) {
-      System.err.println("$DATABASE_URL NOT FOUND");
+      System.err.println("$DB_URL NOT FOUND");
       return ExitCode.SOFTWARE;
     }
     dataSource.setUrl(databaseUrl);
@@ -1307,7 +1307,11 @@ public class Factory implements Callable<Integer> {
           if (hash[5] != 0) {
             continue;
           }
+          // sign offset = r * LENGTH + i
+          // enc offset = s * LENGTH + j
           logger.info("found! {}, {}, {}, {}: {}", r, i, s, j, FORMAT.formatHex(hash, 0, 20));
+          logger.info("sign key: {}", FORMAT.formatHex(sigBuf, i, i + 65));
+          logger.info("enc key: {}", FORMAT.formatHex(encBuf, j, j + 65));
         }
       }
       finish = System.nanoTime();

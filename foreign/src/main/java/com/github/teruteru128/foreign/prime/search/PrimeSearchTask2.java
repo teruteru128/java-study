@@ -31,23 +31,20 @@ public class PrimeSearchTask2 implements Callable<Result> {
   private final MemorySegment even;
   private final int step;
   private final DataSource source;
+  private final long id;
   private CyclicBarrier barrier;
-
-  public PrimeSearchTask2(MemorySegment even, int step) {
-    this.even = even;
-    this.step = step;
-    this.barrier = null;
-    this.source = null;
-  }
 
   /**
    * @param even    even
+   * @param id
    * @param step    step
    * @param barrier テストが終わったあとに同期を取るためのサイクリックバリア。
    * @param source
    */
-  public PrimeSearchTask2(MemorySegment even, int step, CyclicBarrier barrier, DataSource source) {
+  public PrimeSearchTask2(MemorySegment even, long id, int step, CyclicBarrier barrier,
+      DataSource source) {
     this.even = even;
+    this.id = id;
     this.step = step;
     this.barrier = barrier;
     this.source = source;
@@ -72,6 +69,7 @@ public class PrimeSearchTask2 implements Callable<Result> {
     start = System.nanoTime();
     result = mpz_probab_prime_p(candidate, 25);
     finish = System.nanoTime();
+    updateDB(result);
     logger.info("step {}: {}({} hours)", step, result, (finish - start) / 3.6e12);
     if (barrier != null) {
       try {
@@ -83,5 +81,34 @@ public class PrimeSearchTask2 implements Callable<Result> {
     // {@code result != 0} で十分だと思うんだが
     // return result == 1 || result == 2 ? Optional.of(step) : Optional.empty();
     return new Result(step, result);
+  }
+
+  private void updateDB(int result) throws SQLException {
+    try (var connection = source.getConnection()) {
+      if (result == 0) {
+        try (var ps = connection.prepareStatement(
+            "update candidates set composite = composite + 1 where id = ? and step = ?;")) {
+          ps.setLong(1, id);
+          ps.setInt(1, step);
+          ps.execute();
+        }
+      }
+      if (result == 1) {
+        try (var ps = connection.prepareStatement(
+            "update candidates set probably_prime = probably_prime + 1 where id = ? and step = ?;")) {
+          ps.setLong(1, id);
+          ps.setInt(1, step);
+          ps.execute();
+        }
+      }
+      if (result == 2) {
+        try (var ps = connection.prepareStatement(
+            "update candidates set definitely_prime = definitely_prime + 1 where id = ? and step = ?;")) {
+          ps.setLong(1, id);
+          ps.setInt(1, step);
+          ps.execute();
+        }
+      }
+    }
   }
 }
