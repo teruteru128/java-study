@@ -112,6 +112,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
 import javax.crypto.BadPaddingException;
@@ -1318,6 +1319,66 @@ public class Factory implements Callable<Integer> {
       logger.info("{} seconds", (finish - start) / 1e9);
     }
     return ExitCode.OK;
+  }
+
+  @Command(name = "co")
+  private int co() throws SQLException {
+    /*
+        094C02B90C53CF627A5DF9C6C9961E9476A905C782601C5CBBD546510C66834417572FE987A4C1D036B18E6F1DD00B9213F8D568B09642BFA91E0F4E3BFD0E24|261465
+        6A2606A03ECBA4CAB310D7809B0F345515DEB504DB1A5AD2D973E11DAB461B850638B888784623AB4F7A634F3BF44A2AF584CD9D099CA0F65573CEBB635FB78E|261470
+        9C97FBDC9CAD37FCDF932FC90A499D9D50C2E25EA3FC85030D5D9424595C91A8C0D99F9DE6307702C88B0612558A6D00EFA9B4B39716ACD79BF611E802B05922|262131
+        B795A3BE03D3D2635F0F2F18A4188E76F35DBC28187532A72E63D8A55D7CE376323EFBBC8DB6B6E026DD33B04B7C20983EF2BD232B10F29D136E1109310A5CCD|262949
+        F166D9114137A496AE1BEDE6B6CA6EAB19B84D34984897183B7426650C33ED8AA8E145E1A671C4C4D40EDA5CF858273798E5746EB277A568C1B710ABB440E46F|262667
+     */
+    var dataSource = new SQLiteDataSource();
+    dataSource.setUrl(Objects.requireNonNull(System.getenv("DB_URL"), "DB_URL IS NOT FOUND"));
+    try (var connection = dataSource.getConnection()) {
+      record PubKey(String address, byte[] transmitData) {
+
+      }
+      // pubkeysとtransmitdataを全部取り出す
+      var list = new ArrayList<PubKey>();
+      var sigKey1 = FORMAT.parseHex(
+          "094C02B90C53CF627A5DF9C6C9961E9476A905C782601C5CBBD546510C66834417572FE987A4C1D036B18E6F1DD00B9213F8D568B09642BFA91E0F4E3BFD0E24");
+      var sigKey2 = FORMAT.parseHex(
+          "6A2606A03ECBA4CAB310D7809B0F345515DEB504DB1A5AD2D973E11DAB461B850638B888784623AB4F7A634F3BF44A2AF584CD9D099CA0F65573CEBB635FB78E");
+      var sigKey3 = FORMAT.parseHex(
+          "9C97FBDC9CAD37FCDF932FC90A499D9D50C2E25EA3FC85030D5D9424595C91A8C0D99F9DE6307702C88B0612558A6D00EFA9B4B39716ACD79BF611E802B05922");
+      var sigKey4 = FORMAT.parseHex(
+          "B795A3BE03D3D2635F0F2F18A4188E76F35DBC28187532A72E63D8A55D7CE376323EFBBC8DB6B6E026DD33B04B7C20983EF2BD232B10F29D136E1109310A5CCD");
+      var sigKey5 = FORMAT.parseHex(
+          "F166D9114137A496AE1BEDE6B6CA6EAB19B84D34984897183B7426650C33ED8AA8E145E1A671C4C4D40EDA5CF858273798E5746EB277A568C1B710ABB440E46F");
+      try (var statement = connection.createStatement(); var set = statement.executeQuery(
+          "SELECT address, transmitdata from pubkeys;")) {
+        while (set.next()) {
+          var address = set.getString("address");
+          var transmitdata = set.getBytes("transmitdata");
+          // sign keyでフィルタ
+          if (Stream.of(sigKey1, sigKey2, sigKey3, sigKey4, sigKey5)
+              .anyMatch(bytes -> Arrays.equals(transmitdata, 6, 70, bytes, 0, 64))) {
+            // ビットフィールドをマスク
+            transmitdata[5] &= -2;
+            list.add(new PubKey(address, transmitdata));
+          }
+        }
+      }
+      logger.info("{}件ヒットしました", list.size());
+      // 更新
+      connection.setAutoCommit(false);
+      int sum;
+      try (var prep = connection.prepareStatement(
+          "UPDATE PUBKEYS set transmitdata = ? where address = ?;")) {
+        for (var pubkey : list) {
+          prep.setBytes(1, pubkey.transmitData());
+          prep.setString(2, pubkey.address());
+          prep.addBatch();
+        }
+        sum = Arrays.stream(prep.executeBatch()).sum();
+        connection.commit();
+      }
+      logger.info("{}件更新しました", sum);
+    }
+    return 0;
   }
 
   @Override
