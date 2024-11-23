@@ -88,7 +88,10 @@ import java.security.spec.X509EncodedKeySpec;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -142,6 +145,16 @@ public class Factory implements Callable<Integer> {
 
   private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   private static final HexFormat FORMAT = HexFormat.of();
+  private static final byte[] sigKey1 = FORMAT.parseHex(
+      "094C02B90C53CF627A5DF9C6C9961E9476A905C782601C5CBBD546510C66834417572FE987A4C1D036B18E6F1DD00B9213F8D568B09642BFA91E0F4E3BFD0E24");
+  private static final byte[] sigKey2 = FORMAT.parseHex(
+      "6A2606A03ECBA4CAB310D7809B0F345515DEB504DB1A5AD2D973E11DAB461B850638B888784623AB4F7A634F3BF44A2AF584CD9D099CA0F65573CEBB635FB78E");
+  private static final byte[] sigKey3 = FORMAT.parseHex(
+      "9C97FBDC9CAD37FCDF932FC90A499D9D50C2E25EA3FC85030D5D9424595C91A8C0D99F9DE6307702C88B0612558A6D00EFA9B4B39716ACD79BF611E802B05922");
+  private static final byte[] sigKey4 = FORMAT.parseHex(
+      "B795A3BE03D3D2635F0F2F18A4188E76F35DBC28187532A72E63D8A55D7CE376323EFBBC8DB6B6E026DD33B04B7C20983EF2BD232B10F29D136E1109310A5CCD");
+  private static final byte[] sigKey5 = FORMAT.parseHex(
+      "F166D9114137A496AE1BEDE6B6CA6EAB19B84D34984897183B7426650C33ED8AA8E145E1A671C4C4D40EDA5CF858273798E5746EB277A568C1B710ABB440E46F");
   private static final ECParameterSpec secp256k1Parameter;
   private static final KeyFactory factory;
   private static final Logger logger = LoggerFactory.getLogger(Factory.class);
@@ -1323,31 +1336,11 @@ public class Factory implements Callable<Integer> {
 
   @Command(name = "co")
   private int co() throws SQLException {
-    /*
-        094C02B90C53CF627A5DF9C6C9961E9476A905C782601C5CBBD546510C66834417572FE987A4C1D036B18E6F1DD00B9213F8D568B09642BFA91E0F4E3BFD0E24|261465
-        6A2606A03ECBA4CAB310D7809B0F345515DEB504DB1A5AD2D973E11DAB461B850638B888784623AB4F7A634F3BF44A2AF584CD9D099CA0F65573CEBB635FB78E|261470
-        9C97FBDC9CAD37FCDF932FC90A499D9D50C2E25EA3FC85030D5D9424595C91A8C0D99F9DE6307702C88B0612558A6D00EFA9B4B39716ACD79BF611E802B05922|262131
-        B795A3BE03D3D2635F0F2F18A4188E76F35DBC28187532A72E63D8A55D7CE376323EFBBC8DB6B6E026DD33B04B7C20983EF2BD232B10F29D136E1109310A5CCD|262949
-        F166D9114137A496AE1BEDE6B6CA6EAB19B84D34984897183B7426650C33ED8AA8E145E1A671C4C4D40EDA5CF858273798E5746EB277A568C1B710ABB440E46F|262667
-     */
     var dataSource = new SQLiteDataSource();
     dataSource.setUrl(Objects.requireNonNull(System.getenv("DB_URL"), "DB_URL IS NOT FOUND"));
     try (var connection = dataSource.getConnection()) {
-      record PubKey(String address, byte[] transmitData) {
-
-      }
       // pubkeysとtransmitdataを全部取り出す
       var list = new ArrayList<PubKey>();
-      var sigKey1 = FORMAT.parseHex(
-          "094C02B90C53CF627A5DF9C6C9961E9476A905C782601C5CBBD546510C66834417572FE987A4C1D036B18E6F1DD00B9213F8D568B09642BFA91E0F4E3BFD0E24");
-      var sigKey2 = FORMAT.parseHex(
-          "6A2606A03ECBA4CAB310D7809B0F345515DEB504DB1A5AD2D973E11DAB461B850638B888784623AB4F7A634F3BF44A2AF584CD9D099CA0F65573CEBB635FB78E");
-      var sigKey3 = FORMAT.parseHex(
-          "9C97FBDC9CAD37FCDF932FC90A499D9D50C2E25EA3FC85030D5D9424595C91A8C0D99F9DE6307702C88B0612558A6D00EFA9B4B39716ACD79BF611E802B05922");
-      var sigKey4 = FORMAT.parseHex(
-          "B795A3BE03D3D2635F0F2F18A4188E76F35DBC28187532A72E63D8A55D7CE376323EFBBC8DB6B6E026DD33B04B7C20983EF2BD232B10F29D136E1109310A5CCD");
-      var sigKey5 = FORMAT.parseHex(
-          "F166D9114137A496AE1BEDE6B6CA6EAB19B84D34984897183B7426650C33ED8AA8E145E1A671C4C4D40EDA5CF858273798E5746EB277A568C1B710ABB440E46F");
       try (var statement = connection.createStatement(); var set = statement.executeQuery(
           "SELECT address, transmitdata from pubkeys;")) {
         while (set.next()) {
@@ -1378,7 +1371,53 @@ public class Factory implements Callable<Integer> {
       }
       logger.info("{}件更新しました", sum);
     }
-    return 0;
+    return ExitCode.OK;
+  }
+
+  @Command(name = "reloadBullets")
+  private int reloadBullets() throws SQLException {
+    var dataSource = new SQLiteDataSource();
+    dataSource.setUrl(Objects.requireNonNull(System.getenv("DB_URL"), "DB_URL IS NOT FOUND"));
+    var taskDataSource = new SQLiteDataSource();
+    taskDataSource.setUrl(Objects.requireNonNull(System.getenv("DB2_URL"), "DB_URL IS NOT FOUND"));
+    var list = new ArrayList<PubKey>();
+    try (var connection = dataSource.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
+        "SELECT address, transmitdata from pubkeys;")) {
+      while (set.next()) {
+        var address = set.getString("address");
+        var transmitdata = set.getBytes("transmitdata");
+        if (Stream.of(sigKey1, sigKey2, sigKey3, sigKey4, sigKey5)
+            .anyMatch(bytes -> Arrays.equals(transmitdata, 6, 70, bytes, 0, 64))) {
+          list.add(new PubKey(address, transmitdata));
+        }
+      }
+    }
+    try (var taskConnection = taskDataSource.getConnection()) {
+      taskConnection.setAutoCommit(false);
+      var d = LocalDate.of(2026, 8, 7);
+      var a = LocalDateTime.of(d, LocalTime.of(0, 0, 0));
+      var b = ZoneOffset.systemDefault().getRules().getOffset(a);
+      var c = a.toEpochSecond(b);
+      var count = 0L;
+      try (var prep = taskConnection.prepareStatement(
+          "insert into task(toaddress, label, senttime) values (?, ?, ?)")) {
+        for (var pubkey : list) {
+          prep.setString(1, pubkey.address());
+          prep.setString(2, "myself-" + pubkey.address());
+          prep.setLong(3, c + SECURE_RANDOM_GENERATOR.nextInt(86400));
+          count++;
+          if ((a.toLocalDate().equals(d) && count >= 80) || count >= 1200) {
+            a = a.plusDays(1);
+            c = a.toEpochSecond(b);
+            count = 0;
+          }
+          prep.addBatch();
+        }
+        prep.executeBatch();
+      }
+      taskConnection.commit();
+    }
+    return ExitCode.OK;
   }
 
   @Override
