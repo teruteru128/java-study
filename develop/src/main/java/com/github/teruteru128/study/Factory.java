@@ -54,7 +54,6 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
-import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -87,7 +86,6 @@ import java.security.spec.RSAPublicKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.sql.SQLException;
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -98,18 +96,14 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.BitSet;
 import java.util.HexFormat;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import java.util.StringJoiner;
 import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 import java.util.random.RandomGenerator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -140,7 +134,7 @@ import picocli.CommandLine.Parameters;
 @Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
     ECIESSample.class, FileChecker.class, com.github.teruteru128.study.PrimeSearch.class,
     SiteChecker.class, Spam.class, TeamSpeak.class, Updater.class, CommandLine.HelpCommand.class,
-    ListUp.class, Transform.class, CumShoot.class, SlimeSearch.class})
+    ListUp.class, Transform.class, CumShoot.class, SlimeSearch.class, Spam3.class})
 public class Factory implements Callable<Integer> {
 
   private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
@@ -181,9 +175,6 @@ public class Factory implements Callable<Integer> {
       throw new RuntimeException(e);
     }
   }
-
-  @Option(names = "--ttl", defaultValue = "345600")
-  private int ttl;
 
   /**
    * Callableをnewして返すファクトリにするはずだったんだけどなあ……
@@ -1113,88 +1104,6 @@ public class Factory implements Callable<Integer> {
     } else {
       return 11 - mods;
     }
-  }
-
-  @Command(name = "pk3")
-  private int pk3() throws InterruptedException {
-    var lockObject = new Object();
-    var dataSource = new SQLiteDataSource();
-    var databaseUrl = System.getenv("DB_URL");
-    if (databaseUrl == null || databaseUrl.isEmpty()) {
-      System.err.println("$DB_URL NOT FOUND");
-      return ExitCode.SOFTWARE;
-    }
-    dataSource.setUrl(databaseUrl);
-    try (var sch = new ScheduledThreadPoolExecutor(1)) {
-      var task = sch.scheduleAtFixedRate(() -> {
-        try (var connection = dataSource.getConnection()) {
-          long taskNum = 0;
-          try (var statement = connection.createStatement(); var set = statement.executeQuery(
-              "select count(toaddress) A from task;")) {
-            if (set.next()) {
-              taskNum = set.getLong("A");
-            }
-          }
-          if (taskNum == 0) {
-            logger.trace("すべてのタスクが完了しています");
-            synchronized (lockObject) {
-              lockObject.notify();
-            }
-            return;
-          }
-          // DBからアドレスを読み込む
-          var list = new LinkedList<String>();
-          try (var prep = connection.prepareStatement(
-              "select toaddress from task where senttime < ?;")) {
-            prep.setLong(1, Instant.now().getEpochSecond());
-            try (var set = prep.executeQuery()) {
-              while (set.next()) {
-                list.add(set.getString("toaddress"));
-              }
-            }
-          }
-          if (list.isEmpty()) {
-            logger.trace("送信すべきアドレスが見つかりませんでした");
-            return;
-          }
-          // 送信する
-          var joiner = new StringJoiner(",", "[", "]");
-          var builder = new StringBuilder();
-          var counter = 1L;
-          for (var address : list) {
-            builder.append("{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"")
-                .append(address).append("\",\"BM-2cW67GEKkHGonXKZLCzouLLxnLym3azS8r\",\"\",\"\",2,")
-                .append(ttl).append("],\"id\":").append(counter++).append("}");
-            joiner.add(builder);
-            builder.setLength(0);
-          }
-          try (var client = HttpClient.newHttpClient()) {
-            client.send(Spammer.requestBuilder.POST(ofString(joiner.toString())).build(),
-                HttpResponse.BodyHandlers.ofString());
-          }
-          // DBから削除する
-          try (var prep = connection.prepareStatement("delete from task where toaddress = ?;")) {
-            for (var address : list) {
-              prep.setString(1, address);
-              prep.addBatch();
-            }
-            prep.executeBatch();
-          }
-          logger.info("{}件送信しました", list.size());
-        } catch (SQLException | IOException | InterruptedException e) {
-          logger.error("exception in task", e);
-          synchronized (lockObject) {
-            lockObject.notify();
-          }
-        }
-      }, 0, 5, TimeUnit.MINUTES);
-      logger.info("launched");
-      synchronized (lockObject) {
-        lockObject.wait();
-      }
-      task.cancel(false);
-    }
-    return ExitCode.OK;
   }
 
   @Command(name = "loadPem")
