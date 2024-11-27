@@ -20,10 +20,11 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Option;
 
-@Command(name = "pk3")
+@Command(name = "pk3", description = {"environment variables: $DB_URL, $BM_API_SERVER_URL"})
 public class Spam3 implements Callable<Integer> {
 
   private static final Logger logger = LoggerFactory.getLogger(Spam3.class);
+  private final String databaseUrl = System.getenv("DB_URL");
 
   @Option(names = "--ttl", defaultValue = "345600")
   private int ttl;
@@ -34,7 +35,6 @@ public class Spam3 implements Callable<Integer> {
   public Integer call() throws InterruptedException {
     var lockObject = new Object();
     var dataSource = new SQLiteDataSource();
-    var databaseUrl = System.getenv("DB_URL");
     if (databaseUrl == null || databaseUrl.isEmpty()) {
       System.err.println("$DB_URL NOT FOUND");
       return ExitCode.SOFTWARE;

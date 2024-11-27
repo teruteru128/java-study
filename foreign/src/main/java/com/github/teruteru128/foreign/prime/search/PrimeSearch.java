@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
+import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 @Command(name = "search", description = {"うんち！"})
@@ -45,6 +46,9 @@ public class PrimeSearch implements Callable<Integer> {
       throw new RuntimeException("$DB_URL IS EMPTY");
     }
   }
+
+  @Option(names = {"--threads", "-t"})
+  private int threads = Math.max(1, Runtime.getRuntime().availableProcessors() - 1);
 
   @Parameters(arity = "1", converter = PathConverter.class, description = "even number (text) file")
   private Path evenNumberPath;
@@ -67,7 +71,6 @@ public class PrimeSearch implements Callable<Integer> {
   @Override
   public Integer call()
       throws IOException, ClassNotFoundException, InterruptedException, ExecutionException, SQLException {
-    var availableProcessors = Runtime.getRuntime().availableProcessors();
     var even = auto.allocate(__mpz_struct.layout()).reinterpret(auto, gmp_h::mpz_clear);
     loadEvenToMpz(even);
     var source = new SQLiteDataSource();
@@ -83,17 +86,17 @@ public class PrimeSearch implements Callable<Integer> {
     logger.debug("Number of prime number candidates: {}", list2.size());
     var list = new ArrayList<PrimeSearchTask2>(list2.size());
     var found = false;
-    var threads = Math.max(1, availableProcessors - 1);
+    logger.debug("threads: {}", threads);
     var barrier = new CyclicBarrier(threads);
     var id = 3669437087868473100L;
     var threshold = list2.size() / threads * threads;
     var i = 0;
     for (var step : list2) {
       if (i < threshold) {
-        list.add(new PrimeSearchTask2(even, id, step, barrier, source));
+        list.add(new PrimeSearchTask2(even, step, source, id, barrier));
       } else {
         // 最後のタスクがbarrierでハングしないようにする
-        list.add(new PrimeSearchTask2(even, id, step, null, source));
+        list.add(new PrimeSearchTask2(even, step, source, id));
       }
       i++;
     }

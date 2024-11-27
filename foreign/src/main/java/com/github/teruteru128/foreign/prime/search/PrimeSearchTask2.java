@@ -32,17 +32,24 @@ public class PrimeSearchTask2 implements Callable<Result> {
   private final int step;
   private final DataSource source;
   private final long id;
+  /**
+   * Nullable cyclic barrier
+   */
   private CyclicBarrier barrier;
+
+  public PrimeSearchTask2(MemorySegment even, int step, DataSource source, long id) {
+    this(even, step, source, id, null);
+  }
 
   /**
    * @param even    even
-   * @param id
    * @param step    step
-   * @param barrier テストが終わったあとに同期を取るためのサイクリックバリア。
    * @param source
+   * @param id
+   * @param barrier テストが終わったあとに同期を取るためのサイクリックバリア。nullable
    */
-  public PrimeSearchTask2(MemorySegment even, long id, int step, CyclicBarrier barrier,
-      DataSource source) {
+  public PrimeSearchTask2(MemorySegment even, int step, DataSource source, long id,
+      CyclicBarrier barrier) {
     this.even = even;
     this.id = id;
     this.step = step;
