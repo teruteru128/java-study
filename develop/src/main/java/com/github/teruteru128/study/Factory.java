@@ -60,6 +60,7 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -94,11 +95,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.BitSet;
 import java.util.HexFormat;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.StringJoiner;
 import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -109,7 +111,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
 import javax.crypto.BadPaddingException;
@@ -124,7 +125,6 @@ import org.apache.logging.log4j.util.InternalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
-import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
@@ -134,21 +134,13 @@ import picocli.CommandLine.Parameters;
 @Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
     ECIESSample.class, FileChecker.class, com.github.teruteru128.study.PrimeSearch.class,
     SiteChecker.class, Spam.class, TeamSpeak.class, Updater.class, CommandLine.HelpCommand.class,
-    ListUp.class, Transform.class, CumShoot.class, SlimeSearch.class, Spam3.class})
+    ListUp.class, Transform.class, CumShoot.class, SlimeSearch.class, Spam3.class,
+    OwnerCheck.class, CalcBustSize.class, Deterministic.class})
 public class Factory implements Callable<Integer> {
 
   private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   private static final HexFormat FORMAT = HexFormat.of();
-  private static final byte[] sigKey1 = FORMAT.parseHex(
-      "094C02B90C53CF627A5DF9C6C9961E9476A905C782601C5CBBD546510C66834417572FE987A4C1D036B18E6F1DD00B9213F8D568B09642BFA91E0F4E3BFD0E24");
-  private static final byte[] sigKey2 = FORMAT.parseHex(
-      "6A2606A03ECBA4CAB310D7809B0F345515DEB504DB1A5AD2D973E11DAB461B850638B888784623AB4F7A634F3BF44A2AF584CD9D099CA0F65573CEBB635FB78E");
-  private static final byte[] sigKey3 = FORMAT.parseHex(
-      "9C97FBDC9CAD37FCDF932FC90A499D9D50C2E25EA3FC85030D5D9424595C91A8C0D99F9DE6307702C88B0612558A6D00EFA9B4B39716ACD79BF611E802B05922");
-  private static final byte[] sigKey4 = FORMAT.parseHex(
-      "B795A3BE03D3D2635F0F2F18A4188E76F35DBC28187532A72E63D8A55D7CE376323EFBBC8DB6B6E026DD33B04B7C20983EF2BD232B10F29D136E1109310A5CCD");
-  private static final byte[] sigKey5 = FORMAT.parseHex(
-      "F166D9114137A496AE1BEDE6B6CA6EAB19B84D34984897183B7426650C33ED8AA8E145E1A671C4C4D40EDA5CF858273798E5746EB277A568C1B710ABB440E46F");
+  private static final List<byte[]> sigKeys;
   private static final ECParameterSpec secp256k1Parameter;
   private static final KeyFactory factory;
   private static final Logger logger = LoggerFactory.getLogger(Factory.class);
@@ -167,12 +159,27 @@ public class Factory implements Callable<Integer> {
 
   static {
     try {
-      final var parameters = AlgorithmParameters.getInstance("EC");
+      var uri = Objects.requireNonNull(Factory.class.getResource("sign.txt")).toURI();
+      var uriScheme = uri.getScheme();
+      if (uriScheme.equals("jar")) {
+        try (var jarFS = FileSystems.newFileSystem(uri,
+            Map.of("create", "false")); var lines = Files.lines(jarFS.provider().getPath(uri))) {
+          sigKeys = lines.map(FORMAT::parseHex).toList();
+        }
+      } else if (uriScheme.equals("file")) {
+        try (var lines = Files.lines(Path.of(uri))) {
+          sigKeys = lines.map(FORMAT::parseHex).toList();
+        }
+      } else {
+        throw new ExceptionInInitializerError("unknown scheme: " + uriScheme);
+      }
+      var parameters = AlgorithmParameters.getInstance("EC");
       parameters.init(new ECGenParameterSpec("secp256k1"));
       secp256k1Parameter = parameters.getParameterSpec(ECParameterSpec.class);
       factory = KeyFactory.getInstance("EC");
-    } catch (NoSuchAlgorithmException | InvalidParameterSpecException e) {
-      throw new RuntimeException(e);
+    } catch (NoSuchAlgorithmException | InvalidParameterSpecException | URISyntaxException |
+             IOException e) {
+      throw new ExceptionInInitializerError(e);
     }
   }
 
@@ -297,48 +304,6 @@ public class Factory implements Callable<Integer> {
     mpz_import(a, b.length, 1, C_CHAR.byteSize(), 0, 0, auto.allocateFrom(C_CHAR, b));
     assert base >= 2;
     System.out.println("mpz_sizeinbase(a, 10) = " + mpz_sizeinbase(a, base));
-  }
-
-  /**
-   * Create a database of prime number candidates
-   * @param args
-   * @throws SQLException
-   * @throws IOException
-   * @throws ClassNotFoundException
-   */
-  @Command(name = "createPrimeNumberCandidateDB")
-  private static void createPrimeNumberCandidateDB(String[] args)
-      throws SQLException, IOException, ClassNotFoundException {
-    var source = new SQLiteConnectionPoolDataSource();
-    source.setUrl(args[1]);
-    try (var con = source.getConnection()) {
-      try (var st = con.createStatement()) {
-        st.execute(
-            "create table if not exists candidates(id long, step int, composite int, probably_prime int, definitely_prime int, primary key(id, step));");
-      }
-
-      try (var prep = con.prepareStatement(
-          "insert into candidates(id, step, composite, probably_prime, definitely_prime) values(?, ?, 0, 0, 0);")) {
-        prep.setLong(1, 0x32ec7597040b4f0cL);
-        BitSet p;
-        {
-          var largeSieve = PrimeSearch.loadLargeSieve2(Path.of(args[2]));
-          p = new BitSet(largeSieve.length());
-          p.set(0, largeSieve.length());
-          p.andNot(largeSieve);
-        }
-        p.clear(0, args.length >= 4 ? parseInt(args[3]) : 0);
-        p.stream().forEach(s -> {
-          try {
-            prep.setInt(2, s);
-            prep.addBatch();
-          } catch (SQLException e) {
-            throw new RuntimeException(e);
-          }
-        });
-        prep.executeBatch();
-      }
-    }
   }
 
   /**
@@ -521,20 +486,6 @@ public class Factory implements Callable<Integer> {
     }
   }
 
-  @Command(name = "de")
-  private static void de(String[] args) {
-    var a = new DeterministicAddressGenerator().apply(args[1]);
-    a.addresses().forEach(System.out::println);
-    System.out.println(a.signingKey());
-    System.out.println(a.encryptingKey());
-  }
-
-  @Command(name = "ownerCheck")
-  private static void ownerCheck(@Parameters(converter = PathConverter.class) Path arg,
-      @Parameters String targetOwnerName) throws IOException {
-    FileChecker.extracted3(arg, targetOwnerName);
-  }
-
   @Command(name = "list-encodings")
   private static void listEncodings() {
     System.err.printf("native.encoding=%s%n", System.getProperty("native.encoding"));
@@ -573,14 +524,6 @@ public class Factory implements Callable<Integer> {
     System.err.printf("skipped: %d%n", n);
     Files.readAllLines(Path.of(args[1])).stream().skip(n).limit(Long.parseLong(args[2]))
         .forEach(System.out::println);
-  }
-
-  @Command(name = "calcBustSize")
-  private static void calcBustSize() {
-    // バストサイズのカップ数計算
-    // Mカップの3つ下と6つ下は何だったかなってアホかな？
-    var m = 'm';
-    System.out.printf("%c, %c, %c%n", m, m - 3, m - 6);
   }
 
   @Command(name = "jpeg", aliases = {" jpg "})
@@ -926,11 +869,9 @@ public class Factory implements Callable<Integer> {
     long ngCount = 0;
     long verified = 0;
     var sha512 = MessageDigest.getInstance("SHA-512");
+    var ripemd160 = MessageDigest.getInstance("ripemd160");
     var mac = Mac.getInstance("HmacSHA256");
-    var peek = true;
-    var generalCount = 0L;
-    var generalRipe = new byte[]{-92, 6, 83, 41, -112, -51, -47, 106, 52, 14, 94, 93, 1, -126, -85,
-        50, 59};
+    var ecdsa = Signature.getInstance("ECDSA");
     try (var connection = source.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
         "select hash, payload from inventory where objecttype = 2;"); var prep = connection.prepareStatement(
         "insert into inventory(hash, objecttype, streamnumber, payload, expirestime, tag) values (?,?,?,?,?,?);")) {
@@ -938,29 +879,30 @@ public class Factory implements Callable<Integer> {
       while (set.next()) {
         var payload = set.getBytes("payload");
         // オブジェクト解析
-        var buffer = ByteBuffer.wrap(payload);
+        var payloadBuffer = ByteBuffer.wrap(payload);
         // nonce
-        buffer.getLong();
+        payloadBuffer.getLong();
+        int start = payloadBuffer.position();
         // expiresTime
-        buffer.getLong();
+        payloadBuffer.getLong();
         // object type
-        buffer.getInt();
+        payloadBuffer.getInt();
         // version
-        decodeVarInt(buffer);
+        decodeVarInt(payloadBuffer);
         // stream Number
-        decodeVarInt(buffer);
-        int headerLength = buffer.position() - 8;
-        if (buffer.remaining() == 32) {
+        decodeVarInt(payloadBuffer);
+        int headerLength = payloadBuffer.position() - start;
+        if (payloadBuffer.remaining() == 32) {
           // non-stealth message ack data
           continue;
         }
-        var ivParameterSpec = getIV(buffer);
-        var curveType = buffer.getShort();
+        var ivParameterSpec = getIV(payloadBuffer);
+        var curveType = payloadBuffer.getShort();
         assert curveType == 0x02CA;
-        var xLength = buffer.getShort();
-        var x = getBytes(new byte[xLength], buffer);
-        var yLength = buffer.getShort();
-        var y = getBytes(new byte[yLength], buffer);
+        var xLength = payloadBuffer.getShort();
+        var x = getBytes(new byte[xLength], payloadBuffer);
+        var yLength = payloadBuffer.getShort();
+        var y = getBytes(new byte[yLength], payloadBuffer);
         // 公開鍵組み立て
         var w = new ECPoint(new BigInteger(1, x), new BigInteger(1, y));
         var publicKey = factory.generatePublic(new ECPublicKeySpec(w, secp256k1Parameter));
@@ -986,36 +928,35 @@ public class Factory implements Callable<Integer> {
         var ciphertextOffset = 44 + xLength + yLength;
         var ciphertextLength = payload.length - (ciphertextOffset + 32);
         var cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
-        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(sharedSecret, 0, 32, "AES"),
-            ivParameterSpec);
+        var aesKey = new SecretKeySpec(sharedSecret, 0, 32, "AES");
+        cipher.init(Cipher.DECRYPT_MODE, aesKey, ivParameterSpec);
         var plaintext = cipher.doFinal(payload, ciphertextOffset, ciphertextLength);
-        var buffer1 = ByteBuffer.wrap(plaintext);
-        var fromAddressVersionNumber = decodeVarInt(buffer1);
+        var unencryptedMessageDataBuffer = ByteBuffer.wrap(plaintext);
+        var fromAddressVersionNumber = decodeVarInt(unencryptedMessageDataBuffer);
         // fromStreamNumber
-        decodeVarInt(buffer1);
+        var fromStreamNumber = decodeVarInt(unencryptedMessageDataBuffer);
         // fromAddressBitfield
-        buffer1.getInt();
-        var publicSignKey = getBytes(new byte[64], buffer1);
+        var behavior = unencryptedMessageDataBuffer.getInt();
+        var publicSignKey = getBytes(new byte[64], unencryptedMessageDataBuffer);
         // publicEncKey
-        getBytes(new byte[64], buffer1);
+        var publicEncKey = getBytes(new byte[64], unencryptedMessageDataBuffer);
         long nonceTrialsPerByte = 0;
         long extraBytes = 0;
         if (3 <= fromAddressVersionNumber) {
-          nonceTrialsPerByte = decodeVarInt(buffer1);
-          extraBytes = decodeVarInt(buffer1);
+          nonceTrialsPerByte = decodeVarInt(unencryptedMessageDataBuffer);
+          extraBytes = decodeVarInt(unencryptedMessageDataBuffer);
         }
         // encryptionKey が同じアドレスの場合、toRipeででしか宛て先を特定できない
-        var toRipe = getBytes(new byte[20], buffer1);
-        var encodingType = decodeVarInt(buffer1);
-        var messageLength = (int) decodeVarInt(buffer1);
-        var message = getBytes(new byte[messageLength], buffer1);
-        var ackLength = (int) decodeVarInt(buffer1);
+        var toRipe = getBytes(new byte[20], unencryptedMessageDataBuffer);
+        var encodingType = decodeVarInt(unencryptedMessageDataBuffer);
+        var messageLength = (int) decodeVarInt(unencryptedMessageDataBuffer);
+        var message = getBytes(new byte[messageLength], unencryptedMessageDataBuffer);
+        var ackLength = (int) decodeVarInt(unencryptedMessageDataBuffer);
         byte[] ackData = null;
         if (ackLength != 0) {
-          ackData = getBytes(new byte[ackLength], buffer1);
+          ackData = getBytes(new byte[ackLength], unencryptedMessageDataBuffer);
         }
-        var finalPosition = buffer1.position();
-        var ecdsa = Signature.getInstance("ECDSA");
+        var messageBodyTailPosition = unencryptedMessageDataBuffer.position();
         var x1 = new BigInteger(1, publicSignKey, 0, 32);
         var y1 = new BigInteger(1, publicSignKey, 32, 32);
         var keySpec = new ECPublicKeySpec(new ECPoint(x1, y1), secp256k1Parameter);
@@ -1023,30 +964,29 @@ public class Factory implements Callable<Integer> {
         ecdsa.initVerify(publicKey1);
         //ecdsa.initVerify(signPublicKey);
         // expires time, object type, version, stream number
-        ecdsa.update(payload, 8, headerLength);
+        ecdsa.update(payload, start, headerLength);
         /*
          * address version, stream, bitfield, public sign key, public enc key, nonce_trials_per_byte,
          * extra_bytes, destination ripe, encoding, message length, message, ack_length, ack_data
          */
-        ecdsa.update(plaintext, 0, finalPosition);
-        int signLength = (int) decodeVarInt(buffer1);
-        if (ecdsa.verify(plaintext, buffer1.position(), signLength)) {
-          verified++;
-        } else {
-          if (Arrays.equals(generalRipe, toRipe)) {
-            generalCount++;
-          }
-          if (peek) {
-            peek = false;
-            ecdsa.initVerify(publicKey1);
-            ecdsa.update((byte) 3);
-            ecdsa.update(plaintext, 1, finalPosition);
-            System.out.println(ecdsa.verify(plaintext, buffer1.position(), signLength));
-          }
+        ecdsa.update(plaintext, 0, messageBodyTailPosition);
+        int signLength = (int) decodeVarInt(unencryptedMessageDataBuffer);
+        var signature = new byte[signLength];
+        unencryptedMessageDataBuffer.get(signature);
+        if (ecdsa.verify(signature)) {
+          sha512.update((byte) 4);
+          sha512.update(publicSignKey);
+          sha512.update((byte) 4);
+          sha512.update(publicEncKey);
+          var fromRipe = ripemd160.digest(sha512.digest());
+          var fromAddress = AddressFactory.encodeAddress((int) fromAddressVersionNumber,
+              (int) fromStreamNumber, fromRipe);
+          var toAddress3 = AddressFactory.encodeAddress(3, 1, toRipe);
+          var toAddress4 = AddressFactory.encodeAddress(4, 1, toRipe);
+          logger.info("toaddress:{}, {}", toAddress3, toAddress4);
+          logger.info("from address: {}", fromAddress);
         }
       }
-      System.out.printf("OK: %d(verified: %d), NG: %d%n", okCount, verified, ngCount);
-      System.out.println("is general: " + generalCount);
     }
   }
 
@@ -1063,9 +1003,9 @@ public class Factory implements Callable<Integer> {
   private static long decodeVarInt(ByteBuffer buffer) {
     var first = buffer.get();
     return switch (first) {
-      case (byte) 0xff -> buffer.getLong();
-      case (byte) 0xfe -> buffer.getInt() & 0xffffffffL;
-      case (byte) 0xfd -> buffer.getShort() & 0xffffL;
+      case -1 -> buffer.getLong();
+      case -2 -> buffer.getInt() & 0xffffffffL;
+      case -3 -> buffer.getShort() & 0xffffL;
       default -> first & 0xffL;
     };
   }
@@ -1104,6 +1044,14 @@ public class Factory implements Callable<Integer> {
     } else {
       return 11 - mods;
     }
+  }
+
+  @Command(name = "reencodeAddress")
+  public int ReEncodeAddress(String address) {
+    var a = decodeAddress(address);
+    System.out.println(AddressFactory.encodeAddress(3, 1, a.toripe()));
+    System.out.println(AddressFactory.encodeAddress(4, 1, a.toripe()));
+    return ExitCode.OK;
   }
 
   @Command(name = "loadPem")
@@ -1256,7 +1204,7 @@ public class Factory implements Callable<Integer> {
           var address = set.getString("address");
           var transmitdata = set.getBytes("transmitdata");
           // sign keyでフィルタ
-          if (Stream.of(sigKey1, sigKey2, sigKey3, sigKey4, sigKey5)
+          if (sigKeys.stream()
               .anyMatch(bytes -> Arrays.equals(transmitdata, 6, 70, bytes, 0, 64))) {
             // ビットフィールドをマスク
             transmitdata[5] &= -2;
@@ -1295,7 +1243,7 @@ public class Factory implements Callable<Integer> {
       while (set.next()) {
         var address = set.getString("address");
         var transmitdata = set.getBytes("transmitdata");
-        if (Stream.of(sigKey1, sigKey2, sigKey3, sigKey4, sigKey5)
+        if (sigKeys.stream()
             .anyMatch(bytes -> Arrays.equals(transmitdata, 6, 70, bytes, 0, 64))) {
           list.add(new PubKey(address, transmitdata));
         }
@@ -1332,6 +1280,40 @@ public class Factory implements Callable<Integer> {
   @Override
   public Integer call() throws Exception {
     return ExitCode.USAGE;
+  }
+
+  @Command(name = "unchi")
+  public int unchi(Path inPath, Path outpath) throws IOException {
+    var inLines = Files.readAllLines(inPath);
+    final var lineSeparator = "\r\n";
+    var v3Block = new StringJoiner(lineSeparator);
+    var v4Block = new StringJoiner(lineSeparator);
+    var otherBlock = new StringJoiner(lineSeparator);
+    var tmp = new StringBuilder();
+    var address = "";
+    for (var line : inLines) {
+      if (line.isEmpty()) {
+        var addressBlock = tmp.toString();
+        if (address.startsWith("BM-2c")) {
+          v4Block.add(addressBlock);
+        } else if (address.startsWith("BM-2D")) {
+          v3Block.add(addressBlock);
+        } else {
+          otherBlock.add(addressBlock);
+        }
+        tmp.setLength(0);
+      } else if (line.startsWith("[")) {
+        tmp.append(line).append(lineSeparator);
+        address = line.replace("[", "").replace("]", "");
+      } else {
+        tmp.append(line).append(lineSeparator);
+      }
+    }
+    var work = new StringJoiner(lineSeparator);
+    work.merge(v3Block).merge(v4Block).merge(otherBlock);
+    Files.writeString(outpath, work.toString(), StandardCharsets.UTF_8, StandardOpenOption.CREATE,
+        StandardOpenOption.WRITE);
+    return ExitCode.OK;
   }
 
   private record DecodedAddress(String toAddress, byte[] toripe) {
