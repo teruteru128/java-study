@@ -15,10 +15,12 @@ public class OnionProxySelector extends ProxySelector {
     private static final List<Proxy> LIST = Collections
             .singletonList(new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9150)));
 
-    private static final OnionProxySelector INSTANCE = new OnionProxySelector();
+    private static class Cache {
+        private static final OnionProxySelector INSTANCE = new OnionProxySelector();
+    }
 
     public static OnionProxySelector getInstance() {
-        return INSTANCE;
+        return Cache.INSTANCE;
     }
 
     private OnionProxySelector() {

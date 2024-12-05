@@ -17,7 +17,6 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
 import com.github.teruteru128.bitmessage.Const;
-import com.github.teruteru128.bitmessage.app.DeterministicAddressGenerator;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.bitmessage.app.Spammer.Address;
 import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
@@ -35,6 +34,7 @@ import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.ncv.xml.ListUp;
 import com.github.teruteru128.ncv.xml.Transform;
+import com.github.teruteru128.net.OnionProxySelector;
 import com.github.teruteru128.semen.CumShoot;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -54,6 +54,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -95,6 +96,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.HashSet;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
@@ -134,8 +136,8 @@ import picocli.CommandLine.Parameters;
 @Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
     ECIESSample.class, FileChecker.class, com.github.teruteru128.study.PrimeSearch.class,
     SiteChecker.class, Spam.class, TeamSpeak.class, Updater.class, CommandLine.HelpCommand.class,
-    ListUp.class, Transform.class, CumShoot.class, SlimeSearch.class, Spam3.class,
-    OwnerCheck.class, CalcBustSize.class, Deterministic.class})
+    ListUp.class, Transform.class, CumShoot.class, SlimeSearch.class, Spam3.class, OwnerCheck.class,
+    CalcBustSize.class, Deterministic.class})
 public class Factory implements Callable<Integer> {
 
   private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
@@ -494,7 +496,8 @@ public class Factory implements Callable<Integer> {
     System.err.printf("file.encoding=%s%n", Charset.defaultCharset().displayName());
   }
 
-  @Command(name = "p2", description = "30バイトの乱数を生成し、Base64に変換して出力する。何に使うんでしたっけ……？")
+  @Command(name = "p2", description = {"30バイトの乱数を生成し、Base64に変換して出力する。",
+      "何に使うんでしたっけ……？"})
   private static void p2() {
     var n = new byte[30];
     SECURE_RANDOM_GENERATOR.nextBytes(n);
@@ -1243,8 +1246,7 @@ public class Factory implements Callable<Integer> {
       while (set.next()) {
         var address = set.getString("address");
         var transmitdata = set.getBytes("transmitdata");
-        if (sigKeys.stream()
-            .anyMatch(bytes -> Arrays.equals(transmitdata, 6, 70, bytes, 0, 64))) {
+        if (sigKeys.stream().anyMatch(bytes -> Arrays.equals(transmitdata, 6, 70, bytes, 0, 64))) {
           list.add(new PubKey(address, transmitdata));
         }
       }
@@ -1294,9 +1296,10 @@ public class Factory implements Callable<Integer> {
     for (var line : inLines) {
       if (line.isEmpty()) {
         var addressBlock = tmp.toString();
-        if (address.startsWith("BM-2c")) {
+        var decoded = Base58.decode(address.replaceAll("BM-", ""));
+        if (decoded[0] == 4) {
           v4Block.add(addressBlock);
-        } else if (address.startsWith("BM-2D")) {
+        } else if (decoded[0] == 3) {
           v3Block.add(addressBlock);
         } else {
           otherBlock.add(addressBlock);
@@ -1309,10 +1312,83 @@ public class Factory implements Callable<Integer> {
         tmp.append(line).append(lineSeparator);
       }
     }
-    var work = new StringJoiner(lineSeparator);
+    var work = new StringJoiner(lineSeparator, "", lineSeparator);
     work.merge(v3Block).merge(v4Block).merge(otherBlock);
     Files.writeString(outpath, work.toString(), StandardCharsets.UTF_8, StandardOpenOption.CREATE,
         StandardOpenOption.WRITE);
+    return ExitCode.OK;
+  }
+
+  @Command(name = "unko", description = "keys.dat アドレス検証ツール")
+  public int unko(Path inPath) throws IOException, NoSuchAlgorithmException {
+    var inLines = Files.readAllLines(inPath);
+    var address = "";
+    var version = 0;
+    var privateSigningKey = "";
+    var privateEncryptionKey = "";
+    final var privateSigningKeyPattern = Pattern.compile(
+        "^privsigningkey = ([0-9A-HJ-NP-Za-km-z]{51})$");
+    final var privateEncryptionKeyPattern = Pattern.compile(
+        "^privencryptionkey = ([0-9A-HJ-NP-Za-km-z]{51})$");
+    var set = new HashSet<AddressBlock>();
+    var sha512 = MessageDigest.getInstance("SHA-512");
+    var ripemd160 = MessageDigest.getInstance("RIPEMD160");
+    for (var line : inLines) {
+      if (line.isEmpty()) {
+        var decoded = Base58.decode(address.replaceAll("BM-", ""));
+        version = decoded[0];
+        if (!set.add(new AddressBlock(version, privateSigningKey, privateEncryptionKey))) {
+          System.err.println(
+              "collision!: " + version + ", " + privateSigningKey + ", " + privateEncryptionKey);
+        }
+        var sig = Base58.decode(privateSigningKey);
+        var enc = Base58.decode(privateEncryptionKey);
+        var pubsig = SEC_P256_K1_G.multiply(new BigInteger(1, sig, 1, 32))
+            .getEncoded(false);
+        var pubenc = SEC_P256_K1_G.multiply(new BigInteger(1, enc, 1, 32))
+            .getEncoded(false);
+        sha512.update(pubsig);
+        sha512.update(pubenc);
+        var ripe = ripemd160.digest(sha512.digest());
+        if (!MessageDigest.isEqual(Arrays.copyOfRange(decoded, 2, decoded.length - 4),
+            Arrays.copyOfRange(ripe, 20 - decoded.length + 6, ripe.length))) {
+          System.err.println(
+              "not match!: " + version + ", " + privateSigningKey + ", " + privateEncryptionKey
+              + "(" + (20 - decoded.length + 6) + ")" + FORMAT.formatHex(ripe));
+        }
+      } else if (line.startsWith("[")) {
+        address = line.replace("[", "").replace("]", "");
+      } else {
+        var matcher1 = privateSigningKeyPattern.matcher(line);
+        if (matcher1.matches()) {
+          privateSigningKey = matcher1.group(1);
+        } else {
+          var matcher2 = privateEncryptionKeyPattern.matcher(line);
+          if (matcher2.matches()) {
+            privateEncryptionKey = matcher2.group(1);
+          }
+        }
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "selector")
+  private int selector() throws IOException, InterruptedException {
+    try (var client = HttpClient.newBuilder().proxy(OnionProxySelector.getInstance()).build()) {
+      var url = "http://5b7lrclibipnhlrh6gubuvn5yojfmtchthvi2onxaqtc34vje53tldid.onion/black2/3c8h8bv6";
+      var s = client.send(HttpRequest.newBuilder().uri(URI.create(url)).build(),
+          BodyHandlers.ofString());
+      System.out.println(s);
+    }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "cookie")
+  private int cookie() {
+    var a = 6.4E61;
+    var b = Math.cbrt(a / 1e12);
+    System.out.println(b);
     return ExitCode.OK;
   }
 
