@@ -34,7 +34,6 @@ import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.ncv.xml.ListUp;
 import com.github.teruteru128.ncv.xml.Transform;
-import com.github.teruteru128.net.OnionProxySelector;
 import com.github.teruteru128.semen.CumShoot;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -51,12 +50,13 @@ import java.lang.foreign.Arena;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
+import java.net.ProxySelector;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.Charset;
@@ -71,12 +71,16 @@ import java.security.DigestException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
+import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.Signature;
 import java.security.SignatureException;
+import java.security.interfaces.ECPrivateKey;
+import java.security.interfaces.ECPublicKey;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPoint;
@@ -96,6 +100,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.HexFormat;
 import java.util.List;
@@ -113,6 +118,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
 import javax.crypto.BadPaddingException;
@@ -1049,6 +1055,11 @@ public class Factory implements Callable<Integer> {
     }
   }
 
+  private static Path getPublicKeysDir() {
+    return Path.of(
+        Objects.requireNonNull(System.getenv("PUBLIC_KEYS_DIR"), "$PUBLIC_KEYS_DIR NOT FOUND"));
+  }
+
   @Command(name = "reencodeAddress")
   public int ReEncodeAddress(String address) {
     var a = decodeAddress(address);
@@ -1297,12 +1308,10 @@ public class Factory implements Callable<Integer> {
       if (line.isEmpty()) {
         var addressBlock = tmp.toString();
         var decoded = Base58.decode(address.replaceAll("BM-", ""));
-        if (decoded[0] == 4) {
-          v4Block.add(addressBlock);
-        } else if (decoded[0] == 3) {
-          v3Block.add(addressBlock);
-        } else {
-          otherBlock.add(addressBlock);
+        switch (decoded[0]) {
+          case 3 -> v3Block.add(addressBlock);
+          case 4 -> v4Block.add(addressBlock);
+          default -> otherBlock.add(addressBlock);
         }
         tmp.setLength(0);
       } else if (line.startsWith("[")) {
@@ -1343,10 +1352,8 @@ public class Factory implements Callable<Integer> {
         }
         var sig = Base58.decode(privateSigningKey);
         var enc = Base58.decode(privateEncryptionKey);
-        var pubsig = SEC_P256_K1_G.multiply(new BigInteger(1, sig, 1, 32))
-            .getEncoded(false);
-        var pubenc = SEC_P256_K1_G.multiply(new BigInteger(1, enc, 1, 32))
-            .getEncoded(false);
+        var pubsig = SEC_P256_K1_G.multiply(new BigInteger(1, sig, 1, 32)).getEncoded(false);
+        var pubenc = SEC_P256_K1_G.multiply(new BigInteger(1, enc, 1, 32)).getEncoded(false);
         sha512.update(pubsig);
         sha512.update(pubenc);
         var ripe = ripemd160.digest(sha512.digest());
@@ -1375,12 +1382,7 @@ public class Factory implements Callable<Integer> {
 
   @Command(name = "selector")
   private int selector() throws IOException, InterruptedException {
-    try (var client = HttpClient.newBuilder().proxy(OnionProxySelector.getInstance()).build()) {
-      var url = "http://5b7lrclibipnhlrh6gubuvn5yojfmtchthvi2onxaqtc34vje53tldid.onion/black2/3c8h8bv6";
-      var s = client.send(HttpRequest.newBuilder().uri(URI.create(url)).build(),
-          BodyHandlers.ofString());
-      System.out.println(s);
-    }
+    System.out.println(ProxySelector.getDefault());
     return ExitCode.OK;
   }
 
@@ -1389,6 +1391,122 @@ public class Factory implements Callable<Integer> {
     var a = 6.4E61;
     var b = Math.cbrt(a / 1e12);
     System.out.println(b);
+    return ExitCode.OK;
+  }
+
+  @Command(name = "messageSign")
+  private int sign(String message)
+      throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+    KeyPairGenerator generator = null;
+    try {
+      generator = KeyPairGenerator.getInstance("EC", "BC");
+    } catch (NoSuchProviderException e) {
+      throw new RuntimeException(e);
+    }
+    var secureRandom = SecureRandom.getInstanceStrong();
+    generator.initialize(new ECGenParameterSpec("SECP256k1"), secureRandom);
+    System.out.println(generator.getAlgorithm());
+    System.out.println(generator.getProvider());
+    var pair = generator.generateKeyPair();
+    var p1 = pair.getPrivate();
+    if (p1 instanceof ECPrivateKey ep1) {
+      System.out.println("instanceof java.security.interfaces.ECPrivateKey");
+      System.out.println(ep1.getClass().getName());
+      System.out.println(FORMAT.formatHex(ep1.getS().toByteArray()));
+    }
+    if (p1 instanceof org.bouncycastle.jce.interfaces.ECPrivateKey ep2) {
+      System.out.println("instanceof org.bouncycastle.jce.interfaces.ECPrivateKey");
+      System.out.println(ep2.getClass().getName());
+      System.out.println(FORMAT.formatHex(ep2.getD().toByteArray()));
+    }
+    var p2 = pair.getPublic();
+    if (p2 instanceof ECPublicKey ep3) {
+      System.out.println("instanceof java.security.interfaces.ECPublicKey");
+      System.out.println(ep3.getClass().getName());
+      var w = ep3.getW();
+      System.out.println(FORMAT.formatHex(w.getAffineX().toByteArray()) + ", " + FORMAT.formatHex(
+          w.getAffineY().toByteArray()));
+      System.out.println(FORMAT.formatHex(ep3.getEncoded()));
+    }
+    if (p2 instanceof org.bouncycastle.jce.interfaces.ECPublicKey ep4) {
+      System.out.println("instanceof org.bouncycastle.jce.interfaces.ECPublicKey");
+      System.out.println("[" + ep4.getClass().getName() + "]");
+      var q = ep4.getQ();
+      System.out.println(
+          "[" + FORMAT.formatHex(q.getAffineXCoord().toBigInteger().toByteArray()) + ", "
+          + FORMAT.formatHex(q.getAffineYCoord().toBigInteger().toByteArray()) + "]");
+      System.out.println("[" + FORMAT.formatHex(ep4.getEncoded()) + "]");
+      System.out.println("[" + FORMAT.formatHex(q.getEncoded(false)) + "]");
+    }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "execute")
+  private int exec(@Parameters(paramLabel = "publicKey", description = {
+      "hex formatted signing public key"}) String publicKey) throws IOException {
+    final var signPublicKey = FORMAT.parseHex(publicKey);
+    var pattern = Pattern.compile("publicKeys\\d+.bin");
+    // 文字列を数値順に並び替えるには、文字列を長さで並び替えてから辞書順に並び替える
+    var comparator = Comparator.<Path, String>comparing(p -> p.getFileName().toString(),
+        Comparator.comparingInt(String::length).thenComparing(Comparator.naturalOrder()));
+    try (var stream = Files.walk(getPublicKeysDir())) {
+      var comparator2 = Comparator.<MappedByteBuffer>comparingInt(k -> {
+        try {
+          var sha512 = MessageDigest.getInstance("SHA-512");
+          var ripemd160 = MessageDigest.getInstance("RIPEMD160");
+          sha512.update(signPublicKey);
+          sha512.update(k);
+          k.rewind();
+          var ripe = ripemd160.digest(sha512.digest());
+          var buffer = ByteBuffer.wrap(ripe);
+          return Long.numberOfLeadingZeros(buffer.getLong());
+          /*return Long.numberOfLeadingZeros(
+              (ripe[0] & 0xffL) << 56 | (ripe[1] & 0xffL) << 48 | (ripe[2] & 0xffL) << 40
+              | (ripe[3] & 0xffL) << 32 | (ripe[4] & 0xffL) << 24 | (ripe[5] & 0xffL) << 16
+              | (ripe[6] & 0xffL) << 8 | (ripe[7] & 0xffL));*/
+        } catch (NoSuchAlgorithmException e) {
+          throw new RuntimeException(e);
+        }
+      });
+      stream.filter(p -> !p.toString().contains("trimmed"))
+          .filter(f -> pattern.matcher(f.getFileName().toString()).matches()).sorted(comparator)
+          .flatMap(p -> {
+            try (var c = FileChannel.open(p, StandardOpenOption.READ)) {
+              var buf = c.map(MapMode.READ_ONLY, 0, 16777216 * 65);
+              var builder = Stream.<MappedByteBuffer>builder();
+              var size = c.size();
+              var j = 0L;
+              while ((j + 65) < size) {
+                builder.add(buf.slice((int) j, 65));
+                j += 65;
+              }
+              return builder.build();
+            } catch (IOException e) {
+              throw new UncheckedIOException(e);
+            }
+          }).filter(k -> {
+            try {
+              var sha512 = MessageDigest.getInstance("SHA-512");
+              var ripemd160 = MessageDigest.getInstance("RIPEMD160");
+              sha512.update(signPublicKey);
+              sha512.update(k);
+              k.rewind();
+              var ripe = ripemd160.digest(sha512.digest());
+              // FIXME 判定にかけるバイト数
+              // FIXME 必要な分をすべてbitwise-ORでまとめてからゼロ判定するのと一つずつ判定するのではどちらが早いんだろうか？
+              // return (ripe[0] | ripe[1] | ripe[2] | ripe[3]) == 0;
+              // ヒント: ほとんど場合 `ripe[0] != 0`
+              // return ripe[0] == 0 && ripe[1] == 0 && ripe[2] == 0 && ripe[3] == 0;
+              return !(ripe[0] != 0 || ripe[1] != 0 || ripe[2] != 0 || ripe[3] != 0);
+              // ストリームチェーンでまとめるのクソ遅そう～～～～～～
+              // return IntStream.of(0, 1, 2, 3).allMatch(i -> ripe[i] == 0);
+              // return IntStream.of(0, 1, 2, 3).noneMatch(i -> ripe[i] != 0);
+            } catch (NoSuchAlgorithmException e) {
+              throw new RuntimeException(e);
+            }
+          }).forEach(System.out::println);
+      // PathのストリームからFileを65バイトずつ読み込んでMessageDigestに通すとかどうやればええんや？
+    }
     return ExitCode.OK;
   }
 
