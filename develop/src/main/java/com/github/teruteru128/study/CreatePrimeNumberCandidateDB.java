@@ -1,36 +1,37 @@
 package com.github.teruteru128.study;
 
-import static java.lang.Integer.parseInt;
-
 import com.github.teruteru128.foreign.prime.search.PrimeSearch;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.BitSet;
+import java.util.Objects;
 import java.util.concurrent.Callable;
-import org.sqlite.javax.SQLiteConnectionPoolDataSource;
+import org.sqlite.SQLiteDataSource;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
+@Command(name = "createPrimeNumberCandidateDB")
 public class CreatePrimeNumberCandidateDB implements Callable<Integer> {
 
-  @Parameters String url;
-  @Parameters String largeSievePath;
+  @Parameters
+  String largeSievePath;
+  @Parameters
+  private long id;
   @Option(names = "start")
   private Integer clearOff = null;
+
   /**
    * Create a database of prime number candidates
    * @throws SQLException
    * @throws IOException
    * @throws ClassNotFoundException
    */
-  @Command(name = "createPrimeNumberCandidateDB")
-  public Integer call()
-      throws SQLException, IOException, ClassNotFoundException {
-    var source = new SQLiteConnectionPoolDataSource();
-    source.setUrl(url);
+  public Integer call() throws SQLException, IOException, ClassNotFoundException {
+    var source = new SQLiteDataSource();
+    source.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
     try (var con = source.getConnection()) {
       try (var st = con.createStatement()) {
         st.execute(
@@ -39,7 +40,7 @@ public class CreatePrimeNumberCandidateDB implements Callable<Integer> {
 
       try (var prep = con.prepareStatement(
           "insert into candidates(id, step, composite, probably_prime, definitely_prime) values(?, ?, 0, 0, 0);")) {
-        prep.setLong(1, 0x32ec7597040b4f0cL);
+        prep.setLong(1, id);
         BitSet p;
         {
           var largeSieve = PrimeSearch.loadLargeSieve2(Path.of(largeSievePath));
@@ -47,7 +48,8 @@ public class CreatePrimeNumberCandidateDB implements Callable<Integer> {
           p.set(0, largeSieve.length());
           p.andNot(largeSieve);
         }
-        if(clearOff != null) {
+        System.err.printf("candidates: %d%n", p.cardinality());
+        if (clearOff != null) {
           p.clear(0, clearOff);
         }
         p.stream().forEach(s -> {

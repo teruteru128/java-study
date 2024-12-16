@@ -10,9 +10,9 @@ import static java.lang.Math.max;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 import static picocli.CommandLine.Parameters.NULL_VALUE;
 
-import com.github.teruteru128.gmp.__mpz_struct;
-import com.github.teruteru128.foreign.prime.search.PrimeSearch;
 import com.github.teruteru128.foreign.converters.PathConverter;
+import com.github.teruteru128.foreign.prime.search.PrimeSearch;
+import com.github.teruteru128.gmp.__mpz_struct;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -95,7 +95,8 @@ public class CreateLargeSieveTask implements Callable<Void> {
     List<Future<Void>> list;
     var processors = Runtime.getRuntime().availableProcessors();
     var parallelism = max(1, processors - 1);
-    var largeSieve = arena.allocate(JAVA_LONG, (unitIndex(searchLen - 1) + 1));
+    var arraySize = unitIndex(searchLen - 1) + 1;
+    var largeSieve = arena.allocate(JAVA_LONG, arraySize);
     if (oldInPath != null) {
       var s = PrimeSearch.loadLargeSieve(oldInPath);
       var sieve1 = s.sieve();
@@ -119,7 +120,7 @@ public class CreateLargeSieveTask implements Callable<Void> {
     }
     try (var pool = new ForkJoinPool(parallelism, ForkJoinPool.defaultForkJoinWorkerThreadFactory,
         null, true)) {
-      var handle = JAVA_LONG.arrayElementVarHandle();
+      var handle = JAVA_LONG.varHandle();
       logger.info("start");
       list = pool.invokeAll(Collections.nCopies(parallelism,
           () -> {
@@ -140,7 +141,7 @@ public class CreateLargeSieveTask implements Callable<Void> {
               }
               start1 = (start - 1) / 2;
               while (start1 < (long) searchLen) {
-                handle.getAndBitwiseOr(largeSieve, 0, start1 >>> 6, 1L << (start1 & 0x3f));
+                handle.getAndBitwiseOr(largeSieve, start1 >>> 6, 1L << (start1 & 0x3f));
                 start1 += convertedStep;
               }
 

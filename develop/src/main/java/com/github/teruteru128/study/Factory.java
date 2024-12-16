@@ -12,6 +12,7 @@ import static java.lang.Integer.parseInt;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
+import static java.lang.foreign.ValueLayout.JAVA_LONG;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
@@ -56,7 +57,6 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
-import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.Charset;
@@ -143,7 +143,7 @@ import picocli.CommandLine.Parameters;
     ECIESSample.class, FileChecker.class, com.github.teruteru128.study.PrimeSearch.class,
     SiteChecker.class, Spam.class, TeamSpeak.class, Updater.class, CommandLine.HelpCommand.class,
     ListUp.class, Transform.class, CumShoot.class, SlimeSearch.class, Spam3.class, OwnerCheck.class,
-    CalcBustSize.class, Deterministic.class})
+    CalcBustSize.class, Deterministic.class, CreatePrimeNumberCandidateDB.class})
 public class Factory implements Callable<Integer> {
 
   private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
@@ -244,7 +244,7 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command(name = "fixColor")
-  private static void fixColor(int[] color) {
+  private static int fixColor(int[] color) {
     // RGB color fixer
     // HLS color space
     int p;
@@ -263,7 +263,7 @@ public class Factory implements Callable<Integer> {
       p = 0xff000000 | r << 16 | g << 8 | b;
     } else {
       System.err.println("err! args is 2 or 4");
-      return;
+      return ExitCode.SOFTWARE;
     }
     System.out.printf("input: R: %d, G: %d, B: %d(%d, %<08x)%n", r, g, b, p);
     var max = max(max(r, g), b);
@@ -271,7 +271,7 @@ public class Factory implements Callable<Integer> {
     // double型で==を使って比較したくなかった
     if (max == min && min >= 192) {
       System.out.println("Achromatic, but vivid enough. Does nothing.");
-      return;
+      return ExitCode.OK;
     }
     while (max == min) {
       System.err.println("Achromatic!");
@@ -290,7 +290,7 @@ public class Factory implements Callable<Integer> {
     System.out.printf("old: degrees: H: %f, L: %f, S: %f%n", h * 60, l * 100, s * 100);
     if (s >= 0.75) {
       System.out.println("Vivid enough. Does nothing.");
-      return;
+      return ExitCode.OK;
     }
     var newL = 0.5;
     var newS = (double) SECURE_RANDOM_GENERATOR.nextInt(192, 256) / 255;
@@ -300,10 +300,11 @@ public class Factory implements Callable<Integer> {
     System.out.printf("new: degrees: H: %f, L: %f, S: %f%n", h * 60, newL * 100, newS * 100);
     System.out.printf("color=%d, %<08x%n",
         0xff000000 | newRGB.r() << 16 | newRGB.g() << 8 | newRGB.b());
+    return ExitCode.OK;
   }
 
   @Command(name = "sizeInBase")
-  private static void sizeInBase(Path path, int base) throws IOException, ClassNotFoundException {
+  private static int sizeInBase(Path path, int base) throws IOException, ClassNotFoundException {
     var even = com.github.teruteru128.study.PrimeSearch.loadEvenNumber(path);
     var auto = Arena.ofAuto();
     var a = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -312,6 +313,7 @@ public class Factory implements Callable<Integer> {
     mpz_import(a, b.length, 1, C_CHAR.byteSize(), 0, 0, auto.allocateFrom(C_CHAR, b));
     assert base >= 2;
     System.out.println("mpz_sizeinbase(a, 10) = " + mpz_sizeinbase(a, base));
+    return ExitCode.OK;
   }
 
   /**
@@ -447,13 +449,6 @@ public class Factory implements Callable<Integer> {
     }
   }
 
-  @Command(name = "addressSearch2")
-  private static void addressSearch2(String[] args) throws IOException {
-    var pattern = Pattern.compile(".*twitter.*", Pattern.CASE_INSENSITIVE);
-    new AddressCalc(args, hash -> hash[0] == 0 && pattern.matcher(
-        AddressFactory.encodeAddress(Arrays.copyOf(hash, 20))).matches()).call();
-  }
-
   @Command(name = "addressSearch")
   private static Void getCall(String[] args) throws IOException {
     return new AddressCalc(args,
@@ -535,7 +530,7 @@ public class Factory implements Callable<Integer> {
         .forEach(System.out::println);
   }
 
-  @Command(name = "jpeg", aliases = {" jpg "})
+  @Command(name = "jpeg", aliases = {"jpg"})
   private static void jpeg(String[] args) throws IOException {
     if (args.length >= 2) {
       var arg = args[1];
@@ -1060,8 +1055,8 @@ public class Factory implements Callable<Integer> {
         Objects.requireNonNull(System.getenv("PUBLIC_KEYS_DIR"), "$PUBLIC_KEYS_DIR NOT FOUND"));
   }
 
-  @Command(name = "reencodeAddress")
-  public int ReEncodeAddress(String address) {
+  @Command(name = "analyzeAddress")
+  public int analyzeAddress(String address) {
     var a = decodeAddress(address);
     System.out.println(AddressFactory.encodeAddress(3, 1, a.toripe()));
     System.out.println(AddressFactory.encodeAddress(4, 1, a.toripe()));
@@ -1142,7 +1137,7 @@ public class Factory implements Callable<Integer> {
 
   @Command(name = "pac")
   private Integer pac()
-      throws IOException, NoSuchAlgorithmException, CloneNotSupportedException, DigestException {
+      throws IOException, NoSuchAlgorithmException, DigestException {
     var p = Path.of("D:\\keys\\public\\publicKeys0.bin");
     var c = Files.readAllBytes(p);
     var sigBuf = new byte[LENGTH];
@@ -1447,65 +1442,81 @@ public class Factory implements Callable<Integer> {
     final var signPublicKey = FORMAT.parseHex(publicKey);
     var pattern = Pattern.compile("publicKeys\\d+.bin");
     // 文字列を数値順に並び替えるには、文字列を長さで並び替えてから辞書順に並び替える
-    var comparator = Comparator.<Path, String>comparing(p -> p.getFileName().toString(),
-        Comparator.comparingInt(String::length).thenComparing(Comparator.naturalOrder()));
     try (var stream = Files.walk(getPublicKeysDir())) {
-      var comparator2 = Comparator.<MappedByteBuffer>comparingInt(k -> {
-        try {
-          var sha512 = MessageDigest.getInstance("SHA-512");
-          var ripemd160 = MessageDigest.getInstance("RIPEMD160");
-          sha512.update(signPublicKey);
-          sha512.update(k);
-          k.rewind();
-          var ripe = ripemd160.digest(sha512.digest());
-          var buffer = ByteBuffer.wrap(ripe);
-          return Long.numberOfLeadingZeros(buffer.getLong());
-          /*return Long.numberOfLeadingZeros(
-              (ripe[0] & 0xffL) << 56 | (ripe[1] & 0xffL) << 48 | (ripe[2] & 0xffL) << 40
-              | (ripe[3] & 0xffL) << 32 | (ripe[4] & 0xffL) << 24 | (ripe[5] & 0xffL) << 16
-              | (ripe[6] & 0xffL) << 8 | (ripe[7] & 0xffL));*/
-        } catch (NoSuchAlgorithmException e) {
-          throw new RuntimeException(e);
-        }
-      });
+      record Sex(byte[] key, long ripe1, long ripe2) {
+
+      }
       stream.filter(p -> !p.toString().contains("trimmed"))
-          .filter(f -> pattern.matcher(f.getFileName().toString()).matches()).sorted(comparator)
+          .filter(f -> pattern.matcher(f.getFileName().toString()).matches()).sorted(
+              Comparator.comparing(p1 -> p1.getFileName().toString(),
+                  Comparator.comparingInt(String::length).thenComparing(Comparator.naturalOrder())))
           .flatMap(p -> {
-            try (var c = FileChannel.open(p, StandardOpenOption.READ)) {
-              var buf = c.map(MapMode.READ_ONLY, 0, 16777216 * 65);
-              var builder = Stream.<MappedByteBuffer>builder();
-              var size = c.size();
-              var j = 0L;
-              while ((j + 65) < size) {
-                builder.add(buf.slice((int) j, 65));
+            try {
+              var fileSize = Files.size(p);
+              var buf2 = Files.readAllBytes(p);
+              var builder = Stream.<Sex>builder();
+              var j = 0;
+              // ラムダを匿名クラスに変換してMessageDigest変数2つをフィールド変数にしたらわざわざ生成するコストを抑えられるのでは？
+              var sha512 = MessageDigest.getInstance("SHA-512");
+              var ripemd160 = MessageDigest.getInstance("RIPEMD160");
+              while ((j + 65) < fileSize) {
+                var key = new byte[65];
+                System.arraycopy(buf2, j, key, 0, 65);
+                sha512.update(key, 0, 65);
+                sha512.update(signPublicKey);
+                var ripe = ripemd160.digest(sha512.digest());
+                var buffer = ByteBuffer.wrap(ripe);
+                // buffer.getLong()の呼び出し2つをインライン化すると呼び出し順の保証が効かなかった気がする
+                var ripe1 = buffer.getLong();
+                var ripe2 = buffer.getLong();
+                builder.add(new Sex(key, ripe1, ripe2));
                 j += 65;
               }
               return builder.build();
             } catch (IOException e) {
               throw new UncheckedIOException(e);
-            }
-          }).filter(k -> {
-            try {
-              var sha512 = MessageDigest.getInstance("SHA-512");
-              var ripemd160 = MessageDigest.getInstance("RIPEMD160");
-              sha512.update(signPublicKey);
-              sha512.update(k);
-              k.rewind();
-              var ripe = ripemd160.digest(sha512.digest());
-              // FIXME 判定にかけるバイト数
-              // FIXME 必要な分をすべてbitwise-ORでまとめてからゼロ判定するのと一つずつ判定するのではどちらが早いんだろうか？
-              // return (ripe[0] | ripe[1] | ripe[2] | ripe[3]) == 0;
-              // ヒント: ほとんど場合 `ripe[0] != 0`
-              // return ripe[0] == 0 && ripe[1] == 0 && ripe[2] == 0 && ripe[3] == 0;
-              return !(ripe[0] != 0 || ripe[1] != 0 || ripe[2] != 0 || ripe[3] != 0);
-              // ストリームチェーンでまとめるのクソ遅そう～～～～～～
-              // return IntStream.of(0, 1, 2, 3).allMatch(i -> ripe[i] == 0);
-              // return IntStream.of(0, 1, 2, 3).noneMatch(i -> ripe[i] != 0);
             } catch (NoSuchAlgorithmException e) {
               throw new RuntimeException(e);
+            } finally {
+              logger.info("{} DONE", p.getFileName().toString());
             }
-          }).forEach(System.out::println);
+          }).min((c1, c2) -> Long.compareUnsigned(c1.ripe1(), c2.ripe1())).ifPresent(
+              x -> System.out.printf("%s: %016x(%d)\u0007%n", FORMAT.formatHex(x.key()), x.ripe1(),
+                  Long.numberOfLeadingZeros(x.ripe1())));
       // PathのストリームからFileを65バイトずつ読み込んでMessageDigestに通すとかどうやればええんや？
+    }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "uncode")
+  private int uncode(String publicSignKey, String publicEncKey)
+      throws DigestException, NoSuchAlgorithmException {
+    var sha512 = MessageDigest.getInstance("SHA-512");
+    var ripemd160 = MessageDigest.getInstance("RIPEMD160");
+    var hash = new byte[64];
+    sha512.update(FORMAT.parseHex(publicSignKey));
+    sha512.update(FORMAT.parseHex(publicEncKey));
+    sha512.digest(hash, 0, 64);
+    ripemd160.update(hash, 0, 64);
+    ripemd160.digest(hash, 0, 20);
+    System.out.println(FORMAT.formatHex(hash, 0, 20));
+    var buffer = ByteBuffer.wrap(hash, 0, 20);
+    System.out.println(Long.numberOfLeadingZeros(buffer.getLong()));
+    return ExitCode.OK;
+  }
+
+  @Command(name = "varray")
+  private int varray() {
+    var longHandle = JAVA_LONG.varHandle();
+    var arrayHandle = JAVA_LONG.arrayElementVarHandle();
+    System.out.println("JAVA_LONG.varHandle() = " + longHandle);
+    System.out.println("JAVA_LONG.arrayElementVarHandle() = " + arrayHandle);
+    var auto = Arena.ofAuto();
+    var array = auto.allocate(JAVA_LONG, 8);
+    longHandle.getAndBitwiseOr(array, 0L, 0x777000L);
+    arrayHandle.getAndBitwiseOr(array, 0L, 1L, 0x555L);
+    for (var a : array.toArray(JAVA_LONG)) {
+      System.out.printf("%016x%n", a);
     }
     return ExitCode.OK;
   }

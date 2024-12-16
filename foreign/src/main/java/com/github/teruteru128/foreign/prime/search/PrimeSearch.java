@@ -100,9 +100,9 @@ public class PrimeSearch implements Callable<Integer> {
       }
       i++;
     }
-    try (var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory, null, true)) {
-      var service = new ExecutorCompletionService<Result>(pool);
-      var n = list.size();
+    try (final var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory, null, true)) {
+      final var service = new ExecutorCompletionService<Result>(pool);
+      final var n = list.size();
       var futures = new ArrayList<Future<Result>>(n);
       try {
         list.forEach(sex -> futures.add(service.submit(sex)));
@@ -113,6 +113,8 @@ public class PrimeSearch implements Callable<Integer> {
             if (result == 1 || result == 2) {
               found = true;
               logger.info("find prime: step {}", foundStep.step());
+              System.err.write(7);
+              System.err.flush();
               break;
             }
           } catch (ExecutionException ignored) {

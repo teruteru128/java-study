@@ -3,6 +3,7 @@ package com.github.teruteru128.study;
 import static com.github.teruteru128.bitmessage.Const.PUBLIC_KEY_LENGTH;
 
 import com.github.teruteru128.bitmessage.Const;
+import com.github.teruteru128.bitmessage.spec.AddressFactory;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
@@ -10,14 +11,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import picocli.CommandLine.Command;
 
 /**
  * マルチスレッド版
@@ -31,6 +35,7 @@ public class AddressCalc implements Callable<Void> {
    */
   public static final int PUBLIC_KEY_SIZE_PER_FILE = 1090519040;
   private static final Logger logger = LoggerFactory.getLogger(AddressCalc.class);
+  private static final Pattern pattern = Pattern.compile(".*twitter.*", Pattern.CASE_INSENSITIVE);
 
   private final String[] args;
   private final Predicate<byte[]> predicate;
@@ -45,6 +50,12 @@ public class AddressCalc implements Callable<Void> {
       raf.seek(index * 65L);
       raf.readFully(keys);
     }
+  }
+
+  @Command(name = "addressSearch2")
+  private static void addressSearch2(String[] args) throws IOException {
+    new AddressCalc(args, hash -> hash[0] == 0 && pattern.matcher(
+        AddressFactory.encodeAddress(Arrays.copyOf(hash, 20))).matches()).call();
   }
 
   @Override
