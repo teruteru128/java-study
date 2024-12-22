@@ -1,13 +1,21 @@
 package com.github.teruteru128.study;
 
 import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
-import static com.github.teruteru128.gmp.gmp_h.C_CHAR;
+import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_import;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init2;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
+import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
+import static com.github.teruteru128.gmp.gmp_h.mpz_set;
+import static com.github.teruteru128.gmp.gmp_h.mpz_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -64,7 +72,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.AlgorithmParameters;
 import java.security.DigestException;
@@ -144,7 +151,8 @@ import picocli.CommandLine.Parameters;
     ECIESSample.class, FileChecker.class, com.github.teruteru128.study.PrimeSearch.class,
     SiteChecker.class, Spam.class, TeamSpeak.class, Updater.class, CommandLine.HelpCommand.class,
     ListUp.class, Transform.class, CumShoot.class, SlimeSearch.class, Spam3.class, OwnerCheck.class,
-    CalcBustSize.class, Deterministic.class, CreatePrimeNumberCandidateDB.class})
+    CalcBustSize.class, Deterministic.class, CreatePrimeNumberCandidateDB.class,
+    SmallSievePrimeCounter.class})
 public class Factory implements Callable<Integer> {
 
   public static final int WINDOW_SIZE = 1000;
@@ -199,15 +207,6 @@ public class Factory implements Callable<Integer> {
    */
   static Callable<Integer> create() {
     return new Factory();
-  }
-
-  @Command(name = "countKnownPrimeNumbersFromSmallSieve")
-  private static void countKnownPrimeNumbersFromSmallSieve()
-      throws IOException, ClassNotFoundException {
-    var sieve = com.github.teruteru128.study.PrimeSearch.loadSmallSieve(
-        Path.of("137438953280bit-small-sieve.obj"));
-    var primeCount = Arrays.stream(sieve).parallel().map(l -> Long.bitCount(~l)).sum();
-    System.out.printf("%d primes%n", primeCount);
   }
 
   @Command(name = "diffLargeSieves")
@@ -305,19 +304,6 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command(name = "sizeInBase")
-  private static int sizeInBase(Path path, int base) throws IOException, ClassNotFoundException {
-    var even = com.github.teruteru128.study.PrimeSearch.loadEvenNumber(path);
-    var auto = Arena.ofAuto();
-    var a = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(a);
-    var b = even.toByteArray();
-    mpz_import(a, b.length, 1, C_CHAR.byteSize(), 0, 0, auto.allocateFrom(C_CHAR, b));
-    assert base >= 2;
-    System.out.println("mpz_sizeinbase(a, 10) = " + mpz_sizeinbase(a, base));
-    return ExitCode.OK;
-  }
-
   /**
    * doubleを指数部も含めて乱数で生成するテスト
    */
@@ -345,27 +331,6 @@ public class Factory implements Callable<Integer> {
       var segment = channel.map(MapMode.READ_WRITE, 0, 1 << 30);
       System.out.println(segment.capacity());
     }
-  }
-
-  @Command(name = "exportBigIntegerAsDecimalText")
-  private static void exportBigIntegerAsDecimalText(Path inPath, Path outPath)
-      throws IOException, ClassNotFoundException {
-    var p = com.github.teruteru128.study.PrimeSearch.loadEvenNumber(inPath);
-    Files.write(outPath, List.of(p.toString()), StandardOpenOption.CREATE,
-        StandardOpenOption.WRITE);
-  }
-
-  @Command(name = "generateLargeEvenNumber")
-  private static void generateLargeEven(int bitLength)
-      throws NoSuchAlgorithmException, IOException {
-    final var instanceStrong = SecureRandom.getInstanceStrong();
-    BigInteger evenNumber;
-    final var th = BigInteger.TEN.pow(99999999);
-    do {
-      evenNumber = new BigInteger(bitLength, instanceStrong).setBit(bitLength - 1).clearBit(0);
-    } while (evenNumber.compareTo(th) < 0);
-    var path = Path.of("even-number-" + bitLength + "bit-" + UUID.randomUUID() + ".obj");
-    com.github.teruteru128.study.PrimeSearch.exportEvenNumberObj(path, evenNumber);
   }
 
   /**
@@ -402,34 +367,6 @@ public class Factory implements Callable<Integer> {
           break;
       }
     }
-  }
-
-  @Command(name = "createSmallSieve", description = "既知素数リストを作成する")
-  private static void createSmallSieve(
-      @Parameters(description = "素数リストのビット長。(0x7ffffffdL << 6)ビットまで。") long bitLength)
-      throws IOException {
-    logger.info("create {}bit small sieve...", bitLength);
-    // 小さな既知素数ふるいを作成、もしくは読み込む
-    var sieve = com.github.teruteru128.study.PrimeSearch.createSmallSieve(bitLength);
-    var primeCount = Arrays.stream(sieve).parallel().map(l -> Long.bitCount(~l)).sum();
-    logger.info("{} primes", primeCount);
-    var path = Paths.get(bitLength + "bit-small-sieve.obj");
-    logger.info("write to {}", path);
-    try (var oos = new ObjectOutputStream(new BufferedOutputStream(
-        Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE),
-        2147483645))) {
-      oos.writeLong(bitLength);
-      var length = sieve.length;
-      if (length == 2147483645) {
-        for (long l : sieve) {
-          oos.writeLong(l);
-        }
-      } else {
-        oos.writeObject(sieve);
-      }
-      logger.info("done. 1");
-    }
-    logger.info("done. 2");
   }
 
   @Command(name = "getSentMessageByAckData")
@@ -1057,23 +994,23 @@ public class Factory implements Callable<Integer> {
         Objects.requireNonNull(System.getenv("PUBLIC_KEYS_DIR"), "$PUBLIC_KEYS_DIR NOT FOUND"));
   }
 
-  @Command(name = "fuckp4")
-  private static int extracted(String prefixNumber, int initialRepeatCount, String suffixNumber) {
+  @Command(name = "fuck-prime-p")
+  private static int fuckPrimeP(String prefixNumber, int initialRepeatCount, String suffixNumber) {
     var auto = Arena.ofAuto();
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    gmp_h.mpz_init(p);
+    mpz_init(p);
     int count = 0;
     int repeatCount1 = initialRepeatCount;
     int q = ((repeatCount1 - 1) / WINDOW_SIZE + 1) * WINDOW_SIZE;
     while (count < 10) {
-      gmp_h.mpz_set_str(p, auto.allocateFrom(prefixNumber.repeat(repeatCount1) + suffixNumber), 10);
+      mpz_set_str(p, auto.allocateFrom(prefixNumber.repeat(repeatCount1) + suffixNumber), 10);
       long start = System.nanoTime();
-      int prime = gmp_h.mpz_probab_prime_p(p, 25);
+      int prime = mpz_probab_prime_p(p, 25);
       long finish = System.nanoTime();
       if (prime != 0) {
-        var length = gmp_h.mpz_sizeinbase(p, 10) + 2;
+        var length = mpz_sizeinbase(p, 10) + 2;
         var buffer = auto.allocate(length);
-        gmp_h.mpz_get_str(buffer, 10, p);
+        mpz_get_str(buffer, 10, p);
         System.out.println("p = " + buffer.getString(0));
         logger.info("{}: {}({} seconds)", repeatCount1, prime, (finish - start) / 1e9);
         count++;
@@ -1591,7 +1528,7 @@ public class Factory implements Callable<Integer> {
     var list = new long[25];
     outer:
     while (true) {
-      for(int i = 0; i < 24; i++) {
+      for (int i = 0; i < 24; i++) {
         list[i]++;
         if (!ThreadLocalRandom.current().nextBoolean()) {
           continue outer;
@@ -1623,14 +1560,14 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command(name = "fuckp2")
-  private int fuckp2() {
-    return extracted("19", 8000, "419");
+  @Command(name = "fuckPrime2")
+  private int fuckPrime2() {
+    return fuckPrimeP("19", 8000, "419");
   }
 
-  @Command(name = "fuckp3")
-  private int fuckp3() {
-    return extracted("4545", 0, "0721");
+  @Command(name = "fuckPrime3")
+  private int fuckPrime3() {
+    return fuckPrimeP("4545", 0, "0721");
   }
 
   @Command(name = "calc")
@@ -1638,13 +1575,37 @@ public class Factory implements Callable<Integer> {
     var str = Files.readString(in);
     var auto = Arena.ofAuto();
     var p2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    gmp_h.mpz_init_set_str(p2, auto.allocateFrom(str), 10);
-    gmp_h.mpz_add_ui(p2, p2, step * 2 + 1);
-    var length = gmp_h.mpz_sizeinbase(p2, 10) + 2;
+    mpz_init_set_str(p2, auto.allocateFrom(str), 10);
+    mpz_add_ui(p2, p2, step * 2 + 1);
+    var length = mpz_sizeinbase(p2, 10) + 2;
     var res_str = auto.allocate(length);
-    gmp_h.mpz_get_str(res_str, 10, p2);
+    mpz_get_str(res_str, 10, p2);
     Files.writeString(out, res_str.getString(0), StandardOpenOption.CREATE,
         StandardOpenOption.WRITE);
+    return ExitCode.OK;
+  }
+
+  @Command(name = "pine")
+  private int pine() {
+    var auto = Arena.ofAuto();
+    var base = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(base, 10);
+    mpz_pow_ui(base, base, 99999);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set(p, base);
+    var rop = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(rop);
+    var diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(diff);
+    for (int i = 0; i < 10; i++) {
+      mpz_nextprime(rop, p);
+      mpz_sub(diff, rop, base);
+      var length = mpz_sizeinbase(diff, 10) + 2;
+      var str = auto.allocate(length);
+      mpz_get_str(str, 10, diff);
+      System.out.printf("prime found: base + %s%n", str.getString(0));
+      mpz_set(p, rop);
+    }
     return ExitCode.OK;
   }
 

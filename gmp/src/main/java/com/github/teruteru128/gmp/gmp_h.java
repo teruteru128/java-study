@@ -6784,7 +6784,7 @@ public class gmp_h {
      * void __gmpz_pow_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static void __gmpz_pow_ui(MemorySegment x0, MemorySegment x1, int x2) {
+    private static void __gmpz_pow_ui(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_pow_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6794,6 +6794,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_pow_ui(mpz_ptr rop, mpz_srcptr base, unsigned long exp)
+     * }
+     */
+    public static void mpz_pow_ui(MemorySegment rop, MemorySegment base, long exp) {
+        __gmpz_pow_ui(rop, base, exp);
     }
 
     private static class __gmpz_powm {
@@ -7477,6 +7485,14 @@ public class gmp_h {
            throw new AssertionError("should not reach here", ex$);
         }
     }
+    /**
+     * {@snippet lang=c :
+     * void mpz_set(mpz_ptr rop, mpz_srcptr op)
+     * }
+     */
+    public static void mpz_set(MemorySegment rop, MemorySegment op) {
+        __gmpz_set(rop, op);
+    }
 
     private static class __gmpz_set_d {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
@@ -7983,6 +7999,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_sub(mpz_ptr rop, mpz_srcptr op1, mpz_srcptr op2)
+     * }
+     */
+    public static void mpz_sub(MemorySegment rop, MemorySegment op1, MemorySegment op2) {
+
     }
 
     private static class __gmpz_sub_ui {

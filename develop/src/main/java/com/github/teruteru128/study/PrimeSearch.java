@@ -10,6 +10,7 @@ import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.foreign.converters.PathConverter;
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,7 +27,10 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.BitSet;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import org.slf4j.Logger;
@@ -44,6 +48,55 @@ public class PrimeSearch implements Callable<Void> {
   private Path base;
   @Parameters(converter = PathConverter.class)
   private Path largeSieve;
+
+  @Command(name = "exportBigIntegerAsDecimalText")
+  private static void exportBigIntegerAsDecimalText(Path inPath, Path outPath)
+      throws IOException, ClassNotFoundException {
+    var p = loadEvenNumber(inPath);
+    Files.write(outPath, List.of(p.toString()), StandardOpenOption.CREATE,
+        StandardOpenOption.WRITE);
+  }
+
+  @Command(name = "generateLargeEvenNumber")
+  private static void generateLargeEven(int bitLength)
+      throws NoSuchAlgorithmException, IOException {
+    final var instanceStrong = SecureRandom.getInstanceStrong();
+    BigInteger evenNumber;
+    final var th = BigInteger.TEN.pow(99999999);
+    do {
+      evenNumber = new BigInteger(bitLength, instanceStrong).setBit(bitLength - 1).clearBit(0);
+    } while (evenNumber.compareTo(th) < 0);
+    var path = Path.of("even-number-" + bitLength + "bit-" + UUID.randomUUID() + ".obj");
+    exportEvenNumberObj(path, evenNumber);
+  }
+
+  @Command(name = "createSmallSieve", description = "既知素数リストを作成する")
+  private static void createSmallSieve(
+      @Parameters(description = "素数リストのビット長。(0x7ffffffdL << 6)ビットまで。") long bitLength)
+      throws IOException {
+    logger.info("create {}bit small sieve...", bitLength);
+    // 小さな既知素数ふるいを作成、もしくは読み込む
+    var sieve = createSmallSieve0(bitLength);
+    var primeCount = Arrays.stream(sieve).parallel().map(l -> Long.bitCount(~l)).sum();
+    logger.info("{} primes", primeCount);
+    var path = Paths.get(bitLength + "bit-small-sieve.obj");
+    logger.info("write to {}", path);
+    try (var oos = new ObjectOutputStream(new BufferedOutputStream(
+        Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE),
+        2147483645))) {
+      oos.writeLong(bitLength);
+      var length = sieve.length;
+      if (length == 2147483645) {
+        for (long l : sieve) {
+          oos.writeLong(l);
+        }
+      } else {
+        oos.writeObject(sieve);
+      }
+      logger.info("done. 1");
+    }
+    logger.info("done. 2");
+  }
 
   @Override
   public Void call() throws Exception {
@@ -78,11 +131,25 @@ public class PrimeSearch implements Callable<Void> {
     }
   }
 
-  private static long mpz_get_ui(MemorySegment z) {
+  static long mpz_get_ui(MemorySegment z) {
     var p = __mpz_struct._mp_d(z);
     var n = __mpz_struct._mp_size(z);
     var l = p.getAtIndex(JAVA_LONG, 0);
     return n != 0 ? l : 0;
+  }
+
+  private static boolean mpz_fits_utype_p(MemorySegment z, long maxVal) {
+    var n = __mpz_struct._mp_size(z);
+    var p = __mpz_struct._mp_d(z);
+    return (n == 0 || (n == 1 && Long.compareUnsigned(p.getAtIndex(JAVA_LONG, 0), maxVal) <= 0));
+  }
+
+  static boolean mpz_fits_ulong_p(MemorySegment z) {
+    return mpz_fits_utype_p(z, -1L);
+  }
+
+  static boolean mpz_fits_uint_p(MemorySegment z) {
+    return mpz_fits_utype_p(z, 0xffffffffL);
   }
 
   public static void createLargeSieve(Path inPath, String outPath, Path smallSievepath,
@@ -167,7 +234,7 @@ public class PrimeSearch implements Callable<Void> {
   }
 
   // FIXME Cで書かないと遅すぎてダメかもしれねえ
-  static long[] createSmallSieve(long length) {
+  static long[] createSmallSieve0(long length) {
     var sieve = new long[unitIndex(length - 1) + 1];
     logger.info("sieve.length = {}", sieve.length);
     sieve[0] = 1;
