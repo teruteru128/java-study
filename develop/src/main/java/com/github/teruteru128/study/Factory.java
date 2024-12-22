@@ -100,6 +100,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.HexFormat;
@@ -146,6 +147,7 @@ import picocli.CommandLine.Parameters;
     CalcBustSize.class, Deterministic.class, CreatePrimeNumberCandidateDB.class})
 public class Factory implements Callable<Integer> {
 
+  public static final int WINDOW_SIZE = 1000;
   private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   private static final HexFormat FORMAT = HexFormat.of();
   private static final List<byte[]> sigKeys;
@@ -1055,6 +1057,36 @@ public class Factory implements Callable<Integer> {
         Objects.requireNonNull(System.getenv("PUBLIC_KEYS_DIR"), "$PUBLIC_KEYS_DIR NOT FOUND"));
   }
 
+  @Command(name = "fuckp4")
+  private static int extracted(String prefixNumber, int initialRepeatCount, String suffixNumber) {
+    var auto = Arena.ofAuto();
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    gmp_h.mpz_init(p);
+    int count = 0;
+    int repeatCount1 = initialRepeatCount;
+    int q = ((repeatCount1 - 1) / WINDOW_SIZE + 1) * WINDOW_SIZE;
+    while (count < 10) {
+      gmp_h.mpz_set_str(p, auto.allocateFrom(prefixNumber.repeat(repeatCount1) + suffixNumber), 10);
+      long start = System.nanoTime();
+      int prime = gmp_h.mpz_probab_prime_p(p, 25);
+      long finish = System.nanoTime();
+      if (prime != 0) {
+        var length = gmp_h.mpz_sizeinbase(p, 10) + 2;
+        var buffer = auto.allocate(length);
+        gmp_h.mpz_get_str(buffer, 10, p);
+        System.out.println("p = " + buffer.getString(0));
+        logger.info("{}: {}({} seconds)", repeatCount1, prime, (finish - start) / 1e9);
+        count++;
+      }
+      if (repeatCount1 >= q) {
+        logger.info("done: {}", repeatCount1);
+        q += WINDOW_SIZE;
+      }
+      repeatCount1++;
+    }
+    return ExitCode.OK;
+  }
+
   @Command(name = "analyzeAddress")
   public int analyzeAddress(String address) {
     var a = decodeAddress(address);
@@ -1136,8 +1168,7 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command(name = "pac")
-  private Integer pac()
-      throws IOException, NoSuchAlgorithmException, DigestException {
+  private Integer pac() throws IOException, NoSuchAlgorithmException, DigestException {
     var p = Path.of("D:\\keys\\public\\publicKeys0.bin");
     var c = Files.readAllBytes(p);
     var sigBuf = new byte[LENGTH];
@@ -1511,13 +1542,109 @@ public class Factory implements Callable<Integer> {
     var arrayHandle = JAVA_LONG.arrayElementVarHandle();
     System.out.println("JAVA_LONG.varHandle() = " + longHandle);
     System.out.println("JAVA_LONG.arrayElementVarHandle() = " + arrayHandle);
+    arrayHandle.coordinateTypes().forEach(System.out::println);
+    System.out.println("--");
     var auto = Arena.ofAuto();
-    var array = auto.allocate(JAVA_LONG, 8);
+    var array = auto.allocate(JAVA_LONG, 4);
     longHandle.getAndBitwiseOr(array, 0L, 0x777000L);
-    arrayHandle.getAndBitwiseOr(array, 0L, 1L, 0x555L);
+    long offset = 8L;
+    longHandle.getAndBitwiseOr(array, offset, 0x1145141919L);
+    long offset2 = 8L;
+    long index2 = 2L;
+    arrayHandle.getAndBitwiseOr(array, offset2, index2, 0x555L);
     for (var a : array.toArray(JAVA_LONG)) {
       System.out.printf("%016x%n", a);
     }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "ptest")
+  private int ptest() {
+    var list = Arrays.asList("8931", "19191919419", "114514", "931", "810", "893", "1919",
+        "45450721");
+    var builder = new StringBuilder(32);
+    int i;
+    BigInteger p;
+    for (int j = 0; j < 10; ) {
+      builder.setLength(0);
+      Collections.shuffle(list, SECURE_RANDOM_GENERATOR);
+      i = 0;
+      while (builder.length() < 24) {
+        builder.append(list.get(i++));
+      }
+      var length = builder.length();
+      if (length >= 25) {
+        logger.debug("やり直せ！: {}", length);
+        continue;
+      }
+      p = new BigInteger(builder.toString(), 10);
+      if (p.isProbablePrime(25)) {
+        System.out.println("done!: " + p);
+        j++;
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "1024")
+  private int p() {
+    var list = new long[25];
+    outer:
+    while (true) {
+      for(int i = 0; i < 24; i++) {
+        list[i]++;
+        if (!ThreadLocalRandom.current().nextBoolean()) {
+          continue outer;
+        }
+      }
+      list[24]++;
+      break;
+    }
+    for (int i = 0; i < 25; i++) {
+      System.out.printf("1/%d: %d%n", 1 << i, list[i]);
+    }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "fuckp")
+  private int fuckp() {
+    var header = BigInteger.valueOf(19000L);
+    var pro = BigInteger.valueOf(100L);
+    var p = BigInteger.valueOf(419L);
+    int count = 0;
+    while (count < 10) {
+      if (p.isProbablePrime(25)) {
+        System.out.println("p = " + p);
+        count++;
+      }
+      p = p.add(header);
+      header = header.multiply(pro);
+    }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "fuckp2")
+  private int fuckp2() {
+    return extracted("19", 8000, "419");
+  }
+
+  @Command(name = "fuckp3")
+  private int fuckp3() {
+    return extracted("4545", 0, "0721");
+  }
+
+  @Command(name = "calc")
+  private int calc(Path in, long step, Path out) throws IOException {
+    var str = Files.readString(in);
+    var auto = Arena.ofAuto();
+    var p2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    gmp_h.mpz_init_set_str(p2, auto.allocateFrom(str), 10);
+    gmp_h.mpz_add_ui(p2, p2, step * 2 + 1);
+    var length = gmp_h.mpz_sizeinbase(p2, 10) + 2;
+    var res_str = auto.allocate(length);
+    gmp_h.mpz_get_str(res_str, 10, p2);
+    Files.writeString(out, res_str.getString(0), StandardOpenOption.CREATE,
+        StandardOpenOption.WRITE);
     return ExitCode.OK;
   }
 
@@ -1539,6 +1666,12 @@ public class Factory implements Callable<Integer> {
 
     @Override
     public boolean equals(Object o) {
+      if (o == null) {
+        return false;
+      }
+      if (o == this) {
+        return true;
+      }
       if (!(o instanceof Key(byte[] key1))) {
         return false;
       }

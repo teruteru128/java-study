@@ -53,6 +53,14 @@ public class PrimeSearch implements Callable<Integer> {
   @Parameters(arity = "1", converter = PathConverter.class, description = "even number (text) file")
   private Path evenNumberPath;
 
+  public static LargeSieve loadLargeSieve(Path path) throws IOException, ClassNotFoundException {
+    try (var ois = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(path)))) {
+      var searchLength = ois.readInt();
+      var sieve = BitSet.valueOf((long[]) ois.readObject());
+      return new LargeSieve(searchLength, sieve);
+    }
+  }
+
   public static BitSet loadLargeSieve2(Path path) throws IOException, ClassNotFoundException {
     long[] n;
     try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(path)))) {
@@ -62,10 +70,13 @@ public class PrimeSearch implements Callable<Integer> {
     return BitSet.valueOf(n);
   }
 
-  public static LargeSieve loadLargeSieve(Path path) throws IOException, ClassNotFoundException {
-    try (var ois = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(path)))) {
-      return new LargeSieve(ois.readInt(), BitSet.valueOf((long[]) ois.readObject()));
+  public static long[] loadLargeSieve3(Path path) throws IOException, ClassNotFoundException {
+    long[] n;
+    try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(path)))) {
+      ois.readInt();
+      n = (long[]) ois.readObject();
     }
+    return n;
   }
 
   @Override

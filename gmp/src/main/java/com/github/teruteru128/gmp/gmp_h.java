@@ -1994,7 +1994,7 @@ public class gmp_h {
      * void __gmpz_add(mpz_ptr, mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static void __gmpz_add(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+    private static void __gmpz_add(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
         var mh$ = __gmpz_add.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -2004,6 +2004,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_add(mpz_ptr rop, mpz_srcptr op1, mpz_srcptr op2)
+     * }
+     */
+    public static void mpz_add(MemorySegment rop, MemorySegment op1, MemorySegment op2){
+        __gmpz_add(rop, op1, op2);
     }
 
     private static class __gmpz_add_ui {
@@ -6562,7 +6570,7 @@ public class gmp_h {
      * void __gmpz_mul_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static void __gmpz_mul_ui(MemorySegment x0, MemorySegment x1, int x2) {
+    private static void __gmpz_mul_ui(MemorySegment x0, MemorySegment x1, long x2) {
         var mh$ = __gmpz_mul_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6572,6 +6580,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_mul_ui(mpz_ptr rop, mpz_srcptr op1, unsigned long op2)
+     * }
+     */
+    public static void mpz_mul_ui(MemorySegment rop, MemorySegment op1, long op2) {
+        __gmpz_mul_ui(rop, op1, op2);
     }
 
     private static class __gmpz_nextprime {
@@ -6976,11 +6992,11 @@ public class gmp_h {
     }
     /**
      * {@snippet lang=c :
-     * int mpz_probab_prime_p(mpz_srcptr, int)
+     * int mpz_probab_prime_p(mpz_srcptr n, int reps)
      * }
      */
-    public static int mpz_probab_prime_p(MemorySegment x0, int x1) {
-        return __gmpz_probab_prime_p(x0, x1);
+    public static int mpz_probab_prime_p(MemorySegment n, int reps) {
+        return __gmpz_probab_prime_p(n, reps);
     }
 
     private static class __gmpz_random {
@@ -7650,6 +7666,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * int mpz_set_str(mpz_ptr rop, const char *str, int base)
+     * }
+     */
+    public static int mpz_set_str(MemorySegment rop, MemorySegment str, int base) {
+        return __gmpz_set_str(rop, str, base);
     }
 
     private static class __gmpz_set_ui {
