@@ -4,21 +4,17 @@
  * @author teruteru
  */
 module com.github.teruteru.study {
-  requires java.desktop;
   requires java.management;
   requires java.naming;
   requires java.net.http;
   requires java.rmi;
   requires java.scripting;
-  requires java.xml;
 
   //requires com.google.gson;
   requires org.apache.commons.rng.simple;
   requires org.apache.commons.statistics.distribution;
   //requires org.apache.commons.codec;
   requires org.xerial.sqlitejdbc;
-  requires com.fasterxml.jackson.databind;
-  requires com.fasterxml.jackson.annotation;
   requires org.openapitools.jackson.nullable;
   requires org.slf4j;
 
@@ -44,6 +40,8 @@ module com.github.teruteru.study {
   requires com.github.teruteru.foreign.gmp;
   requires com.github.teruteru.foreign;
   requires jsr305;
+  requires com.fasterxml.jackson.dataformat.yaml;
+  requires com.fasterxml.jackson.databind;
 
   exports com.github.teruteru128.color;
   exports com.github.teruteru128.study;

@@ -25,6 +25,8 @@ import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.bitmessage.app.Spammer.Address;
@@ -155,10 +157,9 @@ import picocli.CommandLine.Parameters;
     SmallSievePrimeCounter.class})
 public class Factory implements Callable<Integer> {
 
-  public static final int WINDOW_SIZE = 1000;
+  private static final int WINDOW_SIZE = 1000;
   private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   private static final HexFormat FORMAT = HexFormat.of();
-  private static final List<byte[]> sigKeys;
   private static final ECParameterSpec secp256k1Parameter;
   private static final KeyFactory factory;
   private static final Logger logger = LoggerFactory.getLogger(Factory.class);
@@ -177,26 +178,11 @@ public class Factory implements Callable<Integer> {
 
   static {
     try {
-      var uri = Objects.requireNonNull(Factory.class.getResource("sign.txt")).toURI();
-      var uriScheme = uri.getScheme();
-      if (uriScheme.equals("jar")) {
-        try (var jarFS = FileSystems.newFileSystem(uri,
-            Map.of("create", "false")); var lines = Files.lines(jarFS.provider().getPath(uri))) {
-          sigKeys = lines.map(FORMAT::parseHex).toList();
-        }
-      } else if (uriScheme.equals("file")) {
-        try (var lines = Files.lines(Path.of(uri))) {
-          sigKeys = lines.map(FORMAT::parseHex).toList();
-        }
-      } else {
-        throw new ExceptionInInitializerError("unknown scheme: " + uriScheme);
-      }
       var parameters = AlgorithmParameters.getInstance("EC");
       parameters.init(new ECGenParameterSpec("secp256k1"));
       secp256k1Parameter = parameters.getParameterSpec(ECParameterSpec.class);
       factory = KeyFactory.getInstance("EC");
-    } catch (NoSuchAlgorithmException | InvalidParameterSpecException | URISyntaxException |
-             IOException e) {
+    } catch (NoSuchAlgorithmException | InvalidParameterSpecException e) {
       throw new ExceptionInInitializerError(e);
     }
   }
@@ -933,7 +919,7 @@ public class Factory implements Callable<Integer> {
     }
   }
 
-  public static byte[] getBytes(byte[] x, ByteBuffer buffer) {
+  private static byte[] getBytes(byte[] x, ByteBuffer buffer) {
     buffer.get(x);
     return x;
   }
@@ -1025,7 +1011,7 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command(name = "analyzeAddress")
-  public int analyzeAddress(String address) {
+  private int analyzeAddress(String address) {
     var a = decodeAddress(address);
     System.out.println(AddressFactory.encodeAddress(3, 1, a.toripe()));
     System.out.println(AddressFactory.encodeAddress(4, 1, a.toripe()));
@@ -1181,7 +1167,7 @@ public class Factory implements Callable<Integer> {
           var address = set.getString("address");
           var transmitdata = set.getBytes("transmitdata");
           // sign keyでフィルタ
-          if (sigKeys.stream()
+          if (KeyCache.sigKeys.stream()
               .anyMatch(bytes -> Arrays.equals(transmitdata, 6, 70, bytes, 0, 64))) {
             // ビットフィールドをマスク
             transmitdata[5] &= -2;
@@ -1220,7 +1206,8 @@ public class Factory implements Callable<Integer> {
       while (set.next()) {
         var address = set.getString("address");
         var transmitdata = set.getBytes("transmitdata");
-        if (sigKeys.stream().anyMatch(bytes -> Arrays.equals(transmitdata, 6, 70, bytes, 0, 64))) {
+        if (KeyCache.sigKeys.stream()
+            .anyMatch(bytes -> Arrays.equals(transmitdata, 6, 70, bytes, 0, 64))) {
           list.add(new PubKey(address, transmitdata));
         }
       }
@@ -1259,7 +1246,7 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command(name = "unchi")
-  public int unchi(Path inPath, Path outpath) throws IOException {
+  private int unchi(Path inPath, Path outpath) throws IOException {
     var inLines = Files.readAllLines(inPath);
     final var lineSeparator = "\r\n";
     var v3Block = new StringJoiner(lineSeparator);
@@ -1292,7 +1279,7 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command(name = "unko", description = "keys.dat アドレス検証ツール")
-  public int unko(Path inPath) throws IOException, NoSuchAlgorithmException {
+  private int unko(Path inPath) throws IOException, NoSuchAlgorithmException {
     var inLines = Files.readAllLines(inPath);
     var address = "";
     var version = 0;
@@ -1607,6 +1594,42 @@ public class Factory implements Callable<Integer> {
       mpz_set(p, rop);
     }
     return ExitCode.OK;
+  }
+
+  @Command(name = "sig")
+  private int sig(Path path1) throws IOException {
+    var mapper = new ObjectMapper(new YAMLFactory());
+    record Keys(byte[] sigKey, byte[] encKey){}
+    var obj = mapper.readValue(path1.toUri().toURL(), Keys.class);
+    System.out.printf("sig: %s%n", FORMAT.formatHex(obj.sigKey));
+    System.out.printf("enc: %s%n", FORMAT.formatHex(obj.encKey));
+    return ExitCode.OK;
+  }
+
+  private static class KeyCache {
+
+    private static final List<byte[]> sigKeys;
+
+    static {
+      try {
+        var uri = Objects.requireNonNull(Factory.class.getResource("sign.txt")).toURI();
+        var uriScheme = uri.getScheme();
+        if (uriScheme.equals("jar")) {
+          try (var jarFS = FileSystems.newFileSystem(uri,
+              Map.of("create", "false")); var lines = Files.lines(jarFS.provider().getPath(uri))) {
+            sigKeys = lines.map(FORMAT::parseHex).toList();
+          }
+        } else if (uriScheme.equals("file")) {
+          try (var lines = Files.lines(Path.of(uri))) {
+            sigKeys = lines.map(FORMAT::parseHex).toList();
+          }
+        } else {
+          throw new ExceptionInInitializerError("unknown scheme: " + uriScheme);
+        }
+      } catch (URISyntaxException | IOException e) {
+        throw new ExceptionInInitializerError(e);
+      }
+    }
   }
 
   private record DecodedAddress(String toAddress, byte[] toripe) {

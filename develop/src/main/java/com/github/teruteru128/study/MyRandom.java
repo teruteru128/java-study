@@ -1,8 +1,6 @@
 package com.github.teruteru128.study;
 
-import java.util.Comparator;
 import java.util.random.RandomGenerator;
-import java.util.random.RandomGeneratorFactory;
 
 public class MyRandom {
 
@@ -16,16 +14,13 @@ public class MyRandom {
   public static double nextDouble(RandomGenerator random) {
     // random Double
     var bits = random.nextLong();
-    long expBits = bits >>> 52;
-    long exp;
-    if (expBits == 0) {
-      exp = -12;
+    long exp = -Long.numberOfTrailingZeros(~(bits >>> 52));
+    if (exp == -12) {
+      long expBits;
       do {
         expBits = random.nextLong();
         exp -= Long.numberOfTrailingZeros(~expBits);
       } while (expBits == -1);
-    } else {
-      exp = -Long.numberOfTrailingZeros(~expBits);
     }
     var mantissa = bits & 0xfffffffffffffL;
     if (mantissa == 0 && random.nextBoolean()) {
