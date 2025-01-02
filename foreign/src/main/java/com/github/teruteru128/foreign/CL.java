@@ -115,9 +115,8 @@ public class CL implements AutoCloseable, Callable<Integer> {
     String s;
     try {
       var uri = Objects.requireNonNull(getClass().getResource("sample.cl")).toURI();
-      try (var jarFS = FileSystems.newFileSystem(uri, Map.of("create", "true"))) {
-        s = Files.readString(jarFS.provider().getPath(uri));
-      }
+      var fs = FileSystems.getFileSystem(uri);
+      s = Files.readString(fs.provider().getPath(uri));
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     } catch (URISyntaxException e) {

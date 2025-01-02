@@ -59,7 +59,9 @@ import java.io.RandomAccessFile;
 import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.net.HttpURLConnection;
 import java.net.ProxySelector;
 import java.net.URI;
@@ -74,6 +76,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.ProviderNotFoundException;
 import java.nio.file.StandardOpenOption;
 import java.security.AlgorithmParameters;
 import java.security.DigestException;
@@ -114,7 +117,6 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.HexFormat;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.StringJoiner;
@@ -1010,6 +1012,12 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
+  private static List<byte[]> readLinesAsKeyList(Path p) throws IOException {
+    try (var lines = Files.lines(p)) {
+      return lines.map(FORMAT::parseHex).toList();
+    }
+  }
+
   @Command(name = "analyzeAddress")
   private int analyzeAddress(String address) {
     var a = decodeAddress(address);
@@ -1599,10 +1607,93 @@ public class Factory implements Callable<Integer> {
   @Command(name = "sig")
   private int sig(Path path1) throws IOException {
     var mapper = new ObjectMapper(new YAMLFactory());
-    record Keys(byte[] sigKey, byte[] encKey){}
+    record Keys(byte[] sigKey, byte[] encKey) {
+
+    }
     var obj = mapper.readValue(path1.toUri().toURL(), Keys.class);
     System.out.printf("sig: %s%n", FORMAT.formatHex(obj.sigKey));
     System.out.printf("enc: %s%n", FORMAT.formatHex(obj.encKey));
+    return ExitCode.OK;
+  }
+
+  @Command(name = "multi")
+  private int multi() {
+    var p = BigInteger.valueOf(3).pow(100).shiftLeft(100);
+    var q = BigInteger.valueOf(1).shiftLeft(256);
+    var d = p.divideAndRemainder(q);
+    System.out.printf("p: %066x%n", p);
+    System.out.printf("q: %066x%n", q);
+    System.out.printf("%s, %x%n", d[0], d[1]);
+    System.out.println(new BigDecimal(d[1]).multiply(BigDecimal.valueOf(100))
+        .divide(new BigDecimal(p), MathContext.DECIMAL128));
+    return ExitCode.OK;
+  }
+
+  @Command(name = "multi2")
+  private int multi2(String signPrivateKey58)
+      throws IOException, NoSuchAlgorithmException, DigestException {
+    var sp = Base58.decode(signPrivateKey58);
+    var sigPubKey = SEC_P256_K1_G.multiply(new BigInteger(1, sp, 1, 32)).normalize().getEncoded(false);
+    var index = SECURE_RANDOM_GENERATOR.nextInt();
+    System.out.printf("index: %d%n", index);
+    var fileNumber = (index >> 24) & 0xff;
+    System.out.printf("file number: %d%n", fileNumber);
+    final var initialOffset = (index & 0xffffff) * 65;
+    System.out.printf("initial offset: %d%n", initialOffset);
+    var publicDir = Path.of("D:\\keys\\public");
+    var privateDir = Path.of("D:\\keys\\private");
+    var sha512 = MessageDigest.getInstance("SHA-512");
+    var ripemd160 = MessageDigest.getInstance("RIPEMD160");
+    long privateKeyOffset;
+    byte[] ripe;
+    try (var file = new RandomAccessFile(
+        publicDir.resolve("publicKeys" + fileNumber + ".bin").toFile(), "r")) {
+      var publicKey = new byte[65];
+      ripe = new byte[64];
+      file.seek(initialOffset);
+      do {
+        file.readFully(publicKey);
+        sha512.update(sigPubKey);
+        sha512.update(publicKey);
+        sha512.digest(ripe, 0, 64);
+        ripemd160.update(ripe, 0, 64);
+        ripemd160.digest(ripe, 0, 20);
+      } while (ripe[0] != 0);
+      System.out.printf("ripe: %s%n", FORMAT.formatHex(ripe, 0, 20));
+      var currentOffset = file.getFilePointer() - 65;
+      privateKeyOffset = (currentOffset / 65) * 32;
+      System.out.printf("offset: %d -> %d%n", currentOffset, privateKeyOffset);
+    }
+    String p;
+    try (var file = new RandomAccessFile(
+        privateDir.resolve("privateKeys" + fileNumber + ".bin").toFile(), "r")) {
+      file.seek(privateKeyOffset);
+      var privateKey = new byte[32];
+      file.readFully(privateKey);
+      p = BMAddressGenerator.encodeWIF(privateKey);
+    }
+    System.out.printf("enc private key: %s%n", p);
+    System.out.printf("address: %s%n", AddressFactory.encodeAddress(4, 1, ripe, 0, 20));
+    return ExitCode.OK;
+  }
+
+  @Command(name = "validate")
+  private int validate(String signPrivateKey58, String encPrivateKey58)
+      throws NoSuchAlgorithmException, DigestException {
+    var sp = Base58.decode(signPrivateKey58);
+    var sigPubKey = SEC_P256_K1_G.multiply(new BigInteger(1, sp, 1, 32)).normalize().getEncoded(false);
+    var sp3 = Base58.decode(encPrivateKey58);
+    var encPubKey = SEC_P256_K1_G.multiply(new BigInteger(1, sp3, 1, 32)).normalize().getEncoded(false);
+    var sha512 = MessageDigest.getInstance("SHA-512");
+    var ripemd160 = MessageDigest.getInstance("RIPEMD160");
+    var ripe = new byte[64];
+    sha512.update(sigPubKey);
+    sha512.update(encPubKey);
+    sha512.digest(ripe, 0, 64);
+    ripemd160.update(ripe, 0, 64);
+    ripemd160.digest(ripe, 0, 20);
+    System.out.printf("format: %s%n", FORMAT.formatHex(ripe, 0, 20));
+    System.out.printf("address: %s%n", AddressFactory.encodeAddress(4, 1, ripe, 0, 20));
     return ExitCode.OK;
   }
 
@@ -1613,19 +1704,14 @@ public class Factory implements Callable<Integer> {
     static {
       try {
         var uri = Objects.requireNonNull(Factory.class.getResource("sign.txt")).toURI();
-        var uriScheme = uri.getScheme();
-        if (uriScheme.equals("jar")) {
-          try (var jarFS = FileSystems.newFileSystem(uri,
-              Map.of("create", "false")); var lines = Files.lines(jarFS.provider().getPath(uri))) {
-            sigKeys = lines.map(FORMAT::parseHex).toList();
-          }
-        } else if (uriScheme.equals("file")) {
-          try (var lines = Files.lines(Path.of(uri))) {
-            sigKeys = lines.map(FORMAT::parseHex).toList();
-          }
-        } else {
-          throw new ExceptionInInitializerError("unknown scheme: " + uriScheme);
+        List<byte[]> tmp;
+        try {
+          var fileSystem = FileSystems.getFileSystem(uri);
+          tmp = readLinesAsKeyList(fileSystem.provider().getPath(uri));
+        } catch (ProviderNotFoundException e) {
+          throw new ExceptionInInitializerError("unknown scheme: " + uri.getScheme());
         }
+        sigKeys = tmp;
       } catch (URISyntaxException | IOException e) {
         throw new ExceptionInInitializerError(e);
       }

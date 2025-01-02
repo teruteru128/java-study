@@ -62,7 +62,7 @@ public class RIPEMD160Test {
     }
     String s;
     var uri = Objects.requireNonNull(RIPEMD160Test.class.getResource("ripemd160.call")).toURI();
-    try (var jarFS = FileSystems.newFileSystem(uri, Map.of("create", "true"))) {
+    try (var jarFS = FileSystems.newFileSystem(uri, Map.of("create", "false"))) {
       s = Files.readString(jarFS.provider().getPath(uri));
     }
     var sourcePtr = LIBRARY_ARENA.allocateFrom(s);
