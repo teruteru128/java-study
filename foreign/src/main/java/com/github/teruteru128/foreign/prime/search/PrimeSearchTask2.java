@@ -10,7 +10,6 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.sql.SQLException;
 import java.util.concurrent.Callable;
-import java.util.concurrent.CyclicBarrier;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,18 +32,6 @@ public class PrimeSearchTask2 implements Callable<Result> {
   private final long id;
 
   public PrimeSearchTask2(MemorySegment even, int step, DataSource source, long id) {
-    this(even, step, source, id, null);
-  }
-
-  /**
-   * @param even    even
-   * @param step    step
-   * @param source
-   * @param id
-   * @param barrier テストが終わったあとに同期を取るためのサイクリックバリア。nullable
-   */
-  public PrimeSearchTask2(MemorySegment even, int step, DataSource source, long id,
-      CyclicBarrier barrier) {
     this.even = even;
     this.id = id;
     this.step = step;
