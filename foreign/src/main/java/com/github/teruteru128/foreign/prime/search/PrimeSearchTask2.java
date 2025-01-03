@@ -9,7 +9,6 @@ import com.github.teruteru128.gmp.gmp_h;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.sql.SQLException;
-import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
 import javax.sql.DataSource;
@@ -32,10 +31,6 @@ public class PrimeSearchTask2 implements Callable<Result> {
   private final int step;
   private final DataSource source;
   private final long id;
-  /**
-   * Nullable cyclic barrier
-   */
-  private CyclicBarrier barrier;
 
   public PrimeSearchTask2(MemorySegment even, int step, DataSource source, long id) {
     this(even, step, source, id, null);
@@ -53,16 +48,7 @@ public class PrimeSearchTask2 implements Callable<Result> {
     this.even = even;
     this.id = id;
     this.step = step;
-    this.barrier = barrier;
     this.source = source;
-  }
-
-  public CyclicBarrier getBarrier() {
-    return barrier;
-  }
-
-  public void setBarrier(CyclicBarrier barrier) {
-    this.barrier = barrier;
   }
 
   @Override
@@ -78,13 +64,6 @@ public class PrimeSearchTask2 implements Callable<Result> {
     finish = System.nanoTime();
     updateDB(result);
     logger.info("step {}: {}({} hours)", step, result, (finish - start) / 3.6e12);
-    if (barrier != null) {
-      try {
-        barrier.await();
-      } catch (InterruptedException | BrokenBarrierException e) {
-        throw new RuntimeException(e);
-      }
-    }
     // {@code result != 0} で十分だと思うんだが
     // return result == 1 || result == 2 ? Optional.of(step) : Optional.empty();
     return new Result(step, result);

@@ -19,12 +19,12 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Objects;
 import java.util.concurrent.Callable;
-import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
@@ -95,22 +95,12 @@ public class PrimeSearch implements Callable<Integer> {
     }
     logger.info("start");
     logger.debug("Number of prime number candidates: {}", list2.size());
-    var list = new ArrayList<PrimeSearchTask2>(list2.size());
     var found = false;
     logger.debug("threads: {}", threads);
-    var barrier = new CyclicBarrier(threads);
     var id = 3669437087868473100L;
-    var threshold = list2.size() / threads * threads;
-    var i = 0;
-    for (var step : list2) {
-      if (i < threshold) {
-        list.add(new PrimeSearchTask2(even, step, source, id, barrier));
-      } else {
-        // 最後のタスクがbarrierでハングしないようにする
-        list.add(new PrimeSearchTask2(even, step, source, id));
-      }
-      i++;
-    }
+    var list = list2.stream().mapToInt(Integer::intValue)
+        .mapToObj(step -> new PrimeSearchTask2(even, step, source, id))
+        .collect(Collectors.toCollection(() -> new ArrayList<>(list2.size())));
     try (final var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory, null, true)) {
       final var service = new ExecutorCompletionService<Result>(pool);
       final var n = list.size();
@@ -149,14 +139,6 @@ public class PrimeSearch implements Callable<Integer> {
     var evenStr = Files.readAllLines(evenNumberPath).getFirst();
     var str = auto.allocateFrom(evenStr);
     mpz_init_set_str(even, str, 10);
-  }
-
-  private BitSet getBitSet(Path sievePath) throws IOException, ClassNotFoundException {
-    var setA = loadLargeSieve2(sievePath);
-    var setB = new BitSet(setA.length());
-    setB.set(0, setA.length());
-    setB.andNot(setA);
-    return setB;
   }
 
   public record LargeSieve(int searchLength, BitSet sieve) {
