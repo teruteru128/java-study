@@ -3,14 +3,8 @@ package com.github.teruteru128.bitmessage.genaddress;
 import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.spec.AddressFactory;
 import com.github.teruteru128.encode.Base58;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.System.Logger;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -44,7 +38,7 @@ public class BMAddressGenerator implements Runnable {
   }
 
   public static String exportAddress(Response component, PrintStream out) {
-    byte[] ripe = component.getRipe();
+    byte[] ripe = component.ripe();
     var address4 = AddressFactory.encodeAddress(4, 1, ripe);
     var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
     var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());

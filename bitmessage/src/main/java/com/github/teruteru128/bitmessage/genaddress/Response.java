@@ -5,20 +5,11 @@ import java.io.Serializable;
 
 import com.github.teruteru128.bitmessage.spec.KeyPair;
 
-public class Response implements Cloneable, Serializable {
+public record Response(KeyPair signingKeyPair, KeyPair encryptionKeyPair, byte[] ripe) implements
+    Serializable {
 
     @Serial
     private static final long serialVersionUID = 1;
-
-    private final KeyPair signingKeyPair;
-    private final KeyPair encryptionKeyPair;
-    private final byte[] ripe;
-
-    public Response(KeyPair signingKeyPair, KeyPair encryptionKeyPair, byte[] ripe) {
-        this.signingKeyPair = signingKeyPair;
-        this.encryptionKeyPair = encryptionKeyPair;
-        this.ripe = ripe;
-    }
 
     /**
      * @return the privateEncryptionKey
@@ -51,34 +42,24 @@ public class Response implements Cloneable, Serializable {
     /**
      * @return the signingKeyPair
      */
-    public KeyPair getSigningKeyPair() {
+    @Override
+    public KeyPair signingKeyPair() {
         return signingKeyPair;
     }
 
     /**
      * @return the encryptionKeyPair
      */
-    public KeyPair getEncryptionKeyPair() {
+    @Override
+    public KeyPair encryptionKeyPair() {
         return encryptionKeyPair;
     }
 
     /**
      * @return the ripe
      */
-    public byte[] getRipe() {
-        return ripe;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Response clone() {
-        Response response = null;
-        try {
-            response = (Response) super.clone();
-        } catch (CloneNotSupportedException ignored) {
-        }
-        return response;
+    public byte[] ripe() {
+        return ripe;
     }
 }

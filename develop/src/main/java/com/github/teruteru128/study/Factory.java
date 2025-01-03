@@ -141,6 +141,7 @@ import javax.crypto.Mac;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.net.ssl.SSLContext;
 import org.apache.logging.log4j.util.InternalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1633,7 +1634,8 @@ public class Factory implements Callable<Integer> {
   private int multi2(String signPrivateKey58)
       throws IOException, NoSuchAlgorithmException, DigestException {
     var sp = Base58.decode(signPrivateKey58);
-    var sigPubKey = SEC_P256_K1_G.multiply(new BigInteger(1, sp, 1, 32)).normalize().getEncoded(false);
+    var sigPubKey = SEC_P256_K1_G.multiply(new BigInteger(1, sp, 1, 32)).normalize()
+        .getEncoded(false);
     var index = SECURE_RANDOM_GENERATOR.nextInt();
     System.out.printf("index: %d%n", index);
     var fileNumber = (index >> 24) & 0xff;
@@ -1681,9 +1683,11 @@ public class Factory implements Callable<Integer> {
   private int validate(String signPrivateKey58, String encPrivateKey58)
       throws NoSuchAlgorithmException, DigestException {
     var sp = Base58.decode(signPrivateKey58);
-    var sigPubKey = SEC_P256_K1_G.multiply(new BigInteger(1, sp, 1, 32)).normalize().getEncoded(false);
+    var sigPubKey = SEC_P256_K1_G.multiply(new BigInteger(1, sp, 1, 32)).normalize()
+        .getEncoded(false);
     var sp3 = Base58.decode(encPrivateKey58);
-    var encPubKey = SEC_P256_K1_G.multiply(new BigInteger(1, sp3, 1, 32)).normalize().getEncoded(false);
+    var encPubKey = SEC_P256_K1_G.multiply(new BigInteger(1, sp3, 1, 32)).normalize()
+        .getEncoded(false);
     var sha512 = MessageDigest.getInstance("SHA-512");
     var ripemd160 = MessageDigest.getInstance("RIPEMD160");
     var ripe = new byte[64];
@@ -1694,6 +1698,19 @@ public class Factory implements Callable<Integer> {
     ripemd160.digest(ripe, 0, 20);
     System.out.printf("format: %s%n", FORMAT.formatHex(ripe, 0, 20));
     System.out.printf("address: %s%n", AddressFactory.encodeAddress(4, 1, ripe, 0, 20));
+    return ExitCode.OK;
+  }
+
+  @Command(name = "ssl")
+  private int ssl() throws NoSuchAlgorithmException {
+    var context = SSLContext.getInstance("Default");
+    var parameters = context.getDefaultSSLParameters();
+    for (String protocol : parameters.getProtocols()) {
+      System.out.println(protocol);
+    }
+    for (String cipherSuite : parameters.getCipherSuites()) {
+      System.out.println(cipherSuite);
+    }
     return ExitCode.OK;
   }
 
