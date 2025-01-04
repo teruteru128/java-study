@@ -104,9 +104,11 @@ import java.security.spec.RSAPublicKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.sql.SQLException;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -141,7 +143,6 @@ import javax.crypto.Mac;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import javax.net.ssl.SSLContext;
 import org.apache.logging.log4j.util.InternalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1630,7 +1631,8 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command(name = "multi2")
+  @Command(name = "multi2", description = {
+      "指定した署名鍵とファイルの暗号鍵からアドレスを計算する"})
   private int multi2(String signPrivateKey58)
       throws IOException, NoSuchAlgorithmException, DigestException {
     var sp = Base58.decode(signPrivateKey58);
@@ -1701,16 +1703,25 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command(name = "ssl")
-  private int ssl() throws NoSuchAlgorithmException {
-    var context = SSLContext.getInstance("Default");
-    var parameters = context.getDefaultSSLParameters();
-    for (String protocol : parameters.getProtocols()) {
-      System.out.println(protocol);
+  @Command(name = "q")
+  private int q() {
+    var str = new StringBuilder("FgkPI_XVQAEfgiG");
+    while ((str.length() & 3) != 0) {
+      str.append('=');
     }
-    for (String cipherSuite : parameters.getCipherSuites()) {
-      System.out.println(cipherSuite);
-    }
+    var decode = Base64.getUrlDecoder().decode(str.toString());
+    System.out.printf("%s%n", FORMAT.formatHex(decode));
+    var wrap = ByteBuffer.wrap(decode);
+    System.out.println(wrap.capacity());
+    var aLong = wrap.getLong();
+    var sequence = aLong & 0xfffL;
+    var machine = (aLong >> 12) & 0x3ffL;
+    var timestamp = (aLong >> 22) & 0x1ffffffffffL;
+    var localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp + 1288834974657L),
+        ZoneId.systemDefault());
+    System.out.printf("%1$d, %1$016x%n", aLong);
+    System.out.printf("timestamp: %d, %s%n", timestamp, localDateTime);
+    System.out.printf("machine: %d, sequence: %d%n", machine, sequence);
     return ExitCode.OK;
   }
 
