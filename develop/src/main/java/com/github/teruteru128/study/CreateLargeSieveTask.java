@@ -11,10 +11,12 @@ import static java.lang.foreign.ValueLayout.JAVA_LONG;
 import static picocli.CommandLine.Parameters.NULL_VALUE;
 
 import com.github.teruteru128.foreign.converters.PathConverter;
-import com.github.teruteru128.foreign.prime.search.PrimeSearch;
+import com.github.teruteru128.foreign.prime.search.PrimeSearch.LargeSieve;
 import com.github.teruteru128.gmp.__mpz_struct;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.foreign.Arena;
 import java.nio.file.Files;
@@ -98,7 +100,13 @@ public class CreateLargeSieveTask implements Callable<Void> {
     var arraySize = unitIndex(searchLen - 1) + 1;
     var largeSieve = arena.allocate(JAVA_LONG, arraySize);
     if (oldInPath != null) {
-      var s = PrimeSearch.loadLargeSieve(oldInPath);
+      LargeSieve result1;
+      try (var ois = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(oldInPath)))) {
+        var searchLength = ois.readInt();
+        var sieve2 = BitSet.valueOf((long[]) ois.readObject());
+        result1 = new LargeSieve(searchLength, sieve2);
+      }
+      var s = result1;
       var sieve1 = s.sieve();
       var sieveArray = sieve1.toLongArray();
       var tmp = Arrays.stream(sieveArray).map(l -> ~l).map(Long::bitCount).sum();

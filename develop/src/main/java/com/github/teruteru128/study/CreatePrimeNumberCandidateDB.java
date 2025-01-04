@@ -1,7 +1,9 @@
 package com.github.teruteru128.study;
 
-import com.github.teruteru128.foreign.prime.search.PrimeSearch;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.BitSet;
@@ -43,7 +45,13 @@ public class CreatePrimeNumberCandidateDB implements Callable<Integer> {
         prep.setLong(1, id);
         BitSet p;
         {
-          var largeSieve = PrimeSearch.loadLargeSieve2(Path.of(largeSievePath));
+          long[] n;
+          try (var ois = new ObjectInputStream(new ByteArrayInputStream(
+              Files.readAllBytes(Path.of(largeSievePath))))) {
+            ois.readInt();
+            n = (long[]) ois.readObject();
+          }
+          var largeSieve = BitSet.valueOf(n);
           p = new BitSet(largeSieve.length());
           p.set(0, largeSieve.length());
           p.andNot(largeSieve);

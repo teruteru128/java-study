@@ -39,7 +39,7 @@ import com.github.teruteru128.color.HLSColor;
 import com.github.teruteru128.color.RGBColor;
 import com.github.teruteru128.encode.Base58;
 import com.github.teruteru128.foreign.converters.PathConverter;
-import com.github.teruteru128.foreign.prime.search.PrimeSearch;
+import com.github.teruteru128.foreign.prime.search.PrimeSearch.LargeSieve;
 import com.github.teruteru128.fx.App;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
@@ -49,13 +49,13 @@ import com.github.teruteru128.semen.CumShoot;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.io.RandomAccessFile;
+import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
 import java.lang.reflect.InvocationTargetException;
@@ -72,6 +72,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -104,16 +105,15 @@ import java.security.spec.RSAPublicKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.sql.SQLException;
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.BitSet;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -202,9 +202,21 @@ public class Factory implements Callable<Integer> {
   @Command(name = "diffLargeSieves")
   private static void diffLargeSieves(Path inPath1, Path inPath2)
       throws IOException, ClassNotFoundException {
-    var a = PrimeSearch.loadLargeSieve(inPath1);
+    LargeSieve result1;
+    try (var ois1 = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(inPath1)))) {
+      var searchLength1 = ois1.readInt();
+      var sieve1 = BitSet.valueOf((long[]) ois1.readObject());
+      result1 = new LargeSieve(searchLength1, sieve1);
+    }
+    var a = result1;
     long[] array1 = a.sieve().toLongArray();
-    var b = PrimeSearch.loadLargeSieve(inPath2);
+    LargeSieve result;
+    try (var ois = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(inPath2)))) {
+      var searchLength = ois.readInt();
+      var sieve = BitSet.valueOf((long[]) ois.readObject());
+      result = new LargeSieve(searchLength, sieve);
+    }
+    var b = result;
     long[] array2 = b.sieve().toLongArray();
     var minLength = min(array1.length, array2.length);
     for (int i = 0; i < minLength; i++) {
@@ -323,42 +335,6 @@ public class Factory implements Callable<Integer> {
     }
   }
 
-  /**
-   * [int,long[]]形式のオブジェクト出力をフォーマットする。
-   * @param args
-   * @throws IOException
-   * @throws ClassNotFoundException
-   */
-  @Command(name = "formatSieve", description = "[int,long[]]形式のオブジェクト出力をフォーマットする。")
-  private static void formatSieve(String[] args) throws IOException, ClassNotFoundException {
-    long[] array1;
-    try (var a = new ObjectInputStream(
-        new ByteArrayInputStream(Files.readAllBytes(Path.of(args[1]))))) {
-      a.readInt();
-      Object obj = a.readObject();
-      if (obj instanceof long[]) {
-        array1 = (long[]) obj;
-      } else {
-        throw new ClassCastException(
-            "only supported for long[], not supported object type: " + obj.getClass().getName());
-      }
-    }
-    for (int i = 0; i < array1.length; i++) {
-      System.out.printf("%016x", ~array1[i]);
-      switch (i % 8) {
-        case 7:
-          System.out.println();
-          break;
-        case 3:
-          System.out.print("  ");
-          break;
-        default:
-          System.out.print(' ');
-          break;
-      }
-    }
-  }
-
   @Command(name = "getSentMessageByAckData")
   private static void getSentMessageByAckData(String[] args)
       throws IOException, InterruptedException {
@@ -370,11 +346,13 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command(name = "D")
-  private static void D(String[] args) throws IOException {
-    try (var reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(
-        new BufferedInputStream(Files.newInputStream(Path.of(args[1])), 0x70000000), 0x70000000)),
-        0x70000000)) {
-      System.out.println(reader.lines().count() + "件");
+  private static void D(Path path) throws IOException {
+    CharsetDecoder decoder = StandardCharsets.UTF_8.newDecoder();
+    Reader reader1 = new InputStreamReader(Files.newInputStream(path), decoder);
+    long count;
+    try (var reader = new BufferedReader(reader1, 0x70000000)) {
+      count = reader.lines().count();
+      System.out.printf("%d件%n", count);
     }
   }
 
@@ -1700,28 +1678,6 @@ public class Factory implements Callable<Integer> {
     ripemd160.digest(ripe, 0, 20);
     System.out.printf("format: %s%n", FORMAT.formatHex(ripe, 0, 20));
     System.out.printf("address: %s%n", AddressFactory.encodeAddress(4, 1, ripe, 0, 20));
-    return ExitCode.OK;
-  }
-
-  @Command(name = "q")
-  private int q() {
-    var str = new StringBuilder("FgkPI_XVQAEfgiG");
-    while ((str.length() & 3) != 0) {
-      str.append('=');
-    }
-    var decode = Base64.getUrlDecoder().decode(str.toString());
-    System.out.printf("%s%n", FORMAT.formatHex(decode));
-    var wrap = ByteBuffer.wrap(decode);
-    System.out.println(wrap.capacity());
-    var aLong = wrap.getLong();
-    var sequence = aLong & 0xfffL;
-    var machine = (aLong >> 12) & 0x3ffL;
-    var timestamp = (aLong >> 22) & 0x1ffffffffffL;
-    var localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp + 1288834974657L),
-        ZoneId.systemDefault());
-    System.out.printf("%1$d, %1$016x%n", aLong);
-    System.out.printf("timestamp: %d, %s%n", timestamp, localDateTime);
-    System.out.printf("machine: %d, sequence: %d%n", machine, sequence);
     return ExitCode.OK;
   }
 

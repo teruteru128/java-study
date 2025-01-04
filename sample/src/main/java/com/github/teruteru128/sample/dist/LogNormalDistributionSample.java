@@ -2,12 +2,13 @@ package com.github.teruteru128.sample.dist;
 
 import com.github.teruteru128.sample.Sample;
 import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.UncheckedIOException;
 import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.zip.GZIPOutputStream;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.statistics.distribution.LogNormalDistribution;
 
@@ -30,20 +31,36 @@ public class LogNormalDistributionSample implements Sample {
 
     // var results = sampler.samples(60000000).toArray();
     var samples = sampler.samples(2_000_000_000).toArray();
-    var name = "out7";
+    var name = "out8";
     System.out.println(name);
-    try(var stream = new PrintStream(new GZIPOutputStream(new BufferedOutputStream(new FileOutputStream(name + ".txt.gz"), 1024 * 1024 * 1024), 1024 * 1024 * 1024, false))) {
+    try (var stream1 = new PrintStream(new BufferedOutputStream(
+        new FileOutputStream(name + ".properties.txt"))); var stream = new DataOutputStream(
+        new BufferedOutputStream(new FileOutputStream(name + ".bin"), 1024 * 1024 * 1024))) {
       System.out.printf("μ=log(%f), σ=%s%n", expMu, sigma);
-      stream.printf("μ=log(%f), σ=%s%n", expMu, sigma);
-      Arrays.stream(samples).forEach(stream::println);
-      Arrays.stream(samples).average().ifPresent(a-> {
+      stream1.printf("μ=log(%f), σ=%s%n", expMu, sigma);
+      Arrays.stream(samples).mapToLong(Double::doubleToLongBits).forEach(v -> {
+        try {
+          stream.writeLong(v);
+        } catch (IOException e) {
+          throw new UncheckedIOException(e);
+        }
+      });
+      Arrays.stream(samples).average().ifPresent(a -> {
         System.out.printf("avg: %s%n", a);
-        stream.printf("avg: %s%n", a);
+        stream1.printf("avg: %s%n", a);
       });
     }
-    try(var stream = new PrintStream(new GZIPOutputStream(new BufferedOutputStream(new FileOutputStream(name + "-sorted.txt.gz"), 1024 * 1024 * 1024), 1024 * 1024 * 1024, false))) {
+    try (var stream = new DataOutputStream(
+        new BufferedOutputStream(new FileOutputStream(name + "-sorted.bin"),
+            1024 * 1024 * 1024))) {
       Arrays.sort(samples);
-      Arrays.stream(samples).forEach(stream::println);
+      Arrays.stream(samples).mapToLong(Double::doubleToLongBits).forEach(v -> {
+        try {
+          stream.writeLong(v);
+        } catch (IOException e) {
+          throw new UncheckedIOException(e);
+        }
+      });
     }
   }
 }

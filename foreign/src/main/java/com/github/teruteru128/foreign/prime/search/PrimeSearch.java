@@ -5,12 +5,8 @@ import static java.util.concurrent.ForkJoinPool.defaultForkJoinWorkerThreadFacto
 
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.lang.foreign.Arena;
-import java.lang.foreign.MemorySegment;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
@@ -46,7 +42,7 @@ public class PrimeSearch implements Callable<Integer> {
   static {
     dbURL = Objects.requireNonNull(System.getenv("DB_URL"), "$DB_URL NOT FOUND");
     if (dbURL.isEmpty()) {
-      throw new RuntimeException("$DB_URL IS EMPTY");
+      throw new ExceptionInInitializerError("$DB_URL IS EMPTY");
     }
   }
 
@@ -56,64 +52,36 @@ public class PrimeSearch implements Callable<Integer> {
   @Parameters(description = "even number (text) file")
   private Path evenNumberPath;
 
-  public static LargeSieve loadLargeSieve(Path path) throws IOException, ClassNotFoundException {
-    try (var ois = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(path)))) {
-      var searchLength = ois.readInt();
-      var sieve = BitSet.valueOf((long[]) ois.readObject());
-      return new LargeSieve(searchLength, sieve);
-    }
-  }
-
-  public static BitSet loadLargeSieve2(Path path) throws IOException, ClassNotFoundException {
-    long[] n;
-    try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(path)))) {
-      ois.readInt();
-      n = (long[]) ois.readObject();
-    }
-    return BitSet.valueOf(n);
-  }
-
-  public static long[] loadLargeSieve3(Path path) throws IOException, ClassNotFoundException {
-    long[] n;
-    try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(path)))) {
-      ois.readInt();
-      n = (long[]) ois.readObject();
-    }
-    return n;
-  }
-
-  private static void loadEvenToMpz(Path path, MemorySegment even) throws IOException {
-    var evenStr = Files.readAllLines(path).getFirst();
-    mpz_init_set_str(even, auto.allocateFrom(evenStr), 10);
-  }
-
   @Override
   public Integer call()
       throws IOException, ClassNotFoundException, InterruptedException, ExecutionException, SQLException {
+    logger.info("initialize...");
+    var matcher = UUID_PATTERN.matcher(evenNumberPath.getFileName().toString());
+    long id;
+    if (matcher.find()) {
+      id = UUID.fromString(matcher.group()).getMostSignificantBits();
+    } else {
+      logger.error("ファイル名にUUIDが含まれていません");
+      return ExitCode.SOFTWARE;
+    }
     var even = auto.allocate(__mpz_struct.layout()).reinterpret(auto, gmp_h::mpz_clear);
-    var fileName = evenNumberPath.getFileName();
-    var matcher = UUID_PATTERN.matcher(fileName.toString());
-    loadEvenToMpz(evenNumberPath, even);
+    mpz_init_set_str(even, auto.allocateFrom(Files.readAllLines(evenNumberPath).getFirst()), 10);
     var source = new SQLiteDataSource();
     source.setUrl(dbURL);
     var list2 = new ArrayList<Integer>();
-    try (var connection = source.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
-        "SELECT step from candidates where composite == 0 and probably_prime == 0 and definitely_prime == 0;")) {
-      while (set.next()) {
-        list2.add(set.getInt("step"));
+    try (var connection = source.getConnection(); var statement = connection.prepareStatement(
+        "SELECT step from candidates where composite == 0 and probably_prime == 0 and definitely_prime == 0 and id = ?;")) {
+      statement.setLong(1, id);
+      try (var set = statement.executeQuery()) {
+        while (set.next()) {
+          list2.add(set.getInt("step"));
+        }
       }
     }
     logger.info("start");
     logger.debug("Number of prime number candidates: {}", list2.size());
     var found = false;
     logger.debug("threads: {}", threads);
-    long id;
-    if (matcher.find()) {
-      id = UUID.fromString(matcher.group(0)).getMostSignificantBits();
-    } else {
-      logger.error("ファイル名にUUIDが含まれていません");
-      return ExitCode.SOFTWARE;
-    }
     var list = list2.stream().mapToInt(Integer::intValue)
         .mapToObj(step -> new PrimeSearchTask2(even, step, source, id))
         .collect(Collectors.toCollection(() -> new ArrayList<>(list2.size())));

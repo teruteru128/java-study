@@ -6,6 +6,7 @@ import static java.lang.foreign.MemorySegment.copy;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
+import com.github.teruteru128.foreign.prime.search.PrimeSearch.LargeSieve;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.foreign.converters.PathConverter;
@@ -112,8 +113,14 @@ public class PrimeSearch implements Callable<Void> {
   public static void getConvertedStep(int firstStep) throws IOException, ClassNotFoundException {
     var base = loadEvenNumber(
         Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"));
-    var largeSieve = com.github.teruteru128.foreign.prime.search.PrimeSearch.loadLargeSieve(
-        Paths.get("large-sieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-6.obj"));
+    LargeSieve result;
+    Path path = Paths.get("large-sieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-6.obj");
+    try (var ois = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(path)))) {
+      var searchLength = ois.readInt();
+      var sieve1 = BitSet.valueOf((long[]) ois.readObject());
+      result = new LargeSieve(searchLength, sieve1);
+    }
+    var largeSieve = result;
     var sieve = largeSieve.sieve();
     var a = new BitSet(sieve.length());
     a.set(0, largeSieve.searchLength());
