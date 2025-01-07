@@ -3,9 +3,7 @@ package com.github.teruteru128.study;
 import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
-import static com.github.teruteru128.gmp.gmp_h.mpz_import;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
-import static com.github.teruteru128.gmp.gmp_h.mpz_init2;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
@@ -19,8 +17,6 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
-import static java.lang.foreign.ValueLayout.JAVA_BYTE;
-import static java.lang.foreign.ValueLayout.JAVA_LONG;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
@@ -55,7 +51,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.io.RandomAccessFile;
-import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
 import java.lang.reflect.InvocationTargetException;
@@ -63,7 +58,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.net.HttpURLConnection;
-import java.net.ProxySelector;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
@@ -72,7 +66,6 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -105,35 +98,26 @@ import java.security.spec.RSAPublicKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.sql.SQLException;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.BitSet;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import java.util.StringJoiner;
 import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
-import java.util.zip.GZIPInputStream;
 import javafx.application.Application;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -161,6 +145,7 @@ import picocli.CommandLine.Parameters;
     SmallSievePrimeCounter.class})
 public class Factory implements Callable<Integer> {
 
+  public static final int ARRAY_ELEMENTS_MAX = 2147483645;
   private static final int WINDOW_SIZE = 1000;
   private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   private static final HexFormat FORMAT = HexFormat.of();
@@ -336,40 +321,12 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command(name = "getSentMessageByAckData")
-  private static void getSentMessageByAckData(String[] args)
+  private static void getSentMessageByAckData(String ackData)
       throws IOException, InterruptedException {
     try (var client = HttpClient.newHttpClient()) {
       System.out.println(client.send(Spammer.requestBuilder.POST(ofString(
-          "{\"jsonrpc\":\"2.0\",\"method\":\"getSentMessageByAckData\", \"params\":[\"" + args[1]
+          "{\"jsonrpc\":\"2.0\",\"method\":\"getSentMessageByAckData\", \"params\":[\"" + ackData
           + "\"], \"id\": 19}")).build(), BodyHandlers.ofString()).body());
-    }
-  }
-
-  @Command(name = "D")
-  private static void D(Path path) throws IOException {
-    CharsetDecoder decoder = StandardCharsets.UTF_8.newDecoder();
-    Reader reader1 = new InputStreamReader(Files.newInputStream(path), decoder);
-    long count;
-    try (var reader = new BufferedReader(reader1, 0x70000000)) {
-      count = reader.lines().count();
-      System.out.printf("%d件%n", count);
-    }
-  }
-
-  @Command(name = "addressSearch")
-  private static Void getCall(String[] args) throws IOException {
-    return new AddressCalc(args,
-        hash -> (hash[0] | hash[1] | hash[2] | hash[3] | hash[4] | (hash[5] & 0xf8))
-                == 0x00).call();
-  }
-
-  @Command(name = "gz")
-  private static void gz(@Parameters(converter = PathConverter.class) Path path)
-      throws IOException {
-    try (var s = new BufferedReader(new InputStreamReader(new GZIPInputStream(
-        new BufferedInputStream(Files.newInputStream(path), UNITS * UNITS * UNITS))),
-        UNITS * UNITS * UNITS)) {
-      System.out.println(s.lines().count());
     }
   }
 
@@ -383,17 +340,6 @@ public class Factory implements Callable<Integer> {
     var getGMethod = x9Clazz.getMethod("getG");
     var g = getGMethod.invoke(curve);
     System.out.println(g);
-  }
-
-  @Command(name = "bomb", description = "zip bomb base generator")
-  private static void bomb() throws IOException {
-    var d = new byte[BOUND];
-    SECURE_RANDOM_GENERATOR.nextBytes(d);
-    try (var f = new BufferedOutputStream(
-        Files.newOutputStream(Path.of("bomb-" + UUID.randomUUID() + ".txt")))) {
-      f.write(Base64.getMimeEncoder().encode(d));
-      f.write("\r\n".getBytes());
-    }
   }
 
   @Command(name = "list-encodings")
@@ -944,24 +890,6 @@ public class Factory implements Callable<Integer> {
             ripemd160.digest(sha512.digest()))));
   }
 
-  private static int getD(char[] charArray, int offset, int length) {
-    int sum = 0;
-    for (int i = offset, charArrayLength = offset + length; i < charArrayLength; i++) {
-      sum += coefficient[i] * (charArray[i] - '0');
-    }
-    var mods = sum % 11;
-    if (mods <= 1) {
-      return 0;
-    } else {
-      return 11 - mods;
-    }
-  }
-
-  private static Path getPublicKeysDir() {
-    return Path.of(
-        Objects.requireNonNull(System.getenv("PUBLIC_KEYS_DIR"), "$PUBLIC_KEYS_DIR NOT FOUND"));
-  }
-
   @Command(name = "fuck-prime-p")
   private static int fuckPrimeP(String prefixNumber, int initialRepeatCount, String suffixNumber) {
     var auto = Arena.ofAuto();
@@ -970,7 +898,7 @@ public class Factory implements Callable<Integer> {
     int count = 0;
     int repeatCount1 = initialRepeatCount;
     int q = ((repeatCount1 - 1) / WINDOW_SIZE + 1) * WINDOW_SIZE;
-    while (count < 10) {
+    while (count < 4) {
       mpz_set_str(p, auto.allocateFrom(prefixNumber.repeat(repeatCount1) + suffixNumber), 10);
       long start = System.nanoTime();
       int prime = mpz_probab_prime_p(p, 25);
@@ -979,7 +907,7 @@ public class Factory implements Callable<Integer> {
         var length = mpz_sizeinbase(p, 10) + 2;
         var buffer = auto.allocate(length);
         mpz_get_str(buffer, 10, p);
-        System.out.println("p = " + buffer.getString(0));
+        logger.info("p = {}", buffer.getString(0));
         logger.info("{}: {}({} seconds)", repeatCount1, prime, (finish - start) / 1e9);
         count++;
       }
@@ -989,20 +917,6 @@ public class Factory implements Callable<Integer> {
       }
       repeatCount1++;
     }
-    return ExitCode.OK;
-  }
-
-  private static List<byte[]> readLinesAsKeyList(Path p) throws IOException {
-    try (var lines = Files.lines(p)) {
-      return lines.map(FORMAT::parseHex).toList();
-    }
-  }
-
-  @Command(name = "analyzeAddress")
-  private int analyzeAddress(String address) {
-    var a = decodeAddress(address);
-    System.out.println(AddressFactory.encodeAddress(3, 1, a.toripe()));
-    System.out.println(AddressFactory.encodeAddress(4, 1, a.toripe()));
     return ExitCode.OK;
   }
 
@@ -1029,241 +943,9 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command(name = "calcCheckDigit")
-  private int calcDigit(String code) {
-    if (!pattern11.matcher(code).matches()) {
-      return ExitCode.SOFTWARE;
-    }
-    var charArray = code.toCharArray();
-    var d = getD(charArray, 0, charArray.length);
-    System.out.println(d);
-    return ExitCode.OK;
-  }
-
-  @Command(name = "verifyCheckDigit")
-  private int checkDigit(String code) {
-    if (!pattern12.matcher(code).matches()) {
-      return ExitCode.SOFTWARE;
-    }
-    var charArray = code.toCharArray();
-    var d = getD(charArray, 0, charArray.length - 1);
-    return d == (charArray[11] - '0') ? ExitCode.OK : ExitCode.SOFTWARE;
-  }
-
-  @Command(name = "pam")
-  private Integer pam(int bitLength) throws IOException {
-    var auto = Arena.ofAuto();
-    var mpzArray = __mpz_struct.allocateArray(2, auto);
-    var n = __mpz_struct.asSlice(mpzArray, 0).reinterpret(auto, gmp_h::mpz_clear);
-    var p = __mpz_struct.asSlice(mpzArray, 1).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init2(n, bitLength);
-    mpz_init2(p, bitLength);
-    var n2 = new BigInteger(bitLength, (Random) SECURE_RANDOM_GENERATOR).setBit(bitLength - 1)
-        .clearBit(0);
-    var byteArray = n2.toByteArray();
-    mpz_import(mpzArray, byteArray.length, 1, JAVA_BYTE.byteSize(), 0, 0,
-        auto.allocateFrom(JAVA_BYTE, byteArray));
-    mpz_nextprime(p, n);
-    var sizeInBase10 = mpz_sizeinbase(p, 10);
-    System.out.println(sizeInBase10);
-    var str = auto.allocate(sizeInBase10 + 1, 1);
-    mpz_get_str(str, 10, p);
-    var a = str.getString(0).replaceAll("\\d{5}", "$0 ")
-        .replaceAll("((\\d{5} ){9}\\d{5}) ", "$1" + System.lineSeparator());
-    var uuid = UUID.randomUUID();
-    var path = Path.of(
-        bitLength + "bit-" + uuid.toString().replaceAll("-", "").toUpperCase() + ".txt");
-    Files.writeString(path, a, StandardCharsets.UTF_8, StandardOpenOption.CREATE,
-        StandardOpenOption.WRITE);
-    return ExitCode.OK;
-  }
-
-  @Command(name = "pac")
-  private Integer pac() throws IOException, NoSuchAlgorithmException, DigestException {
-    var p = Path.of("D:\\keys\\public\\publicKeys0.bin");
-    var c = Files.readAllBytes(p);
-    var sigBuf = new byte[LENGTH];
-    var encBuf = new byte[LENGTH];
-    int q;
-    int r;
-    int s;
-    int i;
-    int j;
-    var sha512_1 = MessageDigest.getInstance("SHA512");
-    //MessageDigest sha512_2;
-    var ripemd160 = MessageDigest.getInstance("RIPEMD160");
-    var hash = new byte[64];
-    long start;
-    long finish;
-    for (int k = 0; k < 10; k++) {
-      q = ThreadLocalRandom.current().nextInt(BOUND);
-      // r = q / UNITS;
-      r = q >> TRAILING_ZEROS;
-      // s = q % UNITS;
-      s = q & MASK;
-      System.arraycopy(c, r * LENGTH, sigBuf, 0, LENGTH);
-      System.arraycopy(c, s * LENGTH, encBuf, 0, LENGTH);
-      start = System.nanoTime();
-      for (i = 0; i < LENGTH; i += Const.PUBLIC_KEY_LENGTH) {
-        for (j = 0; j < LENGTH; j += Const.PUBLIC_KEY_LENGTH) {
-          sha512_1.update(sigBuf, i, Const.PUBLIC_KEY_LENGTH);
-          sha512_1.update(encBuf, j, Const.PUBLIC_KEY_LENGTH);
-          sha512_1.digest(hash, 0, 64);
-          ripemd160.update(hash, 0, 64);
-          ripemd160.digest(hash, 0, 20);
-          if (hash[0] != 0) {
-            continue;
-          }
-          if (hash[1] != 0) {
-            continue;
-          }
-          if (hash[2] != 0) {
-            continue;
-          }
-          if (hash[3] != 0) {
-            continue;
-          }
-          if (hash[4] != 0) {
-            continue;
-          }
-          if (hash[5] != 0) {
-            continue;
-          }
-          // sign offset = r * LENGTH + i
-          // enc offset = s * LENGTH + j
-          logger.info("found! {}, {}, {}, {}: {}", r, i, s, j, FORMAT.formatHex(hash, 0, 20));
-          logger.info("sign key: {}", FORMAT.formatHex(sigBuf, i, i + 65));
-          logger.info("enc key: {}", FORMAT.formatHex(encBuf, j, j + 65));
-        }
-      }
-      finish = System.nanoTime();
-      logger.info("{} seconds", (finish - start) / 1e9);
-    }
-    return ExitCode.OK;
-  }
-
-  @Command(name = "co")
-  private int co() throws SQLException {
-    var dataSource = new SQLiteDataSource();
-    dataSource.setUrl(Objects.requireNonNull(System.getenv("DB_URL"), "DB_URL IS NOT FOUND"));
-    try (var connection = dataSource.getConnection()) {
-      // pubkeysとtransmitdataを全部取り出す
-      var list = new ArrayList<PubKey>();
-      try (var statement = connection.createStatement(); var set = statement.executeQuery(
-          "SELECT address, transmitdata from pubkeys;")) {
-        while (set.next()) {
-          var address = set.getString("address");
-          var transmitdata = set.getBytes("transmitdata");
-          // sign keyでフィルタ
-          if (KeyCache.sigKeys.stream()
-              .anyMatch(bytes -> Arrays.equals(transmitdata, 6, 70, bytes, 0, 64))) {
-            // ビットフィールドをマスク
-            transmitdata[5] &= -2;
-            list.add(new PubKey(address, transmitdata));
-          }
-        }
-      }
-      logger.info("{}件ヒットしました", list.size());
-      // 更新
-      connection.setAutoCommit(false);
-      int sum;
-      try (var prep = connection.prepareStatement(
-          "UPDATE PUBKEYS set transmitdata = ? where address = ?;")) {
-        for (var pubkey : list) {
-          prep.setBytes(1, pubkey.transmitData());
-          prep.setString(2, pubkey.address());
-          prep.addBatch();
-        }
-        sum = Arrays.stream(prep.executeBatch()).sum();
-        connection.commit();
-      }
-      logger.info("{}件更新しました", sum);
-    }
-    return ExitCode.OK;
-  }
-
-  @Command(name = "reloadBullets")
-  private int reloadBullets() throws SQLException {
-    var dataSource = new SQLiteDataSource();
-    dataSource.setUrl(Objects.requireNonNull(System.getenv("DB_URL"), "DB_URL IS NOT FOUND"));
-    var taskDataSource = new SQLiteDataSource();
-    taskDataSource.setUrl(Objects.requireNonNull(System.getenv("DB2_URL"), "DB_URL IS NOT FOUND"));
-    var list = new ArrayList<PubKey>();
-    try (var connection = dataSource.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
-        "SELECT address, transmitdata from pubkeys;")) {
-      while (set.next()) {
-        var address = set.getString("address");
-        var transmitdata = set.getBytes("transmitdata");
-        if (KeyCache.sigKeys.stream()
-            .anyMatch(bytes -> Arrays.equals(transmitdata, 6, 70, bytes, 0, 64))) {
-          list.add(new PubKey(address, transmitdata));
-        }
-      }
-    }
-    try (var taskConnection = taskDataSource.getConnection()) {
-      taskConnection.setAutoCommit(false);
-      var d = LocalDate.of(2026, 8, 7);
-      var a = LocalDateTime.of(d, LocalTime.of(0, 0, 0));
-      var b = ZoneOffset.systemDefault().getRules().getOffset(a);
-      var c = a.toEpochSecond(b);
-      var count = 0L;
-      try (var prep = taskConnection.prepareStatement(
-          "insert into task(toaddress, label, senttime) values (?, ?, ?)")) {
-        for (var pubkey : list) {
-          prep.setString(1, pubkey.address());
-          prep.setString(2, "myself-" + pubkey.address());
-          prep.setLong(3, c + SECURE_RANDOM_GENERATOR.nextInt(86400));
-          count++;
-          if ((a.toLocalDate().equals(d) && count >= 80) || count >= 1200) {
-            a = a.plusDays(1);
-            c = a.toEpochSecond(b);
-            count = 0;
-          }
-          prep.addBatch();
-        }
-        prep.executeBatch();
-      }
-      taskConnection.commit();
-    }
-    return ExitCode.OK;
-  }
-
   @Override
   public Integer call() throws Exception {
     return ExitCode.USAGE;
-  }
-
-  @Command(name = "unchi")
-  private int unchi(Path inPath, Path outpath) throws IOException {
-    var inLines = Files.readAllLines(inPath);
-    final var lineSeparator = "\r\n";
-    var v3Block = new StringJoiner(lineSeparator);
-    var v4Block = new StringJoiner(lineSeparator);
-    var otherBlock = new StringJoiner(lineSeparator);
-    var tmp = new StringBuilder();
-    var address = "";
-    for (var line : inLines) {
-      if (line.isEmpty()) {
-        var addressBlock = tmp.toString();
-        var decoded = Base58.decode(address.replaceAll("BM-", ""));
-        switch (decoded[0]) {
-          case 3 -> v3Block.add(addressBlock);
-          case 4 -> v4Block.add(addressBlock);
-          default -> otherBlock.add(addressBlock);
-        }
-        tmp.setLength(0);
-      } else if (line.startsWith("[")) {
-        tmp.append(line).append(lineSeparator);
-        address = line.replace("[", "").replace("]", "");
-      } else {
-        tmp.append(line).append(lineSeparator);
-      }
-    }
-    var work = new StringJoiner(lineSeparator, "", lineSeparator);
-    work.merge(v3Block).merge(v4Block).merge(otherBlock);
-    Files.writeString(outpath, work.toString(), StandardCharsets.UTF_8, StandardOpenOption.CREATE,
-        StandardOpenOption.WRITE);
-    return ExitCode.OK;
   }
 
   @Command(name = "unko", description = "keys.dat アドレス検証ツール")
@@ -1318,20 +1000,6 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command(name = "selector")
-  private int selector() throws IOException, InterruptedException {
-    System.out.println(ProxySelector.getDefault());
-    return ExitCode.OK;
-  }
-
-  @Command(name = "cookie")
-  private int cookie() {
-    var a = 6.4E61;
-    var b = Math.cbrt(a / 1e12);
-    System.out.println(b);
-    return ExitCode.OK;
-  }
-
   @Command(name = "messageSign")
   private int sign(String message)
       throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
@@ -1379,145 +1047,6 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command(name = "execute")
-  private int exec(@Parameters(paramLabel = "publicKey", description = {
-      "hex formatted signing public key"}) String publicKey) throws IOException {
-    final var signPublicKey = FORMAT.parseHex(publicKey);
-    var pattern = Pattern.compile("publicKeys\\d+.bin");
-    // 文字列を数値順に並び替えるには、文字列を長さで並び替えてから辞書順に並び替える
-    try (var stream = Files.walk(getPublicKeysDir())) {
-      record Sex(byte[] key, long ripe1, long ripe2) {
-
-      }
-      stream.filter(p -> !p.toString().contains("trimmed"))
-          .filter(f -> pattern.matcher(f.getFileName().toString()).matches()).sorted(
-              Comparator.comparing(p1 -> p1.getFileName().toString(),
-                  Comparator.comparingInt(String::length).thenComparing(Comparator.naturalOrder())))
-          .flatMap(p -> {
-            try {
-              var fileSize = Files.size(p);
-              var buf2 = Files.readAllBytes(p);
-              var builder = Stream.<Sex>builder();
-              var j = 0;
-              // ラムダを匿名クラスに変換してMessageDigest変数2つをフィールド変数にしたらわざわざ生成するコストを抑えられるのでは？
-              var sha512 = MessageDigest.getInstance("SHA-512");
-              var ripemd160 = MessageDigest.getInstance("RIPEMD160");
-              while ((j + 65) < fileSize) {
-                var key = new byte[65];
-                System.arraycopy(buf2, j, key, 0, 65);
-                sha512.update(key, 0, 65);
-                sha512.update(signPublicKey);
-                var ripe = ripemd160.digest(sha512.digest());
-                var buffer = ByteBuffer.wrap(ripe);
-                // buffer.getLong()の呼び出し2つをインライン化すると呼び出し順の保証が効かなかった気がする
-                var ripe1 = buffer.getLong();
-                var ripe2 = buffer.getLong();
-                builder.add(new Sex(key, ripe1, ripe2));
-                j += 65;
-              }
-              return builder.build();
-            } catch (IOException e) {
-              throw new UncheckedIOException(e);
-            } catch (NoSuchAlgorithmException e) {
-              throw new RuntimeException(e);
-            } finally {
-              logger.info("{} DONE", p.getFileName().toString());
-            }
-          }).min((c1, c2) -> Long.compareUnsigned(c1.ripe1(), c2.ripe1())).ifPresent(
-              x -> System.out.printf("%s: %016x(%d)\u0007%n", FORMAT.formatHex(x.key()), x.ripe1(),
-                  Long.numberOfLeadingZeros(x.ripe1())));
-      // PathのストリームからFileを65バイトずつ読み込んでMessageDigestに通すとかどうやればええんや？
-    }
-    return ExitCode.OK;
-  }
-
-  @Command(name = "uncode")
-  private int uncode(String publicSignKey, String publicEncKey)
-      throws DigestException, NoSuchAlgorithmException {
-    var sha512 = MessageDigest.getInstance("SHA-512");
-    var ripemd160 = MessageDigest.getInstance("RIPEMD160");
-    var hash = new byte[64];
-    sha512.update(FORMAT.parseHex(publicSignKey));
-    sha512.update(FORMAT.parseHex(publicEncKey));
-    sha512.digest(hash, 0, 64);
-    ripemd160.update(hash, 0, 64);
-    ripemd160.digest(hash, 0, 20);
-    System.out.println(FORMAT.formatHex(hash, 0, 20));
-    var buffer = ByteBuffer.wrap(hash, 0, 20);
-    System.out.println(Long.numberOfLeadingZeros(buffer.getLong()));
-    return ExitCode.OK;
-  }
-
-  @Command(name = "varray")
-  private int varray() {
-    var longHandle = JAVA_LONG.varHandle();
-    var arrayHandle = JAVA_LONG.arrayElementVarHandle();
-    System.out.println("JAVA_LONG.varHandle() = " + longHandle);
-    System.out.println("JAVA_LONG.arrayElementVarHandle() = " + arrayHandle);
-    arrayHandle.coordinateTypes().forEach(System.out::println);
-    System.out.println("--");
-    var auto = Arena.ofAuto();
-    var array = auto.allocate(JAVA_LONG, 4);
-    longHandle.getAndBitwiseOr(array, 0L, 0x777000L);
-    long offset = 8L;
-    longHandle.getAndBitwiseOr(array, offset, 0x1145141919L);
-    long offset2 = 8L;
-    long index2 = 2L;
-    arrayHandle.getAndBitwiseOr(array, offset2, index2, 0x555L);
-    for (var a : array.toArray(JAVA_LONG)) {
-      System.out.printf("%016x%n", a);
-    }
-    return ExitCode.OK;
-  }
-
-  @Command(name = "ptest")
-  private int ptest() {
-    var list = Arrays.asList("8931", "19191919419", "114514", "931", "810", "893", "1919",
-        "45450721");
-    var builder = new StringBuilder(32);
-    int i;
-    BigInteger p;
-    for (int j = 0; j < 10; ) {
-      builder.setLength(0);
-      Collections.shuffle(list, SECURE_RANDOM_GENERATOR);
-      i = 0;
-      while (builder.length() < 24) {
-        builder.append(list.get(i++));
-      }
-      var length = builder.length();
-      if (length >= 25) {
-        logger.debug("やり直せ！: {}", length);
-        continue;
-      }
-      p = new BigInteger(builder.toString(), 10);
-      if (p.isProbablePrime(25)) {
-        System.out.println("done!: " + p);
-        j++;
-      }
-    }
-    return ExitCode.OK;
-  }
-
-  @Command(name = "1024")
-  private int p() {
-    var list = new long[25];
-    outer:
-    while (true) {
-      for (int i = 0; i < 24; i++) {
-        list[i]++;
-        if (!ThreadLocalRandom.current().nextBoolean()) {
-          continue outer;
-        }
-      }
-      list[24]++;
-      break;
-    }
-    for (int i = 0; i < 25; i++) {
-      System.out.printf("1/%d: %d%n", 1 << i, list[i]);
-    }
-    return ExitCode.OK;
-  }
-
   @Command(name = "fuckp")
   private int fuckp() {
     var header = BigInteger.valueOf(19000L);
@@ -1543,6 +1072,11 @@ public class Factory implements Callable<Integer> {
   @Command(name = "fuckPrime3")
   private int fuckPrime3() {
     return fuckPrimeP("4545", 0, "0721");
+  }
+
+  @Command(name = "fuckPrime4")
+  private int fuckPrime4() {
+    return fuckPrimeP("3", 1917, "1");
   }
 
   @Command(name = "calc")
@@ -1580,6 +1114,24 @@ public class Factory implements Callable<Integer> {
       mpz_get_str(str, 10, diff);
       System.out.printf("prime found: base + %s%n", str.getString(0));
       mpz_set(p, rop);
+    }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "pine2")
+  private int pine2() {
+    var auto = Arena.ofAuto();
+    var base = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(base, auto.allocateFrom("3".repeat(29999) + "1"), 10);
+    logger.info("bit length: {}", mpz_sizeinbase(base, 2));
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    for (int count = 0; count < 20; count++, mpz_set(base, p)) {
+      mpz_nextprime(p, base);
+      var length = mpz_sizeinbase(p, 10) + 2;
+      var res_str = auto.allocate(length);
+      mpz_get_str(res_str, 10, p);
+      logger.info("{}", res_str.getString(0));
     }
     return ExitCode.OK;
   }
@@ -1691,7 +1243,12 @@ public class Factory implements Callable<Integer> {
         List<byte[]> tmp;
         try {
           var fileSystem = FileSystems.getFileSystem(uri);
-          tmp = readLinesAsKeyList(fileSystem.provider().getPath(uri));
+          List<byte[]> result;
+          Path p = fileSystem.provider().getPath(uri);
+          try (var lines = Files.lines(p)) {
+            result = lines.map(FORMAT::parseHex).toList();
+          }
+          tmp = result;
         } catch (ProviderNotFoundException e) {
           throw new ExceptionInInitializerError("unknown scheme: " + uri.getScheme());
         }

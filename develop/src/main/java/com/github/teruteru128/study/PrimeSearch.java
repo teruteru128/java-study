@@ -84,10 +84,10 @@ public class PrimeSearch implements Callable<Void> {
     logger.info("write to {}", path);
     try (var oos = new ObjectOutputStream(new BufferedOutputStream(
         Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE),
-        2147483645))) {
+        Factory.ARRAY_ELEMENTS_MAX))) {
       oos.writeLong(bitLength);
       var length = sieve.length;
-      if (length == 2147483645) {
+      if (length == Factory.ARRAY_ELEMENTS_MAX) {
         for (long l : sieve) {
           oos.writeLong(l);
         }
@@ -204,10 +204,10 @@ public class PrimeSearch implements Callable<Void> {
   static long[] loadSmallSieve(Path path) throws IOException, ClassNotFoundException {
     long[] smallSieve;
     try (var ois = new ObjectInputStream(
-        new BufferedInputStream(Files.newInputStream(path), 2147483645))) {
+        new BufferedInputStream(Files.newInputStream(path), Factory.ARRAY_ELEMENTS_MAX))) {
       var length = ois.readLong();
       var i1 = unitIndex(length - 1) + 1;
-      if (i1 == 2147483645) {
+      if (i1 == Factory.ARRAY_ELEMENTS_MAX) {
         smallSieve = new long[i1];
         for (int i = 0; i < i1; i++) {
           smallSieve[i] = ois.readLong();
