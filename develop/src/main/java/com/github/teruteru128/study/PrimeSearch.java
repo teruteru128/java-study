@@ -3,8 +3,10 @@ package com.github.teruteru128.study;
 import static com.github.teruteru128.gmp.gmp_h.mpz_import;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init2;
 import static java.lang.foreign.MemorySegment.copy;
+import static java.lang.foreign.ValueLayout.ADDRESS;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
+import static java.lang.foreign.ValueLayout.JAVA_LONG_UNALIGNED;
 
 import com.github.teruteru128.foreign.prime.search.PrimeSearch.LargeSieve;
 import com.github.teruteru128.gmp.__mpz_struct;
@@ -18,8 +20,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.foreign.AddressLayout;
 import java.lang.foreign.Arena;
 import java.lang.foreign.GroupLayout;
+import java.lang.foreign.MemoryLayout;
 import java.lang.foreign.MemorySegment;
 import java.math.BigInteger;
 import java.nio.file.Files;
@@ -138,11 +142,19 @@ public class PrimeSearch implements Callable<Void> {
     }
   }
 
-  static long mpz_get_ui(MemorySegment z) {
+  public static long mpz_get_ui(MemorySegment z) {
     var p = __mpz_struct._mp_d(z);
     var n = __mpz_struct._mp_size(z);
     var l = p.getAtIndex(JAVA_LONG, 0);
     return n != 0 ? l : 0;
+  }
+
+  public static boolean mpz_odd_p(MemorySegment z) {
+    return (__mpz_struct._mp_d(z).getAtIndex(JAVA_LONG, 0) & 1) != 0;
+  }
+
+  public static boolean mpz_even_p(MemorySegment z) {
+    return !mpz_odd_p(z);
   }
 
   private static boolean mpz_fits_utype_p(MemorySegment z, long maxVal) {

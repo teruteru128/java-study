@@ -37,7 +37,7 @@ public class PrimeSearchTask extends RecursiveTask<Set<Integer>> {
       // generate prime number candidate
       var candidate = arena.allocate(__mpz_struct.layout());
       mpz_init_set(candidate, even);
-      mpz_add_ui(candidate, candidate, sieve[from] * 2L + 1);
+      mpz_add_ui(candidate, candidate, (int) (sieve[from] * 2L + 1));
       int ret;
       log.debug("start step: {}", sieve[from]);
       long start = System.nanoTime();

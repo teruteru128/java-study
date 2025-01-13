@@ -26,6 +26,7 @@ import java.util.random.RandomGenerator;
 
 public class Spammer {
 
+  // ENDPOINT
   public static final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(URI.create(
           Objects.requireNonNull(System.getenv("BM_API_SERVER_URL"), "BM API URL NOT FOUND")))
       .header("Content-Type", "application/json-rpc")

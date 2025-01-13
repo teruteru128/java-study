@@ -41,7 +41,7 @@ public class PrimeSearchTask2 implements Callable<Result> {
   @Override
   public Result call() throws SQLException {
     var candidate = threadCandidates.get();
-    mpz_add_ui(candidate, even, step * 2L + 1);
+    mpz_add_ui(candidate, even, (int) (step * 2L + 1));
     int result;
     long start;
     long finish;

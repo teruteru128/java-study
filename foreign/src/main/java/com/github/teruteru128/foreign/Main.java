@@ -126,7 +126,7 @@ public class Main implements Callable<Integer> {
   @Command(name = "primeTest")
   public int prime2(
       @Option(names = "--path", required = true, converter = PathConverter.class) Path path,
-      @Option(names = "--step", required = true) long step) throws IOException {
+      @Option(names = "--step", required = true) int step) throws IOException {
     var auto = Arena.ofAuto();
     var p = auto.allocate(layout()).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_str(p, auto.allocateFrom(Files.readAllLines(path).getFirst()), 10);
@@ -174,22 +174,22 @@ public class Main implements Callable<Integer> {
     if (gmp_h.mpz_cmp(p, q) < 0) {
       gmp_h.mpz_swap(p, q);
     }
-    mpz_init2(n, mpz_sizeinbase(p, 2) + mpz_sizeinbase(q, 2) + 1);
+    mpz_init2(n, (int) (mpz_sizeinbase(p, 2) + mpz_sizeinbase(q, 2) + 1));
     mpz_mul(n, p, q);
     mpz_init_set(pSub1, p);
     mpz_sub_ui(pSub1, pSub1, 1);
     mpz_init_set(qSub1, q);
     mpz_sub_ui(qSub1, qSub1, 1);
-    mpz_init2(phi, mpz_sizeinbase(pSub1, 2) + mpz_sizeinbase(qSub1, 2) + 1);
+    mpz_init2(phi, (int) (mpz_sizeinbase(pSub1, 2) + mpz_sizeinbase(qSub1, 2) + 1));
     mpz_mul(phi, pSub1, qSub1);
     mpz_init_set_ui(e, 65537);
-    mpz_init2(d, mpz_sizeinbase(phi, 2));
+    mpz_init2(d, (int) mpz_sizeinbase(phi, 2));
     mpz_invert(d, e, phi);
-    mpz_init2(exponent1, mpz_sizeinbase(pSub1, 2));
+    mpz_init2(exponent1, (int) mpz_sizeinbase(pSub1, 2));
     mpz_mod(exponent1, d, pSub1);
-    mpz_init2(exponent2, mpz_sizeinbase(qSub1, 2));
+    mpz_init2(exponent2, (int) mpz_sizeinbase(qSub1, 2));
     mpz_mod(exponent2, d, qSub1);
-    mpz_init2(coefficient, mpz_sizeinbase(p, 2));
+    mpz_init2(coefficient, (int) mpz_sizeinbase(p, 2));
     mpz_invert(coefficient, q, p);
 
     // こんな面倒くさいことするんだったら普通に10進数なり16進数なりにエンコードして読み込ませたほうがいいような

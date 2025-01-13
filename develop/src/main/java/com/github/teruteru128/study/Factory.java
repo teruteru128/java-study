@@ -1,19 +1,32 @@
 package com.github.teruteru128.study;
 
 import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
+import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_cmp;
+import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_divexact_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_gcd;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init2;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_tdiv_q_2exp;
+import static com.github.teruteru128.study.PrimeSearch.mpz_odd_p;
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -23,7 +36,6 @@ import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.bitmessage.app.Spammer.Address;
 import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
@@ -46,6 +58,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -53,13 +66,18 @@ import java.io.PrintStream;
 import java.io.RandomAccessFile;
 import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
+import java.lang.foreign.MemorySegment;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.Proxy.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
@@ -127,6 +145,7 @@ import javax.crypto.Mac;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.net.ssl.HttpsURLConnection;
 import org.apache.logging.log4j.util.InternalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -146,24 +165,13 @@ import picocli.CommandLine.Parameters;
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
+  public static final String END_POINT = "https://factordb.com/api?query=";
   private static final int WINDOW_SIZE = 1000;
   private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   private static final HexFormat FORMAT = HexFormat.of();
   private static final ECParameterSpec secp256k1Parameter;
   private static final KeyFactory factory;
   private static final Logger logger = LoggerFactory.getLogger(Factory.class);
-  private static final Pattern pattern11 = Pattern.compile("\\d{11}");
-  private static final Pattern pattern12 = Pattern.compile("\\d{12}");
-  private static final int[] coefficient = new int[]{6, 5, 4, 3, 2, 7, 6, 5, 4, 3, 2};
-  /**
-   * UNITS is only a power of 2.
-   * 32768にすると1時間ぐらいになる
-   */
-  private static final int UNITS = 2048;
-  private static final int MASK = UNITS - 1;
-  private static final int TRAILING_ZEROS = Long.numberOfTrailingZeros(UNITS);
-  private static final int BOUND = 16777216 / UNITS;
-  private static final int LENGTH = UNITS * Const.PUBLIC_KEY_LENGTH;
 
   static {
     try {
@@ -920,6 +928,34 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
+  private static int sendToFactorDB(MemorySegment n, Arena auto, StringBuilder buffer,
+      int prefixLength, ObjectMapper mapper) throws IOException {
+    var length = mpz_sizeinbase(n, 10) + 2;
+    var buf = auto.allocate(length);
+    mpz_get_str(buf, 10, n);
+    buffer.append(buf.getString(0));
+    var url = URI.create(buffer.toString()).toURL();
+    var urlConnection = (HttpsURLConnection) url.openConnection();
+    buffer.setLength(prefixLength);
+    urlConnection.connect();
+    var responseCode = urlConnection.getResponseCode();
+    if (responseCode / 100 != 2) {
+      System.err.printf("error?: %d in %s%n", responseCode, url);
+      return responseCode;
+    }
+    var content = urlConnection.getContent();
+    if (content instanceof InputStream in) {
+      try (var buffered = new BufferedInputStream(in)) {
+        var root = mapper.readTree(buffered);
+        var id = root.get("id").longValue();
+        var status = root.get("status").textValue();
+        var factors = root.get("factors");
+        System.err.printf("%d: %s, %s%n", id, status, factors);
+      }
+    }
+    return responseCode;
+  }
+
   @Command(name = "loadPem")
   private int loadPem(Path inPath)
       throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
@@ -936,7 +972,7 @@ public class Factory implements Callable<Integer> {
     var parent = inPath.getParent();
     var outPath = parent.resolve(outFileName);
     try (var oos = new ObjectOutputStream(
-        new BufferedOutputStream(Files.newOutputStream(outPath), UNITS * UNITS * 128))) {
+        new BufferedOutputStream(Files.newOutputStream(outPath), 536870912))) {
       oos.writeObject(publicExponent);
       oos.writeObject(modulus);
     }
@@ -1080,7 +1116,7 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command(name = "calc")
-  private int calc(Path in, long step, Path out) throws IOException {
+  private int calc(Path in, int step, Path out) throws IOException {
     var str = Files.readString(in);
     var auto = Arena.ofAuto();
     var p2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -1122,17 +1158,347 @@ public class Factory implements Callable<Integer> {
   private int pine2() {
     var auto = Arena.ofAuto();
     var base = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(base, auto.allocateFrom("3".repeat(29999) + "1"), 10);
-    logger.info("bit length: {}", mpz_sizeinbase(base, 2));
+    mpz_init_set_ui(base, 1);
+    mpz_mul_2exp(base, base, 255);
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(n);
+    mpz_sub_ui(n, base, 23);
+    var length = mpz_sizeinbase(base, 10) + 2;
+    var res_str = auto.allocate(length);
+    mpz_get_str(res_str, 10, base);
+    logger.info("base = {}", res_str.getString(0));
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(p);
-    for (int count = 0; count < 20; count++, mpz_set(base, p)) {
-      mpz_nextprime(p, base);
-      var length = mpz_sizeinbase(p, 10) + 2;
-      var res_str = auto.allocate(length);
-      mpz_get_str(res_str, 10, p);
-      logger.info("{}", res_str.getString(0));
+    var diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(diff);
+    for (int count = 0; count < 20; count++, mpz_set(n, p)) {
+      mpz_nextprime(p, n);
+      mpz_sub(diff, p, base);
+      length = mpz_sizeinbase(diff, 10) + 2;
+      res_str = auto.allocate(length);
+      mpz_get_str(res_str, 10, diff);
+      logger.info("base + {}", res_str.getString(0));
     }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int pine3() {
+    var auto = Arena.ofAuto();
+    var base = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(base, auto.allocateFrom(
+            "1329693435152708682335377442458792846453259237981911045506322289587710372868209517149781141957867469054100936241619297447233787325412930973709625496297886039274600279"),
+        10);
+    var c = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(c);
+    var gcd = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(gcd);
+    System.err.println("始まり");
+    out:
+    for (int coef = 100; coef <= 100000; coef++) {
+      mpz_set(c, base);
+      mpz_mul_ui(c, c, coef);
+      if ((coef & 1) == 0) {
+        mpz_add_ui(c, c, 1);
+      }
+      while (mpz_cmp_ui(c, 1) > 0) {
+        mpz_gcd(gcd, base, c);
+        if (mpz_cmp_ui(gcd, 1) != 0 && mpz_cmp(gcd, base) != 0) {
+          var length = mpz_sizeinbase(gcd, 10) + 2;
+          var str_buf = auto.allocate(length);
+          mpz_get_str(str_buf, 10, gcd);
+          System.out.printf("%s%n", str_buf.getString(0));
+          break out;
+        }
+        // コラッツ数列の項でGCDしてみる
+        if (mpz_odd_p(c)) {
+          // 奇数
+          mpz_mul_ui(c, c, 3);
+          mpz_add_ui(c, c, 1);
+        } else {
+          // 偶数
+          mpz_tdiv_q_2exp(c, c, 1);
+        }
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  /**
+   * 素数nと素数階乗n#の桁数を表示する
+   * @return OK
+   */
+  @Command
+  private int primorial(@Option(names = {"-d"}, defaultValue = "200") int maxDigits) {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    var primorial = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 2);
+    mpz_init_set_ui(primorial, 2);
+    long lenPrimorial = mpz_sizeinbase(primorial, 10);
+    do {
+      var nLen = mpz_sizeinbase(n, 10) + 2;
+      var strBufN = auto.allocate(nLen);
+      mpz_get_str(strBufN, 10, n);
+      System.out.printf("%s(%d)%n", strBufN.getString(0), lenPrimorial);
+      mpz_nextprime(n, n);
+      mpz_mul(primorial, primorial, n);
+    } while ((lenPrimorial = mpz_sizeinbase(primorial, 10)) < maxDigits);
+    return ExitCode.OK;
+  }
+
+  /**
+   * 素数nと素数階乗n#の桁数を表示する
+   * @return OK
+   */
+  @Command
+  private int sumOfPrimorial(@Option(names = {"-d"}, defaultValue = "67") int max) {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    var primorial = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    var sum = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 2);
+    mpz_init_set_ui(primorial, 1);
+    mpz_init(sum);
+    while (mpz_cmp_ui(n, max) <= 0) {
+      var len0 = mpz_sizeinbase(n, 10);
+      var buf0 = auto.allocate(len0 + 2, 1);
+      mpz_get_str(buf0, 10, n);
+      System.out.printf("n(%d): %s%n", len0, buf0.getString(0));
+      // primorial *= n
+      mpz_mul(primorial, primorial, n);
+      var len1 = mpz_sizeinbase(primorial, 10);
+      var buf1 = auto.allocate(len1 + 2, 1);
+      mpz_get_str(buf1, 10, primorial);
+      System.out.printf("pri(%d): %s%n", len1, buf1.getString(0));
+      // sum += primorial
+      mpz_add(sum, sum, primorial);
+      var len2 = mpz_sizeinbase(sum, 10);
+      var buf2 = auto.allocate(len2 + 2, 1);
+      mpz_get_str(buf2, 10, sum);
+      System.out.printf("sum(%d): %s%n", len2, buf2.getString(0));
+      // n = next_prime(n)
+      mpz_nextprime(n, n);
+    }
+    return ExitCode.OK;
+  }
+
+  /**
+   * 素数nと素数階乗n#の桁数を表示する
+   * @return OK
+   */
+  @Command
+  private int hugePrimorial(@Option(names = {"-d"}, defaultValue = "1048576") int maxBits) {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    var primorial = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 2);
+    mpz_init2(primorial, maxBits + 1);
+    mpz_set_ui(primorial, 1);
+    long bitLength;
+    while ((bitLength = mpz_sizeinbase(primorial, 2)) < maxBits) {
+      var pLen = mpz_sizeinbase(n, 10) + 2;
+      var pBuf = auto.allocate(pLen);
+      mpz_get_str(pBuf, 10, n);
+      System.out.printf("n: %s%n", pBuf.getString(0));
+      mpz_mul(primorial, primorial, n);
+      mpz_nextprime(n, n);
+    }
+    System.out.printf("%dbits%n", bitLength);
+    var len = mpz_sizeinbase(n, 10);
+    var buf = auto.allocate(len + 2);
+    mpz_get_str(buf, 10, n);
+    System.out.printf("n: %s%n", buf.getString(0));
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int primorialAndFactorial(int j) {
+    var primorial = BigInteger.valueOf(1);
+    var factorial = BigInteger.valueOf(1);
+    for (int i = 1; i <= j; i++) {
+      var p = BigInteger.valueOf(i);
+      factorial = factorial.multiply(p);
+      if (!p.isProbablePrime(25)) {
+        System.out.printf("%d, %d%n", i, factorial.toString(10).length());
+      } else {
+        primorial = primorial.multiply(p);
+        System.out.printf("%d, %d, %d%n", i, factorial.toString(10).length(),
+            primorial.toString(10).length());
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int np(Path path) throws IOException {
+    var auto = Arena.ofAuto();
+    var allocate = __mpz_struct.allocateArray(2, auto);
+    var p = __mpz_struct.asSlice(allocate, 0).reinterpret(auto, gmp_h::mpz_clear);
+    var q = __mpz_struct.asSlice(allocate, 1).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(p, auto.allocateFrom(Files.readAllLines(path).getFirst()), 10);
+    mpz_init2(q, (int) mpz_sizeinbase(p, 2));
+    mpz_nextprime(q, p);
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int ppppp() throws IOException {
+    final var prefixLength = END_POINT.length();
+    var buffer = new StringBuilder(END_POINT);
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(n, auto.allocateFrom(
+        "1106192836471442058256440940779858787257563276801077033918541558373095088"), 10);
+    var mapper = new ObjectMapper();
+
+    long start = System.nanoTime();
+    for (var i = 0; i < 2000; i++) {
+      long sectionStart = System.nanoTime();
+      mpz_nextprime(n, n);
+      sendToFactorDB(n, auto, buffer, prefixLength, mapper);
+      long sectionFinish = System.nanoTime();
+      System.err.printf("section: %fs%n", (sectionFinish - sectionStart) / 1e9);
+    }
+    long finish = System.nanoTime();
+    System.err.printf("global: %fs%n", (finish - start) / 1e9);
+
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int ppppp2() throws IOException {
+    final var prefixLength = END_POINT.length();
+    var buffer = new StringBuilder(END_POINT);
+    var auto = Arena.ofAuto();
+    var elements = __mpz_struct.allocateArray(2, auto);
+    var n = __mpz_struct.asSlice(elements, 0).reinterpret(auto, gmp_h::mpz_clear);
+    var p = __mpz_struct.asSlice(elements, 1).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 1);
+    mpz_init(p);
+    mpz_set_ui(p, SECURE_RANDOM_GENERATOR.nextInt());
+    mpz_mul_2exp(p, p, 2);
+    mpz_add_ui(p, p, SECURE_RANDOM_GENERATOR.nextInt());
+    var length2 = mpz_sizeinbase(p, 10) + 2;
+    var strBuf2 = auto.allocate(length2);
+    mpz_get_str(strBuf2, 10, p);
+    System.out.printf("int n=%s%n", strBuf2.getString(0));
+    for (int i = 0; i < 16; i++) {
+      mpz_nextprime(p, p);
+      mpz_mul(n, n, p);
+      var length = mpz_sizeinbase(p, 10) + 2;
+      var strBuf = auto.allocate(length);
+      mpz_get_str(strBuf, 10, p);
+      System.out.printf("p[%d]=%s%n", i, strBuf.getString(0));
+    }
+    var nLength = mpz_sizeinbase(n, 10) + 2;
+    var strBuf1 = auto.allocate(nLength);
+    mpz_get_str(strBuf1, 10, n);
+    System.out.printf("n=%s%n", strBuf1.getString(0));
+
+    var mapper = new ObjectMapper();
+    long start = System.nanoTime();
+    sendToFactorDB(n, auto, buffer, prefixLength, mapper);
+    long finish = System.nanoTime();
+    System.err.printf("global: %fs%n", (finish - start) / 1e9);
+
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int ppppp3(@Option(names = {"--start"}, defaultValue = "0") int start,
+      @Option(names = {"--max"}, defaultValue = "50000") int maxInclude) throws IOException {
+    logger.debug("start: {}", start);
+    logger.debug("max: {}", maxInclude);
+    // 181# から素数2個抜いて+50000までfactordbに投げつけてみるテスト
+    final var prefixLength = END_POINT.length();
+    var buffer = new StringBuilder(END_POINT);
+    var auto = Arena.ofAuto();
+    var elements = __mpz_struct.allocateArray(3, auto);
+    var n = __mpz_struct.asSlice(elements, 0).reinterpret(auto, gmp_h::mpz_clear);
+    var p = __mpz_struct.asSlice(elements, 1).reinterpret(auto, gmp_h::mpz_clear);
+    var primorial = __mpz_struct.asSlice(elements, 2).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(p, 2);
+    mpz_init_set_ui(primorial, 1);
+    while (mpz_cmp_ui(p, 181) <= 0) {
+      mpz_mul(primorial, primorial, p);
+      mpz_nextprime(p, p);
+    }
+    mpz_divexact_ui(primorial, primorial, 10);
+    mpz_init2(n, (int) mpz_sizeinbase(primorial, 2));
+    var mapper = new ObjectMapper();
+    for (int i = start; i <= maxInclude; i++) {
+      mpz_add_ui(n, primorial, i);
+      while (true) {
+        if (200 == sendToFactorDB(n, auto, buffer, prefixLength, mapper)) {
+          break;
+        }
+      }
+    }
+    logger.info("done");
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int ppppp4() throws IOException {
+    var proxy = new Proxy(Type.SOCKS, new InetSocketAddress("localhost", 9150));
+    final var buffer = new StringBuilder(END_POINT);
+    final var query = new StringBuilder();
+    final var prefixLength = END_POINT.length();
+    var components = new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,
+        67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163,
+        167, 173, 179, 181, 191, 193, 197};
+    var componentsLength = components.length;
+    var maxComponents = components[componentsLength - 1];
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(n, auto.allocateFrom(
+        "39195588149163123383161804554421175259738677336198748467804183290796540382737190"), 10);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    var mapper = new ObjectMapper();
+    var utf8 = StandardCharsets.UTF_8;
+    for (int i = componentsLength - 2; i >= 0; i--) {
+      for (int j = componentsLength - 1; j > i; j--) {
+        mpz_divexact_ui(p, n, components[i] * components[j]);
+        mpz_add_ui(p, p, 1);
+        query.append(maxComponents).append("#/(").append(components[i]).append('*').append(components[j]).append(")-1");
+        var url = URI.create(buffer.append(URLEncoder.encode(query.toString(), utf8)).toString()).toURL();
+        buffer.setLength(prefixLength);
+        query.setLength(0);
+        var urlConnection = (HttpsURLConnection) url.openConnection(proxy);
+        urlConnection.connect();
+        var responseCode = urlConnection.getResponseCode();
+        if (responseCode / 100 != 2) {
+          System.err.printf("error?: %d in %s%n", responseCode, url);
+          continue;
+        }
+        var content = urlConnection.getContent();
+        if (content instanceof InputStream in) {
+          try (var buffered = new BufferedInputStream(in)) {
+            var root = mapper.readTree(buffered);
+            var id = root.get("id").longValue();
+            var status = root.get("status").textValue();
+            var factors = root.get("factors");
+            System.err.printf("%d#/(%d*%d)+1, %d: %s, %s%n", maxComponents, components[i], components[j], id, status, factors);
+          }
+        }
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int pppoe() {
+    var p = BigInteger.valueOf(1);
+    for (int i = 1; i <= 61; i++) {
+      p = p.multiply(BigInteger.valueOf(i));
+    }
+    System.out.println(p);
+    while (p.mod(BigInteger.TEN).equals(BigInteger.ZERO)) {
+      p = p.divide(BigInteger.TEN);
+    }
+    System.out.println("p = " + p);
     return ExitCode.OK;
   }
 
