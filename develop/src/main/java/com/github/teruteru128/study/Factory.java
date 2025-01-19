@@ -77,6 +77,7 @@ import java.net.Proxy;
 import java.net.Proxy.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse.BodyHandlers;
@@ -165,7 +166,7 @@ import picocli.CommandLine.Parameters;
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
-  public static final String END_POINT = "https://factordb.com/api?query=";
+  public static final String FACTOR_DB_END_POINT = "https://factordb.com/api?query=";
   private static final int WINDOW_SIZE = 1000;
   private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   private static final HexFormat FORMAT = HexFormat.of();
@@ -1344,8 +1345,8 @@ public class Factory implements Callable<Integer> {
 
   @Command
   private int ppppp() throws IOException {
-    final var prefixLength = END_POINT.length();
-    var buffer = new StringBuilder(END_POINT);
+    final var prefixLength = FACTOR_DB_END_POINT.length();
+    var buffer = new StringBuilder(FACTOR_DB_END_POINT);
     var auto = Arena.ofAuto();
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_str(n, auto.allocateFrom(
@@ -1368,8 +1369,8 @@ public class Factory implements Callable<Integer> {
 
   @Command
   private int ppppp2() throws IOException {
-    final var prefixLength = END_POINT.length();
-    var buffer = new StringBuilder(END_POINT);
+    final var prefixLength = FACTOR_DB_END_POINT.length();
+    var buffer = new StringBuilder(FACTOR_DB_END_POINT);
     var auto = Arena.ofAuto();
     var elements = __mpz_struct.allocateArray(2, auto);
     var n = __mpz_struct.asSlice(elements, 0).reinterpret(auto, gmp_h::mpz_clear);
@@ -1411,8 +1412,8 @@ public class Factory implements Callable<Integer> {
     logger.debug("start: {}", start);
     logger.debug("max: {}", maxInclude);
     // 181# から素数2個抜いて+50000までfactordbに投げつけてみるテスト
-    final var prefixLength = END_POINT.length();
-    var buffer = new StringBuilder(END_POINT);
+    final var prefixLength = FACTOR_DB_END_POINT.length();
+    var buffer = new StringBuilder(FACTOR_DB_END_POINT);
     var auto = Arena.ofAuto();
     var elements = __mpz_struct.allocateArray(3, auto);
     var n = __mpz_struct.asSlice(elements, 0).reinterpret(auto, gmp_h::mpz_clear);
@@ -1442,9 +1443,9 @@ public class Factory implements Callable<Integer> {
   @Command
   private int ppppp4() throws IOException {
     var proxy = new Proxy(Type.SOCKS, new InetSocketAddress("localhost", 9150));
-    final var buffer = new StringBuilder(END_POINT);
+    final var buffer = new StringBuilder(FACTOR_DB_END_POINT);
     final var query = new StringBuilder();
-    final var prefixLength = END_POINT.length();
+    final var prefixLength = FACTOR_DB_END_POINT.length();
     var components = new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,
         67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163,
         167, 173, 179, 181, 191, 193, 197};
@@ -1462,8 +1463,10 @@ public class Factory implements Callable<Integer> {
       for (int j = componentsLength - 1; j > i; j--) {
         mpz_divexact_ui(p, n, components[i] * components[j]);
         mpz_add_ui(p, p, 1);
-        query.append(maxComponents).append("#/(").append(components[i]).append('*').append(components[j]).append(")-1");
-        var url = URI.create(buffer.append(URLEncoder.encode(query.toString(), utf8)).toString()).toURL();
+        query.append(maxComponents).append("#/(").append(components[i]).append('*')
+            .append(components[j]).append(")-1");
+        var url = URI.create(buffer.append(URLEncoder.encode(query.toString(), utf8)).toString())
+            .toURL();
         buffer.setLength(prefixLength);
         query.setLength(0);
         var urlConnection = (HttpsURLConnection) url.openConnection(proxy);
@@ -1480,10 +1483,56 @@ public class Factory implements Callable<Integer> {
             var id = root.get("id").longValue();
             var status = root.get("status").textValue();
             var factors = root.get("factors");
-            System.err.printf("%d#/(%d*%d)+1, %d: %s, %s%n", maxComponents, components[i], components[j], id, status, factors);
+            System.err.printf("%d#/(%d*%d)+1, %d: %s, %s%n", maxComponents, components[i],
+                components[j], id, status, factors);
           }
         }
       }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int ppppp5() throws IOException {
+    var localhost = new Proxy(Type.SOCKS, new InetSocketAddress("localhost", 9150));
+    final var n = BigInteger.valueOf(10).pow(20);
+    BigInteger p;
+    var urlBuffer = new StringBuilder(FACTOR_DB_END_POINT);
+    var prefixLength = FACTOR_DB_END_POINT.length();
+    var i = Long.MIN_VALUE;
+    String string;
+    URL url;
+    HttpsURLConnection urlConnection;
+    while (i != Long.MAX_VALUE) {
+      p = new BigInteger(67, (Random) SECURE_RANDOM_GENERATOR);
+      string = p.toString(10);
+      url = URI.create(urlBuffer.append(string).toString()).toURL();
+      urlBuffer.setLength(prefixLength);
+      urlConnection = (HttpsURLConnection) url.openConnection(localhost);
+      var responseCode = urlConnection.getResponseCode();
+      System.out.printf("%s: %d%n", string, responseCode);
+      if (responseCode / 100 != 2) {
+        return ExitCode.SOFTWARE;
+      }
+      i++;
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int ppppp6(Path in) throws IOException {
+    var localhost = new Proxy(Type.SOCKS, new InetSocketAddress("localhost", 9150));
+    try (var lines = Files.lines(in)) {
+      lines.forEach(l -> {
+        try {
+          var url = URI.create(FACTOR_DB_END_POINT + l).toURL();
+          var httpsURLConnection = (HttpsURLConnection) url.openConnection(localhost);
+          httpsURLConnection.getResponseCode();
+          System.out.println(l);
+        } catch (IOException e) {
+          throw new UncheckedIOException(e);
+        }
+      });
     }
     return ExitCode.OK;
   }
