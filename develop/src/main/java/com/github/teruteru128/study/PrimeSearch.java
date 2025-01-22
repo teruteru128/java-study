@@ -1,29 +1,19 @@
 package com.github.teruteru128.study;
 
-import static com.github.teruteru128.gmp.gmp_h.mpz_import;
-import static com.github.teruteru128.gmp.gmp_h.mpz_init2;
 import static java.lang.foreign.MemorySegment.copy;
-import static java.lang.foreign.ValueLayout.ADDRESS;
-import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
-import static java.lang.foreign.ValueLayout.JAVA_LONG_UNALIGNED;
 
+import com.github.teruteru128.foreign.converters.PathConverter;
 import com.github.teruteru128.foreign.prime.search.PrimeSearch.LargeSieve;
 import com.github.teruteru128.gmp.__mpz_struct;
-import com.github.teruteru128.gmp.gmp_h;
-import com.github.teruteru128.foreign.converters.PathConverter;
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OptionalDataException;
 import java.io.Serializable;
-import java.lang.foreign.AddressLayout;
-import java.lang.foreign.Arena;
-import java.lang.foreign.GroupLayout;
-import java.lang.foreign.MemoryLayout;
 import java.lang.foreign.MemorySegment;
 import java.math.BigInteger;
 import java.nio.file.Files;
@@ -32,7 +22,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
 import java.util.UUID;
@@ -49,6 +38,7 @@ import picocli.CommandLine.Parameters;
 @Command(name = "attack")
 public class PrimeSearch implements Callable<Void> {
 
+  private static final Logger logger = LoggerFactory.getLogger(PrimeSearch.class);
   @Parameters(converter = PathConverter.class)
   private Path base;
   @Parameters(converter = PathConverter.class)
@@ -75,41 +65,6 @@ public class PrimeSearch implements Callable<Void> {
     exportEvenNumberObj(path, evenNumber);
   }
 
-  @Command(name = "createSmallSieve", description = "既知素数リストを作成する")
-  private static void createSmallSieve(
-      @Parameters(description = "素数リストのビット長。(0x7ffffffdL << 6)ビットまで。") long bitLength)
-      throws IOException {
-    logger.info("create {}bit small sieve...", bitLength);
-    // 小さな既知素数ふるいを作成、もしくは読み込む
-    var sieve = createSmallSieve0(bitLength);
-    var primeCount = Arrays.stream(sieve).parallel().map(l -> Long.bitCount(~l)).sum();
-    logger.info("{} primes", primeCount);
-    var path = Paths.get(bitLength + "bit-small-sieve.obj");
-    logger.info("write to {}", path);
-    try (var oos = new ObjectOutputStream(new BufferedOutputStream(
-        Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE),
-        Factory.ARRAY_ELEMENTS_MAX))) {
-      oos.writeLong(bitLength);
-      var length = sieve.length;
-      if (length == Factory.ARRAY_ELEMENTS_MAX) {
-        for (long l : sieve) {
-          oos.writeLong(l);
-        }
-      } else {
-        oos.writeObject(sieve);
-      }
-      logger.info("done. 1");
-    }
-    logger.info("done. 2");
-  }
-
-  @Override
-  public Void call() throws Exception {
-    return null;
-  }
-
-  private static final Logger logger = LoggerFactory.getLogger(PrimeSearch.class);
-
   public static void getConvertedStep() throws IOException, ClassNotFoundException {
     getConvertedStep(0);
   }
@@ -118,7 +73,8 @@ public class PrimeSearch implements Callable<Void> {
     var base = loadEvenNumber(
         Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"));
     LargeSieve result;
-    Path path = Paths.get("large-sieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-6.obj");
+    Path path = Paths.get(
+        "large-sieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-6.obj");
     try (var ois = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(path)))) {
       var searchLength = ois.readInt();
       var sieve1 = BitSet.valueOf((long[]) ois.readObject());
@@ -176,25 +132,6 @@ public class PrimeSearch implements Callable<Void> {
       throws IOException, ClassNotFoundException, ExecutionException, InterruptedException {
   }
 
-  static Result getResult(Path inPath, Arena arena, GroupLayout layout)
-      throws IOException, ClassNotFoundException {
-    var mpzBase = arena.allocate(layout).reinterpret(arena, gmp_h::mpz_clear);
-    int bitLength;
-    logger.trace("loading target even number...");
-    var base = loadEvenNumber(inPath);
-    logger.trace("target even number has finished loading from file.");
-    bitLength = base.bitLength();
-    mpz_init2(mpzBase, bitLength);
-    logger.trace("The memory area has been initialized.");
-    var baseByteArray = base.toByteArray();
-    var baseCopied = arena.allocate(JAVA_BYTE, baseByteArray.length);
-    copy(baseByteArray, 0, baseCopied, JAVA_BYTE, 0, baseByteArray.length);
-    logger.trace("copied");
-    mpz_import(mpzBase, baseByteArray.length, 1, JAVA_BYTE.byteSize(), 0, 0, baseCopied);
-    logger.trace("target even number has finished importing.");
-    return new Result(mpzBase, bitLength);
-  }
-
   /**
    * generate even number and export to file
    * @param path written path
@@ -217,15 +154,23 @@ public class PrimeSearch implements Callable<Void> {
     long[] smallSieve;
     try (var ois = new ObjectInputStream(
         new BufferedInputStream(Files.newInputStream(path), Factory.ARRAY_ELEMENTS_MAX))) {
-      var length = ois.readLong();
-      var i1 = unitIndex(length - 1) + 1;
-      if (i1 == Factory.ARRAY_ELEMENTS_MAX) {
-        smallSieve = new long[i1];
-        for (int i = 0; i < i1; i++) {
-          smallSieve[i] = ois.readLong();
-        }
-      } else {
+      try {
         smallSieve = (long[]) ois.readObject();
+      } catch (OptionalDataException e) {
+        if (!e.eof) {
+          var length = ois.readLong();
+          var i1 = unitIndex(length - 1) + 1;
+          if (i1 == Factory.ARRAY_ELEMENTS_MAX) {
+            smallSieve = new long[i1];
+            for (int i = 0; i < i1; i++) {
+              smallSieve[i] = ois.readLong();
+            }
+          } else {
+            smallSieve = (long[]) ois.readObject();
+          }
+        } else {
+          throw e;
+        }
       }
     }
     return smallSieve;
@@ -252,27 +197,6 @@ public class PrimeSearch implements Callable<Void> {
     return bis;
   }
 
-  // FIXME Cで書かないと遅すぎてダメかもしれねえ
-  static long[] createSmallSieve0(long length) {
-    var sieve = new long[unitIndex(length - 1) + 1];
-    logger.info("sieve.length = {}", sieve.length);
-    sieve[0] = 1;
-    long nextIndex = 1;
-    long nextPrime = 3;
-    long p = Long.highestOneBit(nextPrime);
-
-    do {
-      if ((nextPrime & p) != 0) {
-        logger.info("prime: {}", nextPrime);
-        p <<= 1;
-      }
-      sieveSingle(sieve, length, nextIndex + nextPrime, nextPrime);
-      nextIndex = sieveSearch(sieve, length, nextIndex + 1);
-      nextPrime = 2 * nextIndex + 1;
-    } while ((nextIndex > 0) && (nextPrime < length));
-    return sieve;
-  }
-
   private static void randomSample() throws NoSuchAlgorithmException {
     var start = new BigInteger(1024, SecureRandom.getInstanceStrong());
     var startBitLength = start.bitLength();
@@ -287,14 +211,14 @@ public class PrimeSearch implements Callable<Void> {
 
   /**
    *
-   * @see java.math.BitSieve#sieveSearch(int,int)
+   * @see java.math.BitSieve#sieveSearch(int, int)
    * @see java.util.BitSet#nextClearBit(int)
    * @param bits bits
    * @param limit bitsのリミット。bit単位
    * @param start start
    * @return next step
    */
-  static long sieveSearch(long[] bits, long limit, long start) {
+  private static long sieveSearch(long[] bits, long limit, long start) {
     if (start >= limit) {
       return -1;
     }
@@ -388,6 +312,11 @@ public class PrimeSearch implements Callable<Void> {
       }
       word = ~words[u];
     }
+  }
+
+  @Override
+  public Void call() throws Exception {
+    return null;
   }
 
   record Result(MemorySegment mpzBase, int bitLength) {

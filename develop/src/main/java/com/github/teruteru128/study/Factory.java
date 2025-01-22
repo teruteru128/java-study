@@ -1,32 +1,21 @@
 package com.github.teruteru128.study;
 
 import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
-import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_cmp;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_divexact_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_gcd;
+import static com.github.teruteru128.gmp.gmp_h.mpz_fdiv_r;
+import static com.github.teruteru128.gmp.gmp_h.mpz_fdiv_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
-import static com.github.teruteru128.gmp.gmp_h.mpz_init2;
-import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_mul;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
-import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
-import static com.github.teruteru128.gmp.gmp_h.mpz_set;
-import static com.github.teruteru128.gmp.gmp_h.mpz_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
-import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_tdiv_q_2exp;
-import static com.github.teruteru128.study.PrimeSearch.mpz_odd_p;
+import static com.github.teruteru128.study.PrimeSearch.loadSmallSieve;
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -35,7 +24,6 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.bitmessage.app.Spammer.Address;
 import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
@@ -68,17 +56,10 @@ import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.MathContext;
 import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.net.Proxy.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
@@ -86,10 +67,8 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.ProviderNotFoundException;
 import java.nio.file.StandardOpenOption;
 import java.security.AlgorithmParameters;
 import java.security.DigestException;
@@ -125,7 +104,6 @@ import java.util.Base64;
 import java.util.BitSet;
 import java.util.HashSet;
 import java.util.HexFormat;
-import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.TimeZone;
@@ -154,7 +132,6 @@ import org.sqlite.SQLiteDataSource;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
-import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 @Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
@@ -162,12 +139,10 @@ import picocli.CommandLine.Parameters;
     SiteChecker.class, Spam.class, TeamSpeak.class, Updater.class, CommandLine.HelpCommand.class,
     ListUp.class, Transform.class, CumShoot.class, SlimeSearch.class, Spam3.class, OwnerCheck.class,
     CalcBustSize.class, Deterministic.class, CreatePrimeNumberCandidateDB.class,
-    SmallSievePrimeCounter.class})
+    SmallSievePrimeCounter.class, NewColorGenerator.class})
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
-  public static final String FACTOR_DB_END_POINT = "https://factordb.com/api?query=";
-  private static final int WINDOW_SIZE = 1000;
   private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   private static final HexFormat FORMAT = HexFormat.of();
   private static final ECParameterSpec secp256k1Parameter;
@@ -185,11 +160,14 @@ public class Factory implements Callable<Integer> {
     }
   }
 
+  private Factory() {
+  }
+
   /**
    * Callableをnewして返すファクトリにするはずだったんだけどなあ……
    *
    */
-  static Callable<Integer> create() {
+  static Callable<Integer> createInstance() {
     return new Factory();
   }
 
@@ -219,25 +197,6 @@ public class Factory implements Callable<Integer> {
             array1[i] ^ array2[i]);
       }
     }
-  }
-
-  @Command(name = "generateNewColor")
-  private static void generateNewColor(@Option(names = {"--fix-saturation-to-1",
-      "-S"}, defaultValue = "false") boolean fixSaturationTo1) {
-    var h = MyRandom.nextDouble(SECURE_RANDOM_GENERATOR) * 6;
-    var l = 0.5;
-    double s;
-    if (fixSaturationTo1) {
-      s = 1;
-    } else {
-      s = (double) SECURE_RANDOM_GENERATOR.nextInt(192, 256) / 255;
-    }
-    var rgb = ColorConverter.HLSToRGB(new HLSColor(h, l, s));
-    var r = rgb.r();
-    var g = rgb.g();
-    var b = rgb.b();
-    var v = 0xff000000 | r << 16 | g << 8 | b;
-    System.out.printf("%d, %d, %d(%d, %<08x)%n", r, g, b, v);
   }
 
   @Command(name = "fixColor")
@@ -899,36 +858,6 @@ public class Factory implements Callable<Integer> {
             ripemd160.digest(sha512.digest()))));
   }
 
-  @Command(name = "fuck-prime-p")
-  private static int fuckPrimeP(String prefixNumber, int initialRepeatCount, String suffixNumber) {
-    var auto = Arena.ofAuto();
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(p);
-    int count = 0;
-    int repeatCount1 = initialRepeatCount;
-    int q = ((repeatCount1 - 1) / WINDOW_SIZE + 1) * WINDOW_SIZE;
-    while (count < 4) {
-      mpz_set_str(p, auto.allocateFrom(prefixNumber.repeat(repeatCount1) + suffixNumber), 10);
-      long start = System.nanoTime();
-      int prime = mpz_probab_prime_p(p, 25);
-      long finish = System.nanoTime();
-      if (prime != 0) {
-        var length = mpz_sizeinbase(p, 10) + 2;
-        var buffer = auto.allocate(length);
-        mpz_get_str(buffer, 10, p);
-        logger.info("p = {}", buffer.getString(0));
-        logger.info("{}: {}({} seconds)", repeatCount1, prime, (finish - start) / 1e9);
-        count++;
-      }
-      if (repeatCount1 >= q) {
-        logger.info("done: {}", repeatCount1);
-        q += WINDOW_SIZE;
-      }
-      repeatCount1++;
-    }
-    return ExitCode.OK;
-  }
-
   private static int sendToFactorDB(MemorySegment n, Arena auto, StringBuilder buffer,
       int prefixLength, ObjectMapper mapper) throws IOException {
     var length = mpz_sizeinbase(n, 10) + 2;
@@ -1084,38 +1013,33 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command(name = "fuckp")
-  private int fuckp() {
-    var header = BigInteger.valueOf(19000L);
-    var pro = BigInteger.valueOf(100L);
-    var p = BigInteger.valueOf(419L);
-    int count = 0;
-    while (count < 10) {
-      if (p.isProbablePrime(25)) {
-        System.out.println("p = " + p);
-        count++;
+  @Command
+  private int sieve(Path in) throws IOException, ClassNotFoundException {
+    try (var oin = new ObjectInputStream(
+        new BufferedInputStream(Files.newInputStream(in, StandardOpenOption.READ)))) {
+      var length = oin.readInt();
+      var obj = oin.readObject();
+      System.err.printf("%d, %b%n", length, length == ARRAY_ELEMENTS_MAX);
+      if (obj instanceof long[]) {
+        var sieve = BitSet.valueOf((long[]) obj);
+        System.err.printf("%d, %d%n", sieve.length(), sieve.cardinality());
+        var notSieve = new BitSet(sieve.length());
+        notSieve.set(0, sieve.length());
+        notSieve.andNot(sieve);
+        System.err.printf("%d, %d%n", notSieve.length(), notSieve.cardinality());
       }
-      p = p.add(header);
-      header = header.multiply(pro);
     }
     return ExitCode.OK;
   }
 
-  @Command(name = "fuckPrime2")
-  private int fuckPrime2() {
-    return fuckPrimeP("19", 8000, "419");
-  }
-
-  @Command(name = "fuckPrime3")
-  private int fuckPrime3() {
-    return fuckPrimeP("4545", 0, "0721");
-  }
-
-  @Command(name = "fuckPrime4")
-  private int fuckPrime4() {
-    return fuckPrimeP("3", 1917, "1");
-  }
-
+  /**
+   * even number textファイルとstep番号から数値を計算してファイルに書き出すコマンド
+   * @param in
+   * @param step
+   * @param out
+   * @return
+   * @throws IOException
+   */
   @Command(name = "calc")
   private int calc(Path in, int step, Path out) throws IOException {
     var str = Files.readString(in);
@@ -1128,451 +1052,6 @@ public class Factory implements Callable<Integer> {
     mpz_get_str(res_str, 10, p2);
     Files.writeString(out, res_str.getString(0), StandardOpenOption.CREATE,
         StandardOpenOption.WRITE);
-    return ExitCode.OK;
-  }
-
-  @Command(name = "pine")
-  private int pine() {
-    var auto = Arena.ofAuto();
-    var base = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(base, 10);
-    mpz_pow_ui(base, base, 99999);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set(p, base);
-    var rop = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(rop);
-    var diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(diff);
-    for (int i = 0; i < 10; i++) {
-      mpz_nextprime(rop, p);
-      mpz_sub(diff, rop, base);
-      var length = mpz_sizeinbase(diff, 10) + 2;
-      var str = auto.allocate(length);
-      mpz_get_str(str, 10, diff);
-      System.out.printf("prime found: base + %s%n", str.getString(0));
-      mpz_set(p, rop);
-    }
-    return ExitCode.OK;
-  }
-
-  @Command(name = "pine2")
-  private int pine2() {
-    var auto = Arena.ofAuto();
-    var base = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(base, 1);
-    mpz_mul_2exp(base, base, 255);
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(n);
-    mpz_sub_ui(n, base, 23);
-    var length = mpz_sizeinbase(base, 10) + 2;
-    var res_str = auto.allocate(length);
-    mpz_get_str(res_str, 10, base);
-    logger.info("base = {}", res_str.getString(0));
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(p);
-    var diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(diff);
-    for (int count = 0; count < 20; count++, mpz_set(n, p)) {
-      mpz_nextprime(p, n);
-      mpz_sub(diff, p, base);
-      length = mpz_sizeinbase(diff, 10) + 2;
-      res_str = auto.allocate(length);
-      mpz_get_str(res_str, 10, diff);
-      logger.info("base + {}", res_str.getString(0));
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int pine3() {
-    var auto = Arena.ofAuto();
-    var base = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(base, auto.allocateFrom(
-            "1329693435152708682335377442458792846453259237981911045506322289587710372868209517149781141957867469054100936241619297447233787325412930973709625496297886039274600279"),
-        10);
-    var c = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(c);
-    var gcd = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(gcd);
-    System.err.println("始まり");
-    out:
-    for (int coef = 100; coef <= 100000; coef++) {
-      mpz_set(c, base);
-      mpz_mul_ui(c, c, coef);
-      if ((coef & 1) == 0) {
-        mpz_add_ui(c, c, 1);
-      }
-      while (mpz_cmp_ui(c, 1) > 0) {
-        mpz_gcd(gcd, base, c);
-        if (mpz_cmp_ui(gcd, 1) != 0 && mpz_cmp(gcd, base) != 0) {
-          var length = mpz_sizeinbase(gcd, 10) + 2;
-          var str_buf = auto.allocate(length);
-          mpz_get_str(str_buf, 10, gcd);
-          System.out.printf("%s%n", str_buf.getString(0));
-          break out;
-        }
-        // コラッツ数列の項でGCDしてみる
-        if (mpz_odd_p(c)) {
-          // 奇数
-          mpz_mul_ui(c, c, 3);
-          mpz_add_ui(c, c, 1);
-        } else {
-          // 偶数
-          mpz_tdiv_q_2exp(c, c, 1);
-        }
-      }
-    }
-    return ExitCode.OK;
-  }
-
-  /**
-   * 素数nと素数階乗n#の桁数を表示する
-   * @return OK
-   */
-  @Command
-  private int primorial(@Option(names = {"-d"}, defaultValue = "200") int maxDigits) {
-    var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    var primorial = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, 2);
-    mpz_init_set_ui(primorial, 2);
-    long lenPrimorial = mpz_sizeinbase(primorial, 10);
-    do {
-      var nLen = mpz_sizeinbase(n, 10) + 2;
-      var strBufN = auto.allocate(nLen);
-      mpz_get_str(strBufN, 10, n);
-      System.out.printf("%s(%d)%n", strBufN.getString(0), lenPrimorial);
-      mpz_nextprime(n, n);
-      mpz_mul(primorial, primorial, n);
-    } while ((lenPrimorial = mpz_sizeinbase(primorial, 10)) < maxDigits);
-    return ExitCode.OK;
-  }
-
-  /**
-   * 素数nと素数階乗n#の桁数を表示する
-   * @return OK
-   */
-  @Command
-  private int sumOfPrimorial(@Option(names = {"-d"}, defaultValue = "67") int max) {
-    var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    var primorial = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    var sum = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, 2);
-    mpz_init_set_ui(primorial, 1);
-    mpz_init(sum);
-    while (mpz_cmp_ui(n, max) <= 0) {
-      var len0 = mpz_sizeinbase(n, 10);
-      var buf0 = auto.allocate(len0 + 2, 1);
-      mpz_get_str(buf0, 10, n);
-      System.out.printf("n(%d): %s%n", len0, buf0.getString(0));
-      // primorial *= n
-      mpz_mul(primorial, primorial, n);
-      var len1 = mpz_sizeinbase(primorial, 10);
-      var buf1 = auto.allocate(len1 + 2, 1);
-      mpz_get_str(buf1, 10, primorial);
-      System.out.printf("pri(%d): %s%n", len1, buf1.getString(0));
-      // sum += primorial
-      mpz_add(sum, sum, primorial);
-      var len2 = mpz_sizeinbase(sum, 10);
-      var buf2 = auto.allocate(len2 + 2, 1);
-      mpz_get_str(buf2, 10, sum);
-      System.out.printf("sum(%d): %s%n", len2, buf2.getString(0));
-      // n = next_prime(n)
-      mpz_nextprime(n, n);
-    }
-    return ExitCode.OK;
-  }
-
-  /**
-   * 素数nと素数階乗n#の桁数を表示する
-   * @return OK
-   */
-  @Command
-  private int hugePrimorial(@Option(names = {"-d"}, defaultValue = "1048576") int maxBits) {
-    var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    var primorial = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, 2);
-    mpz_init2(primorial, maxBits + 1);
-    mpz_set_ui(primorial, 1);
-    long bitLength;
-    while ((bitLength = mpz_sizeinbase(primorial, 2)) < maxBits) {
-      var pLen = mpz_sizeinbase(n, 10) + 2;
-      var pBuf = auto.allocate(pLen);
-      mpz_get_str(pBuf, 10, n);
-      System.out.printf("n: %s%n", pBuf.getString(0));
-      mpz_mul(primorial, primorial, n);
-      mpz_nextprime(n, n);
-    }
-    System.out.printf("%dbits%n", bitLength);
-    var len = mpz_sizeinbase(n, 10);
-    var buf = auto.allocate(len + 2);
-    mpz_get_str(buf, 10, n);
-    System.out.printf("n: %s%n", buf.getString(0));
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int primorialAndFactorial(int j) {
-    var primorial = BigInteger.valueOf(1);
-    var factorial = BigInteger.valueOf(1);
-    for (int i = 1; i <= j; i++) {
-      var p = BigInteger.valueOf(i);
-      factorial = factorial.multiply(p);
-      if (!p.isProbablePrime(25)) {
-        System.out.printf("%d, %d%n", i, factorial.toString(10).length());
-      } else {
-        primorial = primorial.multiply(p);
-        System.out.printf("%d, %d, %d%n", i, factorial.toString(10).length(),
-            primorial.toString(10).length());
-      }
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int np(Path path) throws IOException {
-    var auto = Arena.ofAuto();
-    var allocate = __mpz_struct.allocateArray(2, auto);
-    var p = __mpz_struct.asSlice(allocate, 0).reinterpret(auto, gmp_h::mpz_clear);
-    var q = __mpz_struct.asSlice(allocate, 1).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(p, auto.allocateFrom(Files.readAllLines(path).getFirst()), 10);
-    mpz_init2(q, (int) mpz_sizeinbase(p, 2));
-    mpz_nextprime(q, p);
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int ppppp() throws IOException {
-    final var prefixLength = FACTOR_DB_END_POINT.length();
-    var buffer = new StringBuilder(FACTOR_DB_END_POINT);
-    var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(n, auto.allocateFrom(
-        "1106192836471442058256440940779858787257563276801077033918541558373095088"), 10);
-    var mapper = new ObjectMapper();
-
-    long start = System.nanoTime();
-    for (var i = 0; i < 2000; i++) {
-      long sectionStart = System.nanoTime();
-      mpz_nextprime(n, n);
-      sendToFactorDB(n, auto, buffer, prefixLength, mapper);
-      long sectionFinish = System.nanoTime();
-      System.err.printf("section: %fs%n", (sectionFinish - sectionStart) / 1e9);
-    }
-    long finish = System.nanoTime();
-    System.err.printf("global: %fs%n", (finish - start) / 1e9);
-
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int ppppp2() throws IOException {
-    final var prefixLength = FACTOR_DB_END_POINT.length();
-    var buffer = new StringBuilder(FACTOR_DB_END_POINT);
-    var auto = Arena.ofAuto();
-    var elements = __mpz_struct.allocateArray(2, auto);
-    var n = __mpz_struct.asSlice(elements, 0).reinterpret(auto, gmp_h::mpz_clear);
-    var p = __mpz_struct.asSlice(elements, 1).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, 1);
-    mpz_init(p);
-    mpz_set_ui(p, SECURE_RANDOM_GENERATOR.nextInt());
-    mpz_mul_2exp(p, p, 2);
-    mpz_add_ui(p, p, SECURE_RANDOM_GENERATOR.nextInt());
-    var length2 = mpz_sizeinbase(p, 10) + 2;
-    var strBuf2 = auto.allocate(length2);
-    mpz_get_str(strBuf2, 10, p);
-    System.out.printf("int n=%s%n", strBuf2.getString(0));
-    for (int i = 0; i < 16; i++) {
-      mpz_nextprime(p, p);
-      mpz_mul(n, n, p);
-      var length = mpz_sizeinbase(p, 10) + 2;
-      var strBuf = auto.allocate(length);
-      mpz_get_str(strBuf, 10, p);
-      System.out.printf("p[%d]=%s%n", i, strBuf.getString(0));
-    }
-    var nLength = mpz_sizeinbase(n, 10) + 2;
-    var strBuf1 = auto.allocate(nLength);
-    mpz_get_str(strBuf1, 10, n);
-    System.out.printf("n=%s%n", strBuf1.getString(0));
-
-    var mapper = new ObjectMapper();
-    long start = System.nanoTime();
-    sendToFactorDB(n, auto, buffer, prefixLength, mapper);
-    long finish = System.nanoTime();
-    System.err.printf("global: %fs%n", (finish - start) / 1e9);
-
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int ppppp3(@Option(names = {"--start"}, defaultValue = "0") int start,
-      @Option(names = {"--max"}, defaultValue = "50000") int maxInclude) throws IOException {
-    logger.debug("start: {}", start);
-    logger.debug("max: {}", maxInclude);
-    // 181# から素数2個抜いて+50000までfactordbに投げつけてみるテスト
-    final var prefixLength = FACTOR_DB_END_POINT.length();
-    var buffer = new StringBuilder(FACTOR_DB_END_POINT);
-    var auto = Arena.ofAuto();
-    var elements = __mpz_struct.allocateArray(3, auto);
-    var n = __mpz_struct.asSlice(elements, 0).reinterpret(auto, gmp_h::mpz_clear);
-    var p = __mpz_struct.asSlice(elements, 1).reinterpret(auto, gmp_h::mpz_clear);
-    var primorial = __mpz_struct.asSlice(elements, 2).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(p, 2);
-    mpz_init_set_ui(primorial, 1);
-    while (mpz_cmp_ui(p, 181) <= 0) {
-      mpz_mul(primorial, primorial, p);
-      mpz_nextprime(p, p);
-    }
-    mpz_divexact_ui(primorial, primorial, 10);
-    mpz_init2(n, (int) mpz_sizeinbase(primorial, 2));
-    var mapper = new ObjectMapper();
-    for (int i = start; i <= maxInclude; i++) {
-      mpz_add_ui(n, primorial, i);
-      while (true) {
-        if (200 == sendToFactorDB(n, auto, buffer, prefixLength, mapper)) {
-          break;
-        }
-      }
-    }
-    logger.info("done");
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int ppppp4() throws IOException {
-    var proxy = new Proxy(Type.SOCKS, new InetSocketAddress("localhost", 9150));
-    final var buffer = new StringBuilder(FACTOR_DB_END_POINT);
-    final var query = new StringBuilder();
-    final var prefixLength = FACTOR_DB_END_POINT.length();
-    var components = new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,
-        67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163,
-        167, 173, 179, 181, 191, 193, 197};
-    var componentsLength = components.length;
-    var maxComponents = components[componentsLength - 1];
-    var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(n, auto.allocateFrom(
-        "39195588149163123383161804554421175259738677336198748467804183290796540382737190"), 10);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(p);
-    var mapper = new ObjectMapper();
-    var utf8 = StandardCharsets.UTF_8;
-    for (int i = componentsLength - 2; i >= 0; i--) {
-      for (int j = componentsLength - 1; j > i; j--) {
-        mpz_divexact_ui(p, n, components[i] * components[j]);
-        mpz_add_ui(p, p, 1);
-        query.append(maxComponents).append("#/(").append(components[i]).append('*')
-            .append(components[j]).append(")-1");
-        var url = URI.create(buffer.append(URLEncoder.encode(query.toString(), utf8)).toString())
-            .toURL();
-        buffer.setLength(prefixLength);
-        query.setLength(0);
-        var urlConnection = (HttpsURLConnection) url.openConnection(proxy);
-        urlConnection.connect();
-        var responseCode = urlConnection.getResponseCode();
-        if (responseCode / 100 != 2) {
-          System.err.printf("error?: %d in %s%n", responseCode, url);
-          continue;
-        }
-        var content = urlConnection.getContent();
-        if (content instanceof InputStream in) {
-          try (var buffered = new BufferedInputStream(in)) {
-            var root = mapper.readTree(buffered);
-            var id = root.get("id").longValue();
-            var status = root.get("status").textValue();
-            var factors = root.get("factors");
-            System.err.printf("%d#/(%d*%d)+1, %d: %s, %s%n", maxComponents, components[i],
-                components[j], id, status, factors);
-          }
-        }
-      }
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int ppppp5() throws IOException {
-    var localhost = new Proxy(Type.SOCKS, new InetSocketAddress("localhost", 9150));
-    final var n = BigInteger.valueOf(10).pow(20);
-    BigInteger p;
-    var urlBuffer = new StringBuilder(FACTOR_DB_END_POINT);
-    var prefixLength = FACTOR_DB_END_POINT.length();
-    var i = Long.MIN_VALUE;
-    String string;
-    URL url;
-    HttpsURLConnection urlConnection;
-    while (i != Long.MAX_VALUE) {
-      p = new BigInteger(67, (Random) SECURE_RANDOM_GENERATOR);
-      string = p.toString(10);
-      url = URI.create(urlBuffer.append(string).toString()).toURL();
-      urlBuffer.setLength(prefixLength);
-      urlConnection = (HttpsURLConnection) url.openConnection(localhost);
-      var responseCode = urlConnection.getResponseCode();
-      System.out.printf("%s: %d%n", string, responseCode);
-      if (responseCode / 100 != 2) {
-        return ExitCode.SOFTWARE;
-      }
-      i++;
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int ppppp6(Path in) throws IOException {
-    var localhost = new Proxy(Type.SOCKS, new InetSocketAddress("localhost", 9150));
-    try (var lines = Files.lines(in)) {
-      lines.forEach(l -> {
-        try {
-          var url = URI.create(FACTOR_DB_END_POINT + l).toURL();
-          var httpsURLConnection = (HttpsURLConnection) url.openConnection(localhost);
-          httpsURLConnection.getResponseCode();
-          System.out.println(l);
-        } catch (IOException e) {
-          throw new UncheckedIOException(e);
-        }
-      });
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int pppoe() {
-    var p = BigInteger.valueOf(1);
-    for (int i = 1; i <= 61; i++) {
-      p = p.multiply(BigInteger.valueOf(i));
-    }
-    System.out.println(p);
-    while (p.mod(BigInteger.TEN).equals(BigInteger.ZERO)) {
-      p = p.divide(BigInteger.TEN);
-    }
-    System.out.println("p = " + p);
-    return ExitCode.OK;
-  }
-
-  @Command(name = "sig")
-  private int sig(Path path1) throws IOException {
-    var mapper = new ObjectMapper(new YAMLFactory());
-    record Keys(byte[] sigKey, byte[] encKey) {
-
-    }
-    var obj = mapper.readValue(path1.toUri().toURL(), Keys.class);
-    System.out.printf("sig: %s%n", FORMAT.formatHex(obj.sigKey));
-    System.out.printf("enc: %s%n", FORMAT.formatHex(obj.encKey));
-    return ExitCode.OK;
-  }
-
-  @Command(name = "multi")
-  private int multi() {
-    var p = BigInteger.valueOf(3).pow(100).shiftLeft(100);
-    var q = BigInteger.valueOf(1).shiftLeft(256);
-    var d = p.divideAndRemainder(q);
-    System.out.printf("p: %066x%n", p);
-    System.out.printf("q: %066x%n", q);
-    System.out.printf("%s, %x%n", d[0], d[1]);
-    System.out.println(new BigDecimal(d[1]).multiply(BigDecimal.valueOf(100))
-        .divide(new BigDecimal(p), MathContext.DECIMAL128));
     return ExitCode.OK;
   }
 
@@ -1624,54 +1103,6 @@ public class Factory implements Callable<Integer> {
     System.out.printf("enc private key: %s%n", p);
     System.out.printf("address: %s%n", AddressFactory.encodeAddress(4, 1, ripe, 0, 20));
     return ExitCode.OK;
-  }
-
-  @Command(name = "validate")
-  private int validate(String signPrivateKey58, String encPrivateKey58)
-      throws NoSuchAlgorithmException, DigestException {
-    var sp = Base58.decode(signPrivateKey58);
-    var sigPubKey = SEC_P256_K1_G.multiply(new BigInteger(1, sp, 1, 32)).normalize()
-        .getEncoded(false);
-    var sp3 = Base58.decode(encPrivateKey58);
-    var encPubKey = SEC_P256_K1_G.multiply(new BigInteger(1, sp3, 1, 32)).normalize()
-        .getEncoded(false);
-    var sha512 = MessageDigest.getInstance("SHA-512");
-    var ripemd160 = MessageDigest.getInstance("RIPEMD160");
-    var ripe = new byte[64];
-    sha512.update(sigPubKey);
-    sha512.update(encPubKey);
-    sha512.digest(ripe, 0, 64);
-    ripemd160.update(ripe, 0, 64);
-    ripemd160.digest(ripe, 0, 20);
-    System.out.printf("format: %s%n", FORMAT.formatHex(ripe, 0, 20));
-    System.out.printf("address: %s%n", AddressFactory.encodeAddress(4, 1, ripe, 0, 20));
-    return ExitCode.OK;
-  }
-
-  private static class KeyCache {
-
-    private static final List<byte[]> sigKeys;
-
-    static {
-      try {
-        var uri = Objects.requireNonNull(Factory.class.getResource("sign.txt")).toURI();
-        List<byte[]> tmp;
-        try {
-          var fileSystem = FileSystems.getFileSystem(uri);
-          List<byte[]> result;
-          Path p = fileSystem.provider().getPath(uri);
-          try (var lines = Files.lines(p)) {
-            result = lines.map(FORMAT::parseHex).toList();
-          }
-          tmp = result;
-        } catch (ProviderNotFoundException e) {
-          throw new ExceptionInInitializerError("unknown scheme: " + uri.getScheme());
-        }
-        sigKeys = tmp;
-      } catch (URISyntaxException | IOException e) {
-        throw new ExceptionInInitializerError(e);
-      }
-    }
   }
 
   private record DecodedAddress(String toAddress, byte[] toripe) {

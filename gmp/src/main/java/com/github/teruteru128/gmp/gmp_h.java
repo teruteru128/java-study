@@ -4234,6 +4234,14 @@ public class gmp_h {
            throw new AssertionError("should not reach here", ex$);
         }
     }
+    /**
+     * {@snippet lang=c :
+     * void mpz_fdiv_q_2exp(mpz_ptr, mpz_srcptr, mp_bitcnt_t)
+     * }
+     */
+    public static void mpz_fdiv_q_2exp(MemorySegment x0, MemorySegment x1, int x2) {
+        __gmpz_fdiv_q_2exp(x0, x1, x2);
+    }
 
     private static class __gmpz_fdiv_q_ui {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
@@ -4430,6 +4438,14 @@ public class gmp_h {
            throw new AssertionError("should not reach here", ex$);
         }
     }
+    /**
+     * {@snippet lang=c :
+     * void mpz_fdiv_r(mpz_ptr, mpz_srcptr, mpz_srcptr)
+     * }
+     */
+    public static void mpz_fdiv_r(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+        __gmpz_fdiv_r(x0, x1, x2);
+    }
 
     private static class __gmpz_fdiv_r_2exp {
         public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
@@ -4580,7 +4596,7 @@ public class gmp_h {
      * unsigned long __gmpz_fdiv_ui(mpz_srcptr, unsigned long)
      * }
      */
-    public static long __gmpz_fdiv_ui(MemorySegment x0, long x1) {
+    public static int __gmpz_fdiv_ui(MemorySegment x0, int x1) {
         var mh$ = __gmpz_fdiv_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -4596,7 +4612,7 @@ public class gmp_h {
      * unsigned long mpz_fdiv_ui(mpz_srcptr, unsigned long)
      * }
      */
-    public static long mpz_fdiv_ui(MemorySegment x0, long x1) {
+    public static int mpz_fdiv_ui(MemorySegment x0, int x1) {
         return __gmpz_fdiv_ui(x0, x1);
     }
 
@@ -6824,7 +6840,7 @@ public class gmp_h {
      * void __gmpz_pow_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    private static void __gmpz_pow_ui(MemorySegment x0, MemorySegment x1, long x2) {
+    private static void __gmpz_pow_ui(MemorySegment x0, MemorySegment x1, int x2) {
         var mh$ = __gmpz_pow_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6840,7 +6856,7 @@ public class gmp_h {
      * void mpz_pow_ui(mpz_ptr rop, mpz_srcptr base, unsigned long exp)
      * }
      */
-    public static void mpz_pow_ui(MemorySegment rop, MemorySegment base, long exp) {
+    public static void mpz_pow_ui(MemorySegment rop, MemorySegment base, int exp) {
         __gmpz_pow_ui(rop, base, exp);
     }
 
@@ -8093,7 +8109,7 @@ public class gmp_h {
      * void __gmpz_sub_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    private static void __gmpz_sub_ui(MemorySegment x0, MemorySegment x1, long x2) {
+    private static void __gmpz_sub_ui(MemorySegment x0, MemorySegment x1, int x2) {
         var mh$ = __gmpz_sub_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -8109,7 +8125,7 @@ public class gmp_h {
      * void mpz_sub_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static void mpz_sub_ui(MemorySegment x0, MemorySegment x1, long x2){
+    public static void mpz_sub_ui(MemorySegment x0, MemorySegment x1, int x2) {
         __gmpz_sub_ui(x0, x1, x2);
     }
 

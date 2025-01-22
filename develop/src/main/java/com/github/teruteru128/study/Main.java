@@ -30,7 +30,7 @@ public class Main {
      * @throws Exception 何か起こるかもしれない
      */
     public static void main(String[] args) throws Exception {
-        var exitCode = new CommandLine(Factory.create()).execute(args);
+        var exitCode = new CommandLine(Factory.createInstance()).execute(args);
         Runtime.getRuntime().exit(exitCode);
     }
 

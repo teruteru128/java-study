@@ -58,27 +58,18 @@ public class PrimeSearchTask2 implements Callable<Result> {
 
   private void updateDB(int result) throws SQLException {
     try (var connection = source.getConnection()) {
-      if (result == 0) {
-        try (var ps = connection.prepareStatement(
-            "update candidates set composite = composite + 1 where id = ? and step = ?;")) {
-          ps.setLong(1, id);
-          ps.setInt(2, step);
-          ps.execute();
-        }
-      } else if (result == 1) {
-        try (var ps = connection.prepareStatement(
-            "update candidates set probably_prime = probably_prime + 1 where id = ? and step = ?;")) {
-          ps.setLong(1, id);
-          ps.setInt(2, step);
-          ps.execute();
-        }
-      } else if (result == 2) {
-        try (var ps = connection.prepareStatement(
-            "update candidates set definitely_prime = definitely_prime + 1 where id = ? and step = ?;")) {
-          ps.setLong(1, id);
-          ps.setInt(2, step);
-          ps.execute();
-        }
+      var sql = switch (result) {
+        case 0 -> "update candidates set composite = composite + 1 where id = ? and step = ?;";
+        case 1 ->
+            "update candidates set probably_prime = probably_prime + 1 where id = ? and step = ?;";
+        case 2 ->
+            "update candidates set definitely_prime = definitely_prime + 1 where id = ? and step = ?;";
+        default -> throw new RuntimeException("unknown result code: " + result);
+      };
+      try (var ps = connection.prepareStatement(sql)) {
+        ps.setLong(1, id);
+        ps.setInt(2, step);
+        ps.execute();
       }
     }
   }
