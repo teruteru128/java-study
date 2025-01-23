@@ -3,9 +3,11 @@ package com.github.teruteru128.study;
 public class Sieve {
 
   private final long[] bits;
+  private final long limit1;
 
-  public Sieve(long[] bits) {
+  public Sieve(long[] bits, long limit1) {
     this.bits = bits;
+    this.limit1 = limit1;
   }
 
   /**
@@ -17,7 +19,7 @@ public class Sieve {
    * @return next step
    */
   public long sieveSearch(long limit, long start) {
-    if (start >= limit) {
+    if (start >= limit1) {
       return -1;
     }
     var index = (int) unitIndex(start);

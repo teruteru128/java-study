@@ -18,7 +18,6 @@ import static com.github.teruteru128.study.PrimeSearch.loadSmallSieve;
 import static com.github.teruteru128.study.PrimeSearch.mpz_get_ui;
 import static com.github.teruteru128.study.PrimeSearch.mpz_odd_p;
 import static com.github.teruteru128.study.PrimeSearch.unitIndex;
-import static java.lang.Math.max;
 import static java.lang.foreign.MemorySegment.copy;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
@@ -48,11 +47,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 @Command(name = "createLargeSieve")
-public class CreateLargeSieveTask implements Callable<Void> {
+public class CreateLargeSieveTask implements Callable<Integer> {
 
   private static final Logger logger = LoggerFactory.getLogger(CreateLargeSieveTask.class);
   @Parameters(converter = PathConverter.class)
@@ -65,8 +65,10 @@ public class CreateLargeSieveTask implements Callable<Void> {
   public CreateLargeSieveTask() {
   }
 
+  private static final VarHandle JAVA_LONG_VAR_HANDLE = JAVA_LONG.varHandle();
+
   @Override
-  public Void call()
+  public Integer call()
       throws IOException, ClassNotFoundException, ExecutionException, InterruptedException, SQLException {
     // 小さなふるいを使って大きなふるいから合成数を除外
     // 大きな篩の長さ->1048576 / 20 * 64 = 3355444
@@ -97,17 +99,13 @@ public class CreateLargeSieveTask implements Callable<Void> {
      */
     var searchLen = (long) (bitLength1 * 3.2);
     logger.info("search Length: {} bits", searchLen);
-    final var searchLen1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(searchLen1, (int) (searchLen >>> 32 & 0xffffffffL));
-    mpz_mul_2exp(searchLen1, searchLen1, 32);
-    mpz_add_ui(searchLen1, searchLen1, (int) (searchLen & 0xffffffffL));
+
     // (mpz_t, sieve) -> long[]
     List<Future<MemorySegment>> list;
     // parallelism = max(1, Runtime.getRuntime().availableProcessors() - 1);
     var parallelism = 12;
-    var largeSieveLength = unitIndex(searchLen - 1) + 1;
-    logger.info("array size: {}", largeSieveLength);
-    var handle = JAVA_LONG.varHandle();
+    var outputLength = unitIndex(searchLen - 1) + 1;
+    logger.info("array size: {}", outputLength);
     // タスク実行
     try (var pool = new ForkJoinPool(parallelism, ForkJoinPool.defaultForkJoinWorkerThreadFactory,
         null, true)) {
@@ -115,34 +113,38 @@ public class CreateLargeSieveTask implements Callable<Void> {
       {
         var bits = loadSmallSieve(smallSievepath);
         long sum = Arrays.stream(bits).parallel().map(l -> ~l).map(Long::bitCount).sum();
-        logger.info("small sieve: {} elements, {} primes", bits.length, sum);
-        var len = bits.length;
+        var inputSieveLength = bits.length;
+        logger.info("small sieve: {} elements, {} primes", inputSieveLength, sum);
         for (int i = 0; i < parallelism; i++) {
-          var bits1 = Arrays.copyOfRange(bits, (int) ((long) len * i / parallelism),
-              (int) (len * (i + 1L) / parallelism));
-          var smallSieve = new Sieve(bits1);
-          tasks.add(new MemorySegmentCallable(auto, smallSieve, len * 64L / parallelism, largeSieveLength,
-              (long) len * i / parallelism, mpzBase1, searchLen1, handle));
+          tasks.add(new MemorySegmentCallable(auto, mpzBase1, bits,
+              (long) inputSieveLength * i / parallelism, inputSieveLength * (i + 1L) / parallelism,
+              outputLength, searchLen));
         }
       }
       Runtime.getRuntime().gc();
       logger.info("start");
       list = pool.invokeAll(tasks);
     }
+    logger.info("すべてのタスクが完了しました。集計します......");
     // 実行結果集計
-    var largeSieve = auto.allocate(JAVA_LONG, largeSieveLength);
+    var largeSieve = auto.allocate(JAVA_LONG, outputLength);
     for (var f : list) {
       var tmp = f.get();
-      for (int i = 0; i < largeSieveLength; i++) {
-        handle.getAndBitwiseOr(largeSieve, i << 3, tmp.getAtIndex(JAVA_LONG, i));
+      for (int i = 0; i < outputLength; i++) {
+        JAVA_LONG_VAR_HANDLE.getAndBitwiseOr(largeSieve, i << 3, tmp.getAtIndex(JAVA_LONG, i));
       }
     }
+    logger.info("集計が終わりました");
     var set = BitSet.valueOf(largeSieve.toArray(JAVA_LONG));
     var nextClearBit = set.nextClearBit(0);
     if (nextClearBit == searchLen || nextClearBit == -1) {
       logger.error("失敗！");
-      return null;
+      return ExitCode.SOFTWARE;
     }
+    var notSet = new BitSet(set.length());
+    notSet.set(0, set.length());
+    notSet.andNot(set);
+    logger.info("cardinality: {}", notSet.cardinality());
     var bis = set.toLongArray();
     var path = Path.of(outPath.formatted(searchLen));
     logger.info("write to {}", path);
@@ -153,10 +155,6 @@ public class CreateLargeSieveTask implements Callable<Void> {
     var dataSource = new SQLiteDataSource();
     dataSource.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
     try (var connection = dataSource.getConnection()) {
-      var notSet = new BitSet(set.length());
-      notSet.set(0, set.length());
-      notSet.andNot(set);
-      logger.info("cardinality: {}", notSet.cardinality());
       connection.setAutoCommit(false);
       try (var prep = connection.prepareStatement(
           "INSERT INTO candidates(ID, step, composite, probably_prime, definitely_prime) values(?, ?, ?, ?, ?);")) {
@@ -177,31 +175,43 @@ public class CreateLargeSieveTask implements Callable<Void> {
       connection.commit();
     }
     logger.info("終わり！");
-    return null;
+    return ExitCode.OK;
   }
 
-  private record MemorySegmentCallable(Arena auto, Sieve smallSieve, long sieveLimit, int largeSieveLength,
-                                       long stepOffset, MemorySegment mpzBase,
-                                       MemorySegment searchLen1, VarHandle handle) implements
+  /**
+   * @param auto 作業用メモリ領域を確保するために使用されるArena
+   * @param mpzBase n
+   * @param bits 既知素数リスト
+   * @param sieveOffset このタスクで使用するふるいのオフセット
+   * @param sieveLimit このタスクで使用するふるいのリミット
+   * @param outputLength 出力サイズ(long配列要素数)
+   * @param searchLen 出力サイズ(ビット単位)
+   */
+  private record MemorySegmentCallable(Arena auto, MemorySegment mpzBase, long[] bits,
+                                       long sieveOffset, long sieveLimit, int outputLength,
+                                       long searchLen) implements
       Callable<MemorySegment> {
+    private static final Logger logger = LoggerFactory.getLogger(MemorySegmentCallable.class);
 
     @Override
     public MemorySegment call() {
+      final var searchLen1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init_set_ui(searchLen1, (int) (searchLen >>> 32 & 0xffffffffL));
+      mpz_mul_2exp(searchLen1, searchLen1, 32);
+      mpz_add_ui(searchLen1, searchLen1, (int) (searchLen & 0xffffffffL));
       final var start = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
       mpz_init(start);
-      var step = smallSieve.sieveSearch(sieveLimit, 0);
-      var tmpStep = step + stepOffset * 64;
+      var smallSieve = new Sieve(bits, sieveLimit * 64);
+      var step = smallSieve.sieveSearch(sieveLimit, sieveOffset * 64);
       final var convertedStep = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
       // convertedStep = step * 2L + 1
       // なんで32bitずつ入れなあかんのじゃい
-      mpz_init_set_ui(convertedStep, (int) (0xffffffffL & tmpStep >>> 32));
+      mpz_init_set_ui(convertedStep, (int) (0xffffffffL & step >>> 32));
       mpz_mul_2exp(convertedStep, convertedStep, 32);
-      mpz_add_ui(convertedStep, convertedStep, (int) (0xffffffffL & tmpStep));
+      mpz_add_ui(convertedStep, convertedStep, (int) (0xffffffffL & step));
       mpz_mul_2exp(convertedStep, convertedStep, 1);
       mpz_add_ui(convertedStep, convertedStep, 1);
-      final var start1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      mpz_init(start1);
-      var largeSieve = auto.allocate(JAVA_LONG, largeSieveLength);
+      var largeSieve = auto.allocate(JAVA_LONG, outputLength);
       do {
         // start = mpzBase % convertedStep
         mpz_fdiv_r(start, mpzBase, convertedStep);
@@ -212,28 +222,28 @@ public class CreateLargeSieveTask implements Callable<Void> {
           // start += convertedStep
           mpz_add(start, start, convertedStep);
         }
-        // start1 = (start - 1) / 2
-        mpz_sub_ui(start1, start, 1);
-        mpz_fdiv_q_2exp(start1, start1, 1);
+        // start = (start - 1) / 2
+        mpz_sub_ui(start, start, 1);
+        mpz_fdiv_q_2exp(start, start, 1);
         // start < searchLen1
-        while (mpz_cmp(start1, searchLen1) < 0) {
-          var l = mpz_get_ui(start1);
-          handle.getAndBitwiseOr(largeSieve, (l >>> 6) * 8, 1L << (l & 0x3f));
-          // start1 += convertedStep
-          mpz_add(start1, start1, convertedStep);
+        while (mpz_cmp(start, searchLen1) < 0) {
+          var l = mpz_get_ui(start);
+          JAVA_LONG_VAR_HANDLE.getAndBitwiseOr(largeSieve, (l >>> 6) * 8, 1L << (l & 0x3f));
+          // start += convertedStep
+          mpz_add(start, start, convertedStep);
         }
 
         // 次の素数をルックアップする
         step = smallSieve.sieveSearch(sieveLimit, step + 1);
-        tmpStep = step + stepOffset * 64;
         // convertedStep = step * 2L + 1;
         // なんで32bitずつ入れなあかんのじゃい
-        mpz_set_ui(convertedStep, (int) (0xffffffffL & tmpStep >>> 32));
+        mpz_set_ui(convertedStep, (int) (0xffffffffL & step >>> 32));
         mpz_mul_2exp(convertedStep, convertedStep, 32);
-        mpz_add_ui(convertedStep, convertedStep, (int) (0xffffffffL & tmpStep));
+        mpz_add_ui(convertedStep, convertedStep, (int) (0xffffffffL & step));
         mpz_mul_2exp(convertedStep, convertedStep, 1);
         mpz_add_ui(convertedStep, convertedStep, 1);
       } while (step > 0);
+      logger.info("task done");
       return largeSieve;
     }
   }
