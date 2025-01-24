@@ -43,8 +43,8 @@ public class PrimeSearchTask2 implements Callable<Result> {
     var candidate = threadCandidates.get();
 //    mpz_add_ui(candidate, even, (int) (step * 2L + 1));
     mpz_add_ui(candidate, even, step);
-    mpz_add_ui(candidate, even, step);
-    mpz_add_ui(candidate, even, 1);
+    mpz_add_ui(candidate, candidate, step);
+    mpz_add_ui(candidate, candidate, 1);
     int result;
     long start;
     long finish;
