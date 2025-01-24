@@ -23,6 +23,7 @@ import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
 import com.github.teruteru128.foreign.converters.PathConverter;
+import com.github.teruteru128.foreign.prime.search.Result;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
 import java.io.BufferedOutputStream;
@@ -41,6 +42,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import org.slf4j.Logger;
@@ -104,11 +106,13 @@ public class CreateLargeSieveTask implements Callable<Integer> {
     List<Future<MemorySegment>> list;
     // parallelism = max(1, Runtime.getRuntime().availableProcessors() - 1);
     var parallelism = 12;
+    // 出力long配列の要素数
     var outputLength = unitIndex(searchLen - 1) + 1;
     logger.info("array size: {}", outputLength);
     // タスク実行
     try (var pool = new ForkJoinPool(parallelism, ForkJoinPool.defaultForkJoinWorkerThreadFactory,
         null, true)) {
+      final var service = new ExecutorCompletionService<Result>(pool);
       var tasks = new ArrayList<MemorySegmentCallable>();
       {
         var bits = loadSmallSieve(smallSievepath);
@@ -203,6 +207,7 @@ public class CreateLargeSieveTask implements Callable<Integer> {
       mpz_init(start);
       var smallSieve = new Sieve(bits, sieveLimit * 64);
       var step = smallSieve.sieveSearch(sieveLimit, sieveOffset * 64);
+      logger.info("first prime: {}", step * 2L + 1);
       final var convertedStep = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
       // convertedStep = step * 2L + 1
       // なんで32bitずつ入れなあかんのじゃい
@@ -234,7 +239,7 @@ public class CreateLargeSieveTask implements Callable<Integer> {
         }
 
         // 次の素数をルックアップする
-        step = smallSieve.sieveSearch(sieveLimit, step + 1);
+        step = smallSieve.sieveSearch(sieveLimit * 64, step + 1);
         // convertedStep = step * 2L + 1;
         // なんで32bitずつ入れなあかんのじゃい
         mpz_set_ui(convertedStep, (int) (0xffffffffL & step >>> 32));
