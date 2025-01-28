@@ -191,7 +191,7 @@ public class CreateLargeSieveTask implements Callable<Integer> {
    * @param outputLength 出力サイズ(long配列要素数)
    * @param searchLen 出力サイズ(ビット単位)
    */
-  private record MemorySegmentCallable(Arena auto, MemorySegment mpzBase, long[] bits,
+  public record MemorySegmentCallable(Arena auto, MemorySegment mpzBase, long[] bits,
                                        long sieveOffset, long sieveLimit, int outputLength,
                                        long searchLen) implements
       Callable<MemorySegment> {

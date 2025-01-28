@@ -1,21 +1,20 @@
 package com.github.teruteru128.study;
 
 import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
+import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_fdiv_r;
-import static com.github.teruteru128.gmp.gmp_h.mpz_fdiv_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
+import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
-import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
-import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
-import static com.github.teruteru128.study.PrimeSearch.loadSmallSieve;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
+import static com.github.teruteru128.study.PrimeSearch.mpz_fits_ulong_p;
+import static com.github.teruteru128.study.PrimeSearch.mpz_get_ui;
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -129,17 +128,18 @@ import org.apache.logging.log4j.util.InternalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
-import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
+import picocli.CommandLine.HelpCommand;
+import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 @Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
-    ECIESSample.class, FileChecker.class, com.github.teruteru128.study.PrimeSearch.class,
-    SiteChecker.class, Spam.class, TeamSpeak.class, Updater.class, CommandLine.HelpCommand.class,
-    ListUp.class, Transform.class, CumShoot.class, SlimeSearch.class, Spam3.class, OwnerCheck.class,
-    CalcBustSize.class, Deterministic.class, CreatePrimeNumberCandidateDB.class,
-    SmallSievePrimeCounter.class, NewColorGenerator.class})
+    ECIESSample.class, FileChecker.class, PrimeSearch.class, SiteChecker.class, Spam.class,
+    TeamSpeak.class, Updater.class, HelpCommand.class, ListUp.class, Transform.class,
+    CumShoot.class, SlimeSearch.class, Spam3.class, OwnerCheck.class, CalcBustSize.class,
+    Deterministic.class, CreatePrimeNumberCandidateDB.class, SmallSievePrimeCounter.class,
+    NewColorGenerator.class})
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
@@ -1102,6 +1102,53 @@ public class Factory implements Callable<Integer> {
     }
     System.out.printf("enc private key: %s%n", p);
     System.out.printf("address: %s%n", AddressFactory.encodeAddress(4, 1, ripe, 0, 20));
+    return ExitCode.OK;
+  }
+
+  /**
+   * 5190digitsの素数探そうぜ！プロジェクト
+   * @return status code
+   */
+  @Command
+  private int project5190(@Option(names = {"--bits"}, defaultValue = "5189") int bits,
+      @Option(names = {"--offset"}, defaultValue = "0") long offset,
+      @Option(names = {"--small-sieve",
+          "-S"}, defaultValue = "small-sieve-524288bit.obj") Path smallSievepath) {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 10);
+    mpz_pow_ui(n, n, bits);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set(p, n);
+    var diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(diff);
+    long start;
+    long finish;
+    if (offset != 0) {
+      var tmp = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init_set_ui(tmp, (int) (offset >>> 32));
+      mpz_mul_2exp(tmp, tmp, 32);
+      mpz_add_ui(tmp, tmp, (int) (offset & 0xffffffffL));
+      mpz_add(p, p, tmp);
+    }
+
+    for (int i = 0; i < 126; i++) {
+      start = System.nanoTime();
+      mpz_nextprime(p, p);
+      finish = System.nanoTime();
+      mpz_sub(diff, p, n);
+      var timeDiff1 = (finish - start) / 3.6e12;
+      String string;
+      if (mpz_fits_ulong_p(diff)) {
+        string = Long.toString(mpz_get_ui(diff));
+      } else {
+        var len = mpz_sizeinbase(diff, 10) + 2;
+        var buf = auto.allocate(len);
+        mpz_get_str(buf, 10, diff);
+        string = buf.getString(0);
+      }
+      logger.info("10^{} + {}, {}", bits, string, timeDiff1);
+    }
     return ExitCode.OK;
   }
 

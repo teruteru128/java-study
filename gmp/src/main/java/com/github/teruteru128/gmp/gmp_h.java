@@ -4532,7 +4532,7 @@ public class gmp_h {
      * unsigned long __gmpz_fdiv_r_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static long __gmpz_fdiv_r_ui(MemorySegment x0, MemorySegment x1, long x2) {
+    public static int __gmpz_fdiv_r_ui(MemorySegment x0, MemorySegment x1, int x2) {
         var mh$ = __gmpz_fdiv_r_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -4548,7 +4548,7 @@ public class gmp_h {
      * unsigned long mpz_mod_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static long mpz_mod_ui(MemorySegment x0, MemorySegment x1, long x2) {
+    public static int mpz_mod_ui(MemorySegment x0, MemorySegment x1, int x2) {
         return mpz_fdiv_r_ui(x0, x1, x2);
     }
     /**
@@ -4556,7 +4556,7 @@ public class gmp_h {
      * unsigned long mpz_fdiv_r_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static long mpz_fdiv_r_ui(MemorySegment x0, MemorySegment x1, long x2) {
+    public static int mpz_fdiv_r_ui(MemorySegment x0, MemorySegment x1, int x2) {
         return __gmpz_fdiv_r_ui(x0, x1, x2);
     }
 

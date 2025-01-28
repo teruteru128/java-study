@@ -57,13 +57,12 @@ public class PrimeSearch implements Callable<Integer> {
       throws IOException, ClassNotFoundException, InterruptedException, ExecutionException, SQLException {
     logger.info("initialize...");
     var matcher = UUID_PATTERN.matcher(evenNumberPath.getFileName().toString());
-    long id;
-    if (matcher.find()) {
-      id = UUID.fromString(matcher.group()).getMostSignificantBits();
-    } else {
+    if (!matcher.find()) {
       logger.error("ファイル名にUUIDが含まれていません");
       return ExitCode.SOFTWARE;
     }
+    var uuid = UUID.fromString(matcher.group());
+    var id = uuid.getMostSignificantBits();
     var even = auto.allocate(__mpz_struct.layout()).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_str(even, auto.allocateFrom(Files.readAllLines(evenNumberPath).getFirst()), 10);
     var source = new SQLiteDataSource();
@@ -99,8 +98,7 @@ public class PrimeSearch implements Callable<Integer> {
             if (result == 1 || result == 2) {
               found = true;
               logger.info("find prime: step {}", foundStep.step());
-              System.err.write(7);
-              System.err.flush();
+              System.err.println('\007');
               break;
             }
           } catch (ExecutionException ignored) {
