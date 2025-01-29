@@ -1314,7 +1314,7 @@ public class gmp_h {
      * void __gmp_randseed(gmp_randstate_ptr, mpz_srcptr)
      * }
      */
-    public static void __gmp_randseed(MemorySegment x0, MemorySegment x1) {
+    private static void __gmp_randseed(MemorySegment x0, MemorySegment x1) {
         var mh$ = __gmp_randseed.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -1324,6 +1324,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void __gmp_randseed(gmp_randstate_ptr, mpz_srcptr)
+     * }
+     */
+    public static void gmp_randseed(MemorySegment x0, MemorySegment x1) {
+        __gmp_randseed(x0, x1);
     }
 
     private static class __gmp_randseed_ui {
@@ -1407,7 +1415,7 @@ public class gmp_h {
      * void __gmp_randclear(gmp_randstate_ptr)
      * }
      */
-    public static void __gmp_randclear(MemorySegment x0) {
+    private static void __gmp_randclear(MemorySegment x0) {
         var mh$ = __gmp_randclear.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -1417,6 +1425,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void __gmp_randclear(gmp_randstate_ptr)
+     * }
+     */
+    public static void gmp_randclear(MemorySegment x0) {
+        __gmp_randclear(x0);
     }
 
     private static class __gmp_urandomb_ui {
@@ -6626,7 +6642,7 @@ public class gmp_h {
      * void __gmpz_mul_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    private static void __gmpz_mul_ui(MemorySegment x0, MemorySegment x1, long x2) {
+    private static void __gmpz_mul_ui(MemorySegment x0, MemorySegment x1, int x2) {
         var mh$ = __gmpz_mul_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6642,7 +6658,7 @@ public class gmp_h {
      * void mpz_mul_ui(mpz_ptr rop, mpz_srcptr op1, unsigned long op2)
      * }
      */
-    public static void mpz_mul_ui(MemorySegment rop, MemorySegment op1, long op2) {
+    public static void mpz_mul_ui(MemorySegment rop, MemorySegment op1, int op2) {
         __gmpz_mul_ui(rop, op1, op2);
     }
 
@@ -8993,7 +9009,7 @@ public class gmp_h {
      * void __gmpz_urandomm(mpz_ptr, gmp_randstate_ptr, mpz_srcptr)
      * }
      */
-    public static void __gmpz_urandomm(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+    private static void __gmpz_urandomm(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
         var mh$ = __gmpz_urandomm.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -9003,6 +9019,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void __gmpz_urandomm(mpz_ptr, gmp_randstate_ptr, mpz_srcptr)
+     * }
+     */
+    public static void mpz_urandomm(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+        __gmpz_urandomm(x0, x1, x2);
     }
 
     private static class __gmpz_xor {

@@ -14,6 +14,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 /**
  * Producer-Consumerパターンを使い、プロデューサースレッドで鍵ペアを生成、コンシューマースレッドでサーバーへ送信
@@ -42,13 +43,9 @@ public class BMAddressGenerator implements Runnable {
     var address4 = AddressFactory.encodeAddress(4, 1, ripe);
     var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
     var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());
-    return '[' + address4 + "]\n"
-           + "label = " + address4.substring(3, 9) + "\n"
-           + "enabled = true\n"
-           + "decoy = false\n"
-           + "noncetrialsperbyte = 1000\n"
-           + "payloadlengthextrabytes = 1000\n"
-           + "privsigningkey = " + privSigningKeyWIF + "\n"
+    return '[' + address4 + "]\n" + "label = " + address4.substring(3, 9) + "\n"
+           + "enabled = true\n" + "decoy = false\n" + "noncetrialsperbyte = 1000\n"
+           + "payloadlengthextrabytes = 1000\n" + "privsigningkey = " + privSigningKeyWIF + "\n"
            + "privencryptionkey = " + privEncryptionKeyWIF + "\n";
   }
 
@@ -112,8 +109,8 @@ public class BMAddressGenerator implements Runnable {
         tasks.add(new Producer(request));
       }
     }
-    try (ExecutorService service1 = Executors.newCachedThreadPool()) {
-      // ScheduledExecutorService service2 = Executors.newScheduledThreadPool(1);
+    try (ExecutorService service1 = Executors.newCachedThreadPool(); var service2 = new ScheduledThreadPoolExecutor(
+        1)) {
       logger.log(System.Logger.Level.INFO, "start : %s%n", LocalDateTime.now());
       try {
         service1.invokeAny(tasks);

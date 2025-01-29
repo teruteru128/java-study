@@ -1,23 +1,30 @@
 package com.github.teruteru128.study;
 
 import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
+import static com.github.teruteru128.gmp.gmp_h.__gmp_randinit_default;
+import static com.github.teruteru128.gmp.gmp_h.gmp_randseed;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_import;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
+import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
+import static com.github.teruteru128.study.PrimeSearch.loadSmallSieve;
 import static com.github.teruteru128.study.PrimeSearch.mpz_fits_ulong_p;
 import static com.github.teruteru128.study.PrimeSearch.mpz_get_ui;
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
@@ -36,11 +43,13 @@ import com.github.teruteru128.encode.Base58;
 import com.github.teruteru128.foreign.converters.PathConverter;
 import com.github.teruteru128.foreign.prime.search.PrimeSearch.LargeSieve;
 import com.github.teruteru128.fx.App;
+import com.github.teruteru128.gmp.__gmp_randstate_struct;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.ncv.xml.ListUp;
 import com.github.teruteru128.ncv.xml.Transform;
 import com.github.teruteru128.semen.CumShoot;
+import com.github.teruteru128.study.CreateLargeSieveTask.MemorySegmentCallable;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -54,11 +63,17 @@ import java.io.RandomAccessFile;
 import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
+import java.lang.foreign.ValueLayout;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.Proxy;
+import java.net.Proxy.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
@@ -109,6 +124,9 @@ import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.random.RandomGenerator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -1113,7 +1131,8 @@ public class Factory implements Callable<Integer> {
   private int project5190(@Option(names = {"--bits"}, defaultValue = "5189") int bits,
       @Option(names = {"--offset"}, defaultValue = "0") long offset,
       @Option(names = {"--small-sieve",
-          "-S"}, defaultValue = "small-sieve-524288bit.obj") Path smallSievepath) {
+          "-S"}, defaultValue = "small-sieve-524288bit.obj") Path smallSievepath)
+      throws IOException, ClassNotFoundException {
     var auto = Arena.ofAuto();
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_ui(n, 10);
@@ -1132,6 +1151,15 @@ public class Factory implements Callable<Integer> {
       mpz_add(p, p, tmp);
     }
 
+    var bitset = loadSmallSieve(smallSievepath);
+    var largeSieve = BitSet.valueOf(
+        new MemorySegmentCallable(auto, p, bitset, 0, bitset.length, bitset.length * 5,
+            bitset.length * 320L).call().toArray(ValueLayout.JAVA_LONG));
+    var notSet = new BitSet(largeSieve.length());
+    notSet.set(0, largeSieve.length());
+    notSet.andNot(largeSieve);
+    notSet.stream().filter(i -> false).forEach(System.out::println);
+
     for (int i = 0; i < 126; i++) {
       start = System.nanoTime();
       mpz_nextprime(p, p);
@@ -1148,6 +1176,46 @@ public class Factory implements Callable<Integer> {
         string = buf.getString(0);
       }
       logger.info("10^{} + {}, {}", bits, string, timeDiff1);
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int project19(@Option(names = {"--count"}, defaultValue = "10") int count) {
+    final var endpoint = "https://factordb.com/api?query=";
+    var auto = Arena.ofAuto();
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(min, 10);
+    mpz_pow_ui(min, min, 18);
+    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(window, 10);
+    mpz_pow_ui(window, window, 18);
+    mpz_mul_ui(window, window, 9);
+    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+    __gmp_randinit_default(state);
+    {
+      var seed = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init(seed);
+      var elementCount = 2493;
+      var seedNativeSegment = auto.allocate(JAVA_BYTE, elementCount);
+      MemorySegment.copy(MemorySegment.ofArray(
+              ((SecureRandom) SECURE_RANDOM_GENERATOR).generateSeed(elementCount)), JAVA_BYTE, 0,
+          seedNativeSegment, JAVA_BYTE, 0, elementCount);
+      mpz_import(seed, elementCount, 1, 1, 0, 0, seedNativeSegment);
+      gmp_randseed(state, seed);
+    }
+    // ScheduledThreadPoolExecutor
+    try (var executor = new ScheduledThreadPoolExecutor(4)) {
+      var latch = new CountDownLatch(count);
+      var scheduledFuture = executor.scheduleAtFixedRate(
+          new FactorDBPostingTask(state, window, min, endpoint, latch), 0, 1500,
+          TimeUnit.MILLISECONDS);
+      latch.await();
+      scheduledFuture.cancel(false);
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
     }
     return ExitCode.OK;
   }
@@ -1189,4 +1257,68 @@ public class Factory implements Callable<Integer> {
     }
   }
 
+  private record FactorDBPostingTask(MemorySegment state, MemorySegment window, MemorySegment min,
+                                     String endpoint, CountDownLatch latch) implements Runnable {
+
+    public static final Proxy LOCALHOST_SOCKS_PROXY = new Proxy(Type.SOCKS,
+        new InetSocketAddress("localhost", 9150));
+    public static final String FDB_USER_ID = System.getenv("FDBUSER");
+    public static final String FDB_USER_COOKIE =
+        "fdbuser=" + (FDB_USER_ID != null ? FDB_USER_ID : "");
+    private static final Arena auto = Arena.ofAuto();
+    private static final ThreadLocal<MemorySegment> THREAD_LOCAL_P = ThreadLocal.withInitial(() -> {
+      var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init(p);
+      return p;
+    });
+    // FIXME スレッドローカルで持つバッファのサイズを変えられるようにしたい
+    private static final ThreadLocal<MemorySegment> THREAD_LOCAL_BUF = ThreadLocal.withInitial(
+        () -> auto.allocate(21));
+
+    @Override
+    public void run() {
+      var p = THREAD_LOCAL_P.get();
+      mpz_urandomm(p, state, window);
+      mpz_add(p, p, min);
+      mpz_nextprime(p, p);
+      MemorySegment buf;
+      long size = mpz_sizeinbase(p, 10) + 2;
+      if (size <= 21) {
+        buf = THREAD_LOCAL_BUF.get();
+      } else {
+        // mpz_sizeinbaseは厳密に桁数を計算してないため、しきい値にある程度以上近づくと22桁判定になる
+        buf = auto.allocate(size);
+      }
+      mpz_get_str(buf, 10, p);
+      var prime = buf.getString(0);
+      URL url;
+      try {
+        url = URI.create(endpoint + prime).toURL();
+      } catch (MalformedURLException e) {
+        throw new RuntimeException(e);
+      }
+      HttpsURLConnection connection;
+      int responseCode;
+      do {
+        try {
+          connection = (HttpsURLConnection) url.openConnection(LOCALHOST_SOCKS_PROXY);
+          if (FDB_USER_ID != null) {
+            connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+          }
+          connection.connect();
+          responseCode = connection.getResponseCode();
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+        if (responseCode != 200) {
+          // 成功するまでやり直し給え
+          logger.error("error: {}, {}", responseCode, prime);
+          connection.disconnect();
+        } else {
+          logger.info("success: {}", prime);
+        }
+      } while (responseCode != 200);
+      latch.countDown();
+    }
+  }
 }
