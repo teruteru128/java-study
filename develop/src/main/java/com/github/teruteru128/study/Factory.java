@@ -29,7 +29,10 @@ import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.bitmessage.app.Spammer.Address;
 import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
@@ -157,7 +160,7 @@ import picocli.CommandLine.Parameters;
     TeamSpeak.class, Updater.class, HelpCommand.class, ListUp.class, Transform.class,
     CumShoot.class, SlimeSearch.class, Spam3.class, OwnerCheck.class, CalcBustSize.class,
     Deterministic.class, CreatePrimeNumberCandidateDB.class, SmallSievePrimeCounter.class,
-    NewColorGenerator.class})
+    NewColorGenerator.class, Multi2.class})
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
@@ -1073,56 +1076,6 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command(name = "multi2", description = {
-      "指定した署名鍵とファイルの暗号鍵からアドレスを計算する"})
-  private int multi2(String signPrivateKey58)
-      throws IOException, NoSuchAlgorithmException, DigestException {
-    var sp = Base58.decode(signPrivateKey58);
-    var sigPubKey = SEC_P256_K1_G.multiply(new BigInteger(1, sp, 1, 32)).normalize()
-        .getEncoded(false);
-    var index = SECURE_RANDOM_GENERATOR.nextInt();
-    System.out.printf("index: %d%n", index);
-    var fileNumber = (index >> 24) & 0xff;
-    System.out.printf("file number: %d%n", fileNumber);
-    final var initialOffset = (index & 0xffffff) * 65;
-    System.out.printf("initial offset: %d%n", initialOffset);
-    var publicDir = Path.of("D:\\keys\\public");
-    var privateDir = Path.of("D:\\keys\\private");
-    var sha512 = MessageDigest.getInstance("SHA-512");
-    var ripemd160 = MessageDigest.getInstance("RIPEMD160");
-    long privateKeyOffset;
-    byte[] ripe;
-    try (var file = new RandomAccessFile(
-        publicDir.resolve("publicKeys" + fileNumber + ".bin").toFile(), "r")) {
-      var publicKey = new byte[65];
-      ripe = new byte[64];
-      file.seek(initialOffset);
-      do {
-        file.readFully(publicKey);
-        sha512.update(sigPubKey);
-        sha512.update(publicKey);
-        sha512.digest(ripe, 0, 64);
-        ripemd160.update(ripe, 0, 64);
-        ripemd160.digest(ripe, 0, 20);
-      } while (ripe[0] != 0);
-      System.out.printf("ripe: %s%n", FORMAT.formatHex(ripe, 0, 20));
-      var currentOffset = file.getFilePointer() - 65;
-      privateKeyOffset = (currentOffset / 65) * 32;
-      System.out.printf("offset: %d -> %d%n", currentOffset, privateKeyOffset);
-    }
-    String p;
-    try (var file = new RandomAccessFile(
-        privateDir.resolve("privateKeys" + fileNumber + ".bin").toFile(), "r")) {
-      file.seek(privateKeyOffset);
-      var privateKey = new byte[32];
-      file.readFully(privateKey);
-      p = BMAddressGenerator.encodeWIF(privateKey);
-    }
-    System.out.printf("enc private key: %s%n", p);
-    System.out.printf("address: %s%n", AddressFactory.encodeAddress(4, 1, ripe, 0, 20));
-    return ExitCode.OK;
-  }
-
   /**
    * 5190digitsの素数探そうぜ！プロジェクト
    * @return status code
@@ -1200,8 +1153,7 @@ public class Factory implements Callable<Integer> {
       mpz_init(seed);
       var elementCount = 2493;
       var seedNativeSegment = auto.allocate(JAVA_BYTE, elementCount);
-      MemorySegment.copy(MemorySegment.ofArray(
-              ((SecureRandom) SECURE_RANDOM_GENERATOR).generateSeed(elementCount)), JAVA_BYTE, 0,
+      MemorySegment.copy(((SecureRandom) SECURE_RANDOM_GENERATOR).generateSeed(elementCount), 0,
           seedNativeSegment, JAVA_BYTE, 0, elementCount);
       mpz_import(seed, elementCount, 1, 1, 0, 0, seedNativeSegment);
       gmp_randseed(state, seed);
@@ -1209,11 +1161,16 @@ public class Factory implements Callable<Integer> {
     // ScheduledThreadPoolExecutor
     try (var executor = new ScheduledThreadPoolExecutor(4)) {
       var latch = new CountDownLatch(count);
-      var scheduledFuture = executor.scheduleAtFixedRate(
-          new FactorDBPostingTask(state, window, min, endpoint, latch), 0, 1500,
-          TimeUnit.MILLISECONDS);
+      var task = new FactorDBPostingTask(state, window, min, endpoint, latch);
+      var scheduledFuture0 = executor.scheduleAtFixedRate(task, 0, 1500, TimeUnit.MILLISECONDS);
+      var scheduledFuture1 = executor.scheduleAtFixedRate(task, 375, 1500, TimeUnit.MILLISECONDS);
+      var scheduledFuture2 = executor.scheduleAtFixedRate(task, 750, 1500, TimeUnit.MILLISECONDS);
+      var scheduledFuture3 = executor.scheduleAtFixedRate(task, 1125, 1500, TimeUnit.MILLISECONDS);
       latch.await();
-      scheduledFuture.cancel(false);
+      scheduledFuture0.cancel(false);
+      scheduledFuture1.cancel(false);
+      scheduledFuture2.cancel(false);
+      scheduledFuture3.cancel(false);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
@@ -1263,8 +1220,9 @@ public class Factory implements Callable<Integer> {
     public static final Proxy LOCALHOST_SOCKS_PROXY = new Proxy(Type.SOCKS,
         new InetSocketAddress("localhost", 9150));
     public static final String FDB_USER_ID = System.getenv("FDBUSER");
-    public static final String FDB_USER_COOKIE =
-        "fdbuser=" + (FDB_USER_ID != null ? FDB_USER_ID : "");
+    public static final String FDB_USER_COOKIE = FDB_USER_ID != null ? "fdbuser="
+                                                                       + FDB_USER_ID : "";
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final Arena auto = Arena.ofAuto();
     private static final ThreadLocal<MemorySegment> THREAD_LOCAL_P = ThreadLocal.withInitial(() -> {
       var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -1278,7 +1236,10 @@ public class Factory implements Callable<Integer> {
     @Override
     public void run() {
       var p = THREAD_LOCAL_P.get();
-      mpz_urandomm(p, state, window);
+      // stateの同期を他のどこでも取って無さそうなのでここで取る
+      synchronized (state) {
+        mpz_urandomm(p, state, window);
+      }
       mpz_add(p, p, min);
       mpz_nextprime(p, p);
       MemorySegment buf;
@@ -1295,7 +1256,7 @@ public class Factory implements Callable<Integer> {
       try {
         url = URI.create(endpoint + prime).toURL();
       } catch (MalformedURLException e) {
-        throw new RuntimeException(e);
+        throw new RuntimeException("URL Construction Exception when query=" + prime, e);
       }
       HttpsURLConnection connection;
       int responseCode;
@@ -1307,12 +1268,23 @@ public class Factory implements Callable<Integer> {
           }
           connection.connect();
           responseCode = connection.getResponseCode();
+          // query limitに到達したときにどのような形式のどのようなデータが返ってくるのか予想がつかない
+          // 通常のウェブサイトでは429 Too Many Requestsが帰ってきていた
+          JsonNode root;
+          try (var in = new BufferedInputStream(connection.getInputStream())) {
+            root = OBJECT_MAPPER.readTree(in);
+          }
+          var id = root.get("id").longValue();
+          var status = root.get("status").textValue();
+          if (id != 0 || !status.equals("PRP")) {
+            System.err.printf("known prime: %d, %s, %s%n", id, status, prime);
+          }
         } catch (IOException e) {
-          throw new RuntimeException(e);
+          throw new RuntimeException("exception in query=" + prime, e);
         }
         if (responseCode != 200) {
           // 成功するまでやり直し給え
-          logger.error("error: {}, {}", responseCode, prime);
+          logger.error("error  : {}, {}", prime, responseCode);
           connection.disconnect();
         } else {
           logger.info("success: {}", prime);

@@ -25263,15 +25263,14 @@ public class opencl_h_1 extends opencl_h_2 {
     }
     /**
      * {@snippet lang=c :
-     * #define CL_PROGRAM_STRING_DEBUG_INFO "#line 668 "C:\Users\terut\AppData\Local\Temp\jextract$12990948806193480910.h" 
+     * #define CL_PROGRAM_STRING_DEBUG_INFO ""
      * 
      * "
      * }
      */
     public static MemorySegment CL_PROGRAM_STRING_DEBUG_INFO() {
         class Holder {
-            static final MemorySegment CL_PROGRAM_STRING_DEBUG_INFO
-                = LIBRARY_ARENA.allocateFrom("#line 668 \"C:\\Users\\terut\\AppData\\Local\\Temp\\jextract$12990948806193480910.h\" \n\n");
+            static final MemorySegment CL_PROGRAM_STRING_DEBUG_INFO = LIBRARY_ARENA.allocateFrom("");
         }
         return Holder.CL_PROGRAM_STRING_DEBUG_INFO;
     }

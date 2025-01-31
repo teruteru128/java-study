@@ -31,6 +31,7 @@ public class Spammer {
           Objects.requireNonNull(System.getenv("BM_API_SERVER_URL"), "BM API URL NOT FOUND")))
       .header("Content-Type", "application/json-rpc")
       .header("Authorization", "Basic " + System.getenv("BM_TOKEN"));
+  public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final SecureRandom RANDOM = (SecureRandom) RandomGenerator.of("SecureRandom");
 
 
@@ -40,12 +41,11 @@ public class Spammer {
   public static List<Address> getFakeAddresses()
       throws IOException, InterruptedException {
     var req = "{\"jsonrpc\": \"2.0\",\"method\":\"listAddressBookEntries\",\"id\":1}";
-    var mapper = new ObjectMapper();
     try (var client = HttpClient.newHttpClient(); var in = client.send(
             requestBuilder.POST(ofString(req)).build(), HttpResponse.BodyHandlers.ofInputStream())
         .body()) {
       return Arrays.asList(
-          mapper.treeToValue(mapper.readTree(in).get("result").get("addresses"), Address[].class));
+          OBJECT_MAPPER.treeToValue(OBJECT_MAPPER.readTree(in).get("result").get("addresses"), Address[].class));
     }
   }
 
