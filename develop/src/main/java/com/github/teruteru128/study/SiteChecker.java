@@ -72,7 +72,7 @@ public class SiteChecker implements Callable<Integer> {
       }
       future.cancel(false);
     } catch (InterruptedException e) {
-      throw new RuntimeException(e);
+      Thread.currentThread().interrupt();
     }
   }
 
@@ -104,7 +104,7 @@ public class SiteChecker implements Callable<Integer> {
             try {
               Thread.sleep(3000);
             } catch (InterruptedException e) {
-              throw new RuntimeException(e);
+              Thread.currentThread().interrupt();
             }
           }
           return b;
@@ -143,7 +143,7 @@ public class SiteChecker implements Callable<Integer> {
           try {
             Thread.sleep(5000);
           } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
           }
         }
       });

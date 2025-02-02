@@ -74,7 +74,10 @@ public class AddressCalc implements Callable<Void> {
       while (!service.awaitTermination(6, TimeUnit.HOURS)) {
         System.err.println("an hour!");
       }
-    } catch (ExecutionException | InterruptedException e) {
+    } catch (ExecutionException e) {
+      throw new RuntimeException(e);
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
       throw new RuntimeException(e);
     }
     return null;
@@ -122,11 +125,13 @@ public class AddressCalc implements Callable<Void> {
                 }
               }
             }
-            if (finished)
+            if (finished) {
               break;
+            }
           }
-          if (finished)
+          if (finished) {
             break;
+          }
           logger.debug("! {}, {}%n", index, (System.nanoTime() - start) / 1e9);
         }
         return result;

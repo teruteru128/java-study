@@ -96,8 +96,14 @@ public class Spam3 implements Callable<Integer> {
             prep.executeBatch();
           }
           logger.info("{}件送信しました", list.size());
-        } catch (SQLException | IOException | InterruptedException e) {
+        } catch (SQLException | IOException e) {
           logger.error("exception in task", e);
+          synchronized (lockObject) {
+            lockObject.notify();
+          }
+        } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
+          logger.error("interrupted exception in task", e);
           synchronized (lockObject) {
             lockObject.notify();
           }
