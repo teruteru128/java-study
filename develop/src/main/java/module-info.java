@@ -38,6 +38,7 @@ module com.github.teruteru.study {
   requires unboundid.ldapsdk;
   requires info.picocli;
   requires com.github.teruteru.foreign.gmp;
+  requires com.github.teruteru.foreign.opencl;
   requires com.github.teruteru.foreign;
   requires jsr305;
   requires com.fasterxml.jackson.dataformat.yaml;

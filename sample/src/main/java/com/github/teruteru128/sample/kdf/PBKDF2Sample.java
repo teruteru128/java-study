@@ -1,5 +1,6 @@
 package com.github.teruteru128.sample.kdf;
 
+import com.github.teruteru128.study.Factory;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HexFormat;
@@ -36,7 +37,7 @@ public class PBKDF2Sample {
       byte[] salt;
       if (args.length == 2) {
         salt = new byte[16];
-        SECURE_RANDOM_GENERATOR.nextBytes(salt);
+        Factory.SECURE_RANDOM_GENERATOR.nextBytes(salt);
       } else {
         salt = HexFormat.of().parseHex(args[2]);
       }

@@ -31,7 +31,7 @@ application {
     mainClass = 'com.github.teruteru128.study.Main'
     applicationDefaultJvmArgs = [
             '-Xmx72G',
-            '--enable-native-access=com.github.teruteru.study,com.github.teruteru.foreign.gmp'
+            '--enable-native-access=com.github.teruteru.study,com.github.teruteru.foreign.gmp,com.github.teruteru.foreign.opencl'
     ]
 }
 
@@ -44,6 +44,7 @@ dependencies {
     implementation project(':encode')
     implementation project(':foreign')
     implementation project(':gmp')
+    implementation project(':opencl')
     implementation project(':resources')
     implementation project(':time')
 

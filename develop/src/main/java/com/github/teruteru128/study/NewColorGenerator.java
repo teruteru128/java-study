@@ -11,20 +11,19 @@ import picocli.CommandLine.Option;
 @Command(name = "generateNewColor")
 public class NewColorGenerator implements Callable<Integer> {
 
-  private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   @Option(names = {"--fix-saturation-to-1",
       "-S"}, defaultValue = "false")
   boolean fixSaturationTo1;
 
   @Override
   public Integer call() throws Exception {
-    var h = MyRandom.nextDouble(SECURE_RANDOM_GENERATOR) * 6;
+    var h = MyRandom.nextDouble(Factory.SECURE_RANDOM_GENERATOR) * 6;
     var l = 0.5;
     double s;
     if (fixSaturationTo1) {
       s = 1;
     } else {
-      s = (double) SECURE_RANDOM_GENERATOR.nextInt(192, 256) / 255;
+      s = (double) Factory.SECURE_RANDOM_GENERATOR.nextInt(192, 256) / 255;
     }
     var rgb = ColorConverter.HLSToRGB(new HLSColor(h, l, s));
     var r = rgb.r();

@@ -1077,16 +1077,24 @@ public class gmp_h {
      * void __gmp_randinit_default(gmp_randstate_ptr)
      * }
      */
-    public static void __gmp_randinit_default(MemorySegment x0) {
+    private static void __gmp_randinit_default(MemorySegment state) {
         var mh$ = __gmp_randinit_default.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
-                traceDowncall("__gmp_randinit_default", x0);
+                traceDowncall("__gmp_randinit_default", state);
             }
-            mh$.invokeExact(x0);
+            mh$.invokeExact(state);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void gmp_randinit_default(gmp_randstate_ptr)
+     * }
+     */
+    public static void gmp_randinit_default(MemorySegment state) {
+        __gmp_randinit_default(state);
     }
 
     private static class __gmp_randinit_lc_2exp {

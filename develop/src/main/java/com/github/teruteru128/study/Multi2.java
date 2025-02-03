@@ -29,7 +29,6 @@ public class Multi2 implements Callable<Integer> {
 
   public static final YAMLMapper YAML_MAPPER = new YAMLMapper();
   private static final HexFormat FORMAT = HexFormat.of();
-  private static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   @Parameters
   private String signPrivateKey58;
   @Option(names = {"--config"})
@@ -39,7 +38,7 @@ public class Multi2 implements Callable<Integer> {
   public Integer call() throws IOException, NoSuchAlgorithmException, DigestException {
     var sp = Base58.decode(signPrivateKey58);
     var sigPubKey = SEC_P256_K1_G.multiply(new BigInteger(1, sp, 1, 32)).getEncoded(false);
-    var index = SECURE_RANDOM_GENERATOR.nextInt();
+    var index = Factory.SECURE_RANDOM_GENERATOR.nextInt();
     System.out.printf("index: %d%n", index);
     var fileNumber = (index >> 24) & 0xff;
     System.out.printf("file number: %d%n", fileNumber);
