@@ -34,8 +34,6 @@ import com.github.teruteru128.semen.CumShoot;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -129,7 +127,7 @@ import picocli.CommandLine.Parameters;
     TeamSpeak.class, Updater.class, HelpCommand.class, ListUp.class, Transform.class,
     CumShoot.class, SlimeSearch.class, Spam3.class, OwnerCheck.class, CalcBustSize.class,
     Deterministic.class, CreatePrimeNumberCandidateDB.class, SmallSievePrimeCounter.class,
-    NewColorGenerator.class, Multi2.class, Project5190.class, Project19.class, Project19F.class})
+    NewColorGenerator.class, Multi2.class, Project5190.class, Project19.class, Project19F.class, Project19Sort.class})
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;

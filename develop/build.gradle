@@ -30,7 +30,7 @@ application {
     mainModule = 'com.github.teruteru.study'
     mainClass = 'com.github.teruteru128.study.Main'
     applicationDefaultJvmArgs = [
-            '-Xmx72G',
+            '-Xmx96G',
             '--enable-native-access=com.github.teruteru.study,com.github.teruteru.foreign.gmp,com.github.teruteru.foreign.opencl'
     ]
 }

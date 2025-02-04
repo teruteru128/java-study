@@ -1,6 +1,5 @@
 package com.github.teruteru128.study;
 
-import static com.github.teruteru128.foreign.opencl.opencl_h_1.qsort;
 import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
 import static com.github.teruteru128.gmp.gmp_h.gmp_randseed;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
@@ -15,7 +14,6 @@ import static com.github.teruteru128.study.Factory.ARRAY_ELEMENTS_MAX;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
-import com.github.teruteru128.foreign.opencl._CoreCrtNonSecureSearchSortCompareFunction;
 import com.github.teruteru128.gmp.__gmp_randstate_struct;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
@@ -33,12 +31,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
+import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
+/**
+ * 素数をファイルに大量に吐き出す。
+ * <p>
+ * 最初の素数(long)とそれ以降の素数の間隔のリストの形式のほうがいいんだろうか……
+ * </p>
+ */
 @Command(name = "project19f")
 public class Project19F implements Callable<Integer> {
 
   private static final Logger logger = LoggerFactory.getLogger(Project19F.class);
+  @Option(names = {"--num-of-elements", "-n"})
+  private long numOfElements = 0x80000000L;
   @Parameters
   private Path out;
 
@@ -51,10 +58,11 @@ public class Project19F implements Callable<Integer> {
     mpz_init_set_ui(min, 10);
     mpz_pow_ui(min, min, 18);
     var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    // 10^19未満で最大の素数 9999999999999999961 - min = 8999999999999999961
     mpz_init_set_str(window, auto.allocateFrom("8999999999999999961"), 10);
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
-    var array2 = auto.allocate(JAVA_LONG, 0x7fffffff);
+    var array2 = auto.allocate(JAVA_LONG, numOfElements);
     logger.info("variables initialized.");
     {
       var seed = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -70,7 +78,7 @@ public class Project19F implements Callable<Integer> {
     logger.info("random state initialized.");
     int j = 10000000;
     long prime;
-    for (int i = 0; i < Integer.MAX_VALUE; i++) {
+    for (long i = 0L; i < numOfElements; i++) {
       mpz_urandomm(p, state, window);
       mpz_add(p, p, min);
       mpz_nextprime(p, p);
@@ -83,9 +91,10 @@ public class Project19F implements Callable<Integer> {
     }
     logger.info("generate done");
     // TreeSetでやるのとどっちがいいんやろな
-    qsort(array2, Integer.MAX_VALUE, 8, _CoreCrtNonSecureSearchSortCompareFunction.allocate(
+    // Integer.MAX_VALUE以上の要素を扱う場合TreeSetは候補から外れる
+    /*qsort(array2, numOfElements, 8, _CoreCrtNonSecureSearchSortCompareFunction.allocate(
         (a, b) -> Long.compareUnsigned(a.getAtIndex(JAVA_LONG, 0), b.getAtIndex(JAVA_LONG, 0)),
-        auto).reinterpret(auto, _ -> logger.info("うんちぃ！！！")));
+        auto));*/
     try (var os = new DataOutputStream(
         new BufferedOutputStream(Files.newOutputStream(out), ARRAY_ELEMENTS_MAX))) {
       array2.elements(JAVA_LONG).mapToLong(e -> e.getAtIndex(JAVA_LONG, 0)).forEach(v -> {
