@@ -21,7 +21,7 @@ public class PrimeSearchTask2 implements Callable<Result> {
 
   private static final Logger logger = LoggerFactory.getLogger(PrimeSearchTask2.class);
   private static final Arena auto = Arena.ofAuto();
-  private static final ThreadLocal<MemorySegment> threadCandidates = ThreadLocal.withInitial(() -> {
+  private static final ThreadLocal<MemorySegment> THREAD_CANDIDATES = ThreadLocal.withInitial(() -> {
     var candidate = auto.allocate(__mpz_struct.layout()).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(candidate);
     return candidate;
@@ -40,7 +40,7 @@ public class PrimeSearchTask2 implements Callable<Result> {
 
   @Override
   public Result call() throws SQLException {
-    var candidate = threadCandidates.get();
+    var candidate = THREAD_CANDIDATES.get();
 //    mpz_add_ui(candidate, even, (int) (step * 2L + 1));
     mpz_add_ui(candidate, even, step);
     mpz_add_ui(candidate, candidate, step);

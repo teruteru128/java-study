@@ -19,6 +19,7 @@ public class _CoreCrtSecureSearchSortCompareFunction {
     /**
      * The function pointer signature, expressed as a functional interface
      */
+    @FunctionalInterface
     public interface Function {
         int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2);
     }

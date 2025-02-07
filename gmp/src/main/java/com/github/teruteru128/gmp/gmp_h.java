@@ -1228,7 +1228,7 @@ public class gmp_h {
      * void __gmp_randinit_mt(gmp_randstate_ptr)
      * }
      */
-    public static void __gmp_randinit_mt(MemorySegment x0) {
+    private static void __gmp_randinit_mt(MemorySegment x0) {
         var mh$ = __gmp_randinit_mt.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -1238,6 +1238,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void gmp_randinit_mt(gmp_randstate_ptr)
+     * }
+     */
+    public static void gmp_randinit_mt(MemorySegment x0) {
+        __gmp_randinit_mt(x0);
     }
 
     private static class __gmp_randinit_set {
