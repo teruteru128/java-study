@@ -127,7 +127,7 @@ import picocli.CommandLine.Parameters;
     TeamSpeak.class, Updater.class, HelpCommand.class, ListUp.class, Transform.class,
     CumShoot.class, SlimeSearch.class, Spam3.class, OwnerCheck.class, CalcBustSize.class,
     Deterministic.class, CreatePrimeNumberCandidateDB.class, SmallSievePrimeCounter.class,
-    NewColorGenerator.class, Multi2.class, Project5190.class, Project19.class, Project19F.class, Project19Sort.class})
+    NewColorGenerator.class, Multi2.class, Project5190.class, Project19.class, Project19F.class, Project19Sort.class, Project19Unique.class})
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;

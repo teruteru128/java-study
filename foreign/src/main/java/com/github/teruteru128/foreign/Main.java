@@ -55,7 +55,7 @@ import picocli.CommandLine.Parameters;
 @Command(name = "foreign", subcommands = {CL.class, PrimeSearch.class, E.class, CommandLine.HelpCommand.class})
 public class Main implements Callable<Integer> {
 
-  private static final Logger log = LoggerFactory.getLogger(Main.class);
+  private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
   static {
     for (var provider : ServiceLoader.load(Provider.class)) {
@@ -131,9 +131,9 @@ public class Main implements Callable<Integer> {
     var p = auto.allocate(layout()).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_str(p, auto.allocateFrom(Files.readAllLines(path).getFirst()), 10);
     mpz_add_ui(p, p, step * 2 + 1);
-    log.info("primality test start");
+    logger.info("primality test start");
     var ret = mpz_aprtcle(p, APRTCLE_VERBOSE2());
-    log.info("result: {}", ret);
+    logger.info("result: {}", ret);
     return ret == 1 || ret == 2 ? ExitCode.OK : ExitCode.SOFTWARE;
   }
 

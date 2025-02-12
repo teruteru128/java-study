@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
-import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 /**
@@ -77,7 +76,7 @@ public class Project19F implements Callable<Integer> {
       var path = paths[k];
       try (var os = new DataOutputStream(
           new BufferedOutputStream(Files.newOutputStream(path), ARRAY_ELEMENTS_MAX))) {
-        long j = 10000000L;
+        long j = 0x1000000L;
         for (long i = 0; i < 0x80000000L; i++) {
           mpz_urandomm(p, state, window);
           mpz_add(p, p, min);
@@ -86,7 +85,7 @@ public class Project19F implements Callable<Integer> {
           os.writeLong(prime);
           if (i == j) {
             logger.info("file {}, {}: {}", k, i, Long.toUnsignedString(prime));
-            j += 10000000;
+            j += 0x1000000L;
           }
         }
       }

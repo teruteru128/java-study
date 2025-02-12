@@ -19,7 +19,7 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Parameters;
 
-@Command
+@Command(name = "project19unique")
 public class Project19Unique implements Callable<Integer> {
 
   private static final long NUM_OF_ELEMENTS = 0x200000000L;

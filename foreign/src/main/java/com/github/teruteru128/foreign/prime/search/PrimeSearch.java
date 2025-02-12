@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.Callable;
@@ -20,6 +21,7 @@ import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.function.Predicate;
+import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
@@ -52,6 +54,9 @@ public class PrimeSearch implements Callable<Integer> {
   @Parameters(description = "even number (text) file")
   private Path evenNumberPath;
 
+  @Option(names = {"--shuffle", "-S"})
+  private boolean doShuffle = false;
+
   @Override
   public Integer call()
       throws IOException, ClassNotFoundException, InterruptedException, ExecutionException, SQLException {
@@ -67,35 +72,37 @@ public class PrimeSearch implements Callable<Integer> {
     mpz_init_set_str(even, auto.allocateFrom(Files.readAllLines(evenNumberPath).getFirst()), 10);
     var source = new SQLiteDataSource();
     source.setUrl(dbURL);
-    var list2 = new ArrayList<Integer>();
+    var inputList = new ArrayList<Integer>();
     try (var connection = source.getConnection(); var statement = connection.prepareStatement(
         "SELECT step from candidates where composite == 0 and probably_prime == 0 and definitely_prime == 0 and id = ?;")) {
       statement.setLong(1, id);
       try (var set = statement.executeQuery()) {
         while (set.next()) {
-          list2.add(set.getInt("step"));
+          inputList.add(set.getInt("step"));
         }
       }
     }
     logger.info("start");
-    logger.debug("Number of prime number candidates: {}", list2.size());
+    var size = inputList.size();
+    logger.debug("Number of prime number candidates: {}", size);
+    if(doShuffle) {
+      Collections.shuffle(inputList, RandomGenerator.of("SecureRandom"));
+    }
     var found = false;
     logger.debug("threads: {}", threads);
-    var list = list2.stream().mapToInt(Integer::intValue)
-        .mapToObj(step -> new PrimeSearchTask2(even, step, source, id))
-        .collect(Collectors.toCollection(() -> new ArrayList<>(list2.size())));
+    var list = inputList.stream().map(step -> new PrimeSearchTask2(even, step, source, id))
+        .collect(Collectors.toCollection(() -> new ArrayList<>(size)));
     try (final var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory, null,
         true)) {
       final var service = new ExecutorCompletionService<Result>(pool);
-      final var n = list.size();
-      var futures = new ArrayList<Future<Result>>(n);
+      var futures = new ArrayList<Future<Result>>(size);
       try {
         list.forEach(sex -> futures.add(service.submit(sex)));
-        for (int j = n; j > 0; j--) {
+        for (int j = size; j > 0; j--) {
           try {
             var foundStep = service.take().get();
             var result = foundStep.result();
-            if (result == 1 || result == 2) {
+            if (result != 0) {
               found = true;
               logger.info("find prime: step {}", foundStep.step());
               System.err.println('\007');
