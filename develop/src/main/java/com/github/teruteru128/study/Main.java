@@ -27,9 +27,8 @@ public class Main {
 
     /**
      * @param args command line arguments
-     * @throws Exception 何か起こるかもしれない
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         var exitCode = new CommandLine(Factory.createInstance()).execute(args);
         Runtime.getRuntime().exit(exitCode);
     }

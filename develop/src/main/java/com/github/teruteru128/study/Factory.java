@@ -8,17 +8,13 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static java.lang.foreign.ValueLayout.JAVA_LONG;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.bitmessage.app.Spammer.Address;
-import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
-import com.github.teruteru128.bitmessage.genaddress.Response;
-import com.github.teruteru128.bitmessage.spec.AddressFactory;
-import com.github.teruteru128.bitmessage.spec.KeyPair;
 import com.github.teruteru128.color.ColorConverter;
 import com.github.teruteru128.color.HLSColor;
 import com.github.teruteru128.color.RGBColor;
@@ -35,12 +31,10 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
-import java.io.RandomAccessFile;
 import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
@@ -61,7 +55,6 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.AlgorithmParameters;
 import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
@@ -69,15 +62,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.security.Security;
-import java.security.Signature;
-import java.security.SignatureException;
 import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.ECPublicKey;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.ECParameterSpec;
-import java.security.spec.ECPoint;
-import java.security.spec.ECPrivateKeySpec;
-import java.security.spec.ECPublicKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
 import java.security.spec.RSAPublicKeySpec;
@@ -104,15 +92,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javafx.application.Application;
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyAgreement;
-import javax.crypto.Mac;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import javax.net.ssl.HttpsURLConnection;
 import org.apache.logging.log4j.util.InternalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -127,7 +107,8 @@ import picocli.CommandLine.Parameters;
     TeamSpeak.class, Updater.class, HelpCommand.class, ListUp.class, Transform.class,
     CumShoot.class, SlimeSearch.class, Spam3.class, OwnerCheck.class, CalcBustSize.class,
     Deterministic.class, CreatePrimeNumberCandidateDB.class, SmallSievePrimeCounter.class,
-    NewColorGenerator.class, Multi2.class, Project5190.class, Project19.class, Project19F.class, Project19Sort.class, Project19Unique.class})
+    NewColorGenerator.class, Multi2.class, Project5190.class, Project19.class, Project19F.class,
+    Project19Sort.class, Project19Unique.class, Spammer.class, Spam2.class})
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
@@ -401,15 +382,6 @@ public class Factory implements Callable<Integer> {
     }
   }
 
-  @Command(name = "spam2")
-  private static void spam2(String[] args) throws IOException, InterruptedException {
-    var spam2 = new Spam2(args[1]);
-    if (args.length >= 3) {
-      spam2.setSkip(Long.parseLong(args[2]));
-    }
-    spam2.call();
-  }
-
   @Command(name = "unitSpam2")
   private static void unitSpam2(String[] args) throws SQLException, IOException {
     if (args.length >= 2) {
@@ -659,150 +631,6 @@ public class Factory implements Callable<Integer> {
     }
   }
 
-  /**
-   * FIXME ベタ書きを構造化するにはどうしたら良いのか
-   *
-   * @throws SQLException b
-   * @throws NoSuchAlgorithmException c
-   * @throws InvalidKeySpecException e
-   * @throws InvalidKeyException f
-   * @throws NoSuchPaddingException g
-   * @throws InvalidAlgorithmParameterException h
-   */
-  @Command(name = "bitmessageDecryptTest")
-  private static void bitmessageDecryptTest()
-      throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, SignatureException {
-    var source = new SQLiteDataSource();
-    source.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
-    var agreement = KeyAgreement.getInstance("ECDH");
-    var privateKey = Base58.decode(System.getenv("KEY"));
-    var key = factory.generatePrivate(
-        new ECPrivateKeySpec(new BigInteger(1, privateKey, 1, 32), secp256k1Parameter));
-    long okCount = 0;
-    long ngCount = 0;
-    long verified = 0;
-    var sha512 = MessageDigest.getInstance("SHA-512");
-    var ripemd160 = MessageDigest.getInstance("ripemd160");
-    var mac = Mac.getInstance("HmacSHA256");
-    var ecdsa = Signature.getInstance("ECDSA");
-    try (var connection = source.getConnection(); var statement = connection.createStatement(); var set = statement.executeQuery(
-        "select hash, payload from inventory where objecttype = 2;"); var prep = connection.prepareStatement(
-        "insert into inventory(hash, objecttype, streamnumber, payload, expirestime, tag) values (?,?,?,?,?,?);")) {
-      // 本来は新しいオブジェクトを受信する度にすべての秘密鍵についてループを回すんだろうな
-      while (set.next()) {
-        var payload = set.getBytes("payload");
-        // オブジェクト解析
-        var payloadBuffer = ByteBuffer.wrap(payload);
-        // nonce
-        payloadBuffer.getLong();
-        int start = payloadBuffer.position();
-        // expiresTime
-        payloadBuffer.getLong();
-        // object type
-        payloadBuffer.getInt();
-        // version
-        decodeVarInt(payloadBuffer);
-        // stream Number
-        decodeVarInt(payloadBuffer);
-        int headerLength = payloadBuffer.position() - start;
-        if (payloadBuffer.remaining() == 32) {
-          // non-stealth message ack data
-          continue;
-        }
-        var ivParameterSpec = getIV(payloadBuffer);
-        var curveType = payloadBuffer.getShort();
-        assert curveType == 0x02CA;
-        var xLength = payloadBuffer.getShort();
-        var x = getBytes(new byte[xLength], payloadBuffer);
-        var yLength = payloadBuffer.getShort();
-        var y = getBytes(new byte[yLength], payloadBuffer);
-        // 公開鍵組み立て
-        var w = new ECPoint(new BigInteger(1, x), new BigInteger(1, y));
-        var publicKey = factory.generatePublic(new ECPublicKeySpec(w, secp256k1Parameter));
-        // 宛先特定
-        // すべての鍵について、成功するまでループ。すべて失敗なら無視
-        // 共有秘密導出
-        agreement.init(key);
-        agreement.doPhase(publicKey, true);
-        var sharedSecret = sha512.digest(agreement.generateSecret());
-        // destination verifyメッセージ認証符号を用いて宛先を特定
-        mac.init(new SecretKeySpec(sharedSecret, 32, 32, "MAC"));
-        mac.update(payload, 22, payload.length - (22 + 32));
-        if (MessageDigest.isEqual(mac.doFinal(),
-            Arrays.copyOfRange(payload, payload.length - 32, payload.length))) {
-          // OK, 宛先特定
-          okCount++;
-        } else {
-          // NG, 宛先不一致
-          ngCount++;
-          continue;
-        }
-        // メッセージ復号
-        var ciphertextOffset = 44 + xLength + yLength;
-        var ciphertextLength = payload.length - (ciphertextOffset + 32);
-        var cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
-        var aesKey = new SecretKeySpec(sharedSecret, 0, 32, "AES");
-        cipher.init(Cipher.DECRYPT_MODE, aesKey, ivParameterSpec);
-        var plaintext = cipher.doFinal(payload, ciphertextOffset, ciphertextLength);
-        var unencryptedMessageDataBuffer = ByteBuffer.wrap(plaintext);
-        var fromAddressVersionNumber = decodeVarInt(unencryptedMessageDataBuffer);
-        // fromStreamNumber
-        var fromStreamNumber = decodeVarInt(unencryptedMessageDataBuffer);
-        // fromAddressBitfield
-        var behavior = unencryptedMessageDataBuffer.getInt();
-        var publicSignKey = getBytes(new byte[64], unencryptedMessageDataBuffer);
-        // publicEncKey
-        var publicEncKey = getBytes(new byte[64], unencryptedMessageDataBuffer);
-        long nonceTrialsPerByte = 0;
-        long extraBytes = 0;
-        if (3 <= fromAddressVersionNumber) {
-          nonceTrialsPerByte = decodeVarInt(unencryptedMessageDataBuffer);
-          extraBytes = decodeVarInt(unencryptedMessageDataBuffer);
-        }
-        // encryptionKey が同じアドレスの場合、toRipeででしか宛て先を特定できない
-        var toRipe = getBytes(new byte[20], unencryptedMessageDataBuffer);
-        var encodingType = decodeVarInt(unencryptedMessageDataBuffer);
-        var messageLength = (int) decodeVarInt(unencryptedMessageDataBuffer);
-        var message = getBytes(new byte[messageLength], unencryptedMessageDataBuffer);
-        var ackLength = (int) decodeVarInt(unencryptedMessageDataBuffer);
-        byte[] ackData = null;
-        if (ackLength != 0) {
-          ackData = getBytes(new byte[ackLength], unencryptedMessageDataBuffer);
-        }
-        var messageBodyTailPosition = unencryptedMessageDataBuffer.position();
-        var x1 = new BigInteger(1, publicSignKey, 0, 32);
-        var y1 = new BigInteger(1, publicSignKey, 32, 32);
-        var keySpec = new ECPublicKeySpec(new ECPoint(x1, y1), secp256k1Parameter);
-        var publicKey1 = factory.generatePublic(keySpec);
-        ecdsa.initVerify(publicKey1);
-        //ecdsa.initVerify(signPublicKey);
-        // expires time, object type, version, stream number
-        ecdsa.update(payload, start, headerLength);
-        /*
-         * address version, stream, bitfield, public sign key, public enc key, nonce_trials_per_byte,
-         * extra_bytes, destination ripe, encoding, message length, message, ack_length, ack_data
-         */
-        ecdsa.update(plaintext, 0, messageBodyTailPosition);
-        int signLength = (int) decodeVarInt(unencryptedMessageDataBuffer);
-        var signature = new byte[signLength];
-        unencryptedMessageDataBuffer.get(signature);
-        if (ecdsa.verify(signature)) {
-          sha512.update((byte) 4);
-          sha512.update(publicSignKey);
-          sha512.update((byte) 4);
-          sha512.update(publicEncKey);
-          var fromRipe = ripemd160.digest(sha512.digest());
-          var fromAddress = AddressFactory.encodeAddress((int) fromAddressVersionNumber,
-              (int) fromStreamNumber, fromRipe);
-          var toAddress3 = AddressFactory.encodeAddress(3, 1, toRipe);
-          var toAddress4 = AddressFactory.encodeAddress(4, 1, toRipe);
-          logger.info("toaddress:{}, {}", toAddress3, toAddress4);
-          logger.info("from address: {}", fromAddress);
-        }
-      }
-    }
-  }
-
   private static byte[] getBytes(byte[] x, ByteBuffer buffer) {
     buffer.get(x);
     return x;
@@ -823,55 +651,9 @@ public class Factory implements Callable<Integer> {
     };
   }
 
-  @Command(name = "addressEncode")
-  private static void addressEncode(String[] args) throws IOException, NoSuchAlgorithmException {
-    var signKey = new byte[32];
-    var encKey = new byte[32];
-    try (var file = new RandomAccessFile(args[1], "r")) {
-      file.seek(Long.parseLong(args[3]) * 32);
-      file.readFully(signKey);
-    }
-    try (var file = new RandomAccessFile(args[2], "r")) {
-      file.seek(Long.parseLong(args[4]) * 32);
-      file.readFully(encKey);
-    }
-    var signPublicKey = SEC_P256_K1_G.multiply(new BigInteger(1, signKey)).getEncoded(false);
-    var encryptionPublicKey = SEC_P256_K1_G.multiply(new BigInteger(1, encKey)).getEncoded(false);
-    var sha512 = MessageDigest.getInstance("SHA-512");
-    var ripemd160 = MessageDigest.getInstance("RIPEMD160");
-    sha512.update(signPublicKey);
-    sha512.update(encryptionPublicKey);
-    System.out.println(BMAddressGenerator.exportAddress(
-        new Response(new KeyPair(signKey, signPublicKey), new KeyPair(encKey, encryptionPublicKey),
-            ripemd160.digest(sha512.digest()))));
-  }
-
-  private static int sendToFactorDB(MemorySegment n, Arena auto, StringBuilder buffer,
-      int prefixLength, ObjectMapper mapper) throws IOException {
-    var length = mpz_sizeinbase(n, 10) + 2;
-    var buf = auto.allocate(length);
-    mpz_get_str(buf, 10, n);
-    buffer.append(buf.getString(0));
-    var url = URI.create(buffer.toString()).toURL();
-    var urlConnection = (HttpsURLConnection) url.openConnection();
-    buffer.setLength(prefixLength);
-    urlConnection.connect();
-    var responseCode = urlConnection.getResponseCode();
-    if (responseCode / 100 != 2) {
-      System.err.printf("error?: %d in %s%n", responseCode, url);
-      return responseCode;
-    }
-    var content = urlConnection.getContent();
-    if (content instanceof InputStream in) {
-      try (var buffered = new BufferedInputStream(in)) {
-        var root = mapper.readTree(buffered);
-        var id = root.get("id").longValue();
-        var status = root.get("status").textValue();
-        var factors = root.get("factors");
-        System.err.printf("%d: %s, %s%n", id, status, factors);
-      }
-    }
-    return responseCode;
+  public static void mpz_set_u64(MemorySegment dest, long val) {
+    __mpz_struct._mp_d(dest).setAtIndex(JAVA_LONG, 0, val);
+    __mpz_struct._mp_size(dest, val != 0 ? 1 : 0);
   }
 
   @Command(name = "loadPem")

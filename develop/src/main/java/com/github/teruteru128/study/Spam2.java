@@ -2,7 +2,6 @@ package com.github.teruteru128.study;
 
 import com.github.teruteru128.bitmessage.app.Spammer;
 import java.io.IOException;
-import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -12,19 +11,16 @@ import java.time.Duration;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.Callable;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Parameters;
 
+@Command(name = "spam2")
 public class Spam2 implements Callable<Void> {
 
+  @Parameters
   private Path path;
+  @Parameters
   private long skip = 0;
-
-  public Spam2(String path1) {
-    this.path = Path.of(path1);
-  }
-
-  public void setSkip(long skip) {
-    this.skip = skip;
-  }
 
   @Override
   public Void call() throws IOException, InterruptedException {

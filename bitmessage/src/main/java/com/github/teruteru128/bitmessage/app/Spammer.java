@@ -11,7 +11,10 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.SecureRandom;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -22,9 +25,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.Callable;
 import java.util.random.RandomGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Parameters;
 
-public class Spammer {
+@Command(name = "spam3")
+public class Spammer implements Callable<Integer> {
 
   // ENDPOINT
   public static final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(URI.create(
@@ -32,28 +41,32 @@ public class Spammer {
       .header("Content-Type", "application/json-rpc")
       .header("Authorization", "Basic " + System.getenv("BM_TOKEN"));
   public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+  public static final String MESSAGE_HEADER = "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"";
   private static final SecureRandom RANDOM = (SecureRandom) RandomGenerator.of("SecureRandom");
-
+  private static final Logger logger = LoggerFactory.getLogger(Spammer.class);
+  @Parameters(paramLabel = "[to address]", description = {"to address"})
+  private String toAddress;
+  @Parameters(paramLabel = "[from address list file]", description = {"from address list file"})
+  private Path fromAddressListPath;
 
   public Spammer() {
   }
 
-  public static List<Address> getFakeAddresses()
-      throws IOException, InterruptedException {
+  public static List<Address> getFakeAddresses() throws IOException, InterruptedException {
     var req = "{\"jsonrpc\": \"2.0\",\"method\":\"listAddressBookEntries\",\"id\":1}";
     try (var client = HttpClient.newHttpClient(); var in = client.send(
             requestBuilder.POST(ofString(req)).build(), HttpResponse.BodyHandlers.ofInputStream())
         .body()) {
       return Arrays.asList(
-          OBJECT_MAPPER.treeToValue(OBJECT_MAPPER.readTree(in).get("result").get("addresses"), Address[].class));
+          OBJECT_MAPPER.treeToValue(OBJECT_MAPPER.readTree(in).get("result").get("addresses"),
+              Address[].class));
     }
   }
 
   public static void unitSpam(List<String> addresses, int unitSize, Duration d, int offset)
       throws IOException, InterruptedException {
     int length = addresses.size();
-    var builder = new StringBuilder(
-        "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"");
+    var builder = new StringBuilder(MESSAGE_HEADER);
     var prefixLength = builder.length();
     int k = offset;
     try (var client = HttpClient.newHttpClient()) {
@@ -145,6 +158,31 @@ public class Spammer {
             "Arrays.stream(ps.executeBatch()).sum() = " + Arrays.stream(ps.executeBatch()).sum());
       }
     }
+  }
+
+  @Override
+  public Integer call() throws IOException, InterruptedException {
+    logger.info("to address: {}", toAddress);
+    logger.info("from address list path: {}", fromAddressListPath);
+    var fromAddresses = Files.readAllLines(fromAddressListPath);
+    int readAllLinesSize = fromAddresses.size();
+    logger.info("from address: {}", readAllLinesSize);
+    var stringBuilder = new StringBuilder(MESSAGE_HEADER).append(toAddress).append("\",\"");
+    var headerLength = stringBuilder.length();
+    try (var client = HttpClient.newHttpClient()) {
+      for (int j = 0; j < 334; j++) {
+        for (var i = 0; i < readAllLinesSize; i++) {
+          var fromAddress = fromAddresses.get(i);
+          var body = stringBuilder.append(fromAddress).append("\",\"\",\"\",2,3600],\"id\":")
+              .append(i).append("}").toString();
+          var request = requestBuilder.POST(ofString(body)).build();
+          client.send(request, BodyHandlers.ofString()).statusCode();
+          stringBuilder.setLength(headerLength);
+          Thread.sleep(5000);
+        }
+      }
+    }
+    return 0;
   }
 
   public record Address(String label, String address) implements Serializable {
