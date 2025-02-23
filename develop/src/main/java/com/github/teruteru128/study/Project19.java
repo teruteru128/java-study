@@ -47,7 +47,6 @@ import picocli.CommandLine.Option;
 @Command(name = "project19")
 public class Project19 implements Callable<Integer> {
 
-  private static final String ENDPOINT = "https://factordb.com/api?query=";
   @Option(names = {"--count"}, defaultValue = "10")
   private int count;
 
@@ -79,7 +78,7 @@ public class Project19 implements Callable<Integer> {
     // ScheduledThreadPoolExecutor
     try (var executor = new ScheduledThreadPoolExecutor(4)) {
       var latch = new CountDownLatch(count);
-      var task = new FactorDBPostingTask(state, window, min, ENDPOINT, latch);
+      var task = new FactorDBPostingTask(state, window, min, Factory.ENDPOINT, latch);
       var tasks = new ArrayList<ScheduledFuture<?>>();
       for (int i = 0; i < 4; i++) {
         tasks.add(executor.scheduleAtFixedRate(task, 375 * i, 1500, TimeUnit.MILLISECONDS));

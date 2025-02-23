@@ -6511,11 +6511,11 @@ public class gmp_h {
     }
     /**
      * {@snippet lang=c :
-     * void mpz_mul(mpz_ptr, mpz_srcptr, mpz_srcptr)
+     * void mpz_mul(mpz_ptr w, mpz_srcptr u, mpz_srcptr v)
      * }
      */
-    public static void mpz_mul(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
-        __gmpz_mul(x0, x1, x2);
+    public static void mpz_mul(MemorySegment w, MemorySegment u, MemorySegment v) {
+        __gmpz_mul(w, u, v);
     }
 
     private static class __gmpz_mul_2exp {

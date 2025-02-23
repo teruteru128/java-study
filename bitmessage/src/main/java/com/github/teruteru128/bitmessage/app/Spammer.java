@@ -178,7 +178,8 @@ public class Spammer implements Callable<Integer> {
           var request = requestBuilder.POST(ofString(body)).build();
           client.send(request, BodyHandlers.ofString()).statusCode();
           stringBuilder.setLength(headerLength);
-          Thread.sleep(5000);
+          logger.info("{}, {}", j, i);
+          Thread.sleep(10000);
         }
       }
     }

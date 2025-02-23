@@ -27,6 +27,7 @@ import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.ncv.xml.ListUp;
 import com.github.teruteru128.ncv.xml.Transform;
 import com.github.teruteru128.semen.CumShoot;
+import com.unboundid.util.args.SubCommand;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -108,11 +109,13 @@ import picocli.CommandLine.Parameters;
     CumShoot.class, SlimeSearch.class, Spam3.class, OwnerCheck.class, CalcBustSize.class,
     Deterministic.class, CreatePrimeNumberCandidateDB.class, SmallSievePrimeCounter.class,
     NewColorGenerator.class, Multi2.class, Project5190.class, Project19.class, Project19F.class,
-    Project19Sort.class, Project19Unique.class, Spammer.class, Spam2.class})
+    Project19Sort.class, Project19Unique.class, Spammer.class, Spam2.class,
+    FactorDistribution.class}, mixinStandardHelpOptions = true)
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
+  public static final String ENDPOINT = "https://factordb.com/api?query=";
   private static final HexFormat FORMAT = HexFormat.of();
   private static final ECParameterSpec secp256k1Parameter;
   private static final KeyFactory factory;
@@ -651,9 +654,16 @@ public class Factory implements Callable<Integer> {
     };
   }
 
-  public static void mpz_set_u64(MemorySegment dest, long val) {
-    __mpz_struct._mp_d(dest).setAtIndex(JAVA_LONG, 0, val);
-    __mpz_struct._mp_size(dest, val != 0 ? 1 : 0);
+  /**
+   *
+   * @param destination set to destination
+   * @param val val
+   * @return destination
+   */
+  public static MemorySegment mpz_set_u64(MemorySegment destination, long val) {
+    __mpz_struct._mp_d(destination).setAtIndex(JAVA_LONG, 0, val);
+    __mpz_struct._mp_size(destination, val != 0 ? 1 : 0);
+    return destination;
   }
 
   @Command(name = "loadPem")
