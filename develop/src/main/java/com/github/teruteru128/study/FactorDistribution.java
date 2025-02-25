@@ -38,11 +38,25 @@ public class FactorDistribution implements Callable<Integer> {
   public static final OfLong JAVA_LONG_WITH_BIG_ENDIAN = ValueLayout.JAVA_LONG.withOrder(
       ByteOrder.BIG_ENDIAN);
   private static final Logger logger = LoggerFactory.getLogger(FactorDistribution.class);
+  private static final Arena auto = Arena.ofAuto();
+  private static final ThreadLocal<MemorySegment> P_THREAD_LOCAL = ThreadLocal.withInitial(() -> {
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    gmp_h.mpz_init_set_ui(p, 1);
+    return p;
+  });
+  private static final ThreadLocal<MemorySegment> PRIME_THREAD_LOCAL = ThreadLocal.withInitial(
+      () -> {
+        var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+        gmp_h.mpz_init_set_ui(p, 1);
+        return p;
+      });
   private final Object lock = new Object();
   @Option(names = {"--num", "-n"})
   private int num = 1000;
   @Parameters
   private Path in;
+  @Option(names = {"--period", "-p"})
+  private int period = 10;
 
   public FactorDistribution() {
   }
@@ -62,7 +76,6 @@ public class FactorDistribution implements Callable<Integer> {
           .getFileAttributeView(path, BasicFileAttributeView.class).readAttributes().size();
       sumOfSize += sizeArray[i];
     }
-    var auto = Arena.ofAuto();
     var a = auto.allocate(sumOfSize, 8);
     long offsetOfA = 0L;
     for (int i = 0, pathsSize = paths.size(); i < pathsSize; i++) {
@@ -74,10 +87,6 @@ public class FactorDistribution implements Callable<Integer> {
       }
     }
     logger.info("primes loaded");
-    var prime = __mpz_struct.allocate(auto);
-    gmp_h.mpz_init_set_ui(prime, 114514);
-    var p = __mpz_struct.allocate(auto);
-    gmp_h.mpz_init_set_ui(p, 1);
     var randomGenerator = RandomGenerator.of("SecureRandom");
     var numOfElements = sumOfSize / 8L;
     var counter = new AtomicLong();
@@ -91,6 +100,9 @@ public class FactorDistribution implements Callable<Integer> {
           return;
         }
         counter.setRelease(q + 1);
+        var p = P_THREAD_LOCAL.get();
+        gmp_h.mpz_set_ui(p, 1);
+        var prime = PRIME_THREAD_LOCAL.get();
         for (int j = 0; j < 5; j++) {
           gmp_h.mpz_mul(p, p, Factory.mpz_set_u64(prime,
               a.getAtIndex(JAVA_LONG_WITH_BIG_ENDIAN, randomGenerator.nextLong(numOfElements))));
@@ -98,7 +110,6 @@ public class FactorDistribution implements Callable<Integer> {
         var bufferSize = gmp_h.mpz_sizeinbase(p, 10) + 2;
         var strBuffer = auto.allocate(bufferSize, 1);
         gmp_h.mpz_get_str(strBuffer, 10, p);
-        gmp_h.mpz_set_ui(p, 1);
         var composite = strBuffer.getString(0);
         URL url;
         try {
@@ -114,7 +125,7 @@ public class FactorDistribution implements Callable<Integer> {
         } catch (IOException e) {
           throw new UncheckedIOException(e);
         }
-      }, 0, 15, TimeUnit.SECONDS);
+      }, 0, period, TimeUnit.SECONDS);
       synchronized (lock) {
         while (counter.getAcquire() < num) {
           lock.wait();
