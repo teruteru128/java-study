@@ -1,6 +1,5 @@
 package com.github.teruteru128.study;
 
-import com.github.teruteru128.foreign.converters.PathConverter;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -16,7 +15,7 @@ import picocli.CommandLine.Parameters;
 public class OwnerCheck implements Callable<Integer> {
 
   private static final Logger log = LoggerFactory.getLogger(OwnerCheck.class);
-  @Parameters(converter = PathConverter.class)
+  @Parameters
   Path arg;
   @Parameters
   String targetOwnerName;

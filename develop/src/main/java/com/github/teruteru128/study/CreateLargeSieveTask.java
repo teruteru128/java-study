@@ -22,7 +22,6 @@ import static java.lang.foreign.MemorySegment.copy;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
-import com.github.teruteru128.foreign.converters.PathConverter;
 import com.github.teruteru128.foreign.prime.search.Result;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
@@ -57,7 +56,7 @@ import picocli.CommandLine.Parameters;
 public class CreateLargeSieveTask implements Callable<Integer> {
 
   private static final Logger logger = LoggerFactory.getLogger(CreateLargeSieveTask.class);
-  @Parameters(converter = PathConverter.class)
+  @Parameters
   Path inPath;
   @Parameters
   String outPath;

@@ -1,33 +1,31 @@
 package com.github.teruteru128.study;
 
 import static com.github.teruteru128.bitmessage.Const.SEC_P256_K1_G;
-import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
-import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
-import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
-import static java.lang.Integer.parseInt;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-import static java.lang.foreign.ValueLayout.JAVA_LONG;
-import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
-import static java.net.HttpURLConnection.HTTP_OK;
-import static java.net.http.HttpRequest.BodyPublishers.ofString;
-
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.bitmessage.app.Spammer.Address;
 import com.github.teruteru128.color.ColorConverter;
 import com.github.teruteru128.color.HLSColor;
 import com.github.teruteru128.color.RGBColor;
 import com.github.teruteru128.encode.Base58;
-import com.github.teruteru128.foreign.converters.PathConverter;
 import com.github.teruteru128.foreign.prime.search.PrimeSearch.LargeSieve;
 import com.github.teruteru128.fx.App;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
+import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mod;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import com.github.teruteru128.ncv.xml.ListUp;
 import com.github.teruteru128.ncv.xml.Transform;
 import com.github.teruteru128.semen.CumShoot;
-import com.unboundid.util.args.SubCommand;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -37,14 +35,21 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.io.UncheckedIOException;
+import static java.lang.Integer.parseInt;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
+import static java.lang.foreign.ValueLayout.JAVA_LONG;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
+import static java.net.HttpURLConnection.HTTP_OK;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
+import static java.net.http.HttpRequest.BodyPublishers.ofString;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -94,7 +99,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javafx.application.Application;
 import javax.crypto.spec.IvParameterSpec;
+import javax.net.ssl.HttpsURLConnection;
 import org.apache.logging.log4j.util.InternalException;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
@@ -585,8 +592,8 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command(name = "sort")
-  private static void extracted2(@Parameters(converter = PathConverter.class) Path inPath,
-      @Parameters(converter = PathConverter.class) Path outPath) throws IOException {
+  private static void extracted2(@Parameters Path inPath, @Parameters Path outPath)
+      throws IOException {
     var lines = (ArrayList<String>) Files.readAllLines(inPath, StandardCharsets.UTF_8);
     int i = 0;
     for (var line : lines) {
@@ -666,10 +673,30 @@ public class Factory implements Callable<Integer> {
     return destination;
   }
 
+  private static long nextClearBit(long[] words, long fromIndex, int limit) {
+    int u = (int) fromIndex >> 6;
+    if (u >= limit) {
+      return fromIndex;
+    }
+
+    long word = ~words[u] & (0xffffffffffffffffL << fromIndex);
+
+    while (true) {
+      if (word != 0) {
+        return (u * 64L) + Long.numberOfTrailingZeros(word);
+      }
+      if (++u == limit) {
+        return limit * 64L;
+      }
+      word = ~words[u];
+    }
+  }
+
   @Command(name = "loadPem")
   private int loadPem(Path inPath)
       throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-    var factory = KeyFactory.getInstance("RSA", Security.getProvider("BC"));
+    var factory = KeyFactory.getInstance("RSA",
+        Security.getProvider(BouncyCastleProvider.PROVIDER_NAME));
     var rsaPublicKey = factory.getKeySpec(factory.generatePublic(new X509EncodedKeySpec(
         Base64.getMimeDecoder().decode(
             Files.readString(inPath).replace("-----BEGIN PUBLIC KEY-----", "")
@@ -751,7 +778,7 @@ public class Factory implements Callable<Integer> {
       throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
     KeyPairGenerator generator = null;
     try {
-      generator = KeyPairGenerator.getInstance("EC", "BC");
+      generator = KeyPairGenerator.getInstance("EC", BouncyCastleProvider.PROVIDER_NAME);
     } catch (NoSuchProviderException e) {
       throw new RuntimeException(e);
     }
@@ -832,6 +859,90 @@ public class Factory implements Callable<Integer> {
     mpz_get_str(res_str, 10, p2);
     Files.writeString(out, res_str.getString(0), StandardOpenOption.CREATE,
         StandardOpenOption.WRITE);
+    return ExitCode.OK;
+  }
+
+  @Command(name = "punch")
+  private int punch() {
+    var auto = Arena.ofAuto();
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(p, 10000);
+    for (int i = 2; i <= 96127; i++) {
+      mpz_mul_ui(p, p, i);
+    }
+    mpz_add_ui(p, p, 1);
+    var i = mpz_probab_prime_p(p, 1);
+    System.out.printf("p is %sprime!", i == 0 ? "not " : "");
+    return ExitCode.OK;
+  }
+
+  @Command(name = "punch2")
+  private int punch2(Path in) throws IOException, ClassNotFoundException {
+    long max;
+    long[] array = null;
+    try (var oin = new ObjectInputStream(
+        new BufferedInputStream(Files.newInputStream(in, StandardOpenOption.READ)))) {
+      max = oin.readLong();
+      System.out.println(max);
+      var o = oin.readObject();
+      if (o instanceof long[] a) {
+        array = a;
+      }
+    }
+    if (array == null) {
+      return ExitCode.SOFTWARE;
+    }
+    long index = 1;
+    long step;
+    var auto = Arena.ofAuto();
+    var prime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(prime, 1);
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 10);
+    mpz_pow_ui(n, n, 414508);
+    mpz_mul_ui(n, n, 6);
+    mpz_sub_ui(n, n, 2);
+    var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(mod, 10);
+    var length = array.length;
+    System.err.println("ロードしますた(｀・ω・´)ｼｬｷｰﾝ");
+    while ((step = nextClearBit(array, index, length)) < max) {
+      mpz_set_u64(prime, step);
+      mpz_mul_2exp(prime, prime, 1);
+      mpz_add_ui(prime, prime, 1);
+      mpz_mod(mod, n, prime);
+      if (mpz_cmp_ui(mod, 0) == 0) {
+        var size = mpz_sizeinbase(prime, 10) + 2;
+        var buf = auto.allocate(size);
+        mpz_get_str(buf, 10, prime);
+        System.out.println(buf.getString(0));
+      }
+      index = step + 1;
+    }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "punch3")
+  private int punch3() throws IOException {
+    var p = BigInteger.valueOf(48073);
+    var max = BigInteger.valueOf(96127);
+    var url = URI.create("https://factordb.com/reportfactor.php").toURL();
+    while (p.compareTo(max) <= 0) {
+      var connection = (HttpsURLConnection) url.openConnection();
+      connection.setRequestProperty("Cookie", "fdbuser=410c610cccf69f308fd32aba309579a3");
+      connection.setDoOutput(true);
+      connection.connect();
+      try (var ps = new PrintStream(connection.getOutputStream());) {
+        ps.print("id=1100000007975408414&factor=" + p);
+      }
+      try (var reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+          System.out.println(line);
+        }
+      }
+      p = p.nextProbablePrime();
+    }
     return ExitCode.OK;
   }
 

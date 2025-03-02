@@ -17,9 +17,8 @@ public class RawKeyConverter {
 
   static {
     // RIPEMD160のためにプロバイダを追加
-    Provider provider = Security.getProvider("BC");
-    if (provider == null) {
-      Security.addProvider(provider = new BouncyCastleProvider());
+    if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
+      Security.addProvider(new BouncyCastleProvider());
     }
   }
 

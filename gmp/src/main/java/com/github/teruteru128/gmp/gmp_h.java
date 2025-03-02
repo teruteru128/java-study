@@ -6455,11 +6455,11 @@ public class gmp_h {
     }
     /**
      * {@snippet lang=c :
-     * void mpz_mod(mpz_ptr, mpz_srcptr, mpz_srcptr)
+     * void mpz_mod(mpz_ptr r, mpz_srcptr n, mpz_srcptr d)
      * }
      */
-    public static void mpz_mod(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
-        __gmpz_mod(x0, x1, x2);
+    public static void mpz_mod(MemorySegment r, MemorySegment n, MemorySegment d) {
+        __gmpz_mod(r, n, d);
     }
 
     private static class __gmpz_mul {

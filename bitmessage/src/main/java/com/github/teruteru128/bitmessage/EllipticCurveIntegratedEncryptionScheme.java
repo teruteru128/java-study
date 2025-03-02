@@ -26,6 +26,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.interfaces.ECPrivateKey;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.jce.spec.ECParameterSpec;
 import org.bouncycastle.jce.spec.ECPublicKeySpec;
 import org.bouncycastle.math.ec.ECCurve;
@@ -48,9 +49,9 @@ public class EllipticCurveIntegratedEncryptionScheme {
 
   static {
     try {
-      KEY_PAIR_GENERATOR = KeyPairGenerator.getInstance("EC", "BC");
+      KEY_PAIR_GENERATOR = KeyPairGenerator.getInstance("EC", BouncyCastleProvider.PROVIDER_NAME);
       KEY_PAIR_GENERATOR.initialize(new ECGenParameterSpec("secp256k1"));
-      KEY_FACTORY = KeyFactory.getInstance("EC", "BC");
+      KEY_FACTORY = KeyFactory.getInstance("EC", BouncyCastleProvider.PROVIDER_NAME);
     } catch (NoSuchAlgorithmException | NoSuchProviderException |
              InvalidAlgorithmParameterException e) {
       throw new InternalError(e);
@@ -122,7 +123,7 @@ public class EllipticCurveIntegratedEncryptionScheme {
 
   private static byte[] generateSecret(ECPublicKey publicKey, ECPrivateKey privateKey)
       throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException {
-    var agreement = KeyAgreement.getInstance("ECDH", "BC");
+    var agreement = KeyAgreement.getInstance("ECDH", BouncyCastleProvider.PROVIDER_NAME);
     agreement.init(privateKey);
     agreement.doPhase(publicKey, true);
     return agreement.generateSecret();

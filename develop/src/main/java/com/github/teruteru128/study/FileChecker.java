@@ -1,6 +1,5 @@
 package com.github.teruteru128.study;
 
-import com.github.teruteru128.foreign.converters.PathConverter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,7 +20,7 @@ public class FileChecker {
   }
 
   @Command(name = "f")
-  static void extracted1(@Parameters(converter = PathConverter.class) Path path) throws IOException {
+  static void extracted1(@Parameters Path path) throws IOException {
     var owner = Files.getOwner(path);
     System.out.println(owner);
     var service = path.getFileSystem().getUserPrincipalLookupService();

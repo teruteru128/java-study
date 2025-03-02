@@ -20,7 +20,8 @@ import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributeView;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.random.RandomGenerator;
@@ -56,7 +57,7 @@ public class FactorDistribution implements Callable<Integer> {
   @Parameters
   private Path in;
   @Option(names = {"--period", "-p"})
-  private int period = 10;
+  private int period = 800;
 
   public FactorDistribution() {
   }
@@ -90,7 +91,7 @@ public class FactorDistribution implements Callable<Integer> {
     var randomGenerator = RandomGenerator.of("SecureRandom");
     var numOfElements = sumOfSize / 8L;
     var counter = new AtomicLong();
-    try (var schedule = Executors.newScheduledThreadPool(1)) {
+    try (var schedule = new ScheduledThreadPoolExecutor(1)) {
       schedule.scheduleAtFixedRate(() -> {
         var q = counter.getAcquire();
         if (q >= num) {
@@ -125,7 +126,7 @@ public class FactorDistribution implements Callable<Integer> {
         } catch (IOException e) {
           throw new UncheckedIOException(e);
         }
-      }, 0, period, TimeUnit.SECONDS);
+      }, 0, period, TimeUnit.MILLISECONDS);
       synchronized (lock) {
         while (counter.getAcquire() < num) {
           lock.wait();

@@ -1,9 +1,7 @@
 package com.github.teruteru128.study;
 
-import static java.lang.foreign.MemorySegment.copy;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
-import com.github.teruteru128.foreign.converters.PathConverter;
 import com.github.teruteru128.foreign.prime.search.PrimeSearch.LargeSieve;
 import com.github.teruteru128.gmp.__mpz_struct;
 import java.io.BufferedInputStream;
@@ -39,9 +37,9 @@ import picocli.CommandLine.Parameters;
 public class PrimeSearch implements Callable<Void> {
 
   private static final Logger logger = LoggerFactory.getLogger(PrimeSearch.class);
-  @Parameters(converter = PathConverter.class)
+  @Parameters
   private Path base;
-  @Parameters(converter = PathConverter.class)
+  @Parameters
   private Path largeSieve;
 
   @Command(name = "exportBigIntegerAsDecimalText")

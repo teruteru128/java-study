@@ -24,15 +24,14 @@ public class AddressFactoryTest {
    */
   @BeforeAll
   public static void initBeforeEach() {
-    Provider provider = Security.getProvider("BC");
-    if (provider == null) {
-      Security.addProvider(provider = new BouncyCastleProvider());
+    if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
+      Security.addProvider(new BouncyCastleProvider());
     }
   }
 
   @AfterAll
   public static void clearBCProvider() {
-    Security.removeProvider("BC");
+    Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);
   }
 
   @Test

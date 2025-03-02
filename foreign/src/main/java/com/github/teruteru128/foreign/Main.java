@@ -23,7 +23,6 @@ import static java.lang.foreign.ValueLayout.JAVA_LONG;
 import com.github.teruteru128.foreign.prime.search.PrimeSearch;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
-import com.github.teruteru128.foreign.converters.PathConverter;
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
@@ -125,7 +124,7 @@ public class Main implements Callable<Integer> {
 
   @Command(name = "primeTest")
   public int prime2(
-      @Option(names = "--path", required = true, converter = PathConverter.class) Path path,
+      @Option(names = "--path", required = true) Path path,
       @Option(names = "--step", required = true) int step) throws IOException {
     var auto = Arena.ofAuto();
     var p = auto.allocate(layout()).reinterpret(auto, gmp_h::mpz_clear);
@@ -149,10 +148,10 @@ public class Main implements Callable<Integer> {
    */
   @Command(name = "rsaEncode")
   public int rsaEncode(
-      @Parameters(converter = PathConverter.class, description = "private key output path") Path privateKeyOutPath,
-      @Parameters(converter = PathConverter.class, description = "public key output path") Path publicKeyOutPath,
-      @Parameters(converter = PathConverter.class, description = "prime p input path") Path pPath,
-      @Parameters(converter = PathConverter.class, description = "prime p input path") Path qPath)
+      @Parameters(description = "private key output path") Path privateKeyOutPath,
+      @Parameters(description = "public key output path") Path publicKeyOutPath,
+      @Parameters(description = "prime p input path") Path pPath,
+      @Parameters(description = "prime p input path") Path qPath)
       throws IOException {
     var auto = Arena.ofAuto();
     var variables = allocateArray(11, auto);
