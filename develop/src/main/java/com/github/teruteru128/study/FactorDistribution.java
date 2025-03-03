@@ -2,6 +2,12 @@ package com.github.teruteru128.study;
 
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
+import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul;
+import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
@@ -20,7 +26,6 @@ import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributeView;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
@@ -42,13 +47,13 @@ public class FactorDistribution implements Callable<Integer> {
   private static final Arena auto = Arena.ofAuto();
   private static final ThreadLocal<MemorySegment> P_THREAD_LOCAL = ThreadLocal.withInitial(() -> {
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    gmp_h.mpz_init_set_ui(p, 1);
+    mpz_init_set_ui(p, 1);
     return p;
   });
   private static final ThreadLocal<MemorySegment> PRIME_THREAD_LOCAL = ThreadLocal.withInitial(
       () -> {
         var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-        gmp_h.mpz_init_set_ui(p, 1);
+        mpz_init_set_ui(p, 1);
         return p;
       });
   private final Object lock = new Object();
@@ -102,15 +107,16 @@ public class FactorDistribution implements Callable<Integer> {
         }
         counter.setRelease(q + 1);
         var p = P_THREAD_LOCAL.get();
-        gmp_h.mpz_set_ui(p, 1);
+        mpz_set_ui(p, 1);
         var prime = PRIME_THREAD_LOCAL.get();
         for (int j = 0; j < 5; j++) {
-          gmp_h.mpz_mul(p, p, Factory.mpz_set_u64(prime,
-              a.getAtIndex(JAVA_LONG_WITH_BIG_ENDIAN, randomGenerator.nextLong(numOfElements))));
+          mpz_set_u64(prime,
+              a.getAtIndex(JAVA_LONG_WITH_BIG_ENDIAN, randomGenerator.nextLong(numOfElements)));
+          mpz_mul(p, p, prime);
         }
-        var bufferSize = gmp_h.mpz_sizeinbase(p, 10) + 2;
+        var bufferSize = mpz_sizeinbase(p, 10) + 2;
         var strBuffer = auto.allocate(bufferSize, 1);
-        gmp_h.mpz_get_str(strBuffer, 10, p);
+        mpz_get_str(strBuffer, 10, p);
         var composite = strBuffer.getString(0);
         URL url;
         try {

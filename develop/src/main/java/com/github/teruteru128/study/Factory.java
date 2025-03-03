@@ -31,8 +31,6 @@ import static java.lang.Integer.parseInt;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import java.lang.foreign.Arena;
-import java.lang.foreign.MemorySegment;
-import static java.lang.foreign.ValueLayout.JAVA_LONG;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
@@ -650,37 +648,6 @@ public class Factory implements Callable<Integer> {
       case -3 -> buffer.getShort() & 0xffffL;
       default -> first & 0xffL;
     };
-  }
-
-  /**
-   *
-   * @param destination set to destination
-   * @param val val
-   * @return destination
-   */
-  public static MemorySegment mpz_set_u64(MemorySegment destination, long val) {
-    __mpz_struct._mp_d(destination).setAtIndex(JAVA_LONG, 0, val);
-    __mpz_struct._mp_size(destination, val != 0 ? 1 : 0);
-    return destination;
-  }
-
-  private static long nextClearBit(long[] words, long fromIndex, int limit) {
-    int u = (int) fromIndex >> 6;
-    if (u >= limit) {
-      return fromIndex;
-    }
-
-    long word = ~words[u] & (0xffffffffffffffffL << fromIndex);
-
-    while (true) {
-      if (word != 0) {
-        return (u * 64L) + Long.numberOfTrailingZeros(word);
-      }
-      if (++u == limit) {
-        return limit * 64L;
-      }
-      word = ~words[u];
-    }
   }
 
   @Command(name = "loadPem")

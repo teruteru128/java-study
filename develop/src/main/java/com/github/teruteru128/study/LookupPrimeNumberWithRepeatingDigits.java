@@ -2,6 +2,7 @@ package com.github.teruteru128.study;
 
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
+import com.github.teruteru128.util.gmp.mpz.Functions;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
 import com.github.teruteru128.gmp.__mpz_struct;
@@ -59,7 +60,7 @@ public class LookupPrimeNumberWithRepeatingDigits implements Callable<Integer> {
           .map(m -> Long.toUnsignedString(m.getAtIndex(javaLongBigEndian, 0)))
           .filter(l -> pattern.matcher(l).matches()).forEach(System.out::println);*/
       for (long i = 0; i < 0x80000000L; i++) {
-        Factory.mpz_set_u64(n, work.getAtIndex(javaLongBigEndian, i));
+        Functions.mpz_set_u64(n, work.getAtIndex(javaLongBigEndian, i));
         mpz_get_str(str, 10, n);
         var matcher = pattern.matcher(str.getString(0));
         if (matcher.matches()) {

@@ -12,8 +12,8 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.study.PrimeSearch.loadSmallSieve;
-import static com.github.teruteru128.study.PrimeSearch.mpz_fits_ulong_p;
-import static com.github.teruteru128.study.PrimeSearch.mpz_get_ui;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_fits_ulong_p;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_ui;
 
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;

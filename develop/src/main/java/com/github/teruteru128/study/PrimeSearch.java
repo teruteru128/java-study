@@ -1,9 +1,6 @@
 package com.github.teruteru128.study;
 
-import static java.lang.foreign.ValueLayout.JAVA_LONG;
-
 import com.github.teruteru128.foreign.prime.search.PrimeSearch.LargeSieve;
-import com.github.teruteru128.gmp.__mpz_struct;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -94,35 +91,6 @@ public class PrimeSearch implements Callable<Void> {
     } else {
       logger.error("prime not found:");
     }
-  }
-
-  public static long mpz_get_ui(MemorySegment z) {
-    var p = __mpz_struct._mp_d(z);
-    var n = __mpz_struct._mp_size(z);
-    var l = p.getAtIndex(JAVA_LONG, 0);
-    return n != 0 ? l : 0;
-  }
-
-  public static boolean mpz_odd_p(MemorySegment z) {
-    return (__mpz_struct._mp_d(z).getAtIndex(JAVA_LONG, 0) & 1) != 0;
-  }
-
-  public static boolean mpz_even_p(MemorySegment z) {
-    return !mpz_odd_p(z);
-  }
-
-  private static boolean mpz_fits_utype_p(MemorySegment z, long maxVal) {
-    var n = __mpz_struct._mp_size(z);
-    var p = __mpz_struct._mp_d(z);
-    return (n == 0 || (n == 1 && Long.compareUnsigned(p.getAtIndex(JAVA_LONG, 0), maxVal) <= 0));
-  }
-
-  static boolean mpz_fits_ulong_p(MemorySegment z) {
-    return mpz_fits_utype_p(z, -1L);
-  }
-
-  static boolean mpz_fits_uint_p(MemorySegment z) {
-    return mpz_fits_utype_p(z, 0xffffffffL);
   }
 
   public static void createLargeSieve(Path inPath, String outPath, Path smallSievepath,

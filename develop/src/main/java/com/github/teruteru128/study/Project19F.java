@@ -11,6 +11,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
 import static com.github.teruteru128.study.Factory.ARRAY_ELEMENTS_MAX;
+import com.github.teruteru128.util.gmp.mpz.Functions;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 
 import com.github.teruteru128.gmp.__gmp_randstate_struct;
@@ -81,7 +82,7 @@ public class Project19F implements Callable<Integer> {
           mpz_urandomm(p, state, window);
           mpz_add(p, p, min);
           mpz_nextprime(p, p);
-          prime = PrimeSearch.mpz_get_ui(p);
+          prime = Functions.mpz_get_ui(p);
           os.writeLong(prime);
           if (i == j) {
             logger.info("file {}, {}: {}", k, i, Long.toUnsignedString(prime));
