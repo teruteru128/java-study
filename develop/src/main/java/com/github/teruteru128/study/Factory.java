@@ -41,6 +41,7 @@ import static java.lang.Math.min;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
+import java.lang.foreign.ValueLayout.OfLong;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
@@ -52,6 +53,7 @@ import java.net.http.HttpClient;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.Charset;
@@ -99,7 +101,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javafx.application.Application;
 import javax.crypto.spec.IvParameterSpec;
-import javax.net.ssl.HttpsURLConnection;
 import org.apache.logging.log4j.util.InternalException;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
@@ -872,7 +873,7 @@ public class Factory implements Callable<Integer> {
     }
     mpz_add_ui(p, p, 1);
     var i = mpz_probab_prime_p(p, 1);
-    System.out.printf("p is %sprime!", i == 0 ? "not " : "");
+    System.out.printf("p is %sprime!%n", i == 0 ? "not " : "");
     return ExitCode.OK;
   }
 
@@ -923,25 +924,38 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command(name = "punch3")
-  private int punch3() throws IOException {
-    var p = BigInteger.valueOf(48073);
-    var max = BigInteger.valueOf(96127);
-    var url = URI.create("https://factordb.com/reportfactor.php").toURL();
-    while (p.compareTo(max) <= 0) {
-      var connection = (HttpsURLConnection) url.openConnection();
-      connection.setRequestProperty("Cookie", "fdbuser=410c610cccf69f308fd32aba309579a3");
-      connection.setDoOutput(true);
-      connection.connect();
-      try (var ps = new PrintStream(connection.getOutputStream());) {
-        ps.print("id=1100000007975408414&factor=" + p);
-      }
-      try (var reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-          System.out.println(line);
+  private int punch3(Path in) throws IOException {
+    var auto = Arena.ofAuto();
+    var lines = Files.readAllLines(in);
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 10);
+    mpz_pow_ui(n, n, 414508);
+    mpz_mul_ui(n, n, 6);
+    mpz_sub_ui(n, n, 2);
+    var prime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(prime, 1);
+    var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(mod, 10);
+    var javaLongWithBigEndian = JAVA_LONG.withOrder(ByteOrder.BIG_ENDIAN);
+    for (var line : lines) {
+      System.err.printf("%s%n", line);
+      try (var channel = (FileChannel) Files.newByteChannel(Path.of(line),
+          StandardOpenOption.READ)) {
+        var size = channel.size();
+        var map = channel.map(MapMode.READ_ONLY, 0, size, auto);
+        var numOfElements = size / 8;
+        for (var i = 0L; i < numOfElements; i++) {
+          mpz_set_u64(prime, map.getAtIndex(javaLongWithBigEndian, i));
+          mpz_mod(mod, n, prime);
+          if (mpz_cmp_ui(mod, 0) == 0) {
+            var bufferSize = mpz_sizeinbase(prime, 10) + 2;
+            var buf = auto.allocate(bufferSize);
+            mpz_get_str(buf, 10, prime);
+            System.out.println(buf.getString(0));
+          }
         }
       }
-      p = p.nextProbablePrime();
+      System.err.printf("%s%n", line);
     }
     return ExitCode.OK;
   }
