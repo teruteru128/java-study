@@ -12,17 +12,9 @@ import com.github.teruteru128.fx.App;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
-import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_mod;
-import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
-import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
-import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import com.github.teruteru128.ncv.xml.ListUp;
 import com.github.teruteru128.ncv.xml.Transform;
 import com.github.teruteru128.semen.CumShoot;
@@ -41,7 +33,6 @@ import static java.lang.Math.min;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
-import java.lang.foreign.ValueLayout.OfLong;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
@@ -53,7 +44,6 @@ import java.net.http.HttpClient;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.Charset;
@@ -848,8 +838,8 @@ public class Factory implements Callable<Integer> {
    * @return
    * @throws IOException
    */
-  @Command(name = "calc")
-  private int calc(Path in, int step, Path out) throws IOException {
+  @Command(name = "derivation")
+  private int derivation(Path in, int step, Path out) throws IOException {
     var str = Files.readString(in);
     var auto = Arena.ofAuto();
     var p2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -860,103 +850,6 @@ public class Factory implements Callable<Integer> {
     mpz_get_str(res_str, 10, p2);
     Files.writeString(out, res_str.getString(0), StandardOpenOption.CREATE,
         StandardOpenOption.WRITE);
-    return ExitCode.OK;
-  }
-
-  @Command(name = "punch")
-  private int punch() {
-    var auto = Arena.ofAuto();
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(p, 10000);
-    for (int i = 2; i <= 96127; i++) {
-      mpz_mul_ui(p, p, i);
-    }
-    mpz_add_ui(p, p, 1);
-    var i = mpz_probab_prime_p(p, 1);
-    System.out.printf("p is %sprime!%n", i == 0 ? "not " : "");
-    return ExitCode.OK;
-  }
-
-  @Command(name = "punch2")
-  private int punch2(Path in) throws IOException, ClassNotFoundException {
-    long max;
-    long[] array = null;
-    try (var oin = new ObjectInputStream(
-        new BufferedInputStream(Files.newInputStream(in, StandardOpenOption.READ)))) {
-      max = oin.readLong();
-      System.out.println(max);
-      var o = oin.readObject();
-      if (o instanceof long[] a) {
-        array = a;
-      }
-    }
-    if (array == null) {
-      return ExitCode.SOFTWARE;
-    }
-    long index = 1;
-    long step;
-    var auto = Arena.ofAuto();
-    var prime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(prime, 1);
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, 10);
-    mpz_pow_ui(n, n, 414508);
-    mpz_mul_ui(n, n, 6);
-    mpz_sub_ui(n, n, 2);
-    var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(mod, 10);
-    var length = array.length;
-    System.err.println("ロードしますた(｀・ω・´)ｼｬｷｰﾝ");
-    while ((step = nextClearBit(array, index, length)) < max) {
-      mpz_set_u64(prime, step);
-      mpz_mul_2exp(prime, prime, 1);
-      mpz_add_ui(prime, prime, 1);
-      mpz_mod(mod, n, prime);
-      if (mpz_cmp_ui(mod, 0) == 0) {
-        var size = mpz_sizeinbase(prime, 10) + 2;
-        var buf = auto.allocate(size);
-        mpz_get_str(buf, 10, prime);
-        System.out.println(buf.getString(0));
-      }
-      index = step + 1;
-    }
-    return ExitCode.OK;
-  }
-
-  @Command(name = "punch3")
-  private int punch3(Path in) throws IOException {
-    var auto = Arena.ofAuto();
-    var lines = Files.readAllLines(in);
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, 10);
-    mpz_pow_ui(n, n, 414508);
-    mpz_mul_ui(n, n, 6);
-    mpz_sub_ui(n, n, 2);
-    var prime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(prime, 1);
-    var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(mod, 10);
-    var javaLongWithBigEndian = JAVA_LONG.withOrder(ByteOrder.BIG_ENDIAN);
-    for (var line : lines) {
-      System.err.printf("%s%n", line);
-      try (var channel = (FileChannel) Files.newByteChannel(Path.of(line),
-          StandardOpenOption.READ)) {
-        var size = channel.size();
-        var map = channel.map(MapMode.READ_ONLY, 0, size, auto);
-        var numOfElements = size / 8;
-        for (var i = 0L; i < numOfElements; i++) {
-          mpz_set_u64(prime, map.getAtIndex(javaLongWithBigEndian, i));
-          mpz_mod(mod, n, prime);
-          if (mpz_cmp_ui(mod, 0) == 0) {
-            var bufferSize = mpz_sizeinbase(prime, 10) + 2;
-            var buf = auto.allocate(bufferSize);
-            mpz_get_str(buf, 10, prime);
-            System.out.println(buf.getString(0));
-          }
-        }
-      }
-      System.err.printf("%s%n", line);
-    }
     return ExitCode.OK;
   }
 
