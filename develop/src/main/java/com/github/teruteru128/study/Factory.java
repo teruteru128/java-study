@@ -21,6 +21,7 @@ import com.github.teruteru128.semen.CumShoot;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -817,6 +818,22 @@ public class Factory implements Callable<Integer> {
     mpz_get_str(res_str, 10, p2);
     Files.writeString(out, res_str.getString(0), StandardOpenOption.CREATE,
         StandardOpenOption.WRITE);
+    return ExitCode.OK;
+  }
+
+  @Command(name = "penis")
+  private int penis(Path in, Path out) throws IOException {
+    try (var lines = Files.lines(in); var dataOutputStream = new DataOutputStream(
+        new BufferedOutputStream(
+            Files.newOutputStream(out, StandardOpenOption.CREATE, StandardOpenOption.WRITE)))) {
+      lines.mapToDouble(Double::parseDouble).mapToLong(Double::doubleToLongBits).forEach(d -> {
+        try {
+          dataOutputStream.writeLong(d);
+        } catch (IOException e) {
+          throw new UncheckedIOException(e);
+        }
+      });
+    }
     return ExitCode.OK;
   }
 
