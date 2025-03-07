@@ -11,17 +11,24 @@ import com.github.teruteru128.foreign.prime.search.PrimeSearch.LargeSieve;
 import com.github.teruteru128.fx.App;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
+import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mod;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import com.github.teruteru128.ncv.xml.ListUp;
 import com.github.teruteru128.ncv.xml.Transform;
 import com.github.teruteru128.semen.CumShoot;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -32,6 +39,8 @@ import static java.lang.Integer.parseInt;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import java.lang.foreign.Arena;
+import java.lang.foreign.MemorySegment;
+import java.lang.foreign.ValueLayout;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
@@ -51,16 +60,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.AlgorithmParameters;
-import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyFactory;
-import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
 import java.security.Security;
-import java.security.interfaces.ECPrivateKey;
-import java.security.interfaces.ECPublicKey;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.ECParameterSpec;
 import java.security.spec.InvalidKeySpecException;
@@ -89,7 +92,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javafx.application.Application;
-import javax.crypto.spec.IvParameterSpec;
 import org.apache.logging.log4j.util.InternalException;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
@@ -98,6 +100,7 @@ import org.sqlite.SQLiteDataSource;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.HelpCommand;
+import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 @Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
@@ -631,26 +634,6 @@ public class Factory implements Callable<Integer> {
     }
   }
 
-  private static byte[] getBytes(byte[] x, ByteBuffer buffer) {
-    buffer.get(x);
-    return x;
-  }
-
-  private static IvParameterSpec getIV(ByteBuffer buffer) {
-    var iv = getBytes(new byte[16], buffer);
-    return new IvParameterSpec(iv);
-  }
-
-  private static long decodeVarInt(ByteBuffer buffer) {
-    var first = buffer.get();
-    return switch (first) {
-      case -1 -> buffer.getLong();
-      case -2 -> buffer.getInt() & 0xffffffffL;
-      case -3 -> buffer.getShort() & 0xffffL;
-      default -> first & 0xffL;
-    };
-  }
-
   @Command(name = "loadPem")
   private int loadPem(Path inPath)
       throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
@@ -732,72 +715,6 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command(name = "messageSign")
-  private int sign(String message)
-      throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
-    KeyPairGenerator generator = null;
-    try {
-      generator = KeyPairGenerator.getInstance("EC", BouncyCastleProvider.PROVIDER_NAME);
-    } catch (NoSuchProviderException e) {
-      throw new RuntimeException(e);
-    }
-    var secureRandom = SecureRandom.getInstanceStrong();
-    generator.initialize(new ECGenParameterSpec("SECP256k1"), secureRandom);
-    System.out.println(generator.getAlgorithm());
-    System.out.println(generator.getProvider());
-    var pair = generator.generateKeyPair();
-    var p1 = pair.getPrivate();
-    if (p1 instanceof ECPrivateKey ep1) {
-      System.out.println("instanceof java.security.interfaces.ECPrivateKey");
-      System.out.println(ep1.getClass().getName());
-      System.out.println(FORMAT.formatHex(ep1.getS().toByteArray()));
-    }
-    if (p1 instanceof org.bouncycastle.jce.interfaces.ECPrivateKey ep2) {
-      System.out.println("instanceof org.bouncycastle.jce.interfaces.ECPrivateKey");
-      System.out.println(ep2.getClass().getName());
-      System.out.println(FORMAT.formatHex(ep2.getD().toByteArray()));
-    }
-    var p2 = pair.getPublic();
-    if (p2 instanceof ECPublicKey ep3) {
-      System.out.println("instanceof java.security.interfaces.ECPublicKey");
-      System.out.println(ep3.getClass().getName());
-      var w = ep3.getW();
-      System.out.println(FORMAT.formatHex(w.getAffineX().toByteArray()) + ", " + FORMAT.formatHex(
-          w.getAffineY().toByteArray()));
-      System.out.println(FORMAT.formatHex(ep3.getEncoded()));
-    }
-    if (p2 instanceof org.bouncycastle.jce.interfaces.ECPublicKey ep4) {
-      System.out.println("instanceof org.bouncycastle.jce.interfaces.ECPublicKey");
-      System.out.println("[" + ep4.getClass().getName() + "]");
-      var q = ep4.getQ();
-      System.out.println(
-          "[" + FORMAT.formatHex(q.getAffineXCoord().toBigInteger().toByteArray()) + ", "
-          + FORMAT.formatHex(q.getAffineYCoord().toBigInteger().toByteArray()) + "]");
-      System.out.println("[" + FORMAT.formatHex(ep4.getEncoded()) + "]");
-      System.out.println("[" + FORMAT.formatHex(q.getEncoded(false)) + "]");
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int sieve(Path in) throws IOException, ClassNotFoundException {
-    try (var oin = new ObjectInputStream(
-        new BufferedInputStream(Files.newInputStream(in, StandardOpenOption.READ)))) {
-      var length = oin.readInt();
-      var obj = oin.readObject();
-      System.err.printf("%d, %b%n", length, length == ARRAY_ELEMENTS_MAX);
-      if (obj instanceof long[]) {
-        var sieve = BitSet.valueOf((long[]) obj);
-        System.err.printf("%d, %d%n", sieve.length(), sieve.cardinality());
-        var notSieve = new BitSet(sieve.length());
-        notSieve.set(0, sieve.length());
-        notSieve.andNot(sieve);
-        System.err.printf("%d, %d%n", notSieve.length(), notSieve.cardinality());
-      }
-    }
-    return ExitCode.OK;
-  }
-
   /**
    * even number textファイルとstep番号から数値を計算してファイルに書き出すコマンド
    * @param in
@@ -821,18 +738,70 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command(name = "penis")
-  private int penis(Path in, Path out) throws IOException {
-    try (var lines = Files.lines(in); var dataOutputStream = new DataOutputStream(
-        new BufferedOutputStream(
-            Files.newOutputStream(out, StandardOpenOption.CREATE, StandardOpenOption.WRITE)))) {
-      lines.mapToDouble(Double::parseDouble).mapToLong(Double::doubleToLongBits).forEach(d -> {
-        try {
-          dataOutputStream.writeLong(d);
-        } catch (IOException e) {
-          throw new UncheckedIOException(e);
+  @Command(name = "p")
+  private int p(Path smallSievePath) throws IOException, ClassNotFoundException {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 10000);
+    for (int i = 2; i <= 96127; i++) {
+      mpz_mul_ui(n, n, i);
+    }
+    mpz_add_ui(n, n, 1);
+    long[] smallSieve;
+    try (var oin = new ObjectInputStream(
+        new BufferedInputStream(Files.newInputStream(smallSievePath)))) {
+      oin.readLong();
+      smallSieve = (long[]) oin.readObject();
+    }
+    logger.debug("ロードしたでー");
+    var max = smallSieve.length * 64L;
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(p, 1);
+    var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(mod, 1);
+    long showPoint = 10000000L;
+    for (long index = 0L, step; (step = PrimeSearch.nextClearBit(smallSieve, index)) < max;
+        index = step + 1) {
+      mpz_set_u64(p, step * 2 + 1);
+      mpz_mod(mod, n, p);
+      if (mpz_cmp_ui(mod, 0) == 0) {
+        logger.info("found: {}", step * 2 + 1);
+      }
+      if (step > showPoint) {
+        logger.info("check point: {}", step * 2L + 1L);
+        while (step > showPoint) {
+          showPoint += 10000000L;
         }
-      });
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int prime3bits(@Option(names = {"--length"}, defaultValue = "26575") int length) {
+    var auto = Arena.ofAuto();
+
+    var arrayLength = length + 1;
+
+    var powers = __mpz_struct.allocateArray(arrayLength, auto);
+    mpz_init_set_ui(powers.getAtIndex(ValueLayout.ADDRESS, 1).reinterpret(auto, gmp_h::mpz_clear),
+        10);
+    var p2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p2);
+
+    int j;
+    for (int i = 2; i < arrayLength; i++) {
+      mpz_init(powers.getAtIndex(ValueLayout.ADDRESS, i));
+      mpz_mul_ui(powers.getAtIndex(ValueLayout.ADDRESS, i),
+          powers.getAtIndex(ValueLayout.ADDRESS, i - 1).reinterpret(auto, gmp_h::mpz_clear), 10);
+      for (j = 1; j < i; j++) {
+        mpz_add(p2, powers.getAtIndex(ValueLayout.ADDRESS, i),
+            powers.getAtIndex(ValueLayout.ADDRESS, j));
+        mpz_add_ui(p2, p2, 1);
+        if (mpz_probab_prime_p(p2, 25) != 0) {
+          System.out.printf("2^%d+2^%d+1 is prp%n", i, j);
+        }
+      }
     }
     return ExitCode.OK;
   }

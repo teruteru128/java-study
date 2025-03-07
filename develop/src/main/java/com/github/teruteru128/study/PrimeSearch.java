@@ -258,7 +258,7 @@ public class PrimeSearch implements Callable<Void> {
     }
   }
 
-  private static long nextClearBit(long[] words, long fromIndex) {
+  public static long nextClearBit(long[] words, long fromIndex) {
     if (fromIndex < 0) {
       throw new IndexOutOfBoundsException("fromIndex < 0: " + fromIndex);
     }
