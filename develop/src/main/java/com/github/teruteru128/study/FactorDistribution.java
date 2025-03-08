@@ -1,22 +1,21 @@
 package com.github.teruteru128.study;
 
-import com.github.teruteru128.gmp.__mpz_struct;
-import com.github.teruteru128.gmp.gmp_h;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
+
+import com.github.teruteru128.gmp.__mpz_struct;
+import com.github.teruteru128.gmp.gmp_h;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.lang.foreign.ValueLayout.OfLong;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
@@ -45,7 +44,7 @@ public class FactorDistribution implements Callable<Integer> {
       ByteOrder.BIG_ENDIAN);
   private static final Logger logger = LoggerFactory.getLogger(FactorDistribution.class);
   private static final Arena auto = Arena.ofAuto();
-  private static final ThreadLocal<MemorySegment> P_THREAD_LOCAL = ThreadLocal.withInitial(() -> {
+  private static final ThreadLocal<MemorySegment> N_THREAD_LOCAL = ThreadLocal.withInitial(() -> {
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_ui(p, 1);
     return p;
@@ -58,7 +57,7 @@ public class FactorDistribution implements Callable<Integer> {
       });
   private final Object lock = new Object();
   @Option(names = {"--num", "-n"})
-  private int num = 1000;
+  private long num = 1000;
   @Parameters
   private Path in;
   @Option(names = {"--period", "-p"})
@@ -76,28 +75,29 @@ public class FactorDistribution implements Callable<Integer> {
     logger.info("primes file loaded");
     long[] sizeArray = new long[paths.size()];
     long sumOfSize = 0L;
+    // TODO 素数リソースを分離して依存性注入可能にする
     for (int i = 0, pathsSize = paths.size(); i < pathsSize; i++) {
       var path = paths.get(i);
       sizeArray[i] = path.getFileSystem().provider()
           .getFileAttributeView(path, BasicFileAttributeView.class).readAttributes().size();
       sumOfSize += sizeArray[i];
     }
-    var a = auto.allocate(sumOfSize, 8);
-    long offsetOfA = 0L;
+    var primes = auto.allocate(sumOfSize, 8);
+    long offsetOfPrimes = 0L;
     for (int i = 0, pathsSize = paths.size(); i < pathsSize; i++) {
       var path = paths.get(i);
       try (var channel = (FileChannel) Files.newByteChannel(path, StandardOpenOption.READ)) {
         var map = channel.map(MapMode.READ_ONLY, 0, sizeArray[i], auto);
-        MemorySegment.copy(map, 0, a, offsetOfA, sizeArray[i]);
-        offsetOfA += sizeArray[i];
+        MemorySegment.copy(map, 0, primes, offsetOfPrimes, sizeArray[i]);
+        offsetOfPrimes += sizeArray[i];
       }
     }
-    logger.info("primes loaded");
     var randomGenerator = RandomGenerator.of("SecureRandom");
     var numOfElements = sumOfSize / 8L;
+    logger.info("{} primes loaded", numOfElements);
     var counter = new AtomicLong();
     try (var schedule = new ScheduledThreadPoolExecutor(1)) {
-      schedule.scheduleAtFixedRate(() -> {
+      var scheduledFuture = schedule.scheduleAtFixedRate(() -> {
         var q = counter.getAcquire();
         if (q >= num) {
           synchronized (lock) {
@@ -106,31 +106,26 @@ public class FactorDistribution implements Callable<Integer> {
           return;
         }
         counter.setRelease(q + 1);
-        var p = P_THREAD_LOCAL.get();
-        mpz_set_ui(p, 1);
+        var n = N_THREAD_LOCAL.get();
         var prime = PRIME_THREAD_LOCAL.get();
-        for (int j = 0; j < 5; j++) {
-          mpz_set_u64(prime,
-              a.getAtIndex(JAVA_LONG_WITH_BIG_ENDIAN, randomGenerator.nextLong(numOfElements)));
-          mpz_mul(p, p, prime);
+        for (int j = 0; j < 4; j++) {
+          mpz_set_u64(prime, primes.getAtIndex(JAVA_LONG_WITH_BIG_ENDIAN,
+              randomGenerator.nextLong(numOfElements)));
+          mpz_mul(n, n, prime);
         }
-        var bufferSize = mpz_sizeinbase(p, 10) + 2;
+        var bufferSize = mpz_sizeinbase(n, 10) + 2;
         var strBuffer = auto.allocate(bufferSize, 1);
-        mpz_get_str(strBuffer, 10, p);
+        mpz_get_str(strBuffer, 10, n);
+        mpz_set_ui(n, 1);
         var composite = strBuffer.getString(0);
-        URL url;
         try {
-          url = URI.create(Factory.ENDPOINT + composite).toURL();
-        } catch (MalformedURLException e) {
-          throw new RuntimeException(e);
-        }
-        HttpsURLConnection con;
-        try {
-          con = (HttpsURLConnection) url.openConnection();
-          con.connect();
-          logger.info("{}, {}", con.getResponseCode(), composite);
+          var uri = URI.create(Factory.ENDPOINT + composite);
+          var url = uri.toURL();
+          var connection = (HttpsURLConnection) url.openConnection();
+          connection.connect();
+          logger.info("{}, {}", connection.getResponseCode(), composite);
         } catch (IOException e) {
-          throw new UncheckedIOException(e);
+          throw new UncheckedIOException("error in " + composite, e);
         }
       }, 0, period, TimeUnit.MILLISECONDS);
       synchronized (lock) {
@@ -138,6 +133,7 @@ public class FactorDistribution implements Callable<Integer> {
           lock.wait();
         }
       }
+      scheduledFuture.cancel(false);
     }
     return ExitCode.OK;
   }

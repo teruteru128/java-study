@@ -20,7 +20,6 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mod;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import com.github.teruteru128.ncv.xml.ListUp;
 import com.github.teruteru128.ncv.xml.Transform;
@@ -39,7 +38,6 @@ import static java.lang.Integer.parseInt;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import java.lang.foreign.Arena;
-import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
@@ -739,7 +737,9 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command(name = "p")
-  private int p(Path smallSievePath) throws IOException, ClassNotFoundException {
+  private int p(Path smallSievePath,
+      @Option(names = {"--initial", "-i"}, defaultValue = "0") long initialPrime)
+      throws IOException, ClassNotFoundException {
     var auto = Arena.ofAuto();
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_ui(n, 10000);
@@ -759,9 +759,10 @@ public class Factory implements Callable<Integer> {
     mpz_init_set_ui(p, 1);
     var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_ui(mod, 1);
-    long showPoint = 10000000L;
-    for (long index = 0L, step; (step = PrimeSearch.nextClearBit(smallSieve, index)) < max;
-        index = step + 1) {
+    var showPoint = 10000000L;
+    long step;
+    for (var index = (initialPrime - 1) / 2;
+        (step = PrimeSearch.nextClearBit(smallSieve, index)) < max; index = step + 1) {
       mpz_set_u64(p, step * 2 + 1);
       mpz_mod(mod, n, p);
       if (mpz_cmp_ui(mod, 0) == 0) {
@@ -784,6 +785,8 @@ public class Factory implements Callable<Integer> {
     var arrayLength = length + 1;
 
     var powers = __mpz_struct.allocateArray(arrayLength, auto);
+    mpz_init_set_ui(powers.getAtIndex(ValueLayout.ADDRESS, 0).reinterpret(auto, gmp_h::mpz_clear),
+        1);
     mpz_init_set_ui(powers.getAtIndex(ValueLayout.ADDRESS, 1).reinterpret(auto, gmp_h::mpz_clear),
         10);
     var p2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -797,10 +800,6 @@ public class Factory implements Callable<Integer> {
       for (j = 1; j < i; j++) {
         mpz_add(p2, powers.getAtIndex(ValueLayout.ADDRESS, i),
             powers.getAtIndex(ValueLayout.ADDRESS, j));
-        mpz_add_ui(p2, p2, 1);
-        if (mpz_probab_prime_p(p2, 25) != 0) {
-          System.out.printf("2^%d+2^%d+1 is prp%n", i, j);
-        }
       }
     }
     return ExitCode.OK;

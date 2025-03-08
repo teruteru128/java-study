@@ -111,7 +111,6 @@ public class CreateLargeSieveTask implements Callable<Integer> {
     // タスク実行
     try (var pool = new ForkJoinPool(parallelism, ForkJoinPool.defaultForkJoinWorkerThreadFactory,
         null, true)) {
-      final var service = new ExecutorCompletionService<Result>(pool);
       var tasks = new ArrayList<MemorySegmentCallable>();
       {
         var bits = loadSmallSieve(smallSievepath);
