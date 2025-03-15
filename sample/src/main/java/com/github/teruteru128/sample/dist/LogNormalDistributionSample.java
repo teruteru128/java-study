@@ -38,9 +38,9 @@ public class LogNormalDistributionSample implements Sample {
         new BufferedOutputStream(new FileOutputStream(name + ".bin"), 1024 * 1024 * 1024))) {
       System.out.printf("μ=log(%f), σ=%s%n", expMu, sigma);
       stream1.printf("μ=log(%f), σ=%s%n", expMu, sigma);
-      Arrays.stream(samples).mapToLong(Double::doubleToLongBits).forEach(v -> {
+      Arrays.stream(samples).forEach(v -> {
         try {
-          stream.writeLong(v);
+          stream.writeDouble(v);
         } catch (IOException e) {
           throw new UncheckedIOException(e);
         }
@@ -54,9 +54,9 @@ public class LogNormalDistributionSample implements Sample {
         new BufferedOutputStream(new FileOutputStream(name + "-sorted.bin"),
             1024 * 1024 * 1024))) {
       Arrays.sort(samples);
-      Arrays.stream(samples).mapToLong(Double::doubleToLongBits).forEach(v -> {
+      Arrays.stream(samples).forEach(v -> {
         try {
-          stream.writeLong(v);
+          stream.writeDouble(v);
         } catch (IOException e) {
           throw new UncheckedIOException(e);
         }

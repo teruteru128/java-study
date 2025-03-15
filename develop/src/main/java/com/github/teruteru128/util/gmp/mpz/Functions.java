@@ -24,7 +24,7 @@ public final class Functions {
     __mpz_struct._mp_size(destination, val != 0 ? 1 : 0);
   }
 
-  public static long mpz_get_ui(MemorySegment z) {
+  public static long mpz_get_u64(MemorySegment z) {
     var p = __mpz_struct._mp_d(z);
     var n = __mpz_struct._mp_size(z);
     var l = p.getAtIndex(JAVA_LONG, 0);

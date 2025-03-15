@@ -15,14 +15,13 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import static com.github.teruteru128.study.PrimeSearch.loadSmallSieve;
-import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_ui;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_u64;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_odd_p;
 import static com.github.teruteru128.study.PrimeSearch.unitIndex;
 import static java.lang.foreign.MemorySegment.copy;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
-import com.github.teruteru128.foreign.prime.search.Result;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
 import java.io.BufferedOutputStream;
@@ -41,7 +40,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import org.slf4j.Logger;
@@ -230,7 +228,7 @@ public class CreateLargeSieveTask implements Callable<Integer> {
         mpz_fdiv_q_2exp(start, start, 1);
         // start < searchLen1
         while (mpz_cmp(start, searchLen1) < 0) {
-          var l = mpz_get_ui(start);
+          var l = mpz_get_u64(start);
           JAVA_LONG_VAR_HANDLE.getAndBitwiseOr(largeSieve, (l >>> 6) * 8, 1L << (l & 0x3f));
           // start += convertedStep
           mpz_add(start, start, convertedStep);

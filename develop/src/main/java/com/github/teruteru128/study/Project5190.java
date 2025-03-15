@@ -13,7 +13,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.study.PrimeSearch.loadSmallSieve;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_fits_ulong_p;
-import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_ui;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_u64;
 
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
@@ -89,7 +89,7 @@ public class Project5190 implements Callable<Integer> {
       var timeDiff1 = (finish - start) / 3.6e12;
       String string;
       if (mpz_fits_ulong_p(diff)) {
-        string = Long.toString(mpz_get_ui(diff));
+        string = Long.toString(mpz_get_u64(diff));
       } else {
         var len = mpz_sizeinbase(diff, 10) + 2;
         var buf = auto.allocate(len);

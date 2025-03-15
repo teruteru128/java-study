@@ -1978,7 +1978,7 @@ public class gmp_h {
      * void *__gmpz_realloc(mpz_ptr, mp_size_t)
      * }
      */
-    private static MemorySegment __gmpz_realloc(MemorySegment x0, long x1) {
+    private static MemorySegment __gmpz_realloc(MemorySegment x0, int x1) {
         var mh$ = __gmpz_realloc.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -1994,7 +1994,7 @@ public class gmp_h {
      * void *mpz_realloc(mpz_ptr, mp_size_t)
      * }
      */
-    public static MemorySegment mpz_realloc(MemorySegment x0, long x1) {
+    public static MemorySegment mpz_realloc(MemorySegment x0, int x1) {
         return __gmpz_realloc(x0, x1);
     }
 
@@ -4017,7 +4017,7 @@ public class gmp_h {
      * void __gmpz_fac_ui(mpz_ptr, unsigned long)
      * }
      */
-    public static void __gmpz_fac_ui(MemorySegment x0, int x1) {
+    private static void __gmpz_fac_ui(MemorySegment x0, int x1) {
         var mh$ = __gmpz_fac_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -4027,6 +4027,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_fac_ui(mpz_ptr, unsigned long)
+     * }
+     */
+    public static void mpz_fac_ui(MemorySegment rop, int n) {
+        __gmpz_fac_ui(rop, n);
     }
 
     private static class __gmpz_2fac_ui {
@@ -6929,7 +6937,7 @@ public class gmp_h {
      * void __gmpz_powm(mpz_ptr, mpz_srcptr, mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static void __gmpz_powm(MemorySegment x0, MemorySegment x1, MemorySegment x2, MemorySegment x3) {
+    private static void __gmpz_powm(MemorySegment x0, MemorySegment x1, MemorySegment x2, MemorySegment x3) {
         var mh$ = __gmpz_powm.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -6939,6 +6947,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_powm(mpz_ptr, mpz_srcptr, mpz_srcptr, mpz_srcptr)
+     * }
+     */
+    public static void mpz_powm(MemorySegment rop, MemorySegment base, MemorySegment exp, MemorySegment mod) {
+        __gmpz_powm(rop, base, exp, mod);
     }
 
     private static class __gmpz_powm_sec {
@@ -7273,7 +7289,7 @@ public class gmp_h {
      * mp_bitcnt_t __gmpz_remove(mpz_ptr, mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static long __gmpz_remove(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+    private static long __gmpz_remove(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
         var mh$ = __gmpz_remove.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -7283,6 +7299,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * mp_bitcnt_t mpz_remove(mpz_ptr, mpz_srcptr, mpz_srcptr)
+     * }
+     */
+    public static long mpz_remove(MemorySegment rop, MemorySegment op, MemorySegment f) {
+        return __gmpz_remove(rop, op, f);
     }
 
     private static class __gmpz_root {
@@ -9041,8 +9065,8 @@ public class gmp_h {
      * void __gmpz_urandomm(mpz_ptr, gmp_randstate_ptr, mpz_srcptr)
      * }
      */
-    public static void mpz_urandomm(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
-        __gmpz_urandomm(x0, x1, x2);
+    public static void mpz_urandomm(MemorySegment rop, MemorySegment state, MemorySegment n) {
+        __gmpz_urandomm(rop, state, n);
     }
 
     private static class __gmpz_xor {

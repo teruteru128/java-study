@@ -65,16 +65,7 @@ public class Project19 implements Callable<Integer> {
     mpz_sub(window, window, min);
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
-    {
-      var seed = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      mpz_init(seed);
-      var elementCount = 2493;
-      var seedNativeSegment = auto.allocate(JAVA_BYTE, elementCount);
-      MemorySegment.copy(((SecureRandom) Factory.SECURE_RANDOM_GENERATOR).generateSeed(elementCount), 0,
-          seedNativeSegment, JAVA_BYTE, 0, elementCount);
-      mpz_import(seed, elementCount, 1, 1, 0, 0, seedNativeSegment);
-      gmp_randseed(state, seed);
-    }
+    initRandomState(state);
     // ScheduledThreadPoolExecutor
     try (var executor = new ScheduledThreadPoolExecutor(4)) {
       var latch = new CountDownLatch(count);
@@ -91,6 +82,18 @@ public class Project19 implements Callable<Integer> {
       Thread.currentThread().interrupt();
     }
     return ExitCode.OK;
+  }
+
+  public static void initRandomState(MemorySegment state) {
+    var auto = Arena.ofAuto();
+    var seed = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(seed);
+    var elementCount = 2493;
+    var seedNativeSegment = auto.allocate(JAVA_BYTE, elementCount);
+    MemorySegment.copy(((SecureRandom) Factory.SECURE_RANDOM_GENERATOR).generateSeed(elementCount), 0,
+        seedNativeSegment, JAVA_BYTE, 0, elementCount);
+    mpz_import(seed, elementCount, 1, 1, 0, 0, seedNativeSegment);
+    gmp_randseed(state, seed);
   }
 
   protected record FactorDBPostingTask(MemorySegment state, MemorySegment window, MemorySegment min,
