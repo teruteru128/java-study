@@ -102,9 +102,6 @@ public class Project19 implements Callable<Integer> {
     private static final Logger logger = LoggerFactory.getLogger(FactorDBPostingTask.class);
     private static final Proxy LOCALHOST_SOCKS_PROXY = new Proxy(Type.SOCKS,
         new InetSocketAddress("localhost", 9150));
-    private static final String FDB_USER_ID = System.getenv("FDBUSER");
-    private static final String FDB_USER_COOKIE =
-        FDB_USER_ID != null ? "fdbuser=" + FDB_USER_ID : "";
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final Arena auto = Arena.ofAuto();
     private static final ThreadLocal<MemorySegment> THREAD_LOCAL_P = ThreadLocal.withInitial(() -> {
@@ -146,8 +143,8 @@ public class Project19 implements Callable<Integer> {
       do {
         try {
           connection = (HttpsURLConnection) url.openConnection(LOCALHOST_SOCKS_PROXY);
-          if (FDB_USER_ID != null) {
-            connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+          if (FactorDatabase.FDB_USER_ID != null) {
+            connection.setRequestProperty("Cookie", FactorDatabase.FDB_USER_COOKIE);
           }
           connection.connect();
           responseCode = connection.getResponseCode();

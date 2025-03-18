@@ -24,19 +24,27 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_remove;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
+import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_u64;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import static java.lang.Integer.parseInt;
+import static java.lang.Math.log10;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static java.lang.foreign.ValueLayout.ADDRESS;
+import static java.lang.foreign.ValueLayout.JAVA_INT;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.bitmessage.app.Spammer.Address;
 import com.github.teruteru128.color.ColorConverter;
@@ -54,20 +62,26 @@ import com.github.teruteru128.semen.CumShoot;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintStream;
+import java.io.RandomAccessFile;
 import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
-import java.lang.foreign.ValueLayout;
+import java.lang.foreign.FunctionDescriptor;
+import java.lang.foreign.Linker;
+import java.lang.foreign.SymbolLookup;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
@@ -78,6 +92,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.nio.file.attribute.BasicFileAttributeView;
 import java.security.AlgorithmParameters;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
@@ -99,6 +114,7 @@ import java.util.Base64;
 import java.util.BitSet;
 import java.util.HashSet;
 import java.util.HexFormat;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.TimeZone;
@@ -111,6 +127,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javafx.application.Application;
+import javax.net.ssl.HttpsURLConnection;
 import org.apache.logging.log4j.util.InternalException;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
@@ -805,21 +822,18 @@ public class Factory implements Callable<Integer> {
     var arrayLength = length + 1;
 
     var powers = __mpz_struct.allocateArray(arrayLength, auto);
-    mpz_init_set_ui(powers.getAtIndex(ValueLayout.ADDRESS, 0).reinterpret(auto, gmp_h::mpz_clear),
-        1);
-    mpz_init_set_ui(powers.getAtIndex(ValueLayout.ADDRESS, 1).reinterpret(auto, gmp_h::mpz_clear),
-        10);
+    mpz_init_set_ui(powers.getAtIndex(ADDRESS, 0).reinterpret(auto, gmp_h::mpz_clear), 1);
+    mpz_init_set_ui(powers.getAtIndex(ADDRESS, 1).reinterpret(auto, gmp_h::mpz_clear), 10);
     var p2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(p2);
 
     int j;
     for (int i = 2; i < arrayLength; i++) {
-      mpz_init(powers.getAtIndex(ValueLayout.ADDRESS, i));
-      mpz_mul_ui(powers.getAtIndex(ValueLayout.ADDRESS, i),
-          powers.getAtIndex(ValueLayout.ADDRESS, i - 1).reinterpret(auto, gmp_h::mpz_clear), 10);
+      mpz_init(powers.getAtIndex(ADDRESS, i));
+      mpz_mul_ui(powers.getAtIndex(ADDRESS, i),
+          powers.getAtIndex(ADDRESS, i - 1).reinterpret(auto, gmp_h::mpz_clear), 10);
       for (j = 1; j < i; j++) {
-        mpz_add(p2, powers.getAtIndex(ValueLayout.ADDRESS, i),
-            powers.getAtIndex(ValueLayout.ADDRESS, j));
+        mpz_add(p2, powers.getAtIndex(ADDRESS, i), powers.getAtIndex(ADDRESS, j));
       }
     }
     return ExitCode.OK;
@@ -985,7 +999,7 @@ public class Factory implements Callable<Integer> {
     var p = BigInteger.ONE;
     for (var line : lines) {
       var split = pattern.split(line);
-      p = p.multiply(new BigInteger(split[0]).pow(Integer.parseInt(split[1])));
+      p = p.multiply(new BigInteger(split[0]).pow(parseInt(split[1])));
     }
     var string = p.toString();
     System.out.println(string.length());
@@ -1069,6 +1083,215 @@ public class Factory implements Callable<Integer> {
       mpz_set(n1, n);
     }
     Files.write(out, list, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int factor10000() throws IOException, URISyntaxException {
+    var str = "63529558055459718210391058799874345232783234192120118276312232446566517401551249602339305319372117036603519718772378093500083747384812167149125168170717999213640668053797792662716000512954843521760617338947764172481677130521431589885724261746560364886780629044704172341435383508992974538866504256360733856403561579794360855546282196276539211737198620768157116228439356792847423415989^41*15327058301332340016287814609565616926273744053943566590099944603730582892019627075587812437053520204863172592158727025072630605392375609329569197783388053801993077119727527778108549415469001469425833324258043514956926966012618722695174942112853494623463134469300482746206479721454308901091751207192010934017957239^42*3070015446655583962789178454782208623133099199687276628796294396536365534382638004080603586373634270724284704600247833958054308593920308643319253463112892159243299895986796629714596777696220971430205318142574940735221967677^43*371142952202004908520742456558671208113785047358603270996506951511688598073250410155273923770465341572789494610149745896313767301924109997945371844300967154150261087059622618407748759554315255003926453^44*672691656368135675039411225973562845113976699070816604085312130820587314553489232229487051712048681066355460990047333043501811914977486373909871714326823^45*5617760887041950660449107030941037321523547184514366729840091380310345107988868041952180379105516333435168258910774341^47*353187935722947762590775691614798857957252493944286561815882108025284954810881805438231011975529646020911805693^46*607543361583156856290828978502117222343204592535401589350129608976281294741501^48*11886250544808306781680499932959251187702298004393538241078332933057^49*712263992451816173657734377094326023734472998209120238003^50*69096121608483640052548810110682893100063491703637^51*5374613548349518083717018769882844241928287862810231^40*1046903967016023902539776572542665641^54*24060581762701535131589025916732266917^52*7214781776474735698818470387701001^53*1037793702558212145395617^56*2370246348458581727^57*10301733639591235493^55*1711914026665907^59*3068689788020071^58*697641334361^63*1749079041013^61*4563676729^62*9473323417^60*6188209^66*7566179^65*22499^69*9797^75*11021^74*16637^71*19043^70*25591^68*47053^64*3599^84*12317^73*28891^67*43^92*53^87*89^77*2^497*3^313*5^214*7^177*11^144*13^134*19^117*23^110*29^102*31^100*41^93*67^82*71^81*73^80*79^79*83^78*17^121*37^95*47^89+";
+    var encoded = URLEncoder.encode(str, StandardCharsets.UTF_8);
+    var mapper = new ObjectMapper();
+    var reportUrlBase = "https://factordb.com/reportfactor.php";
+    for (int i = 2489; i <= 5000; i++) {
+      var requestUrl = new URI(ENDPOINT + encoded + i).toURL();
+      var requestConnection = (HttpsURLConnection) requestUrl.openConnection();
+      if (FactorDatabase.FDB_USER_ID != null) {
+        requestConnection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+      }
+      JsonNode root;
+      try (var in = new BufferedReader(
+          new InputStreamReader(new BufferedInputStream(requestConnection.getInputStream())))) {
+        var line = in.readLine();
+        root = mapper.readTree(line);
+      }
+      var id = root.get("id").longValue();
+      var status = root.get("status").textValue();
+      System.err.printf("request offset %4d: id: %d, status: %s%n", i, id, status);
+      if (status.equals("C") || status.equals("U")) {
+        var reportConnection = (HttpsURLConnection) URI.create(reportUrlBase).toURL()
+            .openConnection();
+        reportConnection.setRequestMethod("POST");
+        if (FactorDatabase.FDB_USER_ID != null) {
+          reportConnection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+        }
+        reportConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        reportConnection.setDoOutput(true);
+        try (var writer = new BufferedWriter(
+            new OutputStreamWriter(reportConnection.getOutputStream()))) {
+          writer.write("id=" + id + "&factor=" + i);
+        }
+
+        reportConnection.getResponseCode();
+        try (var in2 = new BufferedReader(
+            new InputStreamReader(new BufferedInputStream(reportConnection.getInputStream())))) {
+          var line = in2.readLine();
+          System.err.println(line);
+          System.err.printf(" report offset %4d%n", i);
+        }
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int split100000() {
+    IntStream.range(2, 15000).filter(i -> BigInteger.valueOf(i).isProbablePrime(1)).forEach(i -> {
+      var l = ((int) Math.round((100000 / 1773.) / log10(i)));
+      System.out.printf("%d^%d*%n", i, l);
+    });
+    return ExitCode.OK;
+  }
+
+  @Command(name = "func642")
+  private int func642(@Option(names = {"--offset"}, defaultValue = "0") int offset,
+      @Option(names = {"--max"}, defaultValue = "100000") int max)
+      throws IOException, InterruptedException {
+    var mapper = new ObjectMapper();
+    logger.info("GO!!!");
+    for (int i = offset; i < max; i++) {
+      var url = URI.create(
+          ENDPOINT + URLEncoder.encode(String.format("(7*I(%1$d)-Lucas(%1$d))/2", i),
+              StandardCharsets.UTF_8)).toURL();
+      HttpsURLConnection connection;
+      int responseCode;
+      do {
+        connection = (HttpsURLConnection) url.openConnection();
+        if (FactorDatabase.FDB_USER_ID != null) {
+          connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+        }
+        responseCode = connection.getResponseCode();
+        if (responseCode == 429) {
+          logger.info("Too many requests, sleeping...");
+          Thread.sleep(300000);
+        }
+      } while (responseCode != 200);
+      JsonNode root;
+      try (var in = new BufferedInputStream(connection.getInputStream())) {
+        root = mapper.readTree(in);
+      }
+      var idNode = root.get("id");
+      var statusNode = root.get("status");
+      if (idNode.isNull()) {
+        logger.info("{}: id is null, status: {}", i,
+            statusNode.isNull() ? "null" : statusNode.textValue());
+      } else {
+        logger.info("{}: id: {}, status: {}", i,
+            idNode.getNodeType() == JsonNodeType.STRING ? idNode.asText() : idNode.asLong(),
+            statusNode.textValue());
+      }
+      connection.disconnect();
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int libraryLoadSample(String path) {
+    System.load(path);
+    var libs = SymbolLookup.loaderLookup();
+    var linker = Linker.nativeLinker();
+    var msieveObjNew = linker.downcallHandle(libs.find("msieve_obj_new").orElseThrow(),
+        FunctionDescriptor.of(ADDRESS, ADDRESS, JAVA_INT, ADDRESS, ADDRESS, ADDRESS, JAVA_INT,
+            JAVA_INT, JAVA_INT, JAVA_INT, JAVA_INT, JAVA_INT, JAVA_INT, JAVA_INT, ADDRESS));
+    System.out.printf("done! %s%n", msieveObjNew);
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int composite(Path inPath,
+      @Option(names = {"--primes", "-p"}, defaultValue = "16") int primes) throws IOException {
+    var randomGenerator = RandomGenerator.of("SecureRandom");
+    var auto = Arena.ofAuto();
+    List<Path> paths;
+    try (var lines = Files.lines(inPath, StandardCharsets.UTF_8)) {
+      paths = lines.filter(l -> !l.startsWith("#")).map(Path::of).toList();
+    }
+    long[] sizeArray = new long[paths.size()];
+    long sumOfSize = 0L;
+    // TODO 素数リソースを分離して依存性注入可能にする
+    for (int i = 0, pathsSize = paths.size(); i < pathsSize; i++) {
+      var path = paths.get(i);
+      sizeArray[i] = path.getFileSystem().provider()
+          .getFileAttributeView(path, BasicFileAttributeView.class).readAttributes().size();
+      sumOfSize += sizeArray[i];
+    }
+    var numOfElements = sumOfSize / 8L;
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 1);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    for (int i = 0; i < primes; i++) {
+      var pickUpIndex = randomGenerator.nextLong(numOfElements);
+      var offset = pickUpIndex * 8L;
+      int fileID = 0;
+      while (offset >= sizeArray[fileID]) {
+        offset -= sizeArray[fileID];
+        fileID++;
+      }
+      long prime;
+      try (var file = new RandomAccessFile(paths.get(fileID).toFile(), "r")) {
+        file.seek(offset);
+        prime = file.readLong();
+      }
+      mpz_set_u64(p, prime);
+      mpz_mul(n, n, p);
+      System.out.println(Long.toUnsignedString(prime));
+    }
+    var length = mpz_sizeinbase(n, 10) + 2;
+    var str = auto.allocate(length);
+    mpz_get_str(str, 10, n);
+    System.out.println(str.getString(0));
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int lookup(Path inPath,
+      @Option(names = {"--primes", "-p"}, defaultValue = "1") int primes,
+      @Option(names = {"--num", "-n"}, defaultValue = "16") int num) throws IOException {
+    var randomGenerator = RandomGenerator.of("SecureRandom");
+    var auto = Arena.ofAuto();
+    List<Path> paths;
+    try (var lines = Files.lines(inPath, StandardCharsets.UTF_8)) {
+      paths = lines.map(String::trim).filter(l -> !l.startsWith("#")).map(Path::of).toList();
+    }
+    long[] sizeArray = new long[paths.size()];
+    long sumOfSize = 0L;
+    // TODO 素数リソースを分離して依存性注入可能にする
+    for (int i = 0, pathsSize = paths.size(); i < pathsSize; i++) {
+      var path = paths.get(i);
+      sizeArray[i] = path.getFileSystem().provider()
+          .getFileAttributeView(path, BasicFileAttributeView.class).readAttributes().size();
+      sumOfSize += sizeArray[i];
+    }
+    var numOfElements = sumOfSize / 8L;
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(n);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    for (int i = 0; i < num; i++) {
+      mpz_set_ui(n, 1);
+
+      for (int j = 0; j < primes; j++) {
+        var pickUpIndex = randomGenerator.nextLong(numOfElements);
+        var offset = pickUpIndex * 8L;
+        int fileID = 0;
+        while (offset >= sizeArray[fileID]) {
+          offset -= sizeArray[fileID];
+          fileID++;
+        }
+        long prime;
+        try (var file = new RandomAccessFile(paths.get(fileID).toFile(), "r")) {
+          file.seek(offset);
+          prime = file.readLong();
+        }
+        // TODO 使用済みの素数を0で塗りつぶす機能
+        mpz_set_u64(p, prime);
+        mpz_mul(n, n, p);
+      }
+      var length = mpz_sizeinbase(n, 10) + 2;
+      var str = auto.allocate(length);
+      mpz_get_str(str, 10, n);
+      System.out.println(str.getString(0));
+    }
     return ExitCode.OK;
   }
 
