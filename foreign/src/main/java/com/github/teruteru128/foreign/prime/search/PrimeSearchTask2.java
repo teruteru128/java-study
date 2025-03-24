@@ -10,7 +10,6 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.sql.SQLException;
 import java.util.concurrent.Callable;
-import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,14 +27,10 @@ public class PrimeSearchTask2 implements Callable<Result> {
   });
   private final MemorySegment even;
   private final int step;
-  private final DataSource source;
-  private final long id;
 
-  public PrimeSearchTask2(MemorySegment even, int step, DataSource source, long id) {
+  public PrimeSearchTask2(MemorySegment even, int step) {
     this.even = even;
-    this.id = id;
     this.step = step;
-    this.source = source;
   }
 
   @Override
@@ -52,28 +47,10 @@ public class PrimeSearchTask2 implements Callable<Result> {
     start = System.nanoTime();
     result = mpz_probab_prime_p(candidate, 25);
     finish = System.nanoTime();
-    updateDB(result);
     logger.info("step {}: {}({} hours)", step, result, (finish - start) / 3.6e12);
     // {@code result != 0} で十分だと思うんだが
     // return result == 1 || result == 2 ? Optional.of(step) : Optional.empty();
     return new Result(step, result);
   }
 
-  private void updateDB(int result) throws SQLException {
-    try (var connection = source.getConnection()) {
-      var sql = switch (result) {
-        case 0 -> "update candidates set composite = composite + 1 where id = ? and step = ?;";
-        case 1 ->
-            "update candidates set probably_prime = probably_prime + 1 where id = ? and step = ?;";
-        case 2 ->
-            "update candidates set definitely_prime = definitely_prime + 1 where id = ? and step = ?;";
-        default -> throw new RuntimeException("unknown result code: " + result);
-      };
-      try (var ps = connection.prepareStatement(sql)) {
-        ps.setLong(1, id);
-        ps.setInt(2, step);
-        ps.execute();
-      }
-    }
-  }
 }

@@ -128,6 +128,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javafx.application.Application;
 import javax.net.ssl.HttpsURLConnection;
+import org.apache.commons.rng.simple.JDKRandomWrapper;
+import org.apache.commons.statistics.distribution.LogNormalDistribution;
 import org.apache.logging.log4j.util.InternalException;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
@@ -152,6 +154,7 @@ public class Factory implements Callable<Integer> {
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   public static final String ENDPOINT = "https://factordb.com/api?query=";
+  public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final HexFormat FORMAT = HexFormat.of();
   private static final ECParameterSpec secp256k1Parameter;
   private static final KeyFactory factory;
@@ -1090,7 +1093,6 @@ public class Factory implements Callable<Integer> {
   private int factor10000() throws IOException, URISyntaxException {
     var str = "63529558055459718210391058799874345232783234192120118276312232446566517401551249602339305319372117036603519718772378093500083747384812167149125168170717999213640668053797792662716000512954843521760617338947764172481677130521431589885724261746560364886780629044704172341435383508992974538866504256360733856403561579794360855546282196276539211737198620768157116228439356792847423415989^41*15327058301332340016287814609565616926273744053943566590099944603730582892019627075587812437053520204863172592158727025072630605392375609329569197783388053801993077119727527778108549415469001469425833324258043514956926966012618722695174942112853494623463134469300482746206479721454308901091751207192010934017957239^42*3070015446655583962789178454782208623133099199687276628796294396536365534382638004080603586373634270724284704600247833958054308593920308643319253463112892159243299895986796629714596777696220971430205318142574940735221967677^43*371142952202004908520742456558671208113785047358603270996506951511688598073250410155273923770465341572789494610149745896313767301924109997945371844300967154150261087059622618407748759554315255003926453^44*672691656368135675039411225973562845113976699070816604085312130820587314553489232229487051712048681066355460990047333043501811914977486373909871714326823^45*5617760887041950660449107030941037321523547184514366729840091380310345107988868041952180379105516333435168258910774341^47*353187935722947762590775691614798857957252493944286561815882108025284954810881805438231011975529646020911805693^46*607543361583156856290828978502117222343204592535401589350129608976281294741501^48*11886250544808306781680499932959251187702298004393538241078332933057^49*712263992451816173657734377094326023734472998209120238003^50*69096121608483640052548810110682893100063491703637^51*5374613548349518083717018769882844241928287862810231^40*1046903967016023902539776572542665641^54*24060581762701535131589025916732266917^52*7214781776474735698818470387701001^53*1037793702558212145395617^56*2370246348458581727^57*10301733639591235493^55*1711914026665907^59*3068689788020071^58*697641334361^63*1749079041013^61*4563676729^62*9473323417^60*6188209^66*7566179^65*22499^69*9797^75*11021^74*16637^71*19043^70*25591^68*47053^64*3599^84*12317^73*28891^67*43^92*53^87*89^77*2^497*3^313*5^214*7^177*11^144*13^134*19^117*23^110*29^102*31^100*41^93*67^82*71^81*73^80*79^79*83^78*17^121*37^95*47^89+";
     var encoded = URLEncoder.encode(str, StandardCharsets.UTF_8);
-    var mapper = new ObjectMapper();
     var reportUrlBase = "https://factordb.com/reportfactor.php";
     for (int i = 2489; i <= 5000; i++) {
       var requestUrl = new URI(ENDPOINT + encoded + i).toURL();
@@ -1102,7 +1104,7 @@ public class Factory implements Callable<Integer> {
       try (var in = new BufferedReader(
           new InputStreamReader(new BufferedInputStream(requestConnection.getInputStream())))) {
         var line = in.readLine();
-        root = mapper.readTree(line);
+        root = OBJECT_MAPPER.readTree(line);
       }
       var id = root.get("id").longValue();
       var status = root.get("status").textValue();
@@ -1146,7 +1148,6 @@ public class Factory implements Callable<Integer> {
   private int func642(@Option(names = {"--offset"}, defaultValue = "0") int offset,
       @Option(names = {"--max"}, defaultValue = "100000") int max)
       throws IOException, InterruptedException {
-    var mapper = new ObjectMapper();
     logger.info("GO!!!");
     for (int i = offset; i < max; i++) {
       var url = URI.create(
@@ -1167,7 +1168,7 @@ public class Factory implements Callable<Integer> {
       } while (responseCode != 200);
       JsonNode root;
       try (var in = new BufferedInputStream(connection.getInputStream())) {
-        root = mapper.readTree(in);
+        root = OBJECT_MAPPER.readTree(in);
       }
       var idNode = root.get("id");
       var statusNode = root.get("status");
@@ -1291,6 +1292,58 @@ public class Factory implements Callable<Integer> {
       var str = auto.allocate(length);
       mpz_get_str(str, 10, n);
       System.out.println(str.getString(0));
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int logNormal() {
+    var distribution = LogNormalDistribution.of(Math.log(Math.sqrt(1.1)), 114. / 514);
+    var sampler = distribution.createSampler(
+        new JDKRandomWrapper((Random) RandomGenerator.of("SecureRandom")));
+    for (int i = 0; i < 16; i++) {
+      var sample = sampler.sample();
+      System.out.printf("%f, %016x%n", sample, Double.doubleToLongBits(sample));
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int distributionRandomDigitsPrime() throws IOException {
+    var auto = Arena.ofAuto();
+    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(min);
+    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(window);
+
+    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+    gmp_randinit_default(state);
+    Project19.initRandomState(state);
+
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    int exponent;
+    for (int i = 0; i < 2000; i++) {
+      mpz_set_ui(min, 10);
+      exponent = SECURE_RANDOM_GENERATOR.nextInt(18, 150);
+      mpz_pow_ui(min, min, exponent);
+      mpz_mul_ui(window, min, 9);
+
+      mpz_urandomm(p, state, window);
+      mpz_add(p, p, min);
+      mpz_nextprime(p, p);
+
+      var length = mpz_sizeinbase(p, 10) + 2;
+      var str = auto.allocate(length);
+      mpz_get_str(str, 10, p);
+
+      var primeString = str.getString(0);
+      var url = URI.create(ENDPOINT + primeString).toURL();
+      var root = OBJECT_MAPPER.readTree(url);
+      var id = root.get("id");
+      var status = root.get("status");
+      System.out.printf("%s<%d>: %s%n", id.isTextual() ? id.textValue() : id.longValue(),
+          primeString.length(), status.textValue());
     }
     return ExitCode.OK;
   }

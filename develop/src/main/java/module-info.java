@@ -51,6 +51,7 @@ module com.github.teruteru.study {
   exports com.github.teruteru128.semen;
   opens com.github.teruteru128.fx;
   opens com.github.teruteru128.study;
+  opens com.github.teruteru128.study.converters to info.picocli;
   opens com.github.teruteru128.util;
   opens com.github.teruteru128.util.function;
   //uses com.github.teruteru128.sample.Sample;

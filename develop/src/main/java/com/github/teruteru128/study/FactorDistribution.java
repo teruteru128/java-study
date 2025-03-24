@@ -2,21 +2,25 @@ package com.github.teruteru128.study;
 
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
+import com.github.teruteru128.study.converters.UnsignedLongConverter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.lang.foreign.ValueLayout.OfLong;
+import java.net.URI;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributeView;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
-import java.util.random.RandomGenerator;
+import java.util.stream.Collectors;
+import javax.net.ssl.HttpsURLConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
@@ -47,6 +51,8 @@ public class FactorDistribution implements Callable<Integer> {
   private long num = 1000;
   @Option(names = {"--offset"})
   private long offset;
+  @Option(names = {"--skip"}, converter = UnsignedLongConverter.class)
+  private long skip;
   @Parameters
   private Path in;
   @Option(names = {"--period", "-p"})
@@ -59,23 +65,39 @@ public class FactorDistribution implements Callable<Integer> {
   public Integer call() throws IOException, InterruptedException {
     ArrayList<Path> paths;
     try (var lines = Files.lines(in, StandardCharsets.UTF_8)) {
-      paths = ((ArrayList<Path>) lines.filter(l -> !l.startsWith("#")).map(Path::of).toList());
+      paths = lines.filter(l -> !l.startsWith("#")).map(Path::of)
+          .collect(Collectors.toCollection(ArrayList<Path>::new));
     }
-    logger.info("primes file loaded");
-    long[] sizeArray = new long[paths.size()];
-    long sumOfSize = 0L;
-    // TODO 素数リソースを分離して依存性注入可能にする
-    for (int i = 0, pathsSize = paths.size(); i < pathsSize; i++) {
-      var path = paths.get(i);
-      sizeArray[i] = path.getFileSystem().provider()
-          .getFileAttributeView(path, BasicFileAttributeView.class).readAttributes().size();
-      sumOfSize += sizeArray[i];
-    }
-    var randomGenerator = RandomGenerator.of("SecureRandom");
-    var numOfElements = sumOfSize / 8L;
-    for (int i = 0; i < 5; i++) {
-      var index = randomGenerator.nextLong(numOfElements);
-      int fileNumber = 0;
+    for (Path path : paths) {
+      try (var file = new RandomAccessFile(path.toFile(), "r")) {
+        var numOfElements = file.length() / 8;
+        for (long i = 0; i < numOfElements; i++) {
+          var i1 = file.readLong();
+          if (Long.compareUnsigned(i1, skip) <= 0) {
+            continue;
+          }
+          var unsignedString = Long.toUnsignedString(i1);
+          var url = URI.create(Factory.ENDPOINT + unsignedString).toURL();
+          HttpsURLConnection urlConnection;
+          int responseCode;
+          do {
+            urlConnection = (HttpsURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Cookie", "fdbuser=410c610cccf69f308fd32aba309579a3");
+            responseCode = urlConnection.getResponseCode();
+            if (responseCode == 429) {
+              Thread.sleep(1000 * 60 * 5);
+            }
+          } while (responseCode != 200);
+          JsonNode root;
+          try (var in = urlConnection.getInputStream()) {
+            root = Factory.OBJECT_MAPPER.readTree(in);
+          }
+          var id = root.get("id");
+          var status = root.get("status");
+          var o = id.isTextual() ? id.textValue() : Long.toString(id.longValue());
+          System.out.printf("%s<%d>: %s%n", o, unsignedString.length(), status.textValue());
+        }
+      }
     }
     return ExitCode.OK;
   }

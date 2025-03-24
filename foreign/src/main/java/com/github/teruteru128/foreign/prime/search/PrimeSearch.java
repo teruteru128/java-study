@@ -90,18 +90,32 @@ public class PrimeSearch implements Callable<Integer> {
     }
     var found = false;
     logger.debug("threads: {}", threads);
-    var list = inputList.stream().map(step -> new PrimeSearchTask2(even, step, source, id))
+    var list = inputList.stream().map(step -> new PrimeSearchTask2(even, step))
         .collect(Collectors.toCollection(() -> new ArrayList<>(size)));
     try (final var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory, null,
         true)) {
       final var service = new ExecutorCompletionService<Result>(pool);
       var futures = new ArrayList<Future<Result>>(size);
-      try {
-        list.forEach(sex -> futures.add(service.submit(sex)));
+      list.forEach(sex -> futures.add(service.submit(sex)));
+      try (var connection = source.getConnection()) {
         for (int j = size; j > 0; j--) {
           try {
             var foundStep = service.take().get();
+            var step = foundStep.step();
             var result = foundStep.result();
+            var sql = switch (result) {
+              case 0 -> "update candidates set composite = composite + 1 where id = ? and step = ?;";
+              case 1 ->
+                  "update candidates set probably_prime = probably_prime + 1 where id = ? and step = ?;";
+              case 2 ->
+                  "update candidates set definitely_prime = definitely_prime + 1 where id = ? and step = ?;";
+              default -> throw new RuntimeException("unknown result code: " + result);
+            };
+            try (var ps = connection.prepareStatement(sql)) {
+              ps.setLong(1, id);
+              ps.setInt(2, step);
+              ps.execute();
+            }
             if (result != 0) {
               found = true;
               logger.info("find prime: step {}", foundStep.step());
