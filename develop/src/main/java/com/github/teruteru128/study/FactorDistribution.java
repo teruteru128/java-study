@@ -11,7 +11,6 @@ import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
-import com.github.teruteru128.study.converters.UnsignedLongConverter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.lang.foreign.Arena;
@@ -56,14 +55,10 @@ public class FactorDistribution implements Callable<Integer> {
   private final Object lock = new Object();
   @Option(names = {"--num", "-n"})
   private long num = 300000;
-  @Option(names = {"--offset"})
-  private long offset;
-  @Option(names = {"--skip"}, converter = UnsignedLongConverter.class)
-  private long skip;
   @Parameters
   private Path in;
-  @Option(names = {"--period", "-p"})
-  private int period = 800;
+  @Option(names = {"--factors", "-f"}, description = {"Specifies the number of factors."})
+  private int factors = 5;
 
   public FactorDistribution() {
   }
@@ -81,9 +76,11 @@ public class FactorDistribution implements Callable<Integer> {
     mpz_init(n);
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(p);
-    for (long i = 0, max = num; i < max; i++) {
+    final long max = num;
+    final int fac = factors;
+    for (long i = 0; i < max; i++) {
       mpz_set_ui(n, 1);
-      for (int j = 0; j < 5; j++) {
+      for (int j = 0; j < fac; j++) {
         var index = random.nextLong(1L << 33);
         var file = (index >> 31) & 0x03;
         var number = index & 0x7fffffffL;
