@@ -1,6 +1,12 @@
 package com.github.teruteru128.study;
 
+import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul;
+import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.teruteru128.gmp.__mpz_struct;
@@ -19,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
+import java.util.random.RandomGenerator;
 import java.util.stream.Collectors;
 import javax.net.ssl.HttpsURLConnection;
 import org.slf4j.Logger;
@@ -48,7 +55,7 @@ public class FactorDistribution implements Callable<Integer> {
       });
   private final Object lock = new Object();
   @Option(names = {"--num", "-n"})
-  private long num = 1000;
+  private long num = 300000;
   @Option(names = {"--offset"})
   private long offset;
   @Option(names = {"--skip"}, converter = UnsignedLongConverter.class)
@@ -63,41 +70,56 @@ public class FactorDistribution implements Callable<Integer> {
 
   @Override
   public Integer call() throws IOException, InterruptedException {
+    var random = RandomGenerator.of("L64X128MixRandom");
     ArrayList<Path> paths;
     try (var lines = Files.lines(in, StandardCharsets.UTF_8)) {
-      paths = lines.filter(l -> !l.startsWith("#")).map(Path::of)
+      paths = lines.map(String::trim).filter(l -> !l.startsWith("#")).map(Path::of)
           .collect(Collectors.toCollection(ArrayList<Path>::new));
     }
-    for (Path path : paths) {
-      try (var file = new RandomAccessFile(path.toFile(), "r")) {
-        var numOfElements = file.length() / 8;
-        for (long i = 0; i < numOfElements; i++) {
-          var i1 = file.readLong();
-          if (Long.compareUnsigned(i1, skip) <= 0) {
-            continue;
-          }
-          var unsignedString = Long.toUnsignedString(i1);
-          var url = URI.create(Factory.ENDPOINT + unsignedString).toURL();
-          HttpsURLConnection urlConnection;
-          int responseCode;
-          do {
-            urlConnection = (HttpsURLConnection) url.openConnection();
-            urlConnection.setRequestProperty("Cookie", "fdbuser=410c610cccf69f308fd32aba309579a3");
-            responseCode = urlConnection.getResponseCode();
-            if (responseCode == 429) {
-              Thread.sleep(1000 * 60 * 5);
-            }
-          } while (responseCode != 200);
-          JsonNode root;
-          try (var in = urlConnection.getInputStream()) {
-            root = Factory.OBJECT_MAPPER.readTree(in);
-          }
-          var id = root.get("id");
-          var status = root.get("status");
-          var o = id.isTextual() ? id.textValue() : Long.toString(id.longValue());
-          System.out.printf("%s<%d>: %s%n", o, unsignedString.length(), status.textValue());
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(n);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    for (long i = 0, max = num; i < max; i++) {
+      mpz_set_ui(n, 1);
+      for (int j = 0; j < 5; j++) {
+        var index = random.nextLong(1L << 33);
+        var file = (index >> 31) & 0x03;
+        var number = index & 0x7fffffffL;
+        try (var f = new RandomAccessFile(paths.get((int) file).toFile(), "r")) {
+          f.seek(number * 8);
+          mpz_set_u64(p, f.readLong());
         }
+        mpz_mul(n, n, p);
       }
+      var length = mpz_sizeinbase(n, 10) + 2;
+      var str = auto.allocate(length);
+      mpz_get_str(str, 10, n);
+      var unsignedString = str.getString(0);
+      var url = URI.create(Factory.ENDPOINT + unsignedString).toURL();
+      HttpsURLConnection urlConnection;
+      int responseCode;
+      do {
+        urlConnection = (HttpsURLConnection) url.openConnection();
+        urlConnection.setRequestProperty("Cookie", "fdbuser=410c610cccf69f308fd32aba309579a3");
+        responseCode = urlConnection.getResponseCode();
+        if (responseCode != 200) {
+          urlConnection.disconnect();
+          if (responseCode == 429) {
+            Thread.sleep(1000 * 60 * 5);
+          }
+        }
+      } while (responseCode != 200);
+      JsonNode root;
+      try (var in = urlConnection.getInputStream()) {
+        root = Factory.OBJECT_MAPPER.readTree(in);
+      }
+      urlConnection.disconnect();
+      var id = root.get("id");
+      var status = root.get("status");
+      var o = id.isTextual() ? id.textValue() : Long.toString(id.longValue());
+      logger.info("{}<{}>: {}", o, unsignedString.length(), status.textValue());
     }
     return ExitCode.OK;
   }
