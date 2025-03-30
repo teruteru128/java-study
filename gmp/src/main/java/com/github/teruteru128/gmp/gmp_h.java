@@ -3014,7 +3014,7 @@ public class gmp_h {
      * void __gmpz_clrbit(mpz_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_clrbit(MemorySegment x0, int x1) {
+    private static void __gmpz_clrbit(MemorySegment x0, int x1) {
         var mh$ = __gmpz_clrbit.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -3024,6 +3024,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_clrbit(mpz_ptr, mp_bitcnt_t)
+     * }
+     */
+    public static void mpz_clrbit(MemorySegment rop, int bitIndex) {
+        __gmpz_clrbit(rop, bitIndex);
     }
 
     private static class __gmpz_cmp {
@@ -3767,7 +3775,7 @@ public class gmp_h {
      * int __gmpz_divisible_p(mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static int __gmpz_divisible_p(MemorySegment x0, MemorySegment x1) {
+    private static int __gmpz_divisible_p(MemorySegment x0, MemorySegment x1) {
         var mh$ = __gmpz_divisible_p.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -3777,6 +3785,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * int __gmpz_divisible_p(mpz_srcptr, mpz_srcptr)
+     * }
+     */
+    public static int mpz_divisible_p(MemorySegment n, MemorySegment d) {
+        return __gmpz_divisible_p(n, d);
     }
 
     private static class __gmpz_divisible_ui_p {
@@ -4215,7 +4231,7 @@ public class gmp_h {
      * void __gmpz_fdiv_q(mpz_ptr, mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static void __gmpz_fdiv_q(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+    private static void __gmpz_fdiv_q(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
         var mh$ = __gmpz_fdiv_q.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -4225,6 +4241,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_fdiv_q(mpz_ptr, mpz_srcptr, mpz_srcptr)
+     * }
+     */
+    public static void mpz_fdiv_q(MemorySegment q, MemorySegment n, MemorySegment d) {
+        __gmpz_fdiv_q(q, n, d);
     }
 
     private static class __gmpz_fdiv_q_2exp {
@@ -5763,8 +5787,8 @@ public class gmp_h {
      * int mpz_init_set_str(mpz_ptr, const char *, int)
      * }
      */
-    public static int mpz_init_set_str(MemorySegment x0, MemorySegment x1, int x2) {
-        return __gmpz_init_set_str(x0, x1, x2);
+    public static int mpz_init_set_str(MemorySegment rop, MemorySegment str, int base) {
+        return __gmpz_init_set_str(rop, str, base);
     }
 
     private static class __gmpz_init_set_ui {
@@ -5818,8 +5842,8 @@ public class gmp_h {
      * void mpz_init_set_ui(mpz_ptr, unsigned long)
      * }
      */
-    public static void mpz_init_set_ui(MemorySegment x0, int x1) {
-        __gmpz_init_set_ui(x0, x1);
+    public static void mpz_init_set_ui(MemorySegment rop, int op) {
+        __gmpz_init_set_ui(rop, op);
     }
 
     private static class __gmpz_invert {
@@ -7902,7 +7926,7 @@ public class gmp_h {
      * void __gmpz_setbit(mpz_ptr, mp_bitcnt_t)
      * }
      */
-    private static void __gmpz_setbit(MemorySegment x0, long x1) {
+    private static void __gmpz_setbit(MemorySegment x0, int x1) {
         var mh$ = __gmpz_setbit.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -7918,8 +7942,8 @@ public class gmp_h {
      * void mpz_setbit(mpz_ptr, mp_bitcnt_t)
      * }
      */
-    public static void mpz_setbit(MemorySegment x0, long x1) {
-        __gmpz_setbit(x0, x1);
+    public static void mpz_setbit(MemorySegment rop, int bitIndex) {
+        __gmpz_setbit(rop, bitIndex);
     }
 
     private static class __gmpz_sizeinbase {
@@ -9001,7 +9025,7 @@ public class gmp_h {
      * void __gmpz_urandomb(mpz_ptr, gmp_randstate_ptr, mp_bitcnt_t)
      * }
      */
-    public static void __gmpz_urandomb(MemorySegment x0, MemorySegment x1, int x2) {
+    private static void __gmpz_urandomb(MemorySegment x0, MemorySegment x1, int x2) {
         var mh$ = __gmpz_urandomb.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -9011,6 +9035,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_urandomb(mpz_ptr, gmp_randstate_ptr, mp_bitcnt_t)
+     * }
+     */
+    public static void mpz_urandomb(MemorySegment rop, MemorySegment state, int n) {
+        __gmpz_urandomb(rop, state, n);
     }
 
     private static class __gmpz_urandomm {

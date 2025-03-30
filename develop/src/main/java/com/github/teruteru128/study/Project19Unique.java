@@ -5,8 +5,6 @@ import static java.lang.foreign.ValueLayout.JAVA_LONG;
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
-import java.lang.foreign.ValueLayout.OfLong;
-import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.nio.file.Files;
@@ -24,7 +22,6 @@ public class Project19Unique implements Callable<Integer> {
 
   private static final long NUM_OF_ELEMENTS = 0x200000000L;
   private static final Logger logger = LoggerFactory.getLogger(Project19Unique.class);
-  private static final OfLong JAVA_LONG_WITH_BIG_ENDIAN = JAVA_LONG.withOrder(ByteOrder.BIG_ENDIAN);
   @Parameters
   private Path path0;
   @Parameters
@@ -46,7 +43,7 @@ public class Project19Unique implements Callable<Integer> {
     logger.info("load done: {} bytes, {} elements", outOffset, outOffset / 8);
     long previous_prime = 0;
     for (long i = 0; i < NUM_OF_ELEMENTS; i++) {
-      var prime = outSegment.getAtIndex(JAVA_LONG_WITH_BIG_ENDIAN, i);
+      var prime = outSegment.getAtIndex(Layouts.JAVA_LONG_WITH_BIG_ENDIAN, i);
       if (previous_prime == prime) {
         System.out.printf("%d: %s%n", i, Long.toUnsignedString(prime));
       }

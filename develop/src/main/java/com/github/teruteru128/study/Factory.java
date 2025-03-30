@@ -6,7 +6,9 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_divisible_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_fac_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_fdiv_q;
 import static com.github.teruteru128.gmp.gmp_h.mpz_gcd;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
@@ -1309,6 +1311,19 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
+  private int logNormal2() {
+    var distribution = LogNormalDistribution.of(Math.log(1), Double.MIN_NORMAL);
+    var sampler = distribution.createSampler(
+        new JDKRandomWrapper((Random) RandomGenerator.of("SecureRandom")));
+    long count = 0;
+    do {
+      count++;
+    } while (sampler.sample() == 1.);
+    System.out.println(count);
+    return ExitCode.OK;
+  }
+
+  @Command
   private int distributionRandomDigitsPrime() throws IOException {
     var auto = Arena.ofAuto();
     var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -1344,6 +1359,103 @@ public class Factory implements Callable<Integer> {
       var status = root.get("status");
       System.out.printf("%s<%d>: %s%n", id.isTextual() ? id.textValue() : id.longValue(),
           primeString.length(), status.textValue());
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int generatePrime(Path out, @Option(names = {"--max"}, defaultValue = "1000") long max)
+      throws IOException {
+    if (!Files.isDirectory(out)) {
+      return ExitCode.SOFTWARE;
+    }
+    var auto = Arena.ofAuto();
+    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(min, 10);
+    mpz_pow_ui(min, min, 18);
+    mpz_init_set(window, min);
+    mpz_mul_ui(window, window, 9);
+    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+    gmp_randinit_default(state);
+    Project19.initRandomState(state);
+
+    var d = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(d, 10);
+    mpz_pow_ui(d, d, 17);
+    var prefix = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(prefix);
+    var prime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(prime);
+    // 137438953472L
+    long unit = max / 1000;
+    long info = unit;
+    final var numOfPrefix = 100;
+    var bufferSizePerPrefix = 10000000;
+    var outPathArray = new Path[numOfPrefix];
+    long[] primeBuf = new long[bufferSizePerPrefix * numOfPrefix];
+    int[] primeNumArray = new int[numOfPrefix];
+    for (int i = 0; i < numOfPrefix; i++) {
+      outPathArray[i] = out.resolve("tmp%02d.bin".formatted(i));
+    }
+    for (long i = 0; i < max; i++) {
+      // 素数生成
+      mpz_urandomm(prime, state, window);
+      mpz_add(prime, prime, min);
+      mpz_nextprime(prime, prime);
+      mpz_fdiv_q(prefix, prime, d);
+      // primePrefix = [10, 100)
+      var primePrefix = (int) mpz_get_u64(prefix);
+      // 書き込み回数削減策
+      var primeLong = mpz_get_u64(prime);
+      // add array
+      primeBuf[primePrefix * bufferSizePerPrefix + primeNumArray[primePrefix]] = primeLong;
+      // index increment
+      primeNumArray[primePrefix]++;
+      if (primeNumArray[primePrefix] == bufferSizePerPrefix) {
+        // if array is full, foreach
+        try (var stream = new DataOutputStream(new BufferedOutputStream(
+            Files.newOutputStream(outPathArray[primePrefix], StandardOpenOption.CREATE,
+                StandardOpenOption.WRITE, StandardOpenOption.APPEND)))) {
+          for (int j = 0; j < bufferSizePerPrefix; j++) {
+            stream.writeLong(primeBuf[primePrefix * bufferSizePerPrefix + j]);
+          }
+        }
+        primeNumArray[primePrefix] = 0;
+        System.err.printf("wrote %d%n", primePrefix);
+      }
+      if (i >= info) {
+        System.err.printf("%f %% done%n", i * 100. / max);
+        info += unit;
+      }
+    }
+    // clean buffer
+    for (int prefixID = 10; prefixID < numOfPrefix; prefixID++) {
+      try (var stream = new DataOutputStream(new BufferedOutputStream(
+          Files.newOutputStream(outPathArray[prefixID], StandardOpenOption.CREATE,
+              StandardOpenOption.WRITE, StandardOpenOption.APPEND)))) {
+        var num = primeNumArray[prefixID];
+        for (int j = 0; j < num; j++) {
+          stream.writeLong(primeBuf[prefixID * numOfPrefix + j]);
+        }
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int factorBigN(Path in) throws IOException {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(n, auto.allocateFrom(Files.readString(in)), 10);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(p, 2);
+    for (int i = 0; i < 100000000; i++) {
+      if (mpz_divisible_p(n, p) != 0) {
+        var l = mpz_get_u64(p);
+        System.err.println(l);
+      }
+      mpz_nextprime(p, p);
     }
     return ExitCode.OK;
   }

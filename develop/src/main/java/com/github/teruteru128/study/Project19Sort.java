@@ -7,8 +7,6 @@ import com.github.teruteru128.foreign.opencl._CoreCrtSecureSearchSortCompareFunc
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
-import java.lang.foreign.ValueLayout.OfLong;
-import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.nio.file.Files;
@@ -24,7 +22,6 @@ import picocli.CommandLine.Parameters;
 @Command(name = "project19sort")
 public class Project19Sort implements Callable<Integer> {
 
-  public static final OfLong JAVA_LONG_WITH_BIG_ENDIAN = JAVA_LONG.withOrder(ByteOrder.BIG_ENDIAN);
   private static final Logger logger = LoggerFactory.getLogger(Project19Sort.class);
   @Parameters
   private Path path0;
@@ -57,8 +54,8 @@ public class Project19Sort implements Callable<Integer> {
     Runtime.getRuntime().gc();
     logger.trace("garbage collect done");
     qsort_s(outSegment, numOfElements, 8, _CoreCrtSecureSearchSortCompareFunction.allocate(
-        (_, b, c) -> Long.compareUnsigned(b.getAtIndex(JAVA_LONG_WITH_BIG_ENDIAN, 0),
-            c.getAtIndex(JAVA_LONG_WITH_BIG_ENDIAN, 0)), auto), MemorySegment.NULL);
+        (_, b, c) -> Long.compareUnsigned(b.getAtIndex(Layouts.JAVA_LONG_WITH_BIG_ENDIAN, 0),
+            c.getAtIndex(Layouts.JAVA_LONG_WITH_BIG_ENDIAN, 0)), auto), MemorySegment.NULL);
     logger.info("sort done");
     long outOffset1 = 0;
     outOffset1 = writePrimes(pathOut0, auto, outSegment, outOffset1);
