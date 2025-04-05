@@ -5,6 +5,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
+import static com.github.teruteru128.study.Layouts.JAVA_LONG_WITH_BIG_ENDIAN;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -13,12 +14,18 @@ import com.github.teruteru128.gmp.gmp_h;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.lang.foreign.Arena;
+import java.lang.foreign.MemorySegment;
 import java.net.URI;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.random.RandomGenerator;
 import java.util.stream.Collectors;
 import javax.net.ssl.HttpsURLConnection;
@@ -47,8 +54,19 @@ public class FactorDistribution implements Callable<Integer> {
   public FactorDistribution() {
   }
 
+  private static long getPrime(ArrayList<Path> paths, int file, long number) throws IOException {
+    long prime;
+    try (var f = new RandomAccessFile(paths.get(file).toFile(), "r")) {
+      f.seek(number * 8);
+      prime = f.readLong();
+    }
+    return prime;
+  }
+
   @Override
   public Integer call() throws IOException, InterruptedException {
+    var taskQueue = new LinkedBlockingQueue<String>(4);
+    var resultQueue = new LinkedBlockingQueue<Result>();
     var random = RandomGenerator.of("L64X128MixRandom");
     ArrayList<Path> paths;
     try (var lines = Files.lines(in, StandardCharsets.UTF_8)) {
@@ -56,6 +74,18 @@ public class FactorDistribution implements Callable<Integer> {
           .collect(Collectors.toCollection(ArrayList<Path>::new));
     }
     var auto = Arena.ofAuto();
+    var array = auto.allocate(JAVA_LONG_WITH_BIG_ENDIAN, 1L << 33);
+    logger.info("allocated");
+    for (int i = 0, pathsSize = paths.size(); i < pathsSize; i++) {
+      Path path = paths.get(i);
+      try (var channel = (FileChannel) Files.newByteChannel(path)) {
+        for (int j = 0; j < 8; j++) {
+          var map = channel.map(MapMode.READ_ONLY, 2147483648L * j, 2147483648L, auto);
+          MemorySegment.copy(map, 0, array, (i * 8L + j) * 2147483648L, 2147483648L);
+        }
+      }
+      logger.info("loaded {}", path.getFileName());
+    }
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(n);
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -65,10 +95,14 @@ public class FactorDistribution implements Callable<Integer> {
     for (long i = 0; i < max; i++) {
       mpz_set_ui(n, 1);
       for (int j = 0; j < fac; j++) {
-        var index = random.nextLong(1L << 33);
-        var file = (index >> 31) & 0x03;
-        var number = index & 0x7fffffffL;
-        long prime = getPrime(paths, (int) file, number);
+        // 10^18*sqrt(10)未満の個数
+        // 2063687771
+        long index = random.nextBoolean() ? random.nextInt(2063687771)
+            : random.nextLong(2063687771, 8589934592L);
+//        var file = (index >> 31) & 0x03;
+//        var number = index & 0x7fffffffL;
+//        long prime = getPrime(paths, (int) file, number);
+        long prime = array.getAtIndex(JAVA_LONG_WITH_BIG_ENDIAN, index);
         mpz_set_u64(p, prime);
         mpz_mul(n, n, p);
       }
@@ -86,7 +120,6 @@ public class FactorDistribution implements Callable<Integer> {
         if (responseCode != 200) {
           logger.warn("{} {}: {}", responseCode, urlConnection.getResponseMessage(),
               unsignedString);
-          urlConnection.disconnect();
           if (responseCode == 429) {
             Thread.sleep(1000 * 60 * 5);
           }
@@ -96,7 +129,6 @@ public class FactorDistribution implements Callable<Integer> {
       try (var in = urlConnection.getInputStream()) {
         root = Factory.OBJECT_MAPPER.readTree(in);
       }
-      urlConnection.disconnect();
       var id = root.get("id");
       var status = root.get("status");
       var o = id.isTextual() ? id.textValue() : Long.toString(id.longValue());
@@ -105,16 +137,44 @@ public class FactorDistribution implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  private static long getPrime(ArrayList<Path> paths, int file, long number) throws IOException {
-    long prime;
-    try (var f = new RandomAccessFile(paths.get(file).toFile(), "r")) {
-      f.seek(number * 8);
-      prime = f.readLong();
+  private interface PrimeAccess {
+
+    long getPrime(long primeId);
+  }
+
+  private static class PrimeAccessFactory {
+
+    public static PrimeAccess getInstance() {
+      return null;
     }
-    return prime;
+  }
+
+  private static class MemoryBufferedPrimeAccess implements PrimeAccess {
+
+    MemoryBufferedPrimeAccess(List<Path> paths) {
+    }
+
+    @Override
+    public long getPrime(long primeId) {
+      return 0;
+    }
+  }
+
+  private static class ReadFileEachTimePrimeAccess implements PrimeAccess {
+
+    public ReadFileEachTimePrimeAccess(List<Path> paths) {
+    }
+
+    @Override
+    public long getPrime(long primeId) {
+      return 0;
+    }
   }
 
   private static class Producer implements Runnable {
+
+    public Producer(BlockingQueue<String> taskQueue, PrimeAccess primeSource) {
+    }
 
     @Override
     public void run() {
@@ -124,6 +184,9 @@ public class FactorDistribution implements Callable<Integer> {
 
   private static class Processor implements Runnable {
 
+    public Processor(BlockingQueue<Result> results, BlockingQueue<String> tasks) {
+    }
+
     @Override
     public void run() {
 
@@ -132,9 +195,16 @@ public class FactorDistribution implements Callable<Integer> {
 
   private static class Consumer implements Runnable {
 
+    public Consumer(BlockingQueue<Result> results) {
+    }
+
     @Override
     public void run() {
 
     }
+  }
+
+  private record Result(String id, String status) {
+
   }
 }

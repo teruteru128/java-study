@@ -32,6 +32,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
 import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
+import static com.github.teruteru128.study.Layouts.JAVA_LONG_WITH_BIG_ENDIAN;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_u64;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import static java.lang.Integer.parseInt;
@@ -77,6 +78,7 @@ import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
+import java.lang.foreign.MemorySegment;
 import java.lang.foreign.SymbolLookup;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
@@ -397,12 +399,8 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command(name = "lotto7")
-  private static void lotto7(String[] args) {
-    if (args.length >= 2) {
-      Lottery.getLotto7Numbers(parseInt(args[1]));
-    } else {
-      Lottery.getLotto7Numbers(1);
-    }
+  private static void lotto7(@Parameters(defaultValue = "1") int count) {
+    Lottery.getLotto7Numbers(count);
   }
 
   @Command(name = "telnet-tor")
@@ -1456,6 +1454,56 @@ public class Factory implements Callable<Integer> {
         System.err.println(l);
       }
       mpz_nextprime(p, p);
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int genN(@Option(names = {"--num"}, defaultValue = "20") final int num) {
+    long l;
+    long tmp;
+    for (int i = 0; i < num; i++) {
+      do {
+        l = SECURE_RANDOM_GENERATOR.nextLong();
+        tmp = l + 0x8000000000000000L;
+      } while (0x8DE0B6B3A7640000L > tmp || tmp > 0x0AC7230489E80000L);
+      System.out.println(Long.toUnsignedString(l));
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int du() {
+    var max = 2 * 365 * 86400;
+    var min = 2 * 60;
+    for (int i = 0; i < 10; i++) {
+      var du1 = SECURE_RANDOM_GENERATOR.nextInt(min, max);
+      var du2 = Duration.of(du1, ChronoUnit.SECONDS);
+      var now = LocalDateTime.now();
+      var time = now.plus(du2);
+      System.out.printf("%s = %s + %s%n", time, du2, now);
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int bSearch(Path in) throws IOException {
+    var size = in.getFileSystem().provider().getFileAttributeView(in, BasicFileAttributeView.class)
+        .readAttributes().size();
+    var elements = Math.clamp(size / 8, 0, Integer.MAX_VALUE - 2);
+    var auto = Arena.ofAuto();
+    var array = new long[elements];
+    try (var channel = (FileChannel) Files.newByteChannel(in, StandardOpenOption.READ)) {
+      var map = channel.map(MapMode.READ_ONLY, 0, size, auto);
+      System.err.println("マップを作成しました");
+      MemorySegment.copy(map, JAVA_LONG_WITH_BIG_ENDIAN, 0, array, 0, elements);
+    }
+    System.err.println("読み込み終わり");
+    var i = Arrays.binarySearch(array, 3162277660168379331L);
+    if (i < 0) {
+      System.out.println(array[-i - 2]);
+      System.out.println(array[-i - 1]);
+      System.out.println(array[-i]);
     }
     return ExitCode.OK;
   }

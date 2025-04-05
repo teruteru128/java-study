@@ -1,11 +1,12 @@
 package com.github.teruteru128.study;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousServerSocketChannel;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.function.Supplier;
 import javax.net.ssl.SSLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,11 +39,60 @@ class ServerAcceptHandler implements CompletionHandler<AsynchronousSocketChannel
   }
 
   @Override
-  public void completed(AsynchronousSocketChannel result, Object attachment) {
+  public void completed(AsynchronousSocketChannel socket, Object attachment) {
     if (serverSocketChannel.isOpen()) {
       serverSocketChannel.accept(attachment, this);
     }
 
+    var buffer = ByteBuffer.allocate(8192);
+    socket.read(buffer, buffer, new CompletionHandler<Integer, ByteBuffer>() {
+      @Override
+      public void completed(Integer result, ByteBuffer attachment) {
+        if (result < 0) {
+          return;
+        }
+
+        if (buffer.hasRemaining()) {
+          socket.read(attachment, attachment, this);
+          return;
+        }
+
+        buffer.flip();
+
+        socket.write(buffer, buffer, new CompletionHandler<Integer, ByteBuffer>() {
+          @Override
+          public void completed(Integer result, ByteBuffer attachment) {
+            System.out.println("SERVER: Write " + result);
+            if (result == 0) {
+              logger.error("", new IOException("Write Error"));
+              return;
+            }
+
+            if (buffer.hasRemaining()) {
+              socket.write(buffer, buffer, this);
+              return;
+            }
+
+            System.out.println("SERVER: Done " + Arrays.toString(buffer.array()));
+
+            try {
+              socket.close();
+            } catch (IOException _) {
+            }
+          }
+
+          @Override
+          public void failed(Throwable exc, ByteBuffer attachment) {
+            logger.error("", exc);
+          }
+        });
+      }
+
+      @Override
+      public void failed(Throwable exc, ByteBuffer attachment) {
+        logger.error("", exc);
+      }
+    });
   }
 
   @Override
