@@ -152,7 +152,7 @@ import picocli.CommandLine.Parameters;
     Deterministic.class, CreatePrimeNumberCandidateDB.class, SmallSievePrimeCounter.class,
     NewColorGenerator.class, Multi2.class, Project5190.class, Project19.class, Project19F.class,
     Project19Sort.class, Project19Unique.class, Spammer.class, Spam2.class,
-    FactorDistribution.class}, mixinStandardHelpOptions = true)
+    FactorDistribution.class, Project19G.class}, mixinStandardHelpOptions = true)
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
@@ -1505,6 +1505,36 @@ public class Factory implements Callable<Integer> {
       System.out.println(array[-i - 1]);
       System.out.println(array[-i]);
     }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int prime1919191919419() throws IOException {
+    int i = 4007;
+    do {
+      var s = "19".repeat(i) + "419";
+      var length = s.length();
+      if (length >= 10000) {
+        break;
+      }
+      var url = URI.create(ENDPOINT + s).toURL();
+      HttpsURLConnection urlConnection;
+      int responseCode;
+      do {
+        urlConnection = (HttpsURLConnection) url.openConnection();
+        urlConnection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+        responseCode = urlConnection.getResponseCode();
+      } while (responseCode != 200);
+      JsonNode root;
+      try (var in = new BufferedInputStream(urlConnection.getInputStream())) {
+        root = OBJECT_MAPPER.readTree(in);
+      }
+      var id = root.get("id");
+      var status = root.get("status");
+      System.out.println(
+          (id.isTextual() ? id.textValue() : id.longValue()) + "<" + length + "> : " + status);
+      i++;
+    } while (true);
     return ExitCode.OK;
   }
 

@@ -9,6 +9,8 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
 import static com.github.teruteru128.study.Factory.ARRAY_ELEMENTS_MAX;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
+
 import com.github.teruteru128.util.gmp.mpz.Functions;
 
 import com.github.teruteru128.gmp.__gmp_randstate_struct;
@@ -51,7 +53,8 @@ public class Project19F implements Callable<Integer> {
     mpz_pow_ui(min, min, 18);
     var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     // 10^19未満で最大の素数 9999999999999999961 - min = 8999999999999999961
-    mpz_init_set_str(window, auto.allocateFrom("8999999999999999961"), 10);
+    mpz_init(window);
+    mpz_set_u64(window, 8999999999999999961L);
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
     Project19.initRandomState(state);
