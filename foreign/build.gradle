@@ -2,7 +2,7 @@ plugins {
     id 'com.github.teruteru128.study.java-application-conventions'
 }
 
-version = '1.4.4-SNAPSHOT'
+version = '1.4.5-SNAPSHOT'
 
 java {
     toolchain {

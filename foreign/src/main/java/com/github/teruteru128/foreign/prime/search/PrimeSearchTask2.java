@@ -43,14 +43,12 @@ public class PrimeSearchTask2 implements Callable<Result> {
     int result;
     long start;
     long finish;
-    logger.debug("current step: {}", step);
     start = System.nanoTime();
     result = mpz_probab_prime_p(candidate, 25);
     finish = System.nanoTime();
-    logger.info("step {}: {}({} hours)", step, result, (finish - start) / 3.6e12);
     // {@code result != 0} で十分だと思うんだが
     // return result == 1 || result == 2 ? Optional.of(step) : Optional.empty();
-    return new Result(step, result);
+    return new Result(step, result, start, finish);
   }
 
 }

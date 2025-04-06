@@ -85,7 +85,7 @@ public class PrimeSearch implements Callable<Integer> {
     logger.info("start");
     var size = inputList.size();
     logger.debug("Number of prime number candidates: {}", size);
-    if(doShuffle) {
+    if (doShuffle) {
       Collections.shuffle(inputList, RandomGenerator.of("SecureRandom"));
     }
     var found = false;
@@ -98,31 +98,35 @@ public class PrimeSearch implements Callable<Integer> {
       var futures = new ArrayList<Future<Result>>(size);
       list.forEach(sex -> futures.add(service.submit(sex)));
       try (var connection = source.getConnection()) {
-        for (int j = size; j > 0; j--) {
-          try {
-            var foundStep = service.take().get();
-            var step = foundStep.step();
-            var result = foundStep.result();
-            var sql = switch (result) {
-              case 0 -> "update candidates set composite = composite + 1 where id = ? and step = ?;";
-              case 1 ->
-                  "update candidates set probably_prime = probably_prime + 1 where id = ? and step = ?;";
-              case 2 ->
-                  "update candidates set definitely_prime = definitely_prime + 1 where id = ? and step = ?;";
-              default -> throw new RuntimeException("unknown result code: " + result);
-            };
-            try (var ps = connection.prepareStatement(sql)) {
+        try (var ps0 = connection.prepareStatement(
+            "update candidates set composite = composite + 1 where id = ? and step = ?;"); var ps1 = connection.prepareStatement(
+            "update candidates set probably_prime = probably_prime + 1 where id = ? and step = ?;"); var ps2 = connection.prepareStatement(
+            "update candidates set definitely_prime = definitely_prime + 1 where id = ? and step = ?;")) {
+          for (int j = size; j > 0; j--) {
+            try {
+              var foundStep = service.take().get();
+              var step = foundStep.step();
+              var result = foundStep.result();
+              var start = foundStep.start();
+              var finish = foundStep.finish();
+              logger.info("step {}: {}({} hours)", step, result, (finish - start) / 3.6e12);
+              var ps = switch (result) {
+                case 0 -> ps0;
+                case 1 -> ps1;
+                case 2 -> ps2;
+                default -> throw new RuntimeException("unknown result code: " + result);
+              };
               ps.setLong(1, id);
               ps.setInt(2, step);
               ps.execute();
+              if (result != 0) {
+                found = true;
+                logger.info("find prime: step {}", foundStep.step());
+                System.err.println('\007');
+                break;
+              }
+            } catch (ExecutionException ignored) {
             }
-            if (result != 0) {
-              found = true;
-              logger.info("find prime: step {}", foundStep.step());
-              System.err.println('\007');
-              break;
-            }
-          } catch (ExecutionException ignored) {
           }
         }
       } finally {
