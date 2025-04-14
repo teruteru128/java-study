@@ -2106,8 +2106,8 @@ public class gmp_h {
      * void mpz_add_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static void mpz_add_ui(MemorySegment w, MemorySegment u, int vval) {
-        __gmpz_add_ui(w, u, vval);
+    public static void mpz_add_ui(MemorySegment rop, MemorySegment op1, int op2) {
+        __gmpz_add_ui(rop, op1, op2);
     }
 
     private static class __gmpz_addmul {
@@ -3842,6 +3842,14 @@ public class gmp_h {
            throw new AssertionError("should not reach here", ex$);
         }
     }
+    /**
+     * {@snippet lang=c :
+     * int mpz_divisible_ui_p(mpz_srcptr, unsigned long)
+     * }
+     */
+    public static int mpz_divisible_ui_p(MemorySegment n, int d) {
+        return __gmpz_divisible_ui_p(n, d);
+    }
 
     private static class __gmpz_divisible_2exp_p {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
@@ -5545,12 +5553,12 @@ public class gmp_h {
             return descriptor;
         }
 
-        public void apply(MemorySegment x0, Object... x1) {
+        public void apply(MemorySegment x, Object... y) {
             try {
                 if (TRACE_DOWNCALLS) {
-                    traceDowncall("__gmpz_inits", x0, x1);
+                    traceDowncall("__gmpz_inits", x, y);
                 }
-                spreader.invokeExact(x0, x1);
+                spreader.invokeExact(x, y);
             } catch(IllegalArgumentException | ClassCastException ex$)  {
                 throw ex$; // rethrow IAE from passing wrong number/type of args
             } catch (Throwable ex$) {
@@ -8205,8 +8213,8 @@ public class gmp_h {
      * void mpz_sub_ui(mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static void mpz_sub_ui(MemorySegment x0, MemorySegment x1, int x2) {
-        __gmpz_sub_ui(x0, x1, x2);
+    public static void mpz_sub_ui(MemorySegment rop, MemorySegment op1, int op2) {
+        __gmpz_sub_ui(rop, op1, op2);
     }
 
     private static class __gmpz_ui_sub {
@@ -8977,7 +8985,7 @@ public class gmp_h {
      * void __gmpz_ui_pow_ui(mpz_ptr, unsigned long, unsigned long)
      * }
      */
-    public static void __gmpz_ui_pow_ui(MemorySegment x0, int x1, int x2) {
+    private static void __gmpz_ui_pow_ui(MemorySegment x0, int x1, int x2) {
         var mh$ = __gmpz_ui_pow_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -8987,6 +8995,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_ui_pow_ui(mpz_ptr, unsigned long, unsigned long)
+     * }
+     */
+    public static void mpz_ui_pow_ui(MemorySegment rop, int base, int exp) {
+        __gmpz_ui_pow_ui(rop, base, exp);
     }
 
     private static class __gmpz_urandomb {
@@ -9578,12 +9594,12 @@ public class gmp_h {
             return descriptor;
         }
 
-        public void apply(MemorySegment x0, Object... x1) {
+        public void apply(MemorySegment x, Object... y) {
             try {
                 if (TRACE_DOWNCALLS) {
-                    traceDowncall("__gmpq_clears", x0, x1);
+                    traceDowncall("__gmpq_clears", x, y);
                 }
-                spreader.invokeExact(x0, x1);
+                spreader.invokeExact(x, y);
             } catch(IllegalArgumentException | ClassCastException ex$)  {
                 throw ex$; // rethrow IAE from passing wrong number/type of args
             } catch (Throwable ex$) {

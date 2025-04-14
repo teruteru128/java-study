@@ -30,6 +30,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_ui_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
 import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
 import static com.github.teruteru128.study.Layouts.JAVA_LONG_WITH_BIG_ENDIAN;
@@ -66,6 +67,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -123,6 +125,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.TimeZone;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.random.RandomGenerator;
@@ -1535,6 +1538,312 @@ public class Factory implements Callable<Integer> {
           (id.isTextual() ? id.textValue() : id.longValue()) + "<" + length + "> : " + status);
       i++;
     } while (true);
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int largeP() {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 2);
+    var co = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(co);
+    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(min);
+    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(window);
+    // 9999999999999999961UL
+    mpz_set_u64(window, 0x8AC7230489E7FFD9L);
+    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+    gmp_randinit_default(state);
+    Project19.initRandomState(state);
+    var target = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(target, 10);
+    mpz_pow_ui(target, target, 399999);
+    var set = new TreeSet<>(Long::compareUnsigned);
+    set.add(2L);
+    long tmp;
+    while (true) {
+      while (mpz_cmp(n, target) < 0) {
+        do {
+          mpz_urandomm(co, state, window);
+          mpz_nextprime(co, co);
+          tmp = mpz_get_u64(co);
+        } while (set.contains(tmp));
+        set.add(tmp);
+        mpz_mul(n, n, co);
+      }
+
+      var length = mpz_sizeinbase(n, 10) + 2;
+      var str = auto.allocate(length);
+      mpz_get_str(str, 10, n);
+
+      var string = str.getString(0);
+      logger.info("{} digits, {} primes", string.length(), set.size());
+      var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init(p);
+
+      mpz_sub_ui(p, n, 1);
+      var result1 = mpz_probab_prime_p(p, 25);
+      logger.info("n-1: {}", result1);
+      mpz_add_ui(p, n, 1);
+      var result2 = mpz_probab_prime_p(p, 25);
+      logger.info("n+1: {}", result2);
+      if (result1 != 0 || result2 != 0) {
+        logger.info("{}", string);
+        set.forEach(l -> logger.info("{}", Long.toUnsignedString(l)));
+        break;
+      }
+      mpz_set_ui(n, 2);
+      set.clear();
+      set.add(2L);
+    }
+    return ExitCode.OK;
+  }
+
+  /**
+   * 6^n*2^m+-1で素数探そうぜ！企画
+   * @return null
+   */
+  @Command
+  private int sixP() {
+    int expOf6;
+    int expOf2;
+    var auto = Arena.ofAuto();
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    var pAdd1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(pAdd1);
+    var pSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(pSub1);
+    var co2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(co2);
+    var co6 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(co6);
+    var max = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(max);
+    mpz_ui_pow_ui(max, 10, 449999);
+    int show;
+    for (expOf2 = 1; expOf2 < 5; expOf2++) {
+      mpz_ui_pow_ui(co2, 2, expOf2);
+      if (expOf2 == 1) {
+        expOf6 = 15775;
+      } else {
+        expOf6 = 0;
+      }
+      show = 0;
+      while (true) {
+        mpz_ui_pow_ui(co6, 6, expOf6);
+        mpz_mul(p, co2, co6);
+        mpz_add_ui(pAdd1, p, 1);
+        mpz_sub_ui(pSub1, p, 1);
+        var i = mpz_probab_prime_p(pAdd1, 25);
+        if (i != 0) {
+          logger.info("2^{}*6^{}+1: {}", expOf2, expOf6, i);
+        }
+        var i1 = mpz_probab_prime_p(pSub1, 25);
+        if (i1 != 0) {
+          logger.info("2^{}*6^{}-1: {}", expOf2, expOf6, i1);
+        }
+        int length1;
+        {
+          var length = mpz_sizeinbase(pSub1, 10) + 2;
+          var str = auto.allocate(length);
+          mpz_get_str(str, 10, pSub1);
+          length1 = str.getString(0).length();
+        }
+        if (length1 >= show) {
+          while (length1 >= show) {
+            show += 1000;
+          }
+          System.err.printf("digits: %d%n", length1);
+        }
+        if (mpz_cmp(pSub1, max) >= 0) {
+          break;
+        }
+        expOf6++;
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int small(Path pIn, Path smallSieve,
+      @Option(names = {"--initial-step", "-s"}, defaultValue = "0") long step)
+      throws IOException, ClassNotFoundException {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(n, auto.allocateFrom(Files.readString(pIn)), 10);
+    long[] array;
+    try (var oin = new ObjectInputStream(
+        new BufferedInputStream(Files.newInputStream(smallSieve, StandardOpenOption.READ)))) {
+      oin.readLong();
+      array = (long[]) oin.readObject();
+    }
+    long length = array.length * 64L;
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    for (long i = step; i < length; i++) {
+      if ((array[(int) (i >> 6)] & (1L << (i & 0x3f))) != 0) {
+        continue;
+      }
+      var prime = i * 2 + 1;
+      mpz_set_u64(p, prime);
+      if (mpz_divisible_p(n, p) != 0) {
+        System.out.println(prime);
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int splitIt() {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(n);
+    mpz_set_u64(n, 2314598025398506763L);
+    mpz_pow_ui(n, n, 32);
+    mpz_add_ui(n, n, 1);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(p, 2);
+    while (mpz_cmp_ui(p, 1000000000) < 0) {
+      if (mpz_divisible_p(n, p) != 0) {
+        System.out.println(Long.toUnsignedString(mpz_get_u64(p)));
+      }
+      mpz_nextprime(p, p);
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int largeOrion() {
+    var auto = Arena.ofAuto();
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(n);
+    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(min, 10);
+    mpz_pow_ui(min, min, 18);
+    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    // 10^19未満で最大の素数 9999999999999999961 - min = 8999999999999999961
+    mpz_init(window);
+    mpz_set_u64(window, 8999999999999999961L);
+    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+    gmp_randinit_default(state);
+    Project19.initRandomState(state);
+    var set = new TreeSet<>(Long::compareUnsigned);
+    long tmp;
+    var nSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(nSub1);
+    var nAdd1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(nAdd1);
+    int count = 0;
+    boolean fo;
+    while (count < 10) {
+      mpz_set_ui(n, 2);
+      set.add(2L);
+      for (int j = 0; j < 2000; j++) {
+        do {
+          mpz_urandomm(p, state, window);
+          mpz_add(p, p, min);
+          mpz_nextprime(p, p);
+          tmp = mpz_get_u64(p);
+          fo = set.contains(tmp);
+          if (fo) {
+            System.err.println("collision! " + Long.toUnsignedString(tmp));
+          }
+        } while (fo);
+        set.add(tmp);
+        mpz_mul(n, n, p);
+      }
+      mpz_sub_ui(nSub1, n, 1);
+      mpz_add_ui(nAdd1, n, 1);
+      var resultSub1 = mpz_probab_prime_p(nSub1, 25);
+      if (resultSub1 != 0) {
+        var length = mpz_sizeinbase(nSub1, 10) + 2;
+        var str = auto.allocate(length);
+        mpz_get_str(str, 10, nSub1);
+        logger.info(str.getString(0));
+        logger.info("n-1");
+      }
+      var resultAdd1 = mpz_probab_prime_p(nAdd1, 25);
+      if (resultAdd1 != 0) {
+        var length = mpz_sizeinbase(nAdd1, 10) + 2;
+        var str = auto.allocate(length);
+        mpz_get_str(str, 10, nAdd1);
+        logger.info(str.getString(0));
+        logger.info("n+1");
+      }
+      if (resultSub1 != 0 || resultAdd1 != 0) {
+        for (long l : set) {
+          logger.info(Long.toUnsignedString(l));
+        }
+        count++;
+      }
+      set.clear();
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int formatPrimes(Path in) throws IOException {
+    try (var d = new DataInputStream(
+        new BufferedInputStream(Files.newInputStream(in, StandardOpenOption.READ),
+            0x7fffffff - 2))) {
+      for (int i = 0; i < 16777216; i++) {
+        System.out.println(Long.toUnsignedString(d.readLong()));
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int mulAndGcd(Path pin) throws IOException, SQLException {
+    var source = new SQLiteDataSource();
+    source.setUrl(System.getenv("DB_URL"));
+    var steps = new ArrayList<Long>();
+    try (var connection = source.getConnection(); var statement = connection.prepareStatement(
+        "SELECT step from candidates where id = ? and composite = 0 and probably_prime = 0 and definitely_prime = 0;")) {
+      statement.setLong(1, 0x32ec7597040b4f0cL);
+      try (var set = statement.executeQuery()) {
+        while (set.next()) {
+          steps.add(set.getLong("step"));
+        }
+      }
+    }
+    System.err.println(steps.size());
+    var auto = Arena.ofAuto();
+    var iv = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(iv, auto.allocateFrom(Files.readString(pin)), 10);
+    var product = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(product, 1);
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 1);
+    var step = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(step, 1);
+    var gcd = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(gcd, 1);
+    for (int i = 0, stepsSize = steps.size(); i < stepsSize; i++) {
+      var l = steps.get(i);
+      mpz_set_u64(step, l * 2L + 1);
+      mpz_add(n, iv, step);
+
+      mpz_gcd(gcd, product, n);
+      if (mpz_cmp_ui(gcd, 1) != 0 && mpz_cmp(gcd, n) != 0) {
+        var length1 = mpz_sizeinbase(gcd, 10) + 2;
+        var str1 = auto.allocate(length1);
+        mpz_get_str(str1, 10, gcd);
+        System.out.println("f1! " + str1.getString(0));
+        var length2 = mpz_sizeinbase(n, 10) + 2;
+        var str2 = auto.allocate(length2);
+        mpz_get_str(str2, 10, n);
+        System.out.println("f2! " + str2.getString(0));
+        mpz_remove(n, n, gcd);
+      }
+      mpz_mul(product, product, n);
+      System.err.println(i + " / " + stepsSize + "(" + 100. * i / stepsSize + " %)");
+    }
     return ExitCode.OK;
   }
 

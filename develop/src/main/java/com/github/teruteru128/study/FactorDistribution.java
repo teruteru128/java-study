@@ -1,21 +1,27 @@
 package com.github.teruteru128.study;
 
+import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
-import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul;
+import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import static com.github.teruteru128.study.Layouts.JAVA_LONG_WITH_BIG_ENDIAN;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
+import static java.lang.foreign.MemorySegment.NULL;
+import static java.lang.foreign.ValueLayout.ADDRESS;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
+import com.github.teruteru128.gmp.gmp_h.mpz_inits;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.net.URI;
+import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.StandardCharsets;
@@ -63,6 +69,24 @@ public class FactorDistribution implements Callable<Integer> {
     return prime;
   }
 
+  private static HttpsURLConnection getHttpsURLConnection(URL url, String string)
+      throws IOException, InterruptedException {
+    HttpsURLConnection urlConnection;
+    int responseCode;
+    do {
+      urlConnection = (HttpsURLConnection) url.openConnection();
+      urlConnection.setRequestProperty("Cookie", FactorDatabase.FDB_USER_COOKIE);
+      responseCode = urlConnection.getResponseCode();
+      if (responseCode != 200) {
+        logger.warn("{} {}: {}", responseCode, urlConnection.getResponseMessage(), string);
+        if (responseCode == 429) {
+          Thread.sleep(1000 * 60 * 5);
+        }
+      }
+    } while (responseCode != 200);
+    return urlConnection;
+  }
+
   @Override
   public Integer call() throws IOException, InterruptedException {
     var taskQueue = new LinkedBlockingQueue<String>(4);
@@ -87,9 +111,10 @@ public class FactorDistribution implements Callable<Integer> {
       logger.info("loaded {}", path.getFileName());
     }
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(n);
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(p);
+    var nSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    var nAdd1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_inits.makeInvoker(ADDRESS, ADDRESS, ADDRESS, ADDRESS).apply(n, p, nSub1, nAdd1, NULL);
     final long max = num;
     final int fac = factors;
     for (long i = 0; i < max; i++) {
@@ -106,35 +131,35 @@ public class FactorDistribution implements Callable<Integer> {
         mpz_set_u64(p, prime);
         mpz_mul(n, n, p);
       }
-      var length = mpz_sizeinbase(n, 10) + 2;
-      var str = auto.allocate(length);
-      mpz_get_str(str, 10, n);
-      var unsignedString = str.getString(0);
-      var url = URI.create(Factory.ENDPOINT + unsignedString).toURL();
-      HttpsURLConnection urlConnection;
-      int responseCode;
-      do {
-        urlConnection = (HttpsURLConnection) url.openConnection();
-        urlConnection.setRequestProperty("Cookie", "fdbuser=410c610cccf69f308fd32aba309579a3");
-        responseCode = urlConnection.getResponseCode();
-        if (responseCode != 200) {
-          logger.warn("{} {}: {}", responseCode, urlConnection.getResponseMessage(),
-              unsignedString);
-          if (responseCode == 429) {
-            Thread.sleep(1000 * 60 * 5);
-          }
-        }
-      } while (responseCode != 200);
-      JsonNode root;
-      try (var in = urlConnection.getInputStream()) {
-        root = Factory.OBJECT_MAPPER.readTree(in);
+      extracted(n, auto);
+      mpz_sub_ui(nSub1, n, 1);
+      mpz_add_ui(nAdd1, n, 1);
+      if (mpz_probab_prime_p(nSub1, 25) != 0) {
+        extracted(nSub1, auto);
       }
-      var id = root.get("id");
-      var status = root.get("status");
-      var o = id.isTextual() ? id.textValue() : Long.toString(id.longValue());
-      logger.info("{}<{}>: {}", o, unsignedString.length(), status.textValue());
+      if (mpz_probab_prime_p(nAdd1, 25) != 0) {
+        extracted(nAdd1, auto);
+      }
     }
     return ExitCode.OK;
+  }
+
+  private static void extracted(MemorySegment n, Arena auto)
+      throws IOException, InterruptedException {
+    var length = mpz_sizeinbase(n, 10) + 2;
+    var str = auto.allocate(length);
+    mpz_get_str(str, 10, n);
+    var string = str.getString(0);
+    var url = URI.create(Factory.ENDPOINT + string).toURL();
+    var urlConnection = getHttpsURLConnection(url, string);
+    JsonNode root;
+    try (var in = urlConnection.getInputStream()) {
+      root = Factory.OBJECT_MAPPER.readTree(in);
+    }
+    var id = root.get("id");
+    var status = root.get("status");
+    var o = id.isTextual() ? id.textValue() : Long.toString(id.longValue());
+    logger.info("{}<{}>: {}", o, string.length(), status.textValue());
   }
 
   private interface PrimeAccess {
