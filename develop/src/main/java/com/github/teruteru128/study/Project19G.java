@@ -106,7 +106,7 @@ public class Project19G implements Callable<Integer> {
     mpz_init(nAdd1);
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
-    Project19.initRandomState(state);
+    Project19.seedRandomState(state);
     for (long i = 0; i < num; i++) {
       for (int j = 0; j < 5; j++) {
         mpz_urandomm(p, state, window);

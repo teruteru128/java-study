@@ -3,7 +3,6 @@ package com.github.teruteru128.study;
 import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
-import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
@@ -57,7 +56,7 @@ public class Project19F implements Callable<Integer> {
     mpz_set_u64(window, 8999999999999999961L);
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
-    Project19.initRandomState(state);
+    Project19.seedRandomState(state);
     logger.info("random state initialized.");
     long prime;
     var paths = new Path[]{out0, out1};

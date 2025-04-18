@@ -65,7 +65,7 @@ public class Project19 implements Callable<Integer> {
     mpz_sub(window, window, min);
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
-    initRandomState(state);
+    seedRandomState(state);
     // ScheduledThreadPoolExecutor
     try (var executor = new ScheduledThreadPoolExecutor(4)) {
       var latch = new CountDownLatch(count);
@@ -84,7 +84,7 @@ public class Project19 implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  public static void initRandomState(MemorySegment state) {
+  public static void seedRandomState(MemorySegment state) {
     var auto = Arena.ofAuto();
     var seed = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(seed);

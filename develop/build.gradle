@@ -31,7 +31,7 @@ application {
     mainClass = 'com.github.teruteru128.study.Main'
     applicationDefaultJvmArgs = [
             '-Xmx96G',
-            '--enable-native-access=com.github.teruteru.study,com.github.teruteru.foreign.gmp,com.github.teruteru.foreign.opencl'
+            '--enable-native-access=com.github.teruteru.study,com.github.teruteru.foreign.gmp,com.github.teruteru.foreign.opencl,com.github.teruteru.foreign.mpfr'
     ]
 }
 
@@ -44,12 +44,16 @@ dependencies {
     implementation project(':encode')
     implementation project(':foreign')
     implementation project(':gmp')
+    implementation project(':mpfr')
     implementation project(':opencl')
     implementation project(':resources')
     implementation project(':time')
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-rng-simple
     implementation 'org.apache.commons:commons-rng-simple:1.5'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-statistics-descriptive
+    implementation 'org.apache.commons:commons-statistics-descriptive:1.1'
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-statistics-distribution
     implementation 'org.apache.commons:commons-statistics-distribution:1.0'

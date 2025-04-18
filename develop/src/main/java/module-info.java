@@ -12,6 +12,7 @@ module com.github.teruteru.study {
 
   //requires com.google.gson;
   requires org.apache.commons.rng.simple;
+  requires org.apache.commons.statistics.descriptive;
   requires org.apache.commons.statistics.distribution;
   //requires org.apache.commons.codec;
   requires org.xerial.sqlitejdbc;
@@ -39,6 +40,7 @@ module com.github.teruteru.study {
   requires info.picocli;
   requires com.github.teruteru.foreign.gmp;
   requires com.github.teruteru.foreign.opencl;
+  requires com.github.teruteru.foreign.mpfr;
   requires com.github.teruteru.foreign;
   requires jsr305;
   requires com.fasterxml.jackson.dataformat.yaml;
