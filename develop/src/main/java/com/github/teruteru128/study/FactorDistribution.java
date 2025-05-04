@@ -50,6 +50,7 @@ import picocli.CommandLine.Parameters;
 public class FactorDistribution implements Callable<Integer> {
 
   private static final Logger logger = LoggerFactory.getLogger(FactorDistribution.class);
+  public static final int HTTP_TOO_MANY_REQUESTS = 429;
   @Option(names = {"--num", "-n"})
   private long num = 300000;
   @Parameters
@@ -79,7 +80,7 @@ public class FactorDistribution implements Callable<Integer> {
       responseCode = urlConnection.getResponseCode();
       if (responseCode != 200) {
         logger.warn("{} {}: {}", responseCode, urlConnection.getResponseMessage(), string);
-        if (responseCode == 429) {
+        if (responseCode == HTTP_TOO_MANY_REQUESTS) {
           Thread.sleep(1000 * 60 * 5);
         }
       }

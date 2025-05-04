@@ -4,6 +4,7 @@ import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
@@ -11,6 +12,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_prevprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set;
+import static com.github.teruteru128.gmp.gmp_h.mpz_setbit;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
@@ -19,8 +21,11 @@ import static com.github.teruteru128.mpfr.mpfr_h.mpfr_get_d;
 import static com.github.teruteru128.mpfr.mpfr_h.mpfr_init2;
 import static com.github.teruteru128.mpfr.mpfr_h.mpfr_log;
 import static com.github.teruteru128.mpfr.mpfr_h.mpfr_set_z;
+import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_u64;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.gmp.__gmp_randstate_struct;
@@ -41,18 +46,27 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
 import java.math.BigInteger;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.function.DoubleConsumer;
 import java.util.random.RandomGenerator;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+import javax.net.ssl.HttpsURLConnection;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.statistics.descriptive.DoubleStatistics;
 import org.apache.commons.statistics.descriptive.Statistic;
@@ -97,19 +111,12 @@ public class Factory implements Callable<Integer> {
   private int formatPenis(Path in) throws IOException {
     var size = Files.size(in);
     try (var file = new RandomAccessFile(in.toFile(), "r")) {
-      long pos = size - 8;
-      long count = 0;
-      while (true) {
+
+      for (long pos = size - 128; pos < size; pos += 8) {
         file.seek(pos);
         var v = file.readDouble();
-        if (v < 5702.83517135657) {
-          break;
-        }
         System.out.println(v);
-        pos -= 8;
-        count++;
       }
-      System.out.println("count: " + count);
     }
     return ExitCode.OK;
   }
@@ -220,6 +227,18 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
+  private int sample(@Option(names = {"-n"}, defaultValue = "100") int n) {
+    double expMu = 20;
+    double sigma = 1.25;
+    var distribution = LogNormalDistribution.of(Math.log(expMu), sigma);
+    var sampler = distribution.createSampler(
+        new JDKRandomWrapper((SecureRandom) SECURE_RANDOM_GENERATOR));
+    IntStream.range(0, n).mapToDouble(i -> sampler.sample()).sorted()
+        .forEachOrdered(System.out::println);
+    return ExitCode.OK;
+  }
+
+  @Command
   private int searchPrime() {
     var base = BigInteger.valueOf(107).pow(1000).multiply(BigInteger.TWO);
     var co = BigInteger.valueOf(10).pow(18);
@@ -288,6 +307,7 @@ public class Factory implements Callable<Integer> {
     while (true) {
       mpz_urandomm(n, state, window);
       mpz_add(n, n, min);
+      mpz_setbit(n, 0);
       if (mpz_probab_prime_p(n, 1) == 0) {
         mpz_prevprime(smallerPrime, n);
       } else {
@@ -300,7 +320,7 @@ public class Factory implements Callable<Integer> {
 
       var merit = mpz_get_u64(diff) / mpfr_get_d(out1, MPFR_RNDZ());
       // これはまあ消してもいいかな、もしくはスレッドごとに計測
-      if (merit > max) {
+      if (max < merit) {
         System.err.println(LocalDateTime.now() + " 記録が更新されました: " + merit);
         max = merit;
       }
@@ -315,6 +335,101 @@ public class Factory implements Callable<Integer> {
         }
       }
     }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int sierpinskiProblem() {
+    var auto = Arena.ofAuto();
+    int k2 = 21181;
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, k2);
+    var nAdd1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(nAdd1);
+    var k = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(k);
+
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int send(@Option(names = {"--cof"}, defaultValue = "50001") int i1,
+      @Option(names = {"--max"}, defaultValue = "100000") int i2)
+      throws IOException, InterruptedException {
+    for (int i = i1; i < i2; i++) {
+      var str = ENDPOINT + URLEncoder.encode("21181*2^" + i + "+1", StandardCharsets.UTF_8);
+      var url = URI.create(str).toURL();
+      HttpsURLConnection urlConnection;
+      int code;
+      do {
+        urlConnection = (HttpsURLConnection) url.openConnection();
+        urlConnection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+        code = urlConnection.getResponseCode();
+        if (code == FactorDistribution.HTTP_TOO_MANY_REQUESTS) {
+          Thread.sleep(1000 * 60 * 5);
+        }
+      } while (code != 200);
+      JsonNode root;
+      try (var inputStream = urlConnection.getInputStream()) {
+        root = OBJECT_MAPPER.readTree(inputStream);
+      }
+      var id = root.get("id");
+      var status = root.get("status");
+      logger.info("{}: {}, {}", id.isTextual() ? id.textValue() : id.longValue(), i,
+          status.textValue());
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int bom() throws IOException, InterruptedException {
+    var auto = Arena.ofAuto();
+    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(min, 10);
+    mpz_pow_ui(min, min, 18);
+    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(window);
+    mpz_set_u64(window, 8999999999999999961L);
+    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+    gmp_randinit_default(state);
+    Project19.seedRandomState(state);
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(n);
+    var stringBuilder = new StringBuilder(20 * 21621);
+    var str = auto.allocate(21);
+    for (int i = 0; i < 1000; i++) {
+      mpz_urandomm(n, state, window);
+      mpz_add(n, n, min);
+      mpz_nextprime(n, n);
+      mpz_get_str(str, 10, n);
+      if (i != 0) {
+        stringBuilder.append('*');
+      }
+      stringBuilder.append(str.getString(0));
+    }
+    var url = URI.create(
+        ENDPOINT + URLEncoder.encode(stringBuilder.toString(), StandardCharsets.UTF_8)).toURL();
+    var urlConnection = (HttpsURLConnection) url.openConnection();
+    int code;
+    do {
+      urlConnection = (HttpsURLConnection) url.openConnection();
+      urlConnection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+      code = urlConnection.getResponseCode();
+      if (code == FactorDistribution.HTTP_TOO_MANY_REQUESTS) {
+        System.err.println("TOO MANY REQUEST");
+        Thread.sleep(1000 * 60 * 5);
+      } else if (code != 200) {
+        System.err.println("code " + code);
+      }
+    } while (code != 200);
+    JsonNode root;
+    try (var inputStream = urlConnection.getInputStream()) {
+      root = OBJECT_MAPPER.readTree(inputStream);
+    }
+    var id = root.get("id");
+    var status = root.get("status");
+    logger.info("{}: {}", id.isTextual() ? id.textValue() : id.longValue(), status.textValue());
+
     return ExitCode.OK;
   }
 
@@ -341,6 +456,106 @@ public class Factory implements Callable<Integer> {
       System.err.println(path.getFileName() + " done");
     }
     System.err.println("size is " + treeMap.size());
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int showIndex(double v, Path path) throws IOException {
+    try (var da = new DataInputStream(
+        new BufferedInputStream(Files.newInputStream(path, StandardOpenOption.READ)))) {
+      long index = 0;
+      while (v >= da.readDouble()) {
+        index++;
+      }
+      System.out.println(index);
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int digitPrimes(Path out) throws IOException {
+    var auto = Arena.ofAuto();
+    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(min, 10);
+    mpz_pow_ui(min, min, 299);
+    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set(window, min);
+    mpz_mul_ui(window, window, 9);
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(n);
+    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+    gmp_randinit_default(state);
+    Project19.seedRandomState(state);
+    var str = auto.allocate(305);
+    var list = new ArrayList<String>(300);
+    long s = System.nanoTime();
+    for (int i = 0; i < 300; i++) {
+      mpz_urandomm(n, state, window);
+      mpz_add(n, n, min);
+      mpz_nextprime(n, n);
+      mpz_get_str(str, 10, n);
+      list.add(str.getString(0));
+    }
+    long e = System.nanoTime();
+    System.err.println(((e - s) / 1e9) + " 秒");
+    Collections.sort(list);
+    Files.write(out, list, StandardOpenOption.CREATE, StandardOpenOption.WRITE,
+        StandardOpenOption.APPEND);
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int postFD(Path[] in) throws IOException {
+    for (var path : in) {
+      for (var line : Files.readAllLines(path)) {
+        var url = URI.create(ENDPOINT + line).toURL();
+        var connection = (HttpsURLConnection) url.openConnection();
+        connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+        var responseCode = connection.getResponseCode();
+        System.err.println(responseCode);
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int bulkPostPrime(@Parameters(defaultValue = "1000000000000000000") BigInteger p,
+      @Option(names = {"--num", "-n"}, defaultValue = "50000000") long n) {
+    //if (!p.isProbablePrime(1)) {
+    //  p = p.nextProbablePrime();
+    //}
+    // parallelにしたらスパム判定食らって死ゾ
+    Stream.iterate(p.isProbablePrime(1) ? p : p.nextProbablePrime(), BigInteger::nextProbablePrime)
+        .limit(n).forEach(q -> {
+          var prime = q.toString();
+          try {
+            var url = URI.create(ENDPOINT + prime).toURL();
+            HttpsURLConnection connection;
+            int re;
+            do {
+              connection = (HttpsURLConnection) url.openConnection();
+              connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+              re = connection.getResponseCode();
+              if (re == FactorDistribution.HTTP_TOO_MANY_REQUESTS) {
+                logger.error("sleeping...");
+                Thread.sleep(1000 * 60 * 5);
+              }
+            } while (re != 200);
+
+            JsonNode root;
+            try (var inputStream = connection.getInputStream()) {
+              root = OBJECT_MAPPER.readTree(inputStream);
+            }
+            var id = root.get("id");
+            var status = root.get("status");
+            logger.info("{}, {}: {}", prime, id.isTextual() ? id.textValue() : id.longValue(),
+                status.textValue());
+          } catch (IOException e) {
+            throw new UncheckedIOException(e);
+          } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+          }
+        });
     return ExitCode.OK;
   }
 

@@ -74,7 +74,7 @@ public class Project19G implements Callable<Integer> {
       responseCode = urlConnection.getResponseCode();
       if (responseCode != 200) {
         System.err.println("error: " + responseCode);
-        if (responseCode == 429) {
+        if (responseCode == FactorDistribution.HTTP_TOO_MANY_REQUESTS) {
           try {
             Thread.sleep(5 * 60 * 1000);
           } catch (InterruptedException e) {
