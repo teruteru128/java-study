@@ -5,6 +5,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
@@ -18,6 +19,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
 import static com.github.teruteru128.mpfr.mpfr_h.MPFR_RNDZ;
 import static com.github.teruteru128.mpfr.mpfr_h.mpfr_get_d;
+import static com.github.teruteru128.mpfr.mpfr_h.mpfr_get_prec;
 import static com.github.teruteru128.mpfr.mpfr_h.mpfr_init2;
 import static com.github.teruteru128.mpfr.mpfr_h.mpfr_log;
 import static com.github.teruteru128.mpfr.mpfr_h.mpfr_set_z;
@@ -556,6 +558,26 @@ public class Factory implements Callable<Integer> {
             throw new RuntimeException(e);
           }
         });
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int log(Path in) throws IOException {
+    var auto = Arena.ofAuto();
+    var pZ = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(pZ, auto.allocateFrom(Files.readString(in)), 10);
+    var bitLength = mpz_sizeinbase(pZ, 2);
+    var pMpfr = __mpfr_struct.allocate(auto).reinterpret(auto, mpfr_h::mpfr_clear);
+    System.err.println(bitLength);
+    //mpfr_init2(pMpfr, (int) ((bitLength + 63) / 64 * 64));
+    mpfr_init2(pMpfr, 53);
+    mpfr_set_z(pMpfr, pZ, 0);
+    System.err.println(mpfr_get_prec(pMpfr));
+    var lnP = __mpfr_struct.allocate(auto).reinterpret(auto, mpfr_h::mpfr_clear);
+    mpfr_init2(lnP, 53);
+    mpfr_log(lnP, pMpfr, MPFR_RNDZ());
+    var d = mpfr_get_d(lnP, MPFR_RNDZ());
+    System.out.println(d);
     return ExitCode.OK;
   }
 

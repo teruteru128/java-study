@@ -2885,16 +2885,16 @@ public class mpfr_h {
 
     /**
      * {@snippet lang=c :
-     * void mpfr_init2(mpfr_ptr, mpfr_prec_t)
+     * void mpfr_init2(mpfr_ptr x, mpfr_prec_t prec)
      * }
      */
-    public static void mpfr_init2(MemorySegment x0, int x1) {
+    public static void mpfr_init2(MemorySegment x, int prec) {
         var mh$ = mpfr_init2.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
-                traceDowncall("mpfr_init2", x0, x1);
+                traceDowncall("mpfr_init2", x, prec);
             }
-            mh$.invokeExact(x0, x1);
+            mh$.invokeExact(x, prec);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -3571,13 +3571,13 @@ public class mpfr_h {
      * mpfr_prec_t mpfr_get_prec(mpfr_srcptr)
      * }
      */
-    public static int mpfr_get_prec(MemorySegment x0) {
+    public static int mpfr_get_prec(MemorySegment x) {
         var mh$ = mpfr_get_prec.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
-                traceDowncall("mpfr_get_prec", x0);
+                traceDowncall("mpfr_get_prec", x);
             }
-            return (int)mh$.invokeExact(x0);
+            return (int)mh$.invokeExact(x);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -4040,13 +4040,13 @@ public class mpfr_h {
      * int mpfr_set_z(mpfr_ptr, mpz_srcptr, mpfr_rnd_t)
      * }
      */
-    public static int mpfr_set_z(MemorySegment x0, MemorySegment x1, int x2) {
+    public static int mpfr_set_z(MemorySegment rop, MemorySegment op, int rnd) {
         var mh$ = mpfr_set_z.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
-                traceDowncall("mpfr_set_z", x0, x1, x2);
+                traceDowncall("mpfr_set_z", rop, op, rnd);
             }
-            return (int)mh$.invokeExact(x0, x1, x2);
+            return (int)mh$.invokeExact(rop, op, rnd);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -5836,13 +5836,13 @@ public class mpfr_h {
      * double mpfr_get_d(mpfr_srcptr, mpfr_rnd_t)
      * }
      */
-    public static double mpfr_get_d(MemorySegment x0, int x1) {
+    public static double mpfr_get_d(MemorySegment op, int rnd) {
         var mh$ = mpfr_get_d.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
-                traceDowncall("mpfr_get_d", x0, x1);
+                traceDowncall("mpfr_get_d", op, rnd);
             }
-            return (double)mh$.invokeExact(x0, x1);
+            return (double)mh$.invokeExact(op, rnd);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
@@ -9682,13 +9682,13 @@ public class mpfr_h {
      * int mpfr_log(mpfr_ptr, mpfr_srcptr, mpfr_rnd_t)
      * }
      */
-    public static int mpfr_log(MemorySegment x0, MemorySegment x1, int x2) {
+    public static int mpfr_log(MemorySegment rop, MemorySegment op, int rnd) {
         var mh$ = mpfr_log.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
-                traceDowncall("mpfr_log", x0, x1, x2);
+                traceDowncall("mpfr_log", rop, op, rnd);
             }
-            return (int)mh$.invokeExact(x0, x1, x2);
+            return (int)mh$.invokeExact(rop, op, rnd);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
