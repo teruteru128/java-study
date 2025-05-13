@@ -2,11 +2,14 @@ package com.github.teruteru128.study;
 
 import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
+import static com.github.teruteru128.gmp.gmp_h.mpz_cmp;
+import static com.github.teruteru128.gmp.gmp_h.mpz_divisible_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mod;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
@@ -24,6 +27,7 @@ import static com.github.teruteru128.mpfr.mpfr_h.mpfr_init2;
 import static com.github.teruteru128.mpfr.mpfr_h.mpfr_log;
 import static com.github.teruteru128.mpfr.mpfr_h.mpfr_set_z;
 import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_even_p;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_u64;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 
@@ -46,6 +50,8 @@ import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.OptionalDataException;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.io.UncheckedIOException;
@@ -64,9 +70,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.DoubleConsumer;
 import java.util.random.RandomGenerator;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import javax.net.ssl.HttpsURLConnection;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
@@ -527,37 +536,52 @@ public class Factory implements Callable<Integer> {
     //  p = p.nextProbablePrime();
     //}
     // parallelにしたらスパム判定食らって死ゾ
-    Stream.iterate(p.isProbablePrime(1) ? p : p.nextProbablePrime(), BigInteger::nextProbablePrime)
-        .limit(n).forEach(q -> {
-          var prime = q.toString();
-          try {
-            var url = URI.create(ENDPOINT + prime).toURL();
-            HttpsURLConnection connection;
-            int re;
-            do {
-              connection = (HttpsURLConnection) url.openConnection();
-              connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
-              re = connection.getResponseCode();
-              if (re == FactorDistribution.HTTP_TOO_MANY_REQUESTS) {
-                logger.error("sleeping...");
-                Thread.sleep(1000 * 60 * 5);
-              }
-            } while (re != 200);
-
-            JsonNode root;
-            try (var inputStream = connection.getInputStream()) {
-              root = OBJECT_MAPPER.readTree(inputStream);
+    var queue = new LinkedBlockingQueue<BigInteger>(5);
+    try (var pool = new ForkJoinPool(3)) {
+      pool.submit(() -> Stream.iterate(p.isProbablePrime(1) ? p : p.nextProbablePrime(),
+          BigInteger::nextProbablePrime).limit(n).forEach(q -> {
+        try {
+          queue.put(q);
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+      }));
+      pool.submit(()-> LongStream.range(0, n).parallel().forEach(q -> {
+        String prime = null;
+        try {
+          prime = queue.take().toString();
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+        try {
+          var url = URI.create(ENDPOINT + prime).toURL();
+          HttpsURLConnection connection;
+          int re;
+          do {
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+            re = connection.getResponseCode();
+            if (re == FactorDistribution.HTTP_TOO_MANY_REQUESTS) {
+              logger.error("sleeping...");
+              Thread.sleep(1000 * 60 * 5);
             }
-            var id = root.get("id");
-            var status = root.get("status");
-            logger.info("{}, {}: {}", prime, id.isTextual() ? id.textValue() : id.longValue(),
-                status.textValue());
-          } catch (IOException e) {
-            throw new UncheckedIOException(e);
-          } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+          } while (re != 200);
+
+          JsonNode root;
+          try (var inputStream = connection.getInputStream()) {
+            root = OBJECT_MAPPER.readTree(inputStream);
           }
-        });
+          var id = root.get("id");
+          var status = root.get("status");
+          logger.info("{}, {}: {}", prime, id.isTextual() ? id.textValue() : id.longValue(),
+              status.textValue());
+        } catch (IOException e) {
+          throw new UncheckedIOException(e);
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+      }));
+    }
     return ExitCode.OK;
   }
 
@@ -578,6 +602,109 @@ public class Factory implements Callable<Integer> {
     mpfr_log(lnP, pMpfr, MPFR_RNDZ());
     var d = mpfr_get_d(lnP, MPFR_RNDZ());
     System.out.println(d);
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int a(Path nIn, Path lSieveIn, @Option(names = {"--prime"}) long val)
+      throws IOException, ClassNotFoundException {
+    long[] longArray;
+    try (var oin = new ObjectInputStream(
+        new BufferedInputStream(Files.newInputStream(lSieveIn, StandardOpenOption.READ)))) {
+      oin.readLong();
+      var o = oin.readObject();
+      if (!(o instanceof long[])) {
+        System.err.println(o.getClass());
+        return ExitCode.SOFTWARE;
+      }
+      longArray = (long[]) o;
+      logger.info("読込できました");
+    } catch (OptionalDataException e) {
+      System.err.printf("%d, %b%n", e.length, e.eof);
+      throw e;
+    }
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(n, auto.allocateFrom(Files.readString(nIn)), 10);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    mpz_set_u64(p, val);
+    var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(mod);
+    var th = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(th, 3355443 * 2 + 1);
+    var start = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(start);
+    int i = 0;
+    while (i < 10) {
+      mpz_nextprime(p, p);
+      mpz_mod(mod, n, p);
+      mpz_sub(start, p, mod);
+      if (mpz_even_p(start)) {
+        mpz_add(start, start, p);
+      }
+      if (mpz_cmp(start, th) < 0) {
+        var lTmp = mpz_get_u64(start);
+        var t = (lTmp - 1) / 2;
+        var l = (longArray[(int) (t >>> 6)] >>> (t & 0x3f)) & 0x1;
+        if (l == 0) {
+          var length = mpz_sizeinbase(p, 10) + 2;
+          var str = auto.allocate(length);
+          mpz_get_str(str, 10, p);
+          System.out.println(
+              str.getString(0) + ": " + Long.toUnsignedString(mpz_get_u64(mod)) + ", "
+              + Long.toUnsignedString(lTmp));
+          i++;
+        }
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int verify(Path nIn, long step, String prime) throws IOException {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(n, auto.allocateFrom(Files.readString(nIn)), 10);
+    var s = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(s);
+    mpz_set_u64(s, step);
+    mpz_add(n, n, s);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(p, auto.allocateFrom(prime), 10);
+    var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(mod);
+    mpz_mod(mod, n, p);
+    var length = mpz_sizeinbase(mod, 10) + 2;
+    var str = auto.allocate(length);
+    mpz_get_str(str, 10, mod);
+    System.err.println(str.getString(0));
+    if (mpz_divisible_p(n, p) != 0) {
+      System.out.println("divisible");
+    } else {
+      System.out.println("not divisible");
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int deepSearch(Path in, long step) throws IOException {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(n, auto.allocateFrom(Files.readString(in)), 10);
+    var s = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(s);
+    mpz_set_u64(s, step * 2 + 1);
+    mpz_add(n, n, s);
+    var prime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(prime, 2);
+    while (mpz_divisible_p(n, prime) == 0) {
+      mpz_nextprime(prime, prime);
+    }
+    var length = mpz_sizeinbase(prime, 10) + 2;
+    var str = auto.allocate(length);
+    mpz_get_str(str, 10, prime);
+    System.err.println(str.getString(0));
     return ExitCode.OK;
   }
 
