@@ -2,10 +2,10 @@
 <Configuration xmlns="http://logging.apache.org/log4j/2.0/config" status="warn">
   <Appenders>
     <Console name="stdout">
-      <PatternLayout pattern="%d{HH:mm:ss.nnnnnnnnn} %-5p %c{1}:%L - %m%n"/>
+      <PatternLayout pattern="%d{HH:mm:ss.nnnnnnn} %-5p %c{1}:%L - %m%n"/>
     </Console>
     <RollingFile name="file" fileName="logs/latest.log" filePattern="logs/%d{yyyy-MM-dd}-%i.log.gz">
-      <PatternLayout pattern="%d{HH:mm:ss.nnnnnnnnn} %-5p %c{1}:%L - %m%n"/>
+      <PatternLayout pattern="%d{HH:mm:ss.nnnnnnn} %-5p %c{1}:%L - %m%n"/>
       <Policies>
         <TimeBasedTriggeringPolicy/>
         <OnStartupTriggeringPolicy/>

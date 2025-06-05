@@ -2,6 +2,7 @@ package com.github.teruteru128.study;
 
 import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
+import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp;
 import static com.github.teruteru128.gmp.gmp_h.mpz_divisible_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
@@ -10,6 +11,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mod;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
@@ -30,6 +32,7 @@ import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_even_p;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_u64;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
+import static java.math.BigInteger.valueOf;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -68,6 +71,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LongSummaryStatistics;
+import java.util.Random;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ForkJoinPool;
@@ -79,9 +84,12 @@ import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import javax.net.ssl.HttpsURLConnection;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
+import org.apache.commons.rng.simple.RandomSource;
 import org.apache.commons.statistics.descriptive.DoubleStatistics;
+import org.apache.commons.statistics.descriptive.LongStatistics;
 import org.apache.commons.statistics.descriptive.Statistic;
 import org.apache.commons.statistics.distribution.LogNormalDistribution;
+import org.apache.commons.statistics.distribution.NormalDistribution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
@@ -181,20 +189,20 @@ public class Factory implements Callable<Integer> {
         Statistic.STANDARD_DEVIATION);
     var outTxtPath = dir.resolve(Path.of(prefix + ".txt"));
     System.err.println("text output...");
-    try (var fout3 = new PrintWriter(
+    try (var writer3 = new PrintWriter(
         new BufferedWriter(new FileWriter(outTxtPath.toFile()), 0x7fffffff - 2), false)) {
       for (var v : array) {
-        fout3.println(v);
+        writer3.println(v);
       }
-      fout3.flush();
+      writer3.flush();
     }
     System.err.println("text output done");
     var outBinPath = dir.resolve(Path.of(prefix + ".bin"));
     System.err.println("bin output...");
-    try (var fout2 = new DataOutputStream(
+    try (var stream = new DataOutputStream(
         new BufferedOutputStream(new FileOutputStream(outBinPath.toFile()), 0x7fffffff - 2))) {
       for (var v : array) {
-        fout2.writeDouble(v);
+        stream.writeDouble(v);
       }
     }
     System.err.println("bin output done");
@@ -203,11 +211,11 @@ public class Factory implements Callable<Integer> {
     System.err.println("sort done");
     var outSortedBinPath = dir.resolve(Path.of(prefix + "-sorted.bin"));
     System.err.println("sorted bin output");
-    try (var fout2 = new DataOutputStream(
+    try (var stream = new DataOutputStream(
         new BufferedOutputStream(new FileOutputStream(outSortedBinPath.toFile()),
             0x7fffffff - 2))) {
       for (var v : array) {
-        fout2.writeDouble(v);
+        stream.writeDouble(v);
       }
     }
     System.err.println("sorted bin output done");
@@ -222,7 +230,7 @@ public class Factory implements Callable<Integer> {
     System.err.println("statistics generated");
     var outConfigPath = dir.resolve(Path.of(prefix + "-config.txt"));
     System.err.println("config output");
-    try (var fout1 = new PrintWriter(
+    try (var writer = new PrintWriter(
         Files.newBufferedWriter(outConfigPath, StandardOpenOption.CREATE,
             StandardOpenOption.WRITE))) {
       var line1 = String.format("μ=log(%s), σ=%s", expMu, sigma);
@@ -230,8 +238,8 @@ public class Factory implements Callable<Integer> {
           max, mean, median, standardDeviation);
       System.out.println(line1);
       System.out.println(line2);
-      fout1.println(line1);
-      fout1.println(line2);
+      writer.println(line1);
+      writer.println(line2);
     }
     System.err.println("config output done");
     return ExitCode.OK;
@@ -244,15 +252,15 @@ public class Factory implements Callable<Integer> {
     var distribution = LogNormalDistribution.of(Math.log(expMu), sigma);
     var sampler = distribution.createSampler(
         new JDKRandomWrapper((SecureRandom) SECURE_RANDOM_GENERATOR));
-    IntStream.range(0, n).mapToDouble(i -> sampler.sample()).sorted()
+    IntStream.range(0, n).mapToDouble(_ -> sampler.sample()).sorted()
         .forEachOrdered(System.out::println);
     return ExitCode.OK;
   }
 
   @Command
   private int searchPrime() {
-    var base = BigInteger.valueOf(107).pow(1000).multiply(BigInteger.TWO);
-    var co = BigInteger.valueOf(10).pow(18);
+    var base = valueOf(107).pow(1000).multiply(BigInteger.TWO);
+    var co = valueOf(10).pow(18);
     long count = 0;
     long num = 2;
     while (true) {
@@ -277,9 +285,8 @@ public class Factory implements Callable<Integer> {
 
   @Command
   private int nextPrime2() {
-    var n = BigInteger.valueOf(107).pow(1000).multiply(BigInteger.TEN.pow(18))
-        .multiply(BigInteger.TWO);
-    var i = n.add(BigInteger.valueOf(262));
+    var n = valueOf(107).pow(1000).multiply(BigInteger.TEN.pow(18)).multiply(BigInteger.TWO);
+    var i = n.add(valueOf(262));
     while (true) {
       if (i.isProbablePrime(1)) {
         System.out.println(i.subtract(n));
@@ -546,8 +553,8 @@ public class Factory implements Callable<Integer> {
           throw new RuntimeException(e);
         }
       }));
-      pool.submit(()-> LongStream.range(0, n).parallel().forEach(q -> {
-        String prime = null;
+      pool.submit(() -> LongStream.range(0, n).parallel().forEach(_ -> {
+        String prime;
         try {
           prime = queue.take().toString();
         } catch (InterruptedException e) {
@@ -705,6 +712,249 @@ public class Factory implements Callable<Integer> {
     var str = auto.allocate(length);
     mpz_get_str(str, 10, prime);
     System.err.println(str.getString(0));
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int pag(String d2) {
+    var auto = Arena.ofAuto();
+    var co = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(co, 21181);
+    int count = 0;
+    long shift = 0;
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(n);
+    var d = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(d, auto.allocateFrom(d2), 10);
+    while (count < 2) {
+      mpz_add_ui(n, co, 1);
+      mpz_divisible_p(n, d);
+      if (mpz_divisible_p(n, d) != 0) {
+        System.out.println(shift);
+        count++;
+      }
+      mpz_mul_2exp(co, co, 1);
+      shift++;
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int step(@Option(names = {"--num", "-n"}) int num) {
+    var n = new BigInteger("36628253288426119320", 10);
+    var _3 = valueOf(3);
+    var _4 = valueOf(4);
+    var _8 = valueOf(8);
+    var _10 = valueOf(10);
+    var _11 = valueOf(11);
+    var _12 = valueOf(12);
+    var _15 = valueOf(15);
+    var _18 = valueOf(18);
+    var _19 = valueOf(19);
+    var _20 = valueOf(20);
+    var _22 = valueOf(22);
+    var _23 = valueOf(23);
+    var _35 = valueOf(35);
+    var _40 = valueOf(40);
+    var _52 = valueOf(52);
+    var _56 = valueOf(56);
+    var _68 = valueOf(68);
+    var _92 = valueOf(92);
+    var _122 = valueOf(122);
+    var _130 = valueOf(130);
+    var _162 = valueOf(162);
+    var _188 = valueOf(188);
+    var _212 = valueOf(212);
+    var _380 = valueOf(380);
+    var _452 = valueOf(452);
+    var _500 = valueOf(500);
+    var _620 = valueOf(620);
+    var _644 = valueOf(644);
+    var _740 = valueOf(740);
+    var _764 = valueOf(764);
+    var _820 = valueOf(820);
+    var _1932 = valueOf(1932);
+    var _2344 = valueOf(2344);
+    var _2676 = valueOf(2676);
+    var _2919 = valueOf(2676);
+    var _4242 = valueOf(4242);
+    var _57802 = valueOf(57802);
+    var _342466 = valueOf(342466);
+    var _685460 = valueOf(685460);
+    var i = BigInteger.ONE;
+    int count = 0;
+    while (count < num) {
+      if (i.testBit(0)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_3).equals(BigInteger.ZERO)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_4).equals(BigInteger.TWO)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_8).equals(BigInteger.ZERO)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_10).equals(valueOf(6))) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      var mod = i.mod(_11);
+      if (mod.equals(BigInteger.ZERO)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (mod.equals(BigInteger.TEN)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_12).equals(_4)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_22).equals(valueOf(8))) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_23).equals(_19)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_18).equals(valueOf(16))) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_35).equals(_15)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_52).equals(_40)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_92).equals(_56)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_130).equals(_4)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_162).equals(_122)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.equals(_620)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.equals(_644)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_820).equals(_740)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_1932).equals(_20)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_2344).equals(_380)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_2676).equals(_212)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_2919).equals(_764)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_4242).equals(_452)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_57802).equals(_188)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_342466).equals(_68)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      if (i.mod(_685460).equals(_500)) {
+        i = i.add(BigInteger.ONE);
+        continue;
+      }
+      System.out.println(i);
+      i = i.add(BigInteger.ONE);
+      count++;
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int primorial() {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 2);
+    var p = BigInteger.TWO;
+    var nF = __mpfr_struct.allocate(auto).reinterpret(auto, mpfr_h::mpfr_clear);
+    mpfr_init2(nF, 1024);
+    var log10 = __mpfr_struct.allocate(auto).reinterpret(auto, mpfr_h::mpfr_clear);
+    mpfr_init2(log10, 128);
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int op(@Option(names = {"-n"}, defaultValue = "10") int streamSize) {
+    var dist = NormalDistribution.of(Math.log(20), 1.44);
+    var sampler = dist.createSampler(new JDKRandomWrapper((Random) SECURE_RANDOM_GENERATOR));
+    sampler.samples(streamSize).forEach(l -> System.out.println(l + ", " + Math.exp(l)));
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int op2(@Option(names = {"-n"}, defaultValue = "10") int streamSize) {
+    var dist = NormalDistribution.of(Math.log(20), 1.44);
+    var sampler = dist.createSampler(RandomSource.XO_RO_SHI_RO_128_PP.create());
+    var array = sampler.samples(200).toArray();
+    var builder = DoubleStatistics.builder(Statistic.MAX, Statistic.MIN, Statistic.MEAN,
+        Statistic.STANDARD_DEVIATION);
+    var statistics = Arrays.stream(array).parallel()
+        .collect(builder::build, DoubleConsumer::accept, DoubleStatistics::combine);
+    var median = (array[99] + array[100]) / 2;
+    var max = statistics.getAsDouble(Statistic.MAX);
+    var min = statistics.getAsDouble(Statistic.MIN);
+    var mean = statistics.getAsDouble(Statistic.MEAN);
+    var standardDeviation = statistics.getAsDouble(Statistic.STANDARD_DEVIATION);
+    var line2 = String.format("min=%s, max=%s, mean=%s, median=%s, standard deviation=%s", min, max,
+        mean, median, standardDeviation);
+    System.out.println(line2);
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int doTheIdol() {
+    long count;
+    var statistics = new LongSummaryStatistics();
+    for (int i = 0; i < 6000000; i++) {
+      count = 0;
+      while (SECURE_RANDOM_GENERATOR.nextInt(10000) != 0) {
+        count++;
+      }
+      //System.out.println(count);
+      statistics.accept(count);
+    }
+    System.out.println("avg: " + statistics.getAverage());
+    System.out.println("max: " + statistics.getMax());
     return ExitCode.OK;
   }
 
