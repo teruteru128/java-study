@@ -4,6 +4,12 @@ plugins {
 
 version = 'unspecified'
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(24)
+    }
+}
+
 dependencies {
     implementation project(':gmp')
 }
