@@ -6,7 +6,7 @@ version = '1.4.5-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(22)
+        languageVersion = JavaLanguageVersion.of(24)
     }
     sourceCompatibility = '22'
     targetCompatibility = '22'
