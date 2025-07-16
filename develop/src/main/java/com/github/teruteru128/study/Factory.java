@@ -68,9 +68,11 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.LongSummaryStatistics;
 import java.util.Random;
 import java.util.TreeMap;
@@ -79,6 +81,8 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.DoubleConsumer;
 import java.util.random.RandomGenerator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -86,7 +90,6 @@ import javax.net.ssl.HttpsURLConnection;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.rng.simple.RandomSource;
 import org.apache.commons.statistics.descriptive.DoubleStatistics;
-import org.apache.commons.statistics.descriptive.LongStatistics;
 import org.apache.commons.statistics.descriptive.Statistic;
 import org.apache.commons.statistics.distribution.LogNormalDistribution;
 import org.apache.commons.statistics.distribution.NormalDistribution;
@@ -102,10 +105,11 @@ import picocli.CommandLine.Parameters;
     ECIESSample.class, FileChecker.class, PrimeSearch.class, SiteChecker.class, Spam.class,
     TeamSpeak.class, Updater.class, HelpCommand.class, ListUp.class, Transform.class,
     CumShoot.class, SlimeSearch.class, Spam3.class, OwnerCheck.class, CalcBustSize.class,
-    Deterministic.class, CreatePrimeNumberCandidateDB.class, SmallSievePrimeCounter.class,
+    Deterministic.class, CreateCandidateDB.class, SmallSievePrimeCounter.class,
     NewColorGenerator.class, Multi2.class, Project5190.class, Project19.class, Project19F.class,
     Project19Sort.class, Project19Unique.class, Spammer.class, Spam2.class,
-    FactorDistribution.class, Project19G.class}, mixinStandardHelpOptions = true)
+    FactorDistribution.class, Project19G.class,
+    InsertPrimeNumberVerifyTask.class}, mixinStandardHelpOptions = true)
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
@@ -955,6 +959,36 @@ public class Factory implements Callable<Integer> {
     }
     System.out.println("avg: " + statistics.getAverage());
     System.out.println("max: " + statistics.getMax());
+    return ExitCode.OK;
+  }
+
+  /**
+   * Cookie Clicker for mobile のセーブデータファイル名を修正するためのマクロ
+   * @param dir dir
+   * @return status code
+   * @throws IOException io error
+   */
+  @Command
+  private int convert(Path dir) throws IOException {
+    var pattern = Pattern.compile("CookieClickerSave-(\\d+...\\d\\d\\d\\d-\\d\\dh\\d\\d).txt");
+    var originalFormatter = DateTimeFormatter.ofPattern("dMMMyyyy-HH'h'mm", Locale.ENGLISH);
+    var newFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm", Locale.ENGLISH);
+    record MatcherAndPath(Path file, Matcher matcher) {
+
+    }
+    try (var list = Files.list(dir)) {
+      list.map(p -> new MatcherAndPath(p, pattern.matcher(p.getFileName().toString())))
+          .filter(p -> p.matcher().matches()).forEach(p -> {
+            var time = LocalDateTime.parse(p.matcher().group(1), originalFormatter);
+            var newPath = p.file()
+                .resolveSibling("CookieClickerSave-" + time.format(newFormatter) + ".txt");
+            try {
+              Files.move(p.file(), newPath);
+            } catch (IOException e) {
+              throw new UncheckedIOException(e);
+            }
+          });
+    }
     return ExitCode.OK;
   }
 

@@ -20,6 +20,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
@@ -95,8 +96,7 @@ public class PrimeSearch implements Callable<Integer> {
     try (final var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory, null,
         true)) {
       final var service = new ExecutorCompletionService<Result>(pool);
-      var futures = new ArrayList<Future<Result>>(size);
-      list.forEach(sex -> futures.add(service.submit(sex)));
+      list.forEach(service::submit);
       try (var connection = source.getConnection()) {
         try (var ps0 = connection.prepareStatement(
             "update candidates set composite = composite + 1 where id = ? and step = ?;"); var ps1 = connection.prepareStatement(
@@ -129,9 +129,6 @@ public class PrimeSearch implements Callable<Integer> {
             }
           }
         }
-      } finally {
-        futures.stream().filter(((Predicate<Future<Result>>) Future::isDone).negate())
-            .forEach(f -> f.cancel(true));
       }
     }
     if (found) {
