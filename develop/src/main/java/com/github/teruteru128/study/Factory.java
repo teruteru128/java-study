@@ -5,6 +5,8 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp;
 import static com.github.teruteru128.gmp.gmp_h.mpz_divisible_p;
+import static com.github.teruteru128.gmp.gmp_h.mpz_fdiv_q_2exp;
+import static com.github.teruteru128.gmp.gmp_h.mpz_fdiv_r;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
@@ -21,6 +23,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_setbit;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
 import static com.github.teruteru128.mpfr.mpfr_h.MPFR_RNDZ;
 import static com.github.teruteru128.mpfr.mpfr_h.mpfr_get_d;
@@ -31,7 +34,11 @@ import static com.github.teruteru128.mpfr.mpfr_h.mpfr_set_z;
 import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_even_p;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_u64;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_odd_p;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
+import static java.math.BigInteger.ONE;
+import static java.math.BigInteger.TWO;
+import static java.math.BigInteger.ZERO;
 import static java.math.BigInteger.valueOf;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -50,6 +57,7 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -263,7 +271,7 @@ public class Factory implements Callable<Integer> {
 
   @Command
   private int searchPrime() {
-    var base = valueOf(107).pow(1000).multiply(BigInteger.TWO);
+    var base = valueOf(107).pow(1000).multiply(TWO);
     var co = valueOf(10).pow(18);
     long count = 0;
     long num = 2;
@@ -289,7 +297,7 @@ public class Factory implements Callable<Integer> {
 
   @Command
   private int nextPrime2() {
-    var n = valueOf(107).pow(1000).multiply(BigInteger.TEN.pow(18)).multiply(BigInteger.TWO);
+    var n = valueOf(107).pow(1000).multiply(BigInteger.TEN.pow(18)).multiply(TWO);
     var i = n.add(valueOf(262));
     while (true) {
       if (i.isProbablePrime(1)) {
@@ -796,7 +804,7 @@ public class Factory implements Callable<Integer> {
         i = i.add(BigInteger.ONE);
         continue;
       }
-      if (i.mod(_4).equals(BigInteger.TWO)) {
+      if (i.mod(_4).equals(TWO)) {
         i = i.add(BigInteger.ONE);
         continue;
       }
@@ -909,7 +917,7 @@ public class Factory implements Callable<Integer> {
     var auto = Arena.ofAuto();
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_ui(n, 2);
-    var p = BigInteger.TWO;
+    var p = TWO;
     var nF = __mpfr_struct.allocate(auto).reinterpret(auto, mpfr_h::mpfr_clear);
     mpfr_init2(nF, 1024);
     var log10 = __mpfr_struct.allocate(auto).reinterpret(auto, mpfr_h::mpfr_clear);
@@ -945,8 +953,13 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
+  /**
+   *
+   * @return OK
+   */
   @Command
   private int doTheIdol() {
+    System.err.println("断崖絶壁チュパカブラ");
     long count;
     var statistics = new LongSummaryStatistics();
     for (int i = 0; i < 6000000; i++) {
@@ -988,6 +1001,111 @@ public class Factory implements Callable<Integer> {
               throw new UncheckedIOException(e);
             }
           });
+    }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "114514")
+  private int d(@Option(names = "--offset", defaultValue = "0") int offset) {
+    var auto = Arena.ofAuto();
+    var n2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n2, 114514);
+    mpz_pow_ui(n2, n2, 114514);
+    mpz_add_ui(n2, n2, offset * 2 + 1);
+    var p2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(p2, 2);
+    int count = 0;
+    while (count < 10) {
+      if (mpz_divisible_p(n2, p2) != 0) {
+        count++;
+        var length = mpz_sizeinbase(p2, 10) + 2;
+        var str = auto.allocate(length);
+        mpz_get_str(str, 10, p2);
+        System.out.println("! " + str.getString(0));
+      }
+      mpz_nextprime(p2, p2);
+    }
+    return ExitCode.OK;
+  }
+
+  @Command(name = "114514-2")
+  private int d2(@Option(names = "--offset", defaultValue = "0") int offset) {
+    var auto = Arena.ofAuto();
+    var n2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n2, 114514);
+    mpz_pow_ui(n2, n2, 114514);
+    mpz_add_ui(n2, n2, offset * 2 + 1);
+    int i;
+    long start;
+    long finish;
+    start = System.nanoTime();
+    i = mpz_probab_prime_p(n2, 24);
+    finish = System.nanoTime();
+    System.out.println("result = " + i + ", time = " + (finish - start) / 3.6e12 + " hours");
+    return ExitCode.OK;
+  }
+
+  /**
+   * 偶数とprimes*.binで見つけてない合成数を見つけようぜプロジェクト
+   * @return ExitCode
+   */
+  @Command
+  private int monika(@Parameters(description = "even number (text) file") Path evenNumberPath,
+      Path largeSievePath, Path primesPath) throws IOException, ClassNotFoundException {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(n, auto.allocateFrom(Files.readAllLines(evenNumberPath).getFirst()), 10);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    var start = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(start);
+    var sieveSizeBits = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(sieveSizeBits);
+    long[] longs;
+    try (var stream1 = new ObjectInputStream(
+        new BufferedInputStream(Files.newInputStream(largeSievePath)))) {
+      var i = stream1.readInt();
+      System.err.println(i);
+      longs = (long[]) stream1.readObject();
+      mpz_set_u64(sieveSizeBits, longs.length);
+      mpz_mul_ui(sieveSizeBits, sieveSizeBits, 8);
+    }
+    try (var stream = new DataInputStream(
+        new BufferedInputStream(Files.newInputStream(primesPath)))) {
+      while (true) {
+        try {
+          var l = stream.readLong();
+          mpz_set_u64(p, l);
+          mpz_fdiv_r(start, n, p);
+          mpz_sub(start, p, start);
+          if (!mpz_odd_p(start)) {
+            mpz_add(start, start, p);
+          }
+          mpz_sub_ui(start, start, 1);
+          mpz_fdiv_q_2exp(start, start, 1);
+          while (mpz_cmp(start, sieveSizeBits) < 0) {
+            var l1 = mpz_get_u64(start);
+            if ((longs[Math.toIntExact(l1 >>> 6)] >>> (l1 & 0x3f) & 1) == 0) {
+              System.err.printf("p: %d, %d(step: %d)%n", l, l1, l1 >>> 1);
+            }
+            mpz_add(start, start, p);
+          }
+        } catch (EOFException e) {
+          break;
+        }
+      }
+    }
+    return ExitCode.OK;
+  }
+
+  @Command
+  private int mendoi(@Parameters(defaultValue = "0") int val1) {
+    var n = BigInteger.valueOf(114514).pow(114514).multiply(TWO.pow(val1)).add(ONE);
+    var val = valueOf(1000000);
+    for (var p = BigInteger.valueOf(2); p.compareTo(val) < 0; p = p.nextProbablePrime()) {
+      if (n.remainder(p).equals(ZERO)) {
+        System.err.println(p);
+      }
     }
     return ExitCode.OK;
   }

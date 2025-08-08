@@ -1,11 +1,11 @@
 package com.github.teruteru128.study;
 
-public class Sieve {
+public class PrimeSieve {
 
   private final long[] bits;
   private final long limit1;
 
-  public Sieve(long[] bits, long limit1) {
+  public PrimeSieve(long[] bits, long limit1) {
     this.bits = bits;
     this.limit1 = limit1;
   }

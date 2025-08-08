@@ -18,6 +18,7 @@ import static com.github.teruteru128.study.PrimeSearch.loadSmallSieve;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_u64;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_odd_p;
 import static com.github.teruteru128.study.PrimeSearch.unitIndex;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import static java.lang.foreign.MemorySegment.copy;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
@@ -201,15 +202,14 @@ public class CreateLargeSieveTask implements Callable<Integer> {
       mpz_add_ui(searchLen1, searchLen1, (int) (searchLen & 0xffffffffL));
       final var start = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
       mpz_init(start);
-      var smallSieve = new Sieve(bits, sieveLimit * 64);
+      var smallSieve = new PrimeSieve(bits, sieveLimit * 64);
       var step = smallSieve.sieveSearch(sieveLimit, sieveOffset * 64);
       logger.info("first prime: {}", step * 2L + 1);
       final var convertedStep = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
       // convertedStep = step * 2L + 1
       // なんで32bitずつ入れなあかんのじゃい
-      mpz_init_set_ui(convertedStep, (int) (0xffffffffL & step >>> 32));
-      mpz_mul_2exp(convertedStep, convertedStep, 32);
-      mpz_add_ui(convertedStep, convertedStep, (int) (0xffffffffL & step));
+      mpz_init(convertedStep);
+      mpz_set_u64(convertedStep, step);
       mpz_mul_2exp(convertedStep, convertedStep, 1);
       mpz_add_ui(convertedStep, convertedStep, 1);
       var largeSieve = auto.allocate(JAVA_LONG, outputLength);
