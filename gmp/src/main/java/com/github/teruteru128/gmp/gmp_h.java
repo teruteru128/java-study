@@ -6610,8 +6610,8 @@ public class gmp_h {
      * void mpz_mul_2exp(mpz_ptr, mpz_srcptr, mp_bitcnt_t)
      * }
      */
-    public static void mpz_mul_2exp(MemorySegment x0, MemorySegment x1, int x2) {
-        __gmpz_mul_2exp(x0, x1, x2);
+    public static void mpz_mul_2exp(MemorySegment rop, MemorySegment op1, int op2) {
+        __gmpz_mul_2exp(rop, op1, op2);
     }
 
     private static class __gmpz_mul_si {

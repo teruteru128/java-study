@@ -1100,13 +1100,21 @@ public class Factory implements Callable<Integer> {
 
   @Command
   private int mendoi(@Parameters(defaultValue = "0") int val1) {
-    var n = BigInteger.valueOf(114514).pow(114514).multiply(TWO.pow(val1)).add(ONE);
-    var val = valueOf(1000000);
-    for (var p = BigInteger.valueOf(2); p.compareTo(val) < 0; p = p.nextProbablePrime()) {
-      if (n.remainder(p).equals(ZERO)) {
-        System.err.println(p);
-      }
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 114514);
+    mpz_pow_ui(n, n, 114514);
+    mpz_mul_2exp(n, n, val1);
+    mpz_add_ui(n, n, 1);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(p, 2);
+    while (mpz_divisible_p(n, p) == 0) {
+      mpz_nextprime(p, p);
     }
+    var length = mpz_sizeinbase(p, 10) + 2;
+    var str = auto.allocate(length);
+    mpz_get_str(str, 10, p);
+    System.out.println(str.getString(0));
     return ExitCode.OK;
   }
 
