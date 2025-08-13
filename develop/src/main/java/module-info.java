@@ -46,6 +46,7 @@ module com.github.teruteru.study {
   requires com.fasterxml.jackson.dataformat.yaml;
   requires com.fasterxml.jackson.databind;
   requires java.desktop;
+  requires org.apache.commons.io;
 
   exports com.github.teruteru128.color;
   exports com.github.teruteru128.study;
