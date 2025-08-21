@@ -36,9 +36,7 @@ import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_even_p;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_u64;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_odd_p;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
-import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.TWO;
-import static java.math.BigInteger.ZERO;
 import static java.math.BigInteger.valueOf;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -67,14 +65,20 @@ import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
+import java.lang.foreign.MemorySegment;
+import java.lang.foreign.ValueLayout;
+import java.lang.foreign.ValueLayout.OfDouble;
 import java.math.BigInteger;
 import java.net.URI;
 import java.net.URLEncoder;
+import java.nio.ByteOrder;
+import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.SecureRandom;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -126,6 +130,13 @@ public class Factory implements Callable<Integer> {
   public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   public static final long MASK = (1L << Double.PRECISION) - 1L;
   private static final Logger logger = LoggerFactory.getLogger(Factory.class);
+  private static final int EXIT_CODE_OK = ExitCode.OK;
+  private static final int EXIT_CODE_SOFTWARE = ExitCode.SOFTWARE;
+  private static final String ERROR_INVALID_FILE = "Error: File path is invalid or not a regular file";
+  private static final String ERROR_TOO_MANY_ELEMENTS = "Error: Requested elements exceed file size: ";
+  private static final String ERROR_BUFFER_TOO_LARGE = "Error: Requested elements (%d) cause buffer size overflow";
+  ;
+  private static final String ERROR_INCOMPLETE_READ = "Error: Failed to read requested bytes from file";
 
   private Factory() {
   }
@@ -183,24 +194,24 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  private int generatePenis(Path dir,
+  private int generatePenis(@Parameters(arity = "1") Path dir,
       @Option(names = {"--prefix", "-p"}, defaultValue = "out") String prefix,
       @Option(names = {"--exp-mu", "-m"}, defaultValue = "20") double expMu,
       @Option(names = {"--sigma", "-s"}, defaultValue = "1") double sigma) throws IOException {
     if (!Files.isDirectory(dir)) {
-      System.err.println("dir must be directory!");
+      logger.error("dir must be directory!");
       return ExitCode.SOFTWARE;
     }
     var distribution = LogNormalDistribution.of(Math.log(expMu), sigma);
     var sampler = distribution.createSampler(
         new JDKRandomWrapper((SecureRandom) SECURE_RANDOM_GENERATOR));
-    System.err.println("generate...");
+    logger.info("generate...");
     var array = sampler.samples(2000000000).parallel().toArray();
-    System.err.println("generated");
+    logger.info("generated");
     var builder = DoubleStatistics.builder(Statistic.MAX, Statistic.MIN, Statistic.MEAN,
         Statistic.STANDARD_DEVIATION);
     var outTxtPath = dir.resolve(Path.of(prefix + ".txt"));
-    System.err.println("text output...");
+    logger.info("text output...");
     try (var writer3 = new PrintWriter(
         new BufferedWriter(new FileWriter(outTxtPath.toFile()), 0x7fffffff - 2), false)) {
       for (var v : array) {
@@ -208,21 +219,21 @@ public class Factory implements Callable<Integer> {
       }
       writer3.flush();
     }
-    System.err.println("text output done");
+    logger.info("text output done");
     var outBinPath = dir.resolve(Path.of(prefix + ".bin"));
-    System.err.println("bin output...");
+    logger.info("bin output...");
     try (var stream = new DataOutputStream(
         new BufferedOutputStream(new FileOutputStream(outBinPath.toFile()), 0x7fffffff - 2))) {
       for (var v : array) {
         stream.writeDouble(v);
       }
     }
-    System.err.println("bin output done");
-    System.err.println("sort");
+    logger.info("bin output done");
+    logger.info("sort");
     Arrays.parallelSort(array);
-    System.err.println("sort done");
+    logger.info("sort done");
     var outSortedBinPath = dir.resolve(Path.of(prefix + "-sorted.bin"));
-    System.err.println("sorted bin output");
+    logger.info("sorted bin output");
     try (var stream = new DataOutputStream(
         new BufferedOutputStream(new FileOutputStream(outSortedBinPath.toFile()),
             0x7fffffff - 2))) {
@@ -230,8 +241,8 @@ public class Factory implements Callable<Integer> {
         stream.writeDouble(v);
       }
     }
-    System.err.println("sorted bin output done");
-    System.err.println("statistics generate");
+    logger.info("sorted bin output done");
+    logger.info("statistics generate");
     var statistics = Arrays.stream(array).parallel()
         .collect(builder::build, DoubleConsumer::accept, DoubleStatistics::combine);
     var median = (array[999999999] + array[1000000000]) / 2;
@@ -239,9 +250,9 @@ public class Factory implements Callable<Integer> {
     var min = statistics.getAsDouble(Statistic.MIN);
     var mean = statistics.getAsDouble(Statistic.MEAN);
     var standardDeviation = statistics.getAsDouble(Statistic.STANDARD_DEVIATION);
-    System.err.println("statistics generated");
+    logger.info("statistics generated");
     var outConfigPath = dir.resolve(Path.of(prefix + "-config.txt"));
-    System.err.println("config output");
+    logger.info("config output");
     try (var writer = new PrintWriter(
         Files.newBufferedWriter(outConfigPath, StandardOpenOption.CREATE,
             StandardOpenOption.WRITE))) {
@@ -253,8 +264,75 @@ public class Factory implements Callable<Integer> {
       writer.println(line1);
       writer.println(line2);
     }
-    System.err.println("config output done");
+    logger.info("config output done");
     return ExitCode.OK;
+  }
+
+  @Command(name = "headDouble")
+  public int headDouble(Path filePath, @Option(names = {"-n",
+      "--elements"}, defaultValue = "20", description = "Number of double elements to read") long elements)
+      throws IOException {
+    return readDoubles(filePath, elements, ReadMode.HEAD);
+  }
+
+  @Command(name = "tailDouble")
+  public int tailDouble(Path filePath, @Option(names = {"-n",
+      "--elements"}, defaultValue = "20", description = "Number of double elements to read") long elements)
+      throws IOException {
+    return readDoubles(filePath, elements, ReadMode.TAIL);
+  }
+
+  private int readDoubles(Path filePath, long elements, ReadMode mode) throws IOException {
+    // ファイルの検証
+    if (!isValidFile(filePath)) {
+      System.err.println(ERROR_INVALID_FILE);
+      return EXIT_CODE_SOFTWARE;
+    }
+
+    // ファイルサイズの検証
+    long fileSize = Files.size(filePath);
+    long requiredBytes;
+    try {
+      requiredBytes = Math.multiplyExact(elements, Double.BYTES); // オーバーフロー検出
+    } catch (ArithmeticException e) {
+      System.err.printf(ERROR_BUFFER_TOO_LARGE, elements);
+      System.err.println();
+      return EXIT_CODE_SOFTWARE;
+    }
+    if (fileSize < requiredBytes) {
+      System.err.println(ERROR_TOO_MANY_ELEMENTS + fileSize);
+      return EXIT_CODE_SOFTWARE;
+    }
+
+    // ファイルの読み込み
+    try (var channel = (FileChannel) Files.newByteChannel(filePath,
+        StandardOpenOption.READ); var arena = Arena.ofConfined()) {
+      // 読み込み位置の設定
+      if (mode == ReadMode.TAIL) {
+        channel.position(fileSize - requiredBytes);
+      }
+
+      // MemorySegment の割り当て
+      var segment = arena.allocate(requiredBytes);
+      // FileChannel から MemorySegment に直接読み込み
+      if (channel.read(segment.asByteBuffer()) != requiredBytes) {
+        System.err.println(ERROR_INCOMPLETE_READ);
+        return EXIT_CODE_SOFTWARE;
+      }
+
+      // 結果の出力
+      var layout = ValueLayout.JAVA_DOUBLE.withOrder(ByteOrder.BIG_ENDIAN);
+      for (long i = 0; i < elements; i++) {
+        var value = segment.get(layout, i * Double.BYTES);
+        System.out.println(value);
+      }
+    }
+
+    return EXIT_CODE_OK;
+  }
+
+  private boolean isValidFile(Path filePath) {
+    return Files.exists(filePath) && Files.isRegularFile(filePath);
   }
 
   @Command
@@ -1102,8 +1180,7 @@ public class Factory implements Callable<Integer> {
   private int mendoi(@Parameters(defaultValue = "0") int val1) {
     var auto = Arena.ofAuto();
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, 114514);
-    mpz_pow_ui(n, n, 114514);
+    mpz_init_set_ui(n, 3);
     mpz_mul_2exp(n, n, val1);
     mpz_add_ui(n, n, 1);
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -1118,9 +1195,80 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
+  @Command
+  private int pN(@Parameters(defaultValue = "0") int val1) {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 10);
+    mpz_pow_ui(n, n, val1);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set(p, n);
+    long start;
+    long finish;
+    MemorySegment diff;
+    long length;
+    MemorySegment str;
+    for (int i = 0; i < 10; i++) {
+      start = System.nanoTime();
+      mpz_nextprime(p, p);
+      finish = System.nanoTime();
+      diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init(diff);
+      mpz_sub(diff, p, n);
+      length = mpz_sizeinbase(diff, 10) + 2;
+      str = auto.allocate(length);
+      mpz_get_str(str, 10, diff);
+      System.out.printf("%f hours, 10^%d+%s%n", (finish - start) / 3.6e12, val1, str.getString(0));
+    }
+    return ExitCode.OK;
+  }
+
   @Override
   public Integer call() throws Exception {
     return ExitCode.USAGE;
+  }
+
+  @Command
+  private int p22485() throws IOException {
+    var primeArray = new BigInteger[2500];
+    primeArray[0] = BigInteger.valueOf(2);
+    int length = primeArray.length;
+    for (int i = 1; i < length; i++) {
+      primeArray[i] = primeArray[i - 1].nextProbablePrime();
+    }
+    var pMin = BigInteger.valueOf(10).pow(22484);
+    var pMax = BigInteger.valueOf(10).pow(22485);
+    BigInteger pSub1 = primeArray[0];
+    var generator = RandomGenerator.getDefault();
+    BigInteger p;
+    for (int i = 0; i < 10; i++) {
+      outer:
+      while (true) {
+        // pMinを超えるまで適当に素数をかけ合わせる
+        do {
+          pSub1 = pSub1.multiply(primeArray[generator.nextInt(length)]);
+          p = pSub1.add(BigInteger.ONE);
+        } while (p.compareTo(pMin) < 0);
+        // 超えたら素数判定しながら順繰りに素数判定する
+        while (p.compareTo(pMax) < 0) {
+          if (p.isProbablePrime(1)) {
+            break outer;
+          }
+          pSub1 = pSub1.multiply(primeArray[generator.nextInt(length)]);
+          p = pSub1.add(BigInteger.ONE);
+        }
+        pSub1 = primeArray[0];
+      }
+      var fileName = "prime-p22485-%d.txt".formatted(Instant.now().getEpochSecond());
+      System.err.println(fileName);
+      Files.writeString(Path.of(fileName), p + System.lineSeparator(), StandardCharsets.UTF_8,
+          StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+    }
+    return ExitCode.OK;
+  }
+
+  enum ReadMode {
+    HEAD, TAIL
   }
 
 }
