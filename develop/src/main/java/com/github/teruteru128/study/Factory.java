@@ -67,7 +67,6 @@ import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
-import java.lang.foreign.ValueLayout.OfDouble;
 import java.math.BigInteger;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -120,8 +119,8 @@ import picocli.CommandLine.Parameters;
     Deterministic.class, CreateCandidateDB.class, SmallSievePrimeCounter.class,
     NewColorGenerator.class, Multi2.class, Project5190.class, Project19.class, Project19F.class,
     Project19Sort.class, Project19Unique.class, Spammer.class, Spam2.class,
-    FactorDistribution.class, Project19G.class,
-    InsertPrimeNumberVerifyTask.class}, mixinStandardHelpOptions = true)
+    FactorDistribution.class, Project19G.class, InsertPrimeNumberVerifyTask.class,
+    WindowsPathChecker.class}, mixinStandardHelpOptions = true)
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
@@ -270,19 +269,26 @@ public class Factory implements Callable<Integer> {
 
   @Command(name = "headDouble")
   public int headDouble(Path filePath, @Option(names = {"-n",
-      "--elements"}, defaultValue = "20", description = "Number of double elements to read") long elements)
-      throws IOException {
-    return readDoubles(filePath, elements, ReadMode.HEAD);
+          "--elements"}, defaultValue = "20", description = "Number of double elements to read") long elements,
+      @Option(names = {"-o", "--offset"}) long offset) throws IOException {
+    return readDoubles(filePath, elements, offset, ReadMode.HEAD);
   }
 
   @Command(name = "tailDouble")
   public int tailDouble(Path filePath, @Option(names = {"-n",
-      "--elements"}, defaultValue = "20", description = "Number of double elements to read") long elements)
-      throws IOException {
-    return readDoubles(filePath, elements, ReadMode.TAIL);
+          "--elements"}, defaultValue = "20", description = "Number of double elements to read") long elements,
+      @Option(names = {"-o", "--offset"}) long offset) throws IOException {
+    return readDoubles(filePath, elements, offset, ReadMode.TAIL);
   }
 
-  private int readDoubles(Path filePath, long elements, ReadMode mode) throws IOException {
+  @Command(name = "Format-Double")
+  public int formatDouble(Path path, @Option(names = "--count") long count,
+      @Option(names = "offset") long offset) {
+    return ExitCode.OK;
+  }
+
+  private int readDoubles(Path filePath, long elements, long offset, ReadMode mode)
+      throws IOException {
     // ファイルの検証
     if (!isValidFile(filePath)) {
       System.err.println(ERROR_INVALID_FILE);
@@ -299,7 +305,7 @@ public class Factory implements Callable<Integer> {
       System.err.println();
       return EXIT_CODE_SOFTWARE;
     }
-    if (fileSize < requiredBytes) {
+    if (fileSize < requiredBytes + offset) {
       System.err.println(ERROR_TOO_MANY_ELEMENTS + fileSize);
       return EXIT_CODE_SOFTWARE;
     }
@@ -309,7 +315,9 @@ public class Factory implements Callable<Integer> {
         StandardOpenOption.READ); var arena = Arena.ofConfined()) {
       // 読み込み位置の設定
       if (mode == ReadMode.TAIL) {
-        channel.position(fileSize - requiredBytes);
+        channel.position(fileSize - (requiredBytes + offset));
+      } else if (mode == ReadMode.HEAD) {
+        channel.position(offset);
       }
 
       // MemorySegment の割り当て
@@ -759,251 +767,6 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  private int verify(Path nIn, long step, String prime) throws IOException {
-    var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(n, auto.allocateFrom(Files.readString(nIn)), 10);
-    var s = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(s);
-    mpz_set_u64(s, step);
-    mpz_add(n, n, s);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(p, auto.allocateFrom(prime), 10);
-    var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(mod);
-    mpz_mod(mod, n, p);
-    var length = mpz_sizeinbase(mod, 10) + 2;
-    var str = auto.allocate(length);
-    mpz_get_str(str, 10, mod);
-    System.err.println(str.getString(0));
-    if (mpz_divisible_p(n, p) != 0) {
-      System.out.println("divisible");
-    } else {
-      System.out.println("not divisible");
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int deepSearch(Path in, long step) throws IOException {
-    var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(n, auto.allocateFrom(Files.readString(in)), 10);
-    var s = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(s);
-    mpz_set_u64(s, step * 2 + 1);
-    mpz_add(n, n, s);
-    var prime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(prime, 2);
-    while (mpz_divisible_p(n, prime) == 0) {
-      mpz_nextprime(prime, prime);
-    }
-    var length = mpz_sizeinbase(prime, 10) + 2;
-    var str = auto.allocate(length);
-    mpz_get_str(str, 10, prime);
-    System.err.println(str.getString(0));
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int pag(String d2) {
-    var auto = Arena.ofAuto();
-    var co = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(co, 21181);
-    int count = 0;
-    long shift = 0;
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(n);
-    var d = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(d, auto.allocateFrom(d2), 10);
-    while (count < 2) {
-      mpz_add_ui(n, co, 1);
-      mpz_divisible_p(n, d);
-      if (mpz_divisible_p(n, d) != 0) {
-        System.out.println(shift);
-        count++;
-      }
-      mpz_mul_2exp(co, co, 1);
-      shift++;
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int step(@Option(names = {"--num", "-n"}) int num) {
-    var n = new BigInteger("36628253288426119320", 10);
-    var _3 = valueOf(3);
-    var _4 = valueOf(4);
-    var _8 = valueOf(8);
-    var _10 = valueOf(10);
-    var _11 = valueOf(11);
-    var _12 = valueOf(12);
-    var _15 = valueOf(15);
-    var _18 = valueOf(18);
-    var _19 = valueOf(19);
-    var _20 = valueOf(20);
-    var _22 = valueOf(22);
-    var _23 = valueOf(23);
-    var _35 = valueOf(35);
-    var _40 = valueOf(40);
-    var _52 = valueOf(52);
-    var _56 = valueOf(56);
-    var _68 = valueOf(68);
-    var _92 = valueOf(92);
-    var _122 = valueOf(122);
-    var _130 = valueOf(130);
-    var _162 = valueOf(162);
-    var _188 = valueOf(188);
-    var _212 = valueOf(212);
-    var _380 = valueOf(380);
-    var _452 = valueOf(452);
-    var _500 = valueOf(500);
-    var _620 = valueOf(620);
-    var _644 = valueOf(644);
-    var _740 = valueOf(740);
-    var _764 = valueOf(764);
-    var _820 = valueOf(820);
-    var _1932 = valueOf(1932);
-    var _2344 = valueOf(2344);
-    var _2676 = valueOf(2676);
-    var _2919 = valueOf(2676);
-    var _4242 = valueOf(4242);
-    var _57802 = valueOf(57802);
-    var _342466 = valueOf(342466);
-    var _685460 = valueOf(685460);
-    var i = BigInteger.ONE;
-    int count = 0;
-    while (count < num) {
-      if (i.testBit(0)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_3).equals(BigInteger.ZERO)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_4).equals(TWO)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_8).equals(BigInteger.ZERO)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_10).equals(valueOf(6))) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      var mod = i.mod(_11);
-      if (mod.equals(BigInteger.ZERO)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (mod.equals(BigInteger.TEN)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_12).equals(_4)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_22).equals(valueOf(8))) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_23).equals(_19)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_18).equals(valueOf(16))) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_35).equals(_15)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_52).equals(_40)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_92).equals(_56)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_130).equals(_4)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_162).equals(_122)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.equals(_620)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.equals(_644)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_820).equals(_740)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_1932).equals(_20)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_2344).equals(_380)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_2676).equals(_212)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_2919).equals(_764)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_4242).equals(_452)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_57802).equals(_188)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_342466).equals(_68)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      if (i.mod(_685460).equals(_500)) {
-        i = i.add(BigInteger.ONE);
-        continue;
-      }
-      System.out.println(i);
-      i = i.add(BigInteger.ONE);
-      count++;
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int primorial() {
-    var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, 2);
-    var p = TWO;
-    var nF = __mpfr_struct.allocate(auto).reinterpret(auto, mpfr_h::mpfr_clear);
-    mpfr_init2(nF, 1024);
-    var log10 = __mpfr_struct.allocate(auto).reinterpret(auto, mpfr_h::mpfr_clear);
-    mpfr_init2(log10, 128);
-    return ExitCode.OK;
-  }
-
-  @Command
   private int op(@Option(names = {"-n"}, defaultValue = "10") int streamSize) {
     var dist = NormalDistribution.of(Math.log(20), 1.44);
     var sampler = dist.createSampler(new JDKRandomWrapper((Random) SECURE_RANDOM_GENERATOR));
@@ -1238,26 +1001,23 @@ public class Factory implements Callable<Integer> {
     }
     var pMin = BigInteger.valueOf(10).pow(22484);
     var pMax = BigInteger.valueOf(10).pow(22485);
-    BigInteger pSub1 = primeArray[0];
+    var pSub1 = primeArray[0];
     var generator = RandomGenerator.getDefault();
-    BigInteger p;
+    var p = primeArray[1];
     for (int i = 0; i < 10; i++) {
       outer:
       while (true) {
-        // pMinを超えるまで適当に素数をかけ合わせる
-        do {
-          pSub1 = pSub1.multiply(primeArray[generator.nextInt(length)]);
-          p = pSub1.add(BigInteger.ONE);
-        } while (p.compareTo(pMin) < 0);
-        // 超えたら素数判定しながら順繰りに素数判定する
         while (p.compareTo(pMax) < 0) {
-          if (p.isProbablePrime(1)) {
-            break outer;
+          if (p.compareTo(pMin) >= 0) {
+            if (p.isProbablePrime(1)) {
+              break outer;
+            }
           }
           pSub1 = pSub1.multiply(primeArray[generator.nextInt(length)]);
           p = pSub1.add(BigInteger.ONE);
         }
         pSub1 = primeArray[0];
+        p = primeArray[1];
       }
       var fileName = "prime-p22485-%d.txt".formatted(Instant.now().getEpochSecond());
       System.err.println(fileName);
