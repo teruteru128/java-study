@@ -134,7 +134,6 @@ public class Factory implements Callable<Integer> {
   private static final String ERROR_INVALID_FILE = "Error: File path is invalid or not a regular file";
   private static final String ERROR_TOO_MANY_ELEMENTS = "Error: Requested elements exceed file size: ";
   private static final String ERROR_BUFFER_TOO_LARGE = "Error: Requested elements (%d) cause buffer size overflow";
-  ;
   private static final String ERROR_INCOMPLETE_READ = "Error: Failed to read requested bytes from file";
 
   private Factory() {
