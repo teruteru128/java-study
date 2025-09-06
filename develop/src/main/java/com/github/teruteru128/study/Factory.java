@@ -112,6 +112,7 @@ import picocli.CommandLine.HelpCommand;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
+// FIXME サブコマンドをここに並べるのではなく、サービスローダーを使ってサービスとして読み込ませられないか？
 @Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
     ECIESSample.class, FileChecker.class, PrimeSearch.class, SiteChecker.class, Spam.class,
     TeamSpeak.class, Updater.class, HelpCommand.class, ListUp.class, Transform.class,
@@ -143,7 +144,7 @@ public class Factory implements Callable<Integer> {
    * Callableをnewして返すファクトリにするはずだったんだけどなあ……
    *
    */
-  static Callable<Integer> createInstance() {
+  public static Callable<Integer> createInstance() {
     return new Factory();
   }
 
@@ -709,287 +710,16 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command
-  private int a(Path nIn, Path lSieveIn, @Option(names = {"--prime"}) long val)
-      throws IOException, ClassNotFoundException {
-    long[] longArray;
-    try (var oin = new ObjectInputStream(
-        new BufferedInputStream(Files.newInputStream(lSieveIn, StandardOpenOption.READ)))) {
-      oin.readLong();
-      var o = oin.readObject();
-      if (!(o instanceof long[])) {
-        System.err.println(o.getClass());
-        return ExitCode.SOFTWARE;
-      }
-      longArray = (long[]) o;
-      logger.info("読込できました");
-    } catch (OptionalDataException e) {
-      System.err.printf("%d, %b%n", e.length, e.eof);
-      throw e;
-    }
-    var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(n, auto.allocateFrom(Files.readString(nIn)), 10);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(p);
-    mpz_set_u64(p, val);
-    var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(mod);
-    var th = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(th, 3355443 * 2 + 1);
-    var start = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(start);
-    int i = 0;
-    while (i < 10) {
-      mpz_nextprime(p, p);
-      mpz_mod(mod, n, p);
-      mpz_sub(start, p, mod);
-      if (mpz_even_p(start)) {
-        mpz_add(start, start, p);
-      }
-      if (mpz_cmp(start, th) < 0) {
-        var lTmp = mpz_get_u64(start);
-        var t = (lTmp - 1) / 2;
-        var l = (longArray[(int) (t >>> 6)] >>> (t & 0x3f)) & 0x1;
-        if (l == 0) {
-          var length = mpz_sizeinbase(p, 10) + 2;
-          var str = auto.allocate(length);
-          mpz_get_str(str, 10, p);
-          System.out.println(
-              str.getString(0) + ": " + Long.toUnsignedString(mpz_get_u64(mod)) + ", "
-              + Long.toUnsignedString(lTmp));
-          i++;
-        }
-      }
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int op(@Option(names = {"-n"}, defaultValue = "10") int streamSize) {
-    var dist = NormalDistribution.of(Math.log(20), 1.44);
-    var sampler = dist.createSampler(new JDKRandomWrapper((Random) SECURE_RANDOM_GENERATOR));
-    sampler.samples(streamSize).forEach(l -> System.out.println(l + ", " + Math.exp(l)));
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int op2(@Option(names = {"-n"}, defaultValue = "10") int streamSize) {
-    var dist = NormalDistribution.of(Math.log(20), 1.44);
-    var sampler = dist.createSampler(RandomSource.XO_RO_SHI_RO_128_PP.create());
-    var array = sampler.samples(200).toArray();
-    var builder = DoubleStatistics.builder(Statistic.MAX, Statistic.MIN, Statistic.MEAN,
-        Statistic.STANDARD_DEVIATION);
-    var statistics = Arrays.stream(array).parallel()
-        .collect(builder::build, DoubleConsumer::accept, DoubleStatistics::combine);
-    var median = (array[99] + array[100]) / 2;
-    var max = statistics.getAsDouble(Statistic.MAX);
-    var min = statistics.getAsDouble(Statistic.MIN);
-    var mean = statistics.getAsDouble(Statistic.MEAN);
-    var standardDeviation = statistics.getAsDouble(Statistic.STANDARD_DEVIATION);
-    var line2 = String.format("min=%s, max=%s, mean=%s, median=%s, standard deviation=%s", min, max,
-        mean, median, standardDeviation);
-    System.out.println(line2);
-    return ExitCode.OK;
-  }
-
-  /**
-   *
-   * @return OK
-   */
-  @Command
-  private int doTheIdol() {
-    System.err.println("断崖絶壁チュパカブラ");
-    long count;
-    var statistics = new LongSummaryStatistics();
-    for (int i = 0; i < 6000000; i++) {
-      count = 0;
-      while (SECURE_RANDOM_GENERATOR.nextInt(10000) != 0) {
-        count++;
-      }
-      //System.out.println(count);
-      statistics.accept(count);
-    }
-    System.out.println("avg: " + statistics.getAverage());
-    System.out.println("max: " + statistics.getMax());
-    return ExitCode.OK;
-  }
-
-  /**
-   * Cookie Clicker for mobile のセーブデータファイル名を修正するためのマクロ
-   * @param dir dir
-   * @return status code
-   * @throws IOException io error
-   */
-  @Command
-  private int convert(Path dir) throws IOException {
-    var pattern = Pattern.compile("CookieClickerSave-(\\d+...\\d\\d\\d\\d-\\d\\dh\\d\\d).txt");
-    var originalFormatter = DateTimeFormatter.ofPattern("dMMMyyyy-HH'h'mm", Locale.ENGLISH);
-    var newFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm", Locale.ENGLISH);
-    record MatcherAndPath(Path file, Matcher matcher) {
-
-    }
-    try (var list = Files.list(dir)) {
-      list.map(p -> new MatcherAndPath(p, pattern.matcher(p.getFileName().toString())))
-          .filter(p -> p.matcher().matches()).forEach(p -> {
-            var time = LocalDateTime.parse(p.matcher().group(1), originalFormatter);
-            var newPath = p.file()
-                .resolveSibling("CookieClickerSave-" + time.format(newFormatter) + ".txt");
-            try {
-              Files.move(p.file(), newPath);
-            } catch (IOException e) {
-              throw new UncheckedIOException(e);
-            }
-          });
-    }
-    return ExitCode.OK;
-  }
-
-  @Command(name = "114514")
-  private int d(@Option(names = "--offset", defaultValue = "0") int offset) {
-    var auto = Arena.ofAuto();
-    var n2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n2, 114514);
-    mpz_pow_ui(n2, n2, 114514);
-    mpz_add_ui(n2, n2, offset * 2 + 1);
-    var p2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(p2, 2);
-    int count = 0;
-    while (count < 10) {
-      if (mpz_divisible_p(n2, p2) != 0) {
-        count++;
-        var length = mpz_sizeinbase(p2, 10) + 2;
-        var str = auto.allocate(length);
-        mpz_get_str(str, 10, p2);
-        System.out.println("! " + str.getString(0));
-      }
-      mpz_nextprime(p2, p2);
-    }
-    return ExitCode.OK;
-  }
-
-  @Command(name = "114514-2")
-  private int d2(@Option(names = "--offset", defaultValue = "0") int offset) {
-    var auto = Arena.ofAuto();
-    var n2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n2, 114514);
-    mpz_pow_ui(n2, n2, 114514);
-    mpz_add_ui(n2, n2, offset * 2 + 1);
-    int i;
-    long start;
-    long finish;
-    start = System.nanoTime();
-    i = mpz_probab_prime_p(n2, 24);
-    finish = System.nanoTime();
-    System.out.println("result = " + i + ", time = " + (finish - start) / 3.6e12 + " hours");
-    return ExitCode.OK;
-  }
-
-  /**
-   * 偶数とprimes*.binで見つけてない合成数を見つけようぜプロジェクト
-   * @return ExitCode
-   */
-  @Command
-  private int monika(@Parameters(description = "even number (text) file") Path evenNumberPath,
-      Path largeSievePath, Path primesPath) throws IOException, ClassNotFoundException {
-    var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(n, auto.allocateFrom(Files.readAllLines(evenNumberPath).getFirst()), 10);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(p);
-    var start = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(start);
-    var sieveSizeBits = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(sieveSizeBits);
-    long[] longs;
-    try (var stream1 = new ObjectInputStream(
-        new BufferedInputStream(Files.newInputStream(largeSievePath)))) {
-      var i = stream1.readInt();
-      System.err.println(i);
-      longs = (long[]) stream1.readObject();
-      mpz_set_u64(sieveSizeBits, longs.length);
-      mpz_mul_ui(sieveSizeBits, sieveSizeBits, 8);
-    }
-    try (var stream = new DataInputStream(
-        new BufferedInputStream(Files.newInputStream(primesPath)))) {
-      while (true) {
-        try {
-          var l = stream.readLong();
-          mpz_set_u64(p, l);
-          mpz_fdiv_r(start, n, p);
-          mpz_sub(start, p, start);
-          if (!mpz_odd_p(start)) {
-            mpz_add(start, start, p);
-          }
-          mpz_sub_ui(start, start, 1);
-          mpz_fdiv_q_2exp(start, start, 1);
-          while (mpz_cmp(start, sieveSizeBits) < 0) {
-            var l1 = mpz_get_u64(start);
-            if ((longs[Math.toIntExact(l1 >>> 6)] >>> (l1 & 0x3f) & 1) == 0) {
-              System.err.printf("p: %d, %d(step: %d)%n", l, l1, l1 >>> 1);
-            }
-            mpz_add(start, start, p);
-          }
-        } catch (EOFException e) {
-          break;
-        }
-      }
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int mendoi(@Parameters(defaultValue = "0") int val1) {
-    var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, 3);
-    mpz_mul_2exp(n, n, val1);
-    mpz_add_ui(n, n, 1);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(p, 2);
-    while (mpz_divisible_p(n, p) == 0) {
-      mpz_nextprime(p, p);
-    }
-    var length = mpz_sizeinbase(p, 10) + 2;
-    var str = auto.allocate(length);
-    mpz_get_str(str, 10, p);
-    System.out.println(str.getString(0));
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int pN(@Parameters(defaultValue = "0") int val1) {
-    var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, 10);
-    mpz_pow_ui(n, n, val1);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set(p, n);
-    long start;
-    long finish;
-    MemorySegment diff;
-    long length;
-    MemorySegment str;
-    for (int i = 0; i < 10; i++) {
-      start = System.nanoTime();
-      mpz_nextprime(p, p);
-      finish = System.nanoTime();
-      diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      mpz_init(diff);
-      mpz_sub(diff, p, n);
-      length = mpz_sizeinbase(diff, 10) + 2;
-      str = auto.allocate(length);
-      mpz_get_str(str, 10, diff);
-      System.out.printf("%f hours, 10^%d+%s%n", (finish - start) / 3.6e12, val1, str.getString(0));
-    }
-    return ExitCode.OK;
-  }
-
   @Override
   public Integer call() throws Exception {
     return ExitCode.USAGE;
   }
 
+  /**
+   * 22485桁で証明が容易な素数を探そう
+   * @return s
+   * @throws IOException s
+   */
   @Command
   private int p22485() throws IOException {
     var primeArray = new BigInteger[2500];
