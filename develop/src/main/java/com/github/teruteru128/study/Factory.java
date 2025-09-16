@@ -2,39 +2,18 @@ package com.github.teruteru128.study;
 
 import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
-import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_cmp;
-import static com.github.teruteru128.gmp.gmp_h.mpz_divisible_p;
-import static com.github.teruteru128.gmp.gmp_h.mpz_fdiv_q_2exp;
-import static com.github.teruteru128.gmp.gmp_h.mpz_fdiv_r;
+import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
-import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
-import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_mod;
-import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
-import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_prevprime;
-import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
-import static com.github.teruteru128.gmp.gmp_h.mpz_set;
-import static com.github.teruteru128.gmp.gmp_h.mpz_setbit;
+import static com.github.teruteru128.gmp.gmp_h.mpz_powm;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
-import static com.github.teruteru128.mpfr.mpfr_h.MPFR_RNDZ;
-import static com.github.teruteru128.mpfr.mpfr_h.mpfr_get_d;
-import static com.github.teruteru128.mpfr.mpfr_h.mpfr_get_prec;
-import static com.github.teruteru128.mpfr.mpfr_h.mpfr_init2;
-import static com.github.teruteru128.mpfr.mpfr_h.mpfr_log;
-import static com.github.teruteru128.mpfr.mpfr_h.mpfr_set_z;
 import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
-import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_even_p;
-import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_u64;
-import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_odd_p;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import static java.math.BigInteger.TWO;
 import static java.math.BigInteger.valueOf;
@@ -45,27 +24,17 @@ import com.github.teruteru128.bitmessage.app.Spammer;
 import com.github.teruteru128.gmp.__gmp_randstate_struct;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
-import com.github.teruteru128.mpfr.__mpfr_struct;
-import com.github.teruteru128.mpfr.mpfr_h;
 import com.github.teruteru128.ncv.xml.ListUp;
 import com.github.teruteru128.ncv.xml.Transform;
 import com.github.teruteru128.semen.CumShoot;
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.OptionalDataException;
 import java.io.PrintWriter;
-import java.io.RandomAccessFile;
-import java.io.UncheckedIOException;
 import java.lang.foreign.Arena;
-import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.math.BigInteger;
 import java.net.URI;
@@ -78,32 +47,17 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.SecureRandom;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Locale;
-import java.util.LongSummaryStatistics;
-import java.util.Random;
-import java.util.TreeMap;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.DoubleConsumer;
 import java.util.random.RandomGenerator;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.IntStream;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
 import javax.net.ssl.HttpsURLConnection;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.rng.simple.RandomSource;
 import org.apache.commons.statistics.descriptive.DoubleStatistics;
 import org.apache.commons.statistics.descriptive.Statistic;
 import org.apache.commons.statistics.distribution.LogNormalDistribution;
-import org.apache.commons.statistics.distribution.NormalDistribution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
@@ -128,7 +82,6 @@ public class Factory implements Callable<Integer> {
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
   public static final String ENDPOINT = "https://factordb.com/api?query=";
   public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-  public static final long MASK = (1L << Double.PRECISION) - 1L;
   private static final Logger logger = LoggerFactory.getLogger(Factory.class);
   private static final int EXIT_CODE_OK = ExitCode.OK;
   private static final int EXIT_CODE_SOFTWARE = ExitCode.SOFTWARE;
@@ -146,50 +99,6 @@ public class Factory implements Callable<Integer> {
    */
   public static Callable<Integer> createInstance() {
     return new Factory();
-  }
-
-  @Command
-  private int formatPenis(Path in) throws IOException {
-    var size = Files.size(in);
-    try (var file = new RandomAccessFile(in.toFile(), "r")) {
-
-      for (long pos = size - 128; pos < size; pos += 8) {
-        file.seek(pos);
-        var v = file.readDouble();
-        System.out.println(v);
-      }
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int nextPrime(@Parameters(defaultValue = "3") BigInteger p,
-      @Option(names = {"--num", "-n"}) final long n) {
-    var in = new BigInteger(
-        "4611756240828382812967274292517917001228992958125270097501539654664641060941176759286491947774023598030841271304984728055643767273150281284335312095375995180280200100287356406872860659980855307781201702790844711356164335297909731718740655702069241270868563302401068564405285349595141398612149976246394",
-        10);
-    var one = BigInteger.ONE;
-    long count = 0;
-    while (true) {
-      var tmp = in.multiply(p);
-      var sub = tmp.subtract(one);
-      var probablePrime = sub.isProbablePrime(1);
-      if (probablePrime) {
-        System.out.println("n * " + p + " - 1 is prime");
-        count++;
-      }
-      var add = tmp.add(one);
-      var probablePrime1 = add.isProbablePrime(1);
-      if (probablePrime1) {
-        System.out.println("n * " + p + " + 1 is prime");
-        count++;
-      }
-      if (count >= n) {
-        break;
-      }
-      p = p.nextProbablePrime();
-    }
-    return ExitCode.OK;
   }
 
   @Command
@@ -382,93 +291,6 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  private int nextPrime2() {
-    var n = valueOf(107).pow(1000).multiply(BigInteger.TEN.pow(18)).multiply(TWO);
-    var i = n.add(valueOf(262));
-    while (true) {
-      if (i.isProbablePrime(1)) {
-        System.out.println(i.subtract(n));
-        break;
-      }
-      i = i.add(BigInteger.ONE);
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int primeGap(@Option(names = {"--max-start", "-m"}) double initialMax) {
-    var auto = Arena.ofAuto();
-    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(min, 10);
-    mpz_pow_ui(min, min, 20);
-    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(window);
-    mpz_mul_ui(window, min, 99);
-    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
-    gmp_randinit_default(state);
-    Project19.seedRandomState(state);
-    var in1 = __mpfr_struct.allocate(auto).reinterpret(auto, mpfr_h::mpfr_clear);
-    mpfr_init2(in1, 305);
-    var out1 = __mpfr_struct.allocate(auto).reinterpret(auto, mpfr_h::mpfr_clear);
-    mpfr_init2(out1, 25);
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(n);
-    var smallerPrime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(smallerPrime);
-    var largerPrime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(largerPrime);
-    var diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(diff);
-    double max = initialMax;
-    while (true) {
-      mpz_urandomm(n, state, window);
-      mpz_add(n, n, min);
-      mpz_setbit(n, 0);
-      if (mpz_probab_prime_p(n, 1) == 0) {
-        mpz_prevprime(smallerPrime, n);
-      } else {
-        mpz_set(smallerPrime, n);
-      }
-      mpz_nextprime(largerPrime, n);
-      mpz_sub(diff, largerPrime, smallerPrime);
-      mpfr_set_z(in1, smallerPrime, 0);
-      mpfr_log(out1, in1, MPFR_RNDZ());
-
-      var merit = mpz_get_u64(diff) / mpfr_get_d(out1, MPFR_RNDZ());
-      // これはまあ消してもいいかな、もしくはスレッドごとに計測
-      if (max < merit) {
-        System.err.println(LocalDateTime.now() + " 記録が更新されました: " + merit);
-        max = merit;
-      }
-      if (30 <= merit) {
-        var length = mpz_sizeinbase(smallerPrime, 10) + 2;
-        var str = auto.allocate(length);
-        mpz_get_str(str, 10, smallerPrime);
-        var string = str.getString(0);
-        logger.info("30 over merit!: {}", string);
-        if (42 <= merit) {
-          break;
-        }
-      }
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int sierpinskiProblem() {
-    var auto = Arena.ofAuto();
-    int k2 = 21181;
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, k2);
-    var nAdd1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(nAdd1);
-    var k = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(k);
-
-    return ExitCode.OK;
-  }
-
-  @Command
   private int send(@Option(names = {"--cof"}, defaultValue = "50001") int i1,
       @Option(names = {"--max"}, defaultValue = "100000") int i2)
       throws IOException, InterruptedException {
@@ -497,6 +319,12 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
+  /**
+   * factordb.comへの18桁素数絨毯爆撃
+   * @return a
+   * @throws IOException a
+   * @throws InterruptedException a
+   */
   @Command
   private int bom() throws IOException, InterruptedException {
     var auto = Arena.ofAuto();
@@ -549,167 +377,6 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command
-  private int re(Path[] in) throws IOException {
-    var treeMap = new TreeMap<Long, Double>();
-    double value;
-    long key;
-    Double oldValue;
-    for (var path : in) {
-      var elements = Files.size(path) / 8;
-      try (var stream = new DataInputStream(
-          new BufferedInputStream(Files.newInputStream(path, StandardOpenOption.READ),
-              0x7fffffff - 2))) {
-        for (long i = 0; i < elements; i++) {
-          value = stream.readDouble();
-          key = Double.doubleToLongBits(value) & MASK;
-          if ((oldValue = treeMap.put(key, value)) != null) {
-            logger.info("Mantissa collision: {}, {} in 0x{}", oldValue, value,
-                String.format("%014x", key));
-          }
-        }
-      }
-      System.err.println(path.getFileName() + " done");
-    }
-    System.err.println("size is " + treeMap.size());
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int showIndex(double v, Path path) throws IOException {
-    try (var da = new DataInputStream(
-        new BufferedInputStream(Files.newInputStream(path, StandardOpenOption.READ)))) {
-      long index = 0;
-      while (v >= da.readDouble()) {
-        index++;
-      }
-      System.out.println(index);
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int digitPrimes(Path out) throws IOException {
-    var auto = Arena.ofAuto();
-    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(min, 10);
-    mpz_pow_ui(min, min, 299);
-    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set(window, min);
-    mpz_mul_ui(window, window, 9);
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(n);
-    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
-    gmp_randinit_default(state);
-    Project19.seedRandomState(state);
-    var str = auto.allocate(305);
-    var list = new ArrayList<String>(300);
-    long s = System.nanoTime();
-    for (int i = 0; i < 300; i++) {
-      mpz_urandomm(n, state, window);
-      mpz_add(n, n, min);
-      mpz_nextprime(n, n);
-      mpz_get_str(str, 10, n);
-      list.add(str.getString(0));
-    }
-    long e = System.nanoTime();
-    System.err.println(((e - s) / 1e9) + " 秒");
-    Collections.sort(list);
-    Files.write(out, list, StandardOpenOption.CREATE, StandardOpenOption.WRITE,
-        StandardOpenOption.APPEND);
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int postFD(Path[] in) throws IOException {
-    for (var path : in) {
-      for (var line : Files.readAllLines(path)) {
-        var url = URI.create(ENDPOINT + line).toURL();
-        var connection = (HttpsURLConnection) url.openConnection();
-        connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
-        var responseCode = connection.getResponseCode();
-        System.err.println(responseCode);
-      }
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int bulkPostPrime(@Parameters(defaultValue = "1000000000000000000") BigInteger p,
-      @Option(names = {"--num", "-n"}, defaultValue = "50000000") long n) {
-    //if (!p.isProbablePrime(1)) {
-    //  p = p.nextProbablePrime();
-    //}
-    // parallelにしたらスパム判定食らって死ゾ
-    var queue = new LinkedBlockingQueue<BigInteger>(5);
-    try (var pool = new ForkJoinPool(3)) {
-      pool.submit(() -> Stream.iterate(p.isProbablePrime(1) ? p : p.nextProbablePrime(),
-          BigInteger::nextProbablePrime).limit(n).forEach(q -> {
-        try {
-          queue.put(q);
-        } catch (InterruptedException e) {
-          throw new RuntimeException(e);
-        }
-      }));
-      pool.submit(() -> LongStream.range(0, n).parallel().forEach(_ -> {
-        String prime;
-        try {
-          prime = queue.take().toString();
-        } catch (InterruptedException e) {
-          throw new RuntimeException(e);
-        }
-        try {
-          var url = URI.create(ENDPOINT + prime).toURL();
-          HttpsURLConnection connection;
-          int re;
-          do {
-            connection = (HttpsURLConnection) url.openConnection();
-            connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
-            re = connection.getResponseCode();
-            if (re == FactorDistribution.HTTP_TOO_MANY_REQUESTS) {
-              logger.error("sleeping...");
-              Thread.sleep(1000 * 60 * 5);
-            }
-          } while (re != 200);
-
-          JsonNode root;
-          try (var inputStream = connection.getInputStream()) {
-            root = OBJECT_MAPPER.readTree(inputStream);
-          }
-          var id = root.get("id");
-          var status = root.get("status");
-          logger.info("{}, {}: {}", prime, id.isTextual() ? id.textValue() : id.longValue(),
-              status.textValue());
-        } catch (IOException e) {
-          throw new UncheckedIOException(e);
-        } catch (InterruptedException e) {
-          throw new RuntimeException(e);
-        }
-      }));
-    }
-    return ExitCode.OK;
-  }
-
-  @Command
-  private int log(Path in) throws IOException {
-    var auto = Arena.ofAuto();
-    var pZ = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(pZ, auto.allocateFrom(Files.readString(in)), 10);
-    var bitLength = mpz_sizeinbase(pZ, 2);
-    var pMpfr = __mpfr_struct.allocate(auto).reinterpret(auto, mpfr_h::mpfr_clear);
-    System.err.println(bitLength);
-    //mpfr_init2(pMpfr, (int) ((bitLength + 63) / 64 * 64));
-    mpfr_init2(pMpfr, 53);
-    mpfr_set_z(pMpfr, pZ, 0);
-    System.err.println(mpfr_get_prec(pMpfr));
-    var lnP = __mpfr_struct.allocate(auto).reinterpret(auto, mpfr_h::mpfr_clear);
-    mpfr_init2(lnP, 53);
-    mpfr_log(lnP, pMpfr, MPFR_RNDZ());
-    var d = mpfr_get_d(lnP, MPFR_RNDZ());
-    System.out.println(d);
-    return ExitCode.OK;
-  }
-
   @Override
   public Integer call() throws Exception {
     return ExitCode.USAGE;
@@ -722,10 +389,10 @@ public class Factory implements Callable<Integer> {
    */
   @Command
   private int p22485() throws IOException {
-    var primeArray = new BigInteger[2500];
+    var primeArray = new BigInteger[25000];
     primeArray[0] = BigInteger.valueOf(2);
-    int length = primeArray.length;
-    for (int i = 1; i < length; i++) {
+    int primeArrayLength = primeArray.length;
+    for (int i = 1; i < primeArrayLength; i++) {
       primeArray[i] = primeArray[i - 1].nextProbablePrime();
     }
     var pMin = BigInteger.valueOf(10).pow(22484);
@@ -742,7 +409,7 @@ public class Factory implements Callable<Integer> {
               break outer;
             }
           }
-          pSub1 = pSub1.multiply(primeArray[generator.nextInt(length)]);
+          pSub1 = pSub1.multiply(primeArray[generator.nextInt(primeArrayLength)]);
           p = pSub1.add(BigInteger.ONE);
         }
         pSub1 = primeArray[0];
@@ -754,6 +421,68 @@ public class Factory implements Callable<Integer> {
           StandardOpenOption.CREATE, StandardOpenOption.WRITE);
     }
     return ExitCode.OK;
+  }
+
+  @Command
+  public int exp() {
+    var dist = LogNormalDistribution.of(Math.log(25), 1.442026886600883);
+    var sampler = dist.createSampler(RandomSource.XO_RO_SHI_RO_128_PP.create());
+    var array = sampler.samples(200).toArray();
+    for (var ln : array) {
+      System.out.println(Math.log(ln) + ", " + ln);
+    }
+    return ExitCode.OK;
+  }
+
+  /**
+   * <a href="https://x.com/Pajoca_/status/1967072048259494084">一般化ヴィーフェリッヒ素数</a>
+   * @return return code
+   */
+  @Command
+  public int wieferich() {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(n);
+    var base = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(base, 47);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    var pSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(pSub1);
+    var pPow2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(pPow2);
+    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+    gmp_randinit_default(state);
+    Project19.seedRandomState(state);
+    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(min);
+    mpz_set_u64(min, 200000000000000L);
+    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(window, 10);
+    mpz_pow_ui(window, window, 32);
+    mpz_sub(window, window, min);
+    do {
+      mpz_urandomm(p, state, window);
+      mpz_add(p, p, min);
+      mpz_nextprime(p, p);
+
+      mpz_sub_ui(pSub1, p, 1);
+      mpz_pow_ui(pPow2, p, 2);
+
+      mpz_powm(n, base, pSub1, pPow2);
+      if (mpz_cmp_ui(n, 10) <= 0) {
+        var length = mpz_sizeinbase(p, 10) + 2;
+        var str = auto.allocate(length);
+        mpz_get_str(str, 10, p);
+        System.out.println("modが10以下: " + str.getString(0));
+      }
+    } while (mpz_cmp_ui(n, 1) != 0);
+    var length = mpz_sizeinbase(p, 10) + 2;
+    var str = auto.allocate(length);
+    mpz_get_str(str, 10, n);
+    System.out.println("modが1と等しい: " + str.getString(0));
+
+    return EXIT_CODE_OK;
   }
 
   enum ReadMode {
