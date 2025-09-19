@@ -51,7 +51,6 @@ module com.github.teruteru.study {
   exports com.github.teruteru128.color;
   exports com.github.teruteru128.study;
   exports com.github.teruteru128.net;
-  exports com.github.teruteru128.semen;
   exports com.github.teruteru128.util.gmp.mpz;
   opens com.github.teruteru128.fx;
   opens com.github.teruteru128.study;

@@ -30,8 +30,10 @@ import java.util.random.RandomGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Parameters;
 
+// TODO 分離
 @Command(name = "spam3")
 public class Spammer implements Callable<Integer> {
 
@@ -183,7 +185,7 @@ public class Spammer implements Callable<Integer> {
         }
       }
     }
-    return 0;
+    return ExitCode.OK;
   }
 
   public record Address(String label, String address) implements Serializable {

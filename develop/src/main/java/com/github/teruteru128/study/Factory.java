@@ -1,10 +1,14 @@
 package com.github.teruteru128.study;
 
+import static com.github.teruteru128.bitmessage.app.Spammer.requestBuilder;
 import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
+import static com.github.teruteru128.gmp.gmp_h.gmp_randseed;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_import;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
@@ -13,20 +17,15 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
-import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
+import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.math.BigInteger.TWO;
 import static java.math.BigInteger.valueOf;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.teruteru128.bitmessage.app.Spammer;
+import com.github.teruteru128.bitmessage.Message;
 import com.github.teruteru128.gmp.__gmp_randstate_struct;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
-import com.github.teruteru128.ncv.xml.ListUp;
-import com.github.teruteru128.ncv.xml.Transform;
-import com.github.teruteru128.semen.CumShoot;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
@@ -35,10 +34,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.foreign.Arena;
+import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.math.BigInteger;
-import java.net.URI;
-import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
@@ -46,13 +47,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.SecureRandom;
+import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
+import java.util.List;
+import java.util.StringJoiner;
 import java.util.concurrent.Callable;
 import java.util.function.DoubleConsumer;
 import java.util.random.RandomGenerator;
 import java.util.stream.IntStream;
-import javax.net.ssl.HttpsURLConnection;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.rng.simple.RandomSource;
 import org.apache.commons.statistics.descriptive.DoubleStatistics;
@@ -68,20 +73,14 @@ import picocli.CommandLine.Parameters;
 
 // FIXME サブコマンドをここに並べるのではなく、サービスローダーを使ってサービスとして読み込ませられないか？
 @Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
-    ECIESSample.class, FileChecker.class, PrimeSearch.class, SiteChecker.class, Spam.class,
-    TeamSpeak.class, Updater.class, HelpCommand.class, ListUp.class, Transform.class,
-    CumShoot.class, SlimeSearch.class, Spam3.class, OwnerCheck.class, CalcBustSize.class,
-    Deterministic.class, CreateCandidateDB.class, SmallSievePrimeCounter.class,
-    NewColorGenerator.class, Multi2.class, Project5190.class, Project19.class, Project19F.class,
-    Project19Sort.class, Project19Unique.class, Spammer.class, Spam2.class,
-    FactorDistribution.class, Project19G.class, InsertPrimeNumberVerifyTask.class,
+    ECIESSample.class, PrimeSearch.class, Updater.class, HelpCommand.class, SlimeSearch.class,
+    OwnerCheck.class, CalcBustSize.class, Deterministic.class, CreateCandidateDB.class,
+    SmallSievePrimeCounter.class, NewColorGenerator.class, InsertPrimeNumberVerifyTask.class,
     WindowsPathChecker.class}, mixinStandardHelpOptions = true)
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
-  public static final String ENDPOINT = "https://factordb.com/api?query=";
-  public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final Logger logger = LoggerFactory.getLogger(Factory.class);
   private static final int EXIT_CODE_OK = ExitCode.OK;
   private static final int EXIT_CODE_SOFTWARE = ExitCode.SOFTWARE;
@@ -99,6 +98,18 @@ public class Factory implements Callable<Integer> {
    */
   public static Callable<Integer> createInstance() {
     return new Factory();
+  }
+
+  public static void seedRandomState(MemorySegment state) {
+    var auto = Arena.ofAuto();
+    var seed = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(seed);
+    var elementCount = 2493;
+    var seedNativeSegment = auto.allocate(JAVA_BYTE, elementCount);
+    MemorySegment.copy(((SecureRandom) SECURE_RANDOM_GENERATOR).generateSeed(elementCount), 0,
+        seedNativeSegment, JAVA_BYTE, 0, elementCount);
+    mpz_import(seed, elementCount, 1, 1, 0, 0, seedNativeSegment);
+    gmp_randseed(state, seed);
   }
 
   @Command
@@ -290,93 +301,6 @@ public class Factory implements Callable<Integer> {
     return ExitCode.OK;
   }
 
-  @Command
-  private int send(@Option(names = {"--cof"}, defaultValue = "50001") int i1,
-      @Option(names = {"--max"}, defaultValue = "100000") int i2)
-      throws IOException, InterruptedException {
-    for (int i = i1; i < i2; i++) {
-      var str = ENDPOINT + URLEncoder.encode("21181*2^" + i + "+1", StandardCharsets.UTF_8);
-      var url = URI.create(str).toURL();
-      HttpsURLConnection urlConnection;
-      int code;
-      do {
-        urlConnection = (HttpsURLConnection) url.openConnection();
-        urlConnection.setRequestProperty("Cookie", FDB_USER_COOKIE);
-        code = urlConnection.getResponseCode();
-        if (code == FactorDistribution.HTTP_TOO_MANY_REQUESTS) {
-          Thread.sleep(1000 * 60 * 5);
-        }
-      } while (code != 200);
-      JsonNode root;
-      try (var inputStream = urlConnection.getInputStream()) {
-        root = OBJECT_MAPPER.readTree(inputStream);
-      }
-      var id = root.get("id");
-      var status = root.get("status");
-      logger.info("{}: {}, {}", id.isTextual() ? id.textValue() : id.longValue(), i,
-          status.textValue());
-    }
-    return ExitCode.OK;
-  }
-
-  /**
-   * factordb.comへの18桁素数絨毯爆撃
-   * @return a
-   * @throws IOException a
-   * @throws InterruptedException a
-   */
-  @Command
-  private int bom() throws IOException, InterruptedException {
-    var auto = Arena.ofAuto();
-    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(min, 10);
-    mpz_pow_ui(min, min, 18);
-    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(window);
-    mpz_set_u64(window, 8999999999999999961L);
-    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
-    gmp_randinit_default(state);
-    Project19.seedRandomState(state);
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(n);
-    var stringBuilder = new StringBuilder(20 * 21621);
-    var str = auto.allocate(21);
-    for (int i = 0; i < 1000; i++) {
-      mpz_urandomm(n, state, window);
-      mpz_add(n, n, min);
-      mpz_nextprime(n, n);
-      mpz_get_str(str, 10, n);
-      if (i != 0) {
-        stringBuilder.append('*');
-      }
-      stringBuilder.append(str.getString(0));
-    }
-    var url = URI.create(
-        ENDPOINT + URLEncoder.encode(stringBuilder.toString(), StandardCharsets.UTF_8)).toURL();
-    var urlConnection = (HttpsURLConnection) url.openConnection();
-    int code;
-    do {
-      urlConnection = (HttpsURLConnection) url.openConnection();
-      urlConnection.setRequestProperty("Cookie", FDB_USER_COOKIE);
-      code = urlConnection.getResponseCode();
-      if (code == FactorDistribution.HTTP_TOO_MANY_REQUESTS) {
-        System.err.println("TOO MANY REQUEST");
-        Thread.sleep(1000 * 60 * 5);
-      } else if (code != 200) {
-        System.err.println("code " + code);
-      }
-    } while (code != 200);
-    JsonNode root;
-    try (var inputStream = urlConnection.getInputStream()) {
-      root = OBJECT_MAPPER.readTree(inputStream);
-    }
-    var id = root.get("id");
-    var status = root.get("status");
-    logger.info("{}: {}", id.isTextual() ? id.textValue() : id.longValue(), status.textValue());
-
-    return ExitCode.OK;
-  }
-
   @Override
   public Integer call() throws Exception {
     return ExitCode.USAGE;
@@ -453,7 +377,7 @@ public class Factory implements Callable<Integer> {
     mpz_init(pPow2);
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
-    Project19.seedRandomState(state);
+    seedRandomState(state);
     var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(min);
     mpz_set_u64(min, 200000000000000L);
@@ -483,6 +407,103 @@ public class Factory implements Callable<Integer> {
     System.out.println("modが1と等しい: " + str.getString(0));
 
     return EXIT_CODE_OK;
+  }
+
+  /**
+   * 今回のスパム
+   * タイトル: 10の37乗未満の素数(2の122乗未満)
+   * 本文: 72桁の素数*n
+   * @return exit code
+   */
+  @Command
+  public int spam(@Parameters(arity = "1", paramLabel = "toAddress") String toAddress,
+      @Parameters(arity = "0..1", paramLabel = "fromAddress") String fromAddress,
+      @Option(names = {"--num",
+          "-n"}, arity = "0..1", paramLabel = "num", defaultValue = "24") int num)
+      throws IOException, InterruptedException {
+    if (fromAddress == null) {
+      logger.warn("fromAddress is not set, fromAddress has been set to toAddress.");
+      fromAddress = toAddress;
+    }
+    var auto = Arena.ofAuto();
+    var subjectMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    //mpz_init_set_ui(subjectMax, 2);
+    //mpz_mul_2exp(subjectMax, subjectMax, 122);
+    // Largest prime number less than 2^122
+    mpz_init_set_str(subjectMax, auto.allocateFrom("5316911983139663491615228241121378301"), 10);
+    var subjectP = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(subjectP);
+    var messageMin = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(messageMin, 10);
+    mpz_pow_ui(messageMin, messageMin, 71);
+    var messageMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(messageMax, auto.allocateFrom(
+        "999999999999999999999999999999999999999999999999999999999999999999999883"), 10);
+    var messageWindow = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(messageWindow);
+    mpz_sub(messageWindow, messageMax, messageMin);
+    var messageP = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(messageP);
+    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+    gmp_randinit_default(state);
+    seedRandomState(state);
+
+    try (var client = HttpClient.newHttpClient()) {
+      var messages = new ArrayList<Message>();
+      for (var i = 0L; i < num; i++) {
+        mpz_urandomm(subjectP, state, subjectMax);
+        mpz_nextprime(subjectP, subjectP);
+        var subjectLength = mpz_sizeinbase(subjectP, 10) + 2;
+        var subjectSegment = auto.allocate(subjectLength);
+        mpz_get_str(subjectSegment, 10, subjectP);
+        //
+        mpz_urandomm(messageP, state, messageWindow);
+        mpz_add(messageP, messageP, messageMin);
+        mpz_nextprime(messageP, messageP);
+        var messagePLength = mpz_sizeinbase(messageP, 10) + 2;
+        var messageSegment = auto.allocate(messagePLength);
+        mpz_get_str(messageSegment, 10, messageP);
+        var message = new Message(toAddress, fromAddress, subjectSegment.getString(0),
+            messageSegment.getString(0), 5400);
+        logger.info("sent");
+        logger.debug("{}, {}, {}, {}", message.to(), message.from(), message.subject(),
+            message.message());
+        //messages.add(message);
+        post(client, message);
+        Thread.sleep(Duration.ofSeconds(8));
+      }
+      //post(client, messages);
+    }
+    return EXIT_CODE_OK;
+  }
+
+  private void post(HttpClient client, List<Message> messages)
+      throws IOException, InterruptedException {
+    var joiner = new StringJoiner(",", "[", "]");
+    var encoder = Base64.getEncoder();
+    for (var message : messages) {
+      var body = "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",%d,%d],\"id\":1}".formatted(
+          message.to(), message.from(),
+          encoder.encodeToString(message.subject().getBytes(StandardCharsets.UTF_8)),
+          encoder.encodeToString(message.message().getBytes(StandardCharsets.UTF_8)),
+          message.encodingType(), message.ttl());
+      joiner.add(body);
+    }
+    client.send(requestBuilder.POST(BodyPublishers.ofString(joiner.toString())).build(),
+        HttpResponse.BodyHandlers.ofString());
+  }
+
+  // FIXME Bitmessageクライアントクラスに分割してclientをメソッド引数から消す
+  public void post(HttpClient client, Message message) throws IOException, InterruptedException {
+    var encoder = Base64.getEncoder();
+    // FIXME シリアライズの責任の分割
+    var body = "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",%d,%d],\"id\":1}".formatted(
+        message.to(), message.from(),
+        encoder.encodeToString(message.subject().getBytes(StandardCharsets.UTF_8)),
+        encoder.encodeToString(message.message().getBytes(StandardCharsets.UTF_8)),
+        message.encodingType(), message.ttl());
+    client.send(requestBuilder.POST(BodyPublishers.ofString(body)).build(),
+        HttpResponse.BodyHandlers.ofString());
   }
 
   enum ReadMode {
