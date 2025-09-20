@@ -40,6 +40,7 @@ import java.math.BigInteger;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
@@ -419,7 +420,8 @@ public class Factory implements Callable<Integer> {
   public int spam(@Parameters(arity = "1", paramLabel = "toAddress") String toAddress,
       @Parameters(arity = "0..1", paramLabel = "fromAddress") String fromAddress,
       @Option(names = {"--num",
-          "-n"}, arity = "0..1", paramLabel = "num", defaultValue = "24") int num)
+          "-n"}, arity = "0..1", paramLabel = "num", defaultValue = "24") int num, @Option(names = {
+          "--interval"}, arity = "0..1", paramLabel = "interval", defaultValue = "15") int interval)
       throws IOException, InterruptedException {
     if (fromAddress == null) {
       logger.warn("fromAddress is not set, fromAddress has been set to toAddress.");
@@ -470,7 +472,7 @@ public class Factory implements Callable<Integer> {
             message.message());
         //messages.add(message);
         post(client, message);
-        Thread.sleep(Duration.ofSeconds(8));
+        Thread.sleep(Duration.ofSeconds(interval));
       }
       //post(client, messages);
     }
@@ -481,12 +483,13 @@ public class Factory implements Callable<Integer> {
       throws IOException, InterruptedException {
     var joiner = new StringJoiner(",", "[", "]");
     var encoder = Base64.getEncoder();
+    var id = 0L;
     for (var message : messages) {
-      var body = "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",%d,%d],\"id\":1}".formatted(
+      var body = "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",%d,%d],\"id\":%d}".formatted(
           message.to(), message.from(),
           encoder.encodeToString(message.subject().getBytes(StandardCharsets.UTF_8)),
           encoder.encodeToString(message.message().getBytes(StandardCharsets.UTF_8)),
-          message.encodingType(), message.ttl());
+          message.encodingType(), message.ttl(), id++);
       joiner.add(body);
     }
     client.send(requestBuilder.POST(BodyPublishers.ofString(joiner.toString())).build(),
@@ -504,6 +507,27 @@ public class Factory implements Callable<Integer> {
         message.encodingType(), message.ttl());
     client.send(requestBuilder.POST(BodyPublishers.ofString(body)).build(),
         HttpResponse.BodyHandlers.ofString());
+  }
+
+  @Command
+  public int fictional(Path in) throws IOException, InterruptedException {
+    var encoder = Base64.getEncoder();
+    var id = 0L;
+    var addresses = Files.readAllLines(in);
+    System.out.println("address list loaded");
+    var body = new StringJoiner(",", "[", "]");
+    for (var address : addresses) {
+      var label = "fictional-" + address.substring(3, 9);
+      var b = "{\"jsonrpc\":\"2.0\",\"method\":\"addAddressBookEntry\",\"params\":[\"%s\",\"%s\"],\"id\":%d}".formatted(
+          address, encoder.encodeToString(label.getBytes(StandardCharsets.UTF_8)), id++);
+      body.add(b);
+    }
+    System.out.println("request build done");
+    try (var client = HttpClient.newHttpClient()) {
+      client.send(requestBuilder.POST(BodyPublishers.ofString(body.toString())).build(),
+          BodyHandlers.ofString()).body();
+    }
+    return EXIT_CODE_OK;
   }
 
   enum ReadMode {
