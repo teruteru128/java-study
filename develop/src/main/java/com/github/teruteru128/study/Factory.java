@@ -53,6 +53,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.Callable;
@@ -111,6 +112,20 @@ public class Factory implements Callable<Integer> {
         seedNativeSegment, JAVA_BYTE, 0, elementCount);
     mpz_import(seed, elementCount, 1, 1, 0, 0, seedNativeSegment);
     gmp_randseed(state, seed);
+  }
+
+  // FIXME Bitmessageクライアントクラスに分割してclientをメソッド引数から消す
+  public static void post(HttpClient client, Message message)
+      throws IOException, InterruptedException {
+    var encoder = Base64.getEncoder();
+    // FIXME シリアライズの責任の分割
+    var body = "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",%d,%d],\"id\":1}".formatted(
+        message.to(), message.from(),
+        encoder.encodeToString(message.subject().getBytes(StandardCharsets.UTF_8)),
+        encoder.encodeToString(message.message().getBytes(StandardCharsets.UTF_8)),
+        message.encodingType(), message.ttl());
+    client.send(requestBuilder.POST(BodyPublishers.ofString(body)).build(),
+        HttpResponse.BodyHandlers.ofString()).body();
   }
 
   @Command
@@ -479,6 +494,62 @@ public class Factory implements Callable<Integer> {
     return EXIT_CODE_OK;
   }
 
+  @Command
+  public int spam2(Path toAddressFile, String fromAddress, @Option(names = {"--num",
+      "-n"}, arity = "0..1", paramLabel = "num", defaultValue = "24") int num, @Option(names = {
+      "--interval"}, arity = "0..1", paramLabel = "interval", defaultValue = "15") int interval)
+      throws IOException, InterruptedException {
+    var auto = Arena.ofAuto();
+    var subjectMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    //mpz_init_set_ui(subjectMax, 2);
+    //mpz_mul_2exp(subjectMax, subjectMax, 122);
+    // Largest prime number less than 2^122
+    mpz_init_set_str(subjectMax, auto.allocateFrom("5316911983139663491615228241121378301"), 10);
+    var subjectP = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(subjectP);
+    var messageMin = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(messageMin, 10);
+    mpz_pow_ui(messageMin, messageMin, 71);
+    var messageMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(messageMax, auto.allocateFrom(
+        "999999999999999999999999999999999999999999999999999999999999999999999883"), 10);
+    var messageWindow = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(messageWindow);
+    mpz_sub(messageWindow, messageMax, messageMin);
+    var messageP = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(messageP);
+    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+    gmp_randinit_default(state);
+    seedRandomState(state);
+    var addresses = Files.readAllLines(toAddressFile);
+    Collections.shuffle(addresses, SECURE_RANDOM_GENERATOR);
+    long i = 0;
+    try (var client = HttpClient.newHttpClient()) {
+      for (var address : addresses) {
+        mpz_urandomm(subjectP, state, subjectMax);
+        mpz_nextprime(subjectP, subjectP);
+        var subjectLength = mpz_sizeinbase(subjectP, 10) + 2;
+        var subjectSegment = auto.allocate(subjectLength);
+        mpz_get_str(subjectSegment, 10, subjectP);
+        //
+        mpz_urandomm(messageP, state, messageWindow);
+        mpz_add(messageP, messageP, messageMin);
+        mpz_nextprime(messageP, messageP);
+        var messagePLength = mpz_sizeinbase(messageP, 10) + 2;
+        var messageSegment = auto.allocate(messagePLength);
+        mpz_get_str(messageSegment, 10, messageP);
+        var message = new Message(address, fromAddress, subjectSegment.getString(0),
+            messageSegment.getString(0), 5400);
+        post(client, message);
+        if (++i % 1000 == 0) {
+          System.err.println("sent: " + i);
+        }
+        //Thread.sleep(Duration.ofSeconds(interval));
+      }
+    }
+    return EXIT_CODE_OK;
+  }
+
   private void post(HttpClient client, List<Message> messages)
       throws IOException, InterruptedException {
     var joiner = new StringJoiner(",", "[", "]");
@@ -493,20 +564,7 @@ public class Factory implements Callable<Integer> {
       joiner.add(body);
     }
     client.send(requestBuilder.POST(BodyPublishers.ofString(joiner.toString())).build(),
-        HttpResponse.BodyHandlers.ofString());
-  }
-
-  // FIXME Bitmessageクライアントクラスに分割してclientをメソッド引数から消す
-  public void post(HttpClient client, Message message) throws IOException, InterruptedException {
-    var encoder = Base64.getEncoder();
-    // FIXME シリアライズの責任の分割
-    var body = "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",%d,%d],\"id\":1}".formatted(
-        message.to(), message.from(),
-        encoder.encodeToString(message.subject().getBytes(StandardCharsets.UTF_8)),
-        encoder.encodeToString(message.message().getBytes(StandardCharsets.UTF_8)),
-        message.encodingType(), message.ttl());
-    client.send(requestBuilder.POST(BodyPublishers.ofString(body)).build(),
-        HttpResponse.BodyHandlers.ofString());
+        HttpResponse.BodyHandlers.ofString()).body();
   }
 
   @Command
@@ -532,6 +590,32 @@ public class Factory implements Callable<Integer> {
 
   enum ReadMode {
     HEAD, TAIL
+  }
+
+  private static class PrimeGenerator {
+
+    Arena auto = Arena.ofAuto();
+    MemorySegment state;
+    MemorySegment subjectMax;
+    MemorySegment messageMin;
+    MemorySegment messageMax;
+    MemorySegment messageWindow;
+
+    public PrimeGenerator() {
+      subjectMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      messageMin = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init_set_ui(messageMin, 10);
+      state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+      messageMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      messageWindow = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init(messageWindow);
+      mpz_sub(messageWindow, messageMax, messageMin);
+      mpz_init_set_str(messageMax, auto.allocateFrom(
+          "999999999999999999999999999999999999999999999999999999999999999999999883"), 10);
+      gmp_randinit_default(state);
+      seedRandomState(state);
+    }
+
   }
 
 }
