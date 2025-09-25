@@ -107,6 +107,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-logging-log4j
     implementation 'org.apache.tomcat.embed:tomcat-embed-logging-log4j:9.0.0.M6'
+
+    // https://mvnrepository.com/artifact/org.jetbrains/annotations
+    implementation 'org.jetbrains:annotations:26.0.2-1'
 }
 
 compileJava {

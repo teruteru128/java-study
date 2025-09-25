@@ -48,6 +48,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.SecureRandom;
+import java.sql.SQLException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -56,17 +57,21 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.function.DoubleConsumer;
 import java.util.random.RandomGenerator;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.rng.simple.RandomSource;
 import org.apache.commons.statistics.descriptive.DoubleStatistics;
 import org.apache.commons.statistics.descriptive.Statistic;
 import org.apache.commons.statistics.distribution.LogNormalDistribution;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlite.SQLiteDataSource;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.HelpCommand;
@@ -126,6 +131,24 @@ public class Factory implements Callable<Integer> {
         message.encodingType(), message.ttl());
     client.send(requestBuilder.POST(BodyPublishers.ofString(body)).build(),
         HttpResponse.BodyHandlers.ofString()).body();
+  }
+
+  private static TreeSet<String> getSentAddressSet(List<@NotNull String> addresses)
+      throws SQLException {
+    var addressTreeSet = new TreeSet<>(addresses);
+    var source = new SQLiteDataSource();
+    source.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
+    try (var con = source.getConnection()) {
+      try (var statement = con.createStatement()) {
+        try (var resultSet = statement.executeQuery(
+            "SELECT toAddress from sent where folder = 'sent' and datetime(senttime, 'unixepoch', 'localtime') >= '2025-09-21 18:00:00';")) {
+          while (resultSet.next()) {
+            addressTreeSet.remove(resultSet.getString("toAddress"));
+          }
+        }
+      }
+    }
+    return addressTreeSet;
   }
 
   @Command
@@ -496,9 +519,8 @@ public class Factory implements Callable<Integer> {
 
   @Command
   public int spam2(Path toAddressFile, String fromAddress, @Option(names = {"--num",
-      "-n"}, arity = "0..1", paramLabel = "num", defaultValue = "24") int num, @Option(names = {
-      "--interval"}, arity = "0..1", paramLabel = "interval", defaultValue = "15") int interval)
-      throws IOException, InterruptedException {
+      "-n"}, arity = "0..1", paramLabel = "num", defaultValue = "24") int num)
+      throws IOException, InterruptedException, SQLException {
     var auto = Arena.ofAuto();
     var subjectMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     //mpz_init_set_ui(subjectMax, 2);
@@ -522,9 +544,16 @@ public class Factory implements Callable<Integer> {
     gmp_randinit_default(state);
     seedRandomState(state);
     var addresses = Files.readAllLines(toAddressFile);
+    var beforeAddressesSize = addresses.size();
+    var addressTreeSet = getSentAddressSet(addresses);
+    addresses = new ArrayList<>(addressTreeSet);
+    var afterAddressesSize = addresses.size();
+    System.err.println("before: " + beforeAddressesSize + ", after: " + afterAddressesSize);
+    System.err.println("diff: " + (beforeAddressesSize - afterAddressesSize));
     Collections.shuffle(addresses, SECURE_RANDOM_GENERATOR);
     long i = 0;
     try (var client = HttpClient.newHttpClient()) {
+      var messages = new ArrayList<Message>(addresses.size());
       for (var address : addresses) {
         mpz_urandomm(subjectP, state, subjectMax);
         mpz_nextprime(subjectP, subjectP);
@@ -540,12 +569,13 @@ public class Factory implements Callable<Integer> {
         mpz_get_str(messageSegment, 10, messageP);
         var message = new Message(address, fromAddress, subjectSegment.getString(0),
             messageSegment.getString(0), 5400);
-        post(client, message);
+        messages.add(message);
+        //post(client, message);
         if (++i % 1000 == 0) {
-          System.err.println("sent: " + i);
+          System.err.println("create: " + i);
         }
-        //Thread.sleep(Duration.ofSeconds(interval));
       }
+      post(client, messages);
     }
     return EXIT_CODE_OK;
   }
