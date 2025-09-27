@@ -22,7 +22,7 @@ public record Message(String to, String from, String subject, String message, in
     ttl = Math.clamp(ttl, 3600, 2419200);
     var i = counter.incrementAndGet();
     if (i <= 100L || i % 10000L == 0) {
-      System.err.printf("%08x%n", System.identityHashCode(this));
+      System.err.printf("message hashcode: %08x%n", System.identityHashCode(this));
     }
   }
 }
