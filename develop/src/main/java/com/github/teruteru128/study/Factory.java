@@ -4,15 +4,18 @@ import static com.github.teruteru128.bitmessage.app.Spammer.requestBuilder;
 import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
 import static com.github.teruteru128.gmp.gmp_h.gmp_randseed;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
+import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_import;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_powm;
+import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
@@ -26,7 +29,6 @@ import com.github.teruteru128.bitmessage.Message;
 import com.github.teruteru128.gmp.__gmp_randstate_struct;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
@@ -52,19 +54,19 @@ import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.function.DoubleConsumer;
 import java.util.random.RandomGenerator;
 import java.util.stream.IntStream;
-import java.util.zip.Inflater;
-import java.util.zip.InflaterInputStream;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.rng.simple.RandomSource;
 import org.apache.commons.statistics.descriptive.DoubleStatistics;
@@ -135,11 +137,11 @@ public class Factory implements Callable<Integer> {
         HttpResponse.BodyHandlers.ofString()).body();
   }
 
-  private static TreeSet<String> getSentAddressSet(List<@NotNull String> addresses)
+  private static ArrayList<String> filterBySentAddressSet(List<@NotNull String> addresses)
       throws SQLException {
     var addressTreeSet = new TreeSet<>(addresses);
     var source = new SQLiteDataSource();
-    source.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
+    source.setUrl(Objects.requireNonNull(System.getenv("DB_URL")));
     try (var con = source.getConnection()) {
       try (var statement = con.createStatement()) {
         try (var resultSet = statement.executeQuery(
@@ -150,7 +152,7 @@ public class Factory implements Callable<Integer> {
         }
       }
     }
-    return addressTreeSet;
+    return new ArrayList<>(addressTreeSet);
   }
 
   @Command
@@ -521,7 +523,8 @@ public class Factory implements Callable<Integer> {
 
   @Command
   public int spam2(Path toAddressFile, String fromAddress, @Option(names = {"--num",
-      "-n"}, arity = "0..1", paramLabel = "num", defaultValue = "24") int num)
+          "-n"}, arity = "0..1", paramLabel = "num", defaultValue = "-1") long num,
+      @Option(names = "--filter-sent-addresses", defaultValue = "false") boolean filterSentAddresses)
       throws IOException, InterruptedException, SQLException {
     var auto = Arena.ofAuto();
     var subjectMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -546,12 +549,13 @@ public class Factory implements Callable<Integer> {
     gmp_randinit_default(state);
     seedRandomState(state);
     var addresses = Files.readAllLines(toAddressFile);
-    var beforeAddressesSize = addresses.size();
-    var addressTreeSet = getSentAddressSet(addresses);
-    addresses = new ArrayList<>(addressTreeSet);
-    var afterAddressesSize = addresses.size();
-    System.err.println("before: " + beforeAddressesSize + ", after: " + afterAddressesSize);
-    System.err.println("diff: " + (beforeAddressesSize - afterAddressesSize));
+    if (filterSentAddresses) {
+      var beforeAddressesSize = addresses.size();
+      addresses = filterBySentAddressSet(addresses);
+      var afterAddressesSize = addresses.size();
+      System.err.println("before: " + beforeAddressesSize + ", after: " + afterAddressesSize);
+      System.err.println("diff: " + (beforeAddressesSize - afterAddressesSize));
+    }
     Collections.shuffle(addresses, SECURE_RANDOM_GENERATOR);
     long i = 0;
     try (var client = HttpClient.newHttpClient()) {
@@ -573,11 +577,57 @@ public class Factory implements Callable<Integer> {
             messageSegment.getString(0), 5400);
         messages.add(message);
         //post(client, message);
-        if (++i % 1000 == 0) {
+        i++;
+        if (i % 1000 == 0) {
           System.err.println("create: " + i);
         }
+        if (num > 0 && i >= num) {
+          break;
+        }
       }
+      System.err.println("created");
       post(client, messages);
+      System.err.println("posted");
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int sierpinski(@Option(names = "-k", defaultValue = "21181") int k, int nMin, int nMax) {
+    var auto = Arena.ofAuto();
+    var pSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(pSub1, k);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    mpz_mul_2exp(pSub1, pSub1, nMin);
+    var startP = BigInteger.valueOf(53);
+    var maxSmallP = BigInteger.valueOf(100000000);
+    out:
+    for (int i = nMin; i <= nMax; i++, mpz_mul_2exp(pSub1, pSub1, 1)) {
+      mpz_add_ui(p, pSub1, 1);
+      var start = System.nanoTime();
+      if (i == 100000028) {
+        for (var smallP = startP.nextProbablePrime(); smallP.compareTo(maxSmallP) < 0;
+            smallP = smallP.nextProbablePrime()) {
+          if (gmp_h.mpz_divisible_ui_p(p, smallP.intValue()) != 0) {
+            System.err.println(i + " is divisible by " + smallP);
+            continue out;
+          }
+        }
+        System.err.println(i + ": 見つかりませんでした");
+      }
+      var result = mpz_probab_prime_p(p, 24);
+      var finish = System.nanoTime();
+      var seconds = (finish - start) / 1e9;
+      if (seconds >= 3600.) {
+        System.err.println(
+            "[" + LocalDateTime.now() + "]" + i + ": " + result + "(" + seconds + " seconds)");
+      } else {
+        System.err.println(i + ": " + result + "(" + seconds + " seconds)");
+      }
+      if (result != 0) {
+        break;
+      }
     }
     return EXIT_CODE_OK;
   }
