@@ -137,7 +137,7 @@ public class Factory implements Callable<Integer> {
         HttpResponse.BodyHandlers.ofString()).body();
   }
 
-  private static ArrayList<String> filterBySentAddressSet(List<@NotNull String> addresses)
+  private static TreeSet<String> filterBySentAddressSet(List<@NotNull String> addresses)
       throws SQLException {
     var addressTreeSet = new TreeSet<>(addresses);
     var source = new SQLiteDataSource();
@@ -152,7 +152,7 @@ public class Factory implements Callable<Integer> {
         }
       }
     }
-    return new ArrayList<>(addressTreeSet);
+    return addressTreeSet;
   }
 
   @Command
@@ -531,6 +531,7 @@ public class Factory implements Callable<Integer> {
     //mpz_init_set_ui(subjectMax, 2);
     //mpz_mul_2exp(subjectMax, subjectMax, 122);
     // Largest prime number less than 2^122
+    // usable to uuid v4
     mpz_init_set_str(subjectMax, auto.allocateFrom("5316911983139663491615228241121378301"), 10);
     var subjectP = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(subjectP);
@@ -548,18 +549,26 @@ public class Factory implements Callable<Integer> {
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
     seedRandomState(state);
-    var addresses = Files.readAllLines(toAddressFile);
+    final var addresses = Files.readAllLines(toAddressFile);
     if (filterSentAddresses) {
       var beforeAddressesSize = addresses.size();
-      addresses = filterBySentAddressSet(addresses);
+      var set = filterBySentAddressSet(addresses);
+      addresses.clear();
+      addresses.addAll(set);
       var afterAddressesSize = addresses.size();
+      System.err.println("filtered");
       System.err.println("before: " + beforeAddressesSize + ", after: " + afterAddressesSize);
       System.err.println("diff: " + (beforeAddressesSize - afterAddressesSize));
     }
     Collections.shuffle(addresses, SECURE_RANDOM_GENERATOR);
     long i = 0;
     try (var client = HttpClient.newHttpClient()) {
-      var messages = new ArrayList<Message>(addresses.size());
+      var size = addresses.size();
+      var messages = new ArrayList<Message>((num > 0) ? (int) num : size);
+      if (size < num) {
+        System.err.println(
+            "要求するメッセージ数を満たすことができませんでした。" + size + "件のみ送信します");
+      }
       for (var address : addresses) {
         mpz_urandomm(subjectP, state, subjectMax);
         mpz_nextprime(subjectP, subjectP);
