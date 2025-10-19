@@ -25,7 +25,9 @@ import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.math.BigInteger.TWO;
 import static java.math.BigInteger.valueOf;
 
+import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.Message;
+import com.github.teruteru128.encode.Base58;
 import com.github.teruteru128.gmp.__gmp_randstate_struct;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
@@ -36,6 +38,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
@@ -44,13 +47,19 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.security.DigestException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.Security;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.Instant;
@@ -59,14 +68,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HexFormat;
 import java.util.List;
 import java.util.Objects;
+import java.util.OptionalInt;
 import java.util.StringJoiner;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.function.DoubleConsumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.random.RandomGenerator;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.rng.simple.RandomSource;
 import org.apache.commons.statistics.descriptive.DoubleStatistics;
@@ -153,6 +171,10 @@ public class Factory implements Callable<Integer> {
       }
     }
     return addressTreeSet;
+  }
+
+  public static <T> Function<T, T> serializableIdentity() {
+    return (Serializable & Function<T, T>) t -> t;
   }
 
   @Command
@@ -525,7 +547,7 @@ public class Factory implements Callable<Integer> {
   public int spam2(Path toAddressFile, String fromAddress, @Option(names = {"--num",
           "-n"}, arity = "0..1", paramLabel = "num", defaultValue = "-1") long num,
       @Option(names = "--filter-sent-addresses", defaultValue = "false") boolean filterSentAddresses)
-      throws IOException, InterruptedException, SQLException {
+      throws IOException, InterruptedException, SQLException, ExecutionException {
     var auto = Arena.ofAuto();
     var subjectMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     //mpz_init_set_ui(subjectMax, 2);
@@ -642,7 +664,7 @@ public class Factory implements Callable<Integer> {
   }
 
   private void post(HttpClient client, List<Message> messages)
-      throws IOException, InterruptedException {
+      throws InterruptedException, ExecutionException {
     var joiner = new StringJoiner(",", "[", "]");
     var encoder = Base64.getEncoder();
     var id = 0L;
@@ -654,12 +676,15 @@ public class Factory implements Callable<Integer> {
           message.encodingType(), message.ttl(), id++);
       joiner.add(body);
     }
-    client.send(requestBuilder.POST(BodyPublishers.ofString(joiner.toString())).build(),
-        HttpResponse.BodyHandlers.ofString()).body();
+    var request = requestBuilder.POST(BodyPublishers.ofString(joiner.toString())).build();
+    var handler = BodyHandlers.ofString();
+    var future = client.sendAsync(request, handler);
+    System.err.println("send async...");
+    future.get().body();
   }
 
   @Command
-  public int fictional(Path in) throws IOException, InterruptedException {
+  public int fictional(Path in) throws IOException, InterruptedException, ExecutionException {
     var encoder = Base64.getEncoder();
     var id = 0L;
     var addresses = Files.readAllLines(in);
@@ -673,8 +698,188 @@ public class Factory implements Callable<Integer> {
     }
     System.out.println("request build done");
     try (var client = HttpClient.newHttpClient()) {
-      client.send(requestBuilder.POST(BodyPublishers.ofString(body.toString())).build(),
-          BodyHandlers.ofString()).body();
+      var request = requestBuilder.POST(BodyPublishers.ofString(body.toString())).build();
+      var handler = BodyHandlers.ofString();
+      var future = client.sendAsync(request, handler);
+      System.err.println("send async...");
+      future.get().body();
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int repl(Path in, Path out) throws IOException {
+    var joiner = new StringJoiner("," + System.lineSeparator(), "BEGIN TRANSACTION;\n"
+                                                                + "insert into pubkeys(address, addressversion, transmitdata, time, usedpersonally) values",
+        ";\n" + "COMMIT;");
+    try (var lines = Files.lines(in)) {
+      lines.map(l -> l.replaceAll("\\|", ",").replaceAll("^", "('").replaceAll("(?=,4,)", "'")
+          .replaceAll("(?=040100000000)", "x'").replaceAll("(?<=FD03E8FD03E8)", "'")
+          .replaceAll("yes$", "'$0')")).forEach(joiner::add);
+    }
+    Files.writeString(out, joiner.toString(), StandardOpenOption.WRITE, StandardOpenOption.CREATE);
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int searchAddress(Path[] in)
+      throws IOException, NoSuchAlgorithmException, DigestException {
+    for (var file : in) {
+      if (!Files.exists(file)) {
+        System.err.println("not found: " + file);
+        return EXIT_CODE_SOFTWARE;
+      }
+    }
+    var auto = Arena.ofAuto();
+    var keys = auto.allocate(65L * 16777216 * in.length);
+    long offset = 0;
+    for (var file : in) {
+      try (var channel = Files.newByteChannel(file, StandardOpenOption.READ)) {
+        var size = channel.size();
+        var slice = keys.asSlice(offset, size, 1);
+        channel.read(slice.asByteBuffer());
+        offset += size;
+      }
+    }
+    final int blockMax = in.length * 16;
+    long selectedSignKeyOffset;
+    long selectedEncKeyOffset;
+    var provider = Security.getProvider("BC");
+    Objects.requireNonNull(provider);
+    var sha512 = MessageDigest.getInstance("SHA-512", provider);
+    var ripemd160 = MessageDigest.getInstance("Ripemd160", provider);
+    long signIndex;
+    long encIndex;
+    var hash = new byte[64];
+    var hashSegment = ByteBuffer.wrap(hash);
+
+    long count = 0;
+    found:
+    while (true) {
+      selectedSignKeyOffset = SECURE_RANDOM_GENERATOR.nextInt(blockMax) * 1048576L * 65;
+      selectedEncKeyOffset = SECURE_RANDOM_GENERATOR.nextInt(blockMax) * 1048576L * 65;
+      signIndex = selectedSignKeyOffset;
+      for (int i = 0; i < 1048576; i++) {
+        signIndex += 65;
+        var signByteBuffer = keys.asSlice(signIndex, 65, 1).asByteBuffer();
+        encIndex = selectedEncKeyOffset;
+        for (int j = 0; j < 1048576; j++) {
+          encIndex += 65;
+          sha512.update(signByteBuffer);
+          signByteBuffer.rewind();
+          // FIXME これコンストラクタ呼びまくってて絶対遅いンゴ
+          sha512.update(keys.asSlice(encIndex, 65, 1).asByteBuffer());
+          sha512.digest(hash, 0, 64);
+          ripemd160.update(hash, 0, 64);
+          ripemd160.digest(hash, 0, 20);
+          if (Long.numberOfLeadingZeros(hashSegment.getLong(0)) >= 45) {
+            System.err.println(
+                "[" + LocalDateTime.now() + "]お前やー！！！！(" + Long.numberOfLeadingZeros(
+                    hashSegment.getLong(0)) + ") sign: " + signIndex + ", enc: " + encIndex);
+            count++;
+            if (count >= 10) {
+              break found;
+            }
+          }
+        }
+      }
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int h(BigInteger p) {
+    var treeMap = new TreeMap<Long, Long>();
+    Stream.iterate(p, n -> n.compareTo(BigInteger.ONE) > 0,
+            n -> n.testBit(0) ? n.shiftLeft(1).add(n).add(BigInteger.ONE) : n.shiftRight(1))
+        .forEach(n -> treeMap.compute((long) n.bitLength(), (k, l) -> l == null ? 1L : l + 1));
+    treeMap.forEach((k, v) -> System.out.println("k = " + k + ", v = " + v));
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int epoch(long e) {
+    var instant = Instant.ofEpochMilli(e);
+    System.out.println(instant);
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int sex(String key, @Option(names = {"--public"}) boolean keyIsPublic, Path dir,
+      @Option(names = {"--no-follow-links"}) boolean noFollowLinks)
+      throws NoSuchAlgorithmException, IOException {
+    var hexFormat = HexFormat.of();
+    byte[] signaturePublicKey;
+    if (keyIsPublic) {
+      signaturePublicKey = hexFormat.parseHex(key);
+    } else {
+      var signaturePrivateKey = Base58.decode(key);
+      signaturePublicKey = Const.SEC_P256_K1_G.multiply(
+          new BigInteger(1, signaturePrivateKey, 1, 32)).getEncoded(false);
+    }
+    var bc = Security.getProvider("BC");
+    var sha512_original = MessageDigest.getInstance("SHA-512", bc);
+    sha512_original.update(signaturePublicKey, 0, 65);
+    Path[] pathArray;
+    try (var stream = Files.list(dir)) {
+      var pattern = Pattern.compile("publicKeys\\d+\\.bin");
+      // FIXME NOFOLLOW_LINKSを引数に加えるかどうかで三項演算子なんて使いたくない
+      Predicate<Path> pathPredicate0 = path -> noFollowLinks ? Files.isRegularFile(path,
+          LinkOption.NOFOLLOW_LINKS) : Files.isRegularFile(path);
+      Predicate<Path> pathPredicate1 = path -> pattern.matcher(path.getFileName().toString())
+          .matches();
+      var comparator = Comparator.<Path>comparingInt(p -> p.getFileName().toString().length())
+          .thenComparing(Function.identity());
+      pathArray = stream.filter(pathPredicate0.and(pathPredicate1)).sorted(comparator)
+          .toArray(Path[]::new);
+    }
+    System.out.println(pathArray.length);
+    System.err.println("[" + LocalDateTime.now() + "] 開始します");
+    for (var path : pathArray) {
+      var k = Files.readAllBytes(path);
+      int length = k.length;
+      var result = IntStream.iterate(0, p -> p < length, p -> p + 65).parallel().filter(offset ->
+      {
+        var hash = new byte[64];
+        MessageDigest sha512;
+        try {
+          sha512 = (MessageDigest) sha512_original.clone();
+        } catch (CloneNotSupportedException e) {
+          throw new RuntimeException(e);
+        }
+        sha512.update(k, offset, 65);
+        try {
+          sha512.digest(hash, 0, 64);
+        } catch (DigestException e) {
+          throw new RuntimeException(e);
+        }
+        MessageDigest ripemd160;
+        try {
+          ripemd160 = MessageDigest.getInstance("RIPEMD160", bc);
+        } catch (NoSuchAlgorithmException e) {
+          throw new RuntimeException(e);
+        }
+        ripemd160.update(hash, 0, 64);
+        try {
+          ripemd160.digest(hash, 0, 20);
+        } catch (DigestException e) {
+          throw new RuntimeException(e);
+        }
+        if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0 && hash[4] == 0
+            && hash[5] == 0) {
+          System.out.println(
+              "[" + LocalDateTime.now() + "] found: " + hexFormat.formatHex(hash, 0, 20));
+          return true;
+        }
+        return false;
+      }).findAny();
+      if (result.isPresent()) {
+        var offset = result.getAsInt();
+        System.out.println("file is " + path);
+        System.out.println("offset is " + offset);
+        System.out.println("key number is " + (offset / 65));
+      }
+      System.err.println("[" + LocalDateTime.now() + "] file " + path + " is done");
     }
     return EXIT_CODE_OK;
   }
