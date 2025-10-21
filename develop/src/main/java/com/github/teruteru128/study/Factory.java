@@ -72,12 +72,15 @@ import java.util.Comparator;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Objects;
-import java.util.OptionalInt;
 import java.util.StringJoiner;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.function.DoubleConsumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -838,8 +841,7 @@ public class Factory implements Callable<Integer> {
     for (var path : pathArray) {
       var k = Files.readAllBytes(path);
       int length = k.length;
-      var result = IntStream.iterate(0, p -> p < length, p -> p + 65).parallel().filter(offset ->
-      {
+      var result = IntStream.iterate(0, p -> p < length, p -> p + 65).parallel().filter(offset -> {
         var hash = new byte[64];
         MessageDigest sha512;
         try {
@@ -880,6 +882,54 @@ public class Factory implements Callable<Integer> {
         System.out.println("key number is " + (offset / 65));
       }
       System.err.println("[" + LocalDateTime.now() + "] file " + path + " is done");
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int scheduledPosting(Path toAddressFile, String fromAddress, @Option(names = {"--num",
+      "-n"}, arity = "0..1", paramLabel = "num", defaultValue = "-1", description = "Number of messages to send at once") int num)
+      throws IOException {
+    var toSendList = Files.readAllLines(toAddressFile);
+    Collections.shuffle(toSendList, SECURE_RANDOM_GENERATOR);
+    // 未送信アドレスリスト
+    var toSendAddressQueue = new ConcurrentLinkedQueue<>(toSendList);
+    // 送信済みアドレスリスト
+    var sentAddressQueue = new ConcurrentLinkedQueue<String>();
+    try (var executor = new ScheduledThreadPoolExecutor(
+        1); var client = HttpClient.newHttpClient()) {
+      executor.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
+      var future = executor.scheduleWithFixedDelay(() -> {
+
+        String address;
+        // キューから今回のタスク分のアドレスを取り出す、足りなかったらそこまでで打ち切る
+        var sendingWork = new ArrayList<String>();
+        for (int i = 0; i < num && (address = toSendAddressQueue.poll()) != null; i++) {
+          sendingWork.add(address);
+        }
+        var messages = new ArrayList<Message>();
+        // 送信するメッセージを作成する
+        for (var ad : sendingWork) {
+          messages.add(new Message(ad, fromAddress, "", "", 86400));
+        }
+        // 送信
+        try {
+          post(client, messages);
+        } catch (InterruptedException | ExecutionException e) {
+          throw new RuntimeException(e);
+        }
+        // 送信済みキューにアドレスを入れる
+        sentAddressQueue.addAll(sendingWork);
+        // 未送信アドレスキューが空ならば送信済みキューからシャッフルして追加してリセット
+        if (toSendAddressQueue.isEmpty()) {
+          var resetWork = new ArrayList<String>();
+          while ((address = sentAddressQueue.poll()) != null) {
+            resetWork.add(address);
+          }
+          Collections.shuffle(resetWork, SECURE_RANDOM_GENERATOR);
+          toSendAddressQueue.addAll(resetWork);
+        }
+      }, 0, 3, TimeUnit.HOURS);
     }
     return EXIT_CODE_OK;
   }
