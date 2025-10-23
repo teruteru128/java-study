@@ -5,7 +5,7 @@ import picocli.CommandLine.ITypeConverter;
 public class UnsignedLongConverter implements ITypeConverter<Long> {
 
   @Override
-  public Long convert(String value) throws Exception {
+  public Long convert(String value) throws NumberFormatException {
     return Long.parseUnsignedLong(value);
   }
 }

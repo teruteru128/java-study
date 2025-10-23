@@ -31,6 +31,7 @@ import com.github.teruteru128.encode.Base58;
 import com.github.teruteru128.gmp.__gmp_randstate_struct;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
+import com.github.teruteru128.study.converters.UnsignedLongConverter;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
@@ -69,6 +70,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Objects;
@@ -78,7 +80,6 @@ import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.function.DoubleConsumer;
@@ -87,6 +88,7 @@ import java.util.function.Predicate;
 import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.rng.simple.RandomSource;
@@ -920,7 +922,7 @@ public class Factory implements Callable<Integer> {
         }
         // 送信済みキューにアドレスを入れる
         sentAddressQueue.addAll(sendingWork);
-        // 未送信アドレスキューが空ならば送信済みキューからシャッフルして追加してリセット
+        // 未送信アドレスキューが空ならば送信済みキューから全て取り出しシャッフルして未送信アドレスキューに追加してリセット
         if (toSendAddressQueue.isEmpty()) {
           var resetWork = new ArrayList<String>();
           while ((address = sentAddressQueue.poll()) != null) {
@@ -931,6 +933,103 @@ public class Factory implements Callable<Integer> {
         }
       }, 0, 3, TimeUnit.HOURS);
     }
+    return EXIT_CODE_OK;
+  }
+
+  private BigInteger babyStepGiantStep(BigInteger base, BigInteger b, BigInteger m) {
+    // base、b、m が有効な入力であることを確認
+    if (m.compareTo(BigInteger.ONE) <= 0) {
+      throw new IllegalArgumentException("Modulus m must be greater than 1.");
+    }
+    if (base.gcd(m).compareTo(BigInteger.ONE) != 0) {
+      // baseとmが互いに素でない場合、このアルゴリズムは動作しません。
+      // 別のアルゴリズム（例：Pohlig-Hellman）が必要になることがあります。
+      return null;
+    }
+
+    // ステップサイズ n を計算 (n = ceil(sqrt(m)))
+    BigInteger n = m.sqrt().add(BigInteger.ONE);
+
+    // ベビー・ステップを計算し、HashMapに格納 (base^j, j)
+    var babySteps = new HashMap<BigInteger, BigInteger>();
+    BigInteger baby = BigInteger.ONE;
+    for (var j = BigInteger.ZERO; j.compareTo(n) < 0; j = j.add(BigInteger.ONE)) {
+      babySteps.put(baby, j);
+      baby = baby.multiply(base).mod(m);
+    }
+
+    // ジャイアント・ステップを計算
+    // giantStepInverse = base^(-n) (mod m)
+    BigInteger giantStep = base.modPow(n, m);
+    BigInteger giantStepInverse = giantStep.modInverse(m);
+
+    BigInteger giant = b;
+    for (var i = BigInteger.ZERO; i.compareTo(n) < 0; i = i.add(BigInteger.ONE)) {
+      // 現在のジャイアント・ステップがベビー・ステップのテーブルに含まれているかチェック
+      if (babySteps.containsKey(giant)) {
+        BigInteger j = babySteps.get(giant);
+        // 解 x = i * n + j を計算
+        return i.multiply(n).add(j);
+      }
+      // 次のジャイアント・ステップを計算
+      giant = giant.multiply(giantStepInverse).mod(m);
+    }
+
+    // 解が見つからない場合は null を返す
+    return null;
+  }
+
+
+  @Command
+  public int sierpinski2(BigInteger m) {
+    var inv = BigInteger.valueOf(21181).modInverse(m);
+    var target = inv.negate().mod(m);
+    System.out.println("inv: " + inv);
+    System.out.println("2^n = " + target + " (mod " + m + ") を探します");
+    long start = System.nanoTime();
+    var n = babyStepGiantStep(BigInteger.TWO, target, m);
+    long finish = System.nanoTime();
+    System.out.println("n : " + n);
+    System.out.println((finish - start) / 3.6e12 + " 時間");
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int sierpinski3(@Parameters(converter = UnsignedLongConverter.class) long val,
+      @Parameters(converter = UnsignedLongConverter.class) long val1) {
+    var auto = Arena.ofAuto();
+    var rop = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(rop);
+    var base = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(base, 2);
+    var exp = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(exp);
+    mpz_set_u64(exp, val);
+    var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(mod);
+    mpz_set_u64(mod, val1);
+    mpz_powm(rop, base, exp, mod);
+    var length = mpz_sizeinbase(rop, 10) + 2;
+    var buf = auto.allocate(length);
+    mpz_get_str(buf, 10, rop);
+    System.out.println(buf.getString(0));
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int sierpinski4() {
+    LongStream.rangeClosed(1, 3960).filter(
+            l -> !(l % 2 == 1 || l % 3 == 0 || l % 4 == 2 || l % 8 == 0 || l % 10 == 6 || l % 11 == 0
+                   || l % 11 == 10 || l % 12 == 4 || l % 18 == 16 || l % 22 == 8 || l % 23 == 19
+                   || l % 35 == 15 || l % 37 == 35 || l % 52 == 40 || l % 92 == 56 || l % 95 == 53
+                   || l % 119 == 74 || l % 130 == 4 || l % 162 == 122 || l % 418 == 196 || l % 522 == 1
+                   || l % 658 == 402 || l % 820 == 740 || l % 1400 == 988 || l % 1664 == 172
+                   || l % 1932 == 20 || l % 2344 == 380 || l % 2676 == 212 || l % 2919 == 764
+                   || l % 3036 == 1052 || l % 4242 == 452 || l % 14388 == 980 || l % 14648 == 1244
+                   || l % 18131 == 1292 || l % 19258 == 1124 || l % 57802 == 188 || l % 61376 == 1004
+                   || l % 342466 == 68 || l % 685460 == 500 || l % 110000116 == 644
+                   || l % 1140196839 == 860 || l % 3234435810L == 3908 || l % 9145782796L == 620))
+        .forEach(System.out::println);
     return EXIT_CODE_OK;
   }
 
