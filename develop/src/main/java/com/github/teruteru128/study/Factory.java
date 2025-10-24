@@ -596,21 +596,15 @@ public class Factory implements Callable<Integer> {
         System.err.println(
             "要求するメッセージ数を満たすことができませんでした。" + size + "件のみ送信します");
       }
+      // 1,048,576 chars
+      var body = (" ".repeat(72) + "\n").repeat(3000) + "   \n";
       for (var address : addresses) {
         mpz_urandomm(subjectP, state, subjectMax);
         mpz_nextprime(subjectP, subjectP);
         var subjectLength = mpz_sizeinbase(subjectP, 10) + 2;
         var subjectSegment = auto.allocate(subjectLength);
         mpz_get_str(subjectSegment, 10, subjectP);
-        //
-        mpz_urandomm(messageP, state, messageWindow);
-        mpz_add(messageP, messageP, messageMin);
-        mpz_nextprime(messageP, messageP);
-        var messagePLength = mpz_sizeinbase(messageP, 10) + 2;
-        var messageSegment = auto.allocate(messagePLength);
-        mpz_get_str(messageSegment, 10, messageP);
-        var message = new Message(address, fromAddress, subjectSegment.getString(0),
-            messageSegment.getString(0), 5400);
+        var message = new Message(address, fromAddress, subjectSegment.getString(0), body, 5400);
         messages.add(message);
         //post(client, message);
         i++;
@@ -620,12 +614,11 @@ public class Factory implements Callable<Integer> {
         if (num > 0 && i >= num) {
           break;
         }
-      }
-      System.err.println("created");
-      post(client, messages);
+      } System.err.println("created");
+      var post = post(client, messages);
       System.err.println("posted");
-    }
-    return EXIT_CODE_OK;
+      System.out.println(post);
+    } return EXIT_CODE_OK;
   }
 
   @Command
@@ -668,7 +661,7 @@ public class Factory implements Callable<Integer> {
     return EXIT_CODE_OK;
   }
 
-  private void post(HttpClient client, List<Message> messages)
+  private String post(HttpClient client, List<Message> messages)
       throws InterruptedException, ExecutionException {
     var joiner = new StringJoiner(",", "[", "]");
     var encoder = Base64.getEncoder();
@@ -681,11 +674,12 @@ public class Factory implements Callable<Integer> {
           message.encodingType(), message.ttl(), id++);
       joiner.add(body);
     }
+    // FIXME BodyPublisherにInputStream使わないとダメかも
     var request = requestBuilder.POST(BodyPublishers.ofString(joiner.toString())).build();
     var handler = BodyHandlers.ofString();
     var future = client.sendAsync(request, handler);
     System.err.println("send async...");
-    future.get().body();
+    return future.get().body();
   }
 
   @Command
@@ -1018,18 +1012,22 @@ public class Factory implements Callable<Integer> {
 
   @Command
   public int sierpinski4() {
-    LongStream.rangeClosed(1, 3960).filter(
+    var a = 3960;
+    var array = LongStream.rangeClosed(1, a).filter(
             l -> !(l % 2 == 1 || l % 3 == 0 || l % 4 == 2 || l % 8 == 0 || l % 10 == 6 || l % 11 == 0
                    || l % 11 == 10 || l % 12 == 4 || l % 18 == 16 || l % 22 == 8 || l % 23 == 19
                    || l % 35 == 15 || l % 37 == 35 || l % 52 == 40 || l % 92 == 56 || l % 95 == 53
-                   || l % 119 == 74 || l % 130 == 4 || l % 162 == 122 || l % 418 == 196 || l % 522 == 1
+                   || l % 119 == 74 || l % 130 == 4 || l % 162 == 122 || l % 418 == 196
                    || l % 658 == 402 || l % 820 == 740 || l % 1400 == 988 || l % 1664 == 172
                    || l % 1932 == 20 || l % 2344 == 380 || l % 2676 == 212 || l % 2919 == 764
                    || l % 3036 == 1052 || l % 4242 == 452 || l % 14388 == 980 || l % 14648 == 1244
                    || l % 18131 == 1292 || l % 19258 == 1124 || l % 57802 == 188 || l % 61376 == 1004
                    || l % 342466 == 68 || l % 685460 == 500 || l % 110000116 == 644
                    || l % 1140196839 == 860 || l % 3234435810L == 3908 || l % 9145782796L == 620))
-        .forEach(System.out::println);
+        .toArray();
+    System.out.println("length: " + array.length);
+    System.out.printf("%f %%%n", (double) array.length * 100 / a);
+    Arrays.stream(array).forEach(System.out::println);
     return EXIT_CODE_OK;
   }
 
