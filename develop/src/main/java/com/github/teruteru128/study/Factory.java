@@ -31,7 +31,7 @@ import com.github.teruteru128.encode.Base58;
 import com.github.teruteru128.gmp.__gmp_randstate_struct;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
-import com.github.teruteru128.study.converters.UnsignedLongConverter;
+import com.github.teruteru128.study.converters.MPZConverter;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
@@ -84,6 +84,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.function.DoubleConsumer;
 import java.util.function.Function;
+import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
@@ -115,6 +116,58 @@ public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
   public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
+  public static final LongPredicate LONG_PREDICATE = l -> !(l % 2 == 1 || l % 3 == 0 || l % 4 == 2
+                                                            || l % 8 == 0 || l % 10 == 6
+                                                            || l % 11 == 0 || l % 11 == 10
+                                                            || l % 12 == 4 || l % 18 == 16
+                                                            || l % 22 == 8 || l % 23 == 19
+                                                            || l % 35 == 15 || l % 37 == 35
+                                                            || l % 52 == 40 || l % 83 == 49
+                                                            || l % 92 == 56 || l % 95 == 53
+                                                            || l % 119 == 74 || l % 130 == 4
+                                                            || l % 162 == 122 || l % 244 == 16
+                                                            || l % 262 == 110 || l % 418 == 196
+                                                            || l % 515 == 157 || l % 611 == 216
+                                                            || l % 658 == 402 || l % 820 == 740
+                                                            || l % 852 == 752 || l % 911 == 286
+                                                            || l % 936 == 476 || l % 1119 == 326
+                                                            || l % 1400 == 988 || l % 1614 == 1532
+                                                            || l % 1644 == 848 || l % 1664 == 172
+                                                            || l % 1948 == 232 || l % 1932 == 20
+                                                            || l % 2344 == 380 || l % 2620 == 88
+                                                            || l % 2676 == 212 || l % 2919 == 764
+                                                            || l % 3036 == 1052 || l % 4242 == 452
+                                                            || l % 5763 == 3164 || l % 5842 == 2924
+                                                            || l % 6035 == 2300 || l % 6100 == 1508
+                                                            || l % 9959 == 1388 || l % 14388 == 980
+                                                            || l % 14648 == 1244
+                                                            || l % 18131 == 1292
+                                                            || l % 19258 == 1124
+                                                            || l % 20115 == 2372
+                                                            || l % 21788 == 2852
+                                                            || l % 31258 == 3428 || l % 57802 == 188
+                                                            || l % 61376 == 1004
+                                                            || l % 95412 == 3380
+                                                            || l % 191982 == 1820
+                                                            || l % 342466 == 68 || l % 685460 == 500
+                                                            || l % 888108 == 3404
+                                                            || l % 2859431 == 2132
+                                                            || l % 3236496 == 2060
+                                                            || l % 12549060 == 1844
+                                                            || l % 13757948 == 3812
+                                                            || l % 14429248 == 3548
+                                                            || l % 44564101 == 2324
+                                                            || l % 49791324 == 2444
+                                                            || l % 95330742 == 3140
+                                                            || l % 110000116 == 644
+                                                            || l % 234121386 == 2612
+                                                            || l % 938070812 == 2828
+                                                            || l % 1140196839 == 860
+                                                            || l % 3234435810L == 3908
+                                                            || l % 9145782796L == 620
+                                                            || l % 17079842013412L == 2972
+                                                            || l /*% 241601748305338693790*/
+                                                               == 1772);
   private static final Logger logger = LoggerFactory.getLogger(Factory.class);
   private static final int EXIT_CODE_OK = ExitCode.OK;
   private static final int EXIT_CODE_SOFTWARE = ExitCode.SOFTWARE;
@@ -614,11 +667,13 @@ public class Factory implements Callable<Integer> {
         if (num > 0 && i >= num) {
           break;
         }
-      } System.err.println("created");
+      }
+      System.err.println("created");
       var post = post(client, messages);
       System.err.println("posted");
       System.out.println(post);
-    } return EXIT_CODE_OK;
+    }
+    return EXIT_CODE_OK;
   }
 
   @Command
@@ -989,19 +1044,13 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int sierpinski3(@Parameters(converter = UnsignedLongConverter.class) long val,
-      @Parameters(converter = UnsignedLongConverter.class) long val1) {
+  public int sierpinski3(@Parameters(converter = MPZConverter.class) MemorySegment exp,
+      @Parameters(converter = MPZConverter.class) MemorySegment mod) {
     var auto = Arena.ofAuto();
     var rop = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(rop);
     var base = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_ui(base, 2);
-    var exp = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(exp);
-    mpz_set_u64(exp, val);
-    var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(mod);
-    mpz_set_u64(mod, val1);
     mpz_powm(rop, base, exp, mod);
     var length = mpz_sizeinbase(rop, 10) + 2;
     var buf = auto.allocate(length);
@@ -1011,23 +1060,103 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int sierpinski4() {
-    var a = 3960;
-    var array = LongStream.rangeClosed(1, a).filter(
-            l -> !(l % 2 == 1 || l % 3 == 0 || l % 4 == 2 || l % 8 == 0 || l % 10 == 6 || l % 11 == 0
-                   || l % 11 == 10 || l % 12 == 4 || l % 18 == 16 || l % 22 == 8 || l % 23 == 19
-                   || l % 35 == 15 || l % 37 == 35 || l % 52 == 40 || l % 92 == 56 || l % 95 == 53
-                   || l % 119 == 74 || l % 130 == 4 || l % 162 == 122 || l % 418 == 196
-                   || l % 658 == 402 || l % 820 == 740 || l % 1400 == 988 || l % 1664 == 172
-                   || l % 1932 == 20 || l % 2344 == 380 || l % 2676 == 212 || l % 2919 == 764
-                   || l % 3036 == 1052 || l % 4242 == 452 || l % 14388 == 980 || l % 14648 == 1244
-                   || l % 18131 == 1292 || l % 19258 == 1124 || l % 57802 == 188 || l % 61376 == 1004
-                   || l % 342466 == 68 || l % 685460 == 500 || l % 110000116 == 644
-                   || l % 1140196839 == 860 || l % 3234435810L == 3908 || l % 9145782796L == 620))
-        .toArray();
+  public int sierpinski4(int a,
+      @Option(names = "--output-numbers", defaultValue = "false") boolean output) {
+    var array = LongStream.rangeClosed(0, a).filter(LONG_PREDICATE).toArray();
     System.out.println("length: " + array.length);
     System.out.printf("%f %%%n", (double) array.length * 100 / a);
-    Arrays.stream(array).forEach(System.out::println);
+    if (output) {
+      Arrays.stream(array).forEach(System.out::println);
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int sierpinski5(long n) {
+    var list = new ArrayList<LongPredicate>();
+    list.add(l -> l % 2 == 1);
+    list.add(l -> l % 3 == 0);
+    list.add(l -> l % 4 == 2);
+    list.add(l -> l % 8 == 0);
+    list.add(l -> l % 10 == 6);
+    list.add(l -> l % 11 == 0);
+    list.add(l -> l % 11 == 10);
+    list.add(l -> l % 12 == 4);
+    list.add(l -> l % 18 == 16);
+    list.add(l -> l % 22 == 8);
+    list.add(l -> l % 23 == 19);
+    list.add(l -> l % 35 == 15);
+    list.add(l -> l % 37 == 35);
+    list.add(l -> l % 52 == 40);
+    list.add(l -> l % 83 == 49);
+    list.add(l -> l % 92 == 56);
+    list.add(l -> l % 95 == 53);
+    list.add(l -> l % 119 == 74);
+    list.add(l -> l % 130 == 4);
+    list.add(l -> l % 162 == 122);
+    list.add(l -> l % 244 == 16);
+    list.add(l -> l % 262 == 110);
+    list.add(l -> l % 418 == 196);
+    list.add(l -> l % 515 == 157);
+    list.add(l -> l % 611 == 216);
+    list.add(l -> l % 658 == 402);
+    list.add(l -> l % 820 == 740);
+    list.add(l -> l % 852 == 752);
+    list.add(l -> l % 911 == 286);
+    list.add(l -> l % 936 == 476);
+    list.add(l -> l % 1119 == 326);
+    list.add(l -> l % 1400 == 988);
+    list.add(l -> l % 1614 == 1532);
+    list.add(l -> l % 1644 == 848);
+    list.add(l -> l % 1664 == 172);
+    list.add(l -> l % 1948 == 232);
+    list.add(l -> l % 1932 == 20);
+    list.add(l -> l % 2344 == 380);
+    list.add(l -> l % 2620 == 88);
+    list.add(l -> l % 2676 == 212);
+    list.add(l -> l % 2919 == 764);
+    list.add(l -> l % 3036 == 1052);
+    list.add(l -> l % 4242 == 452);
+    list.add(l -> l % 5763 == 3164);
+    list.add(l -> l % 5842 == 2924);
+    list.add(l -> l % 6035 == 2300);
+    list.add(l -> l % 6100 == 1508);
+    list.add(l -> l % 9959 == 1388);
+    list.add(l -> l % 14388 == 980);
+    list.add(l -> l % 14648 == 1244);
+    list.add(l -> l % 18131 == 1292);
+    list.add(l -> l % 19258 == 1124);
+    list.add(l -> l % 20115 == 2372);
+    list.add(l -> l % 21788 == 2852);
+    list.add(l -> l % 31258 == 3428);
+    list.add(l -> l % 57802 == 188);
+    list.add(l -> l % 61376 == 1004);
+    list.add(l -> l % 95412 == 3380);
+    list.add(l -> l % 191982 == 1820);
+    list.add(l -> l % 342466 == 68);
+    list.add(l -> l % 685460 == 500);
+    list.add(l -> l % 888108 == 3404);
+    list.add(l -> l % 2859431 == 2132);
+    list.add(l -> l % 3236496 == 2060);
+    list.add(l -> l % 12549060 == 1844);
+    list.add(l -> l % 13757948 == 3812);
+    list.add(l -> l % 14429248 == 3548);
+    list.add(l -> l % 44564101 == 2324);
+    list.add(l -> l % 49791324 == 2444);
+    list.add(l -> l % 95330742 == 3140);
+    list.add(l -> l % 110000116 == 644);
+    list.add(l -> l % 234121386 == 2612);
+    list.add(l -> l % 938070812 == 2828);
+    list.add(l -> l % 1140196839 == 860);
+    list.add(l -> l % 3234435810L == 3908);
+    list.add(l -> l % 9145782796L == 620);
+    list.add(l -> l % 17079842013412L == 2972);
+    list.add(l -> l /*% 241601748305338693790*/ == 1772);
+    for (var p : list) {
+      if (p.test(n)) {
+        System.out.println(list.indexOf(p));
+      }
+    }
     return EXIT_CODE_OK;
   }
 
