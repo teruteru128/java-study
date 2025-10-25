@@ -65,6 +65,7 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -126,30 +127,52 @@ public class Factory implements Callable<Integer> {
                                                             || l % 92 == 56 || l % 95 == 53
                                                             || l % 119 == 74 || l % 130 == 4
                                                             || l % 131 == 58 || l % 162 == 122
-                                                            || l % 244 == 16 || l % 262 == 110
-                                                            || l % 268 == 40 || l % 310 == 78
-                                                            || l % 418 == 196 || l % 443 == 355
+                                                            || l % 244 == 16 || l % 251 == 6
+                                                            || l % 262 == 110 || l % 268 == 40
+                                                            || l % 305 == 274 || l % 310 == 78
+                                                            || l % 359 == 102 || l % 397 == 352
+                                                            || l % 418 == 196 || l % 419 == 58
+                                                            || l % 443 == 355 || l % 466 == 8
                                                             || l % 515 == 157 || l % 562 == 482
-                                                            || l % 611 == 216 || l % 618 == 374
-                                                            || l % 639 == 419 || l % 658 == 402
-                                                            || l % 810 == 464 || l % 820 == 740
+                                                            || l % 577 == 164 || l % 611 == 216
+                                                            || l % 618 == 374 || l % 639 == 419
+                                                            || l % 658 == 402 || l % 719 == 354
+                                                            || l % 723 == 434 || l % 810 == 464
+                                                            || l % 820 == 740 || l % 826 == 292
                                                             || l % 852 == 752 || l % 936 == 476
+                                                            || l % 940 == 12 || l % 958 == 90
                                                             || l % 1044 == 596 || l % 1060 == 48
-                                                            || l % 1060 == 1028 || l % 1090 == 824
-                                                            || l % 1119 == 326 || l % 1220 == 372
-                                                            || l % 1400 == 988 || l % 1614 == 1532
+                                                            || l % 1060 == 1028 || l % 1076 == 448
+                                                            || l % 1090 == 824 || l % 1119 == 326
+                                                            || l % 1211 == 1083 || l % 1220 == 372
+                                                            || l % 1251 == 692 || l % 1271 == 1156
+                                                            || l % 1355 == 974 || l % 1359 == 1106
+                                                            || l % 1400 == 988 || l % 1443 == 581
+                                                            || l % 1522 == 1320 || l % 1539 == 149
+                                                            || l % 1614 == 1532 || l % 1636 == 1408
                                                             || l % 1644 == 848 || l % 1664 == 172
-                                                            || l % 1668 == 740 || l % 1932 == 20
-                                                            || l % 1948 == 232 || l % 2344 == 380
+                                                            || l % 1666 == 1478 || l % 1668 == 740
+                                                            || l % 1906 == 1362 || l % 1919 == 1769
+                                                            || l % 1930 == 1120 || l % 1932 == 20
+                                                            || l % 1948 == 232 || l % 1986 == 1256
+                                                            || l % 2026 == 1990 || l % 2036 == 496
+                                                            || l % 2042 == 36 || l % 2079 == 1160
+                                                            || l % 2082 == 1394 || l % 2163 == 707
+                                                            || l % 2242 == 668 || l % 2266 == 1302
+                                                            || l % 2332 == 940 || l % 2344 == 380
                                                             || l % 2620 == 88 || l % 2676 == 212
-                                                            || l % 2919 == 764 || l % 3036 == 1052
+                                                            || l % 2709 == 122 || l % 2919 == 764
+                                                            || l % 3018 == 2600 || l % 3036 == 1052
                                                             || l % 3174 == 1040 || l % 3648 == 2540
-                                                            || l % 3957 == 551 || l % 4242 == 452
-                                                            || l % 5748 == 5144 || l % 5763 == 3164
-                                                            || l % 5842 == 2924 || l % 6035 == 2300
-                                                            || l % 6100 == 1508 || l % 6348 == 1040
-                                                            || l % 9959 == 1388 || l % 14388 == 980
-                                                            || l % 14648 == 1244
+                                                            || l % 3796 == 3100 || l % 3957 == 551
+                                                            || l % 4012 == 2820 || l % 4132 == 140
+                                                            || l % 4242 == 452 || l % 4282 == 1958
+                                                            || l % 4363 == 3122 || l % 5748 == 5144
+                                                            || l % 5763 == 3164 || l % 5842 == 2924
+                                                            || l % 6035 == 2300 || l % 6100 == 1508
+                                                            || l % 6348 == 1040 || l % 7088 == 92
+                                                            || l % 9959 == 1388 || l % 13044 == 1424
+                                                            || l % 14388 == 980 || l % 14648 == 1244
                                                             || l % 18131 == 1292
                                                             || l % 19258 == 1124
                                                             || l % 20115 == 2372
@@ -1042,13 +1065,24 @@ public class Factory implements Callable<Integer> {
   public int sierpinski2(BigInteger m) {
     var inv = BigInteger.valueOf(21181).modInverse(m);
     var target = inv.negate().mod(m);
-    System.out.println("inv: " + inv);
-    System.out.println("2^n = " + target + " (mod " + m + ") を探します");
     long start = System.nanoTime();
     var n = babyStepGiantStep(BigInteger.TWO, target, m);
     long finish = System.nanoTime();
     System.out.println("n : " + n);
     System.out.println((finish - start) / 3.6e12 + " 時間");
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int sierpinski2_5(Path in) throws IOException {
+    try (var stream = Files.lines(in)) {
+      var k = valueOf(21181);
+      stream.map(l -> l.replaceAll(":.*", "")).mapToLong(Long::parseLong)
+          .mapToObj(BigInteger::valueOf).forEach(p -> {
+            var initialN = babyStepGiantStep(TWO, k.modInverse(p).negate().mod(p), p);
+            System.out.println(p + ": " + initialN);
+          });
+    }
     return EXIT_CODE_OK;
   }
 
@@ -1176,7 +1210,7 @@ public class Factory implements Callable<Integer> {
     var ONE = valueOf(1);
     var array = IntStream.rangeClosed(0, n).filter(LONG_PREDICATE::test)
         .mapToObj(l -> num.shiftLeft(l).add(ONE)).toArray(BigInteger[]::new);
-    System.out.println(array.length+"件");
+    System.out.println(array.length + "件");
     for (var p : array) {
       for (var q : array) {
         if (p.compareTo(q) > 0) {
@@ -1186,6 +1220,30 @@ public class Factory implements Callable<Integer> {
           }
         }
       }
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int sierpinski7(int start) {
+    var any = IntStream.iterate(start, i -> i + 1).filter(LONG_PREDICATE::test).filter(i -> {
+      var auto = Arena.ofAuto();
+      var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init_set_ui(p, 21181);
+      mpz_mul_2exp(p, p, i);
+      mpz_add_ui(p, p, 1);
+      var st = System.nanoTime();
+      var probablePrime = mpz_probab_prime_p(p, 24);
+      var fin = System.nanoTime();
+      var diff = fin - st;
+      System.err.println(
+          "[" + OffsetDateTime.now() + "] 21181 * 2 ^ " + i + " + 1 is " + (probablePrime != 0 ? ""
+              : "not ") + "prime, " + (diff >= 1800000000000L ? (diff / 3.6e12) + " hours"
+              : (diff / 1e9) + " seconds"));
+      return probablePrime != 0;
+    }).findAny();
+    if (any.isPresent()) {
+      System.out.println("21181 * 2 ^ " + any.getAsInt() + " + 1 is prime!");
     }
     return EXIT_CODE_OK;
   }
