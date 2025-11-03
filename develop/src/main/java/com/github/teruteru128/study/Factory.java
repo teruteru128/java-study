@@ -6,9 +6,11 @@ import static com.github.teruteru128.gmp.gmp_h.gmp_randseed;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_divisible_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_import;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
@@ -20,11 +22,14 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
+import static com.github.teruteru128.study.FactorDBSpamming.OBJECT_MAPPER;
+import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.math.BigInteger.TWO;
 import static java.math.BigInteger.valueOf;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.Message;
 import com.github.teruteru128.encode.Base58;
@@ -33,17 +38,23 @@ import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.study.converters.MPZConverter;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.math.BigInteger;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
@@ -59,6 +70,7 @@ import java.nio.file.StandardOpenOption;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.Provider;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.sql.SQLException;
@@ -66,6 +78,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -73,6 +86,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HexFormat;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -92,6 +106,7 @@ import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
+import javax.net.ssl.HttpsURLConnection;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.rng.simple.RandomSource;
 import org.apache.commons.statistics.descriptive.DoubleStatistics;
@@ -135,48 +150,70 @@ public class Factory implements Callable<Integer> {
                                                             || l % 443 == 355 || l % 466 == 8
                                                             || l % 515 == 157 || l % 562 == 482
                                                             || l % 577 == 164 || l % 611 == 216
-                                                            || l % 618 == 374 || l % 639 == 419
-                                                            || l % 658 == 402 || l % 719 == 354
-                                                            || l % 723 == 434 || l % 810 == 464
+                                                            || l % 618 == 374 || l % 635 == 149
+                                                            || l % 639 == 419 || l % 658 == 402
+                                                            || l % 719 == 354 || l % 723 == 434
+                                                            || l % 734 == 252 || l % 810 == 464
                                                             || l % 820 == 740 || l % 826 == 292
                                                             || l % 852 == 752 || l % 936 == 476
                                                             || l % 940 == 12 || l % 958 == 90
-                                                            || l % 1044 == 596 || l % 1060 == 48
-                                                            || l % 1060 == 1028 || l % 1076 == 448
-                                                            || l % 1090 == 824 || l % 1119 == 326
-                                                            || l % 1211 == 1083 || l % 1220 == 372
-                                                            || l % 1251 == 692 || l % 1271 == 1156
-                                                            || l % 1355 == 974 || l % 1359 == 1106
-                                                            || l % 1400 == 988 || l % 1443 == 581
-                                                            || l % 1522 == 1320 || l % 1539 == 149
-                                                            || l % 1614 == 1532 || l % 1636 == 1408
-                                                            || l % 1644 == 848 || l % 1664 == 172
-                                                            || l % 1666 == 1478 || l % 1668 == 740
-                                                            || l % 1906 == 1362 || l % 1919 == 1769
-                                                            || l % 1930 == 1120 || l % 1932 == 20
-                                                            || l % 1948 == 232 || l % 1986 == 1256
-                                                            || l % 2026 == 1990 || l % 2036 == 496
-                                                            || l % 2042 == 36 || l % 2079 == 1160
-                                                            || l % 2082 == 1394 || l % 2163 == 707
-                                                            || l % 2242 == 668 || l % 2266 == 1302
-                                                            || l % 2332 == 940 || l % 2344 == 380
-                                                            || l % 2620 == 88 || l % 2676 == 212
-                                                            || l % 2709 == 122 || l % 2919 == 764
+                                                            || l % 986 == 204 || l % 1044 == 596
+                                                            || l % 1060 == 48 || l % 1060 == 1028
+                                                            || l % 1076 == 448 || l % 1090 == 824
+                                                            || l % 1119 == 326 || l % 1211 == 1083
+                                                            || l % 1220 == 372 || l % 1251 == 692
+                                                            || l % 1271 == 1156 || l % 1355 == 974
+                                                            || l % 1359 == 1106 || l % 1400 == 988
+                                                            || l % 1443 == 581 || l % 1522 == 1320
+                                                            || l % 1539 == 149 || l % 1614 == 1532
+                                                            || l % 1636 == 1408 || l % 1644 == 848
+                                                            || l % 1664 == 172 || l % 1666 == 1478
+                                                            || l % 1668 == 740 || l % 1700 == 1684
+                                                            || l % 1746 == 248 || l % 1906 == 1362
+                                                            || l % 1919 == 1769 || l % 1930 == 1120
+                                                            || l % 1932 == 20 || l % 1948 == 232
+                                                            || l % 1986 == 1256 || l % 2026 == 1990
+                                                            || l % 2036 == 496 || l % 2042 == 36
+                                                            || l % 2054 == 1160 || l % 2079 == 1160
+                                                            || l % 2082 == 1394 || l % 2145 == 623
+                                                            || l % 2163 == 707 || l % 2242 == 668
+                                                            || l % 2266 == 1302 || l % 2332 == 940
+                                                            || l % 2344 == 380 || l % 2391 == 1790
+                                                            || l % 2559 == 1313 || l % 2620 == 88
+                                                            || l % 2676 == 212 || l % 2709 == 122
+                                                            || l % 2902 == 1428 || l % 2919 == 764
                                                             || l % 3018 == 2600 || l % 3036 == 1052
-                                                            || l % 3174 == 1040 || l % 3648 == 2540
-                                                            || l % 3796 == 3100 || l % 3957 == 551
-                                                            || l % 4012 == 2820 || l % 4132 == 140
-                                                            || l % 4242 == 452 || l % 4282 == 1958
-                                                            || l % 4363 == 3122 || l % 5748 == 5144
+                                                            || l % 3174 == 1040 || l % 3272 == 596
+                                                            || l % 3590 == 1398 || l % 3648 == 2540
+                                                            || l % 3732 == 2936 || l % 3780 == 3092
+                                                            || l % 3796 == 3100 || l % 3855 == 434
+                                                            || l % 3879 == 377 || l % 3879 == 3749
+                                                            || l % 3950 == 1880 || l % 3957 == 551
+                                                            || l % 3968 == 2108 || l % 4012 == 2820
+                                                            || l % 4132 == 140 || l % 4242 == 452
+                                                            || l % 4282 == 1958 || l % 4363 == 3122
+                                                            || l % 4876 == 2316 || l % 4972 == 216
+                                                            || l % 5517 == 3170 || l % 5572 == 1300
+                                                            || l % 5682 == 4298 || l % 5748 == 5144
                                                             || l % 5763 == 3164 || l % 5842 == 2924
-                                                            || l % 6035 == 2300 || l % 6100 == 1508
-                                                            || l % 6348 == 1040 || l % 7088 == 92
-                                                            || l % 9959 == 1388 || l % 13044 == 1424
-                                                            || l % 14388 == 980 || l % 14648 == 1244
+                                                            || l % 6035 == 2300 || l % 6084 == 1304
+                                                            || l % 6100 == 1508 || l % 6348 == 1040
+                                                            || l % 6352 == 2396 || l % 6579 == 3494
+                                                            || l % 6848 == 5524 || l % 7076 == 6776
+                                                            || l % 7088 == 92 || l % 7374 == 1688
+                                                            || l % 8532 == 5132 || l % 8660 == 6464
+                                                            || l % 8970 == 8312 || l % 9732 == 6824
+                                                            || l % 9959 == 1388 || l % 11130 == 1784
+                                                            || l % 12990 == 4958
+                                                            || l % 13044 == 1424 || l % 14388 == 980
+                                                            || l % 14648 == 1244
+                                                            || l % 15414 == 5492
                                                             || l % 18131 == 1292
                                                             || l % 19258 == 1124
                                                             || l % 20115 == 2372
                                                             || l % 21788 == 2852
+                                                            || l % 23224 == 19760
+                                                            || l % 24588 == 9056
                                                             || l % 31258 == 3428 || l % 57802 == 188
                                                             || l % 61376 == 1004
                                                             || l % 95412 == 3380
@@ -681,15 +718,20 @@ public class Factory implements Callable<Integer> {
         System.err.println(
             "要求するメッセージ数を満たすことができませんでした。" + size + "件のみ送信します");
       }
-      // 1,048,576 chars
-      var body = (" ".repeat(72) + "\n").repeat(3000) + "   \n";
       for (var address : addresses) {
         mpz_urandomm(subjectP, state, subjectMax);
         mpz_nextprime(subjectP, subjectP);
         var subjectLength = mpz_sizeinbase(subjectP, 10) + 2;
         var subjectSegment = auto.allocate(subjectLength);
         mpz_get_str(subjectSegment, 10, subjectP);
-        var message = new Message(address, fromAddress, subjectSegment.getString(0), body, 5400);
+        mpz_urandomm(messageP, state, messageWindow);
+        mpz_add(messageP, messageP, messageMin);
+        mpz_nextprime(messageP, messageP);
+        var messageLength = mpz_sizeinbase(messageP, 10) + 2;
+        var messageSegment = auto.allocate(messageLength);
+        mpz_get_str(messageSegment, 10, messageP);
+        var message = new Message(address, fromAddress, subjectSegment.getString(0),
+            messageSegment.getString(0), 5400);
         messages.add(message);
         //post(client, message);
         i++;
@@ -701,9 +743,8 @@ public class Factory implements Callable<Integer> {
         }
       }
       System.err.println("created");
-      var post = post(client, messages);
+      post(client, messages);
       System.err.println("posted");
-      System.out.println(post);
     }
     return EXIT_CODE_OK;
   }
@@ -748,7 +789,7 @@ public class Factory implements Callable<Integer> {
     return EXIT_CODE_OK;
   }
 
-  private String post(HttpClient client, List<Message> messages)
+  private void post(HttpClient client, List<Message> messages)
       throws InterruptedException, ExecutionException {
     var joiner = new StringJoiner(",", "[", "]");
     var encoder = Base64.getEncoder();
@@ -766,7 +807,7 @@ public class Factory implements Callable<Integer> {
     var handler = BodyHandlers.ofString();
     var future = client.sendAsync(request, handler);
     System.err.println("send async...");
-    return future.get().body();
+    future.get().body();
   }
 
   @Command
@@ -1060,7 +1101,6 @@ public class Factory implements Callable<Integer> {
     return null;
   }
 
-
   @Command
   public int sierpinski2(BigInteger m) {
     var inv = BigInteger.valueOf(21181).modInverse(m);
@@ -1248,6 +1288,176 @@ public class Factory implements Callable<Integer> {
     return EXIT_CODE_OK;
   }
 
+  @Command
+  public int sierpinski8() {
+    var j = IntStream.iterate(33219284, k -> k + 1).filter(LONG_PREDICATE::test).findFirst();
+    System.out.println("j is " + j);
+    if (j.isEmpty()) {
+      return EXIT_CODE_SOFTWARE;
+    }
+    int count = 0;
+    for (int i = 33219284; count < 15; i++) {
+      if (LONG_PREDICATE.test(i)) {
+        System.out.println("match: " + i);
+        count++;
+      }
+    }
+    var op2 = 33219332;
+    System.out.println(op2 + " を選択しました");
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 21181);
+    mpz_mul_2exp(n, n, op2);
+    mpz_add_ui(n, n, 1);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(p, 2);
+
+    for (int i = 0; i < 1000000; i++) {
+      if (mpz_divisible_p(n, p) != 0) {
+        var length = mpz_sizeinbase(p, 10) + 2;
+        var buf = auto.allocate(length);
+        mpz_get_str(buf, 10, p);
+        System.out.println(buf.getString(0));
+      }
+      mpz_nextprime(p, p);
+    }
+    var len2 = mpz_sizeinbase(p, 10) + 2;
+    var buf2 = auto.allocate(len2);
+    mpz_get_str(buf2, 10, p);
+    System.out.println(buf2.getString(0) + "未満までの検査を終了しました");
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int proth(int i) {
+    var auto = Arena.ofAuto();
+    var exp = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(exp, 21181);
+    mpz_mul_2exp(exp, exp, i - 1);
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set(n, exp);
+    mpz_mul_2exp(n, n, 1);
+    mpz_add_ui(n, n, 1);
+    var a = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(a, 2);
+    var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(mod);
+    mpz_powm(mod, a, exp, n);
+    mpz_add_ui(mod, mod, 1);
+    if (gmp_h.mpz_cmp(mod, n) == 0) {
+      System.out.println("素数");
+    } else {
+      System.out.println("非素数");
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int addressSearch(Path in) throws IOException, NoSuchAlgorithmException, DigestException {
+    var size = Files.size(in);
+    if (size % 65 != 0) {
+      throw new IllegalArgumentException("A");
+    }
+    var buf = Files.readAllBytes(in);
+    var num = size / 65;
+    System.err.println(num + " keys");
+    var result = IntStream.iterate(0, i -> i < 1090519040, i -> i + 65).boxed().flatMap(
+            i -> IntStream.iterate(0, j -> j < 1090519040, j -> j + 65).mapToObj(j -> new A(i, j)))
+        .filter(new APredicate(buf)).parallel().findAny();
+    if (result.isPresent()) {
+      var a = result.get();
+      System.out.println(
+          "[" + OffsetDateTime.now() + "] offsetS = " + a.sign() + ", offsetE = " + a.enc());
+    } else {
+      System.out.println("[" + OffsetDateTime.now() + "] Not found");
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int primesPost(int n) throws URISyntaxException, IOException {
+    var auto = Arena.ofAuto();
+    var max = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(max, 10);
+    mpz_pow_ui(max, max, 4097);
+    mpz_sub_ui(max, max, 2603);
+    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(min, 10);
+    mpz_pow_ui(min, min, 4096);
+    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(window);
+    mpz_sub(window, max, min);
+    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+    gmp_randinit_default(state);
+    seedRandomState(state);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    var primes = new LinkedList<String>();
+    for (var i = 0; i < n; i++) {
+      mpz_urandomm(p, state, window);
+      mpz_add(p, p, min);
+      var start = System.nanoTime();
+      mpz_nextprime(p, p);
+      var finish = System.nanoTime();
+      System.err.println("[" + LocalDateTime.now() + "] " + (finish - start) / 1e9 + " sec");
+      var length = mpz_sizeinbase(p, 10) + 2;
+      var buf = auto.allocate(length);
+      mpz_get_str(buf, 10, p);
+      primes.add(buf.getString(0));
+      var primesListIterator = primes.listIterator();
+      while (primesListIterator.hasNext()) {
+        var url = FactorDBSpamming.QUERY_ENDPOINT + primesListIterator.next();
+        var connection = (HttpsURLConnection) new URI(url).toURL().openConnection();
+        connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+        var code = connection.getResponseCode();
+        if (code == HttpStatusCode.HTTP_TOO_MANY_REQUESTS) {
+          System.err.println("TOO MANY REQUEST");
+          break;
+        } else if (code != HttpsURLConnection.HTTP_OK) {
+          System.err.println("code " + code);
+          continue;
+        }
+        JsonNode root;
+        try (var inputStream = connection.getInputStream()) {
+          root = OBJECT_MAPPER.readTree(inputStream);
+        }
+        var id = root.get("id");
+        var status = root.get("status");
+        System.err.println(
+            "[" + LocalDateTime.now() + "] " + id.asText() + "(" + (id.isTextual() ? "textual"
+                : "long") + "): " + status.textValue());
+        primesListIterator.remove();
+      }
+    }
+
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int reportFactors(int start, int finish, int step, int factor) throws IOException {
+    var url = URI.create(FactorDBSpamming.REPORT_FACTOR_ENDPOINT).toURL();
+    var formatter = DateTimeFormatter.ofPattern("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'nnnnnnnnn");
+    for (int i = start; i < finish; i += step) {
+      var connection = (HttpsURLConnection) url.openConnection();
+      connection.setDoOutput(true);
+      connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+      try (var stream = new PrintStream(connection.getOutputStream())) {
+        var body = "number=" + URLEncoder.encode("21181*2^" + i + "+1", StandardCharsets.UTF_8)
+                   + "&factor=" + factor;
+        stream.println(body);
+        stream.flush();
+      }
+      connection.connect();
+      var responseCode = connection.getResponseCode();
+      try (var inputStream = new BufferedReader(
+          new InputStreamReader(connection.getInputStream()))) {
+        System.out.println("[" + formatter.format(LocalDateTime.now()) + "]" + responseCode + ": "
+                           + inputStream.readLine());
+      }
+    }
+    return EXIT_CODE_OK;
+  }
+
   enum ReadMode {
     HEAD, TAIL
   }
@@ -1278,4 +1488,30 @@ public class Factory implements Callable<Integer> {
 
   }
 
+  private record APredicate(byte[] buf) implements Predicate<A> {
+
+    private static final Provider provider = Security.getProvider("BC");
+
+    @Override
+    public boolean test(A a) {
+      try {
+        var hash = new byte[64];
+        var sha512 = MessageDigest.getInstance("SHA-512", provider);
+        var ripemd160 = MessageDigest.getInstance("RIPEMD160", provider);
+        sha512.update(buf, a.sign(), 65);
+        sha512.update(buf, a.enc(), 65);
+        sha512.digest(hash, 0, 64);
+        ripemd160.update(hash, 0, 64);
+        ripemd160.digest(hash, 0, 20);
+        return hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0 && hash[4] == 0
+               && hash[5] == 0;
+      } catch (NoSuchAlgorithmException | DigestException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+
+  private record A(int sign, int enc) {
+
+  }
 }

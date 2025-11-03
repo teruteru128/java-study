@@ -31,7 +31,8 @@ import picocli.CommandLine.Option;
 
 public class FactorDBSpamming {
 
-  public static final String ENDPOINT = "https://factordb.com/api?query=";
+  public static final String QUERY_ENDPOINT = "https://factordb.com/api?query=";
+  public static final String REPORT_FACTOR_ENDPOINT = "https://factordb.com/reportfactor.php";
   public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final Logger logger = LoggerFactory.getLogger(FactorDBSpamming.class);
 
@@ -67,8 +68,8 @@ public class FactorDBSpamming {
       }
       stringBuilder.append(str.getString(0));
     }
-    var url = URI.create(
-        ENDPOINT + URLEncoder.encode(stringBuilder.toString(), StandardCharsets.UTF_8)).toURL();
+    var str1 = QUERY_ENDPOINT + URLEncoder.encode(stringBuilder.toString(), StandardCharsets.UTF_8);
+    var url = URI.create(str1).toURL();
     var urlConnection = (HttpsURLConnection) url.openConnection();
     int code;
     do {
@@ -88,7 +89,7 @@ public class FactorDBSpamming {
     }
     var id = root.get("id");
     var status = root.get("status");
-    logger.info("{}: {}", id.isTextual() ? id.textValue() : id.longValue(), status.textValue());
+    logger.info("{}: {}", id.asText(), status.textValue());
 
     return ExitCode.OK;
   }
@@ -98,7 +99,7 @@ public class FactorDBSpamming {
       @Option(names = {"--max"}, defaultValue = "100000") int i2)
       throws IOException, InterruptedException {
     for (int i = i1; i < i2; i++) {
-      var str = ENDPOINT + URLEncoder.encode("21181*2^" + i + "+1", StandardCharsets.UTF_8);
+      var str = QUERY_ENDPOINT + URLEncoder.encode("21181*2^" + i + "+1", StandardCharsets.UTF_8);
       var url = URI.create(str).toURL();
       HttpsURLConnection urlConnection;
       int code;
@@ -116,8 +117,7 @@ public class FactorDBSpamming {
       }
       var id = root.get("id");
       var status = root.get("status");
-      logger.info("{}: {}, {}", id.isTextual() ? id.textValue() : id.longValue(), i,
-          status.textValue());
+      logger.info("{}: {}, {}", id.asText(), i, status.textValue());
     }
     return ExitCode.OK;
   }

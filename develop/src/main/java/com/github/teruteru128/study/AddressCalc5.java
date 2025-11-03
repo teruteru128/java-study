@@ -12,6 +12,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.random.RandomGenerator;
+import java.util.stream.IntStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
@@ -28,7 +30,7 @@ public class AddressCalc5 implements Callable<Void> {
 
   @Override
   public Void call() throws IOException, NoSuchAlgorithmException, DigestException {
-    // ポジション選定
+    // ポジション選択
     long indexOfKey;
     int signFileNumber;
     int signKeyNumber;
@@ -45,7 +47,7 @@ public class AddressCalc5 implements Callable<Void> {
     var ripemd160 = MessageDigest.getInstance("RIPEMD160");
     var buffer = ByteBuffer.allocate(64);
     var hash = buffer.array();
-    var random = new SecureRandom();
+    var random = RandomGenerator.getDefault();
     while (true) {
       // 0b1/signFileNumber/signKeyNumber/encFileNumber/encKeyNumber/L
       // 0b1_00000000_00000000000000_00000000_00000000000000L
@@ -63,21 +65,14 @@ public class AddressCalc5 implements Callable<Void> {
           sha512.digest(hash, 0, 64);
           ripemd160.update(hash, 0, 64);
           ripemd160.digest(hash, 0, 20);
-          if ((hash[0] | hash[1] | hash[2] | hash[3] | hash[4] | (hash[5] & 0xf8)) == 0) {
-            logger.info("Found! {}, {}, {}, {}({})", signFileNumber, signKeyNumber + (i / 65),
-                encFileNumber, encKeyNumber + (j / 65),
-                Long.numberOfLeadingZeros(buffer.getLong(0)));
-            /*if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0 && hash[4] == 0
-                && hash[5] == 0 && hash[6] == 0 && hash[7] == 0 && hash[8] == 0 && hash[9] == 0
-                && hash[10] == 0 && hash[11] == 0 && hash[12] == 0 && hash[13] == 0 && hash[14] == 0
-                && hash[15] == 0 && hash[16] == 0 && hash[17] == 0 && hash[18] == 0
-                && hash[19] == 0)*/
-            /*if (IntStream.range(0, 20).allMatch(k -> hash[k] == 0))*/
-            if (((hash[5] & 0x07) | hash[6] | hash[7] | hash[8] | hash[9] | hash[10] | hash[11]
-                 | hash[12] | hash[13] | hash[14] | hash[15] | hash[16] | hash[17] | hash[18]
-                 | hash[19]) == 0) {
-              return null;
-            }
+          if (IntStream.of(0, 1, 2, 3, 4, 5).anyMatch(v -> hash[v] != 0)) {
+            continue;
+          }
+          logger.info("Found! {}, {}, {}, {}({})", signFileNumber, signKeyNumber + (i / 65),
+              encFileNumber, encKeyNumber + (j / 65), Long.numberOfLeadingZeros(buffer.getLong(0)));
+
+          if (IntStream.range(6, 20).anyMatch(k -> hash[k] != 0)) {
+            return null;
           }
         }
       }
