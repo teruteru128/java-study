@@ -1,0 +1,16 @@
+plugins {
+    id 'com.github.teruteru128.study.java-application-conventions'
+}
+
+version = '0.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+test {
+    useJUnitPlatform()
+}
