@@ -1,0 +1,16 @@
+
+plugins {
+    id 'com.github.teruteru128.study.java-library-conventions'
+}
+
+version = "1.0.0-SNAPSHOT"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(24)
+    }
+}
+
+dependencies {
+    implementation project(":gmp")
+}

@@ -1,14 +1,15 @@
 package com.github.teruteru128.study;
 
-import java.io.BufferedOutputStream;
+import com.github.teruteru128.foreign.prime.search.PrimeSearch.LargeSieve;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OptionalDataException;
 import java.io.Serializable;
+import java.lang.foreign.MemorySegment;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,187 +18,275 @@ import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.BitSet;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Parameters;
 
-public class PrimeSearch {
+/**
+ * TODO create prime (or math?) package
+ */
+@Command(name = "attack")
+public class PrimeSearch implements Callable<Void> {
 
-    public static void getConvertedStep() throws IOException, ClassNotFoundException {
-        BigInteger base = PrimeSearch.extracted2();
-        BitSet sieve = PrimeSearch.extracted3();
-        int step = sieve.nextClearBit(0);
-        int convertedStep = (step * 2) + 1;
-        while (true) {
-            var p = base.add(BigInteger.valueOf(convertedStep));
-            if (p.isProbablePrime(100)) {
-                System.out.printf("prime: step is %d%n", step);
-                break;
+  private static final Logger logger = LoggerFactory.getLogger(PrimeSearch.class);
+  @Parameters
+  private Path base;
+  @Parameters
+  private Path largeSieve;
+
+  @Command(name = "exportBigIntegerAsDecimalText")
+  private static void exportBigIntegerAsDecimalText(Path inPath, Path outPath)
+      throws IOException, ClassNotFoundException {
+    var p = loadEvenNumber(inPath);
+    Files.write(outPath, List.of(p.toString()), StandardOpenOption.CREATE,
+        StandardOpenOption.WRITE);
+  }
+
+  @Command(name = "generateLargeEvenNumber")
+  private static void generateLargeEven(int bitLength)
+      throws NoSuchAlgorithmException, IOException {
+    final var instanceStrong = SecureRandom.getInstanceStrong();
+    BigInteger evenNumber;
+    final var th = BigInteger.TEN.pow(99999999);
+    do {
+      evenNumber = new BigInteger(bitLength, instanceStrong).setBit(bitLength - 1).clearBit(0);
+    } while (evenNumber.compareTo(th) < 0);
+    var path = Path.of("even-number-" + bitLength + "bit-" + UUID.randomUUID() + ".obj");
+    exportEvenNumberObj(path, evenNumber);
+  }
+
+  public static void getConvertedStep() throws IOException, ClassNotFoundException {
+    getConvertedStep(0);
+  }
+
+  public static void getConvertedStep(int firstStep) throws IOException, ClassNotFoundException {
+    var base = loadEvenNumber(
+        Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"));
+    LargeSieve result;
+    Path path = Paths.get(
+        "large-sieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-6.obj");
+    try (var ois = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(path)))) {
+      var searchLength = ois.readInt();
+      var sieve1 = BitSet.valueOf((long[]) ois.readObject());
+      result = new LargeSieve(searchLength, sieve1);
+    }
+    var largeSieve = result;
+    var sieve = largeSieve.sieve();
+    var a = new BitSet(sieve.length());
+    a.set(0, largeSieve.searchLength());
+    a.andNot(sieve);
+    var q = a.stream().filter(i -> i >= firstStep).asLongStream().filter(i -> {
+      logger.debug("start: {}", i);
+      var probablePrime = base.add(BigInteger.valueOf(2 * i + 1)).isProbablePrime(1);
+      logger.info("step {} is {}", i, probablePrime);
+      return probablePrime;
+    }).findFirst();
+    if (q.isPresent()) {
+      logger.info("prime: step is {}", q.getAsLong());
+    } else {
+      logger.error("prime not found:");
+    }
+  }
+
+  public static void createLargeSieve(Path inPath, String outPath, Path smallSievepath,
+      Path oldInPath)
+      throws IOException, ClassNotFoundException, ExecutionException, InterruptedException {
+  }
+
+  /**
+   * generate even number and export to file
+   * @param path written path
+   * @param evenNumber start point of prime search
+   * @throws IOException exception
+   */
+  public static void exportEvenNumberObj(Path path, BigInteger evenNumber) throws IOException {
+    outputObj(path, evenNumber);
+  }
+
+  static BigInteger loadEvenNumber(Path path) throws IOException, ClassNotFoundException {
+    BigInteger base;
+    try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(path)))) {
+      base = (BigInteger) ois.readObject();
+    }
+    return base;
+  }
+
+  static long[] loadSmallSieve(Path path) throws IOException, ClassNotFoundException {
+    long[] smallSieve;
+    try (var ois = new ObjectInputStream(
+        new BufferedInputStream(Files.newInputStream(path), Factory.ARRAY_ELEMENTS_MAX))) {
+      try {
+        smallSieve = (long[]) ois.readObject();
+      } catch (OptionalDataException e) {
+        if (!e.eof) {
+          var length = ois.readLong();
+          var i1 = unitIndex(length - 1) + 1;
+          if (i1 == Factory.ARRAY_ELEMENTS_MAX) {
+            smallSieve = new long[i1];
+            for (int i = 0; i < i1; i++) {
+              smallSieve[i] = ois.readLong();
             }
-            System.out.printf("not prime: step %d is not prime%n", step);
-            step = sieve.nextClearBit(step + 1);
-            convertedStep = (step * 2) + 1;
-        }
-    }
-
-    public static void createBitSieve() throws IOException, ClassNotFoundException, FileNotFoundException {
-        // 小さなふるいを使って大きなふるいから合成数を除外
-        // 大きな篩の長さ->1048576 / 20 * 64 = 3355444
-    
-        long[] smallSieve = PrimeSearch.extracted1();
-        BigInteger base = PrimeSearch.extracted2();
-        int searchLen = base.bitLength() / 20 * 64;
-        int length = searchLen;
-        long[] bis = PrimeSearch.getBits(smallSieve, base, searchLen);
-        var set = BitSet.valueOf(bis);
-        int nextClearBit = set.nextClearBit(0);
-        if (nextClearBit == searchLen || nextClearBit == -1) {
-            System.out.println("失敗！");
-            return;
-        }
-        try (var oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(
-                String.format("largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-%dbit-2.obj", searchLen))))) {
-            oos.writeInt(length);
-            oos.writeObject(bis);
-        }
-    }
-
-    public static void getSieve() throws IOException {
-        // 小さな既知素数ふるいを作成、もしくは読み込む
-        int length = 1 << 30;
-        var sieve = PrimeSearch.createSmallSieve(length);
-        PrimeSearch.outputObj(Paths.get(String.format("%dbit-smallsieve.obj", length)), sieve);
-    }
-
-    public static void getS() throws NoSuchAlgorithmException, IOException {
-        int bitLength = 1048576;
-        Path path = Paths.get(".", "even-number-1048576.obj");
-        var s = PrimeSearch.createEvenNumber(bitLength);
-        PrimeSearch.outputObj(path, s);
-    }
-
-    static BitSet extracted3() throws IOException, ClassNotFoundException {
-        long[] n = null;
-        try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(
-                Paths.get("largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-2.obj"))))) {
-            ois.readInt();
-            n = (long[]) ois.readObject();
-        }
-        return BitSet.valueOf(n);
-    }
-
-    static BigInteger extracted2() throws IOException, ClassNotFoundException {
-        BigInteger base;
-        try (var ois = new ObjectInputStream(new ByteArrayInputStream(
-                Files.readAllBytes(Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"))))) {
-            base = (BigInteger) ois.readObject();
-        }
-        return base;
-    }
-
-    static long[] extracted1() throws IOException, ClassNotFoundException {
-        long[] smallSieve;
-        try (var ois = new ObjectInputStream(
-                new ByteArrayInputStream(Files.readAllBytes(Paths.get("1073741824bit-smallsieve.obj"))))) {
+          } else {
             smallSieve = (long[]) ois.readObject();
+          }
+        } else {
+          throw e;
         }
-        return smallSieve;
+      }
     }
+    return smallSieve;
+  }
 
-    static long[] getBits(long[] smallSieve, BigInteger base, int searchLen) {
-        long[] bis = new long[unitIndex(searchLen - 1) + 1];
-        int start = 0;
-        int step = PrimeSearch.sieveSearch(smallSieve, smallSieve.length, start);
-        int convertedStep = (step * 2) + 1;
-        BigInteger b = base;
-        do {
-            start = b.mod(BigInteger.valueOf(convertedStep)).intValue();
-    
-            start = convertedStep - start;
-            if (start % 2 == 0)
-                start += convertedStep;
-            PrimeSearch.sieveSingle(bis, searchLen, (start - 1) / 2, convertedStep);
-    
-            step = PrimeSearch.sieveSearch(smallSieve, smallSieve.length, step + 1);
-            convertedStep = (step * 2) + 1;
-        } while (step > 0);
-        return bis;
+  static long[] setBitsForNonPrimeNumbers(long[] smallSieve, BigInteger base, int searchLen) {
+    long[] bis = new long[unitIndex(searchLen - 1) + 1];
+    long start = 0;
+    final var limit = smallSieve.length * 64L;
+    long step = sieveSearch(smallSieve, limit, start);
+    long convertedStep = (step * 2) + 1;
+    do {
+      start = base.mod(BigInteger.valueOf(convertedStep)).longValueExact();
+
+      start = convertedStep - start;
+      if ((start & 1) == 0) {
+        start += convertedStep;
+      }
+      sieveSingle(bis, searchLen, (start - 1) / 2, convertedStep);
+
+      step = sieveSearch(smallSieve, limit, step + 1);
+      convertedStep = (step * 2L) + 1;
+    } while (step > 0);
+    return bis;
+  }
+
+  private static void randomSample() throws NoSuchAlgorithmException {
+    var start = new BigInteger(1024, SecureRandom.getInstanceStrong());
+    var startBitLength = start.bitLength();
+    var fixed = new BigInteger(new BigInteger(start.toString(13), 16).toString(15), 17);
+    var fixedBitLength = fixed.bitLength();
+    var done = fixed.shiftRight(fixedBitLength - startBitLength);
+    int doneBitLength = done.bitLength();
+    System.out.printf("%dbit: %0256x%n", startBitLength, start);
+    System.out.printf("%dbit: %0256x%n", fixedBitLength, fixed);
+    System.out.printf("%dbit: %0256x%n", doneBitLength, done);
+  }
+
+  /**
+   *
+   * @see java.math.BitSieve#sieveSearch(int, int)
+   * @see java.util.BitSet#nextClearBit(int)
+   * @param bits bits
+   * @param limit bitsのリミット。bit単位
+   * @param start start
+   * @return next step
+   */
+  private static long sieveSearch(long[] bits, long limit, long start) {
+    if (start >= limit) {
+      return -1;
     }
-
-    static long[] createSmallSieve(int length) {
-        var sieve = new long[(unitIndex(length - 1) + 1)];
-        sieve[0] = 1;
-        int nextIndex = 1;
-        int nextPrime = 3;
-    
-        do {
-            PrimeSearch.sieveSingle(sieve, length, nextIndex + nextPrime, nextPrime);
-            nextIndex = PrimeSearch.sieveSearch(sieve, length, nextIndex + 1);
-            nextPrime = 2 * nextIndex + 1;
-        } while ((nextIndex > 0) && (nextPrime < length));
-        return sieve;
-    }
-
-    private static void randomSample() throws NoSuchAlgorithmException {
-        var start = new BigInteger(1024, SecureRandom.getInstanceStrong());
-        var startBitLength = start.bitLength();
-        var fixed = new BigInteger(new BigInteger(start.toString(13), 16).toString(15), 17);
-        var fixedBitLength = fixed.bitLength();
-        var done = fixed.shiftRight(fixedBitLength - startBitLength);
-        int doneBitLength = done.bitLength();
-        System.out.printf("%dbit: %0256x%n", startBitLength, start);
-        System.out.printf("%dbit: %0256x%n", fixedBitLength, fixed);
-        System.out.printf("%dbit: %0256x%n", doneBitLength, done);
-    }
-
-    static int sieveSearch(long[] bits, int limit, int start) {
-        if (start >= limit)
-            return -1;
-        int index = start;
-        do {
-            if (!get(bits, index))
-                return index;
-            index++;
-        } while (index < limit - 1);
+    var u = unitIndex(start);
+    final var wordLimit = unitIndex(limit - 1) + 1;
+    long word = ~bits[u] & (0xffffffffffffffffL << start);
+    while (true) {
+      if (word != 0) {
+        return (long) u * 64 + Long.numberOfTrailingZeros(word);
+      }
+      if (++u == wordLimit) {
         return -1;
+      }
+      word = ~bits[u];
+    }
+  }
+
+  private static void sieveSingle(long[] bits, long limit, long start, long step) {
+    while (start < limit) {
+      set(bits, start);
+      start += step;
+    }
+  }
+
+  private static boolean get(long[] bits, long bitIndex) {
+    return ((bits[unitIndex(bitIndex)] & bit(bitIndex)) != 0);
+  }
+
+  private static void set(long[] bits, long bitIndex) {
+    bits[unitIndex(bitIndex)] |= bit(bitIndex);
+  }
+
+  static int unitIndex(long bitIndex) {
+    return (int) (bitIndex >>> 6);
+  }
+
+  private static long bit(long bitIndex) {
+    return 1L << (bitIndex & 0x3f);
+  }
+
+  private static void outputObj(Path path, Serializable s) throws IOException {
+    var baos = new ByteArrayOutputStream();
+    try (var oos = new ObjectOutputStream(baos)) {
+      oos.writeObject(s);
+    }
+    Files.write(path, baos.toByteArray(), StandardOpenOption.WRITE, StandardOpenOption.CREATE);
+  }
+
+  static long previousClearBit(long[] words, long fromIndex) {
+    if (fromIndex < 0) {
+      if (fromIndex == -1) {
+        return -1;
+      }
+      throw new IndexOutOfBoundsException("fromIndex < -1: " + fromIndex);
     }
 
-    static void sieveSingle(long[] bits, int limit, int start, int step) {
-        while (start < limit) {
-            set(bits, start);
-            start += step;
-        }
+    var u = unitIndex(fromIndex);
+    if (u >= words.length) {
+      return fromIndex;
     }
 
-    static boolean get(long[] bits, int bitIndex) {
-        int unitIndex = unitIndex(bitIndex);
-        return ((bits[unitIndex] & bit(bitIndex)) != 0);
+    long word = ~words[u] & (0xffffffffffffffffL >>> -(fromIndex + 1));
+    while (true) {
+      if (word != 0) {
+        return (u + 1) * 64L - 1 - Long.numberOfLeadingZeros(word);
+      }
+      if (u-- == 0) {
+        return -1;
+      }
+      word = ~words[u];
+    }
+  }
+
+  public static long nextClearBit(long[] words, long fromIndex) {
+    if (fromIndex < 0) {
+      throw new IndexOutOfBoundsException("fromIndex < 0: " + fromIndex);
+    }
+    int u = unitIndex(fromIndex);
+    var wordsInUse = words.length;
+    if (u >= wordsInUse) {
+      return fromIndex;
     }
 
-    static void set(long[] bits, int bitIndex) {
-        int unitIndex = unitIndex(bitIndex);
-        bits[unitIndex] |= bit(bitIndex);
+    long word = ~words[u] & (-1L << fromIndex);
+    while (true) {
+      if (word != 0) {
+        return (u * 64L) + Long.numberOfTrailingZeros(word);
+      }
+      if (++u == wordsInUse) {
+        return wordsInUse * 64L;
+      }
+      word = ~words[u];
     }
+  }
 
-    static int unitIndex(int bitIndex) {
-        return bitIndex >>> 6;
-    }
+  @Override
+  public Void call() throws Exception {
+    return null;
+  }
 
-    static long bit(int bitIndex) {
-        return 1L << (bitIndex & ((1 << 6) - 1));
-    }
+  record Result(MemorySegment mpzBase, int bitLength) {
 
-    static void outputObj(Path path, Serializable s) throws IOException {
-        var baos = new ByteArrayOutputStream();
-        try (var oos = new ObjectOutputStream(baos)) {
-            oos.writeObject(s);
-        }
-        Files.write(path, baos.toByteArray(), StandardOpenOption.WRITE,
-                StandardOpenOption.CREATE);
-    }
+  }
 
-    static BigInteger createEvenNumber(int bitLength) throws NoSuchAlgorithmException {
-        return new BigInteger(bitLength, SecureRandom.getInstanceStrong()).setBit(bitLength - 1).clearBit(0);
-    }
-
-    private static final long ADDEND = 0xbL;
-    private static final long MASK = 0xffffffffffffL;
-    private static final long MULTIPLIER = 0x5deece66dL;
 }

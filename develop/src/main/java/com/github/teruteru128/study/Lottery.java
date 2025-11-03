@@ -7,31 +7,35 @@ import java.util.random.RandomGenerator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * 宝くじ抽選クラス
+ */
 public class Lottery {
 
   private static final RandomGenerator random = RandomGenerator.of("SecureRandom");
 
   public static void getLotto7Numbers(int counts) {
-    var numberOriginalList = IntStream.rangeClosed(1, 37).mapToObj(Integer::toString)
-        .collect(Collectors.toCollection(ArrayList<String>::new));
-    var list = new ArrayList<String>(7);
-    var tmp = new ArrayList<String>();
+    var numberOriginalList = IntStream.rangeClosed(1, 37).boxed()
+        .collect(Collectors.toCollection(ArrayList<Integer>::new));
+    var selected = new ArrayList<Integer>(7);
+    var selectTable = new ArrayList<Integer>();
     for (int i = 0; i < counts; i++) {
-      tmp.clear();
-      tmp.addAll(numberOriginalList);
-      Collections.shuffle(tmp, random);
-      list.add(tmp.removeFirst());
-      list.add(tmp.removeLast());
-      Collections.shuffle(tmp, random);
-      list.add(tmp.removeFirst());
-      list.add(tmp.removeLast());
-      Collections.shuffle(tmp, random);
-      list.add(tmp.removeFirst());
-      list.add(tmp.removeLast());
-      Collections.shuffle(tmp, random);
-      list.add(tmp.removeFirst());
-      Collections.sort(list);
-      System.out.println(String.join(", ", list));
+      selectTable.addAll(numberOriginalList);
+      Collections.shuffle(selectTable, random);
+      selected.add(selectTable.removeFirst());
+      selected.add(selectTable.removeLast());
+      Collections.shuffle(selectTable, random);
+      selected.add(selectTable.removeFirst());
+      selected.add(selectTable.removeLast());
+      Collections.shuffle(selectTable, random);
+      selected.add(selectTable.removeFirst());
+      selected.add(selectTable.removeLast());
+      Collections.shuffle(selectTable, random);
+      selected.add(selectTable.removeFirst());
+      Collections.sort(selected);
+      System.out.println(String.join(", ", selected.stream().map(Object::toString).toList()));
+      selectTable.clear();
+      selected.clear();
     }
   }
 
@@ -76,9 +80,10 @@ public class Lottery {
     var listB = new ArrayList<Integer>();
     for (int c = 0; c < counts; c++) {
       listB.addAll(listA);
-      for (int i = 0; i < 4; i++) {
+      for (int i = 0; i < 2; i++) {
         Collections.shuffle(listB, random);
-        randomChoice[i] = listB.removeFirst();
+        randomChoice[i * 2] = listB.removeFirst();
+        randomChoice[i * 2 + 1] = listB.removeLast();
       }
       System.arraycopy(fixed, 0, numbers, 0, 3);
       System.arraycopy(randomChoice, 0, numbers, 3, 4);

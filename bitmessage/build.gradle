@@ -7,7 +7,7 @@ dependencies {
     implementation project(':time')
 
     // https://mvnrepository.com/artifact/commons-codec/commons-codec
-    implementation 'commons-codec:commons-codec:1.17.0'
+    implementation 'commons-codec:commons-codec:1.19.0'
 
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
     implementation 'org.xerial:sqlite-jdbc:3.45.3.0'
@@ -26,5 +26,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.openapitools/jackson-databind-nullable
     implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+
+    // https://picocli.info/
+    // https://mvnrepository.com/artifact/info.picocli/picocli
+    implementation 'info.picocli:picocli:4.7.6'
 
 }

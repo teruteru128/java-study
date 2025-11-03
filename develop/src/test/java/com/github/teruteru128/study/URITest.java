@@ -1,10 +1,9 @@
 package com.github.teruteru128.study;
 
-import org.junit.jupiter.api.Test;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 public class URITest {
     @Test

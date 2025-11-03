@@ -13,17 +13,24 @@ plugins {
 }
 
 rootProject.name = 'java.study'
-include("bitmessage")
-include("christmas")
-include("develop")
-include("encode")
-include("foreign")
-include("resources")
-include("opencl")
-include("slime")
-include("time")
-include("windows")
-include("setjmp")
-include 'sample'
-include 'scheduled-pathping'
-
+include('bitmessage')
+include('bcrypt')
+include('christmas')
+include('develop')
+include('encode')
+include('foreign')
+include('gmp')
+include('heapapi')
+include('resources')
+include('math')
+include('mpfr')
+include('mpz_aprcl')
+include('opencl')
+include('penis')
+include('sample')
+include('setjmp')
+include('slime')
+include('scheduled-pathping')
+include('time')
+include('windows')
+include('server')

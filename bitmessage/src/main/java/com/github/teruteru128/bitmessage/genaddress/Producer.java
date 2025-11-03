@@ -15,10 +15,13 @@ import java.util.concurrent.Callable;
 
 import com.github.teruteru128.bitmessage.spec.KeyPair;
 import com.github.teruteru128.bitmessage.Const;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Producer implements Callable<Void> {
 
-    private Request request;
+    private static final Logger log = LoggerFactory.getLogger(Producer.class);
+    private final Request request;
     private final String string;
 
     public Producer(Request request) {
@@ -139,7 +142,7 @@ public class Producer implements Callable<Void> {
                         Queues.getResponseQueue().put(response);
                     } catch (InterruptedException e) {
                         System.err.println("enqueue failed!");
-                        e.printStackTrace();
+                        log.error("", e);
                         // Save if failed
                         enqueueTray.add(response);
                     }
@@ -176,7 +179,7 @@ public class Producer implements Callable<Void> {
                             Queues.getResponseQueue().put(response);
                         } catch (InterruptedException e) {
                             System.err.println("enqueue failed!");
-                            e.printStackTrace();
+                            log.error("", e);
                             // Save if failed
                             enqueueTray.add(response);
                         }
@@ -210,7 +213,7 @@ public class Producer implements Callable<Void> {
                             Queues.getResponseQueue().put(response);
                         } catch (InterruptedException e) {
                             System.err.println("enqueue failed!");
-                            e.printStackTrace();
+                            log.error("", e);
                             enqueueTray.add(response);
                         }
                     }

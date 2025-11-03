@@ -3,6 +3,7 @@ package com.github.teruteru128.study;
 import java.lang.reflect.InvocationTargetException;
 import java.security.Provider;
 import java.security.Security;
+import picocli.CommandLine;
 
 /**
  * Main
@@ -26,13 +27,10 @@ public class Main {
 
     /**
      * @param args command line arguments
-     * @throws Exception 何か起こるかもしれない
      */
-    public static void main(String[] args) throws Exception {
-        if (args.length < 1 || args[0].isEmpty()) {
-            Runtime.getRuntime().exit(1);
-        }
-        Factory.create(args);
+    public static void main(String[] args) {
+        var exitCode = new CommandLine(Factory.createInstance()).execute(args);
+        Runtime.getRuntime().exit(exitCode);
     }
 
 }

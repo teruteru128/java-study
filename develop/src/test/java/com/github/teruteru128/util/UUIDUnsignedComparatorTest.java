@@ -1,10 +1,9 @@
 package com.github.teruteru128.util;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 class UUIDUnsignedComparatorTest {
 

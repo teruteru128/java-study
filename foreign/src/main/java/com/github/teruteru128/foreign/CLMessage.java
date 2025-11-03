@@ -68,10 +68,6 @@ public class CLMessage {
 			, "CL_INVALID_GLOBAL_WORK_SIZE"                 //  -63
 			, "CL_UNKNOWN_ERROR_CODE"};
 
-	static {
-		System.err.println("ンァーッ！");
-	}
-
 	static String clGetErrorString(int error) {
 		if (error >= -63 && error <= 0) {
 			return clMessageStrings[-error];

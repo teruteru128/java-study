@@ -2,5 +2,29 @@ plugins {
     id 'com.github.teruteru128.study.java-library-conventions'
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(24)
+    }
+}
+
 dependencies {
+    implementation(project(':develop'))
+    implementation(project(':math'))
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-rng-simple
+    implementation 'org.apache.commons:commons-rng-simple:1.5'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-statistics-distribution
+    implementation 'org.apache.commons:commons-statistics-distribution:1.0'
+
+    // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk18on
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    implementation 'org.xerial:sqlite-jdbc:3.45.3.0'
+
+    // https://picocli.info/
+    // https://mvnrepository.com/artifact/info.picocli/picocli
+    implementation 'info.picocli:picocli:4.7.6'
 }

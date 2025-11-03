@@ -20,6 +20,8 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HexFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is an example implementation of the OATH
@@ -32,6 +34,7 @@ import java.util.HexFormat;
 public class TOTP {
 
     public static final HexFormat OF = HexFormat.of();
+    private static final Logger log = LoggerFactory.getLogger(TOTP.class);
 
     private TOTP() {}
 
@@ -74,7 +77,7 @@ public class TOTP {
      * @param returnDigits: number of digits to return
      *
      * @return: a numeric String in base 10 that includes
-     *              {@link truncationDigits} digits
+     *              {@code truncationDigits} digits
      */
 
     public static String generateTOTP(String key, long time, int returnDigits){
@@ -90,7 +93,7 @@ public class TOTP {
      * @param returnDigits: number of digits to return
      *
      * @return: a numeric String in base 10 that includes
-     *              {@link truncationDigits} digits
+     *              {@code truncationDigits} digits
      */
     public static String generateTOTP256(String key, long time, int returnDigits){
         return generateTOTP(key, time, returnDigits, "HmacSHA256");
@@ -105,7 +108,7 @@ public class TOTP {
      * @param returnDigits: number of digits to return
      *
      * @return: a numeric String in base 10 that includes
-     *              {@link truncationDigits} digits
+     *              {@code truncationDigits} digits
      */
 
     public static String generateTOTP512(String key, long time, int returnDigits){
@@ -133,7 +136,7 @@ public class TOTP {
      * @param crypto: the crypto function to use
      *
      * @return: a numeric String in base 10 that includes
-     *              {@link truncationDigits} digits
+     *              {@code truncationDigits} digits
      */
 
     public static String generateTOTP(String key, long time, int returnDigits, String crypto){
@@ -194,8 +197,8 @@ public class TOTP {
                 System.out.println(generateTOTP(seed64, T, 8, "HmacSHA512") + " | SHA512 |");
                 System.out.println("+---------------+-----------------------+------------------+----------+--------+");
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (Exception e) {
+            log.error("", e);
         }
     }
 }

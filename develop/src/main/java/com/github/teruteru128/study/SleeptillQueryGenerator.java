@@ -25,15 +25,10 @@ public class SleeptillQueryGenerator {
             while (r.next()) {
                 var time = Instant.ofEpochSecond(r.getLong("senttime"));
                 time = time.truncatedTo(DetailedChronoUnit.FIVE_MINUTES);
-                if (map.containsKey(time)) {
-                    int count = map.get(time);
-                    map.put(time, count + 1);
-                } else {
-                    map.put(time, 1);
-                }
+                map.compute(time, (k, count) -> count == null ? 1: count + 1);
             }
         }
-        Instant targetSleeptill = OffsetDateTime.now().plus(4, ChronoUnit.DAYS).truncatedTo(ChronoUnit.DAYS)
+        Instant targetSleeptill = OffsetDateTime.now().plusDays(4).truncatedTo(ChronoUnit.DAYS)
                 .toInstant();
         Instant start = null;
         Instant finish = null;
