@@ -26,5 +26,5 @@ dependencies {
 
     // https://picocli.info/
     // https://mvnrepository.com/artifact/info.picocli/picocli
-    implementation 'info.picocli:picocli:4.7.6'
+    implementation 'info.picocli:picocli:4.7.7'
 }

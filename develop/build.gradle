@@ -97,10 +97,10 @@ dependencies {
 
     // https://picocli.info/
     // https://mvnrepository.com/artifact/info.picocli/picocli
-    implementation 'info.picocli:picocli:4.7.6'
+    implementation 'info.picocli:picocli:4.7.7'
 
     // https://mvnrepository.com/artifact/picocli-codegen/picocli
-    annotationProcessor 'info.picocli:picocli-codegen:4.7.6'
+    annotationProcessor 'info.picocli:picocli-codegen:4.7.7'
 
     // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
     implementation 'org.apache.tomcat.embed:tomcat-embed-core:11.0.13'
