@@ -1451,8 +1451,9 @@ public class Factory implements Callable<Integer> {
       var responseCode = connection.getResponseCode();
       try (var inputStream = new BufferedReader(
           new InputStreamReader(connection.getInputStream()))) {
-        System.out.println("[" + formatter.format(LocalDateTime.now()) + "]" + responseCode + ": "
-                           + inputStream.readLine());
+        System.out.println(
+            "[" + formatter.format(LocalDateTime.now()) + "] " + i + ", " + responseCode + ": "
+            + inputStream.readLine());
       }
     }
     return EXIT_CODE_OK;
