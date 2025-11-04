@@ -12,8 +12,6 @@ public class PrimeSieve {
 
   /**
    *
-   * @see java.math.BitSieve#sieveSearch(int, int)
-   * @see java.util.BitSet#nextClearBit(int)
    * @param limit bitsのリミット。bit単位
    * @param start start
    * @return next step

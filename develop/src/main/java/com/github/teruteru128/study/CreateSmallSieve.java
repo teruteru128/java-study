@@ -41,8 +41,6 @@ public class CreateSmallSieve implements Callable<Integer> {
 
   /**
    *
-   * @see java.math.BitSieve#sieveSearch(int, int)
-   * @see java.util.BitSet#nextClearBit(int)
    * @param bits bits
    * @param limit bitsのリミット。bit単位
    * @param start start

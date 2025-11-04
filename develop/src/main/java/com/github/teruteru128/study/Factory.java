@@ -47,7 +47,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.io.Serializable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
@@ -93,10 +92,7 @@ import java.util.StringJoiner;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.function.DoubleConsumer;
 import java.util.function.Function;
 import java.util.function.LongPredicate;
@@ -298,10 +294,6 @@ public class Factory implements Callable<Integer> {
       }
     }
     return addressTreeSet;
-  }
-
-  public static <T> Function<T, T> serializableIdentity() {
-    return (Serializable & Function<T, T>) t -> t;
   }
 
   @Command
@@ -642,7 +634,6 @@ public class Factory implements Callable<Integer> {
     seedRandomState(state);
 
     try (var client = HttpClient.newHttpClient()) {
-      var messages = new ArrayList<Message>();
       for (var i = 0L; i < num; i++) {
         mpz_urandomm(subjectP, state, subjectMax);
         mpz_nextprime(subjectP, subjectP);
@@ -840,9 +831,9 @@ public class Factory implements Callable<Integer> {
                                                                 + "insert into pubkeys(address, addressversion, transmitdata, time, usedpersonally) values",
         ";\n" + "COMMIT;");
     try (var lines = Files.lines(in)) {
-      lines.map(l -> l.replaceAll("\\|", ",").replaceAll("^", "('").replaceAll("(?=,4,)", "'")
+      lines.map(l -> "('" + (l.replaceAll("\\|", ",").replaceAll("(?=,4,)", "'")
           .replaceAll("(?=040100000000)", "x'").replaceAll("(?<=FD03E8FD03E8)", "'")
-          .replaceAll("yes$", "'$0')")).forEach(joiner::add);
+          .replaceAll("yes$", "'$0')"))).forEach(joiner::add);
     }
     Files.writeString(out, joiner.toString(), StandardOpenOption.WRITE, StandardOpenOption.CREATE);
     return EXIT_CODE_OK;
@@ -1006,54 +997,6 @@ public class Factory implements Callable<Integer> {
         System.out.println("key number is " + (offset / 65));
       }
       System.err.println("[" + LocalDateTime.now() + "] file " + path + " is done");
-    }
-    return EXIT_CODE_OK;
-  }
-
-  @Command
-  public int scheduledPosting(Path toAddressFile, String fromAddress, @Option(names = {"--num",
-      "-n"}, arity = "0..1", paramLabel = "num", defaultValue = "-1", description = "Number of messages to send at once") int num)
-      throws IOException {
-    var toSendList = Files.readAllLines(toAddressFile);
-    Collections.shuffle(toSendList, SECURE_RANDOM_GENERATOR);
-    // 未送信アドレスリスト
-    var toSendAddressQueue = new ConcurrentLinkedQueue<>(toSendList);
-    // 送信済みアドレスリスト
-    var sentAddressQueue = new ConcurrentLinkedQueue<String>();
-    try (var executor = new ScheduledThreadPoolExecutor(
-        1); var client = HttpClient.newHttpClient()) {
-      executor.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
-      var future = executor.scheduleWithFixedDelay(() -> {
-
-        String address;
-        // キューから今回のタスク分のアドレスを取り出す、足りなかったらそこまでで打ち切る
-        var sendingWork = new ArrayList<String>();
-        for (int i = 0; i < num && (address = toSendAddressQueue.poll()) != null; i++) {
-          sendingWork.add(address);
-        }
-        var messages = new ArrayList<Message>();
-        // 送信するメッセージを作成する
-        for (var ad : sendingWork) {
-          messages.add(new Message(ad, fromAddress, "", "", 86400));
-        }
-        // 送信
-        try {
-          post(client, messages);
-        } catch (InterruptedException | ExecutionException e) {
-          throw new RuntimeException(e);
-        }
-        // 送信済みキューにアドレスを入れる
-        sentAddressQueue.addAll(sendingWork);
-        // 未送信アドレスキューが空ならば送信済みキューから全て取り出しシャッフルして未送信アドレスキューに追加してリセット
-        if (toSendAddressQueue.isEmpty()) {
-          var resetWork = new ArrayList<String>();
-          while ((address = sentAddressQueue.poll()) != null) {
-            resetWork.add(address);
-          }
-          Collections.shuffle(resetWork, SECURE_RANDOM_GENERATOR);
-          toSendAddressQueue.addAll(resetWork);
-        }
-      }, 0, 3, TimeUnit.HOURS);
     }
     return EXIT_CODE_OK;
   }
@@ -1353,7 +1296,7 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int addressSearch(Path in) throws IOException, NoSuchAlgorithmException, DigestException {
+  public int addressSearch(Path in) throws IOException {
     var size = Files.size(in);
     if (size % 65 != 0) {
       throw new IllegalArgumentException("A");
@@ -1461,32 +1404,6 @@ public class Factory implements Callable<Integer> {
 
   enum ReadMode {
     HEAD, TAIL
-  }
-
-  private static class PrimeGenerator {
-
-    Arena auto = Arena.ofAuto();
-    MemorySegment state;
-    MemorySegment subjectMax;
-    MemorySegment messageMin;
-    MemorySegment messageMax;
-    MemorySegment messageWindow;
-
-    public PrimeGenerator() {
-      subjectMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      messageMin = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      mpz_init_set_ui(messageMin, 10);
-      state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
-      messageMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      messageWindow = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      mpz_init(messageWindow);
-      mpz_sub(messageWindow, messageMax, messageMin);
-      mpz_init_set_str(messageMax, auto.allocateFrom(
-          "999999999999999999999999999999999999999999999999999999999999999999999883"), 10);
-      gmp_randinit_default(state);
-      seedRandomState(state);
-    }
-
   }
 
   private record APredicate(byte[] buf) implements Predicate<A> {

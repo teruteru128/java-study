@@ -23,9 +23,10 @@ public abstract class Packet {
     private static final Charset SHIFT_JIS = Charset.forName("Shift-JIS");
 
     /**
-     * Shift-JISを使用してこのパケットをエンコードし、結果を新しいバイト配列に格納します。
-     * 
-     *  Shift-JISでこの文字列をエンコード化できない場合、このメソッドの動作は指定されません。 エンコード処理をより強力に制御する必要がある場合は、{@link #toString()}メソッドと{@link java.nio.charset.CharsetEncoder CharsetEncoder}クラスを使用してください。 
+     * <p>Shift-JISを使用してこのパケットをエンコードし、結果を新しいバイト配列に格納します。</p>
+     * <p>
+     *  Shift-JISでこの文字列をエンコード化できない場合、このメソッドの動作は指定されません。 エンコード処理をより強力に制御する必要がある場合は、{@link #toString()}メソッドと{@link java.nio.charset.CharsetEncoder CharsetEncoder}クラスを使用してください。
+     *  </p>
      * @return Shift-JISでエンコードされたバイト配列
      */
     public byte[] getBytes() {

@@ -21,7 +21,6 @@ import java.util.BitSet;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
@@ -91,11 +90,6 @@ public class PrimeSearch implements Callable<Void> {
     } else {
       logger.error("prime not found:");
     }
-  }
-
-  public static void createLargeSieve(Path inPath, String outPath, Path smallSievepath,
-      Path oldInPath)
-      throws IOException, ClassNotFoundException, ExecutionException, InterruptedException {
   }
 
   /**
@@ -177,8 +171,6 @@ public class PrimeSearch implements Callable<Void> {
 
   /**
    *
-   * @see java.math.BitSieve#sieveSearch(int, int)
-   * @see java.util.BitSet#nextClearBit(int)
    * @param bits bits
    * @param limit bitsのリミット。bit単位
    * @param start start

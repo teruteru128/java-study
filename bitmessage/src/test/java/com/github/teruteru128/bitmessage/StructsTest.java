@@ -25,7 +25,7 @@ public class StructsTest {
 
     private static final HexFormat format = HexFormat.of();
 
-    private static final Arguments of(Object... arguments) {
+    private static Arguments of(Object... arguments) {
         return Arguments.of(arguments);
     }
 
