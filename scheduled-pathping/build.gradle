@@ -6,7 +6,7 @@ application {
 }
 dependencies {
     // https://mvnrepository.com/artifact/commons-io/commons-io
-    implementation 'commons-io:commons-io:2.16.1'
+    implementation 'commons-io:commons-io:2.20.0'
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     implementation 'org.slf4j:slf4j-api:2.0.13'
