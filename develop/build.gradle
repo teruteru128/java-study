@@ -53,7 +53,7 @@ dependencies {
     implementation 'org.apache.commons:commons-rng-simple:1.6'
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-statistics-descriptive
-    implementation 'org.apache.commons:commons-statistics-descriptive:1.1'
+    implementation 'org.apache.commons:commons-statistics-descriptive:1.2'
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-statistics-distribution
     implementation 'org.apache.commons:commons-statistics-distribution:1.0'
