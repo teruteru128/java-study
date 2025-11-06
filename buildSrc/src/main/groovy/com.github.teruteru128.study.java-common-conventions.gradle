@@ -20,7 +20,7 @@ dependencies {
     // Define dependency versions as constraints
     implementation 'org.apache.commons:commons-text'
     constraints {
-        implementation('org.apache.commons:commons-text:1.10.0') {
+        it.implementation('org.apache.commons:commons-text:1.10.0') {
             because('')
         }
     }

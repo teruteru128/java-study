@@ -5,6 +5,7 @@ import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
 import static com.github.teruteru128.gmp.gmp_h.gmp_randseed;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_clrbit;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_divisible_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
@@ -18,6 +19,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_powm;
 import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
+import static com.github.teruteru128.gmp.gmp_h.mpz_setbit;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
@@ -233,6 +235,8 @@ public class Factory implements Callable<Integer> {
                                                             || l % 17079842013412L == 2972
                                                             || l /*% 241601748305338693790*/
                                                                == 1772);
+  public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
+      "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'nnnnnnnnn");
   private static final Logger logger = LoggerFactory.getLogger(Factory.class);
   private static final int EXIT_CODE_OK = ExitCode.OK;
   private static final int EXIT_CODE_SOFTWARE = ExitCode.SOFTWARE;
@@ -769,7 +773,8 @@ public class Factory implements Callable<Integer> {
       var seconds = (finish - start) / 1e9;
       if (seconds >= 3600.) {
         System.err.println(
-            "[" + LocalDateTime.now() + "]" + i + ": " + result + "(" + seconds + " seconds)");
+            "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "]" + i + ": " + result + "("
+            + seconds + " seconds)");
       } else {
         System.err.println(i + ": " + result + "(" + seconds + " seconds)");
       }
@@ -891,9 +896,9 @@ public class Factory implements Callable<Integer> {
           ripemd160.update(hash, 0, 64);
           ripemd160.digest(hash, 0, 20);
           if (Long.numberOfLeadingZeros(hashSegment.getLong(0)) >= 45) {
-            System.err.println(
-                "[" + LocalDateTime.now() + "]お前やー！！！！(" + Long.numberOfLeadingZeros(
-                    hashSegment.getLong(0)) + ") sign: " + signIndex + ", enc: " + encIndex);
+            System.err.println("[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "]お前やー！！！！("
+                               + Long.numberOfLeadingZeros(hashSegment.getLong(0)) + ") sign: "
+                               + signIndex + ", enc: " + encIndex);
             count++;
             if (count >= 10) {
               break found;
@@ -952,7 +957,7 @@ public class Factory implements Callable<Integer> {
           .toArray(Path[]::new);
     }
     System.out.println(pathArray.length);
-    System.err.println("[" + LocalDateTime.now() + "] 開始します");
+    System.err.println("[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] 開始します");
     for (var path : pathArray) {
       var k = Files.readAllBytes(path);
       int length = k.length;
@@ -984,8 +989,8 @@ public class Factory implements Callable<Integer> {
         }
         if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0 && hash[4] == 0
             && hash[5] == 0) {
-          System.out.println(
-              "[" + LocalDateTime.now() + "] found: " + hexFormat.formatHex(hash, 0, 20));
+          System.out.println("[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] found: "
+                             + hexFormat.formatHex(hash, 0, 20));
           return true;
         }
         return false;
@@ -996,7 +1001,8 @@ public class Factory implements Callable<Integer> {
         System.out.println("offset is " + offset);
         System.out.println("key number is " + (offset / 65));
       }
-      System.err.println("[" + LocalDateTime.now() + "] file " + path + " is done");
+      System.err.println(
+          "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] file " + path + " is done");
     }
     return EXIT_CODE_OK;
   }
@@ -1093,96 +1099,6 @@ public class Factory implements Callable<Integer> {
     System.out.printf("%f %%%n", (double) array.length * 100 / a);
     if (output) {
       Arrays.stream(array).forEach(System.out::println);
-    }
-    return EXIT_CODE_OK;
-  }
-
-  @Command
-  public int sierpinski5(long n) {
-    var map = new HashMap<LongPredicate, String>();
-    map.put(l -> l % 2 == 1, "l -> l % 2 == 1");
-    map.put(l -> l % 3 == 0, "l -> l % 3 == 0");
-    map.put(l -> l % 4 == 2, "l -> l % 4 == 2");
-    map.put(l -> l % 8 == 0, "l -> l % 8 == 0");
-    map.put(l -> l % 10 == 6, "l -> l % 10 == 6");
-    map.put(l -> l % 11 == 0, "l -> l % 11 == 0");
-    map.put(l -> l % 11 == 10, "l -> l % 11 == 10");
-    map.put(l -> l % 12 == 4, "l -> l % 12 == 4");
-    map.put(l -> l % 18 == 16, "l -> l % 18 == 16");
-    map.put(l -> l % 22 == 8, "l -> l % 22 == 8");
-    map.put(l -> l % 23 == 19, "l -> l % 23 == 19");
-    map.put(l -> l % 35 == 15, "l -> l % 35 == 15");
-    map.put(l -> l % 37 == 35, "l -> l % 37 == 35");
-    map.put(l -> l % 52 == 40, "l -> l % 52 == 40");
-    map.put(l -> l % 83 == 49, "l -> l % 83 == 49");
-    map.put(l -> l % 92 == 56, "l -> l % 92 == 56");
-    map.put(l -> l % 95 == 53, "l -> l % 95 == 53");
-    map.put(l -> l % 119 == 74, "l -> l % 119 == 74");
-    map.put(l -> l % 130 == 4, "l -> l % 130 == 4");
-    map.put(l -> l % 162 == 122, "l -> l % 162 == 122");
-    map.put(l -> l % 244 == 16, "l -> l % 244 == 16");
-    map.put(l -> l % 262 == 110, "l -> l % 262 == 110");
-    map.put(l -> l % 418 == 196, "l -> l % 418 == 196");
-    map.put(l -> l % 515 == 157, "l -> l % 515 == 157");
-    map.put(l -> l % 611 == 216, "l -> l % 611 == 216");
-    map.put(l -> l % 658 == 402, "l -> l % 658 == 402");
-    map.put(l -> l % 820 == 740, "l -> l % 820 == 740");
-    map.put(l -> l % 852 == 752, "l -> l % 852 == 752");
-    map.put(l -> l % 911 == 286, "l -> l % 911 == 286");
-    map.put(l -> l % 936 == 476, "l -> l % 936 == 476");
-    map.put(l -> l % 1119 == 326, "l -> l % 1119 == 326");
-    map.put(l -> l % 1400 == 988, "l -> l % 1400 == 988");
-    map.put(l -> l % 1614 == 1532, "l -> l % 1614 == 1532");
-    map.put(l -> l % 1644 == 848, "l -> l % 1644 == 848");
-    map.put(l -> l % 1664 == 172, "l -> l % 1664 == 172");
-    map.put(l -> l % 1948 == 232, "l -> l % 1948 == 232");
-    map.put(l -> l % 1932 == 20, "l -> l % 1932 == 20");
-    map.put(l -> l % 2344 == 380, "l -> l % 2344 == 380");
-    map.put(l -> l % 2620 == 88, "l -> l % 2620 == 88");
-    map.put(l -> l % 2676 == 212, "l -> l % 2676 == 212");
-    map.put(l -> l % 2919 == 764, "l -> l % 2919 == 764");
-    map.put(l -> l % 3036 == 1052, "l -> l % 3036 == 1052");
-    map.put(l -> l % 4242 == 452, "l -> l % 4242 == 452");
-    map.put(l -> l % 5763 == 3164, "l -> l % 5763 == 3164");
-    map.put(l -> l % 5842 == 2924, "l -> l % 5842 == 2924");
-    map.put(l -> l % 6035 == 2300, "l -> l % 6035 == 2300");
-    map.put(l -> l % 6100 == 1508, "l -> l % 6100 == 1508");
-    map.put(l -> l % 9959 == 1388, "l -> l % 9959 == 1388");
-    map.put(l -> l % 14388 == 980, "l -> l % 14388 == 980");
-    map.put(l -> l % 14648 == 1244, "l -> l % 14648 == 1244");
-    map.put(l -> l % 18131 == 1292, "l -> l % 18131 == 1292");
-    map.put(l -> l % 19258 == 1124, "l -> l % 19258 == 1124");
-    map.put(l -> l % 20115 == 2372, "l -> l % 20115 == 2372");
-    map.put(l -> l % 21788 == 2852, "l -> l % 21788 == 2852");
-    map.put(l -> l % 31258 == 3428, "l -> l % 31258 == 3428");
-    map.put(l -> l % 57802 == 188, "l -> l % 57802 == 188");
-    map.put(l -> l % 61376 == 1004, "l -> l % 61376 == 1004");
-    map.put(l -> l % 95412 == 3380, "l -> l % 95412 == 3380");
-    map.put(l -> l % 191982 == 1820, "l -> l % 191982 == 1820");
-    map.put(l -> l % 342466 == 68, "l -> l % 342466 == 68");
-    map.put(l -> l % 685460 == 500, "l -> l % 685460 == 500");
-    map.put(l -> l % 888108 == 3404, "l -> l % 888108 == 3404");
-    map.put(l -> l % 2859431 == 2132, "l -> l % 2859431 == 2132");
-    map.put(l -> l % 3236496 == 2060, "l -> l % 3236496 == 2060");
-    map.put(l -> l % 12549060 == 1844, "l -> l % 12549060 == 1844");
-    map.put(l -> l % 13757948 == 3812, "l -> l % 13757948 == 3812");
-    map.put(l -> l % 14429248 == 3548, "l -> l % 14429248 == 3548");
-    map.put(l -> l % 44564101 == 2324, "l -> l % 44564101 == 2324");
-    map.put(l -> l % 49791324 == 2444, "l -> l % 49791324 == 2444");
-    map.put(l -> l % 95330742 == 3140, "l -> l % 95330742 == 3140");
-    map.put(l -> l % 110000116 == 644, "l -> l % 110000116 == 644");
-    map.put(l -> l % 234121386 == 2612, "l -> l % 234121386 == 2612");
-    map.put(l -> l % 938070812 == 2828, "l -> l % 938070812 == 2828");
-    map.put(l -> l % 1140196839 == 860, "l -> l % 1140196839 == 860");
-    map.put(l -> l % 3234435810L == 3908, "l -> l % 3234435810L == 3908");
-    map.put(l -> l % 9145782796L == 620, "l -> l % 9145782796L == 620");
-    map.put(l -> l % 17079842013412L == 2972, "l -> l % 17079842013412L == 2972");
-    map.put(l -> l /*% 241601748305338693790*/ == 1772,
-        "l -> l /*% 241601748305338693790*/ == 1772");
-    for (var p : map.keySet()) {
-      if (p.test(n)) {
-        System.out.println(map.get(p));
-      }
     }
     return EXIT_CODE_OK;
   }
@@ -1342,7 +1258,9 @@ public class Factory implements Callable<Integer> {
       var start = System.nanoTime();
       mpz_nextprime(p, p);
       var finish = System.nanoTime();
-      System.err.println("[" + LocalDateTime.now() + "] " + (finish - start) / 1e9 + " sec");
+      System.err.println(
+          "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] " + (finish - start) / 1e9
+          + " sec");
       var length = mpz_sizeinbase(p, 10) + 2;
       var buf = auto.allocate(length);
       mpz_get_str(buf, 10, p);
@@ -1367,8 +1285,8 @@ public class Factory implements Callable<Integer> {
         var id = root.get("id");
         var status = root.get("status");
         System.err.println(
-            "[" + LocalDateTime.now() + "] " + id.asText() + "(" + (id.isTextual() ? "textual"
-                : "long") + "): " + status.textValue());
+            "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] " + id.asText() + "(" + (
+                id.isTextual() ? "textual" : "long") + "): " + status.textValue());
         primesListIterator.remove();
       }
     }
@@ -1377,27 +1295,88 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int reportFactors(int start, int finish, int step, int factor) throws IOException {
+  public int reportFactors(int start, int finish, int step, int factor)
+      throws IOException, InterruptedException {
     var url = URI.create(FactorDBSpamming.REPORT_FACTOR_ENDPOINT).toURL();
-    var formatter = DateTimeFormatter.ofPattern("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'nnnnnnnnn");
+    var lock = new Object();
     for (int i = start; i < finish; i += step) {
-      var connection = (HttpsURLConnection) url.openConnection();
-      connection.setDoOutput(true);
-      connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
-      try (var stream = new PrintStream(connection.getOutputStream())) {
-        var body = "number=" + URLEncoder.encode("21181*2^" + i + "+1", StandardCharsets.UTF_8)
-                   + "&factor=" + factor;
-        stream.println(body);
-        stream.flush();
-      }
-      connection.connect();
-      var responseCode = connection.getResponseCode();
+      int responseCode;
+      HttpsURLConnection connection;
+      do {
+        connection = (HttpsURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+        try (var stream = new PrintStream(connection.getOutputStream())) {
+          var body = "number=" + URLEncoder.encode("21181*2^" + i + "+1", StandardCharsets.UTF_8)
+                     + "&factor=" + factor;
+          stream.println(body);
+          stream.flush();
+        }
+        connection.connect();
+        responseCode = connection.getResponseCode();
+        if (responseCode != 200) {
+          System.out.println(
+              "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] " + i + ", " + responseCode
+              + ": " + connection.getResponseMessage());
+          if (responseCode == HttpStatusCode.HTTP_TOO_MANY_REQUESTS) {
+            lock.wait(1000 * 60 * 5);
+          }
+        }
+      } while (responseCode != HttpsURLConnection.HTTP_OK);
       try (var inputStream = new BufferedReader(
           new InputStreamReader(connection.getInputStream()))) {
         System.out.println(
-            "[" + formatter.format(LocalDateTime.now()) + "] " + i + ", " + responseCode + ": "
-            + inputStream.readLine());
+            "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] " + i + ", " + responseCode
+            + ": " + inputStream.readLine());
       }
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int fabcn(@Parameters(defaultValue = "1", paramLabel = "start") int start,
+      @Option(names = {"--big-exponent",
+          "-b"}, defaultValue = "13607", paramLabel = "larger-exponent") int max,
+      @Option(names = {"--init", "-i"}, defaultValue = "3", paramLabel = "init") int init)
+      throws IOException, InterruptedException {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(n);
+    mpz_setbit(n, 0);
+    var lock = new Object();
+    for (int i = init; i < max; i++) {
+      mpz_setbit(n, i);
+      for (int j = 1; j < i; j++) {
+        mpz_setbit(n, j);
+        var result = mpz_probab_prime_p(n, 24);
+        if (result != 0) {
+          var p = "2^" + i + "+2^" + j + "+1";
+          var url = URI.create(
+                  FactorDBSpamming.QUERY_ENDPOINT + URLEncoder.encode(p, StandardCharsets.UTF_8))
+              .toURL();
+          HttpsURLConnection connection;
+          int code;
+          do {
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+            code = connection.getResponseCode();
+            if (code == 429) {
+              lock.wait(1000 * 60 * 5);
+            }
+          } while (code != HttpsURLConnection.HTTP_OK);
+          JsonNode root;
+          try (var inputStream = connection.getInputStream()) {
+            root = OBJECT_MAPPER.readTree(inputStream);
+          }
+          var id = root.get("id");
+          var status = root.get("status");
+          System.out.println(
+              "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] " + p + " : " + result
+              + ", https://factordb.com/index.php?id=" + id.asText() + " : " + status.textValue());
+        }
+        mpz_clrbit(n, j);
+      }
+      mpz_clrbit(n, i);
     }
     return EXIT_CODE_OK;
   }
