@@ -28,6 +28,7 @@ import static com.github.teruteru128.study.FactorDBSpamming.OBJECT_MAPPER;
 import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
+import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.TWO;
 import static java.math.BigInteger.valueOf;
 
@@ -471,12 +472,12 @@ public class Factory implements Callable<Integer> {
     long num = 2;
     while (true) {
       var n = base.multiply(co);
-      var nAdd1 = n.add(BigInteger.ONE);
+      var nAdd1 = n.add(ONE);
       if (nAdd1.isProbablePrime(1)) {
         System.out.println("n * " + co + " + 1");
         count++;
       }
-      var nSub1 = n.subtract(BigInteger.ONE);
+      var nSub1 = n.subtract(ONE);
       if (nSub1.isProbablePrime(1)) {
         System.out.println("n * " + co + " - 1");
         count++;
@@ -484,7 +485,7 @@ public class Factory implements Callable<Integer> {
       if (count >= num) {
         break;
       }
-      co = co.add(BigInteger.ONE);
+      co = co.add(ONE);
     }
     return ExitCode.OK;
   }
@@ -522,7 +523,7 @@ public class Factory implements Callable<Integer> {
             }
           }
           pSub1 = pSub1.multiply(primeArray[generator.nextInt(primeArrayLength)]);
-          p = pSub1.add(BigInteger.ONE);
+          p = pSub1.add(ONE);
         }
         pSub1 = primeArray[0];
         p = primeArray[1];
@@ -913,8 +914,8 @@ public class Factory implements Callable<Integer> {
   @Command
   public int h(BigInteger p) {
     var treeMap = new TreeMap<Long, Long>();
-    Stream.iterate(p, n -> n.compareTo(BigInteger.ONE) > 0,
-            n -> n.testBit(0) ? n.shiftLeft(1).add(n).add(BigInteger.ONE) : n.shiftRight(1))
+    Stream.iterate(p, n -> n.compareTo(ONE) > 0,
+            n -> n.testBit(0) ? n.shiftLeft(1).add(n).add(ONE) : n.shiftRight(1))
         .forEach(n -> treeMap.compute((long) n.bitLength(), (k, l) -> l == null ? 1L : l + 1));
     treeMap.forEach((k, v) -> System.out.println("k = " + k + ", v = " + v));
     return EXIT_CODE_OK;
@@ -1009,22 +1010,22 @@ public class Factory implements Callable<Integer> {
 
   private BigInteger babyStepGiantStep(BigInteger base, BigInteger b, BigInteger m) {
     // base、b、m が有効な入力であることを確認
-    if (m.compareTo(BigInteger.ONE) <= 0) {
+    if (m.compareTo(ONE) <= 0) {
       throw new IllegalArgumentException("Modulus m must be greater than 1.");
     }
-    if (base.gcd(m).compareTo(BigInteger.ONE) != 0) {
+    if (base.gcd(m).compareTo(ONE) != 0) {
       // baseとmが互いに素でない場合、このアルゴリズムは動作しません。
       // 別のアルゴリズム（例：Pohlig-Hellman）が必要になることがあります。
       return null;
     }
 
     // ステップサイズ n を計算 (n = ceil(sqrt(m)))
-    BigInteger n = m.sqrt().add(BigInteger.ONE);
+    BigInteger n = m.sqrt().add(ONE);
 
     // ベビー・ステップを計算し、HashMapに格納 (base^j, j)
     var babySteps = new HashMap<BigInteger, BigInteger>();
-    BigInteger baby = BigInteger.ONE;
-    for (var j = BigInteger.ZERO; j.compareTo(n) < 0; j = j.add(BigInteger.ONE)) {
+    BigInteger baby = ONE;
+    for (var j = BigInteger.ZERO; j.compareTo(n) < 0; j = j.add(ONE)) {
       babySteps.put(baby, j);
       baby = baby.multiply(base).mod(m);
     }
@@ -1035,7 +1036,7 @@ public class Factory implements Callable<Integer> {
     BigInteger giantStepInverse = giantStep.modInverse(m);
 
     BigInteger giant = b;
-    for (var i = BigInteger.ZERO; i.compareTo(n) < 0; i = i.add(BigInteger.ONE)) {
+    for (var i = BigInteger.ZERO; i.compareTo(n) < 0; i = i.add(ONE)) {
       // 現在のジャイアント・ステップがベビー・ステップのテーブルに含まれているかチェック
       if (babySteps.containsKey(giant)) {
         BigInteger j = babySteps.get(giant);
@@ -1377,6 +1378,64 @@ public class Factory implements Callable<Integer> {
         mpz_clrbit(n, j);
       }
       mpz_clrbit(n, i);
+    }
+    return EXIT_CODE_OK;
+  }
+
+  /**
+   * ポラード・ロー法におまけ要員を足してみるテスト。
+   * @return 常に0
+   */
+  @Command
+  public int rho() {
+    var n = new BigInteger("""
+        135066410865995223349603216278805969938881475605667027524485143851526510604\
+        859533833940287150571909441798207282164471551373680419703964191743046496589\
+        274256239341020864383202110372958725762358509643110564073501508187510676594\
+        629205563685529475213500852879416377328533906109750544334999811150056977236\
+        890927563
+        """);
+    // ポラード・ロー法のおまけ要員1、nの1.5倍ぐらい長い法m
+    var m = new BigInteger(1536, (SecureRandom) SECURE_RANDOM_GENERATOR).setBit(1535).setBit(0);
+    // ポラード・ロー法のおまけ要員2、完全ランダムソース
+    var a = new BigInteger(1536, (SecureRandom) SECURE_RANDOM_GENERATOR).setBit(1535).setBit(0);
+    var b = TWO;
+    var c = TWO;
+    var d = TWO;
+    var e = TWO;
+    var q = ONE;
+    while (q.equals(ONE)) {
+      var gcd0 = a.subtract(b).abs().gcd(n);
+      var gcd1 = a.subtract(c).abs().gcd(n);
+      var gcd2 = a.subtract(d).abs().gcd(n);
+      var gcd3 = a.subtract(e).abs().gcd(n);
+      var gcd4 = b.subtract(c).abs().gcd(n);
+      var gcd5 = b.subtract(d).abs().gcd(n);
+      var gcd6 = b.subtract(e).abs().gcd(n);
+      var gcd7 = c.subtract(d).abs().gcd(n);
+      var gcd8 = c.subtract(e).abs().gcd(n);
+      var gcd9 = d.subtract(e).abs().gcd(n);
+      var gcd10 = a.gcd(n);
+      var gcd11 = b.gcd(n);
+      var gcd12 = c.gcd(n);
+      var gcd13 = d.gcd(n);
+      var gcd14 = e.gcd(n);
+      var any = Stream.of(gcd0, gcd1, gcd2, gcd3, gcd4, gcd5, gcd6, gcd7, gcd8, gcd9, gcd10, gcd11,
+          gcd12, gcd13, gcd14).filter(f -> !f.equals(ONE)).findAny();
+      if (any.isPresent()) {
+        q = any.get();
+      }
+
+      a = new BigInteger(1536, (SecureRandom) SECURE_RANDOM_GENERATOR).setBit(1535).setBit(0);
+      b = b.pow(2).add(ONE).mod(n);
+      c = c.pow(2).add(ONE).mod(n).pow(2).add(ONE).mod(n);
+      d = d.pow(2).add(ONE).mod(m);
+      e = e.pow(2).add(ONE).mod(m).pow(2).add(ONE).mod(m);
+    }
+    if (q.equals(n)) {
+      System.err.println("失敗！ : " + q);
+    } else {
+      System.err.println("成功 : " + q);
     }
     return EXIT_CODE_OK;
   }
