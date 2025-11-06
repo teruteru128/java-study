@@ -13,7 +13,7 @@ dependencies {
     implementation(project(':math'))
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-rng-simple
-    implementation 'org.apache.commons:commons-rng-simple:1.5'
+    implementation 'org.apache.commons:commons-rng-simple:1.6'
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-statistics-distribution
     implementation 'org.apache.commons:commons-statistics-distribution:1.0'
