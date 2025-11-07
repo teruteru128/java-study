@@ -56,7 +56,7 @@ dependencies {
     implementation 'org.apache.commons:commons-statistics-descriptive:1.2'
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-statistics-distribution
-    implementation 'org.apache.commons:commons-statistics-distribution:1.0'
+    implementation 'org.apache.commons:commons-statistics-distribution:1.2'
 
     // https://mvnrepository.com/artifact/commons-io/commons-io
     implementation 'commons-io:commons-io:2.20.0'

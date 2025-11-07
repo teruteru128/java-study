@@ -16,7 +16,7 @@ dependencies {
     implementation 'org.apache.commons:commons-rng-simple:1.6'
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-statistics-distribution
-    implementation 'org.apache.commons:commons-statistics-distribution:1.0'
+    implementation 'org.apache.commons:commons-statistics-distribution:1.2'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk18on
     implementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
