@@ -93,7 +93,7 @@ dependencies {
     implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.2'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.1'
 
     // https://picocli.info/
     // https://mvnrepository.com/artifact/info.picocli/picocli
