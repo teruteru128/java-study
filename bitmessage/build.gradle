@@ -7,7 +7,7 @@ dependencies {
     implementation project(':time')
 
     // https://mvnrepository.com/artifact/commons-codec/commons-codec
-    implementation 'commons-codec:commons-codec:1.19.0'
+    implementation 'commons-codec:commons-codec:1.20.0'
 
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
     implementation 'org.xerial:sqlite-jdbc:3.51.0.0'
