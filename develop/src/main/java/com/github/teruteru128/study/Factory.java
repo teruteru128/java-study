@@ -6,6 +6,7 @@ import static com.github.teruteru128.gmp.gmp_h.gmp_randseed;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_clrbit;
+import static com.github.teruteru128.gmp.gmp_h.mpz_cmp;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_divisible_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
@@ -14,17 +15,20 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_powm;
 import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
+import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_setbit;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
 import static com.github.teruteru128.study.FactorDBSpamming.OBJECT_MAPPER;
+import static com.github.teruteru128.study.FactorDBSpamming.QUERY_ENDPOINT;
 import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
@@ -56,6 +60,7 @@ import java.lang.foreign.ValueLayout;
 import java.math.BigInteger;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest.BodyPublishers;
@@ -1342,8 +1347,7 @@ public class Factory implements Callable<Integer> {
       throws IOException, InterruptedException {
     var auto = Arena.ofAuto();
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(n);
-    mpz_setbit(n, 0);
+    mpz_init_set_ui(n, 1);
     var lock = new Object();
     for (int i = init; i < max; i++) {
       mpz_setbit(n, i);
@@ -1438,6 +1442,82 @@ public class Factory implements Callable<Integer> {
       System.err.println("成功 : " + q);
     }
     return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int searchBigPrime() throws IOException, InterruptedException {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(n);
+    var nAdd1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(nAdd1);
+    var nSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(nSub1);
+    var threshold = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(threshold, 10);
+    mpz_pow_ui(threshold, threshold, 49999);
+    var smallPrime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(smallPrime);
+    var smallPrimeMin = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(smallPrimeMin, 10);
+    mpz_pow_ui(smallPrimeMin, smallPrimeMin, 18);
+    var smallPrimeMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(smallPrimeMax, 10);
+    mpz_pow_ui(smallPrimeMax, smallPrimeMax, 19);
+    mpz_sub_ui(smallPrimeMax, smallPrimeMax, 39);
+    var smallPrimeWindow = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set(smallPrimeWindow, smallPrimeMax);
+    mpz_sub(smallPrimeWindow, smallPrimeWindow, smallPrimeMin);
+    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+    gmp_randinit_default(state);
+    seedRandomState(state);
+    for (int i = 0; i < 5; i++) {
+      mpz_set_ui(n, 1);
+      while (mpz_cmp(n, threshold) < 0) {
+        // [10^18, 10^19-39)で乱数を生成して素数探索
+        mpz_urandomm(smallPrime, state, smallPrimeWindow);
+        mpz_add(smallPrime, smallPrime, smallPrimeMin);
+        mpz_nextprime(smallPrime, smallPrime);
+        // 発見した素数をnに掛け合わせる
+        mpz_mul(n, n, smallPrime);
+      }
+      mpz_add_ui(nAdd1, n, 1);
+      mpz_sub_ui(nSub1, n, 1);
+      if (mpz_probab_prime_p(nAdd1, 24) != 0) {
+        var length = mpz_sizeinbase(nAdd1, 10) + 2;
+        var buf = auto.allocate(length);
+        mpz_get_str(buf, 10, nAdd1);
+        var url = URI.create(QUERY_ENDPOINT + URLEncoder.encode(buf.getString(0), StandardCharsets.UTF_8)).toURL();
+        var root = queryToFactorDB(url, new Object());
+      }
+      if (mpz_probab_prime_p(nSub1, 24) != 0) {
+        var length = mpz_sizeinbase(nSub1, 10) + 2;
+        var buf = auto.allocate(length);
+        mpz_get_str(buf, 10, nSub1);
+        var url = URI.create(QUERY_ENDPOINT + URLEncoder.encode(buf.getString(0), StandardCharsets.UTF_8))
+            .toURL();
+        var root = queryToFactorDB(url, new Object());
+      }
+    }
+    return EXIT_CODE_OK;
+  }
+
+  private static JsonNode queryToFactorDB(URL url, Object lock) throws IOException, InterruptedException {
+    HttpsURLConnection connection;
+    JsonNode root;
+    int code;
+    do {
+      connection = (HttpsURLConnection) url.openConnection();
+      connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+      code = connection.getResponseCode();
+      if (code == 429) {
+        lock.wait(1000 * 60 * 5);
+      }
+    } while (code != HttpsURLConnection.HTTP_OK);
+    try (var inputStream = connection.getInputStream()) {
+      root = OBJECT_MAPPER.readTree(inputStream);
+    }
+    return root;
   }
 
   enum ReadMode {
