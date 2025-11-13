@@ -1392,9 +1392,7 @@ public class Factory implements Callable<Integer> {
         var result = mpz_probab_prime_p(n, 24);
         if (result != 0) {
           var p = "2^" + i + "+2^" + j + "+1";
-          System.out.println(
-              "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] 発見しました " + p + " : "
-              + result);
+          logger.info("発見しました {} : {}", p, result);
           var url = URI.create(QUERY_ENDPOINT + URLEncoder.encode(p, StandardCharsets.UTF_8))
               .toURL();
           HttpsURLConnection connection = null;
@@ -1404,17 +1402,18 @@ public class Factory implements Callable<Integer> {
               connection = (HttpsURLConnection) url.openConnection();
               connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
               code = connection.getResponseCode();
-              Thread.sleep(1000 * 60 * 5);
+              if (code == HttpStatusCode.HTTP_TOO_MANY_REQUESTS) {
+                Thread.sleep(1000 * 60 * 5);
+              }
             } catch (ConnectException e) {
-              System.err.println(
-                  "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] 例外発生");
-              e.printStackTrace(System.err);
+              logger.error("例外発生", e);
               code = 503;
             } catch (IOException e) {
-              System.err.println(
-                  "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] 例外発生");
-              e.printStackTrace(System.err);
+              logger.error("例外発生", e);
               code = 500;
+            }
+            if (code != 200) {
+              logger.warn("code: {}", code);
             }
           } while (code != HttpsURLConnection.HTTP_OK);
           JsonNode root;
@@ -1423,9 +1422,8 @@ public class Factory implements Callable<Integer> {
           }
           var id = root.get("id");
           var status = root.get("status");
-          System.out.println(
-              "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] " + p + " : " + result
-              + ", https://factordb.com/index.php?id=" + id.asText() + " : " + status.textValue());
+          logger.info("{} : {}, https://factordb.com/index.php?id={} : {}", p, result, id.asText(),
+              status.textValue());
         }
         // b *= base
         mpz_mul_ui(b, b, base);
@@ -1554,7 +1552,8 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int crazy(String s) throws NoSuchAlgorithmException, DigestException, CloneNotSupportedException {
+  public int crazy(String s)
+      throws NoSuchAlgorithmException, DigestException, CloneNotSupportedException {
     var string = s.getBytes(StandardCharsets.UTF_8);
     var length = string.length;
     MessageDigest backup = MessageDigest.getInstance("SHA-256");
