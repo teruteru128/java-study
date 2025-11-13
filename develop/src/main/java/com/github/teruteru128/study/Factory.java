@@ -1428,6 +1428,7 @@ public class Factory implements Callable<Integer> {
         // b *= base
         mpz_mul_ui(b, b, base);
       }
+      logger.debug("done: {}", i);
       // a *= base;
       mpz_mul_ui(a, a, base);
     }
