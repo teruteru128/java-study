@@ -5,7 +5,6 @@ import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
 import static com.github.teruteru128.gmp.gmp_h.gmp_randseed;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_clrbit;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_divisible_p;
@@ -17,12 +16,12 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_powm;
 import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_setbit;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
@@ -58,13 +57,13 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.math.BigInteger;
+import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest.BodyPublishers;
-import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -153,26 +152,27 @@ public class Factory implements Callable<Integer> {
                                                             || l % 418 == 196 || l % 419 == 58
                                                             || l % 443 == 355 || l % 466 == 8
                                                             || l % 515 == 157 || l % 562 == 482
-                                                            || l % 577 == 164 || l % 611 == 216
-                                                            || l % 618 == 374 || l % 635 == 149
-                                                            || l % 639 == 419 || l % 658 == 402
-                                                            || l % 719 == 354 || l % 723 == 434
-                                                            || l % 734 == 252 || l % 810 == 464
-                                                            || l % 820 == 740 || l % 826 == 292
-                                                            || l % 852 == 752 || l % 936 == 476
-                                                            || l % 940 == 12 || l % 958 == 90
-                                                            || l % 986 == 204 || l % 1044 == 596
-                                                            || l % 1060 == 48 || l % 1060 == 1028
-                                                            || l % 1076 == 448 || l % 1090 == 824
-                                                            || l % 1119 == 326 || l % 1211 == 1083
-                                                            || l % 1220 == 372 || l % 1251 == 692
-                                                            || l % 1271 == 1156 || l % 1355 == 974
-                                                            || l % 1359 == 1106 || l % 1400 == 988
-                                                            || l % 1443 == 581 || l % 1522 == 1320
-                                                            || l % 1539 == 149 || l % 1614 == 1532
-                                                            || l % 1636 == 1408 || l % 1644 == 848
-                                                            || l % 1664 == 172 || l % 1666 == 1478
-                                                            || l % 1668 == 740 || l % 1700 == 1684
+                                                            || l % 577 == 164 || l % 601 == 32
+                                                            || l % 611 == 216 || l % 618 == 374
+                                                            || l % 635 == 149 || l % 639 == 419
+                                                            || l % 658 == 402 || l % 719 == 354
+                                                            || l % 723 == 434 || l % 734 == 252
+                                                            || l % 810 == 464 || l % 820 == 740
+                                                            || l % 826 == 292 || l % 852 == 752
+                                                            || l % 936 == 476 || l % 940 == 12
+                                                            || l % 958 == 90 || l % 986 == 204
+                                                            || l % 1044 == 596 || l % 1060 == 48
+                                                            || l % 1060 == 1028 || l % 1076 == 448
+                                                            || l % 1090 == 824 || l % 1119 == 326
+                                                            || l % 1211 == 1083 || l % 1220 == 372
+                                                            || l % 1251 == 692 || l % 1271 == 1156
+                                                            || l % 1355 == 974 || l % 1359 == 1106
+                                                            || l % 1400 == 988 || l % 1443 == 581
+                                                            || l % 1522 == 1320 || l % 1539 == 149
+                                                            || l % 1614 == 1532 || l % 1636 == 1408
+                                                            || l % 1644 == 848 || l % 1664 == 172
+                                                            || l % 1666 == 1478 || l % 1668 == 740
+                                                            || l % 1679 == 1416 || l % 1700 == 1684
                                                             || l % 1746 == 248 || l % 1906 == 1362
                                                             || l % 1919 == 1769 || l % 1930 == 1120
                                                             || l % 1932 == 20 || l % 1948 == 232
@@ -183,9 +183,10 @@ public class Factory implements Callable<Integer> {
                                                             || l % 2163 == 707 || l % 2242 == 668
                                                             || l % 2266 == 1302 || l % 2332 == 940
                                                             || l % 2344 == 380 || l % 2391 == 1790
-                                                            || l % 2559 == 1313 || l % 2620 == 88
-                                                            || l % 2676 == 212 || l % 2709 == 122
-                                                            || l % 2902 == 1428 || l % 2919 == 764
+                                                            || l % 2415 == 623 || l % 2559 == 1313
+                                                            || l % 2620 == 88 || l % 2676 == 212
+                                                            || l % 2709 == 122 || l % 2902 == 1428
+                                                            || l % 2919 == 764 || l % 2939 == 2806
                                                             || l % 3018 == 2600 || l % 3036 == 1052
                                                             || l % 3174 == 1040 || l % 3272 == 596
                                                             || l % 3590 == 1398 || l % 3648 == 2540
@@ -195,30 +196,36 @@ public class Factory implements Callable<Integer> {
                                                             || l % 3950 == 1880 || l % 3957 == 551
                                                             || l % 3968 == 2108 || l % 4012 == 2820
                                                             || l % 4132 == 140 || l % 4242 == 452
-                                                            || l % 4282 == 1958 || l % 4363 == 3122
+                                                            || l % 4282 == 1958 || l % 4362 == 3122
                                                             || l % 4876 == 2316 || l % 4972 == 216
                                                             || l % 5517 == 3170 || l % 5572 == 1300
                                                             || l % 5682 == 4298 || l % 5748 == 5144
                                                             || l % 5763 == 3164 || l % 5842 == 2924
                                                             || l % 6035 == 2300 || l % 6084 == 1304
-                                                            || l % 6100 == 1508 || l % 6348 == 1040
-                                                            || l % 6352 == 2396 || l % 6579 == 3494
-                                                            || l % 6848 == 5524 || l % 7076 == 6776
-                                                            || l % 7088 == 92 || l % 7374 == 1688
+                                                            || l % 6100 == 1508 || l % 6172 == 4888
+                                                            || l % 6348 == 1040 || l % 6352 == 2396
+                                                            || l % 6579 == 3494 || l % 6848 == 5524
+                                                            || l % 7076 == 6776 || l % 7088 == 92
+                                                            || l % 7284 == 6548 || l % 7374 == 1688
                                                             || l % 8532 == 5132 || l % 8660 == 6464
-                                                            || l % 8970 == 8312 || l % 9732 == 6824
-                                                            || l % 9959 == 1388 || l % 11130 == 1784
+                                                            || l % 8970 == 8312 || l % 9356 == 2088
+                                                            || l % 9732 == 6824 || l % 9959 == 1388
+                                                            || l % 11130 == 1784
                                                             || l % 12990 == 4958
                                                             || l % 13044 == 1424 || l % 14388 == 980
                                                             || l % 14648 == 1244
                                                             || l % 15414 == 5492
+                                                            || l % 16992 == 8468
                                                             || l % 18131 == 1292
                                                             || l % 19258 == 1124
                                                             || l % 20115 == 2372
                                                             || l % 21788 == 2852
                                                             || l % 23224 == 19760
-                                                            || l % 24588 == 9056
-                                                            || l % 31258 == 3428 || l % 57802 == 188
+                                                            || l % 23685 == 16037
+                                                            || l % 24588 == 9056 || l % 25372 == 896
+                                                            || l % 29428 == 6788
+                                                            || l % 31258 == 3428
+                                                            || l % 36778 == 8732 || l % 57802 == 188
                                                             || l % 61376 == 1004
                                                             || l % 95412 == 3380
                                                             || l % 191982 == 1820
@@ -284,8 +291,8 @@ public class Factory implements Callable<Integer> {
         encoder.encodeToString(message.subject().getBytes(StandardCharsets.UTF_8)),
         encoder.encodeToString(message.message().getBytes(StandardCharsets.UTF_8)),
         message.encodingType(), message.ttl());
-    client.send(requestBuilder.POST(BodyPublishers.ofString(body)).build(),
-        HttpResponse.BodyHandlers.ofString()).body();
+    client.send(requestBuilder.POST(BodyPublishers.ofString(body)).build(), BodyHandlers.ofString())
+        .body();
   }
 
   private static TreeSet<String> filterBySentAddressSet(List<@NotNull String> addresses)
@@ -304,6 +311,25 @@ public class Factory implements Callable<Integer> {
       }
     }
     return addressTreeSet;
+  }
+
+  private static JsonNode queryToFactorDB(URL url, Object lock)
+      throws IOException, InterruptedException {
+    HttpsURLConnection connection;
+    JsonNode root;
+    int code;
+    do {
+      connection = (HttpsURLConnection) url.openConnection();
+      connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+      code = connection.getResponseCode();
+      if (lock != null && code == 429) {
+        lock.wait(1000 * 60 * 5);
+      }
+    } while (code != HttpsURLConnection.HTTP_OK);
+    try (var inputStream = connection.getInputStream()) {
+      root = OBJECT_MAPPER.readTree(inputStream);
+    }
+    return root;
   }
 
   @Command
@@ -508,13 +534,13 @@ public class Factory implements Callable<Integer> {
   @Command
   private int p22485() throws IOException {
     var primeArray = new BigInteger[25000];
-    primeArray[0] = BigInteger.valueOf(2);
+    primeArray[0] = valueOf(2);
     int primeArrayLength = primeArray.length;
     for (int i = 1; i < primeArrayLength; i++) {
       primeArray[i] = primeArray[i - 1].nextProbablePrime();
     }
-    var pMin = BigInteger.valueOf(10).pow(22484);
-    var pMax = BigInteger.valueOf(10).pow(22485);
+    var pMin = valueOf(10).pow(22484);
+    var pMax = valueOf(10).pow(22485);
     var pSub1 = primeArray[0];
     var generator = RandomGenerator.getDefault();
     var p = primeArray[1];
@@ -758,8 +784,8 @@ public class Factory implements Callable<Integer> {
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(p);
     mpz_mul_2exp(pSub1, pSub1, nMin);
-    var startP = BigInteger.valueOf(53);
-    var maxSmallP = BigInteger.valueOf(100000000);
+    var startP = valueOf(53);
+    var maxSmallP = valueOf(100000000);
     out:
     for (int i = nMin; i <= nMax; i++, mpz_mul_2exp(pSub1, pSub1, 1)) {
       mpz_add_ui(p, pSub1, 1);
@@ -1058,10 +1084,10 @@ public class Factory implements Callable<Integer> {
 
   @Command
   public int sierpinski2(BigInteger m) {
-    var inv = BigInteger.valueOf(21181).modInverse(m);
+    var inv = valueOf(21181).modInverse(m);
     var target = inv.negate().mod(m);
     long start = System.nanoTime();
-    var n = babyStepGiantStep(BigInteger.TWO, target, m);
+    var n = babyStepGiantStep(TWO, target, m);
     long finish = System.nanoTime();
     System.out.println("n : " + n);
     System.out.println((finish - start) / 3.6e12 + " 時間");
@@ -1098,11 +1124,12 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int sierpinski4(int a,
+  public int sierpinski4(@Option(names = {"--min"}, defaultValue = "0", paramLabel = "min") int min,
+      @Option(names = {"--max"}, paramLabel = "max") int max,
       @Option(names = "--output-numbers", defaultValue = "false") boolean output) {
-    var array = LongStream.rangeClosed(0, a).filter(LONG_PREDICATE).toArray();
+    var array = LongStream.rangeClosed(min, max).filter(LONG_PREDICATE).toArray();
     System.out.println("length: " + array.length);
-    System.out.printf("%f %%%n", (double) array.length * 100 / a);
+    System.out.printf("%f %%%n", (double) array.length * 100 / (max - min));
     if (output) {
       Arrays.stream(array).forEach(System.out::println);
     }
@@ -1209,7 +1236,7 @@ public class Factory implements Callable<Integer> {
     mpz_init(mod);
     mpz_powm(mod, a, exp, n);
     mpz_add_ui(mod, mod, 1);
-    if (gmp_h.mpz_cmp(mod, n) == 0) {
+    if (mpz_cmp(mod, n) == 0) {
       System.out.println("素数");
     } else {
       System.out.println("非素数");
@@ -1273,7 +1300,7 @@ public class Factory implements Callable<Integer> {
       primes.add(buf.getString(0));
       var primesListIterator = primes.listIterator();
       while (primesListIterator.hasNext()) {
-        var url = FactorDBSpamming.QUERY_ENDPOINT + primesListIterator.next();
+        var url = QUERY_ENDPOINT + primesListIterator.next();
         var connection = (HttpsURLConnection) new URI(url).toURL().openConnection();
         connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
         var code = connection.getResponseCode();
@@ -1341,32 +1368,53 @@ public class Factory implements Callable<Integer> {
 
   @Command
   public int fabcn(@Parameters(defaultValue = "1", paramLabel = "start") int start,
-      @Option(names = {"--big-exponent",
-          "-b"}, defaultValue = "13607", paramLabel = "larger-exponent") int max,
-      @Option(names = {"--init", "-i"}, defaultValue = "3", paramLabel = "init") int init)
+      @Option(names = {"--max-exponent",
+          "-m"}, defaultValue = "13607", paramLabel = "larger-exponent") int max,
+      @Option(names = {"--init-exponent", "-i"}, defaultValue = "3", paramLabel = "init") int init,
+      @Option(names = {"--base", "-b"}, defaultValue = "2", paramLabel = "base") int base)
       throws IOException, InterruptedException {
     var auto = Arena.ofAuto();
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, 1);
-    var lock = new Object();
+    mpz_init(n);
+    var a = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    // a = pow(base, init);
+    mpz_init_set_ui(a, base);
+    mpz_pow_ui(a, a, init);
+    var b = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(b);
     for (int i = init; i < max; i++) {
-      mpz_setbit(n, i);
+      // b = base
+      mpz_set_ui(b, base);
       for (int j = 1; j < i; j++) {
-        mpz_setbit(n, j);
+        mpz_set_ui(n, 1);
+        mpz_add(n, n, a);
+        mpz_add(n, n, b);
         var result = mpz_probab_prime_p(n, 24);
         if (result != 0) {
           var p = "2^" + i + "+2^" + j + "+1";
-          var url = URI.create(
-                  FactorDBSpamming.QUERY_ENDPOINT + URLEncoder.encode(p, StandardCharsets.UTF_8))
+          System.out.println(
+              "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] 発見しました " + p + " : "
+              + result);
+          var url = URI.create(QUERY_ENDPOINT + URLEncoder.encode(p, StandardCharsets.UTF_8))
               .toURL();
-          HttpsURLConnection connection;
+          HttpsURLConnection connection = null;
           int code;
           do {
-            connection = (HttpsURLConnection) url.openConnection();
-            connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
-            code = connection.getResponseCode();
-            if (code == 429) {
-              lock.wait(1000 * 60 * 5);
+            try {
+              connection = (HttpsURLConnection) url.openConnection();
+              connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+              code = connection.getResponseCode();
+              Thread.sleep(1000 * 60 * 5);
+            } catch (ConnectException e) {
+              System.err.println(
+                  "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] 例外発生");
+              e.printStackTrace(System.err);
+              code = 503;
+            } catch (IOException e) {
+              System.err.println(
+                  "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] 例外発生");
+              e.printStackTrace(System.err);
+              code = 500;
             }
           } while (code != HttpsURLConnection.HTTP_OK);
           JsonNode root;
@@ -1379,9 +1427,11 @@ public class Factory implements Callable<Integer> {
               "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] " + p + " : " + result
               + ", https://factordb.com/index.php?id=" + id.asText() + " : " + status.textValue());
         }
-        mpz_clrbit(n, j);
+        // b *= base
+        mpz_mul_ui(b, b, base);
       }
-      mpz_clrbit(n, i);
+      // a *= base;
+      mpz_mul_ui(a, a, base);
     }
     return EXIT_CODE_OK;
   }
@@ -1487,37 +1537,53 @@ public class Factory implements Callable<Integer> {
         var length = mpz_sizeinbase(nAdd1, 10) + 2;
         var buf = auto.allocate(length);
         mpz_get_str(buf, 10, nAdd1);
-        var url = URI.create(QUERY_ENDPOINT + URLEncoder.encode(buf.getString(0), StandardCharsets.UTF_8)).toURL();
+        var url = URI.create(
+            QUERY_ENDPOINT + URLEncoder.encode(buf.getString(0), StandardCharsets.UTF_8)).toURL();
         var root = queryToFactorDB(url, new Object());
       }
       if (mpz_probab_prime_p(nSub1, 24) != 0) {
         var length = mpz_sizeinbase(nSub1, 10) + 2;
         var buf = auto.allocate(length);
         mpz_get_str(buf, 10, nSub1);
-        var url = URI.create(QUERY_ENDPOINT + URLEncoder.encode(buf.getString(0), StandardCharsets.UTF_8))
-            .toURL();
+        var url = URI.create(
+            QUERY_ENDPOINT + URLEncoder.encode(buf.getString(0), StandardCharsets.UTF_8)).toURL();
         var root = queryToFactorDB(url, new Object());
       }
     }
     return EXIT_CODE_OK;
   }
 
-  private static JsonNode queryToFactorDB(URL url, Object lock) throws IOException, InterruptedException {
-    HttpsURLConnection connection;
-    JsonNode root;
-    int code;
+  @Command
+  public int crazy(String s) throws NoSuchAlgorithmException, DigestException, CloneNotSupportedException {
+    var string = s.getBytes(StandardCharsets.UTF_8);
+    var length = string.length;
+    MessageDigest backup = MessageDigest.getInstance("SHA-256");
+    MessageDigest sha256;
+    var hash = new byte[32];
+    long i = 0;
     do {
-      connection = (HttpsURLConnection) url.openConnection();
-      connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
-      code = connection.getResponseCode();
-      if (code == 429) {
-        lock.wait(1000 * 60 * 5);
-      }
-    } while (code != HttpsURLConnection.HTTP_OK);
-    try (var inputStream = connection.getInputStream()) {
-      root = OBJECT_MAPPER.readTree(inputStream);
+      sha256 = backup;
+      sha256.update(string, 0, length);
+      backup = (MessageDigest) sha256.clone();
+      sha256.digest(hash, 0, 32);
+      i++;
+    } while (hash[0] != 0 || hash[1] != 0 || hash[2] != 0 || hash[3] != 0);
+    System.out.println("i = " + i + ", hash = " + HexFormat.of().formatHex(hash, 0, 32));
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int crazy2(String s, long num) throws NoSuchAlgorithmException, DigestException {
+    var string = s.getBytes(StandardCharsets.UTF_8);
+    var length = string.length;
+    MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+    var hash = new byte[32];
+    for (long i = 0; i < num; i++) {
+      sha256.update(string, 0, length);
     }
-    return root;
+    sha256.digest(hash, 0, 32);
+    System.out.println("hash: " + HexFormat.of().formatHex(hash, 0, 32));
+    return EXIT_CODE_OK;
   }
 
   enum ReadMode {
