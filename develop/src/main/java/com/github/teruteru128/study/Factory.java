@@ -34,6 +34,9 @@ import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.TWO;
 import static java.math.BigInteger.valueOf;
+import static java.net.URI.create;
+import static java.net.URLEncoder.encode;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.teruteru128.bitmessage.Const;
@@ -61,14 +64,12 @@ import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -287,10 +288,9 @@ public class Factory implements Callable<Integer> {
     var encoder = Base64.getEncoder();
     // FIXME シリアライズの責任の分割
     var body = "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",%d,%d],\"id\":1}".formatted(
-        message.to(), message.from(),
-        encoder.encodeToString(message.subject().getBytes(StandardCharsets.UTF_8)),
-        encoder.encodeToString(message.message().getBytes(StandardCharsets.UTF_8)),
-        message.encodingType(), message.ttl());
+        message.to(), message.from(), encoder.encodeToString(message.subject().getBytes(UTF_8)),
+        encoder.encodeToString(message.message().getBytes(UTF_8)), message.encodingType(),
+        message.ttl());
     client.send(requestBuilder.POST(BodyPublishers.ofString(body)).build(), BodyHandlers.ofString())
         .body();
   }
@@ -330,6 +330,18 @@ public class Factory implements Callable<Integer> {
       root = OBJECT_MAPPER.readTree(inputStream);
     }
     return root;
+  }
+
+  private static void queryMPZ(MemorySegment p) throws IOException, InterruptedException {
+    var length = mpz_sizeinbase(p, 10) + 2;
+    var auto = Arena.ofAuto();
+    var buf = auto.allocate(length);
+    mpz_get_str(buf, 10, p);
+    var url = create(QUERY_ENDPOINT + encode(buf.getString(0), UTF_8)).toURL();
+    var root = queryToFactorDB(url, new Object());
+    var id = root.get("id");
+    var status = root.get("status");
+    logger.info("https://factordb.com/index.php?id={} : {}", id.asText(), status.textValue());
   }
 
   @Command
@@ -561,7 +573,7 @@ public class Factory implements Callable<Integer> {
       }
       var fileName = "prime-p22485-%d.txt".formatted(Instant.now().getEpochSecond());
       System.err.println(fileName);
-      Files.writeString(Path.of(fileName), p + System.lineSeparator(), StandardCharsets.UTF_8,
+      Files.writeString(Path.of(fileName), p + System.lineSeparator(), UTF_8,
           StandardOpenOption.CREATE, StandardOpenOption.WRITE);
     }
     return ExitCode.OK;
@@ -824,10 +836,9 @@ public class Factory implements Callable<Integer> {
     var id = 0L;
     for (var message : messages) {
       var body = "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",%d,%d],\"id\":%d}".formatted(
-          message.to(), message.from(),
-          encoder.encodeToString(message.subject().getBytes(StandardCharsets.UTF_8)),
-          encoder.encodeToString(message.message().getBytes(StandardCharsets.UTF_8)),
-          message.encodingType(), message.ttl(), id++);
+          message.to(), message.from(), encoder.encodeToString(message.subject().getBytes(UTF_8)),
+          encoder.encodeToString(message.message().getBytes(UTF_8)), message.encodingType(),
+          message.ttl(), id++);
       joiner.add(body);
     }
     // FIXME BodyPublisherにInputStream使わないとダメかも
@@ -848,7 +859,7 @@ public class Factory implements Callable<Integer> {
     for (var address : addresses) {
       var label = "fictional-" + address.substring(3, 9);
       var b = "{\"jsonrpc\":\"2.0\",\"method\":\"addAddressBookEntry\",\"params\":[\"%s\",\"%s\"],\"id\":%d}".formatted(
-          address, encoder.encodeToString(label.getBytes(StandardCharsets.UTF_8)), id++);
+          address, encoder.encodeToString(label.getBytes(UTF_8)), id++);
       body.add(b);
     }
     System.out.println("request build done");
@@ -1330,7 +1341,7 @@ public class Factory implements Callable<Integer> {
   @Command
   public int reportFactors(int start, int finish, int step, int factor)
       throws IOException, InterruptedException {
-    var url = URI.create(FactorDBSpamming.REPORT_FACTOR_ENDPOINT).toURL();
+    var url = create(FactorDBSpamming.REPORT_FACTOR_ENDPOINT).toURL();
     var lock = new Object();
     for (int i = start; i < finish; i += step) {
       int responseCode;
@@ -1340,8 +1351,7 @@ public class Factory implements Callable<Integer> {
         connection.setDoOutput(true);
         connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
         try (var stream = new PrintStream(connection.getOutputStream())) {
-          var body = "number=" + URLEncoder.encode("21181*2^" + i + "+1", StandardCharsets.UTF_8)
-                     + "&factor=" + factor;
+          var body = "number=" + encode("21181*2^" + i + "+1", UTF_8) + "&factor=" + factor;
           stream.println(body);
           stream.flush();
         }
@@ -1393,8 +1403,7 @@ public class Factory implements Callable<Integer> {
         if (result != 0) {
           var p = "2^" + i + "+2^" + j + "+1";
           logger.info("発見しました {} : {}", p, result);
-          var url = URI.create(QUERY_ENDPOINT + URLEncoder.encode(p, StandardCharsets.UTF_8))
-              .toURL();
+          var url = create(QUERY_ENDPOINT + encode(p, UTF_8)).toURL();
           HttpsURLConnection connection = null;
           int code;
           do {
@@ -1521,7 +1530,7 @@ public class Factory implements Callable<Integer> {
     gmp_randinit_default(state);
     seedRandomState(state);
     for (int i = 0; i < 5; i++) {
-      mpz_set_ui(n, 1);
+      mpz_set_ui(n, 2);
       while (mpz_cmp(n, threshold) < 0) {
         // [10^18, 10^19-39)で乱数を生成して素数探索
         mpz_urandomm(smallPrime, state, smallPrimeWindow);
@@ -1532,21 +1541,16 @@ public class Factory implements Callable<Integer> {
       }
       mpz_add_ui(nAdd1, n, 1);
       mpz_sub_ui(nSub1, n, 1);
-      if (mpz_probab_prime_p(nAdd1, 24) != 0) {
-        var length = mpz_sizeinbase(nAdd1, 10) + 2;
-        var buf = auto.allocate(length);
-        mpz_get_str(buf, 10, nAdd1);
-        var url = URI.create(
-            QUERY_ENDPOINT + URLEncoder.encode(buf.getString(0), StandardCharsets.UTF_8)).toURL();
-        var root = queryToFactorDB(url, new Object());
+      var result1 = mpz_probab_prime_p(nAdd1, 24);
+      if (result1 != 0) {
+        queryMPZ(nAdd1);
       }
-      if (mpz_probab_prime_p(nSub1, 24) != 0) {
-        var length = mpz_sizeinbase(nSub1, 10) + 2;
-        var buf = auto.allocate(length);
-        mpz_get_str(buf, 10, nSub1);
-        var url = URI.create(
-            QUERY_ENDPOINT + URLEncoder.encode(buf.getString(0), StandardCharsets.UTF_8)).toURL();
-        var root = queryToFactorDB(url, new Object());
+      var result2 = mpz_probab_prime_p(nSub1, 24);
+      if (result2 != 0) {
+        queryMPZ(nSub1);
+      }
+      if (result1 == 0 && result2 == 0 && logger.isInfoEnabled()) {
+        logger.info("Both n+1 and n-1 were composite numbers.");
       }
     }
     return EXIT_CODE_OK;
@@ -1555,7 +1559,7 @@ public class Factory implements Callable<Integer> {
   @Command
   public int crazy(String s)
       throws NoSuchAlgorithmException, DigestException, CloneNotSupportedException {
-    var string = s.getBytes(StandardCharsets.UTF_8);
+    var string = s.getBytes(UTF_8);
     var length = string.length;
     MessageDigest backup = MessageDigest.getInstance("SHA-256");
     MessageDigest sha256;
@@ -1574,7 +1578,7 @@ public class Factory implements Callable<Integer> {
 
   @Command
   public int crazy2(String s, long num) throws NoSuchAlgorithmException, DigestException {
-    var string = s.getBytes(StandardCharsets.UTF_8);
+    var string = s.getBytes(UTF_8);
     var length = string.length;
     MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
     var hash = new byte[32];
