@@ -19,6 +19,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.Future;
 import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -46,14 +47,14 @@ public class PrimeSearch implements Callable<Integer> {
     }
   }
 
-  @Option(names = {"--threads", "-t"})
+  @Option(names = {"--threads", "-t"}, paramLabel = "threads")
   private int threads = Math.max(1, Runtime.getRuntime().availableProcessors() - 1);
 
-  @Parameters(description = "even number (text) file")
+  @Parameters(description = "even number (text) file", paramLabel = "even number Path")
   private Path evenNumberPath;
 
-  @Option(names = {"--shuffle", "-S"})
-  private boolean doShuffle = false;
+  @Option(names = {"--shuffle", "-S"}, defaultValue = "false", paramLabel = "doShuffle")
+  private boolean doShuffle;
 
   @Override
   public Integer call()
@@ -93,7 +94,8 @@ public class PrimeSearch implements Callable<Integer> {
     try (final var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory, null,
         true)) {
       final var service = new ExecutorCompletionService<Result>(pool);
-      list.forEach(service::submit);
+      var futures = new ArrayList<Future<Result>>();
+      list.forEach(task -> futures.add(service.submit(task)));
       try (var connection = source.getConnection()) {
         try (var ps0 = connection.prepareStatement(
             "update candidates set composite = composite + 1 where id = ? and step = ?;"); var ps1 = connection.prepareStatement(
@@ -117,8 +119,10 @@ public class PrimeSearch implements Callable<Integer> {
               ps.setInt(2, step);
               ps.execute();
               if (result != 0) {
+                pool.shutdown();
                 found = true;
                 logger.info("find prime: step {}", foundStep.step());
+                futures.stream().filter(f -> !f.isDone()).forEach(f -> f.cancel(true));
                 System.err.println('\007');
                 break;
               }

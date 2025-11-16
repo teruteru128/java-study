@@ -21,7 +21,7 @@ public class PrimeSearchTask2 implements Callable<Result> {
   private static final Logger logger = LoggerFactory.getLogger(PrimeSearchTask2.class);
   private static final Arena auto = Arena.ofAuto();
   private static final ThreadLocal<MemorySegment> THREAD_CANDIDATES = ThreadLocal.withInitial(() -> {
-    var candidate = auto.allocate(__mpz_struct.layout()).reinterpret(auto, gmp_h::mpz_clear);
+    var candidate = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(candidate);
     return candidate;
   });

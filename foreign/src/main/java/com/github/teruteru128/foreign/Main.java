@@ -4,7 +4,11 @@ import static com.github.teruteru128.gmp.__mpz_struct.allocateArray;
 import static com.github.teruteru128.gmp.__mpz_struct.asSlice;
 import static com.github.teruteru128.gmp.__mpz_struct.layout;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_export;
+import static com.github.teruteru128.gmp.gmp_h.mpz_gcd;
+import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init2;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
@@ -13,6 +17,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_invert;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mod;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul;
 import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
+import static com.github.teruteru128.gmp.gmp_h.mpz_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import static com.github.teruteru128.mpz_aprcl.mpz_aprcl_h.APRTCLE_VERBOSE2;
@@ -32,6 +37,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.Provider;
 import java.security.Security;
 import java.security.spec.InvalidKeySpecException;
@@ -51,7 +57,8 @@ import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-@Command(name = "foreign", subcommands = {CL.class, PrimeSearch.class, E.class, CommandLine.HelpCommand.class})
+@Command(name = "foreign", subcommands = {CL.class, PrimeSearch.class, E.class,
+    CommandLine.HelpCommand.class})
 public class Main implements Callable<Integer> {
 
   private static final Logger logger = LoggerFactory.getLogger(Main.class);
@@ -123,8 +130,7 @@ public class Main implements Callable<Integer> {
   }
 
   @Command(name = "primeTest")
-  public int prime2(
-      @Option(names = "--path", required = true) Path path,
+  public int prime2(@Option(names = "--path", required = true) Path path,
       @Option(names = "--step", required = true) int step) throws IOException {
     var auto = Arena.ofAuto();
     var p = auto.allocate(layout()).reinterpret(auto, gmp_h::mpz_clear);
@@ -134,6 +140,11 @@ public class Main implements Callable<Integer> {
     var ret = mpz_aprtcle(p, APRTCLE_VERBOSE2());
     logger.info("result: {}", ret);
     return ret == 1 || ret == 2 ? ExitCode.OK : ExitCode.SOFTWARE;
+  }
+
+  @Command
+  public int createPrime(Path out, Path in, int step) {
+    return ExitCode.OK;
   }
 
   /**
@@ -147,12 +158,10 @@ public class Main implements Callable<Integer> {
    * @throws IOException file I/O Error
    */
   @Command(name = "rsaEncode")
-  public int rsaEncode(
-      @Parameters(description = "private key output path") Path privateKeyOutPath,
+  public int rsaEncode(@Parameters(description = "private key output path") Path privateKeyOutPath,
       @Parameters(description = "public key output path") Path publicKeyOutPath,
       @Parameters(description = "prime p input path") Path pPath,
-      @Parameters(description = "prime p input path") Path qPath)
-      throws IOException {
+      @Parameters(description = "prime p input path") Path qPath) throws IOException {
     var auto = Arena.ofAuto();
     var variables = allocateArray(11, auto);
     // asSliceメソッドはcleanupアクションを受け継ぐんだろうか？
@@ -168,12 +177,12 @@ public class Main implements Callable<Integer> {
     var exponent2 = asSlice(variables, 9).reinterpret(auto, gmp_h::mpz_clear);
     var coefficient = asSlice(variables, 10).reinterpret(auto, gmp_h::mpz_clear);
 
-    mpz_init_set_str(p, arena.allocateFrom(Files.readAllLines(pPath).getFirst()), 16);
-    mpz_init_set_str(q, arena.allocateFrom(Files.readAllLines(qPath).getFirst()), 16);
+    mpz_init_set_str(p, auto.allocateFrom(Files.readAllLines(pPath).getFirst()), 10);
+    mpz_init_set_str(q, auto.allocateFrom(Files.readAllLines(qPath).getFirst()), 10);
     if (gmp_h.mpz_cmp(p, q) < 0) {
       gmp_h.mpz_swap(p, q);
     }
-    mpz_init2(n, (int) (mpz_sizeinbase(p, 2) + mpz_sizeinbase(q, 2) + 1));
+    mpz_init(n);
     mpz_mul(n, p, q);
     mpz_init_set(pSub1, p);
     mpz_sub_ui(pSub1, pSub1, 1);
@@ -191,12 +200,39 @@ public class Main implements Callable<Integer> {
     mpz_init2(coefficient, (int) mpz_sizeinbase(p, 2));
     mpz_invert(coefficient, q, p);
 
+    var base = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(base);
+    mpz_set_str(base, auto.allocateFrom(
+        "8138e8a0fcf3a4e84a771d40fd305d7f4aa59306d7251de54d98af8fe95729a1f"
+        + "73d893fa424cd2edc8636a6c3285e022b0e3866a565ae8108eed8591cd4fe8d2"
+        + "ce86165a978d719ebf647f362d33fca29cd179fb42401cbaf3df0c614056f9c8"
+        + "f3cfd51e474afb6bc6974f78db8aba8e9e517fded658591ab7502bd41849462f"), 16);
+    var gcd2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(gcd2);
+    mpz_gcd(gcd2, base, n);
+    if (mpz_cmp_ui(gcd2, 1) != 0) {
+      var len = mpz_sizeinbase(gcd2, 10) + 2;
+      var b = auto.allocate(len);
+      mpz_get_str(b, 10, gcd2);
+      logger.error("divisible by {}", b.getString(0));
+      return ExitCode.SOFTWARE;
+    }
+
     // こんな面倒くさいことするんだったら普通に10進数なり16進数なりにエンコードして読み込ませたほうがいいような
     var pBI = mpzToBigInteger(p);
     var qBI = mpzToBigInteger(q);
     var nBI = mpzToBigInteger(n);
     var eBI = BigInteger.valueOf(65537);
     var dBI = mpzToBigInteger(d);
+    var gcd = nBI.gcd(new BigInteger(
+        "8138e8a0fcf3a4e84a771d40fd305d7f4aa59306d7251de54d98af8fe95729a1f"
+        + "73d893fa424cd2edc8636a6c3285e022b0e3866a565ae8108eed8591cd4fe8d2"
+        + "ce86165a978d719ebf647f362d33fca29cd179fb42401cbaf3df0c614056f9c8"
+        + "f3cfd51e474afb6bc6974f78db8aba8e9e517fded658591ab7502bd41849462f", 16));
+    if (!gcd.equals(BigInteger.ONE)) {
+      logger.error("Divisible by {}", gcd);
+      return ExitCode.SOFTWARE;
+    }
     var exponent1BI = mpzToBigInteger(exponent1);
     var exponent2BI = mpzToBigInteger(exponent2);
     var coefficientBI = mpzToBigInteger(coefficient);
@@ -204,14 +240,14 @@ public class Main implements Callable<Integer> {
         coefficientBI);
     var pubSpec = new RSAPublicKeySpec(nBI, eBI);
     try {
-      var f = KeyFactory.getInstance("RSA");
+      var f = KeyFactory.getInstance("RSA", "BC");
       var spec2 = f.getKeySpec(f.generatePrivate(privateSpec), PKCS8EncodedKeySpec.class);
       var spec3 = f.getKeySpec(f.generatePublic(pubSpec), X509EncodedKeySpec.class);
       Files.write(privateKeyOutPath, spec2.getEncoded(), StandardOpenOption.CREATE,
           StandardOpenOption.CREATE);
       Files.write(publicKeyOutPath, spec3.getEncoded(), StandardOpenOption.CREATE,
           StandardOpenOption.CREATE);
-    } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+    } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchProviderException ex) {
       throw new RuntimeException(ex);
     }
     return ExitCode.OK;
