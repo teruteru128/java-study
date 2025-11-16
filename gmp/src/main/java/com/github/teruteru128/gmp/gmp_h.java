@@ -4002,8 +4002,8 @@ public class gmp_h {
      * void *mpz_export(void *, size_t *, int, size_t, int, size_t, mpz_srcptr)
      * }
      */
-    public static MemorySegment mpz_export(MemorySegment x0, MemorySegment x1, int x2, long x3, int x4, long x5, MemorySegment x6) {
-        return __gmpz_export(x0, x1, x2, x3, x4, x5, x6);
+    public static MemorySegment mpz_export(MemorySegment rop, MemorySegment countp, int order, long size, int endian, long nails, MemorySegment op) {
+        return __gmpz_export(rop, countp, order, size, endian, nails, op);
     }
 
     private static class __gmpz_fac_ui {
