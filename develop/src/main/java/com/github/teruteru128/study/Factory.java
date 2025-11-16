@@ -1401,7 +1401,7 @@ public class Factory implements Callable<Integer> {
         mpz_add(n, n, b);
         var result = mpz_probab_prime_p(n, 24);
         if (result != 0) {
-          var p = "2^" + i + "+2^" + j + "+1";
+          var p = base + "^" + i + "+"+base+"^" + j + "+1";
           logger.info("発見しました {} : {}", p, result);
           var url = create(QUERY_ENDPOINT + encode(p, UTF_8)).toURL();
           HttpsURLConnection connection = null;
@@ -1444,64 +1444,6 @@ public class Factory implements Callable<Integer> {
     return EXIT_CODE_OK;
   }
 
-  /**
-   * ポラード・ロー法におまけ要員を足してみるテスト。
-   * @return 常に0
-   */
-  @Command
-  public int rho() {
-    var n = new BigInteger("""
-        135066410865995223349603216278805969938881475605667027524485143851526510604\
-        859533833940287150571909441798207282164471551373680419703964191743046496589\
-        274256239341020864383202110372958725762358509643110564073501508187510676594\
-        629205563685529475213500852879416377328533906109750544334999811150056977236\
-        890927563
-        """);
-    // ポラード・ロー法のおまけ要員1、nの1.5倍ぐらい長い法m
-    var m = new BigInteger(1536, (SecureRandom) SECURE_RANDOM_GENERATOR).setBit(1535).setBit(0);
-    // ポラード・ロー法のおまけ要員2、完全ランダムソース
-    var a = new BigInteger(1536, (SecureRandom) SECURE_RANDOM_GENERATOR).setBit(1535).setBit(0);
-    var b = TWO;
-    var c = TWO;
-    var d = TWO;
-    var e = TWO;
-    var q = ONE;
-    while (q.equals(ONE)) {
-      var gcd0 = a.subtract(b).abs().gcd(n);
-      var gcd1 = a.subtract(c).abs().gcd(n);
-      var gcd2 = a.subtract(d).abs().gcd(n);
-      var gcd3 = a.subtract(e).abs().gcd(n);
-      var gcd4 = b.subtract(c).abs().gcd(n);
-      var gcd5 = b.subtract(d).abs().gcd(n);
-      var gcd6 = b.subtract(e).abs().gcd(n);
-      var gcd7 = c.subtract(d).abs().gcd(n);
-      var gcd8 = c.subtract(e).abs().gcd(n);
-      var gcd9 = d.subtract(e).abs().gcd(n);
-      var gcd10 = a.gcd(n);
-      var gcd11 = b.gcd(n);
-      var gcd12 = c.gcd(n);
-      var gcd13 = d.gcd(n);
-      var gcd14 = e.gcd(n);
-      var any = Stream.of(gcd0, gcd1, gcd2, gcd3, gcd4, gcd5, gcd6, gcd7, gcd8, gcd9, gcd10, gcd11,
-          gcd12, gcd13, gcd14).filter(f -> !f.equals(ONE)).findAny();
-      if (any.isPresent()) {
-        q = any.get();
-      }
-
-      a = new BigInteger(1536, (SecureRandom) SECURE_RANDOM_GENERATOR).setBit(1535).setBit(0);
-      b = b.pow(2).add(ONE).mod(n);
-      c = c.pow(2).add(ONE).mod(n).pow(2).add(ONE).mod(n);
-      d = d.pow(2).add(ONE).mod(m);
-      e = e.pow(2).add(ONE).mod(m).pow(2).add(ONE).mod(m);
-    }
-    if (q.equals(n)) {
-      System.err.println("失敗！ : " + q);
-    } else {
-      System.err.println("成功 : " + q);
-    }
-    return EXIT_CODE_OK;
-  }
-
   @Command
   public int searchBigPrime() throws IOException, InterruptedException {
     var auto = Arena.ofAuto();
@@ -1529,7 +1471,8 @@ public class Factory implements Callable<Integer> {
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
     seedRandomState(state);
-    for (int i = 0; i < 5; i++) {
+    int count = 0;
+    while (count < 5) {
       mpz_set_ui(n, 2);
       while (mpz_cmp(n, threshold) < 0) {
         // [10^18, 10^19-39)で乱数を生成して素数探索
@@ -1541,16 +1484,21 @@ public class Factory implements Callable<Integer> {
       }
       mpz_add_ui(nAdd1, n, 1);
       mpz_sub_ui(nSub1, n, 1);
+      logger.info("{} digits", mpz_sizeinbase(n, 10));
       var result1 = mpz_probab_prime_p(nAdd1, 24);
       if (result1 != 0) {
         queryMPZ(nAdd1);
+        count++;
       }
       var result2 = mpz_probab_prime_p(nSub1, 24);
       if (result2 != 0) {
         queryMPZ(nSub1);
+        count++;
       }
-      if (result1 == 0 && result2 == 0 && logger.isInfoEnabled()) {
+      if (result1 == 0 && result2 == 0) {
         logger.info("Both n+1 and n-1 were composite numbers.");
+      } else {
+        logger.info("hit!");
       }
     }
     return EXIT_CODE_OK;
@@ -1587,6 +1535,30 @@ public class Factory implements Callable<Integer> {
     }
     sha256.digest(hash, 0, 32);
     System.out.println("hash: " + HexFormat.of().formatHex(hash, 0, 32));
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int createPrime(Path out, Path in, int step) throws IOException {
+    var auto = Arena.ofAuto();
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(p, auto.allocateFrom(Files.readAllLines(in).getFirst()), 10);
+    try {
+      mpz_add_ui(p, p, Math.addExact(Math.multiplyExact(step, 2), 1));
+    } catch (ArithmeticException e) {
+      // step * 2 + 1がオーバーフローを起こすときにだけgmpを経由する
+      var diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init(diff);
+      mpz_set_u64(diff, step);
+      mpz_mul_2exp(diff, diff, 1);
+      mpz_add_ui(diff, diff, 1);
+      mpz_add(p, p, diff);
+    }
+    System.out.println(mpz_probab_prime_p(p, 24));
+    var length = mpz_sizeinbase(p, 10) + 2;
+    var buf = auto.allocate(length);
+    mpz_get_str(buf, 10, p);
+    Files.writeString(out, buf.getString(0), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
     return EXIT_CODE_OK;
   }
 
