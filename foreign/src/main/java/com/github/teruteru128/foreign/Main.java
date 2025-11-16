@@ -35,16 +35,8 @@ import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.security.Provider;
 import java.security.Security;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.RSAPrivateCrtKeySpec;
-import java.security.spec.RSAPublicKeySpec;
-import java.security.spec.X509EncodedKeySpec;
 import java.util.Random;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
@@ -218,38 +210,126 @@ public class Main implements Callable<Integer> {
       return ExitCode.SOFTWARE;
     }
 
-    // こんな面倒くさいことするんだったら普通に10進数なり16進数なりにエンコードして読み込ませたほうがいいような
-    var pBI = mpzToBigInteger(p);
-    var qBI = mpzToBigInteger(q);
-    var nBI = mpzToBigInteger(n);
-    var eBI = BigInteger.valueOf(65537);
-    var dBI = mpzToBigInteger(d);
-    var gcd = nBI.gcd(new BigInteger(
-        "8138e8a0fcf3a4e84a771d40fd305d7f4aa59306d7251de54d98af8fe95729a1f"
-        + "73d893fa424cd2edc8636a6c3285e022b0e3866a565ae8108eed8591cd4fe8d2"
-        + "ce86165a978d719ebf647f362d33fca29cd179fb42401cbaf3df0c614056f9c8"
-        + "f3cfd51e474afb6bc6974f78db8aba8e9e517fded658591ab7502bd41849462f", 16));
-    if (!gcd.equals(BigInteger.ONE)) {
-      logger.error("Divisible by {}", gcd);
-      return ExitCode.SOFTWARE;
-    }
-    var exponent1BI = mpzToBigInteger(exponent1);
-    var exponent2BI = mpzToBigInteger(exponent2);
-    var coefficientBI = mpzToBigInteger(coefficient);
-    var privateSpec = new RSAPrivateCrtKeySpec(nBI, eBI, dBI, pBI, qBI, exponent1BI, exponent2BI,
-        coefficientBI);
-    var pubSpec = new RSAPublicKeySpec(nBI, eBI);
-    try {
-      var f = KeyFactory.getInstance("RSA", "BC");
-      var spec2 = f.getKeySpec(f.generatePrivate(privateSpec), PKCS8EncodedKeySpec.class);
-      var spec3 = f.getKeySpec(f.generatePublic(pubSpec), X509EncodedKeySpec.class);
-      Files.write(privateKeyOutPath, spec2.getEncoded(), StandardOpenOption.CREATE,
-          StandardOpenOption.CREATE);
-      Files.write(publicKeyOutPath, spec3.getEncoded(), StandardOpenOption.CREATE,
-          StandardOpenOption.CREATE);
-    } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchProviderException ex) {
-      throw new RuntimeException(ex);
-    }
+    var pSize = mpz_sizeinbase(p, 2);
+    var qSize = mpz_sizeinbase(q, 2);
+    var nSize = mpz_sizeinbase(n, 2);
+    // eSize
+    var dSize = mpz_sizeinbase(d, 2);
+    var expo1Size = mpz_sizeinbase(exponent1, 2);
+    var expo2Size = mpz_sizeinbase(exponent2, 2);
+    var coefficientSize = mpz_sizeinbase(coefficient, 2);
+    System.out.println("pSize = " + (pSize + 8) / 8);
+    System.out.println("qSize = " + (qSize + 8) / 8);
+    System.out.println("nSize = " + (nSize + 8) / 8);
+    System.out.println("dSize = " + (dSize + 8) / 8);
+    System.out.println("expo1Size = " + (expo1Size + 8) / 8);
+    System.out.println("expo2Size = " + (expo2Size + 8) / 8);
+    System.out.println("coefficientSize = " + (coefficientSize + 8) / 8);
+    var buf = auto.allocate(1179700);
+    long offset = 0;
+    // SEQUENCE
+    buf.set(JAVA_BYTE, offset, (byte) 0x30);
+    buf.set(JAVA_BYTE, offset + 1, (byte) 0x83);
+    buf.set(JAVA_BYTE, offset + 2, (byte) 0x12);
+    buf.set(JAVA_BYTE, offset + 3, (byte) 0x00);
+    buf.set(JAVA_BYTE, offset + 4, (byte) 0x2f);
+    offset += 5;
+    // version
+    buf.set(JAVA_BYTE, offset, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 1, (byte) 0x01);
+    buf.set(JAVA_BYTE, offset + 2, (byte) 0x00);
+    offset += 3;
+    // mod
+    buf.set(JAVA_BYTE, offset, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 1, (byte) 0x83);
+    buf.set(JAVA_BYTE, offset + 2, (byte) 0x04);
+    buf.set(JAVA_BYTE, offset + 3, (byte) 0x00);
+    buf.set(JAVA_BYTE, offset + 4, (byte) 0x01);
+    offset += 5;
+    var countP = auto.allocate(JAVA_LONG);
+    mpz_export(buf.asSlice(offset + (nSize % 8 == 0 ? 1 : 0)), countP, 0, JAVA_BYTE.byteSize(), 0,
+        0, n);
+    System.out.printf("%02x%02x%02x%n", buf.get(JAVA_BYTE, offset) & 0xff,
+        buf.get(JAVA_BYTE, offset + 1) & 0xff, buf.get(JAVA_BYTE, offset + 2) & 0xff);
+    offset += (nSize + 8) / 8;
+    // pub exp
+    buf.set(JAVA_BYTE, offset, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 1, (byte) 0x03);
+    buf.set(JAVA_BYTE, offset + 2, (byte) 0x01);
+    buf.set(JAVA_BYTE, offset + 3, (byte) 0x00);
+    buf.set(JAVA_BYTE, offset + 4, (byte) 0x01);
+    offset += 5;
+    // pri exp
+    buf.set(JAVA_BYTE, offset, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 1, (byte) 0x83);
+    buf.set(JAVA_BYTE, offset + 2, (byte) 0x04);
+    buf.set(JAVA_BYTE, offset + 3, (byte) 0x00);
+    buf.set(JAVA_BYTE, offset + 4, (byte) 0x00);
+    offset += 5;
+    mpz_export(buf.asSlice(offset + (dSize % 8 == 0 ? 1 : 0)), countP, 0, JAVA_BYTE.byteSize(), 0,
+        0, d);
+    System.out.printf("%02x%02x%02x%n", buf.get(JAVA_BYTE, offset) & 0xff,
+        buf.get(JAVA_BYTE, offset + 1) & 0xff, buf.get(JAVA_BYTE, offset + 2) & 0xff);
+    offset += (dSize + 8) / 8;
+    // p
+    buf.set(JAVA_BYTE, offset, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 1, (byte) 0x83);
+    buf.set(JAVA_BYTE, offset + 2, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 3, (byte) 0x00);
+    buf.set(JAVA_BYTE, offset + 4, (byte) 0x01);
+    offset += 5;
+    mpz_export(buf.asSlice(offset + (pSize % 8 == 0 ? 1 : 0)), countP, 0, JAVA_BYTE.byteSize(), 0,
+        0, p);
+    System.out.printf("%02x%02x%02x%n", buf.get(JAVA_BYTE, offset) & 0xff,
+        buf.get(JAVA_BYTE, offset + 1) & 0xff, buf.get(JAVA_BYTE, offset + 2) & 0xff);
+    offset += (pSize + 8) / 8;
+    // q
+    buf.set(JAVA_BYTE, offset, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 1, (byte) 0x83);
+    buf.set(JAVA_BYTE, offset + 2, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 3, (byte) 0x00);
+    buf.set(JAVA_BYTE, offset + 4, (byte) 0x01);
+    offset += 5;
+    mpz_export(buf.asSlice(offset + (qSize % 8 == 0 ? 1 : 0)), countP, 0, JAVA_BYTE.byteSize(), 0,
+        0, q);
+    System.out.printf("%02x%02x%02x%n", buf.get(JAVA_BYTE, offset) & 0xff,
+        buf.get(JAVA_BYTE, offset + 1) & 0xff, buf.get(JAVA_BYTE, offset + 2) & 0xff);
+    offset += (qSize + 8) / 8;
+    // exp1
+    buf.set(JAVA_BYTE, offset, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 1, (byte) 0x83);
+    buf.set(JAVA_BYTE, offset + 2, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 3, (byte) 0x00);
+    buf.set(JAVA_BYTE, offset + 4, (byte) 0x01);
+    offset += 5;
+    mpz_export(buf.asSlice(offset + (expo1Size % 8 == 0 ? 1 : 0)), countP, 0, JAVA_BYTE.byteSize(),
+        0, 0, exponent1);
+    offset += (expo1Size + 8) / 8;
+    // exp2
+    buf.set(JAVA_BYTE, offset, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 1, (byte) 0x83);
+    buf.set(JAVA_BYTE, offset + 2, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 3, (byte) 0x00);
+    buf.set(JAVA_BYTE, offset + 4, (byte) 0x00);
+    offset += 5;
+    mpz_export(buf.asSlice(offset + (expo2Size % 8 == 0 ? 1 : 0)), countP, 0, JAVA_BYTE.byteSize(),
+        0, 0, exponent2);
+    System.out.printf("%02x%02x%02x%n", buf.get(JAVA_BYTE, offset) & 0xff,
+        buf.get(JAVA_BYTE, offset + 1) & 0xff, buf.get(JAVA_BYTE, offset + 2) & 0xff);
+    offset += (expo2Size + 8) / 8;
+    // coef
+    buf.set(JAVA_BYTE, offset, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 1, (byte) 0x83);
+    buf.set(JAVA_BYTE, offset + 2, (byte) 0x02);
+    buf.set(JAVA_BYTE, offset + 3, (byte) 0x00);
+    buf.set(JAVA_BYTE, offset + 4, (byte) 0x00);
+    offset += 5;
+    mpz_export(buf.asSlice(offset + (coefficientSize % 8 == 0 ? 1 : 0)), countP, 0,
+        JAVA_BYTE.byteSize(), 0, 0, coefficient);
+    System.out.printf("%02x%02x%02x%n", buf.get(JAVA_BYTE, offset) & 0xff,
+        buf.get(JAVA_BYTE, offset + 1) & 0xff, buf.get(JAVA_BYTE, offset + 2) & 0xff);
+    var array = buf.toArray(JAVA_BYTE);
+    Files.write(privateKeyOutPath, array, StandardOpenOption.CREATE, StandardOpenOption.CREATE);
     return ExitCode.OK;
   }
 
