@@ -332,7 +332,7 @@ public class Factory implements Callable<Integer> {
     return root;
   }
 
-  private static void queryMPZ(MemorySegment p) throws IOException, InterruptedException {
+  private static JsonNode queryMPZ(MemorySegment p) throws IOException, InterruptedException {
     var length = mpz_sizeinbase(p, 10) + 2;
     var auto = Arena.ofAuto();
     var buf = auto.allocate(length);
@@ -342,6 +342,7 @@ public class Factory implements Callable<Integer> {
     var id = root.get("id");
     var status = root.get("status");
     logger.info("https://factordb.com/index.php?id={} : {}", id.asText(), status.textValue());
+    return root;
   }
 
   @Command
@@ -1401,7 +1402,7 @@ public class Factory implements Callable<Integer> {
         mpz_add(n, n, b);
         var result = mpz_probab_prime_p(n, 24);
         if (result != 0) {
-          var p = base + "^" + i + "+"+base+"^" + j + "+1";
+          var p = base + "^" + i + "+" + base + "^" + j + "+1";
           logger.info("発見しました {} : {}", p, result);
           var url = create(QUERY_ENDPOINT + encode(p, UTF_8)).toURL();
           HttpsURLConnection connection = null;
@@ -1445,19 +1446,11 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int searchBigPrime() throws IOException, InterruptedException {
+  public int searchBigPrime() {
     var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(n);
-    var nAdd1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(nAdd1);
-    var nSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(nSub1);
     var threshold = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_ui(threshold, 10);
     mpz_pow_ui(threshold, threshold, 49999);
-    var smallPrime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(smallPrime);
     var smallPrimeMin = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_ui(smallPrimeMin, 10);
     mpz_pow_ui(smallPrimeMin, smallPrimeMin, 18);
@@ -1471,38 +1464,50 @@ public class Factory implements Callable<Integer> {
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
     seedRandomState(state);
-    int count = 0;
-    while (count < 5) {
-      mpz_set_ui(n, 2);
+    enum State {
+      N_ADD_1, N_SUB_1
+    }
+    record PrimeRecord(MemorySegment p, State state) {
+
+    }
+    Stream.generate(() -> {
+      var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init_set_ui(n, 2);
+      var smallPrime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init(smallPrime);
       while (mpz_cmp(n, threshold) < 0) {
         // [10^18, 10^19-39)で乱数を生成して素数探索
-        mpz_urandomm(smallPrime, state, smallPrimeWindow);
+        // 一応同期を取る
+        synchronized (state) {
+          mpz_urandomm(smallPrime, state, smallPrimeWindow);
+        }
         mpz_add(smallPrime, smallPrime, smallPrimeMin);
         mpz_nextprime(smallPrime, smallPrime);
         // 発見した素数をnに掛け合わせる
         mpz_mul(n, n, smallPrime);
       }
+      return n;
+    }).parallel().<PrimeRecord>mapMulti((n, consumer) -> {
+      var nAdd1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init(nAdd1);
       mpz_add_ui(nAdd1, n, 1);
+      consumer.accept(new PrimeRecord(nAdd1, State.N_ADD_1));
+      var nSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+      mpz_init(nSub1);
       mpz_sub_ui(nSub1, n, 1);
-      logger.info("{} digits", mpz_sizeinbase(n, 10));
-      var result1 = mpz_probab_prime_p(nAdd1, 24);
-      if (result1 != 0) {
-        queryMPZ(nAdd1);
-        count++;
+      consumer.accept(new PrimeRecord(nSub1, State.N_SUB_1));
+    }).filter(p -> mpz_probab_prime_p(p.p(), 24) != 0).limit(5).forEach(p1 -> {
+      try {
+        var root = queryMPZ(p1.p);
+        logger.info("{}: {}", root.get("id").asText(), p1.state());
+      } catch (IOException | InterruptedException e) {
+        throw new RuntimeException(e);
       }
-      var result2 = mpz_probab_prime_p(nSub1, 24);
-      if (result2 != 0) {
-        queryMPZ(nSub1);
-        count++;
-      }
-      if (result1 == 0 && result2 == 0) {
-        logger.info("Both n+1 and n-1 were composite numbers.");
-      } else {
-        logger.info("hit!");
-      }
-    }
+    });
     return EXIT_CODE_OK;
   }
+
+
 
   @Command
   public int crazy(String s)
