@@ -839,8 +839,8 @@ public class gmp_h {
      * void mp_get_memory_functions(void *(**)(size_t), void *(**)(void *, size_t, size_t), void (**)(void *, size_t))
      * }
      */
-    public static void mp_get_memory_functions(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
-        __gmp_get_memory_functions(x0, x1, x2);
+    public static void mp_get_memory_functions(MemorySegment alloc_func_ptr, MemorySegment realloc_func_ptr, MemorySegment free_func_ptr) {
+        __gmp_get_memory_functions(alloc_func_ptr, realloc_func_ptr, free_func_ptr);
     }
 
     private static class __gmp_bits_per_limb$constants {

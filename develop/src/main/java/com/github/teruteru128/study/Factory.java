@@ -3,11 +3,13 @@ package com.github.teruteru128.study;
 import static com.github.teruteru128.bitmessage.app.Spammer.requestBuilder;
 import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
 import static com.github.teruteru128.gmp.gmp_h.gmp_randseed;
+import static com.github.teruteru128.gmp.gmp_h.mp_get_memory_functions;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_divisible_p;
+import static com.github.teruteru128.gmp.gmp_h.mpz_export;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_import;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
@@ -30,7 +32,10 @@ import static com.github.teruteru128.study.FactorDBSpamming.OBJECT_MAPPER;
 import static com.github.teruteru128.study.FactorDBSpamming.QUERY_ENDPOINT;
 import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
+import static java.lang.foreign.MemorySegment.NULL;
+import static java.lang.foreign.ValueLayout.ADDRESS;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
+import static java.lang.foreign.ValueLayout.JAVA_LONG;
 import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.TWO;
 import static java.math.BigInteger.valueOf;
@@ -42,6 +47,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.Message;
 import com.github.teruteru128.encode.Base58;
+import com.github.teruteru128.gmp.__gmp_get_memory_functions$x2;
 import com.github.teruteru128.gmp.__gmp_randstate_struct;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
@@ -96,6 +102,7 @@ import java.util.HexFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.StringJoiner;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -1464,10 +1471,16 @@ public class Factory implements Callable<Integer> {
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
     seedRandomState(state);
+    var addr = auto.allocate(ADDRESS);
+    mp_get_memory_functions(NULL, NULL, addr);
+    var freeFuncPtr = addr.get(ADDRESS, 0);
     enum State {
       N_ADD_1, N_SUB_1
     }
-    record PrimeRecord(MemorySegment p, State state) {
+    record NAndFactors(MemorySegment n, Set<BigInteger> factors) {
+
+    }
+    record PrimeRecord(MemorySegment p, State state, Set<BigInteger> factors) {
 
     }
     Stream.generate(() -> {
@@ -1475,6 +1488,8 @@ public class Factory implements Callable<Integer> {
       mpz_init_set_ui(n, 2);
       var smallPrime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
       mpz_init(smallPrime);
+      var set = new TreeSet<BigInteger>();
+      var countP = auto.allocate(JAVA_LONG);
       while (mpz_cmp(n, threshold) < 0) {
         // [10^18, 10^19-39)で乱数を生成して素数探索
         // 一応同期を取る
@@ -1485,28 +1500,34 @@ public class Factory implements Callable<Integer> {
         mpz_nextprime(smallPrime, smallPrime);
         // 発見した素数をnに掛け合わせる
         mpz_mul(n, n, smallPrime);
+        var allocatedSmallPrime = mpz_export(NULL, countP, 0, JAVA_BYTE.byteSize(), 0, 0, smallPrime);
+        set.add(new BigInteger(1, allocatedSmallPrime.reinterpret(countP.get(JAVA_LONG, 0)).toArray(JAVA_BYTE)));
+        __gmp_get_memory_functions$x2.invoke(freeFuncPtr, allocatedSmallPrime, 0);
       }
-      return n;
+      return new NAndFactors(n, set);
     }).parallel().<PrimeRecord>mapMulti((n, consumer) -> {
       var nAdd1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
       mpz_init(nAdd1);
-      mpz_add_ui(nAdd1, n, 1);
-      consumer.accept(new PrimeRecord(nAdd1, State.N_ADD_1));
+      mpz_add_ui(nAdd1, n.n(), 1);
+      consumer.accept(new PrimeRecord(nAdd1, State.N_ADD_1, n.factors()));
       var nSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
       mpz_init(nSub1);
-      mpz_sub_ui(nSub1, n, 1);
-      consumer.accept(new PrimeRecord(nSub1, State.N_SUB_1));
+      mpz_sub_ui(nSub1, n.n(), 1);
+      consumer.accept(new PrimeRecord(nSub1, State.N_SUB_1, n.factors()));
     }).filter(p -> mpz_probab_prime_p(p.p(), 24) != 0).limit(5).forEach(p1 -> {
       try {
         var root = queryMPZ(p1.p);
-        logger.info("{}: {}", root.get("id").asText(), p1.state());
+        var id = root.get("id").asText();
+        logger.info("{}: {}", id, p1.state());
+        var joiner = new StringJoiner(", ");
+        p1.factors().forEach(p -> joiner.add(p.toString()));
+        logger.info("{}: {}", id, joiner);
       } catch (IOException | InterruptedException e) {
         throw new RuntimeException(e);
       }
     });
     return EXIT_CODE_OK;
   }
-
 
 
   @Command
