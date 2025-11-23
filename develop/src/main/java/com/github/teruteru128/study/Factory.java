@@ -10,6 +10,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_cmp;
 import static com.github.teruteru128.gmp.gmp_h.mpz_cmp_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_divisible_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_export;
+import static com.github.teruteru128.gmp.gmp_h.mpz_gcd;
 import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_import;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init;
@@ -117,6 +118,7 @@ import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 import javax.net.ssl.HttpsURLConnection;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.rng.simple.RandomSource;
@@ -189,41 +191,49 @@ public class Factory implements Callable<Integer> {
                                                             || l % 2054 == 1160 || l % 2079 == 1160
                                                             || l % 2082 == 1394 || l % 2145 == 623
                                                             || l % 2163 == 707 || l % 2242 == 668
-                                                            || l % 2266 == 1302 || l % 2332 == 940
-                                                            || l % 2344 == 380 || l % 2391 == 1790
-                                                            || l % 2415 == 623 || l % 2559 == 1313
-                                                            || l % 2620 == 88 || l % 2676 == 212
-                                                            || l % 2709 == 122 || l % 2902 == 1428
-                                                            || l % 2919 == 764 || l % 2939 == 2806
-                                                            || l % 3018 == 2600 || l % 3036 == 1052
-                                                            || l % 3174 == 1040 || l % 3272 == 596
-                                                            || l % 3590 == 1398 || l % 3648 == 2540
-                                                            || l % 3732 == 2936 || l % 3780 == 3092
-                                                            || l % 3796 == 3100 || l % 3855 == 434
-                                                            || l % 3879 == 377 || l % 3879 == 3749
-                                                            || l % 3950 == 1880 || l % 3957 == 551
-                                                            || l % 3968 == 2108 || l % 4012 == 2820
-                                                            || l % 4132 == 140 || l % 4242 == 452
-                                                            || l % 4282 == 1958 || l % 4362 == 3122
+                                                            || l % 2266 == 1302 || l % 2291 == 397
+                                                            || l % 2332 == 940 || l % 2344 == 380
+                                                            || l % 2391 == 1790 || l % 2415 == 623
+                                                            || l % 2559 == 1313 || l % 2620 == 88
+                                                            || l % 2676 == 212 || l % 2709 == 122
+                                                            || l % 2902 == 1428 || l % 2919 == 764
+                                                            || l % 2939 == 2806 || l % 3018 == 2600
+                                                            || l % 3036 == 1052 || l % 3174 == 1040
+                                                            || l % 3272 == 596 || l % 3590 == 1398
+                                                            || l % 3648 == 2540 || l % 3732 == 2936
+                                                            || l % 3780 == 3092 || l % 3796 == 3100
+                                                            || l % 3855 == 434 || l % 3879 == 377
+                                                            || l % 3879 == 3749 || l % 3950 == 1880
+                                                            || l % 3957 == 551 || l % 3968 == 2108
+                                                            || l % 4012 == 2820 || l % 4132 == 140
+                                                            || l % 4242 == 452 || l % 4282 == 1958
+                                                            || l % 4362 == 3122 || l % 4406 == 4338
                                                             || l % 4876 == 2316 || l % 4972 == 216
                                                             || l % 5517 == 3170 || l % 5572 == 1300
                                                             || l % 5682 == 4298 || l % 5748 == 5144
                                                             || l % 5763 == 3164 || l % 5842 == 2924
-                                                            || l % 6035 == 2300 || l % 6084 == 1304
-                                                            || l % 6100 == 1508 || l % 6172 == 4888
-                                                            || l % 6348 == 1040 || l % 6352 == 2396
-                                                            || l % 6579 == 3494 || l % 6848 == 5524
+                                                            || l % 6035 == 2300 || l % 6059 == 214
+                                                            || l % 6084 == 1304 || l % 6100 == 1508
+                                                            || l % 6172 == 4888 || l % 6348 == 1040
+                                                            || l % 6352 == 2396 || l % 6579 == 3494
+                                                            || l % 6848 == 5524 || l % 6868 == 636
                                                             || l % 7076 == 6776 || l % 7088 == 92
                                                             || l % 7284 == 6548 || l % 7374 == 1688
                                                             || l % 8532 == 5132 || l % 8660 == 6464
                                                             || l % 8970 == 8312 || l % 9356 == 2088
                                                             || l % 9732 == 6824 || l % 9959 == 1388
                                                             || l % 11130 == 1784
+                                                            || l % 12748 == 4844
                                                             || l % 12990 == 4958
-                                                            || l % 13044 == 1424 || l % 14388 == 980
-                                                            || l % 14648 == 1244
+                                                            || l % 13044 == 1424
+                                                            || l % 13177 == 11732
+                                                            || l % 14326 == 10292
+                                                            || l % 14388 == 980 || l % 14648 == 1244
+                                                            || l % 14879 == 11732
                                                             || l % 15414 == 5492
                                                             || l % 16992 == 8468
+                                                            || l % 17334 == 4940
+                                                            || l % 17505 == 6113
                                                             || l % 18131 == 1292
                                                             || l % 19258 == 1124
                                                             || l % 20115 == 2372
@@ -233,17 +243,33 @@ public class Factory implements Callable<Integer> {
                                                             || l % 24588 == 9056 || l % 25372 == 896
                                                             || l % 29428 == 6788
                                                             || l % 31258 == 3428
+                                                            || l % 31532 == 13652
+                                                            || l % 33584 == 13388
                                                             || l % 36778 == 8732 || l % 57802 == 188
                                                             || l % 61376 == 1004
+                                                            || l % 62654 == 4940
+                                                            || l % 63330 == 5732
+                                                            || l % 67828 == 59558
+                                                            || l % 69996 == 11684
+                                                            || l % 70588 == 13460
+                                                            || l % 90186 == 4052
                                                             || l % 95412 == 3380
                                                             || l % 191982 == 1820
-                                                            || l % 342466 == 68 || l % 685460 == 500
+                                                            || l % 216396 == 6260
+                                                            || l % 342466 == 68
+                                                            || l % 431428 == 60668
+                                                            || l % 685460 == 500
+                                                            || l % 756131 == 11732
                                                             || l % 888108 == 3404
+                                                            || l % 1801669 == 6260
+                                                            || l % 2084050 == 11684
                                                             || l % 2859431 == 2132
                                                             || l % 3236496 == 2060
+                                                            || l % 3382146 == 5108
                                                             || l % 12549060 == 1844
                                                             || l % 13757948 == 3812
                                                             || l % 14429248 == 3548
+                                                            || l % 21716962 == 6164
                                                             || l % 44564101 == 2324
                                                             || l % 49791324 == 2444
                                                             || l % 95330742 == 3140
@@ -252,7 +278,11 @@ public class Factory implements Callable<Integer> {
                                                             || l % 938070812 == 2828
                                                             || l % 1140196839 == 860
                                                             || l % 3234435810L == 3908
+                                                            || l % 3303267723L == 3764
                                                             || l % 9145782796L == 620
+                                                            || l % 22213917791L == 3980
+                                                            || l % 40961148944L == 3980
+                                                            || l % 182467288001L == 4028
                                                             || l % 17079842013412L == 2972
                                                             || l /*% 241601748305338693790*/
                                                                == 1772);
@@ -1156,6 +1186,62 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
+  public int simpleSierpinskiTest(long[] i) {
+    StreamSupport.longStream(Arrays.spliterator(i, 0, i.length), false).filter(LONG_PREDICATE)
+        .forEach(System.err::println);
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int sie() {
+    var auto = Arena.ofAuto();
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(p, 1);
+    mpz_mul_2exp(p, p, 45029252);
+    mpz_mul_ui(p, p, 21181);
+    mpz_add_ui(p, p, 1);
+    var q = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(q);
+    var r = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(r, 2);
+    // powers = 1048576
+    var powers = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(powers, 1);
+    var gcd = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(gcd);
+    while (true) {
+      mpz_gcd(gcd, p, r);
+      if (mpz_cmp_ui(gcd, 1) != 0) {
+        break;
+      }
+      mpz_nextprime(r, r);
+    }
+    var len = mpz_sizeinbase(gcd, 10) + 2;
+    var buf = auto.allocate(len);
+    mpz_get_str(buf, 10, gcd);
+    System.out.println(buf.getString(0));
+    while (true) {
+      // q =  21181
+      mpz_set_ui(q, 21181);
+      // q *= powers
+      mpz_mul(q, q, powers);
+      // q += 1
+      mpz_add_ui(q, q, 1);
+      mpz_gcd(gcd, p, q);
+      if (mpz_cmp_ui(gcd, 1) != 0) {
+        break;
+      }
+      // powers *= 16777216
+      mpz_mul_2exp(powers, powers, 1);
+    }
+    len = mpz_sizeinbase(gcd, 10) + 2;
+    buf = auto.allocate(len);
+    mpz_get_str(buf, 10, gcd);
+    System.out.println(buf.getString(0));
+    return EXIT_CODE_OK;
+  }
+
+  @Command
   public int sierpinski6(int n) {
     var num = valueOf(21181);
     var ONE = valueOf(1);
@@ -1500,8 +1586,10 @@ public class Factory implements Callable<Integer> {
         mpz_nextprime(smallPrime, smallPrime);
         // 発見した素数をnに掛け合わせる
         mpz_mul(n, n, smallPrime);
-        var allocatedSmallPrime = mpz_export(NULL, countP, 0, JAVA_BYTE.byteSize(), 0, 0, smallPrime);
-        set.add(new BigInteger(1, allocatedSmallPrime.reinterpret(countP.get(JAVA_LONG, 0)).toArray(JAVA_BYTE)));
+        var allocatedSmallPrime = mpz_export(NULL, countP, 0, JAVA_BYTE.byteSize(), 0, 0,
+            smallPrime);
+        set.add(new BigInteger(1,
+            allocatedSmallPrime.reinterpret(countP.get(JAVA_LONG, 0)).toArray(JAVA_BYTE)));
         __gmp_get_memory_functions$x2.invoke(freeFuncPtr, allocatedSmallPrime, 0);
       }
       return new NAndFactors(n, set);
