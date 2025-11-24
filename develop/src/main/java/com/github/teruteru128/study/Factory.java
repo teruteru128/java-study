@@ -17,6 +17,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_mod;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
@@ -29,6 +30,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
+import static com.github.teruteru128.study.FactorDBSpamming.ID_ENDPOINT;
 import static com.github.teruteru128.study.FactorDBSpamming.OBJECT_MAPPER;
 import static com.github.teruteru128.study.FactorDBSpamming.QUERY_ENDPOINT;
 import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
@@ -103,12 +105,14 @@ import java.util.HexFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.StringJoiner;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Semaphore;
 import java.util.function.DoubleConsumer;
 import java.util.function.Function;
 import java.util.function.LongPredicate;
@@ -136,6 +140,7 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 // FIXME サブコマンドをここに並べるのではなく、サービスローダーを使ってサービスとして読み込ませられないか？
+
 @Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
     ECIESSample.class, PrimeSearch.class, Updater.class, HelpCommand.class, SlimeSearch.class,
     OwnerCheck.class, CalcBustSize.class, Deterministic.class, CreateCandidateDB.class,
@@ -295,6 +300,7 @@ public class Factory implements Callable<Integer> {
   private static final String ERROR_TOO_MANY_ELEMENTS = "Error: Requested elements exceed file size: ";
   private static final String ERROR_BUFFER_TOO_LARGE = "Error: Requested elements (%d) cause buffer size overflow";
   private static final String ERROR_INCOMPLETE_READ = "Error: Failed to read requested bytes from file";
+  private static final Semaphore SEMAPHORE = new Semaphore(4, true);
 
   private Factory() {
   }
@@ -350,36 +356,54 @@ public class Factory implements Callable<Integer> {
     return addressTreeSet;
   }
 
-  private static JsonNode queryToFactorDB(URL url, Object lock)
+  private static Optional<JsonNode> queryToFactorDB(URL url, Object lock)
       throws IOException, InterruptedException {
     HttpsURLConnection connection;
     JsonNode root;
     int code;
-    do {
-      connection = (HttpsURLConnection) url.openConnection();
-      connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
-      code = connection.getResponseCode();
-      if (lock != null && code == 429) {
-        lock.wait(1000 * 60 * 5);
-      }
-    } while (code != HttpsURLConnection.HTTP_OK);
+    SEMAPHORE.acquire();
+    try {
+      do {
+        connection = (HttpsURLConnection) url.openConnection();
+        connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+        code = connection.getResponseCode();
+        if (lock != null && code == 429) {
+          lock.wait(1000 * 60 * 5);
+        }
+      } while (code != HttpsURLConnection.HTTP_OK);
+    } finally {
+      SEMAPHORE.release();
+    }
+    if (!connection.getContentType().startsWith("application/json")) {
+      logger.error("!Content-Type: {}", connection.getContentType());
+      return Optional.empty();
+    }
     try (var inputStream = connection.getInputStream()) {
       root = OBJECT_MAPPER.readTree(inputStream);
     }
-    return root;
+    return Optional.of(root);
   }
 
-  private static JsonNode queryMPZ(MemorySegment p) throws IOException, InterruptedException {
+  public static Optional<JsonNode> queryByID(String id) throws IOException, InterruptedException {
+    var url = create(ID_ENDPOINT + id).toURL();
+    return queryToFactorDB(url, new Object());
+  }
+
+  private static Optional<JsonNode> queryMPZ(MemorySegment p)
+      throws IOException, InterruptedException {
     var length = mpz_sizeinbase(p, 10) + 2;
     var auto = Arena.ofAuto();
     var buf = auto.allocate(length);
     mpz_get_str(buf, 10, p);
     var url = create(QUERY_ENDPOINT + encode(buf.getString(0), UTF_8)).toURL();
-    var root = queryToFactorDB(url, new Object());
-    var id = root.get("id");
-    var status = root.get("status");
-    logger.info("https://factordb.com/index.php?id={} : {}", id.asText(), status.textValue());
-    return root;
+    var optional = queryToFactorDB(url, new Object());
+    if (optional.isPresent()) {
+      var root = optional.get();
+      var id = root.get("id");
+      var status = root.get("status");
+      logger.info("https://factordb.com/index.php?id={} : {}", id.asText(), status.textValue());
+    }
+    return optional;
   }
 
   @Command
@@ -1186,6 +1210,29 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
+  public int fac() {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(n, 1);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_set_ui(p, 10);
+    mpz_pow_ui(p, p, 18);
+    mpz_add_ui(p, p, 3);
+    var max = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_set_ui(max, 10);
+    mpz_pow_ui(max, max, 49999);
+    while (mpz_cmp(n, max) < 0) {
+      mpz_mul(n, n, p);
+      var length = mpz_sizeinbase(p, 10) + 2;
+      var buf = auto.allocate(length);
+      mpz_get_str(buf, 10, p);
+      System.out.println(buf.getString(0));
+      mpz_nextprime(p, p);
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
   public int simpleSierpinskiTest(long[] i) {
     StreamSupport.longStream(Arrays.spliterator(i, 0, i.length), false).filter(LONG_PREDICATE)
         .forEach(System.err::println);
@@ -1539,11 +1586,13 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int searchBigPrime() {
+  public int searchBigPrime(
+      @Option(names = "--min-digits", paramLabel = "Minimum number of digits", defaultValue = "5") int minimumNumberOfDigits,
+      @Option(names = "--num", paramLabel = "num", defaultValue = "5") int num) {
     var auto = Arena.ofAuto();
     var threshold = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_ui(threshold, 10);
-    mpz_pow_ui(threshold, threshold, 49999);
+    mpz_pow_ui(threshold, threshold, minimumNumberOfDigits - 1);
     var smallPrimeMin = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_ui(smallPrimeMin, 10);
     mpz_pow_ui(smallPrimeMin, smallPrimeMin, 18);
@@ -1602,14 +1651,17 @@ public class Factory implements Callable<Integer> {
       mpz_init(nSub1);
       mpz_sub_ui(nSub1, n.n(), 1);
       consumer.accept(new PrimeRecord(nSub1, State.N_SUB_1, n.factors()));
-    }).filter(p -> mpz_probab_prime_p(p.p(), 24) != 0).limit(5).forEach(p1 -> {
+    }).filter(p -> mpz_probab_prime_p(p.p(), 24) != 0).limit(num).forEach(p1 -> {
       try {
-        var root = queryMPZ(p1.p);
-        var id = root.get("id").asText();
-        logger.info("{}: {}", id, p1.state());
-        var joiner = new StringJoiner(", ");
-        p1.factors().forEach(p -> joiner.add(p.toString()));
-        logger.info("{}: {}", id, joiner);
+        var optional = queryMPZ(p1.p());
+        if (optional.isPresent()) {
+          var root = optional.get();
+          var id = root.get("id").asText();
+          logger.info("{}: {}", id, p1.state());
+          var joiner = new StringJoiner(", ");
+          p1.factors().forEach(p -> joiner.add(p.toString()));
+          logger.info("{}: {}", id, joiner);
+        }
       } catch (IOException | InterruptedException e) {
         throw new RuntimeException(e);
       }
@@ -1617,6 +1669,54 @@ public class Factory implements Callable<Integer> {
     return EXIT_CODE_OK;
   }
 
+  @Command
+  public int fu(String id) throws IOException, InterruptedException {
+    var optional = queryByID(id);
+    if (optional.isEmpty()) {
+      return EXIT_CODE_SOFTWARE;
+    }
+    var root = optional.get();
+    var id2 = root.get("id");
+    var status = root.get("status");
+    var factors = root.get("factors");
+    System.out.println(id2);
+    System.out.println(status);
+    var x = factors.get(0);
+    var y = x.get(0);
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(n, auto.allocateFrom(y.asText()), 10);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(p, 1);
+    var q = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(q, 1);
+    var diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(diff, 1);
+    var gcd = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(gcd);
+    do {
+      mpz_mul_2exp(p, p, 1);
+      mpz_add_ui(p, p, 1);
+      mpz_mod(p, p, n);
+      mpz_mul_2exp(q, q, 2);
+      mpz_add_ui(q, q, 3);
+      mpz_mod(q, q, n);
+      mpz_sub(diff, p, q);
+      if (__mpz_struct._mp_size(diff) < 0) {
+        __mpz_struct._mp_size(diff, -__mpz_struct._mp_size(diff));
+      }
+      mpz_gcd(gcd, n, diff);
+    } while (mpz_cmp_ui(gcd, 1) == 0);
+    if (mpz_cmp(gcd, n) != 0) {
+      var length = mpz_sizeinbase(gcd, 10) + 2;
+      var buf = auto.allocate(length);
+      mpz_get_str(buf, 10, gcd);
+      System.out.println(buf.getString(0));
+    } else {
+      System.out.println("失敗！");
+    }
+    return EXIT_CODE_OK;
+  }
 
   @Command
   public int crazy(String s)
