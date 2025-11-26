@@ -4,18 +4,22 @@ import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.Structs;
 import com.github.teruteru128.bitmessage.genaddress.BMAddressGenerator;
 import com.github.teruteru128.bitmessage.spec.AddressFactory;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.VarHandle;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
 public class DeterministicAddressGenerator implements Function<String, DeterministicAddress> {
+  private static final VarHandle LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(long[].class,
+      ByteOrder.BIG_ENDIAN);
 
   /**
    *
@@ -31,37 +35,6 @@ public class DeterministicAddressGenerator implements Function<String, Determini
         .normalize().getEncoded(false);
   }
 
-  public static void deriviedRipeHash(byte[] ripe, byte[] signPubKey, byte[] encPubKey) {
-    try {
-      MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
-      MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
-      deriviedRipeHash(ripe, signPubKey, encPubKey, sha512, ripemd160);
-    } catch (NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  public static void deriviedRipeHash(byte[] ripe, byte[] signPubKey, byte[] encPubKey,
-      MessageDigest sha512, MessageDigest ripemd160) {
-    Objects.requireNonNull(ripe);
-    if (ripe.length < 20) {
-      throw new IllegalArgumentException("ripe is too short");
-    }
-    Objects.requireNonNull(signPubKey);
-    Objects.requireNonNull(encPubKey);
-    try {
-      sha512.update(signPubKey);
-      sha512.update(encPubKey);
-
-      byte[] cache64 = new byte[Const.SHA512_DIGEST_LENGTH];
-      sha512.digest(cache64, 0, Const.SHA512_DIGEST_LENGTH);
-      ripemd160.update(cache64);
-      ripemd160.digest(ripe, 0, Const.RIPEMD160_DIGEST_LENGTH);
-    } catch (DigestException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
   @Override
   public DeterministicAddress apply(String passphrase) {
     int numberOfNullBytesDemandedOnFrontOfRipeHash = 8;
@@ -72,8 +45,7 @@ public class DeterministicAddressGenerator implements Function<String, Determini
     final byte[] potentialPrivateEncryptionKey = new byte[64];
     byte[] potentialPubEncryptionKey;
 
-    var hashBuffer = ByteBuffer.allocate(20);
-    final byte[] ripe = hashBuffer.array();
+    final byte[] ripe = new byte[Const.SHA512_DIGEST_LENGTH];
     final byte[] passphraseBytes = passphrase.getBytes(StandardCharsets.UTF_8);
     ByteBuffer nonceBuffer = ByteBuffer.allocate(9);
 
@@ -96,9 +68,17 @@ public class DeterministicAddressGenerator implements Function<String, Determini
         sha512work.digest(potentialPrivateEncryptionKey, 0, 64);
         potentialPubSigningKey = deriviedPublicKey(potentialPrivateSigningKey);
         potentialPubEncryptionKey = deriviedPublicKey(potentialPrivateEncryptionKey);
-        deriviedRipeHash(ripe, potentialPubSigningKey, potentialPubEncryptionKey, sha512work,
-            ripemd160);
-        if (Long.numberOfLeadingZeros(hashBuffer.getLong(0))
+        try {
+          sha512work.update(potentialPubSigningKey);
+          sha512work.update(potentialPubEncryptionKey);
+
+          sha512work.digest(ripe, 0, Const.SHA512_DIGEST_LENGTH);
+          ripemd160.update(ripe, 0, 64);
+          ripemd160.digest(ripe, 0, Const.RIPEMD160_DIGEST_LENGTH);
+        } catch (DigestException e) {
+          throw new RuntimeException(e);
+        }
+        if (Long.numberOfLeadingZeros((long) LONG_HANDLE.get(ripe, 0))
             >= numberOfNullBytesDemandedOnFrontOfRipeHash) {
           var e1 = AddressFactory.encodeAddress(3, 1, ripe);
           var e2 = AddressFactory.encodeAddress(4, 1, ripe);

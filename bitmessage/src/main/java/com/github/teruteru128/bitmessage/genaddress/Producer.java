@@ -1,7 +1,10 @@
 package com.github.teruteru128.bitmessage.genaddress;
 
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.VarHandle;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,6 +26,8 @@ public class Producer implements Callable<Void> {
     private static final Logger log = LoggerFactory.getLogger(Producer.class);
     private final Request request;
     private final String string;
+  private static final VarHandle LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(long[].class,
+      ByteOrder.BIG_ENDIAN);
 
     public Producer(Request request) {
         this.request = request;
@@ -74,7 +79,7 @@ public class Producer implements Callable<Void> {
         final byte[] publicKeys = new byte[keyCacheSize * Const.PUBLIC_KEY_LENGTH];
         var buffer = ByteBuffer.allocate(Const.SHA512_DIGEST_LENGTH);
         var longView = buffer.asLongBuffer();
-        final byte[] cache64 = buffer.array();
+        final byte[] cache64 = new byte[Const.SHA512_DIGEST_LENGTH];
         int nlz = 0;
 
         /* hash objects */
@@ -129,7 +134,7 @@ public class Producer implements Callable<Void> {
                 ripemd160.update(cache64, 0, Const.SHA512_DIGEST_LENGTH);
                 ripemd160.digest(cache64, 0, Const.RIPEMD160_DIGEST_LENGTH);
                 // number of leading zeroを計算する
-                nlz = Long.numberOfLeadingZeros(longView.get(0)) >> 3;
+                nlz = Long.numberOfLeadingZeros((long) LONG_HANDLE.get(cache64, 0)) >> 3;
                 // 計算したnlz結果が要求値より良好なら
                 if (nlz >= requireNlz) {
                     // responseインスタンスを生成してエンキュー
@@ -162,7 +167,7 @@ public class Producer implements Callable<Void> {
                     ripemd160.update(cache64, 0, Const.SHA512_DIGEST_LENGTH);
                     ripemd160.digest(cache64, 0, Const.RIPEMD160_DIGEST_LENGTH);
                     // number of leading zeroを計算する
-                    nlz = Long.numberOfLeadingZeros(longView.get(0)) >> 3;
+                    nlz = Long.numberOfLeadingZeros((long) LONG_HANDLE.get(cache64, 0)) >> 3;
                     // 計算したnlz結果が要求値より良好なら
                     if (nlz >= requireNlz) {
                         // responseインスタンスを生成してエンキュー
@@ -197,7 +202,7 @@ public class Producer implements Callable<Void> {
                     // number of leading zeroを計算する
                     // nlz = 0;
                     // while(hash[nlz] == 0 && nlz++ < 20){}
-                    nlz = Long.numberOfLeadingZeros(longView.get(0)) >> 3;
+                    nlz = Long.numberOfLeadingZeros((long) LONG_HANDLE.get(cache64, 0)) >> 3;
                     // 計算したnlz結果が要求値より良好なら
                     if (nlz >= requireNlz) {
                         // responseインスタンスを生成してエンキュー

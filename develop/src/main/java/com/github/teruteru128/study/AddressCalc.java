@@ -6,7 +6,10 @@ import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.spec.AddressFactory;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.VarHandle;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
@@ -36,6 +39,8 @@ public class AddressCalc implements Callable<Void> {
   public static final int PUBLIC_KEY_SIZE_PER_FILE = 1090519040;
   private static final Logger logger = LoggerFactory.getLogger(AddressCalc.class);
   private static final Pattern pattern = Pattern.compile(".*twitter.*", Pattern.CASE_INSENSITIVE);
+  private static final VarHandle LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(long[].class,
+      ByteOrder.BIG_ENDIAN);
 
   private final String[] args;
   private final Predicate<byte[]> predicate;
@@ -93,8 +98,7 @@ public class AddressCalc implements Callable<Void> {
         var finished = false;
         final var sha512 = MessageDigest.getInstance("SHA-512");
         final var ripemd160 = MessageDigest.getInstance("RIPEMD160");
-        final var buffer = ByteBuffer.allocate(Const.SHA512_DIGEST_LENGTH);
-        final var hash = buffer.array();
+        final var hash = new byte[Const.SHA512_DIGEST_LENGTH];
         int signOffset;
         int encryptOffset;
         // FIXME 毎回65バイトupdateするのとcloneするのはどっちが早いんだろうか
@@ -115,7 +119,7 @@ public class AddressCalc implements Callable<Void> {
               ripemd160.update(hash, 0, Const.SHA512_DIGEST_LENGTH);
               ripemd160.digest(hash, 0, Const.RIPEMD160_DIGEST_LENGTH);
               if (p.test(hash)) {
-                var number = Long.numberOfLeadingZeros(buffer.getLong(0));
+                var number = Long.numberOfLeadingZeros((long) LONG_HANDLE.get(hash, 0));
                 logger.info("i found!:{}, {}({})", index, (blockj << 24) | (encryptOffset / 65),
                     number);
                 if (number == 64) {

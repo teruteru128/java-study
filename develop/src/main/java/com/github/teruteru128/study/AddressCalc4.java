@@ -2,8 +2,11 @@ package com.github.teruteru128.study;
 
 import static java.lang.Math.max;
 
+import com.github.teruteru128.bitmessage.Const;
 import java.io.IOException;
-import java.nio.ByteBuffer;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.VarHandle;
+import java.nio.ByteOrder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.DigestException;
@@ -15,6 +18,9 @@ import picocli.CommandLine.Command;
 
 @Command(name = "addressSearch4")
 public class AddressCalc4 implements Callable<Void> {
+
+  private static final VarHandle LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(long[].class,
+      ByteOrder.BIG_ENDIAN);
 
   public final String fileTemplate;
 
@@ -31,8 +37,7 @@ public class AddressCalc4 implements Callable<Void> {
     AddressCalc.loadPublicKey(signKey, Path.of(String.format(fileTemplate, fileNumber)), keyNumber);
     var sha512 = MessageDigest.getInstance("SHA-512");
     var ripemd160 = MessageDigest.getInstance("RIPEMD160");
-    var buffer = ByteBuffer.allocate(64);
-    var hash = buffer.array();
+    var hash = new byte[Const.SHA512_DIGEST_LENGTH];
     byte[] keys;
     int j;
     int offset;
@@ -48,7 +53,7 @@ public class AddressCalc4 implements Callable<Void> {
         sha512.digest(hash, 0, 64);
         ripemd160.update(hash, 0, 64);
         ripemd160.digest(hash, 0, 20);
-        score = Long.numberOfLeadingZeros(buffer.getLong(0));
+        score = Long.numberOfLeadingZeros((long) LONG_HANDLE.get(hash, 0));
         max = max(max, score);
         if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0) {
           System.out.printf("%d, %d, %d, %d(%d)%n", fileNumber, keyNumber, i, j, score);

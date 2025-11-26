@@ -68,6 +68,8 @@ import java.io.PrintWriter;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.VarHandle;
 import java.math.BigInteger;
 import java.net.ConnectException;
 import java.net.URI;
@@ -76,7 +78,6 @@ import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
@@ -301,6 +302,8 @@ public class Factory implements Callable<Integer> {
   private static final String ERROR_BUFFER_TOO_LARGE = "Error: Requested elements (%d) cause buffer size overflow";
   private static final String ERROR_INCOMPLETE_READ = "Error: Failed to read requested bytes from file";
   private static final Semaphore SEMAPHORE = new Semaphore(4, true);
+  private static final VarHandle LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(long[].class,
+      ByteOrder.BIG_ENDIAN);
 
   private Factory() {
   }
@@ -979,9 +982,9 @@ public class Factory implements Callable<Integer> {
     long signIndex;
     long encIndex;
     var hash = new byte[64];
-    var hashSegment = ByteBuffer.wrap(hash);
 
     long count = 0;
+    var nlzArray = new long[65];
     found:
     while (true) {
       selectedSignKeyOffset = SECURE_RANDOM_GENERATOR.nextInt(blockMax) * 1048576L * 65;
@@ -1000,10 +1003,10 @@ public class Factory implements Callable<Integer> {
           sha512.digest(hash, 0, 64);
           ripemd160.update(hash, 0, 64);
           ripemd160.digest(hash, 0, 20);
-          if (Long.numberOfLeadingZeros(hashSegment.getLong(0)) >= 45) {
-            System.err.println("[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "]お前やー！！！！("
-                               + Long.numberOfLeadingZeros(hashSegment.getLong(0)) + ") sign: "
-                               + signIndex + ", enc: " + encIndex);
+          var nlz = Long.numberOfLeadingZeros((long) LONG_HANDLE.get(hash, 0));
+          nlzArray[nlz]++;
+          if (nlz >= 45) {
+            logger.info("お前やー！！！！({}) sign: {}, enc: {}", nlz, signIndex, encIndex);
             count++;
             if (count >= 10) {
               break found;
@@ -1011,6 +1014,13 @@ public class Factory implements Callable<Integer> {
           }
         }
       }
+      var sum = 0L;
+      var num = 0L;
+      for (int i = 0; i < 65; i++) {
+        sum += nlzArray[i] * i;
+        num += nlzArray[i];
+      }
+      logger.info("{}", (double) sum / num);
     }
     return EXIT_CODE_OK;
   }
