@@ -44,6 +44,7 @@ public class AddressCalc4 implements Callable<Void> {
     int max = 0;
     int score;
     long start;
+    long i1;
     for (int i = 0; i < 256; i++) {
       keys = Files.readAllBytes(Path.of(String.format(fileTemplate, i)));
       start = System.nanoTime();
@@ -53,9 +54,10 @@ public class AddressCalc4 implements Callable<Void> {
         sha512.digest(hash, 0, 64);
         ripemd160.update(hash, 0, 64);
         ripemd160.digest(hash, 0, 20);
-        score = Long.numberOfLeadingZeros((long) LONG_HANDLE.get(hash, 0));
+        i1 = (long) LONG_HANDLE.get(hash, 0);
+        score = Long.numberOfLeadingZeros(i1);
         max = max(max, score);
-        if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0) {
+        if ((i1 & 0xffffffff00000000L) == 0) {
           System.out.printf("%d, %d, %d, %d(%d)%n", fileNumber, keyNumber, i, j, score);
         }
       }
