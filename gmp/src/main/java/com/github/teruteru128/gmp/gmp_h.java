@@ -3671,7 +3671,7 @@ public class gmp_h {
      * void __gmpz_divexact(mpz_ptr, mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static void __gmpz_divexact(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+    private static void __gmpz_divexact(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
         var mh$ = __gmpz_divexact.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -3681,6 +3681,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_divexact(mpz_ptr, mpz_srcptr, mpz_srcptr)
+     * }
+     */
+    public static void mpz_divexact(MemorySegment q, MemorySegment n, MemorySegment d) {
+      __gmpz_divexact(q, n, d);
     }
 
     private static class __gmpz_divexact_ui {
@@ -4401,7 +4409,7 @@ public class gmp_h {
      * void __gmpz_fdiv_qr(mpz_ptr, mpz_ptr, mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static void __gmpz_fdiv_qr(MemorySegment x0, MemorySegment x1, MemorySegment x2, MemorySegment x3) {
+    private static void __gmpz_fdiv_qr(MemorySegment x0, MemorySegment x1, MemorySegment x2, MemorySegment x3) {
         var mh$ = __gmpz_fdiv_qr.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -4411,6 +4419,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * void mpz_fdiv_qr(mpz_ptr, mpz_ptr, mpz_srcptr, mpz_srcptr)
+     * }
+     */
+    public static void mpz_fdiv_qr(MemorySegment q, MemorySegment r, MemorySegment n, MemorySegment d) {
+      __gmpz_fdiv_qr(q, r, n, d);
     }
 
     private static class __gmpz_fdiv_qr_ui {
@@ -4451,7 +4467,7 @@ public class gmp_h {
      * unsigned long __gmpz_fdiv_qr_ui(mpz_ptr, mpz_ptr, mpz_srcptr, unsigned long)
      * }
      */
-    public static long __gmpz_fdiv_qr_ui(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
+    private static int __gmpz_fdiv_qr_ui(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
         var mh$ = __gmpz_fdiv_qr_ui.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -4461,6 +4477,14 @@ public class gmp_h {
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned long __gmpz_fdiv_qr_ui(mpz_ptr, mpz_ptr, mpz_srcptr, unsigned long)
+     * }
+     */
+    private static int mpz_fdiv_qr_ui(MemorySegment x0, MemorySegment x1, MemorySegment x2, long x3) {
+      return __gmpz_fdiv_qr_ui(x0, x1, x2, x3);
     }
 
     private static class __gmpz_fdiv_r {
@@ -7321,7 +7345,7 @@ public class gmp_h {
      * mp_bitcnt_t __gmpz_remove(mpz_ptr, mpz_srcptr, mpz_srcptr)
      * }
      */
-    private static long __gmpz_remove(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
+    private static int __gmpz_remove(MemorySegment x0, MemorySegment x1, MemorySegment x2) {
         var mh$ = __gmpz_remove.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
@@ -7337,7 +7361,7 @@ public class gmp_h {
      * mp_bitcnt_t mpz_remove(mpz_ptr, mpz_srcptr, mpz_srcptr)
      * }
      */
-    public static long mpz_remove(MemorySegment rop, MemorySegment op, MemorySegment f) {
+    public static int mpz_remove(MemorySegment rop, MemorySegment op, MemorySegment f) {
         return __gmpz_remove(rop, op, f);
     }
 

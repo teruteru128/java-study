@@ -25,10 +25,12 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_powm;
 import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
+import static com.github.teruteru128.gmp.gmp_h.mpz_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_ui_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
 import static com.github.teruteru128.study.FactorDBSpamming.ID_ENDPOINT;
 import static com.github.teruteru128.study.FactorDBSpamming.OBJECT_MAPPER;
@@ -394,11 +396,9 @@ public class Factory implements Callable<Integer> {
 
   private static Optional<JsonNode> queryMPZ(MemorySegment p)
       throws IOException, InterruptedException {
-    var length = mpz_sizeinbase(p, 10) + 2;
     var auto = Arena.ofAuto();
-    var buf = auto.allocate(length);
-    mpz_get_str(buf, 10, p);
-    var url = create(QUERY_ENDPOINT + encode(buf.getString(0), UTF_8)).toURL();
+    var string = mpzToString(auto, p, 10);
+    var url = create(QUERY_ENDPOINT + encode(string, UTF_8)).toURL();
     var optional = queryToFactorDB(url, new Object());
     if (optional.isPresent()) {
       var root = optional.get();
@@ -407,6 +407,32 @@ public class Factory implements Callable<Integer> {
       logger.info("https://factordb.com/index.php?id={} : {}", id.asText(), status.textValue());
     }
     return optional;
+  }
+
+  private static MemorySegment newMpzStr(Arena auto, String str, int base) {
+    var b = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_str(b, auto.allocateFrom(str), base);
+    return b;
+  }
+
+  private static MemorySegment newMpzUi(Arena auto, int op) {
+    var b = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set_ui(b, op);
+    return b;
+  }
+
+  private static MemorySegment newMpzUi(Arena auto, long op) {
+    var b = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(b);
+    mpz_set_u64(b, op);
+    return b;
+  }
+
+  public static String mpzToString(Arena auto, MemorySegment n2, int base) {
+    var length2 = mpz_sizeinbase(n2, base) + 2;
+    var buf2 = auto.allocate(length2);
+    mpz_get_str(buf2, base, n2);
+    return buf2.getString(0);
   }
 
   @Command
@@ -664,8 +690,7 @@ public class Factory implements Callable<Integer> {
     var auto = Arena.ofAuto();
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(n);
-    var base = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(base, 47);
+    var base = newMpzUi(auto, 47);
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(p);
     var pSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -678,8 +703,7 @@ public class Factory implements Callable<Integer> {
     var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(min);
     mpz_set_u64(min, 200000000000000L);
-    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(window, 10);
+    var window = newMpzUi(auto, 10);
     mpz_pow_ui(window, window, 32);
     mpz_sub(window, window, min);
     do {
@@ -692,16 +716,12 @@ public class Factory implements Callable<Integer> {
 
       mpz_powm(n, base, pSub1, pPow2);
       if (mpz_cmp_ui(n, 10) <= 0) {
-        var length = mpz_sizeinbase(p, 10) + 2;
-        var str = auto.allocate(length);
-        mpz_get_str(str, 10, p);
-        System.out.println("modが10以下: " + str.getString(0));
+        var string = mpzToString(auto, p, 10);
+        System.out.println("modが10以下: " + string);
       }
     } while (mpz_cmp_ui(n, 1) != 0);
-    var length = mpz_sizeinbase(p, 10) + 2;
-    var str = auto.allocate(length);
-    mpz_get_str(str, 10, n);
-    System.out.println("modが1と等しい: " + str.getString(0));
+    var string = mpzToString(auto, p, 10);
+    System.out.println("modが1と等しい: " + string);
 
     return EXIT_CODE_OK;
   }
@@ -731,8 +751,7 @@ public class Factory implements Callable<Integer> {
     mpz_init_set_str(subjectMax, auto.allocateFrom("5316911983139663491615228241121378301"), 10);
     var subjectP = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(subjectP);
-    var messageMin = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(messageMin, 10);
+    var messageMin = newMpzUi(auto, 10);
     mpz_pow_ui(messageMin, messageMin, 71);
     var messageMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_str(messageMax, auto.allocateFrom(
@@ -750,18 +769,13 @@ public class Factory implements Callable<Integer> {
       for (var i = 0L; i < num; i++) {
         mpz_urandomm(subjectP, state, subjectMax);
         mpz_nextprime(subjectP, subjectP);
-        var subjectLength = mpz_sizeinbase(subjectP, 10) + 2;
-        var subjectSegment = auto.allocate(subjectLength);
-        mpz_get_str(subjectSegment, 10, subjectP);
+        var string = mpzToString(auto, subjectP, 10);
         //
         mpz_urandomm(messageP, state, messageWindow);
         mpz_add(messageP, messageP, messageMin);
         mpz_nextprime(messageP, messageP);
-        var messagePLength = mpz_sizeinbase(messageP, 10) + 2;
-        var messageSegment = auto.allocate(messagePLength);
-        mpz_get_str(messageSegment, 10, messageP);
-        var message = new Message(toAddress, fromAddress, subjectSegment.getString(0),
-            messageSegment.getString(0), 5400);
+        var string1 = mpzToString(auto, messageP, 10);
+        var message = new Message(toAddress, fromAddress, string, string1, 5400);
         logger.info("sent");
         logger.debug("{}, {}, {}, {}", message.to(), message.from(), message.subject(),
             message.message());
@@ -788,8 +802,7 @@ public class Factory implements Callable<Integer> {
     mpz_init_set_str(subjectMax, auto.allocateFrom("5316911983139663491615228241121378301"), 10);
     var subjectP = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(subjectP);
-    var messageMin = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(messageMin, 10);
+    var messageMin = newMpzUi(auto, 10);
     mpz_pow_ui(messageMin, messageMin, 71);
     var messageMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_str(messageMax, auto.allocateFrom(
@@ -825,17 +838,12 @@ public class Factory implements Callable<Integer> {
       for (var address : addresses) {
         mpz_urandomm(subjectP, state, subjectMax);
         mpz_nextprime(subjectP, subjectP);
-        var subjectLength = mpz_sizeinbase(subjectP, 10) + 2;
-        var subjectSegment = auto.allocate(subjectLength);
-        mpz_get_str(subjectSegment, 10, subjectP);
+        var string = mpzToString(auto, subjectP, 10);
         mpz_urandomm(messageP, state, messageWindow);
         mpz_add(messageP, messageP, messageMin);
         mpz_nextprime(messageP, messageP);
-        var messageLength = mpz_sizeinbase(messageP, 10) + 2;
-        var messageSegment = auto.allocate(messageLength);
-        mpz_get_str(messageSegment, 10, messageP);
-        var message = new Message(address, fromAddress, subjectSegment.getString(0),
-            messageSegment.getString(0), 5400);
+        var string1 = mpzToString(auto, messageP, 10);
+        var message = new Message(address, fromAddress, string, string1, 5400);
         messages.add(message);
         //post(client, message);
         i++;
@@ -856,8 +864,7 @@ public class Factory implements Callable<Integer> {
   @Command
   public int sierpinski(@Option(names = "-k", defaultValue = "21181") int k, int nMin, int nMax) {
     var auto = Arena.ofAuto();
-    var pSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(pSub1, k);
+    var pSub1 = newMpzUi(auto, k);
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(p);
     mpz_mul_2exp(pSub1, pSub1, nMin);
@@ -1196,13 +1203,10 @@ public class Factory implements Callable<Integer> {
     var auto = Arena.ofAuto();
     var rop = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(rop);
-    var base = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(base, 2);
+    var base = newMpzUi(auto, 2);
     mpz_powm(rop, base, exp, mod);
-    var length = mpz_sizeinbase(rop, 10) + 2;
-    var buf = auto.allocate(length);
-    mpz_get_str(buf, 10, rop);
-    System.out.println(buf.getString(0));
+    var string = mpzToString(auto, rop, 10);
+    System.out.println(string);
     return EXIT_CODE_OK;
   }
 
@@ -1222,8 +1226,7 @@ public class Factory implements Callable<Integer> {
   @Command
   public int fac() {
     var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, 1);
+    var n = newMpzUi(auto, 1);
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_set_ui(p, 10);
     mpz_pow_ui(p, p, 18);
@@ -1233,10 +1236,8 @@ public class Factory implements Callable<Integer> {
     mpz_pow_ui(max, max, 49999);
     while (mpz_cmp(n, max) < 0) {
       mpz_mul(n, n, p);
-      var length = mpz_sizeinbase(p, 10) + 2;
-      var buf = auto.allocate(length);
-      mpz_get_str(buf, 10, p);
-      System.out.println(buf.getString(0));
+      var string = mpzToString(auto, p, 10);
+      System.out.println(string);
       mpz_nextprime(p, p);
     }
     return EXIT_CODE_OK;
@@ -1252,18 +1253,15 @@ public class Factory implements Callable<Integer> {
   @Command
   public int sie() {
     var auto = Arena.ofAuto();
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(p, 1);
+    var p = newMpzUi(auto, 1);
     mpz_mul_2exp(p, p, 45029252);
     mpz_mul_ui(p, p, 21181);
     mpz_add_ui(p, p, 1);
     var q = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(q);
-    var r = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(r, 2);
+    var r = newMpzUi(auto, 2);
     // powers = 1048576
-    var powers = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(powers, 1);
+    var powers = newMpzUi(auto, 1);
     var gcd = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(gcd);
     while (true) {
@@ -1273,10 +1271,8 @@ public class Factory implements Callable<Integer> {
       }
       mpz_nextprime(r, r);
     }
-    var len = mpz_sizeinbase(gcd, 10) + 2;
-    var buf = auto.allocate(len);
-    mpz_get_str(buf, 10, gcd);
-    System.out.println(buf.getString(0));
+    var string = mpzToString(auto, gcd, 10);
+    System.out.println(string);
     while (true) {
       // q =  21181
       mpz_set_ui(q, 21181);
@@ -1291,10 +1287,8 @@ public class Factory implements Callable<Integer> {
       // powers *= 16777216
       mpz_mul_2exp(powers, powers, 1);
     }
-    len = mpz_sizeinbase(gcd, 10) + 2;
-    buf = auto.allocate(len);
-    mpz_get_str(buf, 10, gcd);
-    System.out.println(buf.getString(0));
+    var string1 = mpzToString(auto, gcd, 10);
+    System.out.println(string1);
     return EXIT_CODE_OK;
   }
 
@@ -1322,8 +1316,7 @@ public class Factory implements Callable<Integer> {
   public int sierpinski7(int start) {
     var any = IntStream.iterate(start, i -> i + 1).filter(LONG_PREDICATE::test).filter(i -> {
       var auto = Arena.ofAuto();
-      var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      mpz_init_set_ui(p, 21181);
+      var p = newMpzUi(auto, 21181);
       mpz_mul_2exp(p, p, i);
       mpz_add_ui(p, p, 1);
       var st = System.nanoTime();
@@ -1359,41 +1352,33 @@ public class Factory implements Callable<Integer> {
     var op2 = 33219332;
     System.out.println(op2 + " を選択しました");
     var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(n, 21181);
+    var n = newMpzUi(auto, 21181);
     mpz_mul_2exp(n, n, op2);
     mpz_add_ui(n, n, 1);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(p, 2);
+    var p = newMpzUi(auto, 2);
 
     for (int i = 0; i < 1000000; i++) {
       if (mpz_divisible_p(n, p) != 0) {
-        var length = mpz_sizeinbase(p, 10) + 2;
-        var buf = auto.allocate(length);
-        mpz_get_str(buf, 10, p);
-        System.out.println(buf.getString(0));
+        var string = mpzToString(auto, p, 10);
+        System.out.println(string);
       }
       mpz_nextprime(p, p);
     }
-    var len2 = mpz_sizeinbase(p, 10) + 2;
-    var buf2 = auto.allocate(len2);
-    mpz_get_str(buf2, 10, p);
-    System.out.println(buf2.getString(0) + "未満までの検査を終了しました");
+    var string = mpzToString(auto, p, 10);
+    System.out.println(string + "未満までの検査を終了しました");
     return EXIT_CODE_OK;
   }
 
   @Command
   public int proth(int i) {
     var auto = Arena.ofAuto();
-    var exp = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(exp, 21181);
+    var exp = newMpzUi(auto, 21181);
     mpz_mul_2exp(exp, exp, i - 1);
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set(n, exp);
     mpz_mul_2exp(n, n, 1);
     mpz_add_ui(n, n, 1);
-    var a = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(a, 2);
+    var a = newMpzUi(auto, 2);
     var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(mod);
     mpz_powm(mod, a, exp, n);
@@ -1431,12 +1416,10 @@ public class Factory implements Callable<Integer> {
   @Command
   public int primesPost(int n) throws URISyntaxException, IOException {
     var auto = Arena.ofAuto();
-    var max = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(max, 10);
+    var max = newMpzUi(auto, 10);
     mpz_pow_ui(max, max, 4097);
     mpz_sub_ui(max, max, 2603);
-    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(min, 10);
+    var min = newMpzUi(auto, 10);
     mpz_pow_ui(min, min, 4096);
     var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(window);
@@ -1456,10 +1439,8 @@ public class Factory implements Callable<Integer> {
       System.err.println(
           "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] " + (finish - start) / 1e9
           + " sec");
-      var length = mpz_sizeinbase(p, 10) + 2;
-      var buf = auto.allocate(length);
-      mpz_get_str(buf, 10, p);
-      primes.add(buf.getString(0));
+      var string = mpzToString(auto, p, 10);
+      primes.add(string);
       var primesListIterator = primes.listIterator();
       while (primesListIterator.hasNext()) {
         var url = QUERY_ENDPOINT + primesListIterator.next();
@@ -1537,9 +1518,7 @@ public class Factory implements Callable<Integer> {
     var auto = Arena.ofAuto();
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(n);
-    var a = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    // a = pow(base, init);
-    mpz_init_set_ui(a, base);
+    var a = newMpzUi(auto, base);
     mpz_pow_ui(a, a, init);
     var b = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(b);
@@ -1597,17 +1576,14 @@ public class Factory implements Callable<Integer> {
 
   @Command
   public int searchBigPrime(
-      @Option(names = "--min-digits", paramLabel = "Minimum number of digits", defaultValue = "5") int minimumNumberOfDigits,
+      @Option(names = "--min-digits", paramLabel = "Minimum number of digits", defaultValue = "299") int minimumNumberOfDigits,
       @Option(names = "--num", paramLabel = "num", defaultValue = "5") int num) {
     var auto = Arena.ofAuto();
-    var threshold = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(threshold, 10);
+    var threshold = newMpzUi(auto, 10);
     mpz_pow_ui(threshold, threshold, minimumNumberOfDigits - 1);
-    var smallPrimeMin = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(smallPrimeMin, 10);
+    var smallPrimeMin = newMpzUi(auto, 10);
     mpz_pow_ui(smallPrimeMin, smallPrimeMin, 18);
-    var smallPrimeMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(smallPrimeMax, 10);
+    var smallPrimeMax = newMpzUi(auto, 10);
     mpz_pow_ui(smallPrimeMax, smallPrimeMax, 19);
     mpz_sub_ui(smallPrimeMax, smallPrimeMax, 39);
     var smallPrimeWindow = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -1622,60 +1598,66 @@ public class Factory implements Callable<Integer> {
     enum State {
       N_ADD_1, N_SUB_1
     }
-    record NAndFactors(MemorySegment n, Set<BigInteger> factors) {
+    record NAndFactors(MemorySegment n, Set<MemorySegment> factors) {
 
     }
-    record PrimeRecord(MemorySegment p, State state, Set<BigInteger> factors) {
+    record PrimeRecord(MemorySegment p, State state, Set<MemorySegment> factors) {
 
     }
+    var bls = new BrillhartLehmerSelfridge();
     Stream.generate(() -> {
-      var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      mpz_init_set_ui(n, 2);
-      var smallPrime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      mpz_init(smallPrime);
-      var set = new TreeSet<BigInteger>();
-      var countP = auto.allocate(JAVA_LONG);
-      while (mpz_cmp(n, threshold) < 0) {
-        // [10^18, 10^19-39)で乱数を生成して素数探索
-        // 一応同期を取る
-        synchronized (state) {
-          mpz_urandomm(smallPrime, state, smallPrimeWindow);
-        }
-        mpz_add(smallPrime, smallPrime, smallPrimeMin);
-        mpz_nextprime(smallPrime, smallPrime);
-        // 発見した素数をnに掛け合わせる
-        mpz_mul(n, n, smallPrime);
-        var allocatedSmallPrime = mpz_export(NULL, countP, 0, JAVA_BYTE.byteSize(), 0, 0,
-            smallPrime);
-        set.add(new BigInteger(1,
-            allocatedSmallPrime.reinterpret(countP.get(JAVA_LONG, 0)).toArray(JAVA_BYTE)));
-        __gmp_get_memory_functions$x2.invoke(freeFuncPtr, allocatedSmallPrime, 0);
-      }
-      return new NAndFactors(n, set);
-    }).parallel().<PrimeRecord>mapMulti((n, consumer) -> {
-      var nAdd1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      mpz_init(nAdd1);
-      mpz_add_ui(nAdd1, n.n(), 1);
-      consumer.accept(new PrimeRecord(nAdd1, State.N_ADD_1, n.factors()));
-      var nSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      mpz_init(nSub1);
-      mpz_sub_ui(nSub1, n.n(), 1);
-      consumer.accept(new PrimeRecord(nSub1, State.N_SUB_1, n.factors()));
-    }).filter(p -> mpz_probab_prime_p(p.p(), 24) != 0).limit(num).forEach(p1 -> {
-      try {
-        var optional = queryMPZ(p1.p());
-        if (optional.isPresent()) {
-          var root = optional.get();
-          var id = root.get("id").asText();
-          logger.info("{}: {}", id, p1.state());
-          var joiner = new StringJoiner(", ");
-          p1.factors().forEach(p -> joiner.add(p.toString()));
-          logger.info("{}: {}", id, joiner);
-        }
-      } catch (IOException | InterruptedException e) {
-        throw new RuntimeException(e);
-      }
-    });
+          var n = newMpzUi(auto, 2);
+          var smallPrime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+          mpz_init(smallPrime);
+          var set = new TreeSet<MemorySegment>(gmp_h::mpz_cmp);
+          var countP = auto.allocate(JAVA_LONG);
+          MemorySegment p;
+          while (mpz_cmp(n, threshold) < 0) {
+            // [10^18, 10^19-39)で乱数を生成して素数探索
+            // 一応同期を取る
+            synchronized (state) {
+              mpz_urandomm(smallPrime, state, smallPrimeWindow);
+            }
+            mpz_add(smallPrime, smallPrime, smallPrimeMin);
+            mpz_nextprime(smallPrime, smallPrime);
+            // 発見した素数をnに掛け合わせる
+            mpz_mul(n, n, smallPrime);
+            p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+            mpz_init_set(p, smallPrime);
+            var allocatedSmallPrime = mpz_export(NULL, countP, 0, JAVA_BYTE.byteSize(), 0, 0,
+                smallPrime);
+            set.add(p);
+            __gmp_get_memory_functions$x2.invoke(freeFuncPtr, allocatedSmallPrime, 0);
+          }
+          return new NAndFactors(n, set);
+        }).parallel().<PrimeRecord>mapMulti((n, consumer) -> {
+          var nAdd1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+          mpz_init(nAdd1);
+          mpz_add_ui(nAdd1, n.n(), 1);
+          consumer.accept(new PrimeRecord(nAdd1, State.N_ADD_1, n.factors()));
+          var nSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+          mpz_init(nSub1);
+          mpz_sub_ui(nSub1, n.n(), 1);
+          consumer.accept(new PrimeRecord(nSub1, State.N_SUB_1, n.factors()));
+        }).filter(p -> mpz_probab_prime_p(p.p(), 24) != 0 && bls.isPrime(p.p(), p.factors())).limit(num)
+        .forEach(p1 -> {
+          try {
+            var optional = queryMPZ(p1.p());
+            if (optional.isPresent()) {
+              var root = optional.get();
+              var id = root.get("id").asText();
+              logger.info("{}: {}", id, p1.state());
+              var joiner = new StringJoiner(", ");
+              p1.factors().forEach(p -> {
+                var string = mpzToString(auto, p, 10);
+                joiner.add(string);
+              });
+              logger.info("{}: {}", id, joiner);
+            }
+          } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+          }
+        });
     return EXIT_CODE_OK;
   }
 
@@ -1696,12 +1678,9 @@ public class Factory implements Callable<Integer> {
     var auto = Arena.ofAuto();
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init_set_str(n, auto.allocateFrom(y.asText()), 10);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(p, 1);
-    var q = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(q, 1);
-    var diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(diff, 1);
+    var p = newMpzUi(auto, 1);
+    var q = newMpzUi(auto, 1);
+    var diff = newMpzUi(auto, 1);
     var gcd = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(gcd);
     do {
@@ -1718,10 +1697,8 @@ public class Factory implements Callable<Integer> {
       mpz_gcd(gcd, n, diff);
     } while (mpz_cmp_ui(gcd, 1) == 0);
     if (mpz_cmp(gcd, n) != 0) {
-      var length = mpz_sizeinbase(gcd, 10) + 2;
-      var buf = auto.allocate(length);
-      mpz_get_str(buf, 10, gcd);
-      System.out.println(buf.getString(0));
+      var string = mpzToString(auto, gcd, 10);
+      System.out.println(string);
     } else {
       System.out.println("失敗！");
     }
@@ -1779,10 +1756,78 @@ public class Factory implements Callable<Integer> {
       mpz_add(p, p, diff);
     }
     System.out.println(mpz_probab_prime_p(p, 24));
-    var length = mpz_sizeinbase(p, 10) + 2;
-    var buf = auto.allocate(length);
-    mpz_get_str(buf, 10, p);
-    Files.writeString(out, buf.getString(0), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+    var string = mpzToString(auto, p, 10);
+    Files.writeString(out, string, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int bls() {
+    BrillhartLehmerSelfridge bls = new BrillhartLehmerSelfridge();
+
+    // 例1: N = 17 (素数)
+    // N-1 = 16 = 2^4。Fとして{2}のセットを提供
+    BigInteger n1 = new BigInteger("17");
+    Set<BigInteger> factors1 = Set.of(new BigInteger("2"));
+    System.out.println("Is " + n1 + " prime? " + bls.isPrime(n1, factors1)); // true
+
+    // 例2: N = 13 (素数)
+    // N-1 = 12 = 2^2 * 3。Fとして{2, 3}のセットを提供
+    BigInteger n2 = new BigInteger("13");
+    Set<BigInteger> factors2 = Set.of(new BigInteger("2"), new BigInteger("3"));
+    System.out.println("Is " + n2 + " prime? " + bls.isPrime(n2, factors2)); // true
+
+    // 例3: N = 9 (合成数)
+    // N-1 = 8 = 2^3。Fとして{2}のセットを提供 (F=2, sqrt(N)=3より条件F>sqrt(N)を満たさない)
+    BigInteger n3 = new BigInteger("9");
+    Set<BigInteger> factors3 = Set.of(new BigInteger("2"));
+    // この場合、F > sqrt(N)のチェックで引っかかるため、適切に判定できない
+    System.out.println("Is " + n3 + " prime? " + bls.isPrime(n3, factors3));
+    // Note: isPrimeメソッド内のエラーメッセージも確認してください
+
+    BigInteger n4 = BigInteger.valueOf(3).pow(5279).add(BigInteger.valueOf(3).pow(1593)).add(ONE);
+    Set<BigInteger> factors4 = Set.of(new BigInteger("2"), new BigInteger("3"), new BigInteger("5"),
+        new BigInteger("389"), new BigInteger("5301533"), new BigInteger("63074833"),
+        new BigInteger("25480398173"), new BigInteger("474892892339377"),
+        new BigInteger("572015250148299277216508617"),
+        new BigInteger("1209361321548310091770485682269470852086753"),
+        new BigInteger("77449343291186907889503299808279247610860106861"));
+    System.out.println("Is " + n4 + " prime? " + bls.isPrime(n4, factors4)); // true
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int blsMpz() {
+    BrillhartLehmerSelfridge bls = new BrillhartLehmerSelfridge();
+    var auto = Arena.ofAuto();
+    var n2 = newMpzUi(auto, 13);
+    Set<MemorySegment> factors2 = new TreeSet<>(gmp_h::mpz_cmp);
+    factors2.add(newMpzUi(auto, 2));
+    factors2.add(newMpzUi(auto, 2));
+    var string = mpzToString(auto, n2, 10);
+    System.out.println("Is " + string + " prime? " + bls.isPrime(n2, factors2)); // true
+    var n3 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(n3);
+    var d = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(d);
+    mpz_ui_pow_ui(d, 3, 5279);
+    mpz_set(n3, d);
+    mpz_ui_pow_ui(d, 3, 1593);
+    mpz_add(n3, n3, d);
+    mpz_add_ui(n3, n3, 1);
+    Set<MemorySegment> factors3 = new TreeSet<>(gmp_h::mpz_cmp);
+    factors3.add(newMpzUi(auto, 2));
+    factors3.add(newMpzUi(auto, 3));
+    factors3.add(newMpzUi(auto, 5));
+    factors3.add(newMpzUi(auto, 389));
+    factors3.add(newMpzUi(auto, 5301533));
+    factors3.add(newMpzUi(auto, 63074833));
+    factors3.add(newMpzUi(auto, 25480398173L));
+    factors3.add(newMpzStr(auto, "474892892339377", 10));
+    factors3.add(newMpzStr(auto, "572015250148299277216508617", 10));
+    factors3.add(newMpzStr(auto, "1209361321548310091770485682269470852086753", 10));
+    factors3.add(newMpzStr(auto, "77449343291186907889503299808279247610860106861", 10));
+    System.out.println("Is " + mpzToString(auto, n3, 10) + " prime? " + bls.isPrime(n3, factors3)); // true
     return EXIT_CODE_OK;
   }
 
