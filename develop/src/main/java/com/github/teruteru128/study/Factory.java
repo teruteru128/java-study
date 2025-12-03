@@ -320,8 +320,10 @@ public class Factory implements Callable<Integer> {
       ByteOrder.BIG_ENDIAN);
   // byte配列をintとしてリトルエンディアンで読み込むためのVarHandleを取得
   // SHA-1ハッシュの長さ20バイトはint 5つ分に相当
-  private static final VarHandle LITTLE_ENDIAN_INT_HANDLE = MethodHandles.byteArrayViewVarHandle(int[].class, ByteOrder.LITTLE_ENDIAN);
-  private static final VarHandle LITTLE_ENDIAN_LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(long[].class, ByteOrder.LITTLE_ENDIAN);
+  private static final VarHandle LITTLE_ENDIAN_INT_HANDLE = MethodHandles.byteArrayViewVarHandle(
+      int[].class, ByteOrder.LITTLE_ENDIAN);
+  private static final VarHandle LITTLE_ENDIAN_LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(
+      long[].class, ByteOrder.LITTLE_ENDIAN);
 
   private Factory() {
   }
@@ -496,6 +498,61 @@ public class Factory implements Callable<Integer> {
     var buf2 = auto.allocate(length2);
     mpz_get_str(buf2, base, n2);
     return buf2.getString(0);
+  }
+
+  /**
+   * C言語のオリジナルコードのロジック（メモリ上の最下位ビットからのゼロカウント）を速度優先で再現します。
+   * @param hash SHA-1ハッシュバイト配列 (長さ20)
+   * @return 末尾ゼロビット数
+   * @see <a href="https://share.google/aimode/Q3yNgJ2awUH9xLlCh">Google AI</a>
+   */
+  public static int countTrailingZeroBits(byte[] hash) {
+    // C言語のメモリ表現に合わせるため、リトルエンディアンでバッファをラップ
+    int totalZeros = 0;
+
+    // 最初の16バイトを2つのlongとして処理
+    for (int byteOffset = 0; byteOffset < 16; byteOffset += 8) {
+      // VarHandle.getLongAt(array, index) -> long値を取得
+      long l = (long) LITTLE_ENDIAN_LONG_HANDLE.get(hash, byteOffset);
+
+      if (l == 0L) {
+        totalZeros += 64;
+      } else {
+        totalZeros += Long.numberOfTrailingZeros(l);
+        return totalZeros;
+      }
+    }
+
+    // 残りの4バイトをint単位で読み込み
+    // iは配列のインデックスではなく、バイトオフセット
+    int i = (int) LITTLE_ENDIAN_INT_HANDLE.get(hash, 16);
+    if (i == 0) {
+      totalZeros += 32;
+    } else {
+      totalZeros += Integer.numberOfTrailingZeros(i);
+    }
+
+    return totalZeros;
+  }
+
+  // 非効率なString.valueOf()を避けるための高速ASCIIエンコードヘルパー
+  private static int encodeUnsignedIntAscii(long value, byte[] buffer, int offset) {
+    // Javaには符号なしLongがないため、実際にはlongを符号なしとして扱う
+    // この実装は標準的なitoaに似た高速エンコード
+    long temp = value;
+    int len = 0;
+    do {
+      buffer[offset + len++] = (byte) ('0' + (temp % 10));
+      temp /= 10;
+    } while (temp > 0);
+
+    // 文字列が逆順になっているので反転させる
+    for (int i = 0; i < len / 2; i++) {
+      byte t = buffer[offset + i];
+      buffer[offset + i] = buffer[offset + len - 1 - i];
+      buffer[offset + len - 1 - i] = t;
+    }
+    return len;
   }
 
   @Command
@@ -2012,44 +2069,11 @@ public class Factory implements Callable<Integer> {
     return EXIT_CODE_OK;
   }
 
-  /**
-   * C言語のオリジナルコードのロジック（メモリ上の最下位ビットからのゼロカウント）を速度優先で再現します。
-   * @param hash SHA-1ハッシュバイト配列 (長さ20)
-   * @return 末尾ゼロビット数
-   * @see <a href="https://share.google/aimode/Q3yNgJ2awUH9xLlCh">Google AI</a>
-   */
-  public static int countTrailingZeroBits(byte[] hash) {
-    // C言語のメモリ表現に合わせるため、リトルエンディアンでバッファをラップ
-    int totalZeros = 0;
-
-    // 最初の16バイトを2つのlongとして処理
-    for (int byteOffset = 0; byteOffset < 16; byteOffset += 8) {
-      // VarHandle.getLongAt(array, index) -> long値を取得
-      long l = (long) LITTLE_ENDIAN_LONG_HANDLE.get(hash, byteOffset);
-
-      if (l == 0L) {
-        totalZeros += 64;
-      } else {
-        totalZeros += Long.numberOfTrailingZeros(l);
-        return totalZeros;
-      }
-    }
-
-    // 残りの4バイトをint単位で読み込み
-    // iは配列のインデックスではなく、バイトオフセット
-    int i = (int) LITTLE_ENDIAN_INT_HANDLE.get(hash, 16);
-    if (i == 0) {
-      totalZeros += 32;
-    } else {
-      totalZeros += Integer.numberOfTrailingZeros(i);
-    }
-
-    return totalZeros;
-  }
-
   @Command
-  public int mineTS3(String publicKey) throws NoSuchAlgorithmException, NoSuchProviderException {
-    var mine = mine(publicKey);
+  public int mineTS3(String publicKey,
+      @Option(names = "--desiredSecurityLevel", paramLabel = "desiredSecurityLevel", defaultValue = "46") int desiredSecurityLevel)
+      throws NoSuchAlgorithmException, NoSuchProviderException {
+    var mine = mine(publicKey, desiredSecurityLevel);
     System.out.println(mine);
     return EXIT_CODE_OK;
   }
@@ -2057,60 +2081,62 @@ public class Factory implements Callable<Integer> {
   /**
    * マイニング実行メソッド
    * @param fixedText 104文字の固定ASCIIテキスト（公開鍵など）
+   * @param desiredSecurityLevel 目標セキュリティレベル
    * @return 見つかったNonce（セキュリティレベルが十分な場合）
    */
-  public long mine(String fixedText) throws NoSuchAlgorithmException, NoSuchProviderException {
+  public long mine(String fixedText, int desiredSecurityLevel)
+      throws NoSuchAlgorithmException, NoSuchProviderException {
     byte[] fixedTextBytes = fixedText.getBytes(StandardCharsets.US_ASCII);
-    // ハッシュ計算に使う全体のバッファを用意
-    // 104バイト (固定テキスト) + 18バイト (カウンター最大値のASCIIエンコード長)
-    byte[] buffer = new byte[118];
-    System.arraycopy(fixedTextBytes, 0, buffer, 0, fixedTextBytes.length);
 
-    var sha1 = MessageDigest.getInstance("SHA-1", "BC"); // BCプロバイダを使用
-    long nonce = 0L;
-    int currentSecurityLevel = 0;
-    int desiredSecurityLevel = 46; // 目標とするセキュリティレベルを設定
+    var bc = LongStream.rangeClosed(0, Long.MAX_VALUE).parallel().filter(new LongPredicate() {
+      final ThreadLocal<byte[]> bufferThreadLocal = ThreadLocal.withInitial(() -> {
+        // ハッシュ計算に使う全体のバッファを用意
+        // 104バイト (固定テキスト) + 19バイト (カウンター最大値のASCIIエンコード長)
+        var b = new byte[123];
+        System.arraycopy(fixedTextBytes, 0, b, 0, fixedTextBytes.length);
+        return b;
+      });
+      final ThreadLocal<MessageDigest> sha1ThreadLocal = ThreadLocal.withInitial(() -> {
+        try {
+          return MessageDigest.getInstance("SHA-1", "BC"); // BCプロバイダを使用
+        } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+          throw new RuntimeException(e);
+        }
+      });
+      final ThreadLocal<byte[]> hashThreadLocal = ThreadLocal.withInitial(() -> new byte[20]);
 
-    while (currentSecurityLevel < desiredSecurityLevel) {
+      @Override
+      public boolean test(long nonce) {
+        var buffer = bufferThreadLocal.get();
+        var sha1 = sha1ThreadLocal.get();
+        var hash = hashThreadLocal.get();
 
-      // 符号なし整数を10進数ASCII文字列としてバッファにエンコード（最も遅い部分、最適化が必要）
-      int nonceLength = encodeUnsignedIntAscii(nonce, buffer, fixedTextBytes.length);
+        // 符号なし整数を10進数ASCII文字列としてバッファにエンコード（最も遅い部分、最適化が必要）
+        int nonceLength = encodeUnsignedIntAscii(nonce, buffer, fixedTextBytes.length);
 
-      // SHA-1ハッシュ計算
-      sha1.update(buffer, 0, fixedTextBytes.length + nonceLength);
-      byte[] hash = sha1.digest();
+        // SHA-1ハッシュ計算
+        sha1.update(buffer, 0, fixedTextBytes.length + nonceLength);
+        try {
+          sha1.digest(hash, 0, 20);
+        } catch (DigestException e) {
+          throw new RuntimeException(e);
+        }
 
       // 末尾ゼロビット数を高速カウント
-      currentSecurityLevel = countTrailingZeroBits(hash);
+        var currentSecurityLevel = countTrailingZeroBits(hash);
 
-      // 適宜進捗を表示
-      if (nonce % 100000 == 0) {
-        System.out.println("Nonce: " + nonce + ", Level: " + currentSecurityLevel);
+        if (nonce % 10000000 == 0) {
+          logger.info("Nonce: {}, Level: {}", nonce, currentSecurityLevel);
+        }
+        return currentSecurityLevel >= desiredSecurityLevel;
       }
-      nonce++;
+    }).findAny();
+
+    if (bc.isPresent()) {
+      return bc.getAsLong();
+    } else {
+      return -1;
     }
-
-    return nonce;
-  }
-
-  // 非効率なString.valueOf()を避けるための高速ASCIIエンコードヘルパー
-  private static int encodeUnsignedIntAscii(long value, byte[] buffer, int offset) {
-    // Javaには符号なしLongがないため、実際にはlongを符号なしとして扱う
-    // この実装は標準的なitoaに似た高速エンコード
-    long temp = value;
-    int len = 0;
-    do {
-      buffer[offset + len++] = (byte) ('0' + (temp % 10));
-      temp /= 10;
-    } while (temp > 0);
-
-    // 文字列が逆順になっているので反転させる
-    for (int i = 0; i < len / 2; i++) {
-      byte t = buffer[offset + i];
-      buffer[offset + i] = buffer[offset + len - 1 - i];
-      buffer[offset + len - 1 - i] = t;
-    }
-    return len;
   }
 
   enum ReadMode {
