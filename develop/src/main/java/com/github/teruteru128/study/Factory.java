@@ -82,6 +82,7 @@ import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -89,9 +90,11 @@ import java.nio.file.StandardOpenOption;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.Provider;
 import java.security.SecureRandom;
 import java.security.Security;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.Instant;
@@ -109,12 +112,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 import java.util.StringJoiner;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Semaphore;
 import java.util.function.DoubleConsumer;
 import java.util.function.Function;
@@ -122,6 +127,7 @@ import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
+import java.util.stream.Gatherers;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -132,6 +138,12 @@ import org.apache.commons.rng.simple.RandomSource;
 import org.apache.commons.statistics.descriptive.DoubleStatistics;
 import org.apache.commons.statistics.descriptive.Statistic;
 import org.apache.commons.statistics.distribution.LogNormalDistribution;
+import org.bouncycastle.asn1.ASN1Encodable;
+import org.bouncycastle.asn1.ASN1InputStream;
+import org.bouncycastle.asn1.ASN1Integer;
+import org.bouncycastle.asn1.ASN1Sequence;
+import org.bouncycastle.asn1.DERBitString;
+import org.bouncycastle.asn1.DERSequence;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -306,6 +318,10 @@ public class Factory implements Callable<Integer> {
   private static final Semaphore SEMAPHORE = new Semaphore(4, true);
   private static final VarHandle LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(long[].class,
       ByteOrder.BIG_ENDIAN);
+  // byte配列をintとしてリトルエンディアンで読み込むためのVarHandleを取得
+  // SHA-1ハッシュの長さ20バイトはint 5つ分に相当
+  private static final VarHandle LITTLE_ENDIAN_INT_HANDLE = MethodHandles.byteArrayViewVarHandle(int[].class, ByteOrder.LITTLE_ENDIAN);
+  private static final VarHandle LITTLE_ENDIAN_LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(long[].class, ByteOrder.LITTLE_ENDIAN);
 
   private Factory() {
   }
@@ -361,19 +377,47 @@ public class Factory implements Callable<Integer> {
     return addressTreeSet;
   }
 
-  private static Optional<JsonNode> queryToFactorDB(URL url, Object lock)
+  private static Optional<JsonNode> queryToFactorDB(URL url)
       throws IOException, InterruptedException {
     HttpsURLConnection connection;
     JsonNode root;
     int code;
     SEMAPHORE.acquire();
     try {
+      int retryCount = 0;
       do {
         connection = (HttpsURLConnection) url.openConnection();
         connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
         code = connection.getResponseCode();
-        if (lock != null && code == 429) {
-          lock.wait(1000 * 60 * 5);
+        // see https://share.google/aimode/EhXggJ6d7Xl0tKvw4
+        if (code == 429) {
+          var retryAfterHeader = connection.getHeaderField("Retry-After");
+          if (retryAfterHeader != null) {
+            try {
+              // 値が秒数の場合
+              var seconds = Long.parseLong(retryAfterHeader);
+              Thread.sleep(seconds * 1000);
+            } catch (NumberFormatException e) {
+              // 値がHTTP日付形式の場合
+              try {
+                DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
+                Instant retryAfterInstant = Instant.from(formatter.parse(retryAfterHeader));
+                long delay = Duration.between(Instant.now(), retryAfterInstant).toMillis();
+                if (delay > 0) {
+                  System.out.println(
+                      "Waiting until " + retryAfterHeader + " as per Retry-After header.");
+                  Thread.sleep(delay);
+                }
+              } catch (Exception dateException) {
+                // 日付形式も解析できない場合は、デフォルトのバックオフに移行する
+                handleExponentialBackoff(retryCount++);
+              }
+            }
+            // 再試行
+          } else {
+            // ヘッダーがない場合は、デフォルトのバックオフに移行する
+            handleExponentialBackoff(retryCount++);
+          }
         }
       } while (code != HttpsURLConnection.HTTP_OK);
     } finally {
@@ -389,9 +433,28 @@ public class Factory implements Callable<Integer> {
     return Optional.of(root);
   }
 
+  private static void handleExponentialBackoff(int retryCount) throws InterruptedException {
+    final int MAX_RETRIES = 5;
+    if (retryCount >= MAX_RETRIES) {
+      throw new RuntimeException("Max retries exceeded");
+    }
+
+    // 2^retryCount * 1000ms をベースにランダムなジッターを加える
+    long baseSleepTimeMs = (long) Math.pow(2, retryCount) * 1000;
+    long jitter = new Random().nextInt(1000); // 0msから1000msのランダムな遅延
+    long sleepTimeMs = baseSleepTimeMs + jitter;
+
+    System.out.println(
+        "No Retry-After header. Applying exponential backoff: Waiting for " + sleepTimeMs
+        + " ms. Retry count: " + retryCount);
+
+    // スレッドを安全にスリープさせる
+    Thread.sleep(sleepTimeMs);
+  }
+
   public static Optional<JsonNode> queryByID(String id) throws IOException, InterruptedException {
     var url = create(ID_ENDPOINT + id).toURL();
-    return queryToFactorDB(url, new Object());
+    return queryToFactorDB(url);
   }
 
   private static Optional<JsonNode> queryMPZ(MemorySegment p)
@@ -399,7 +462,7 @@ public class Factory implements Callable<Integer> {
     var auto = Arena.ofAuto();
     var string = mpzToString(auto, p, 10);
     var url = create(QUERY_ENDPOINT + encode(string, UTF_8)).toURL();
-    var optional = queryToFactorDB(url, new Object());
+    var optional = queryToFactorDB(url);
     if (optional.isPresent()) {
       var root = optional.get();
       var id = root.get("id");
@@ -1595,9 +1658,6 @@ public class Factory implements Callable<Integer> {
     var addr = auto.allocate(ADDRESS);
     mp_get_memory_functions(NULL, NULL, addr);
     var freeFuncPtr = addr.get(ADDRESS, 0);
-    enum State {
-      N_ADD_1, N_SUB_1
-    }
     record NAndFactors(MemorySegment n, Set<MemorySegment> factors) {
 
     }
@@ -1827,12 +1887,238 @@ public class Factory implements Callable<Integer> {
     factors3.add(newMpzStr(auto, "572015250148299277216508617", 10));
     factors3.add(newMpzStr(auto, "1209361321548310091770485682269470852086753", 10));
     factors3.add(newMpzStr(auto, "77449343291186907889503299808279247610860106861", 10));
-    System.out.println("Is " + mpzToString(auto, n3, 10) + " prime? " + bls.isPrime(n3, factors3)); // true
+    System.out.println(
+        "Is " + mpzToString(auto, n3, 10) + " prime? " + bls.isPrime(n3, factors3)); // true
     return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int facO(@Option(names = {"--parallelism",
+          "-t"}, defaultValue = "1", paramLabel = "parallelism") int parallelism,
+      @Option(names = {"--offset"}, defaultValue = "0", paramLabel = "offset") int offset,
+      @Option(names = {"--num",
+          "-n"}, defaultValue = "1", paramLabel = "num for testing even number") int num) {
+    if (num < 1) {
+      throw new IllegalArgumentException("num >= 1");
+    }
+    var auto = Arena.ofAuto();
+    record Pack(BigInteger p, List<BigInteger> factors, State state) {
+
+    }
+    final var windowSize = 6072;
+    try (var pool = new ForkJoinPool(parallelism)) {
+      pool.submit(() -> Stream.iterate(new BigInteger("1000000000000040813", 10),
+              BigInteger::nextProbablePrime).limit(windowSize + num - 1).parallel()
+          .gather(Gatherers.windowSliding(windowSize)).<Pack>mapMulti((list2, consumer) -> {
+            var a = TWO;
+            for (var bigInteger : list2) {
+              a = a.multiply(bigInteger);
+            }
+            consumer.accept(new Pack(a.add(ONE), list2, State.N_ADD_1));
+            consumer.accept(new Pack(a.subtract(ONE), list2, State.N_SUB_1));
+          }).filter(pack -> {
+            var a = newMpzStr(auto, pack.p().toString(10), 10);
+            var i = mpz_probab_prime_p(a, 1);
+            if (i == 0) {
+              System.err.println("m9(^Д^)ﾌﾟｷﾞｬｰ");
+            }
+            return i != 0;
+          }).findAny().ifPresent(pack -> {
+            System.out.println(pack.p());
+            System.out.println("--");
+            pack.factors().forEach(System.out::println);
+            System.out.println("--");
+            System.out.println("pack.factors().size() = " + pack.factors().size());
+            System.out.println("pack.state() = " + pack.state());
+          }));
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int primeSpam(int startDigits, int finishDigits, int numPerDigits) {
+    var auto = Arena.ofAuto();
+    var min = newMpzUi(auto, 10);
+    mpz_pow_ui(min, min, startDigits);
+    var max = newMpzUi(auto, 10);
+    mpz_pow_ui(max, max, startDigits + 1);
+    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init_set(window, max);
+    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
+    gmp_randinit_default(state);
+    seedRandomState(state);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    for (int currentDigits = startDigits; currentDigits <= finishDigits; currentDigits++) {
+      for (int i = 0; i < numPerDigits; i++) {
+        mpz_urandomm(p, state, window);
+        mpz_add(p, p, min);
+        mpz_nextprime(p, p);
+      }
+      mpz_mul_ui(min, min, 10);
+      mpz_mul_ui(max, max, 10);
+      mpz_sub(window, max, min);
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int ts3(String id)
+      throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchProviderException, DigestException, IOException {
+    var index = id.indexOf('V');
+    var counter = id.substring(0, index).getBytes(UTF_8);
+    var decoder = Base64.getDecoder();
+    var base64base64 = id.substring(index + 1);
+    var base64 = decoder.decode(base64base64);
+    var hash = new byte[20];
+    var sha1 = MessageDigest.getInstance("SHA-1");
+    // strlenなんて使ってんじゃねえよボケがよお……
+    int zero = 0;
+    while ((zero + 20) < base64.length && base64[20 + zero] != 0) {
+      zero++;
+    }
+    sha1.update(base64, 20, zero);
+    sha1.digest(hash, 0, 20);
+    for (var i = 0; i < 20; i++) {
+      base64[i] ^= hash[i];
+    }
+    var TSKEY = ("b9dfaa7bee6ac57ac7b65f1094a1c155" + "e747327bc2fe5d51c512023fe54a2802"
+                 + "01004e90ad1daaae1075d53b7d571c30"
+                 + "e063b5a62a4a017bb394833aa0983e6e").getBytes(UTF_8);
+    int dataSize = Math.min(100, base64.length);
+    for (var i = 0; i < dataSize; i++) {
+      base64[i] ^= TSKEY[i];
+    }
+    var asn1String = decoder.decode(base64);
+    ASN1Integer x;
+    ASN1Integer y;
+    ASN1Integer s;
+    try (var in = new ASN1InputStream(asn1String)) {
+      var sequence = (ASN1Sequence) in.readObject();
+      x = ((ASN1Integer) sequence.getObjectAt(2));
+      y = ((ASN1Integer) sequence.getObjectAt(3));
+      s = (ASN1Integer) sequence.getObjectAt(4);
+    }
+    var encoder = Base64.getEncoder();
+    var encode = encoder.encode(new DERSequence(
+        new ASN1Encodable[]{new DERBitString(new byte[]{0}, 7), new ASN1Integer(32L), x,
+            y}).getEncoded("der"));
+    System.out.println(new String(encode));
+    sha1.update(encode);
+    sha1.update(counter);
+    var digest = sha1.digest();
+    System.out.println(countTrailingZeroBits(digest));
+    System.out.println(HexFormat.of().formatHex(digest));
+    return EXIT_CODE_OK;
+  }
+
+  /**
+   * C言語のオリジナルコードのロジック（メモリ上の最下位ビットからのゼロカウント）を速度優先で再現します。
+   * @param hash SHA-1ハッシュバイト配列 (長さ20)
+   * @return 末尾ゼロビット数
+   * @see <a href="https://share.google/aimode/Q3yNgJ2awUH9xLlCh">Google AI</a>
+   */
+  public static int countTrailingZeroBits(byte[] hash) {
+    // C言語のメモリ表現に合わせるため、リトルエンディアンでバッファをラップ
+    int totalZeros = 0;
+
+    // 最初の16バイトを2つのlongとして処理
+    for (int byteOffset = 0; byteOffset < 16; byteOffset += 8) {
+      // VarHandle.getLongAt(array, index) -> long値を取得
+      long l = (long) LITTLE_ENDIAN_LONG_HANDLE.get(hash, byteOffset);
+
+      if (l == 0L) {
+        totalZeros += 64;
+      } else {
+        totalZeros += Long.numberOfTrailingZeros(l);
+        return totalZeros;
+      }
+    }
+
+    // 残りの4バイトをint単位で読み込み
+    // iは配列のインデックスではなく、バイトオフセット
+    int i = (int) LITTLE_ENDIAN_INT_HANDLE.get(hash, 16);
+    if (i == 0) {
+      totalZeros += 32;
+    } else {
+      totalZeros += Integer.numberOfTrailingZeros(i);
+    }
+
+    return totalZeros;
+  }
+
+  @Command
+  public int mineTS3(String publicKey) throws NoSuchAlgorithmException, NoSuchProviderException {
+    var mine = mine(publicKey);
+    System.out.println(mine);
+    return EXIT_CODE_OK;
+  }
+
+  /**
+   * マイニング実行メソッド
+   * @param fixedText 104文字の固定ASCIIテキスト（公開鍵など）
+   * @return 見つかったNonce（セキュリティレベルが十分な場合）
+   */
+  public long mine(String fixedText) throws NoSuchAlgorithmException, NoSuchProviderException {
+    byte[] fixedTextBytes = fixedText.getBytes(StandardCharsets.US_ASCII);
+    // ハッシュ計算に使う全体のバッファを用意
+    // 104バイト (固定テキスト) + 18バイト (カウンター最大値のASCIIエンコード長)
+    byte[] buffer = new byte[118];
+    System.arraycopy(fixedTextBytes, 0, buffer, 0, fixedTextBytes.length);
+
+    var sha1 = MessageDigest.getInstance("SHA-1", "BC"); // BCプロバイダを使用
+    long nonce = 0L;
+    int currentSecurityLevel = 0;
+    int desiredSecurityLevel = 46; // 目標とするセキュリティレベルを設定
+
+    while (currentSecurityLevel < desiredSecurityLevel) {
+
+      // 符号なし整数を10進数ASCII文字列としてバッファにエンコード（最も遅い部分、最適化が必要）
+      int nonceLength = encodeUnsignedIntAscii(nonce, buffer, fixedTextBytes.length);
+
+      // SHA-1ハッシュ計算
+      sha1.update(buffer, 0, fixedTextBytes.length + nonceLength);
+      byte[] hash = sha1.digest();
+
+      // 末尾ゼロビット数を高速カウント
+      currentSecurityLevel = countTrailingZeroBits(hash);
+
+      // 適宜進捗を表示
+      if (nonce % 100000 == 0) {
+        System.out.println("Nonce: " + nonce + ", Level: " + currentSecurityLevel);
+      }
+      nonce++;
+    }
+
+    return nonce;
+  }
+
+  // 非効率なString.valueOf()を避けるための高速ASCIIエンコードヘルパー
+  private static int encodeUnsignedIntAscii(long value, byte[] buffer, int offset) {
+    // Javaには符号なしLongがないため、実際にはlongを符号なしとして扱う
+    // この実装は標準的なitoaに似た高速エンコード
+    long temp = value;
+    int len = 0;
+    do {
+      buffer[offset + len++] = (byte) ('0' + (temp % 10));
+      temp /= 10;
+    } while (temp > 0);
+
+    // 文字列が逆順になっているので反転させる
+    for (int i = 0; i < len / 2; i++) {
+      byte t = buffer[offset + i];
+      buffer[offset + i] = buffer[offset + len - 1 - i];
+      buffer[offset + len - 1 - i] = t;
+    }
+    return len;
   }
 
   enum ReadMode {
     HEAD, TAIL
+  }
+
+  private enum State {
+    N_ADD_1, N_SUB_1
   }
 
   private record APredicate(byte[] buf) implements Predicate<A> {
