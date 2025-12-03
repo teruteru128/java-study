@@ -507,32 +507,13 @@ public class Factory implements Callable<Integer> {
    * @see <a href="https://share.google/aimode/Q3yNgJ2awUH9xLlCh">Google AI</a>
    */
   public static int countTrailingZeroBits(byte[] hash) {
-    // C言語のメモリ表現に合わせるため、リトルエンディアンでバッファをラップ
-    int totalZeros = 0;
-
-    // 最初の16バイトを2つのlongとして処理
-    for (int byteOffset = 0; byteOffset < 16; byteOffset += 8) {
-      // VarHandle.getLongAt(array, index) -> long値を取得
-      long l = (long) LITTLE_ENDIAN_LONG_HANDLE.get(hash, byteOffset);
-
-      if (l == 0L) {
-        totalZeros += 64;
-      } else {
-        totalZeros += Long.numberOfTrailingZeros(l);
-        return totalZeros;
-      }
-    }
-
-    // 残りの4バイトをint単位で読み込み
-    // iは配列のインデックスではなく、バイトオフセット
-    int i = (int) LITTLE_ENDIAN_INT_HANDLE.get(hash, 16);
-    if (i == 0) {
-      totalZeros += 32;
-    } else {
-      totalZeros += Integer.numberOfTrailingZeros(i);
-    }
-
-    return totalZeros;
+    long l1 = (long) LITTLE_ENDIAN_LONG_HANDLE.get(hash, 0);
+    if (l1 != 0L) return Long.numberOfTrailingZeros(l1);
+    long l2 = (long) LITTLE_ENDIAN_LONG_HANDLE.get(hash, 8);
+    if (l2 != 0L) return 64 + Long.numberOfTrailingZeros(l2);
+    int i3 = (int) LITTLE_ENDIAN_INT_HANDLE.get(hash, 16);
+    if (i3 != 0) return 128 + Integer.numberOfTrailingZeros(i3);
+    return 160;
   }
 
   // 非効率なString.valueOf()を避けるための高速ASCIIエンコードヘルパー
@@ -2125,7 +2106,7 @@ public class Factory implements Callable<Integer> {
       // 末尾ゼロビット数を高速カウント
         var currentSecurityLevel = countTrailingZeroBits(hash);
 
-        if (nonce % 10000000 == 0) {
+        if (nonce % 10000000 == 0 || currentSecurityLevel >= 40) {
           logger.info("Nonce: {}, Level: {}", nonce, currentSecurityLevel);
         }
         return currentSecurityLevel >= desiredSecurityLevel;
