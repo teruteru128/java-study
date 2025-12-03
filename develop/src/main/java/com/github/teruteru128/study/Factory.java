@@ -2106,7 +2106,7 @@ public class Factory implements Callable<Integer> {
       // 末尾ゼロビット数を高速カウント
         var currentSecurityLevel = countTrailingZeroBits(hash);
 
-        if (nonce % 10000000 == 0 || currentSecurityLevel >= 40) {
+        if ((nonce & 68719476735L) == 0) {
           logger.info("Nonce: {}, Level: {}", nonce, currentSecurityLevel);
         }
         return currentSecurityLevel >= desiredSecurityLevel;
