@@ -8,7 +8,7 @@
 
 plugins {
     id 'com.github.teruteru128.study.java-application-conventions'
-    id 'org.javamodularity.moduleplugin' version '1.8.15' apply true
+    id 'org.javamodularity.moduleplugin' version '2.0.0' apply true
     id 'org.openjfx.javafxplugin' version '0.1.0'
     // id 'org.bertx.jlink' version '3.1.1'
 }
