@@ -62,7 +62,7 @@ dependencies {
     implementation 'commons-io:commons-io:2.21.0'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk18on
-    implementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.83'
 
     // https://mvnrepository.com/artifact/com.twitter.twittertext/twitter-text
     implementation 'com.twitter.twittertext:twitter-text:3.1.0'
