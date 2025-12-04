@@ -508,15 +508,21 @@ public class Factory implements Callable<Integer> {
    */
   public static int countTrailingZeroBits(byte[] hash) {
     long l1 = (long) LITTLE_ENDIAN_LONG_HANDLE.get(hash, 0);
-    if (l1 != 0L) return Long.numberOfTrailingZeros(l1);
+    if (l1 != 0L) {
+      return Long.numberOfTrailingZeros(l1);
+    }
     long l2 = (long) LITTLE_ENDIAN_LONG_HANDLE.get(hash, 8);
-    if (l2 != 0L) return 64 + Long.numberOfTrailingZeros(l2);
+    if (l2 != 0L) {
+      return 64 + Long.numberOfTrailingZeros(l2);
+    }
     int i3 = (int) LITTLE_ENDIAN_INT_HANDLE.get(hash, 16);
-    if (i3 != 0) return 128 + Integer.numberOfTrailingZeros(i3);
+    if (i3 != 0) {
+      return 128 + Integer.numberOfTrailingZeros(i3);
+    }
     return 160;
   }
 
-  // 非効率なString.valueOf()を避けるための高速ASCIIエンコードヘルパー
+  /** 非効率な{@code String.valueOf()}を避けるための高速ASCIIエンコードヘルパー */
   private static int encodeUnsignedIntAscii(long value, byte[] buffer, int offset) {
     // Javaには符号なしLongがないため、実際にはlongを符号なしとして扱う
     // この実装は標準的なitoaに似た高速エンコード
@@ -2103,7 +2109,7 @@ public class Factory implements Callable<Integer> {
           throw new RuntimeException(e);
         }
 
-      // 末尾ゼロビット数を高速カウント
+        // 末尾ゼロビット数を高速カウント
         var currentSecurityLevel = countTrailingZeroBits(hash);
 
         if ((nonce & 68719476735L) == 0) {
