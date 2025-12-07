@@ -57,6 +57,7 @@ import com.github.teruteru128.gmp.__gmp_randstate_struct;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.study.converters.MPZConverter;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -65,6 +66,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.lang.foreign.Arena;
@@ -160,7 +162,7 @@ import picocli.CommandLine.Parameters;
     ECIESSample.class, PrimeSearch.class, Updater.class, HelpCommand.class, SlimeSearch.class,
     OwnerCheck.class, CalcBustSize.class, Deterministic.class, CreateCandidateDB.class,
     SmallSievePrimeCounter.class, NewColorGenerator.class, InsertPrimeNumberVerifyTask.class,
-    WindowsPathChecker.class}, mixinStandardHelpOptions = true)
+    WindowsPathChecker.class, CreateSmallSieve.class}, mixinStandardHelpOptions = true)
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
@@ -524,22 +526,74 @@ public class Factory implements Callable<Integer> {
 
   /** 非効率な{@code String.valueOf()}を避けるための高速ASCIIエンコードヘルパー */
   private static int encodeUnsignedIntAscii(long value, byte[] buffer, int offset) {
-    // Javaには符号なしLongがないため、実際にはlongを符号なしとして扱う
-    // この実装は標準的なitoaに似た高速エンコード
-    long temp = value;
-    int len = 0;
-    do {
-      buffer[offset + len++] = (byte) ('0' + (temp % 10));
-      temp /= 10;
-    } while (temp > 0);
+    int len;
+    if (value >= 0) {
+      len = (value < 10) ? 1 : (value < 100) ? 2 : (value < 1000) ? 3 : (value < 10000) ? 4
+          : (value < 100000) ? 5 : (value < 1000000) ? 6 : (value < 10000000) ? 7
+              : (value < 100000000) ? 8 : (value < 1000000000) ? 9 : (value < 10000000000L) ? 10
+                  : (value < 100000000000L) ? 11 : (value < 1000000000000L) ? 12
+                      : (value < 10000000000000L) ? 13 : (value < 100000000000000L) ? 14
+                          : (value < 1000000000000000L) ? 15 : (value < 10000000000000000L) ? 16
+                              : (value < 100000000000000000L) ? 17
+                                  : (value < 1000000000000000000L) ? 18 : 19;
+      int pos = offset + len;
+      long temp = value;
+      do {
+        buffer[--pos] = (byte) ('0' + (temp % 10));
+        temp /= 10;
+      } while (temp > 0);
+    } else {
+      // 負の値の場合（最大値付近の符号なしlongを意味する）は、
+      // 効率的な除算と剰余のために特別な処理を行う
+      // これは標準ライブラリの Long.toUnsignedString の手法を模倣している
+      len = 0;
+      // 10進数の除算を正しく行うためのビット演算トリック
+      long temp = value;
 
-    // 文字列が逆順になっているので反転させる
-    for (int i = 0; i < len / 2; i++) {
-      byte t = buffer[offset + i];
-      buffer[offset + i] = buffer[offset + len - 1 - i];
-      buffer[offset + len - 1 - i] = t;
+      // 負の数に対する高速な符号なし除算・剰余演算
+      // このループは最大で20回程度実行される
+      while (temp != 0) {
+        // q = temp / 10 (符号なし)
+        long q = (temp >>> 1) / 5;
+        // r = temp % 10 (符号なし)
+        int r = (int) (temp - q * 10);
+
+        buffer[offset + len++] = (byte) ('0' + r);
+        temp = q;
+      }
+
+      // 結果は逆順になるため反転させる
+      for (int i = 0; i < len / 2; i++) {
+        byte t = buffer[offset + i];
+        buffer[offset + i] = buffer[offset + len - 1 - i];
+        buffer[offset + len - 1 - i] = t;
+      }
+
+      // longの最大値近辺の値 (value == -1 の場合 "18446744073709551615")
+      // のエンコード長は20桁なので、バッファサイズに注意が必要
     }
     return len;
+  }
+
+  /**
+   *
+   * @param n mpz_t
+   * @return n converted to a BigInteger.
+   */
+  private static BigInteger mpzToBigInteger(MemorySegment n) {
+    var auto = Arena.ofAuto();
+    var countP = auto.allocate(JAVA_LONG);
+    var seg = auto.allocate((mpz_sizeinbase(n, 2) + 7) / 8);
+    var pSegment = mpz_export(seg, countP, 0, JAVA_BYTE.byteSize(), 0, 0, n);
+    pSegment = pSegment.reinterpret(countP.getAtIndex(JAVA_LONG, 0));
+    var pA = pSegment.toArray(JAVA_BYTE);
+    var sign = BigInteger.valueOf(Integer.compare(__mpz_struct._mp_size(n), 0));
+    if ((pA[0] & 0x80) != 0) {
+      var tmp = new byte[pA.length + 1];
+      System.arraycopy(pA, 0, tmp, 1, pA.length);
+      return new BigInteger(tmp).multiply(sign);
+    }
+    return new BigInteger(pA).multiply(sign);
   }
 
   @Command
@@ -2124,6 +2178,35 @@ public class Factory implements Callable<Integer> {
     } else {
       return -1;
     }
+  }
+
+  @Command
+  public int encodeEvenNumberObj(@Parameters(paramLabel = "out") Path out,
+      @Parameters(paramLabel = "in") Path in, @Option(names = {"--dry-run"}) boolean dryRun,
+      @Option(names = {"--show-bit-length"}) boolean showBitLength,
+      @Option(names = {"--show-digit-length"}) boolean showDigitLength)
+      throws IOException, ClassNotFoundException {
+    BigInteger num;
+    try (var stream = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(in)))) {
+      var o = stream.readObject();
+      if (!(o instanceof BigInteger)) {
+        return EXIT_CODE_SOFTWARE;
+      }
+      num = (BigInteger) o;
+    }
+    if (showBitLength) {
+      System.out.println(num.bitLength());
+    }
+    if (showDigitLength) {
+      var factor = Math.log(2) / Math.log(10);
+      var digitCount = (int) (factor * num.bitLength() + 1);
+
+      System.out.println(digitCount);
+    }
+    if (!dryRun) {
+
+    }
+    return EXIT_CODE_OK;
   }
 
   enum ReadMode {

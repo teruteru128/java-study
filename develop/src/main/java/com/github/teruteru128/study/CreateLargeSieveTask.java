@@ -10,14 +10,15 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_init;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init2;
 import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_mul_2exp;
+import static com.github.teruteru128.gmp.gmp_h.mpz_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sizeinbase;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
 import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
 import static com.github.teruteru128.study.PrimeSearch.loadSmallSieve;
+import static com.github.teruteru128.study.PrimeSearch.unitIndex;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_u64;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_odd_p;
-import static com.github.teruteru128.study.PrimeSearch.unitIndex;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import static java.lang.foreign.MemorySegment.copy;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
@@ -55,17 +56,33 @@ import picocli.CommandLine.Parameters;
 public class CreateLargeSieveTask implements Callable<Integer> {
 
   private static final Logger logger = LoggerFactory.getLogger(CreateLargeSieveTask.class);
-  @Parameters
+  private static final VarHandle JAVA_LONG_VAR_HANDLE = JAVA_LONG.varHandle();
+  @Parameters(paramLabel = "inPath")
   Path inPath;
-  @Parameters
+  @Parameters(paramLabel = "outPath")
   String outPath;
-  @Option(names = {"--small-sieve", "-S"}, defaultValue = "small-sieve-524288bit.obj")
-  Path smallSievepath;
+  @Option(names = {"--small-sieve",
+      "-S"}, defaultValue = "small-sieve-524288bit.obj", paramLabel = "SmallSievePath")
+  Path smallSievePath;
+  // parallelism = max(1, Runtime.getRuntime().availableProcessors() - 1);
+  @Option(names = {"--parallelism"}, defaultValue = "12", paramLabel = "parallelism")
+  int parallelism;
 
   public CreateLargeSieveTask() {
   }
 
-  private static final VarHandle JAVA_LONG_VAR_HANDLE = JAVA_LONG.varHandle();
+  private static void extracted(long[] bits, int parallelism,
+      ArrayList<MemorySegmentCallable> tasks, Arena auto, MemorySegment mpzBase1, int outputLength,
+      long searchLen) {
+    long sum = Arrays.stream(bits).parallel().map(l -> ~l).map(Long::bitCount).sum();
+    var inputSieveLength = bits.length;
+    logger.info("small sieve: {} elements, {} primes", inputSieveLength, sum);
+    for (int i = 0; i < parallelism; i++) {
+      tasks.add(new MemorySegmentCallable(auto, mpzBase1, bits,
+          (long) inputSieveLength * i / parallelism, inputSieveLength * (i + 1L) / parallelism,
+          outputLength, searchLen));
+    }
+  }
 
   @Override
   public Integer call()
@@ -76,7 +93,8 @@ public class CreateLargeSieveTask implements Callable<Integer> {
     var auto = Arena.ofAuto();
 
     logger.debug("loading small sieve...");
-    // 基地素数リスト読み込み
+    // 既知素数リスト読み込み
+    var bits = loadSmallSieve(smallSievePath);
     logger.debug("small sieve has finished loading.");
     final var mpzBase1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     logger.trace("loading target even number...");
@@ -97,13 +115,12 @@ public class CreateLargeSieveTask implements Callable<Integer> {
     /*
       素数候補ふるいのサイズ
      */
-    var searchLen = (long) (bitLength1 * 3.2);
+    var searchLen = 460517015L;
     logger.info("search Length: {} bits", searchLen);
 
     // (mpz_t, sieve) -> long[]
+    // (mpz_t, long) -> long[]
     List<Future<MemorySegment>> list;
-    // parallelism = max(1, Runtime.getRuntime().availableProcessors() - 1);
-    var parallelism = 12;
     // 出力long配列の要素数
     var outputLength = unitIndex(searchLen - 1) + 1;
     logger.info("array size: {}", outputLength);
@@ -111,17 +128,7 @@ public class CreateLargeSieveTask implements Callable<Integer> {
     try (var pool = new ForkJoinPool(parallelism, ForkJoinPool.defaultForkJoinWorkerThreadFactory,
         null, true)) {
       var tasks = new ArrayList<MemorySegmentCallable>();
-      {
-        var bits = loadSmallSieve(smallSievepath);
-        long sum = Arrays.stream(bits).parallel().map(l -> ~l).map(Long::bitCount).sum();
-        var inputSieveLength = bits.length;
-        logger.info("small sieve: {} elements, {} primes", inputSieveLength, sum);
-        for (int i = 0; i < parallelism; i++) {
-          tasks.add(new MemorySegmentCallable(auto, mpzBase1, bits,
-              (long) inputSieveLength * i / parallelism, inputSieveLength * (i + 1L) / parallelism,
-              outputLength, searchLen));
-        }
-      }
+      extracted(bits, parallelism, tasks, auto, mpzBase1, outputLength, searchLen);
       Runtime.getRuntime().gc();
       logger.info("start");
       list = pool.invokeAll(tasks);
@@ -189,9 +196,10 @@ public class CreateLargeSieveTask implements Callable<Integer> {
    * @param searchLen 出力サイズ(ビット単位)
    */
   public record MemorySegmentCallable(Arena auto, MemorySegment mpzBase, long[] bits,
-                                       long sieveOffset, long sieveLimit, int outputLength,
-                                       long searchLen) implements
+                                      long sieveOffset, long sieveLimit, int outputLength,
+                                      long searchLen) implements
       Callable<MemorySegment> {
+
     private static final Logger logger = LoggerFactory.getLogger(MemorySegmentCallable.class);
 
     @Override
@@ -202,12 +210,12 @@ public class CreateLargeSieveTask implements Callable<Integer> {
       mpz_add_ui(searchLen1, searchLen1, (int) (searchLen & 0xffffffffL));
       final var start = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
       mpz_init(start);
-      var smallSieve = new PrimeSieve(bits, sieveLimit * 64);
+      final var limit = sieveLimit * 64L;
+      var smallSieve = new PrimeSieve(bits, limit);
       var step = smallSieve.sieveSearch(sieveLimit, sieveOffset * 64);
       logger.info("first prime: {}", step * 2L + 1);
       final var convertedStep = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
       // convertedStep = step * 2L + 1
-      // なんで32bitずつ入れなあかんのじゃい
       mpz_init(convertedStep);
       mpz_set_u64(convertedStep, step);
       mpz_mul_2exp(convertedStep, convertedStep, 1);
@@ -235,12 +243,9 @@ public class CreateLargeSieveTask implements Callable<Integer> {
         }
 
         // 次の素数をルックアップする
-        step = smallSieve.sieveSearch(sieveLimit * 64, step + 1);
+        step = smallSieve.sieveSearch(limit, step + 1);
         // convertedStep = step * 2L + 1;
-        // なんで32bitずつ入れなあかんのじゃい
-        mpz_set_ui(convertedStep, (int) (0xffffffffL & step >>> 32));
-        mpz_mul_2exp(convertedStep, convertedStep, 32);
-        mpz_add_ui(convertedStep, convertedStep, (int) (0xffffffffL & step));
+        mpz_set_u64(convertedStep, step);
         mpz_mul_2exp(convertedStep, convertedStep, 1);
         mpz_add_ui(convertedStep, convertedStep, 1);
       } while (step > 0);

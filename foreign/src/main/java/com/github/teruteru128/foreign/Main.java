@@ -75,27 +75,6 @@ public class Main implements Callable<Integer> {
     Runtime.getRuntime().exit(exitCode);
   }
 
-  /**
-   *
-   * @param x0 mpz_t
-   * @return x0 converted to a BigInteger.
-   */
-  private static BigInteger mpzToBigInteger(MemorySegment x0) {
-    var auto = Arena.ofAuto();
-    var countP = auto.allocate(JAVA_LONG);
-    var seg = auto.allocate((mpz_sizeinbase(x0, 2) + 7) / 8);
-    var pSegment = mpz_export(seg, countP, 0, JAVA_BYTE.byteSize(), 0, 0, x0);
-    pSegment = pSegment.reinterpret(countP.getAtIndex(JAVA_LONG, 0));
-    var pA = pSegment.toArray(JAVA_BYTE);
-    var sign = BigInteger.valueOf(Integer.compare(__mpz_struct._mp_size(x0), 0));
-    if ((pA[0] & 0x80) != 0) {
-      var tmp = new byte[pA.length + 1];
-      System.arraycopy(pA, 0, tmp, 1, pA.length);
-      return new BigInteger(tmp).multiply(sign);
-    }
-    return new BigInteger(pA).multiply(sign);
-  }
-
   @Override
   public Integer call() {
     System.err.println("ナニモナイヨー");

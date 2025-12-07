@@ -13,7 +13,7 @@ plugins {
     // id 'org.bertx.jlink' version '3.1.1'
 }
 
-version = '1.5-SNAPSHOT'
+version = '1.5.1-SNAPSHOT'
 
 javafx {
     version = "24"

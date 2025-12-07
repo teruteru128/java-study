@@ -10,8 +10,10 @@ import java.util.Arrays;
 import java.util.concurrent.Callable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
+@Command(name = "createSmallSieve")
 public class CreateSmallSieve implements Callable<Integer> {
 
   private static final Logger logger = LoggerFactory.getLogger(CreateSmallSieve.class);
@@ -25,13 +27,8 @@ public class CreateSmallSieve implements Callable<Integer> {
     sieve[0] = 1;
     long nextIndex = 1;
     long nextPrime = 3;
-    long p = Long.highestOneBit(nextPrime);
 
     do {
-      if ((nextPrime & p) != 0) {
-        logger.info("prime: {}", nextPrime);
-        p <<= 1;
-      }
       sieveSingle(sieve, length, nextIndex + nextPrime, nextPrime);
       nextIndex = sieveSearch(sieve, length, nextIndex + 1);
       nextPrime = 2 * nextIndex + 1;
@@ -104,9 +101,7 @@ public class CreateSmallSieve implements Callable<Integer> {
       } else {
         oos.writeObject(sieve);
       }
-      logger.info("done. 1");
     }
-    logger.info("done. 2");
     return 0;
   }
 }
