@@ -139,7 +139,7 @@ public class CreateLargeSieveTask implements Callable<Integer> {
     for (var f : list) {
       var tmp = f.get();
       for (int i = 0; i < outputLength; i++) {
-        JAVA_LONG_VAR_HANDLE.getAndBitwiseOr(largeSieve, i << 3, tmp.getAtIndex(JAVA_LONG, i));
+        JAVA_LONG_VAR_HANDLE.getAndBitwiseOrAcquire(largeSieve, i << 3, tmp.getAtIndex(JAVA_LONG, i));
       }
     }
     logger.info("集計が終わりました");
@@ -205,9 +205,8 @@ public class CreateLargeSieveTask implements Callable<Integer> {
     @Override
     public MemorySegment call() {
       final var searchLen1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      mpz_init_set_ui(searchLen1, (int) (searchLen >>> 32 & 0xffffffffL));
-      mpz_mul_2exp(searchLen1, searchLen1, 32);
-      mpz_add_ui(searchLen1, searchLen1, (int) (searchLen & 0xffffffffL));
+      mpz_init(searchLen1);
+      mpz_set_u64(searchLen1, searchLen);
       final var start = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
       mpz_init(start);
       final var limit = sieveLimit * 64L;
@@ -237,7 +236,7 @@ public class CreateLargeSieveTask implements Callable<Integer> {
         // start < searchLen1
         while (mpz_cmp(start, searchLen1) < 0) {
           var l = mpz_get_u64(start);
-          JAVA_LONG_VAR_HANDLE.getAndBitwiseOr(largeSieve, (l >>> 6) * 8, 1L << (l & 0x3f));
+          JAVA_LONG_VAR_HANDLE.getAndBitwiseOrRelease(largeSieve, (l >>> 6) << 3, 1L << (l & 0x3f));
           // start += convertedStep
           mpz_add(start, start, convertedStep);
         }

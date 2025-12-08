@@ -2209,6 +2209,26 @@ public class Factory implements Callable<Integer> {
     return EXIT_CODE_OK;
   }
 
+  @Command
+  public int createLargeSieve2(Path outPath, Path inPath, Path smallSieve)
+      throws IOException {
+    // 332,192,807bit number -> 460,517,015 bit sieve
+    var arrayLength = (460517015 + 63) / 64;
+    //var buffer = new long[arrayLength];
+    try (var stream = new ObjectInputStream(
+        new BufferedInputStream(Files.newInputStream(smallSieve), 2147483645))) {
+      System.out.println(stream.readLong());
+      var l = stream.readLong();
+      System.out.printf("%016x%n", l);
+      for (int i = 0; i < 64; i++) {
+        if (((l >> i) & 1) == 0) {
+          System.out.println(i + ", " + valueOf(i).shiftLeft(1).add(ONE).isProbablePrime(1));
+        }
+      }
+    }
+    return EXIT_CODE_OK;
+  }
+
   enum ReadMode {
     HEAD, TAIL
   }
