@@ -1,13 +1,11 @@
 package com.github.teruteru128.sample;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.logging.Logger;
-import org.apache.catalina.Engine;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.core.StandardContext;
-import org.apache.catalina.core.StandardHost;
 import org.apache.catalina.servlets.DefaultServlet;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.ErrorPage;

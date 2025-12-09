@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serial;
 import java.nio.charset.StandardCharsets;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 public class DappunServiceServlet extends HttpServlet {
@@ -14,6 +15,7 @@ public class DappunServiceServlet extends HttpServlet {
   @Serial
   private static final long serialVersionUID = 1L;
   private static final Pattern pattern = Pattern.compile("\\d+");
+  private final Random random = new Random();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -26,7 +28,6 @@ public class DappunServiceServlet extends HttpServlet {
       writer.println("セーフにゃ！");
       writer.flush();
     } else {
-      long len2 = Long.parseLong(len);
       resp.setContentType("text/html");
       writer.println("<!DOCTYPE html>");
       writer.println("<html>");
@@ -35,7 +36,17 @@ public class DappunServiceServlet extends HttpServlet {
       writer.println("<title></title>");
       writer.println("</head>");
       writer.println("<body>");
-      writer.println("ﾌﾞﾘﾌﾞﾘﾌﾞﾘﾌﾞﾘｭﾘｭﾘｭﾘｭﾘｭﾘｭ！！！！！！ﾌﾞﾂﾁﾁﾌﾞﾌﾞﾌﾞﾁﾁﾁﾁﾌﾞﾘﾘｲﾘﾌﾞﾌﾞﾌﾞﾌﾞｩｩｩｩｯｯｯ！！！！！！！" + len2);
+      try {
+        long len2 = Long.parseLong(len);
+        writer.println(
+            "<p>ﾌﾞﾘﾌﾞﾘﾌﾞﾘﾌﾞﾘｭﾘｭﾘｭﾘｭﾘｭﾘｭ！！！！！！ﾌﾞﾂﾁﾁﾌﾞﾌﾞﾌﾞﾁﾁﾁﾁﾌﾞﾘﾘｲﾘﾌﾞﾌﾞﾌﾞﾌﾞｩｩｩｩｯｯｯ！！！！！！！</p>");
+        writer.println(
+            "<p>" + Math.pow(len2, random.nextDouble()) + "キログラムのうんちが漏れました……</p>");
+      } catch (NumberFormatException e) {
+        writer.println(
+            "<p>ﾌﾞﾘﾌﾞﾘﾌﾞﾘﾌﾞﾘｭﾘｭﾘｭﾘｭﾘｭﾘｭ！！！！！！ﾌﾞﾂﾁﾁﾌﾞﾌﾞﾌﾞﾁﾁﾁﾁﾌﾞﾘﾘｲﾘﾌﾞﾌﾞﾌﾞﾌﾞｩｩｩｩｯｯｯ！！！！！！！</p>");
+        writer.println("<p>うんちが溢れてしまいました……</p>");
+      }
       writer.println("</body>");
       writer.println("</html>");
     }
