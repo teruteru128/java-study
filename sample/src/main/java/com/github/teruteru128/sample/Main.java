@@ -8,6 +8,7 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.servlets.DefaultServlet;
 import org.apache.catalina.startup.Tomcat;
+import org.apache.catalina.valves.AccessLogValve;
 import org.apache.tomcat.util.descriptor.web.ErrorPage;
 
 public class Main {
@@ -52,6 +53,10 @@ public class Main {
     context.addServletMappingDecoded("/api/dappun", dappunServletName);
 
     context.addMimeMapping("html", "text/html");
+
+    var valve = new AccessLogValve();
+    valve.setPattern("%t %a %A %v %r");
+    tomcat.getEngine().getPipeline().addValve(valve);
 
     try {
       tomcat.start();
