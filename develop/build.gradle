@@ -81,7 +81,7 @@ dependencies {
     implementation 'com.unboundid:unboundid-ldapsdk:7.0.3'
 
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
-    implementation 'org.xerial:sqlite-jdbc:3.51.0.0'
+    implementation 'org.xerial:sqlite-jdbc:3.51.1.0'
 
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
     implementation 'org.postgresql:postgresql:42.7.8'

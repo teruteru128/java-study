@@ -22,7 +22,7 @@ dependencies {
     implementation 'org.bouncycastle:bcprov-jdk18on:1.83'
 
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
-    implementation 'org.xerial:sqlite-jdbc:3.51.0.0'
+    implementation 'org.xerial:sqlite-jdbc:3.51.1.0'
 
     // https://picocli.info/
     // https://mvnrepository.com/artifact/info.picocli/picocli
