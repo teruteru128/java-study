@@ -9,5 +9,6 @@ module com.github.teruteru.sample {
   requires info.picocli;
   requires com.github.teruteru.study;
   requires com.github.teruteru.math;
+  requires org.apache.tomcat.embed.core;
   exports com.github.teruteru128.sample;
 }

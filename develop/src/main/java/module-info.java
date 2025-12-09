@@ -32,17 +32,13 @@ module com.github.teruteru.study {
   requires com.github.teruteru.encode;
   //requires com.github.teruteru.sample;
   requires com.github.teruteru.time;
-  requires javafx.graphics;
-  requires javafx.controls;
   //requires org.bukkit;
   requires org.apache.logging.log4j;
-  requires unboundid.ldapsdk;
   requires info.picocli;
   requires com.github.teruteru.foreign.gmp;
   requires com.github.teruteru.foreign.opencl;
   requires com.github.teruteru.foreign.mpfr;
   requires com.github.teruteru.foreign;
-  requires jsr305;
   requires com.fasterxml.jackson.dataformat.yaml;
   requires com.fasterxml.jackson.databind;
   requires java.desktop;
@@ -54,7 +50,6 @@ module com.github.teruteru.study {
   exports com.github.teruteru128.study;
   exports com.github.teruteru128.net;
   exports com.github.teruteru128.util.gmp.mpz;
-  opens com.github.teruteru128.fx;
   opens com.github.teruteru128.study;
   opens com.github.teruteru128.study.converters to info.picocli;
   opens com.github.teruteru128.util;
