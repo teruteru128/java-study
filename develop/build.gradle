@@ -78,7 +78,7 @@ dependencies {
 
     // https://github.com/greymd/CVE-2021-44228
     // https://mvnrepository.com/artifact/com.unboundid/unboundid-ldapsdk
-    implementation 'com.unboundid:unboundid-ldapsdk:7.0.3'
+    implementation 'com.unboundid:unboundid-ldapsdk:7.0.4'
 
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
     implementation 'org.xerial:sqlite-jdbc:3.51.1.0'
