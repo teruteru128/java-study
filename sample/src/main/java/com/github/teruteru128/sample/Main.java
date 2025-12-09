@@ -1,7 +1,6 @@
 package com.github.teruteru128.sample;
 
 import jakarta.servlet.http.HttpServletResponse;
-import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 import org.apache.catalina.LifecycleException;
