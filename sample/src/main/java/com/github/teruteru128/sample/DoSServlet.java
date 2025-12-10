@@ -7,16 +7,25 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public class ForwardStep2Servlet extends HttpServlet {
+public class DoSServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    resp.setBufferSize(8192);
+    var h = req.getParameter("q");
+    long n;
+    try {
+      n = Long.parseLong(h);
+    } catch (NumberFormatException e) {
+      return;
+    }
     resp.setCharacterEncoding(StandardCharsets.UTF_8);
-    resp.setContentType("text/html");
-    req.getRequestDispatcher("/api/header").include(req, resp);
+    resp.setContentType("text/plain");
     var writer = resp.getWriter();
-    writer.println("<p>フォワード先のサーブレットです</p>");
-    req.getRequestDispatcher("/api/footer").include(req, resp);
+    var repeat = "1".repeat(72);
+    for (var i = 0L; i < n; i++) {
+      writer.println(repeat);
+    }
   }
 }

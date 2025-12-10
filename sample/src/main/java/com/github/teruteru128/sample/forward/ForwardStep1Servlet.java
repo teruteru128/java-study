@@ -1,4 +1,4 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.forward;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

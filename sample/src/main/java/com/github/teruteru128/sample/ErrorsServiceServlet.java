@@ -12,9 +12,6 @@ public class ErrorsServiceServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-
-    getServletContext().log("errors");
-
     resp.setContentType("text/html");
     var writer = resp.getWriter();
     writer.println("<!DOCTYPE html>");
@@ -24,7 +21,7 @@ public class ErrorsServiceServlet extends HttpServlet {
     writer.println("<title>ERROR</title>");
     writer.println("</head>");
     writer.println("<body>");
-    writer.println("<h1>Hello World! error</h1>");
+    writer.println("<h1>Hello World! " + resp.getStatus() + "</h1>");
     writer.println("</body>");
     writer.println("</html>");
     writer.flush();

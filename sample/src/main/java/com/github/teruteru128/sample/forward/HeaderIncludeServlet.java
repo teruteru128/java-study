@@ -1,4 +1,4 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.forward;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -7,17 +7,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public class DynamicServiceServlet extends HttpServlet {
+public class HeaderIncludeServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     resp.setCharacterEncoding(StandardCharsets.UTF_8);
-    resp.setContentType("text/plain");
+    resp.setContentType("text/html");
     var writer = resp.getWriter();
-    // Dynamic content generation
-    writer.println("Hello from embedded Tomcat dynamic web service!");
-    writer.println("Request URI: " + req.getRequestURI());
-    writer.flush();
+    writer.println("<!DOCTYPE html>");
+    writer.println("<html lang=\"ja\">");
+    writer.println("<head>");
+    writer.println("<title>フォワードテスト</title>");
+    writer.println("</head>");
+    writer.println("<body>");
   }
 }

@@ -1,0 +1,22 @@
+package com.github.teruteru128.sample;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+public class HashServlet extends HttpServlet {
+
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    resp.setCharacterEncoding(StandardCharsets.UTF_8);
+    resp.setContentType("text/plain");
+    var writer =  resp.getWriter();
+    writer.println(req.getPathInfo());
+    writer.println(req.getRequestURI());
+    writer.println(req.getServletPath());
+  }
+}

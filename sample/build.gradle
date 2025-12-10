@@ -11,10 +11,14 @@ java {
 application {
     mainModule = 'com.github.teruteru.sample'
     mainClass = 'com.github.teruteru128.sample.Main'
+    applicationDefaultJvmArgs = [
+            '--enable-native-access=com.github.teruteru.study,com.github.teruteru.sample,com.github.teruteru.foreign.gmp,org.xerial.sqlitejdbc'
+    ]
 }
 
 dependencies {
     implementation(project(':develop'))
+    implementation project(':gmp')
     implementation(project(':math'))
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-rng-simple
@@ -35,6 +39,12 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
     implementation 'org.apache.tomcat.embed:tomcat-embed-core:11.0.15'
+
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jdbc
+    implementation 'org.apache.tomcat:tomcat-jdbc:11.0.15'
+
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-dbcp
+    implementation 'org.apache.tomcat:tomcat-dbcp:11.0.15'
 
     // https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api
     compileOnly 'jakarta.servlet:jakarta.servlet-api:6.1.0'

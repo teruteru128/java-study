@@ -1,15 +1,20 @@
 package com.github.teruteru128.sample;
 
+import com.github.teruteru128.sample.dynamic.DynamicServiceServlet;
+import com.github.teruteru128.sample.forward.FooterIncludeServlet;
+import com.github.teruteru128.sample.forward.ForwardStep1Servlet;
+import com.github.teruteru128.sample.forward.ForwardStep2Servlet;
+import com.github.teruteru128.sample.forward.HeaderIncludeServlet;
+import com.github.teruteru128.sample.sql.SQLiteConnectSample;
 import jakarta.servlet.http.HttpServletResponse;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 import org.apache.catalina.LifecycleException;
-import org.apache.catalina.Service;
-import org.apache.catalina.connector.Connector;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.servlets.DefaultServlet;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.valves.AccessLogValve;
+import org.apache.tomcat.util.descriptor.web.ContextResource;
 import org.apache.tomcat.util.descriptor.web.ErrorPage;
 
 public class Main {
@@ -25,25 +30,42 @@ public class Main {
 
     tomcat.setPort(port);
     tomcat.getConnector();
+    tomcat.enableNaming();
 
     var contextPath = "";
     var docBase = Path.of("").toAbsolutePath().toString();
     logger.info("docBase: " + docBase);
     var context = (StandardContext) tomcat.addContext(contextPath, docBase);
 
+    var resource = new ContextResource();
+    resource.setName("jdbc/SQLiteDataSource");
+    resource.setType("javax.sql.DataSource");
+    // factory を書き換えないとデフォルトのファクトリーではモジュール競合で参照不可
+    resource.setProperty("factory", "org.apache.tomcat.jdbc.pool.DataSourceFactory");
+    resource.setProperty("driverClassName", "org.sqlite.JDBC");
+    resource.setProperty("url", "jdbc:sqlite:test.db");
+    resource.setProperty("username", "");
+    resource.setProperty("password", "");
+    context.getNamingResources().addResource(resource);
+
     tomcat.addServlet(contextPath, "DefaultServlet", new DefaultServlet());
     context.addServletMappingDecoded("/", "DefaultServlet");
     context.addWelcomeFile("index.html");
 
     var errorPage404 = new ErrorPage();
-    errorPage404.setLocation("/errors/404.html");
+    errorPage404.setLocation("/errors/404");
     errorPage404.setErrorCode(HttpServletResponse.SC_NOT_FOUND);
     context.addErrorPage(errorPage404);
 
     var errorPage500 = new ErrorPage();
-    errorPage500.setLocation("/errors/500.html");
+    errorPage500.setLocation("/errors/500");
     errorPage500.setErrorCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     context.addErrorPage(errorPage500);
+
+    var errorsServiceServletName = "ErrorsServiceServlet";
+    tomcat.addServlet(contextPath, errorsServiceServletName, new ErrorsServiceServlet());
+    context.addServletMappingDecoded("/errors/404", errorsServiceServletName);
+    context.addServletMappingDecoded("/errors/500", errorsServiceServletName);
 
     var dynamicServletName = "DynamicServiceServlet";
     tomcat.addServlet(contextPath, dynamicServletName, new DynamicServiceServlet());
@@ -64,6 +86,22 @@ public class Main {
     var footerServletName = "FooterServlet";
     tomcat.addServlet(contextPath, footerServletName, new FooterIncludeServlet());
     context.addServletMappingDecoded("/api/footer", footerServletName);
+
+    var SQLiteConnectSampleName = "SQLiteConnectSample";
+    tomcat.addServlet(contextPath, SQLiteConnectSampleName, new SQLiteConnectSample());
+    context.addServletMappingDecoded("/api/sqlite", SQLiteConnectSampleName);
+
+    var hashServletName = "HashServlet";
+    tomcat.addServlet(contextPath, hashServletName, new HashServlet());
+    context.addServletMappingDecoded("/api/hash/*", hashServletName);
+
+    var primesServletName = "PrimesServlet";
+    tomcat.addServlet(contextPath, primesServletName, new PrimesServlet());
+    context.addServletMappingDecoded("/api/primes", primesServletName);
+
+    var doSName = "DoSServlet";
+    tomcat.addServlet(contextPath, doSName, new DoSServlet());
+    context.addServletMappingDecoded("/api/dos", doSName);
 
     context.addMimeMapping("html", "text/html");
 
