@@ -36,15 +36,13 @@ public class DappunServiceServlet extends HttpServlet {
       writer.println("<title></title>");
       writer.println("</head>");
       writer.println("<body>");
+      writer.println(
+          "<p>ﾌﾞﾘﾌﾞﾘﾌﾞﾘﾌﾞﾘｭﾘｭﾘｭﾘｭﾘｭﾘｭ！！！！！！ﾌﾞﾂﾁﾁﾌﾞﾌﾞﾌﾞﾁﾁﾁﾁﾌﾞﾘﾘｲﾘﾌﾞﾌﾞﾌﾞﾌﾞｩｩｩｩｯｯｯ！！！！！！！</p>");
       try {
         long len2 = Long.parseLong(len);
         writer.println(
-            "<p>ﾌﾞﾘﾌﾞﾘﾌﾞﾘﾌﾞﾘｭﾘｭﾘｭﾘｭﾘｭﾘｭ！！！！！！ﾌﾞﾂﾁﾁﾌﾞﾌﾞﾌﾞﾁﾁﾁﾁﾌﾞﾘﾘｲﾘﾌﾞﾌﾞﾌﾞﾌﾞｩｩｩｩｯｯｯ！！！！！！！</p>");
-        writer.println(
             "<p>" + Math.pow(len2, random.nextDouble()) + "キログラムのうんちが漏れました……</p>");
       } catch (NumberFormatException e) {
-        writer.println(
-            "<p>ﾌﾞﾘﾌﾞﾘﾌﾞﾘﾌﾞﾘｭﾘｭﾘｭﾘｭﾘｭﾘｭ！！！！！！ﾌﾞﾂﾁﾁﾌﾞﾌﾞﾌﾞﾁﾁﾁﾁﾌﾞﾘﾘｲﾘﾌﾞﾌﾞﾌﾞﾌﾞｩｩｩｩｯｯｯ！！！！！！！</p>");
         writer.println("<p>うんちが溢れてしまいました……</p>");
       }
       writer.println("</body>");
