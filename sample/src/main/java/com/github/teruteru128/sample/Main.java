@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 import org.apache.catalina.LifecycleException;
+import org.apache.catalina.Service;
+import org.apache.catalina.connector.Connector;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.servlets.DefaultServlet;
 import org.apache.catalina.startup.Tomcat;
@@ -43,9 +45,25 @@ public class Main {
     errorPage500.setErrorCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     context.addErrorPage(errorPage500);
 
-    var servletName = "DynamicServiceServlet";
-    tomcat.addServlet(contextPath, servletName, new DynamicServiceServlet());
-    context.addServletMappingDecoded("/api/hello", servletName);
+    var dynamicServletName = "DynamicServiceServlet";
+    tomcat.addServlet(contextPath, dynamicServletName, new DynamicServiceServlet());
+    context.addServletMappingDecoded("/api/hello", dynamicServletName);
+
+    var forwardStep1ServletName = "ForwardStep1Servlet";
+    tomcat.addServlet(contextPath, forwardStep1ServletName, new ForwardStep1Servlet());
+    context.addServletMappingDecoded("/api/forward1", forwardStep1ServletName);
+
+    var forwardStep2ServletName = "ForwardStep2Servlet";
+    tomcat.addServlet(contextPath, forwardStep2ServletName, new ForwardStep2Servlet());
+    context.addServletMappingDecoded("/api/forward2", forwardStep2ServletName);
+
+    var headerServletName = "HeaderServlet";
+    tomcat.addServlet(contextPath, headerServletName, new HeaderIncludeServlet());
+    context.addServletMappingDecoded("/api/header", headerServletName);
+
+    var footerServletName = "FooterServlet";
+    tomcat.addServlet(contextPath, footerServletName, new FooterIncludeServlet());
+    context.addServletMappingDecoded("/api/footer", footerServletName);
 
     context.addMimeMapping("html", "text/html");
 
