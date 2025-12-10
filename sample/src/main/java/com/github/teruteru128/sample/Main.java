@@ -47,10 +47,6 @@ public class Main {
     tomcat.addServlet(contextPath, servletName, new DynamicServiceServlet());
     context.addServletMappingDecoded("/api/hello", servletName);
 
-    var dappunServletName = "DappunServiceServlet";
-    tomcat.addServlet(contextPath, dappunServletName, new DappunServiceServlet());
-    context.addServletMappingDecoded("/api/dappun", dappunServletName);
-
     context.addMimeMapping("html", "text/html");
 
     var valve = new AccessLogValve();
