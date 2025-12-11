@@ -17,6 +17,8 @@ public class ForwardStep2Servlet extends HttpServlet {
     req.getRequestDispatcher("/api/header").include(req, resp);
     var writer = resp.getWriter();
     writer.println("<p>フォワード先のサーブレットです</p>");
+    writer.println("<a href=\"../\">トップページに戻る</a>");
+    writer.flush();
     req.getRequestDispatcher("/api/footer").include(req, resp);
   }
 }

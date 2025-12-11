@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.servlets.DefaultServlet;
+import org.apache.catalina.session.StandardManager;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.valves.AccessLogValve;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
@@ -37,6 +38,11 @@ public class Main {
     logger.info("docBase: " + docBase);
     var context = (StandardContext) tomcat.addContext(contextPath, docBase);
 
+    // プロセスをキルする方式だとセッションを保存できない
+    var manager = new StandardManager();
+    manager.setPathname("SESSIONS.ser");
+    context.setManager(manager);
+
     var resource = new ContextResource();
     resource.setName("jdbc/SQLiteDataSource");
     resource.setType("javax.sql.DataSource");
@@ -48,9 +54,14 @@ public class Main {
     resource.setProperty("password", "");
     context.getNamingResources().addResource(resource);
 
-    tomcat.addServlet(contextPath, "DefaultServlet", new DefaultServlet());
-    context.addServletMappingDecoded("/", "DefaultServlet");
-    context.addWelcomeFile("index.html");
+    var defaultServlet = "DefaultServlet";
+    tomcat.addServlet(contextPath, defaultServlet, new DefaultServlet());
+    context.addServletMappingDecoded("/", defaultServlet);
+    context.addWelcomeFile("index.jsp");
+
+    var topPageServlet = "TopPageServlet";
+    tomcat.addServlet(contextPath, topPageServlet, new TopPageServlet());
+    context.addServletMappingDecoded("/index.jsp", topPageServlet);
 
     var errorPage404 = new ErrorPage();
     errorPage404.setLocation("/errors/404");
@@ -97,7 +108,11 @@ public class Main {
 
     var primesServletName = "PrimesServlet";
     tomcat.addServlet(contextPath, primesServletName, new PrimesServlet());
-    context.addServletMappingDecoded("/api/primes", primesServletName);
+    context.addServletMappingDecoded("/api/primes/create", primesServletName);
+
+    var primesViewerServletName = "PrimesViewerServlet";
+    tomcat.addServlet(contextPath, primesViewerServletName, new PrimesViewerServlet());
+    context.addServletMappingDecoded("/api/primes/viewer", primesViewerServletName);
 
     var doSName = "DoSServlet";
     tomcat.addServlet(contextPath, doSName, new DoSServlet());

@@ -17,5 +17,6 @@ public class FooterIncludeServlet extends HttpServlet {
     var writer = resp.getWriter();
     writer.println("</body>");
     writer.println("</html>");
+    writer.flush();
   }
 }

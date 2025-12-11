@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 public class PrimesServlet extends HttpServlet {
 
@@ -49,14 +50,7 @@ public class PrimesServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    var h = req.getParameter("q");
-    int n;
-    try {
-      n = Integer.parseInt(h);
-    } catch (NumberFormatException e) {
-      resp.sendRedirect("/index.html");
-      return;
-    }
+    var session = req.getSession();
     resp.setCharacterEncoding(StandardCharsets.UTF_8);
     resp.setContentType("text/html");
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -68,7 +62,22 @@ public class PrimesServlet extends HttpServlet {
     writer.println("<head>");
     writer.println("</head>");
     writer.println("<body>");
+    var savedPrimes = (ArrayList<String>) session.getAttribute("savedPrimes");
+
+    if (savedPrimes == null) {
+      savedPrimes = new ArrayList<>();
+    }
+
+    var h = req.getParameter("q");
+    int n;
+    try {
+      n = Integer.parseInt(h);
+    } catch (NumberFormatException e) {
+      resp.sendRedirect("/index.html");
+      return;
+    }
     writer.println("<ul>");
+    var list = new ArrayList<String>();
     for (int i = 0; i < n; i++) {
       synchronized (state) {
         mpz_urandomm(p, state, window);
@@ -77,14 +86,20 @@ public class PrimesServlet extends HttpServlet {
       mpz_nextprime(p, p);
       mpz_get_str(buf, 10, p);
       var primeNumber = buf.getString(0);
+      list.add(primeNumber);
+    }
+    for (String primeNumber : list) {
       writer.print("<li><a href=\"https://factordb.com/index.php?query=");
       writer.print(primeNumber);
       writer.print("\" target=\"_blank\">");
       writer.print(primeNumber);
       writer.println("</a></li>");
     }
+    savedPrimes.addAll(list);
+    session.setAttribute("savedPrimes", savedPrimes);
     writer.println("</ul>");
-    writer.println("<a href=\"../\">トップページに戻る</a>");
+    writer.println("<a href=\"./viewer\">作った素数を見る</a>");
+    writer.println("<a href=\"../../\">トップページに戻る</a>");
     writer.println("</body>");
     writer.println("</html>");
   }

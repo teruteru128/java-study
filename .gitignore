@@ -203,3 +203,5 @@ http-client.private.env.json
 *.der
 *.pem
 *.p12
+
+logs/

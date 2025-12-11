@@ -1,5 +1,6 @@
 package com.github.teruteru128.sample.sql;
 
+import com.github.teruteru128.sample.Sample;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -8,8 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-
-import com.github.teruteru128.sample.Sample;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -18,51 +17,60 @@ import org.sqlite.SQLiteDataSource;
 
 public class SQLiteConnectSample extends HttpServlet implements Sample {
 
-    public SQLiteConnectSample() {
-        super();
+  private DataSource dataSource = null;
+
+  public SQLiteConnectSample() {
+    super();
+  }
+
+  public static void sample(String url) throws SQLException {
+    var dataSource = new SQLiteDataSource();
+    dataSource.setUrl(url);
+    try (var con = dataSource.getConnection()) {
+      System.out.println("connected!");
     }
+  }
 
-    public static void sample(String url) throws SQLException {
-        var dataSource = new SQLiteDataSource();
-        dataSource.setUrl(url);
-        try (var con = dataSource.getConnection()) {
-            System.out.println("connected!");
-        }
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    super.init(config);
+    try {
+      var initialContext = new InitialContext();
+      var envContext = (Context) initialContext.lookup("java:comp/env");
+      dataSource = (DataSource) envContext.lookup("jdbc/SQLiteDataSource");
+    } catch (NamingException e) {
+      throw new ServletException(e);
     }
+  }
 
-    private DataSource dataSource = null;
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
 
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        try {
-            var initialContext = new InitialContext();
-            var envContext = (Context)initialContext.lookup("java:comp/env");
-            dataSource = (DataSource) envContext.lookup("jdbc/SQLiteDataSource");
-        } catch (NamingException e) {
-            throw new ServletException(e);
-        }
+    resp.setCharacterEncoding(StandardCharsets.UTF_8);
+    resp.setContentType("text/html");
+    var writer = resp.getWriter();
+    writer.println("<!DOCTYPE html>");
+    writer.println("<html lang=\"ja\">");
+    writer.println("<head>");
+    writer.println("<title>SQLite接続テストページ</title>");
+    writer.println("</head>");
+    writer.println("<body>");
+    try {
+      try (var con = dataSource.getConnection()) {
+        writer.println("Success!");
+      }
+    } catch (SQLException e) {
+      writer.println("Fail!");
+      e.printStackTrace(writer);
     }
+    writer.println("<a href=\"../\">トップページに戻る</a>");
+    writer.println("</body>");
+    writer.println("</html>");
+  }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-        throws ServletException, IOException {
-
-        resp.setCharacterEncoding(StandardCharsets.UTF_8);
-        resp.setContentType("text/plain");
-        var writer = resp.getWriter();
-        try {
-            try (var con = dataSource.getConnection()) {
-                writer.println("Success!");
-            }
-        } catch (SQLException e) {
-            writer.println("Fail!");
-            e.printStackTrace(writer);
-        }
-    }
-
-    @Override
-    public void sample() throws Exception {
-        sample("");
-    }
+  @Override
+  public void sample() throws Exception {
+    sample("");
+  }
 }

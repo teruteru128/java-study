@@ -21,5 +21,6 @@ public class HeaderIncludeServlet extends HttpServlet {
     writer.println("<title>フォワードテスト</title>");
     writer.println("</head>");
     writer.println("<body>");
+    writer.flush();
   }
 }
