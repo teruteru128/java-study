@@ -5,6 +5,10 @@ import com.github.teruteru128.sample.forward.FooterIncludeServlet;
 import com.github.teruteru128.sample.forward.ForwardStep1Servlet;
 import com.github.teruteru128.sample.forward.ForwardStep2Servlet;
 import com.github.teruteru128.sample.forward.HeaderIncludeServlet;
+import com.github.teruteru128.sample.primes.PrimesAllDeleteServlet;
+import com.github.teruteru128.sample.primes.PrimesCounterServlet;
+import com.github.teruteru128.sample.primes.PrimesCreateServlet;
+import com.github.teruteru128.sample.primes.PrimesViewerServlet;
 import com.github.teruteru128.sample.sql.SQLiteConnectSample;
 import jakarta.servlet.http.HttpServletResponse;
 import java.nio.file.Path;
@@ -106,13 +110,21 @@ public class Main {
     tomcat.addServlet(contextPath, hashServletName, new HashServlet());
     context.addServletMappingDecoded("/api/hash/*", hashServletName);
 
-    var primesServletName = "PrimesServlet";
-    tomcat.addServlet(contextPath, primesServletName, new PrimesServlet());
-    context.addServletMappingDecoded("/api/primes/create", primesServletName);
+    var primesCreateServletName = "PrimesServlet";
+    tomcat.addServlet(contextPath, primesCreateServletName, new PrimesCreateServlet());
+    context.addServletMappingDecoded("/api/primes/create", primesCreateServletName);
 
     var primesViewerServletName = "PrimesViewerServlet";
     tomcat.addServlet(contextPath, primesViewerServletName, new PrimesViewerServlet());
     context.addServletMappingDecoded("/api/primes/viewer", primesViewerServletName);
+
+    var primesCounterServletName = "PrimesCounterServlet";
+    tomcat.addServlet(contextPath, primesCounterServletName, new PrimesCounterServlet());
+    context.addServletMappingDecoded("/api/primes/counter", primesCounterServletName);
+
+    var primesAllDeleteServletName = "PrimesAllDeleteServlet";
+    tomcat.addServlet(contextPath, primesAllDeleteServletName, new PrimesAllDeleteServlet());
+    context.addServletMappingDecoded("/api/primes/delete/all", primesAllDeleteServletName);
 
     var doSName = "DoSServlet";
     tomcat.addServlet(contextPath, doSName, new DoSServlet());

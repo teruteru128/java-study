@@ -1,4 +1,4 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.primes;
 
 import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
 import static com.github.teruteru128.gmp.gmp_h.mpz_add;
@@ -24,17 +24,26 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.IntStream;
 
-public class PrimesServlet extends HttpServlet {
+public class PrimesCreateServlet extends HttpServlet {
 
   private final Arena auto = Arena.ofAuto();
+  private final ThreadLocal<MemorySegment> buf2ThreadLocal = ThreadLocal.withInitial(()-> auto.allocate(21));
+  private final ThreadLocal<MemorySegment> qThreadLocal = ThreadLocal.withInitial(()->{
+    var q = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(q);
+    return q;
+  });
   private final MemorySegment state = __gmp_randstate_struct.allocate(auto)
       .reinterpret(auto, gmp_h::gmp_randclear);
   private final MemorySegment window = __mpz_struct.allocate(auto)
       .reinterpret(auto, gmp_h::mpz_clear);
   private final MemorySegment min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
 
-  public PrimesServlet() {
+  public PrimesCreateServlet() {
     mpz_init_set_ui(min, 10);
     mpz_pow_ui(min, min, 18);
     var max = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
@@ -62,10 +71,11 @@ public class PrimesServlet extends HttpServlet {
     writer.println("<head>");
     writer.println("</head>");
     writer.println("<body>");
-    var savedPrimes = (ArrayList<String>) session.getAttribute("savedPrimes");
+    @SuppressWarnings("unchecked")
+    List<String> savedPrimes = (List<String>) session.getAttribute("savedPrimes");
 
     if (savedPrimes == null) {
-      savedPrimes = new ArrayList<>();
+      savedPrimes = new LinkedList<>();
     }
 
     var h = req.getParameter("q");
@@ -77,16 +87,34 @@ public class PrimesServlet extends HttpServlet {
       return;
     }
     writer.println("<ul>");
-    var list = new ArrayList<String>();
-    for (int i = 0; i < n; i++) {
-      synchronized (state) {
-        mpz_urandomm(p, state, window);
+    var list = new LinkedList<String>();
+    if (n < 1000) {
+      for (int i = 0; i < n; i++) {
+        synchronized (state) {
+          mpz_urandomm(p, state, window);
+        }
+        mpz_add(p, p, min);
+        mpz_nextprime(p, p);
+        mpz_get_str(buf, 10, p);
+        var primeNumber = buf.getString(0);
+        list.add(primeNumber);
       }
-      mpz_add(p, p, min);
-      mpz_nextprime(p, p);
-      mpz_get_str(buf, 10, p);
-      var primeNumber = buf.getString(0);
-      list.add(primeNumber);
+    } else {
+      IntStream.range(0, n).parallel().mapToObj(i -> {
+        var q = qThreadLocal.get();
+        synchronized (state) {
+          mpz_urandomm(q, state, window);
+        }
+        mpz_add(q, q, min);
+        mpz_nextprime(q, q);
+        var buf2 = buf2ThreadLocal.get();
+        mpz_get_str(buf2, 10, q);
+        return buf2.getString(0);
+      }).forEach(e -> {
+        synchronized (list) {
+          list.add(e);
+        }
+      });
     }
     for (String primeNumber : list) {
       writer.print("<li><a href=\"https://factordb.com/index.php?query=");
@@ -95,12 +123,13 @@ public class PrimesServlet extends HttpServlet {
       writer.print(primeNumber);
       writer.println("</a></li>");
     }
-    savedPrimes.addAll(list);
-    session.setAttribute("savedPrimes", savedPrimes);
     writer.println("</ul>");
     writer.println("<a href=\"./viewer\">作った素数を見る</a>");
     writer.println("<a href=\"../../\">トップページに戻る</a>");
     writer.println("</body>");
     writer.println("</html>");
+    writer.flush();
+    savedPrimes.addAll(list);
+    session.setAttribute("savedPrimes", savedPrimes);
   }
 }

@@ -14,4 +14,5 @@ module com.github.teruteru.sample {
   exports com.github.teruteru128.sample;
   exports com.github.teruteru128.sample.dynamic;
   exports com.github.teruteru128.sample.forward;
+  exports com.github.teruteru128.sample.primes;
 }

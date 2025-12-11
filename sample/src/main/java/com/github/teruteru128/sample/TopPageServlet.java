@@ -54,6 +54,8 @@ public class TopPageServlet extends HttpServlet {
     writer.println("<a href=\"/api/hash/aaaaa\">hash 3</a>");
     writer.println("<a href=\"/api/primes/create?q=5\">primes</a>");
     writer.println("<a href=\"/api/primes/viewer\">primes viewer</a>");
+    writer.println("<a href=\"/api/primes/counter\">primes counter</a>");
+    writer.println("<a href=\"/api/primes/delete/all\">primes all delete</a>");
     writer.println("</div>");
     writer.println("<ul>");
     for (var e = session.getAttributeNames(); e.hasMoreElements(); ) {

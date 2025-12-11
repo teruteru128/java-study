@@ -1,4 +1,4 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.primes;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * これセッションで作ったはいいけど本来はDBに作るやつだよな
@@ -26,7 +27,7 @@ public class PrimesViewerServlet extends HttpServlet {
     writer.println("<body>");
     var session = req.getSession();
     @SuppressWarnings("unchecked")
-    var savedPrimes = (ArrayList<String>) session.getAttribute("savedPrimes");
+    var savedPrimes = (List<String>) session.getAttribute("savedPrimes");
     if (savedPrimes == null || savedPrimes.isEmpty()) {
       writer.println(
           "なんもあらんかったわ、<a href=\"./create?q=20\">あっち</a>で素数作ってきてな！");
