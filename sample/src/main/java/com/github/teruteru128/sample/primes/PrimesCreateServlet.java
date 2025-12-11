@@ -15,6 +15,7 @@ import com.github.teruteru128.gmp.__gmp_randstate_struct;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;
 import com.github.teruteru128.study.Factory;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,16 +24,20 @@ import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 public class PrimesCreateServlet extends HttpServlet {
 
   private final Arena auto = Arena.ofAuto();
-  private final ThreadLocal<MemorySegment> buf2ThreadLocal = ThreadLocal.withInitial(()-> auto.allocate(21));
-  private final ThreadLocal<MemorySegment> qThreadLocal = ThreadLocal.withInitial(()->{
+  private final ThreadLocal<MemorySegment> buf2ThreadLocal = ThreadLocal.withInitial(
+      () -> auto.allocate(21));
+  private final ThreadLocal<MemorySegment> qThreadLocal = ThreadLocal.withInitial(() -> {
     var q = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(q);
     return q;
@@ -42,6 +47,7 @@ public class PrimesCreateServlet extends HttpServlet {
   private final MemorySegment window = __mpz_struct.allocate(auto)
       .reinterpret(auto, gmp_h::mpz_clear);
   private final MemorySegment min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+  private volatile DataSource dataSource = null;
 
   public PrimesCreateServlet() {
     mpz_init_set_ui(min, 10);
@@ -54,6 +60,18 @@ public class PrimesCreateServlet extends HttpServlet {
     mpz_sub(window, max, min);
     gmp_randinit_default(state);
     Factory.seedRandomState(state);
+  }
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    super.init(config);
+    try {
+      var initialContext = new InitialContext();
+      var envContext = (Context) initialContext.lookup("java:comp/env");
+      dataSource = (DataSource) envContext.lookup("jdbc/SQLiteDataSource");
+    } catch (NamingException e) {
+      throw new ServletException(e);
+    }
   }
 
   @Override
@@ -71,8 +89,8 @@ public class PrimesCreateServlet extends HttpServlet {
     writer.println("<head>");
     writer.println("</head>");
     writer.println("<body>");
-    @SuppressWarnings("unchecked")
-    List<String> savedPrimes = (List<String>) session.getAttribute("savedPrimes");
+    @SuppressWarnings("unchecked") List<String> savedPrimes = (List<String>) session.getAttribute(
+        "savedPrimes");
 
     if (savedPrimes == null) {
       savedPrimes = new LinkedList<>();

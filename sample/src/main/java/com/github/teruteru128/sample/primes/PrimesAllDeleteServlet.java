@@ -22,11 +22,15 @@ public class PrimesAllDeleteServlet extends HttpServlet {
     writer.println("</head>");
     writer.println("<body>");
     var session = req.getSession();
-    @SuppressWarnings("unchecked")
-    var savedPrimes = (List<String>) session.getAttribute("savedPrimes");
-    savedPrimes.clear();
-    session.setAttribute("savedPrimes", savedPrimes);
-    writer.println("削除しました");
+    @SuppressWarnings("unchecked") var savedPrimes = (List<String>) session.getAttribute(
+        "savedPrimes");
+    if (savedPrimes == null) {
+      writer.println("リストが存在しませんでした");
+    } else {
+      savedPrimes.clear();
+      session.setAttribute("savedPrimes", savedPrimes);
+      writer.println("削除しました");
+    }
     writer.println("<a href=\"/\">トップページに戻る</a>");
     writer.println("</body>");
     writer.println("</html>");
