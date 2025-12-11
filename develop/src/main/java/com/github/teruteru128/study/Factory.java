@@ -24,6 +24,7 @@ import static com.github.teruteru128.gmp.gmp_h.mpz_mul_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
 import static com.github.teruteru128.gmp.gmp_h.mpz_powm;
+import static com.github.teruteru128.gmp.gmp_h.mpz_prevprime;
 import static com.github.teruteru128.gmp.gmp_h.mpz_probab_prime_p;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set;
 import static com.github.teruteru128.gmp.gmp_h.mpz_set_ui;
@@ -36,6 +37,8 @@ import static com.github.teruteru128.study.FactorDBSpamming.ID_ENDPOINT;
 import static com.github.teruteru128.study.FactorDBSpamming.OBJECT_MAPPER;
 import static com.github.teruteru128.study.FactorDBSpamming.QUERY_ENDPOINT;
 import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_fits_ulong_p;
+import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_get_u64;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.ADDRESS;
@@ -79,6 +82,7 @@ import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
@@ -2210,8 +2214,7 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int createLargeSieve2(Path outPath, Path inPath, Path smallSieve)
-      throws IOException {
+  public int createLargeSieve2(Path outPath, Path inPath, Path smallSieve) throws IOException {
     // 332,192,807bit number -> 460,517,015 bit sieve
     var arrayLength = (460517015 + 63) / 64;
     //var buffer = new long[arrayLength];
@@ -2226,6 +2229,31 @@ public class Factory implements Callable<Integer> {
         }
       }
     }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int largestPrimeInDigits(int initDigits, int maxDigits, Path out) throws IOException {
+    var auto = Arena.ofAuto();
+    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(n);
+    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(p);
+    var diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    mpz_init(diff);
+    var list = new ArrayList<String>(maxDigits - initDigits);
+    for (int i = initDigits; i < maxDigits; i++) {
+      mpz_set_ui(n, 10);
+      mpz_pow_ui(n, n, i);
+      mpz_prevprime(p, n);
+      mpz_sub(diff, n, p);
+      if (mpz_fits_ulong_p(diff)) {
+        list.add("https://factordb.com/index.php?query=" + URLEncoder.encode(
+            "10^" + i + "-" + mpz_get_u64(diff), UTF_8));
+      }
+      System.err.println(i);
+    }
+    Files.write(out, list, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
     return EXIT_CODE_OK;
   }
 

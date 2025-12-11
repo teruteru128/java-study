@@ -1,6 +1,15 @@
 package com.github.teruteru128.sample;
 
-import static com.github.teruteru128.gmp.gmp_h.*;
+import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
+import static com.github.teruteru128.gmp.gmp_h.mpz_add;
+import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init;
+import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
+import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sub;
+import static com.github.teruteru128.gmp.gmp_h.mpz_sub_ui;
+import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
 
 import com.github.teruteru128.gmp.__gmp_randstate_struct;
 import com.github.teruteru128.gmp.__mpz_struct;
@@ -45,14 +54,21 @@ public class PrimesServlet extends HttpServlet {
     try {
       n = Integer.parseInt(h);
     } catch (NumberFormatException e) {
+      resp.sendRedirect("/index.html");
       return;
     }
     resp.setCharacterEncoding(StandardCharsets.UTF_8);
-    resp.setContentType("text/plain");
+    resp.setContentType("text/html");
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(p);
     var buf = auto.allocate(21);
     var writer = resp.getWriter();
+    writer.println("<!DOCTYPE html>");
+    writer.println("<html lang=\"ja\">");
+    writer.println("<head>");
+    writer.println("</head>");
+    writer.println("<body>");
+    writer.println("<ul>");
     for (int i = 0; i < n; i++) {
       synchronized (state) {
         mpz_urandomm(p, state, window);
@@ -60,7 +76,16 @@ public class PrimesServlet extends HttpServlet {
       mpz_add(p, p, min);
       mpz_nextprime(p, p);
       mpz_get_str(buf, 10, p);
-      writer.println(buf.getString(0));
+      var primeNumber = buf.getString(0);
+      writer.print("<li><a href=\"https://factordb.com/index.php?query=");
+      writer.print(primeNumber);
+      writer.print("\" target=\"_blank\">");
+      writer.print(primeNumber);
+      writer.println("</a></li>");
     }
+    writer.println("</ul>");
+    writer.println("<a href=\"../\">トップページに戻る</a>");
+    writer.println("</body>");
+    writer.println("</html>");
   }
 }

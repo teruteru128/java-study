@@ -14,16 +14,27 @@ public class DoSServlet extends HttpServlet {
       throws ServletException, IOException {
     resp.setBufferSize(8192);
     var h = req.getParameter("q");
+    var s = req.getParameter("l");
     long n;
     try {
       n = Long.parseLong(h);
     } catch (NumberFormatException e) {
       return;
     }
+    int l;
+    if (s != null) {
+      try {
+        l = Integer.parseInt(s);
+      } catch (NumberFormatException e) {
+        l = 72;
+      }
+    } else {
+      l = 72;
+    }
     resp.setCharacterEncoding(StandardCharsets.UTF_8);
     resp.setContentType("text/plain");
     var writer = resp.getWriter();
-    var repeat = "1".repeat(72);
+    var repeat = "1".repeat(l);
     for (var i = 0L; i < n; i++) {
       writer.println(repeat);
     }
