@@ -7,7 +7,6 @@ module com.github.teruteru.bitmessage {
     requires org.slf4j;
     requires com.github.teruteru.encode;
     requires tools.jackson.databind;
-    requires org.openapitools.jackson.nullable;
     requires info.picocli;
 
     exports com.github.teruteru128.bitmessage;

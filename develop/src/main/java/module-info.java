@@ -16,7 +16,6 @@ module com.github.teruteru.study {
   requires org.apache.commons.statistics.distribution;
   //requires org.apache.commons.codec;
   requires org.xerial.sqlitejdbc;
-  requires org.openapitools.jackson.nullable;
   requires org.slf4j;
 
   // guava

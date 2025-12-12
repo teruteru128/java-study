@@ -79,9 +79,6 @@ dependencies {
     // https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind
     implementation 'tools.jackson.core:jackson-databind:3.0.3'
 
-    // https://mvnrepository.com/artifact/org.openapitools/jackson-databind-nullable
-    implementation 'org.openapitools:jackson-databind-nullable:0.2.8'
-
     // https://mvnrepository.com/artifact/tools.jackson.dataformat/jackson-dataformat-yaml
     implementation 'tools.jackson.dataformat:jackson-dataformat-yaml:3.0.3'
 
