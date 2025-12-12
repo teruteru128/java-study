@@ -51,7 +51,7 @@ import static java.net.URI.create;
 import static java.net.URLEncoder.encode;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.Message;
 import com.github.teruteru128.encode.Base58;

@@ -14,7 +14,7 @@ import static com.github.teruteru128.study.Factory.seedRandomState;
 import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import static com.github.teruteru128.study.FactorDBSpamming.OBJECT_MAPPER;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import com.github.teruteru128.gmp.__gmp_randstate_struct;
 import com.github.teruteru128.gmp.__mpz_struct;
 import com.github.teruteru128.gmp.gmp_h;

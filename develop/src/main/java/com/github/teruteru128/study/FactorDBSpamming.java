@@ -1,6 +1,6 @@
 package com.github.teruteru128.study;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class FactorDBSpamming {
 

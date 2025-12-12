@@ -58,6 +58,10 @@ public class TopPageServlet extends HttpServlet {
     writer.println("<a href=\"/api/primes/delete/all\">primes all delete</a>");
     writer.println("</div>");
     writer.println("<ul>");
+    var maxInactiveInterval = session.getMaxInactiveInterval();
+    if (maxInactiveInterval > 0) {
+      session.setMaxInactiveInterval(0);
+    }
     for (var e = session.getAttributeNames(); e.hasMoreElements(); ) {
       writer.println("<li>");
       writer.println(e.nextElement());

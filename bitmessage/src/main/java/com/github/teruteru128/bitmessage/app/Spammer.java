@@ -2,7 +2,7 @@ package com.github.teruteru128.bitmessage.app;
 
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.github.teruteru128.bitmessage.Structs;
 import com.github.teruteru128.encode.Base58;
 import java.io.IOException;

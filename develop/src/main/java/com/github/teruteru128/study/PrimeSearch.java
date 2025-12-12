@@ -7,7 +7,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
 import java.io.Serializable;
 import java.lang.foreign.MemorySegment;
 import java.math.BigInteger;
@@ -108,65 +107,6 @@ public class PrimeSearch implements Callable<Void> {
       base = (BigInteger) ois.readObject();
     }
     return base;
-  }
-
-  static long[] loadSmallSieve(Path path) throws IOException, ClassNotFoundException {
-    long[] smallSieve;
-    try (var ois = new ObjectInputStream(
-        new BufferedInputStream(Files.newInputStream(path), Factory.ARRAY_ELEMENTS_MAX))) {
-      try {
-        smallSieve = (long[]) ois.readObject();
-      } catch (OptionalDataException e) {
-        if (!e.eof) {
-          var length = ois.readLong();
-          var i1 = unitIndex(length - 1) + 1;
-          if (i1 == Factory.ARRAY_ELEMENTS_MAX) {
-            smallSieve = new long[i1];
-            for (int i = 0; i < i1; i++) {
-              smallSieve[i] = ois.readLong();
-            }
-          } else {
-            smallSieve = (long[]) ois.readObject();
-          }
-        } else {
-          throw e;
-        }
-      }
-    }
-    return smallSieve;
-  }
-
-  static long[] setBitsForNonPrimeNumbers(long[] smallSieve, BigInteger base, int searchLen) {
-    long[] bis = new long[unitIndex(searchLen - 1) + 1];
-    long start = 0;
-    final var limit = smallSieve.length * 64L;
-    long step = sieveSearch(smallSieve, limit, start);
-    long convertedStep = (step * 2) + 1;
-    do {
-      start = base.mod(BigInteger.valueOf(convertedStep)).longValueExact();
-
-      start = convertedStep - start;
-      if ((start & 1) == 0) {
-        start += convertedStep;
-      }
-      sieveSingle(bis, searchLen, (start - 1) / 2, convertedStep);
-
-      step = sieveSearch(smallSieve, limit, step + 1);
-      convertedStep = (step * 2L) + 1;
-    } while (step > 0);
-    return bis;
-  }
-
-  private static void randomSample() throws NoSuchAlgorithmException {
-    var start = new BigInteger(1024, SecureRandom.getInstanceStrong());
-    var startBitLength = start.bitLength();
-    var fixed = new BigInteger(new BigInteger(start.toString(13), 16).toString(15), 17);
-    var fixedBitLength = fixed.bitLength();
-    var done = fixed.shiftRight(fixedBitLength - startBitLength);
-    int doneBitLength = done.bitLength();
-    System.out.printf("%dbit: %0256x%n", startBitLength, start);
-    System.out.printf("%dbit: %0256x%n", fixedBitLength, fixed);
-    System.out.printf("%dbit: %0256x%n", doneBitLength, done);
   }
 
   /**

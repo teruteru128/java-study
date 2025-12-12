@@ -39,8 +39,8 @@ module com.github.teruteru.study {
   requires com.github.teruteru.foreign.opencl;
   requires com.github.teruteru.foreign.mpfr;
   requires com.github.teruteru.foreign;
-  requires com.fasterxml.jackson.dataformat.yaml;
-  requires com.fasterxml.jackson.databind;
+  requires tools.jackson.dataformat.yaml;
+  requires tools.jackson.databind;
   requires java.desktop;
   requires org.apache.commons.io;
   requires org.jetbrains.annotations;

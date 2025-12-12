@@ -8,6 +8,8 @@ java {
     }
 }
 
+version = '1.1.0-SNAPSHOT'
+
 application {
     mainModule = 'com.github.teruteru.sample'
     mainClass = 'com.github.teruteru128.sample.Main'

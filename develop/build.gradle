@@ -80,10 +80,10 @@ dependencies {
     implementation 'tools.jackson.core:jackson-databind:3.0.3'
 
     // https://mvnrepository.com/artifact/org.openapitools/jackson-databind-nullable
-    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.8'
 
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.1'
+    // https://mvnrepository.com/artifact/tools.jackson.dataformat/jackson-dataformat-yaml
+    implementation 'tools.jackson.dataformat:jackson-dataformat-yaml:3.0.3'
 
     // https://picocli.info/
     // https://mvnrepository.com/artifact/info.picocli/picocli

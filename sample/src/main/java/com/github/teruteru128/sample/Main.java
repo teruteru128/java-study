@@ -5,6 +5,7 @@ import com.github.teruteru128.sample.forward.FooterIncludeServlet;
 import com.github.teruteru128.sample.forward.ForwardStep1Servlet;
 import com.github.teruteru128.sample.forward.ForwardStep2Servlet;
 import com.github.teruteru128.sample.forward.HeaderIncludeServlet;
+import com.github.teruteru128.sample.kdf.PBKDF2Servlet;
 import com.github.teruteru128.sample.primes.PrimesAllDeleteServlet;
 import com.github.teruteru128.sample.primes.PrimesCounterServlet;
 import com.github.teruteru128.sample.primes.PrimesCreateServlet;
@@ -129,6 +130,10 @@ public class Main {
     var doSName = "DoSServlet";
     tomcat.addServlet(contextPath, doSName, new DoSServlet());
     context.addServletMappingDecoded("/api/dos", doSName);
+
+    var pbkdf2ServletName = "Pbkdf2Servlet";
+    tomcat.addServlet(contextPath, pbkdf2ServletName, new PBKDF2Servlet());
+    context.addServletMappingDecoded("/api/pbkdf2", pbkdf2ServletName);
 
     context.addMimeMapping("html", "text/html");
 
