@@ -63,7 +63,7 @@ public class SQLiteConnectSample extends HttpServlet implements Sample {
       writer.println("Fail!");
       e.printStackTrace(writer);
     }
-    writer.println("<a href=\"../\">トップページに戻る</a>");
+    writer.println("<a href=\"/\">トップページに戻る</a>");
     writer.println("</body>");
     writer.println("</html>");
   }

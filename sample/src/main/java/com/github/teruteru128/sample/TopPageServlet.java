@@ -51,7 +51,8 @@ public class TopPageServlet extends HttpServlet {
     writer.println("<a href=\"/api/forward1\">forward sample page</a>");
     writer.println("</div>");
     writer.println("<div>");
-    writer.println("<a href=\"/api/sqlite\">sqlite</a>");
+    writer.println("<a href=\"/test/sqlite\">sqlite test</a>");
+    writer.println("<a href=\"/test/ec\">ec test</a>");
     writer.println("</div>");
     writer.println("<div>");
     writer.println("<a href=\"/api/hash\">hash 1</a>");
@@ -67,11 +68,18 @@ public class TopPageServlet extends HttpServlet {
     writer.println("<div>");
     writer.println("<a href=\"/api/pbkdf2\">pbkdf2 sample</a>");
     writer.println("</div>");
+    writer.println("<div>");
+    writer.println("<a href=\"/user/login\">login</a>");
+    writer.println("<a href=\"/user/register\">register</a>");
+    writer.println("</div>");
     writer.println("<ul>");
     for (var e = session.getAttributeNames(); e.hasMoreElements(); ) {
       writer.println("<li>");
-      writer.println(e.nextElement());
-      writer.println("</li>");
+      var attributeName = e.nextElement();
+      writer.print(attributeName);
+      writer.print("[");
+      writer.print(session.getAttribute(attributeName).getClass().getName());
+      writer.println("]</li>");
     }
     writer.println("<li>session id: " + session.getId() + "</li>");
     var offset = ZoneOffset.ofHours(9);

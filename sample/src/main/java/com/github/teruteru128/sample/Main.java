@@ -1,6 +1,7 @@
 package com.github.teruteru128.sample;
 
 import com.github.teruteru128.sample.dynamic.DynamicServiceServlet;
+import com.github.teruteru128.sample.ec.ECKeyGenerateSample;
 import com.github.teruteru128.sample.forward.FooterIncludeServlet;
 import com.github.teruteru128.sample.forward.ForwardStep1Servlet;
 import com.github.teruteru128.sample.forward.ForwardStep2Servlet;
@@ -12,6 +13,7 @@ import com.github.teruteru128.sample.primes.PrimesCreateServlet;
 import com.github.teruteru128.sample.primes.PrimesListInitFilter;
 import com.github.teruteru128.sample.primes.PrimesViewerServlet;
 import com.github.teruteru128.sample.sql.SQLiteConnectSample;
+import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -63,16 +65,13 @@ public class Main {
 
     context.setSessionTimeout(0);
 
-    var resource = new ContextResource();
-    resource.setName("jdbc/SQLiteDataSource");
-    resource.setType("javax.sql.DataSource");
-    // factory を書き換えないとデフォルトのファクトリーではモジュール競合で参照不可
-    resource.setProperty("factory", "org.apache.tomcat.jdbc.pool.DataSourceFactory");
-    resource.setProperty("driverClassName", "org.sqlite.JDBC");
-    resource.setProperty("url", "jdbc:sqlite:test.db");
-    resource.setProperty("username", "");
-    resource.setProperty("password", "");
-    context.getNamingResources().addResource(resource);
+    var namingResources = context.getNamingResources();
+
+    namingResources.addResource(getJDBCContextResource("jdbc/SQLiteDataSource", "org.sqlite.JDBC",
+        "jdbc:sqlite:sample.db", "", ""));
+    // postgresqlはDBサーバーがないと例外を吐くので注意
+    /*namingResources.addResource(getJDBCContextResource("jdbc/PostgresDataSource",
+        "org.postgresql.Driver", "jdbc:postgresql://localhost:5432/postgres", "", ""));*/
 
     var defaultServlet = "DefaultServlet";
     tomcat.addServlet(contextPath, defaultServlet, new DefaultServlet());
@@ -120,7 +119,11 @@ public class Main {
 
     var SQLiteConnectSampleName = "SQLiteConnectSample";
     tomcat.addServlet(contextPath, SQLiteConnectSampleName, new SQLiteConnectSample());
-    context.addServletMappingDecoded("/api/sqlite", SQLiteConnectSampleName);
+    context.addServletMappingDecoded("/test/sqlite", SQLiteConnectSampleName);
+
+    var ECKeyGenerateSampleName = "ECKeyGenerateSample";
+    tomcat.addServlet(contextPath, ECKeyGenerateSampleName, new ECKeyGenerateSample());
+    context.addServletMappingDecoded("/test/ec", ECKeyGenerateSampleName);
 
     var hashServletName = "HashServlet";
     tomcat.addServlet(contextPath, hashServletName, new HashServlet());
@@ -192,5 +195,20 @@ public class Main {
     } catch (LifecycleException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @Nonnull
+  private static ContextResource getJDBCContextResource(String name, String driverClassName,
+      String url, String username, String password) {
+    var contextResource = new ContextResource();
+    contextResource.setName(name);
+    contextResource.setType("javax.sql.DataSource");
+    // factory を書き換えないとデフォルトのファクトリーではモジュール競合で参照不可
+    contextResource.setProperty("factory", "org.apache.tomcat.jdbc.pool.DataSourceFactory");
+    contextResource.setProperty("driverClassName", driverClassName);
+    contextResource.setProperty("url", url);
+    contextResource.setProperty("username", username);
+    contextResource.setProperty("password", password);
+    return contextResource;
   }
 }
