@@ -12,7 +12,6 @@ public class ForwardStep2Servlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    resp.setCharacterEncoding(StandardCharsets.UTF_8);
     resp.setContentType("text/html");
     req.getRequestDispatcher("/api/header").include(req, resp);
     var writer = resp.getWriter();

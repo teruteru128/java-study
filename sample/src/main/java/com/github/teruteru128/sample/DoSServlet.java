@@ -31,7 +31,6 @@ public class DoSServlet extends HttpServlet {
     } else {
       l = 72;
     }
-    resp.setCharacterEncoding(StandardCharsets.UTF_8);
     resp.setContentType("text/plain");
     var writer = resp.getWriter();
     var repeat = "1".repeat(l);

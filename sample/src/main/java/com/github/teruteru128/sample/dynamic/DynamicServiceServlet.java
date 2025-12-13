@@ -12,7 +12,6 @@ public class DynamicServiceServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    resp.setCharacterEncoding(StandardCharsets.UTF_8);
     resp.setContentType("text/plain");
     var writer = resp.getWriter();
     // Dynamic content generation

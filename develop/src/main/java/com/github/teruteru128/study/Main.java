@@ -17,7 +17,7 @@ public class Main {
                 var subclass = clazz.asSubclass(Provider.class);
                 var constructor = subclass.getConstructor();
                 var provider = constructor.newInstance();
-                Security.addProvider(provider);
+                Security.insertProviderAt(provider, 1);
             }
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
                  IllegalArgumentException | InvocationTargetException | SecurityException e) {

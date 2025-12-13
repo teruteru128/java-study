@@ -78,7 +78,6 @@ public class PrimesCreateServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     var session = req.getSession();
-    resp.setCharacterEncoding(StandardCharsets.UTF_8);
     resp.setContentType("text/html");
     var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(p);
@@ -91,10 +90,6 @@ public class PrimesCreateServlet extends HttpServlet {
     writer.println("<body>");
     @SuppressWarnings("unchecked") List<String> savedPrimes = (List<String>) session.getAttribute(
         "savedPrimes");
-
-    if (savedPrimes == null) {
-      savedPrimes = new LinkedList<>();
-    }
 
     var h = req.getParameter("q");
     int n;

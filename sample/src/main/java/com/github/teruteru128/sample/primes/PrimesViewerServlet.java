@@ -17,7 +17,6 @@ public class PrimesViewerServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    resp.setCharacterEncoding(StandardCharsets.UTF_8);
     resp.setContentType("text/html");
     var writer = resp.getWriter();
     writer.println("<!DOCTYPE html>");
@@ -28,7 +27,7 @@ public class PrimesViewerServlet extends HttpServlet {
     var session = req.getSession();
     @SuppressWarnings("unchecked")
     var savedPrimes = (List<String>) session.getAttribute("savedPrimes");
-    if (savedPrimes == null || savedPrimes.isEmpty()) {
+    if (savedPrimes.isEmpty()) {
       writer.println(
           "なんもあらんかったわ、<a href=\"./create?q=20\">あっち</a>で素数作ってきてな！");
     } else {

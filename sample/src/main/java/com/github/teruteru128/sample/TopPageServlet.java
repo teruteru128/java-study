@@ -36,7 +36,6 @@ public class TopPageServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     var session = req.getSession();
-    resp.setCharacterEncoding(StandardCharsets.UTF_8);
     resp.setContentType("text/html");
     var writer = resp.getWriter();
     writer.println("<!DOCTYPE html>");
@@ -47,15 +46,26 @@ public class TopPageServlet extends HttpServlet {
     writer.println("<body>");
     writer.println("<div>");
     writer.println("<a href=\"/api/hello\">hello</a>");
+    writer.println("</div>");
+    writer.println("<div>");
     writer.println("<a href=\"/api/forward1\">forward sample page</a>");
+    writer.println("</div>");
+    writer.println("<div>");
     writer.println("<a href=\"/api/sqlite\">sqlite</a>");
+    writer.println("</div>");
+    writer.println("<div>");
     writer.println("<a href=\"/api/hash\">hash 1</a>");
     writer.println("<a href=\"/api/hash/\">hash 2</a>");
     writer.println("<a href=\"/api/hash/aaaaa\">hash 3</a>");
-    writer.println("<a href=\"/api/primes/create?q=5\">primes</a>");
+    writer.println("</div>");
+    writer.println("<div>");
+    writer.println("<a href=\"/api/primes/create?q=5\">create 5 primes</a>");
     writer.println("<a href=\"/api/primes/viewer\">primes viewer</a>");
     writer.println("<a href=\"/api/primes/counter\">primes counter</a>");
     writer.println("<a href=\"/api/primes/delete/all\">primes all delete</a>");
+    writer.println("</div>");
+    writer.println("<div>");
+    writer.println("<a href=\"/api/pbkdf2\">pbkdf2 sample</a>");
     writer.println("</div>");
     writer.println("<ul>");
     var maxInactiveInterval = session.getMaxInactiveInterval();
@@ -74,6 +84,11 @@ public class TopPageServlet extends HttpServlet {
     writer.println("<li>getLastAccessedTime:" + OffsetDateTime.ofInstant(
         Instant.ofEpochMilli(session.getLastAccessedTime()), offset) + "</li>");
     writer.println("<li>getMaxInactiveInterval:" + session.getMaxInactiveInterval() + "</li>");
+    writer.println("</ul>");
+    writer.println("<ul>");
+    writer.print("<li>");
+    writer.print("<li>");
+    writer.println("</li>");
     writer.println("</ul>");
     writer.println("</body>");
     writer.println("</html>");

@@ -12,7 +12,6 @@ public class HeaderIncludeServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    resp.setCharacterEncoding(StandardCharsets.UTF_8);
     resp.setContentType("text/html");
     var writer = resp.getWriter();
     writer.println("<!DOCTYPE html>");

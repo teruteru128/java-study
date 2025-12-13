@@ -9,10 +9,13 @@ import com.github.teruteru128.sample.kdf.PBKDF2Servlet;
 import com.github.teruteru128.sample.primes.PrimesAllDeleteServlet;
 import com.github.teruteru128.sample.primes.PrimesCounterServlet;
 import com.github.teruteru128.sample.primes.PrimesCreateServlet;
+import com.github.teruteru128.sample.primes.PrimesListInitFilter;
 import com.github.teruteru128.sample.primes.PrimesViewerServlet;
 import com.github.teruteru128.sample.sql.SQLiteConnectSample;
 import jakarta.servlet.http.HttpServletResponse;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.security.Security;
 import java.util.logging.Logger;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.core.StandardContext;
@@ -22,12 +25,19 @@ import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.valves.AccessLogValve;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
 import org.apache.tomcat.util.descriptor.web.ErrorPage;
+import org.apache.tomcat.util.descriptor.web.FilterDef;
+import org.apache.tomcat.util.descriptor.web.FilterMap;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 public class Main {
 
   private static final Logger logger = Logger.getLogger(Main.class.getName());
 
   public static void main(String[] args) {
+    var bc = Security.getProvider("BC");
+    if (bc == null) {
+      Security.insertProviderAt(new BouncyCastleProvider(), 1);
+    }
     var tomcat = new Tomcat();
 
     tomcat.setBaseDir("temp");
@@ -47,6 +57,9 @@ public class Main {
     var manager = new StandardManager();
     manager.setPathname("SESSIONS.ser");
     context.setManager(manager);
+
+    context.setRequestCharacterEncoding(StandardCharsets.UTF_8.name());
+    context.setResponseCharacterEncoding(StandardCharsets.UTF_8.name());
 
     var resource = new ContextResource();
     resource.setName("jdbc/SQLiteDataSource");
@@ -111,7 +124,18 @@ public class Main {
     tomcat.addServlet(contextPath, hashServletName, new HashServlet());
     context.addServletMappingDecoded("/api/hash/*", hashServletName);
 
-    var primesCreateServletName = "PrimesServlet";
+    var primesListInitFilterName = "PrimesListInitFilter";
+    var filter = new PrimesListInitFilter();
+    var def = new FilterDef();
+    def.setFilter(filter);
+    def.setFilterName(primesListInitFilterName);
+    context.addFilterDef(def);
+    var map = new FilterMap();
+    map.setFilterName(primesListInitFilterName);
+    map.addURLPatternDecoded("*");
+    context.addFilterMap(map);
+
+    var primesCreateServletName = "PrimesCreateServlet";
     tomcat.addServlet(contextPath, primesCreateServletName, new PrimesCreateServlet());
     context.addServletMappingDecoded("/api/primes/create", primesCreateServletName);
 
@@ -140,6 +164,23 @@ public class Main {
     var valve = new AccessLogValve();
     valve.setPattern("%t %a %A %v %r");
     tomcat.getEngine().getPipeline().addValve(valve);
+
+    /*
+    var salt = new byte[16];
+    var generator2 = RandomGenerator.of("SecureRandom");
+    generator2.nextBytes(salt);
+    var hash = new byte[64];
+
+    var builder = new Argon2Parameters.Builder(Argon2Parameters.ARGON2_id).withIterations(1)
+        .withMemoryAsKB(2097152).withParallelism(1).withSalt(salt);
+    var generator = new Argon2BytesGenerator();
+    generator.init(builder.build());
+    long start = System.nanoTime();
+    generator.generateBytes("".getBytes(StandardCharsets.UTF_8), hash);
+    long end = System.nanoTime();
+    System.out.println(HexFormat.of().formatHex(hash));
+    System.out.println((end - start) / 1e9 + " seconds");
+    */
 
     try {
       tomcat.start();
