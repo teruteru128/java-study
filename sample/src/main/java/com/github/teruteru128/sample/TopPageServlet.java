@@ -6,8 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
@@ -68,10 +68,6 @@ public class TopPageServlet extends HttpServlet {
     writer.println("<a href=\"/api/pbkdf2\">pbkdf2 sample</a>");
     writer.println("</div>");
     writer.println("<ul>");
-    var maxInactiveInterval = session.getMaxInactiveInterval();
-    if (maxInactiveInterval > 0) {
-      session.setMaxInactiveInterval(0);
-    }
     for (var e = session.getAttributeNames(); e.hasMoreElements(); ) {
       writer.println("<li>");
       writer.println(e.nextElement());
@@ -84,11 +80,6 @@ public class TopPageServlet extends HttpServlet {
     writer.println("<li>getLastAccessedTime:" + OffsetDateTime.ofInstant(
         Instant.ofEpochMilli(session.getLastAccessedTime()), offset) + "</li>");
     writer.println("<li>getMaxInactiveInterval:" + session.getMaxInactiveInterval() + "</li>");
-    writer.println("</ul>");
-    writer.println("<ul>");
-    writer.print("<li>");
-    writer.print("<li>");
-    writer.println("</li>");
     writer.println("</ul>");
     writer.println("</body>");
     writer.println("</html>");

@@ -61,6 +61,8 @@ public class Main {
     context.setRequestCharacterEncoding(StandardCharsets.UTF_8.name());
     context.setResponseCharacterEncoding(StandardCharsets.UTF_8.name());
 
+    context.setSessionTimeout(0);
+
     var resource = new ContextResource();
     resource.setName("jdbc/SQLiteDataSource");
     resource.setType("javax.sql.DataSource");
@@ -166,6 +168,7 @@ public class Main {
     tomcat.getEngine().getPipeline().addValve(valve);
 
     /*
+    // use argon2 OR bcrypt
     var salt = new byte[16];
     var generator2 = RandomGenerator.of("SecureRandom");
     generator2.nextBytes(salt);
