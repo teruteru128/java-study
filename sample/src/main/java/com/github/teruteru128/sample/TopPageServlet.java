@@ -41,9 +41,10 @@ public class TopPageServlet extends HttpServlet {
     writer.println("<!DOCTYPE html>");
     writer.println("<html lang=\"ja\">");
     writer.println("<head>");
-    writer.println("<title>トップページ</title>");
+    writer.println("<title>BIG SISTER IS WATCHING YOU</title>");
     writer.println("</head>");
     writer.println("<body>");
+    writer.println("<h1>BIG SISTER IS WATCHING YOU</h1>");
     writer.println("<div>");
     writer.println("<a href=\"/api/hello\">hello</a>");
     writer.println("</div>");
@@ -53,6 +54,7 @@ public class TopPageServlet extends HttpServlet {
     writer.println("<div>");
     writer.println("<a href=\"/test/sqlite\">sqlite test</a>");
     writer.println("<a href=\"/test/ec\">ec test</a>");
+    writer.println("<a href=\"/test/curve25519\">curve25519 test</a>");
     writer.println("</div>");
     writer.println("<div>");
     writer.println("<a href=\"/api/hash\">hash 1</a>");
@@ -89,6 +91,10 @@ public class TopPageServlet extends HttpServlet {
         Instant.ofEpochMilli(session.getLastAccessedTime()), offset) + "</li>");
     writer.println("<li>getMaxInactiveInterval:" + session.getMaxInactiveInterval() + "</li>");
     writer.println("</ul>");
+    writer.println("<footer>");
+    writer.println("<a href=\"mailto:f0AeZ9QaiDvuIcoN6WEpRh7FEYs894Zi@protonmail.com\">contact</a>");
+    writer.println("<a href=\"publickey.f0AeZ9QaiDvuIcoN6WEpRh7FEYs894Zi@protonmail.com-7d9493263cc58dbec9b059e1f85cc20d6564f30f.asc\">public key</a>");
+    writer.println("</footer>");
     writer.println("</body>");
     writer.println("</html>");
   }

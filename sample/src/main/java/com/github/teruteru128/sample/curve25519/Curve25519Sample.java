@@ -2,6 +2,11 @@ package com.github.teruteru128.sample.curve25519;
 
 import com.github.teruteru128.sample.Sample;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
@@ -24,7 +29,7 @@ import java.util.HexFormat;
 
 import javax.crypto.KeyAgreement;
 
-public class Curve25519Sample implements Sample {
+public class Curve25519Sample extends HttpServlet implements Sample {
 
     private static final HexFormat format = HexFormat.of();
 
@@ -98,4 +103,17 @@ public class Curve25519Sample implements Sample {
         xdh(pri, pub);
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+        throws ServletException, IOException {
+        resp.setContentType("text/html");
+        var writer = resp.getWriter();
+        writer.println("<!DOCTYPE html>");
+        writer.println("<html lang=\"ja\">");
+        writer.println("<head>");
+        writer.println("<title>Curve25519 テストページ</title>");
+        writer.println("<a href=\"/\">トップページに戻る</a>");
+        writer.println("</body>");
+        writer.println("</html>");
+    }
 }

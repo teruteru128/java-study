@@ -1,5 +1,6 @@
 package com.github.teruteru128.sample;
 
+import com.github.teruteru128.sample.curve25519.Curve25519Sample;
 import com.github.teruteru128.sample.dynamic.DynamicServiceServlet;
 import com.github.teruteru128.sample.ec.ECKeyGenerateSample;
 import com.github.teruteru128.sample.forward.FooterIncludeServlet;
@@ -51,7 +52,8 @@ public class Main {
     tomcat.enableNaming();
 
     var contextPath = "";
-    var docBase = Path.of("").toAbsolutePath().toString();
+    // 流石に current dir のままではsampleファイルとか見えちゃう
+    var docBase = Path.of("web").toAbsolutePath().toString();
     logger.info("docBase: " + docBase);
     var context = (StandardContext) tomcat.addContext(contextPath, docBase);
 
@@ -124,6 +126,10 @@ public class Main {
     var ECKeyGenerateSampleName = "ECKeyGenerateSample";
     tomcat.addServlet(contextPath, ECKeyGenerateSampleName, new ECKeyGenerateSample());
     context.addServletMappingDecoded("/test/ec", ECKeyGenerateSampleName);
+
+    var curve25519SampleName = "Curve25519Sample";
+    tomcat.addServlet(contextPath, curve25519SampleName, new Curve25519Sample());
+    context.addServletMappingDecoded("/test/curve25519", curve25519SampleName);
 
     var hashServletName = "HashServlet";
     tomcat.addServlet(contextPath, hashServletName, new HashServlet());
