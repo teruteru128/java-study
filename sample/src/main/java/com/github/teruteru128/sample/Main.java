@@ -81,12 +81,12 @@ public class Main {
         "org.postgresql.Driver", "jdbc:postgresql://localhost:5432/postgres", "", ""));*/
 
     var defaultServlet = "DefaultServlet";
-    tomcat.addServlet(contextPath, defaultServlet, new DefaultServlet());
+    Tomcat.addServlet(context, defaultServlet, new DefaultServlet());
     context.addServletMappingDecoded("/", defaultServlet);
     context.addWelcomeFile("index.jsp");
 
     var topPageServlet = "TopPageServlet";
-    tomcat.addServlet(contextPath, topPageServlet, new TopPageServlet());
+    Tomcat.addServlet(context, topPageServlet, new TopPageServlet());
     context.addServletMappingDecoded("/index.jsp", topPageServlet);
 
     var errorPage404 = new ErrorPage();
@@ -100,48 +100,48 @@ public class Main {
     context.addErrorPage(errorPage500);
 
     var errorsServiceServletName = "ErrorsServiceServlet";
-    tomcat.addServlet(contextPath, errorsServiceServletName, new ErrorsServiceServlet());
+    Tomcat.addServlet(context, errorsServiceServletName, new ErrorsServiceServlet());
     context.addServletMappingDecoded("/errors/404", errorsServiceServletName);
     context.addServletMappingDecoded("/errors/500", errorsServiceServletName);
 
     var dynamicServletName = "DynamicServiceServlet";
-    tomcat.addServlet(contextPath, dynamicServletName, new DynamicServiceServlet());
+    Tomcat.addServlet(context, dynamicServletName, new DynamicServiceServlet());
     context.addServletMappingDecoded("/api/hello", dynamicServletName);
 
     var forwardStep1ServletName = "ForwardStep1Servlet";
-    tomcat.addServlet(contextPath, forwardStep1ServletName, new ForwardStep1Servlet());
+    Tomcat.addServlet(context, forwardStep1ServletName, new ForwardStep1Servlet());
     context.addServletMappingDecoded("/api/forward1", forwardStep1ServletName);
 
     var forwardStep2ServletName = "ForwardStep2Servlet";
-    tomcat.addServlet(contextPath, forwardStep2ServletName, new ForwardStep2Servlet());
+    Tomcat.addServlet(context, forwardStep2ServletName, new ForwardStep2Servlet());
     context.addServletMappingDecoded("/api/forward2", forwardStep2ServletName);
 
     var headerServletName = "HeaderServlet";
-    tomcat.addServlet(contextPath, headerServletName, new HeaderIncludeServlet());
+    Tomcat.addServlet(context, headerServletName, new HeaderIncludeServlet());
     context.addServletMappingDecoded("/api/header", headerServletName);
 
     var footerServletName = "FooterServlet";
-    tomcat.addServlet(contextPath, footerServletName, new FooterIncludeServlet());
+    Tomcat.addServlet(context, footerServletName, new FooterIncludeServlet());
     context.addServletMappingDecoded("/api/footer", footerServletName);
 
     var SQLiteConnectSampleName = "SQLiteConnectSample";
-    tomcat.addServlet(contextPath, SQLiteConnectSampleName, new SQLiteConnectSample());
+    Tomcat.addServlet(context, SQLiteConnectSampleName, new SQLiteConnectSample());
     context.addServletMappingDecoded("/sample/sqlite", SQLiteConnectSampleName);
 
     var ECKeyGenerateSampleName = "ECKeyGenerateSample";
-    tomcat.addServlet(contextPath, ECKeyGenerateSampleName, new ECKeyGenerateSample());
+    Tomcat.addServlet(context, ECKeyGenerateSampleName, new ECKeyGenerateSample());
     context.addServletMappingDecoded("/sample/ec", ECKeyGenerateSampleName);
 
     var curve25519SampleName = "Curve25519Sample";
-    tomcat.addServlet(contextPath, curve25519SampleName, new Curve25519Sample());
+    Tomcat.addServlet(context, curve25519SampleName, new Curve25519Sample());
     context.addServletMappingDecoded("/sample/curve25519", curve25519SampleName);
 
     var cloneSampleName = "CloneSample";
-    tomcat.addServlet(contextPath, cloneSampleName, new CloneSample());
+    Tomcat.addServlet(context, cloneSampleName, new CloneSample());
     context.addServletMappingDecoded("/sample/clone", cloneSampleName);
 
     var hashServletName = "HashServlet";
-    tomcat.addServlet(contextPath, hashServletName, new HashServlet());
+    Tomcat.addServlet(context, hashServletName, new HashServlet());
     context.addServletMappingDecoded("/api/hash/*", hashServletName);
 
     var primesListInitFilterName = "PrimesListInitFilter";
@@ -156,39 +156,39 @@ public class Main {
     context.addFilterMap(map);
 
     var primesCreateServletName = "PrimesCreateServlet";
-    tomcat.addServlet(contextPath, primesCreateServletName, new PrimesCreateServlet());
+    Tomcat.addServlet(context, primesCreateServletName, new PrimesCreateServlet());
     context.addServletMappingDecoded("/sample/primes/create", primesCreateServletName);
 
     var primesViewerServletName = "PrimesViewerServlet";
-    tomcat.addServlet(contextPath, primesViewerServletName, new PrimesViewerServlet());
+    Tomcat.addServlet(context, primesViewerServletName, new PrimesViewerServlet());
     context.addServletMappingDecoded("/sample/primes/viewer", primesViewerServletName);
 
     var primesCounterServletName = "PrimesCounterServlet";
-    tomcat.addServlet(contextPath, primesCounterServletName, new PrimesCounterServlet());
+    Tomcat.addServlet(context, primesCounterServletName, new PrimesCounterServlet());
     context.addServletMappingDecoded("/sample/primes/counter", primesCounterServletName);
 
     var primesAllDeleteServletName = "PrimesAllDeleteServlet";
-    tomcat.addServlet(contextPath, primesAllDeleteServletName, new PrimesAllDeleteServlet());
+    Tomcat.addServlet(context, primesAllDeleteServletName, new PrimesAllDeleteServlet());
     context.addServletMappingDecoded("/sample/primes/delete/all", primesAllDeleteServletName);
 
     var registerServletName = "RegisterServlet";
-    tomcat.addServlet(contextPath, registerServletName, new RegisterServlet());
+    Tomcat.addServlet(context, registerServletName, new RegisterServlet());
     context.addServletMappingDecoded("/user/register", registerServletName);
 
     var loginServletName = "LoginServlet";
-    tomcat.addServlet(contextPath, loginServletName, new LogInServlet());
+    Tomcat.addServlet(context, loginServletName, new LogInServlet());
     context.addServletMappingDecoded("/user/login", loginServletName);
 
     var doSName = "DoSServlet";
-    tomcat.addServlet(contextPath, doSName, new DoSServlet());
+    Tomcat.addServlet(context, doSName, new DoSServlet());
     context.addServletMappingDecoded("/api/dos", doSName);
 
     var pbkdf2ServletName = "Pbkdf2Servlet";
-    tomcat.addServlet(contextPath, pbkdf2ServletName, new PBKDF2Servlet());
+    Tomcat.addServlet(context, pbkdf2ServletName, new PBKDF2Servlet());
     context.addServletMappingDecoded("/sample/pbkdf2", pbkdf2ServletName);
 
     var anyDistributionSampleServletName = "AnyDistributionSample";
-    tomcat.addServlet(contextPath, anyDistributionSampleServletName, new AnyDistributionSample());
+    Tomcat.addServlet(context, anyDistributionSampleServletName, new AnyDistributionSample());
     context.addServletMappingDecoded("/sample/any", anyDistributionSampleServletName);
 
     var logNormalDistributionSampleServletName = "logNormalDistributionSampleServlet";
@@ -197,7 +197,7 @@ public class Main {
     context.addServletMappingDecoded("/sample/logNormal", logNormalDistributionSampleServletName);
 
     var aesSampleServletName = "AESSample";
-    tomcat.addServlet(contextPath, aesSampleServletName, new AESSample());
+    Tomcat.addServlet(context, aesSampleServletName, new AESSample());
     context.addServletMappingDecoded("/sample/aes", aesSampleServletName);
 
     context.addMimeMapping("html", "text/html");
