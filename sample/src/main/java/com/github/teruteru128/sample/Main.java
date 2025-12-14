@@ -2,6 +2,8 @@ package com.github.teruteru128.sample;
 
 import com.github.teruteru128.sample.clone.CloneSample;
 import com.github.teruteru128.sample.curve25519.Curve25519Sample;
+import com.github.teruteru128.sample.dist.AnyDistributionSample;
+import com.github.teruteru128.sample.dist.LogNormalDistributionSample;
 import com.github.teruteru128.sample.dynamic.DynamicServiceServlet;
 import com.github.teruteru128.sample.ec.ECKeyGenerateSample;
 import com.github.teruteru128.sample.forward.FooterIncludeServlet;
@@ -70,8 +72,9 @@ public class Main {
 
     var namingResources = context.getNamingResources();
 
-    namingResources.addResource(getJDBCContextResource("jdbc/SQLiteDataSource", "org.sqlite.JDBC",
-        "jdbc:sqlite:sample.db", "", ""));
+    namingResources.addResource(
+        getJDBCContextResource("jdbc/SQLiteDataSource", "org.sqlite.JDBC", "jdbc:sqlite:sample.db",
+            "", ""));
     // postgresqlはDBサーバーがないと例外を吐くので注意
     /*namingResources.addResource(getJDBCContextResource("jdbc/PostgresDataSource",
         "org.postgresql.Driver", "jdbc:postgresql://localhost:5432/postgres", "", ""));*/
@@ -174,6 +177,15 @@ public class Main {
     var pbkdf2ServletName = "Pbkdf2Servlet";
     tomcat.addServlet(contextPath, pbkdf2ServletName, new PBKDF2Servlet());
     context.addServletMappingDecoded("/sample/pbkdf2", pbkdf2ServletName);
+
+    var anyDistributionSampleServletName = "AnyDistributionSample";
+    tomcat.addServlet(contextPath, anyDistributionSampleServletName, new AnyDistributionSample());
+    context.addServletMappingDecoded("/sample/any", anyDistributionSampleServletName);
+
+    var logNormalDistributionSampleServletName = "logNormalDistributionSampleServlet";
+    tomcat.addServlet(contextPath, logNormalDistributionSampleServletName,
+        new LogNormalDistributionSample());
+    context.addServletMappingDecoded("/sample/logNormal", logNormalDistributionSampleServletName);
 
     context.addMimeMapping("html", "text/html");
 

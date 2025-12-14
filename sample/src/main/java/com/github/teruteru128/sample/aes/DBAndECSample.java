@@ -21,21 +21,15 @@ public class DBAndECSample implements Sample {
   public void sample()
       throws InvalidKeySpecException, InvalidParameterSpecException, NoSuchAlgorithmException,
       NoSuchProviderException, SQLException {
-    sample("jdbc:sqlite:./sample.db");
-  }
-
-  public void sample(String url)
-      throws InvalidKeySpecException, InvalidParameterSpecException, NoSuchAlgorithmException,
-      NoSuchProviderException, SQLException {
     var parameters = AlgorithmParameters.getInstance("EC", "SunEC");
     parameters.init(new ECGenParameterSpec("secp256k1"));
     var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
     var dataSource = new SQLiteDataSource();
-    dataSource.setUrl(url);
+    dataSource.setUrl("jdbc:sqlite:./sample.db");
     var factory = KeyFactory.getInstance("EC", "SunEC");
     try (var connection = dataSource.getConnection()) {
-      var s = connection.createStatement();
-      try (var set = s.executeQuery(
+      var statement = connection.createStatement();
+      try (var set = statement.executeQuery(
           "select address, transmitdata from pubkeys where addressversion in (3, 4) limit 100;")) {
         while (set.next()) {
           var address = set.getString("address");
@@ -51,4 +45,5 @@ public class DBAndECSample implements Sample {
       }
     }
   }
+
 }

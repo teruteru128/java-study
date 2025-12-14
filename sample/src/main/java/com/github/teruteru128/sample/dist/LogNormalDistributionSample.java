@@ -1,6 +1,10 @@
 package com.github.teruteru128.sample.dist;
 
 import com.github.teruteru128.sample.Sample;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
@@ -17,7 +21,7 @@ import org.apache.commons.statistics.distribution.LogNormalDistribution;
  *
  * @see <a href="https://qiita.com/t_uehara/items/460e04ba7d2b19fdd497">Javaで正規分布・対数正規分布の乱数を生成する</a>
  */
-public class LogNormalDistributionSample implements Sample {
+public class LogNormalDistributionSample extends HttpServlet implements Sample {
 
   @Override
   public void sample() throws IOException {
@@ -62,5 +66,21 @@ public class LogNormalDistributionSample implements Sample {
         }
       });
     }
+  }
+
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    resp.setContentType("text/html");
+    var writer = resp.getWriter();
+    writer.println("<!DOCTYPE html>");
+    writer.println("<html lang=\"ja\">");
+    writer.println("<head>");
+    writer.println("<title>LogNormalDistributionSample</title>");
+    writer.println("</head>");
+    writer.println("<body>");
+    writer.println("<a href=\"/\">トップページに戻る</a>");
+    writer.println("</body>");
+    writer.println("</html>");
   }
 }

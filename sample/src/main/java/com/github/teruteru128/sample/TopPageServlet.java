@@ -73,6 +73,10 @@ public class TopPageServlet extends HttpServlet {
     writer.println("<a href=\"/sample/clone\">clone sample</a>");
     writer.println("</div>");
     writer.println("<div>");
+    writer.println("<a href=\"/sample/any\">any distribution sample</a>");
+    writer.println("<a href=\"/sample/logNormal\">logNormal distribution sample</a>");
+    writer.println("</div>");
+    writer.println("<div>");
     writer.println("<a href=\"/user/login\">login</a>");
     writer.println("<a href=\"/user/register\">register</a>");
     writer.println("</div>");
@@ -94,8 +98,10 @@ public class TopPageServlet extends HttpServlet {
     writer.println("<li>getMaxInactiveInterval:" + session.getMaxInactiveInterval() + "</li>");
     writer.println("</ul>");
     writer.println("<footer>");
-    writer.println("<a href=\"mailto:f0AeZ9QaiDvuIcoN6WEpRh7FEYs894Zi@protonmail.com\">contact</a>");
-    writer.println("<a href=\"publickey.f0AeZ9QaiDvuIcoN6WEpRh7FEYs894Zi@protonmail.com-7d9493263cc58dbec9b059e1f85cc20d6564f30f.asc\">public key</a>");
+    writer.println(
+        "<a href=\"mailto:f0AeZ9QaiDvuIcoN6WEpRh7FEYs894Zi@protonmail.com\">contact</a>");
+    writer.println(
+        "<a href=\"publickey.f0AeZ9QaiDvuIcoN6WEpRh7FEYs894Zi@protonmail.com-7d9493263cc58dbec9b059e1f85cc20d6564f30f.asc\">public key</a>");
     writer.println("</footer>");
     writer.println("</body>");
     writer.println("</html>");
