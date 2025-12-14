@@ -116,7 +116,6 @@ public class PBKDF2Servlet extends HttpServlet {
       writer.println("</p>");
     }
     writer.println("<p><form method=\"post\">");
-    writer.print(passwordParam);
     writer.println("<input type=\"text\" name=\"username\">");
     writer.print("<input type=\"password\" name=\"password\"");
     if (passwordParam != null && !passwordParam.isEmpty()) {

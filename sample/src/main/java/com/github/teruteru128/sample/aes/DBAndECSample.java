@@ -25,7 +25,7 @@ public class DBAndECSample implements Sample {
     parameters.init(new ECGenParameterSpec("secp256k1"));
     var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
     var dataSource = new SQLiteDataSource();
-    dataSource.setUrl("jdbc:sqlite:./sample.db");
+    dataSource.setUrl("jdbc:sqlite:sample.db");
     var factory = KeyFactory.getInstance("EC", "SunEC");
     try (var connection = dataSource.getConnection()) {
       var statement = connection.createStatement();

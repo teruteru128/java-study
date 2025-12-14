@@ -77,6 +77,10 @@ public class TopPageServlet extends HttpServlet {
     writer.println("<a href=\"/sample/logNormal\">logNormal distribution sample</a>");
     writer.println("</div>");
     writer.println("<div>");
+    writer.println("<a href=\"/sample/aes\">aes sample</a>");
+    writer.println("<a href=\"/sample/db\">db and ec sample</a>");
+    writer.println("</div>");
+    writer.println("<div>");
     writer.println("<a href=\"/user/login\">login</a>");
     writer.println("<a href=\"/user/register\">register</a>");
     writer.println("</div>");

@@ -1,5 +1,6 @@
 package com.github.teruteru128.sample;
 
+import com.github.teruteru128.sample.aes.AESSample;
 import com.github.teruteru128.sample.clone.CloneSample;
 import com.github.teruteru128.sample.curve25519.Curve25519Sample;
 import com.github.teruteru128.sample.dist.AnyDistributionSample;
@@ -186,6 +187,10 @@ public class Main {
     tomcat.addServlet(contextPath, logNormalDistributionSampleServletName,
         new LogNormalDistributionSample());
     context.addServletMappingDecoded("/sample/logNormal", logNormalDistributionSampleServletName);
+
+    var aesSampleServletName = "AESSample";
+    tomcat.addServlet(contextPath, aesSampleServletName, new AESSample());
+    context.addServletMappingDecoded("/sample/aes", aesSampleServletName);
 
     context.addMimeMapping("html", "text/html");
 

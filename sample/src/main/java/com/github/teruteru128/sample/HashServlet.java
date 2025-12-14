@@ -16,7 +16,7 @@ public class HashServlet extends HttpServlet {
     writer.println("<!DOCTYPE html>");
     writer.println("<html lang=\"ja\">");
     writer.println("<head>");
-    writer.println("<title>フォワードテスト</title>");
+    writer.println("<title>ハッシュテスト</title>");
     writer.println("</head>");
     writer.println("<body>");
     writer.println("<ul>");
@@ -30,7 +30,7 @@ public class HashServlet extends HttpServlet {
     writer.println(req.getServletPath());
     writer.println("</li>");
     writer.println("</ul>");
-    writer.println("<a href=\"../../\">トップページに戻る</a>");
+    writer.println("<a href=\"/\">トップページに戻る</a>");
     writer.println("</body>");
     writer.println("</html>");
     writer.flush();
