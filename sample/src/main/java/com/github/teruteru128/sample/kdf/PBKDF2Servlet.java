@@ -66,7 +66,7 @@ public class PBKDF2Servlet extends HttpServlet {
     try {
       factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
     } catch (NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
+      throw new ServletException(e);
     }
     var passwordParam = req.getParameter("password");
     var saltParam = req.getParameter("salt");
@@ -97,7 +97,7 @@ public class PBKDF2Servlet extends HttpServlet {
       try {
         secret = (PBEKey) factory.generateSecret(spec);
       } catch (InvalidKeySpecException e) {
-        throw new RuntimeException(e);
+        throw new ServletException(e);
       }
       long end = System.nanoTime();
       var algorithm = secret.getAlgorithm();

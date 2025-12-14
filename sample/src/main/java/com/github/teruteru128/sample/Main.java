@@ -171,6 +171,14 @@ public class Main {
     tomcat.addServlet(contextPath, primesAllDeleteServletName, new PrimesAllDeleteServlet());
     context.addServletMappingDecoded("/sample/primes/delete/all", primesAllDeleteServletName);
 
+    var registerServletName = "RegisterServlet";
+    tomcat.addServlet(contextPath, registerServletName, new RegisterServlet());
+    context.addServletMappingDecoded("/user/register", registerServletName);
+
+    var loginServletName = "LoginServlet";
+    tomcat.addServlet(contextPath, loginServletName, new LogInServlet());
+    context.addServletMappingDecoded("/user/login", loginServletName);
+
     var doSName = "DoSServlet";
     tomcat.addServlet(contextPath, doSName, new DoSServlet());
     context.addServletMappingDecoded("/api/dos", doSName);

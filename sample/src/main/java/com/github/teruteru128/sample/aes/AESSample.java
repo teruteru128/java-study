@@ -42,7 +42,7 @@ public class AESSample extends HttpServlet implements Sample {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    Cipher cipher = null;
+    Cipher cipher;
     try {
       cipher = Cipher.getInstance("AES/ECB/NoPadding");
     } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
@@ -65,10 +65,6 @@ public class AESSample extends HttpServlet implements Sample {
       work = cipher.doFinal(work);
       cipher.init(Cipher.ENCRYPT_MODE, keySpec3);
       encrypted = cipher.doFinal(work);
-    } catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
-      throw new ServletException(e);
-    }
-    try {
       cipher.init(Cipher.DECRYPT_MODE, keySpec3);
       work = cipher.doFinal(encrypted);
       cipher.init(Cipher.ENCRYPT_MODE, keySpec2);
