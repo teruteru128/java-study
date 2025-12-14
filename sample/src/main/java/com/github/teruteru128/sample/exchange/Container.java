@@ -5,5 +5,5 @@ public class Container {
         this.count = count;
     }
 
-    public long count = 0;
+    public long count;
 }

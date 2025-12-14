@@ -33,7 +33,7 @@ com.github.teruteru128.study.ECPeekTools
 com.github.teruteru128.study.FileChannelFixedLengthSpliterator
 com.github.teruteru128.study.FrequencySurveyTask
 com.github.teruteru128.study.Homo
-com.github.teruteru128.math.MyB
+com.github.teruteru128.math.CloneableBigInteger
 com.github.teruteru128.study.NetWorkService
 com.github.teruteru128.study.PasswordGenerator
 com.github.teruteru128.study.PrimeSearch

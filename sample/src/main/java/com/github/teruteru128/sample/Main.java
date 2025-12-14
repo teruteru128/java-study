@@ -1,5 +1,6 @@
 package com.github.teruteru128.sample;
 
+import com.github.teruteru128.sample.clone.CloneSample;
 import com.github.teruteru128.sample.curve25519.Curve25519Sample;
 import com.github.teruteru128.sample.dynamic.DynamicServiceServlet;
 import com.github.teruteru128.sample.ec.ECKeyGenerateSample;
@@ -121,15 +122,19 @@ public class Main {
 
     var SQLiteConnectSampleName = "SQLiteConnectSample";
     tomcat.addServlet(contextPath, SQLiteConnectSampleName, new SQLiteConnectSample());
-    context.addServletMappingDecoded("/test/sqlite", SQLiteConnectSampleName);
+    context.addServletMappingDecoded("/sample/sqlite", SQLiteConnectSampleName);
 
     var ECKeyGenerateSampleName = "ECKeyGenerateSample";
     tomcat.addServlet(contextPath, ECKeyGenerateSampleName, new ECKeyGenerateSample());
-    context.addServletMappingDecoded("/test/ec", ECKeyGenerateSampleName);
+    context.addServletMappingDecoded("/sample/ec", ECKeyGenerateSampleName);
 
     var curve25519SampleName = "Curve25519Sample";
     tomcat.addServlet(contextPath, curve25519SampleName, new Curve25519Sample());
-    context.addServletMappingDecoded("/test/curve25519", curve25519SampleName);
+    context.addServletMappingDecoded("/sample/curve25519", curve25519SampleName);
+
+    var cloneSampleName = "CloneSample";
+    tomcat.addServlet(contextPath, cloneSampleName, new CloneSample());
+    context.addServletMappingDecoded("/sample/clone", cloneSampleName);
 
     var hashServletName = "HashServlet";
     tomcat.addServlet(contextPath, hashServletName, new HashServlet());
@@ -148,19 +153,19 @@ public class Main {
 
     var primesCreateServletName = "PrimesCreateServlet";
     tomcat.addServlet(contextPath, primesCreateServletName, new PrimesCreateServlet());
-    context.addServletMappingDecoded("/api/primes/create", primesCreateServletName);
+    context.addServletMappingDecoded("/sample/primes/create", primesCreateServletName);
 
     var primesViewerServletName = "PrimesViewerServlet";
     tomcat.addServlet(contextPath, primesViewerServletName, new PrimesViewerServlet());
-    context.addServletMappingDecoded("/api/primes/viewer", primesViewerServletName);
+    context.addServletMappingDecoded("/sample/primes/viewer", primesViewerServletName);
 
     var primesCounterServletName = "PrimesCounterServlet";
     tomcat.addServlet(contextPath, primesCounterServletName, new PrimesCounterServlet());
-    context.addServletMappingDecoded("/api/primes/counter", primesCounterServletName);
+    context.addServletMappingDecoded("/sample/primes/counter", primesCounterServletName);
 
     var primesAllDeleteServletName = "PrimesAllDeleteServlet";
     tomcat.addServlet(contextPath, primesAllDeleteServletName, new PrimesAllDeleteServlet());
-    context.addServletMappingDecoded("/api/primes/delete/all", primesAllDeleteServletName);
+    context.addServletMappingDecoded("/sample/primes/delete/all", primesAllDeleteServletName);
 
     var doSName = "DoSServlet";
     tomcat.addServlet(contextPath, doSName, new DoSServlet());
@@ -168,7 +173,7 @@ public class Main {
 
     var pbkdf2ServletName = "Pbkdf2Servlet";
     tomcat.addServlet(contextPath, pbkdf2ServletName, new PBKDF2Servlet());
-    context.addServletMappingDecoded("/api/pbkdf2", pbkdf2ServletName);
+    context.addServletMappingDecoded("/sample/pbkdf2", pbkdf2ServletName);
 
     context.addMimeMapping("html", "text/html");
 
