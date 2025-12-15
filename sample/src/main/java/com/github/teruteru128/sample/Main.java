@@ -62,9 +62,11 @@ public class Main {
     var context = (StandardContext) tomcat.addContext(contextPath, docBase);
 
     // プロセスをキルする方式だとセッションを保存できない
+    /*
     var manager = new StandardManager();
     manager.setPathname("SESSIONS.ser");
     context.setManager(manager);
+    */
 
     context.setRequestCharacterEncoding(StandardCharsets.UTF_8.name());
     context.setResponseCharacterEncoding(StandardCharsets.UTF_8.name());
