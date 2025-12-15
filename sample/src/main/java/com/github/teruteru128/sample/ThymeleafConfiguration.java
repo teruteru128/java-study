@@ -6,8 +6,8 @@ import jakarta.servlet.ServletContextListener;
 import java.util.logging.Logger;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.WebApplicationTemplateResolver;
-import org.thymeleaf.web.servlet.JakartaServletWebApplication;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 
 public class ThymeleafConfiguration implements ServletContextListener {
 
@@ -15,20 +15,19 @@ public class ThymeleafConfiguration implements ServletContextListener {
   private static final Logger logger = Logger.getLogger(ThymeleafConfiguration.class.getName());
 
   @Nonnull
-  private static TemplateEngine getTemplateEngine(JakartaServletWebApplication application) {
+  private static TemplateEngine getTemplateEngine() {
     var templateEngine = new TemplateEngine();
 
-    var templateResolver = getTemplateResolver(application);
+    var templateResolver = getTemplateResolver();
     templateEngine.setTemplateResolver(templateResolver);
 
     return templateEngine;
   }
 
   @Nonnull
-  private static WebApplicationTemplateResolver getTemplateResolver(
-      JakartaServletWebApplication application) {
-    var templateResolver = new WebApplicationTemplateResolver(application);
-    templateResolver.setPrefix("templates/");
+  private static ITemplateResolver getTemplateResolver() {
+    var templateResolver = new ClassLoaderTemplateResolver();
+    templateResolver.setPrefix("com/github/teruteru128/sample/");
     templateResolver.setSuffix(".html");
     templateResolver.setTemplateMode(TemplateMode.HTML);
     templateResolver.setCharacterEncoding("UTF-8");
@@ -39,12 +38,8 @@ public class ThymeleafConfiguration implements ServletContextListener {
 
   @Override
   public void contextInitialized(ServletContextEvent sce) {
-    var application = JakartaServletWebApplication.buildApplication(sce.getServletContext());
-    var templateEngine = getTemplateEngine(application);
+    var templateEngine = getTemplateEngine();
     sce.getServletContext().setAttribute(TEMPLATE_ENGINE_INSTANCE_KEY, templateEngine);
   }
 
-  @Override
-  public void contextDestroyed(ServletContextEvent sce) {
-  }
 }
