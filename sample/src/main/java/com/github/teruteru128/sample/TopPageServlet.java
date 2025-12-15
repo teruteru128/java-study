@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
+import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 public class TopPageServlet extends HttpServlet {
 
@@ -34,80 +38,23 @@ public class TopPageServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    var templateEngine = (TemplateEngine) this.getServletContext()
+        .getAttribute(ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
+    var webExchange = JakartaServletWebApplication.buildApplication(getServletContext())
+        .buildExchange(req, resp);
+    var context = new WebContext(webExchange);
     var session = req.getSession();
-    resp.setContentType("text/html");
-    var writer = resp.getWriter();
-    writer.println("<!DOCTYPE html>");
-    writer.println("<html lang=\"ja\">");
-    writer.println("<head>");
-    writer.println("<title>BIG SISTER IS WATCHING YOU</title>");
-    writer.println("</head>");
-    writer.println("<body>");
-    writer.println("<h1>BIG SISTER IS WATCHING YOU</h1>");
-    writer.println("<div>");
-    writer.println("<a href=\"/api/hello\">hello</a>");
-    writer.println("</div>");
-    writer.println("<div>");
-    writer.println("<a href=\"/api/forward1\">forward sample page</a>");
-    writer.println("</div>");
-    writer.println("<div>");
-    writer.println("<a href=\"/sample/sqlite\">sqlite test</a>");
-    writer.println("<a href=\"/sample/ec\">ec test</a>");
-    writer.println("<a href=\"/sample/curve25519\">curve25519 test</a>");
-    writer.println("</div>");
-    writer.println("<div>");
-    writer.println("<a href=\"/api/hash\">hash 1</a>");
-    writer.println("<a href=\"/api/hash/\">hash 2</a>");
-    writer.println("<a href=\"/api/hash/aaaaa\">hash 3</a>");
-    writer.println("</div>");
-    writer.println("<div>");
-    writer.println("<a href=\"/sample/primes/create?q=5\">create 5 primes</a>");
-    writer.println("<a href=\"/sample/primes/viewer\">primes viewer</a>");
-    writer.println("<a href=\"/sample/primes/counter\">primes counter</a>");
-    writer.println("<a href=\"/sample/primes/delete/all\">primes all delete</a>");
-    writer.println("</div>");
-    writer.println("<div>");
-    writer.println("<a href=\"/sample/pbkdf2\">pbkdf2 sample</a>");
-    writer.println("</div>");
-    writer.println("<div>");
-    writer.println("<a href=\"/sample/clone\">clone sample</a>");
-    writer.println("</div>");
-    writer.println("<div>");
-    writer.println("<a href=\"/sample/any\">any distribution sample</a>");
-    writer.println("<a href=\"/sample/logNormal\">logNormal distribution sample</a>");
-    writer.println("</div>");
-    writer.println("<div>");
-    writer.println("<a href=\"/sample/aes\">aes sample</a>");
-    writer.println("<a href=\"/sample/db\">db and ec sample</a>");
-    writer.println("</div>");
-    writer.println("<div>");
-    writer.println("<a href=\"/user/login\">login</a>");
-    writer.println("<a href=\"/user/register\">register</a>");
-    writer.println("</div>");
-    writer.println("<ul>");
+    var list = new ArrayList<String>();
     for (var e = session.getAttributeNames(); e.hasMoreElements(); ) {
-      writer.println("<li>");
-      var attributeName = e.nextElement();
-      writer.print(attributeName);
-      writer.print("[");
-      writer.print(session.getAttribute(attributeName).getClass().getName());
-      writer.println("]</li>");
+      var elem = e.nextElement();
+      list.add(elem + "[" + session.getAttribute(elem).getClass().getName() + "]");
     }
-    writer.println("<li>session id: " + session.getId() + "</li>");
+    list.add("session id: " + req.getSession().getId());
     var offset = ZoneOffset.ofHours(9);
-    writer.println("<li>getCreationTime:" + OffsetDateTime.ofInstant(
-        Instant.ofEpochMilli(session.getCreationTime()), offset) + "</li>");
-    writer.println("<li>getLastAccessedTime:" + OffsetDateTime.ofInstant(
-        Instant.ofEpochMilli(session.getLastAccessedTime()), offset) + "</li>");
-    writer.println("<li>getMaxInactiveInterval:" + session.getMaxInactiveInterval() + "</li>");
-    writer.println("</ul>");
-    writer.println("<footer>");
-    writer.println(
-        "<a href=\"mailto:f0AeZ9QaiDvuIcoN6WEpRh7FEYs894Zi@protonmail.com\">contact</a>");
-    writer.println(
-        "<a href=\"publickey.f0AeZ9QaiDvuIcoN6WEpRh7FEYs894Zi@protonmail.com-7d9493263cc58dbec9b059e1f85cc20d6564f30f.asc\">public key</a>");
-    writer.println("</footer>");
-    writer.println("</body>");
-    writer.println("</html>");
+    list.add("getCreationTime: " + OffsetDateTime.ofInstant(Instant.ofEpochMilli(session.getCreationTime()), offset));
+    list.add("getLastAccessedTime: " + OffsetDateTime.ofInstant(Instant.ofEpochMilli(session.getLastAccessedTime()), offset));
+    list.add("getMaxInactiveInterval: " + session.getMaxInactiveInterval());
+    context.setVariable("list", list);
+    templateEngine.process("index", context, resp.getWriter());
   }
 }

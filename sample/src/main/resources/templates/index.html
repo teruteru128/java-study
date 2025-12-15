@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIG SISTER IS WATCHING YOU</title>
+</head>
+<body>
+<h1>BIG SISTER IS WATCHING YOU</h1>
+<div>
+  <a href="/api/hello">hello</a>
+</div>
+<div>
+  <a href="/api/forward1">forward sample page</a>
+</div>
+<div>
+  <a href="/sample/sqlite">sqlite test</a>
+  <a href="/sample/ec">ec test</a>
+  <a href="/sample/curve25519">curve25519 test</a>
+</div>
+<div>
+  <a href="/api/hash">hash 1</a>
+  <a href="/api/hash/">hash 2</a>
+  <a href="/api/hash/aaaaa">hash 3</a>
+</div>
+<div>
+  <a href="/sample/primes/create?q=5">create 5 primes</a>
+  <a href="/sample/primes/viewer">primes viewer</a>
+  <a href="/sample/primes/counter">primes counter</a>
+  <a href="/sample/primes/delete/all">primes all delete</a>
+</div>
+<div>
+  <a href="/sample/pbkdf2">pbkdf2 sample</a>
+</div>
+<div>
+  <a href="/sample/clone">clone sample</a>
+</div>
+<div>
+  <a href="/sample/any">any distribution sample</a>
+  <a href="/sample/logNormal">logNormal distribution sample</a>
+</div>
+<div>
+  <a href="/sample/aes">aes sample</a>
+  <a href="/sample/db">db and ec sample</a>
+</div>
+<div>
+  <a href="/user/login">login</a>
+  <a href="/user/register">register</a>
+</div>
+<ul>
+  <li th:each="prod: ${list}">[[${prod}]]</li>
+</ul>
+<footer>
+  <a href="mailto:f0AeZ9QaiDvuIcoN6WEpRh7FEYs894Zi@protonmail.com">contact</a>
+  <a href="publickey.f0AeZ9QaiDvuIcoN6WEpRh7FEYs894Zi@protonmail.com-7d9493263cc58dbec9b059e1f85cc20d6564f30f.asc">public key</a>
+</footer>
+</body>
+</html>

@@ -23,7 +23,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
-import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -96,7 +95,7 @@ public class PrimesCreateServlet extends HttpServlet {
     try {
       n = Integer.parseInt(h);
     } catch (NumberFormatException e) {
-      resp.sendRedirect("/index.html");
+      resp.sendRedirect("/templates/index.html");
       return;
     }
     writer.println("<ul>");

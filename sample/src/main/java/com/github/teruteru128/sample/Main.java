@@ -87,7 +87,7 @@ public class Main {
         "org.postgresql.Driver", "jdbc:postgresql://localhost:5432/postgres", "", ""));*/
 
     var listener = new ThymeleafConfiguration();
-    context.addApplicationEventListener(listener);
+    context.addApplicationLifecycleListener(listener);
 
     var defaultServlet = "DefaultServlet";
     var wrapper = Tomcat.addServlet(context, defaultServlet, new DefaultServlet());
