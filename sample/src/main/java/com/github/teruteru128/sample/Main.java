@@ -23,21 +23,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.security.Security;
-import java.util.HexFormat;
 import java.util.logging.Logger;
-import java.util.random.RandomGenerator;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.servlets.DefaultServlet;
-import org.apache.catalina.session.StandardManager;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.valves.AccessLogValve;
+import org.apache.catalina.webresources.StandardRoot;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
 import org.apache.tomcat.util.descriptor.web.ErrorPage;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
-import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
-import org.bouncycastle.crypto.params.Argon2Parameters;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 public class Main {
@@ -76,6 +72,10 @@ public class Main {
     context.setResponseCharacterEncoding(StandardCharsets.UTF_8.name());
 
     context.setSessionTimeout(0);
+    var root = new StandardRoot();
+    root.setCacheMaxSize(1024 * 1024);
+    root.setAllowLinking(true);
+    context.setResources(root);
 
     var namingResources = context.getNamingResources();
 
@@ -87,7 +87,8 @@ public class Main {
         "org.postgresql.Driver", "jdbc:postgresql://localhost:5432/postgres", "", ""));*/
 
     var defaultServlet = "DefaultServlet";
-    Tomcat.addServlet(context, defaultServlet, new DefaultServlet());
+    var wrapper = Tomcat.addServlet(context, defaultServlet, new DefaultServlet());
+    wrapper.addInitParameter("listings", "true");
     context.addServletMappingDecoded("/", defaultServlet);
     context.addWelcomeFile("index.jsp");
 

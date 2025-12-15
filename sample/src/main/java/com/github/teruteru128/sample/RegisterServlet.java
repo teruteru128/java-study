@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HexFormat;
 import java.util.random.RandomGenerator;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -128,17 +130,49 @@ public class RegisterServlet extends HttpServlet {
     var salt = new byte[16];
     generator.nextBytes(salt);
     var hash = new byte[64];
+    var generator = new Argon2BytesGenerator();
     var builder = new Argon2Parameters.Builder(Argon2Parameters.ARGON2_id).withIterations(1)
         .withMemoryAsKB(2097152).withParallelism(1).withSalt(salt);
-    var generator = new Argon2BytesGenerator();
     generator.init(builder.build());
     generator.generateBytes(passwordParam.getBytes(StandardCharsets.UTF_8), hash);
-    try (var connection = dataSource.getConnection(); var prep = connection.prepareStatement(
-        "insert into user(email, hash, salt) values(?,?,?);")) {
-      prep.setString(1, emailParam);
-      prep.setBytes(2, hash);
-      prep.setBytes(3, salt);
-      prep.execute();
+    try (var connection = dataSource.getConnection()) {
+      connection.setAutoCommit(false);
+      long user_id;
+      try {
+        try (var userPrepStmt = connection.prepareStatement(
+            "insert into user(username, email) values(?,?);", Statement.RETURN_GENERATED_KEYS)) {
+          // 今のところ未使用なので空欄に設定
+          userPrepStmt.setString(1, "");
+          userPrepStmt.setString(2, emailParam);
+          userPrepStmt.execute();
+          try (var generatedKeys = userPrepStmt.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+              user_id = generatedKeys.getLong(1);
+            } else {
+              // ID が生成されなかった場合は致命的なエラーとして扱う
+              throw new SQLException("Failed to retrieve generated user ID.");
+            }
+          }
+        }
+        try (var passCredPrepStmt = connection.prepareStatement(
+            "insert into PasswordCredentials(user_id, hash, salt) VALUES (?, ?, ?);")) {
+          passCredPrepStmt.setLong(1, user_id);
+          var format = HexFormat.of();
+          // argon2由来のhashとsalt
+          passCredPrepStmt.setString(2, format.formatHex(hash));
+          passCredPrepStmt.setString(3, format.formatHex(salt));
+          passCredPrepStmt.execute();
+        }
+        connection.commit();
+      } catch (SQLException e) { // 例外発生時はロールバックする
+        try {
+          connection.rollback();
+        } catch (SQLException rollbackEx) {
+          // ロールバック失敗時のログ出力など
+          log("Rollback failed: " + rollbackEx.getMessage());
+        }
+        throw new ServletException(e);
+      }
     } catch (SQLException e) {
       throw new ServletException(e);
     }

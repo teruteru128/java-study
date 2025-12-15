@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.sql.SQLException;
+import java.util.HexFormat;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -44,6 +45,8 @@ public class LogInServlet extends HttpServlet {
     writer.println("<title>LOGIN PAGE</title>");
     writer.println("</head>");
     writer.println("<body>");
+    var user = (User) req.getSession().getAttribute("user");
+    writer.printf("<p>%s</p>%n", user.getLogInStatus());
     writer.println("<form  method=\"post\" action=\"/user/login\">");
     writer.println("<label for=\"email\">メールアドレス</label>");
     writer.println(
@@ -64,16 +67,16 @@ public class LogInServlet extends HttpServlet {
     var emailParam = req.getParameter("email");
     var passwordParam = req.getParameter("password");
     String email = null;
-    byte[] storedHash = null;
-    byte[] salt = null;
+    String storedHashString = null;
+    String saltString = null;
     try (var connection = dataSource.getConnection(); var prep = connection.prepareStatement(
-        "select email, hash, salt from user where email = ?;")) {
+        "select email, hash, salt from user join PasswordCredentials on user.user_id = PasswordCredentials.user_id where email = ?;")) {
       prep.setString(1, emailParam);
       try (var resultSet = prep.executeQuery()) {
         if (resultSet.next()) {
           email = resultSet.getString("email");
-          storedHash = resultSet.getBytes("hash");
-          salt = resultSet.getBytes("salt");
+          storedHashString = resultSet.getString("hash");
+          saltString = resultSet.getString("salt");
         }
       }
     } catch (SQLException e) {
@@ -82,8 +85,9 @@ public class LogInServlet extends HttpServlet {
     if (email == null) {
       return;
     }
+    var format = HexFormat.of();
     var builder = new Builder(Argon2Parameters.ARGON2_id).withIterations(1)
-        .withMemoryAsKB(2097152).withParallelism(1).withSalt(salt);
+        .withMemoryAsKB(2097152).withParallelism(1).withSalt(format.parseHex(saltString));
     var generator = new Argon2BytesGenerator();
     generator.init(builder.build());
     var calcedHash = new byte[64];
@@ -96,7 +100,7 @@ public class LogInServlet extends HttpServlet {
     writer.println("<title>LOGIN PAGE</title>");
     writer.println("</head>");
     writer.println("<body>");
-    if (MessageDigest.isEqual(storedHash, calcedHash)) {
+    if (MessageDigest.isEqual(format.parseHex(storedHashString), calcedHash)) {
       writer.println("<p>ログインしました</p>");
       var user = (User) req.getSession().getAttribute("user");
       user.setEmail(email);

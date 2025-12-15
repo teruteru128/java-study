@@ -11,19 +11,19 @@ public class DoSServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    resp.setBufferSize(8192);
-    var h = req.getParameter("q");
-    var s = req.getParameter("l");
-    long n;
+    resp.setBufferSize(131072);
+    var qParam = req.getParameter("q");
+    var lParam = req.getParameter("l");
+    long q;
     try {
-      n = Long.parseLong(h);
+      q = Long.parseLong(qParam);
     } catch (NumberFormatException e) {
-      return;
+      q = 14170;
     }
     int l;
-    if (s != null) {
+    if (lParam != null) {
       try {
-        l = Integer.parseInt(s);
+        l = Integer.parseInt(lParam);
       } catch (NumberFormatException e) {
         l = 72;
       }
@@ -33,7 +33,7 @@ public class DoSServlet extends HttpServlet {
     resp.setContentType("text/plain");
     var writer = resp.getWriter();
     var repeat = "1".repeat(l);
-    for (var i = 0L; i < n; i++) {
+    for (var i = 0L; i < q; i++) {
       writer.println(repeat);
     }
   }
