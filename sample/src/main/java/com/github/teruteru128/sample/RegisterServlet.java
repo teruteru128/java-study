@@ -21,9 +21,13 @@ public class RegisterServlet extends HttpServlet {
     writer.println("<body>");
     writer.println("<h1>register page</h1>");
     writer.println("<form method=\"post\" action=\"/user/register\">");
-    writer.println("<input type=\"text\" name=\"username\" required>");
-    writer.println("<input type=\"password\" name=\"new-password\" autocomplete=\"on\" required>");
-    writer.println("<input type=\"submit\">");
+    writer.println("<label for=\"email\">メールアドレス</label>");
+    writer.println("<input type=\"email\" name=\"email\" id=\"email\" autocomplete=\"email\" required>");
+    writer.println("<label for=\"password\">パスワード</label>");
+    writer.println("<input type=\"password\" name=\"password\" autocomplete=\"new-password\" required>");
+    writer.println("<label for=\"password_confirmation\">確認用パスワード</label>");
+    writer.println("<input type=\"password\" name=\"password_confirmation\" id=\"password_confirmation\" autocomplete=\"new-password\" required>");
+    writer.println("<button type=\"submit\">登録</button>");
     writer.println("</form>");
     writer.println("<a href=\"/\">トップページに戻る</a>");
     writer.println("</body>");
