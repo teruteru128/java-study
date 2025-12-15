@@ -23,7 +23,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.security.Security;
+import java.util.HexFormat;
 import java.util.logging.Logger;
+import java.util.random.RandomGenerator;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.servlets.DefaultServlet;
@@ -34,6 +36,8 @@ import org.apache.tomcat.util.descriptor.web.ContextResource;
 import org.apache.tomcat.util.descriptor.web.ErrorPage;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
+import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
+import org.bouncycastle.crypto.params.Argon2Parameters;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 public class Main {
@@ -147,9 +151,9 @@ public class Main {
     context.addServletMappingDecoded("/api/hash/*", hashServletName);
 
     var primesListInitFilterName = "PrimesListInitFilter";
-    var filter = new PrimesListInitFilter();
+    var primesListInitFilter = new PrimesListInitFilter();
     var def = new FilterDef();
-    def.setFilter(filter);
+    def.setFilter(primesListInitFilter);
     def.setFilterName(primesListInitFilterName);
     context.addFilterDef(def);
     var map = new FilterMap();
@@ -181,6 +185,17 @@ public class Main {
     Tomcat.addServlet(context, loginServletName, new LogInServlet());
     context.addServletMappingDecoded("/user/login", loginServletName);
 
+    var userBeanFilterName = "UserBeanFilter";
+    var userBeanFilter = new UserBeanFilter();
+    var def1 = new FilterDef();
+    def1.setFilter(userBeanFilter);
+    def1.setFilterName(userBeanFilterName);
+    context.addFilterDef(def1);
+    var map1 = new FilterMap();
+    map1.setFilterName(userBeanFilterName);
+    map1.addURLPatternDecoded("*");
+    context.addFilterMap(map1);
+
     var doSName = "DoSServlet";
     Tomcat.addServlet(context, doSName, new DoSServlet());
     context.addServletMappingDecoded("/api/dos", doSName);
@@ -207,24 +222,6 @@ public class Main {
     var valve = new AccessLogValve();
     valve.setPattern("%t %a %A %v %r");
     tomcat.getEngine().getPipeline().addValve(valve);
-
-    /*
-    // use argon2 OR bcrypt
-    var salt = new byte[16];
-    var generator2 = RandomGenerator.of("SecureRandom");
-    generator2.nextBytes(salt);
-    var hash = new byte[64];
-
-    var builder = new Argon2Parameters.Builder(Argon2Parameters.ARGON2_id).withIterations(1)
-        .withMemoryAsKB(2097152).withParallelism(1).withSalt(salt);
-    var generator = new Argon2BytesGenerator();
-    generator.init(builder.build());
-    long start = System.nanoTime();
-    generator.generateBytes("".getBytes(StandardCharsets.UTF_8), hash);
-    long end = System.nanoTime();
-    System.out.println(HexFormat.of().formatHex(hash));
-    System.out.println((end - start) / 1e9 + " seconds");
-    */
 
     try {
       tomcat.start();

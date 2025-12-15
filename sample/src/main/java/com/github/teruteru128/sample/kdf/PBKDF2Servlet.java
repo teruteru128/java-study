@@ -40,17 +40,27 @@ public class PBKDF2Servlet extends HttpServlet {
     writer.println("<body>");
     writer.println("<h1>PBKDF2 sample</h1>");
     writer.println("<p><form method=\"post\">");
-    writer.println("<input type=\"text\" name=\"username\">");
-    writer.println("<input type=\"password\" name=\"password\">");
-    writer.print("<input type=\"text\" name=\"salt\" pattern=\"^[0-9a-fA-F]+$\" value=\"");
+    writer.println("<div>");
+    writer.println("<label type=\"text\" id=\"password\">パスワード</label>");
+    writer.println("<input type=\"text\" name=\"password\" id=\"password\" autocomplete=\"password\">");
+    writer.println("</div>");
+    writer.println("<div>");
+    writer.println("<label type=\"text\" id=\"salt\">salt</label>");
+    writer.print("<input type=\"text\" name=\"salt\" id=\"id\" pattern=\"^[0-9a-fA-F]+$\" value=\"");
     var salt = new byte[16];
     RANDOM.nextBytes(salt);
     writer.print(format.formatHex(salt));
     writer.println(
         "\" placeholder=\"0123456789abcdef0123456789abcdef\" title=\"ソルト(16進数文字列)\">");
+    writer.println("</div>");
+    writer.println("<div>");
+    writer.println("<label type=\"text\" id=\"iterationCount\">繰り返し回数</label>");
     writer.println(
-        "<input type=\"number\" name=\"iterationCount\" min=\"0\" max=\"1000000\" value=\"1000\">");
+        "<input type=\"number\" name=\"iterationCount\" id=\"iterationCount\" min=\"0\" max=\"1000000\" value=\"1000\">");
+    writer.println("</div>");
+    writer.println("<div>");
     writer.println("<input type=\"submit\" name=\"submit\">");
+    writer.println("</div>");
     writer.println("</form></p>");
     writer.println("<a href=\"/\">トップページに戻る</a>");
     writer.println("</body>");
@@ -116,8 +126,8 @@ public class PBKDF2Servlet extends HttpServlet {
       writer.println("</p>");
     }
     writer.println("<p><form method=\"post\">");
-    writer.println("<input type=\"text\" name=\"username\">");
-    writer.print("<input type=\"password\" name=\"password\"");
+    writer.println("<label type=\"text\" id=\"password\">");
+    writer.print("<input type=\"text\" name=\"password\" id=\"password\" autocomplete=\"password\"");
     if (passwordParam != null && !passwordParam.isEmpty()) {
       writer.print(" value=\"");
       writer.print(passwordParam);
