@@ -86,6 +86,9 @@ public class Main {
     /*namingResources.addResource(getJDBCContextResource("jdbc/PostgresDataSource",
         "org.postgresql.Driver", "jdbc:postgresql://localhost:5432/postgres", "", ""));*/
 
+    var listener = new ThymeleafConfiguration();
+    context.addApplicationEventListener(listener);
+
     var defaultServlet = "DefaultServlet";
     var wrapper = Tomcat.addServlet(context, defaultServlet, new DefaultServlet());
     wrapper.addInitParameter("listings", "true");

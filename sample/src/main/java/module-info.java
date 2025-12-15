@@ -11,6 +11,7 @@ module com.github.teruteru.sample {
   requires com.github.teruteru.math;
   requires org.apache.tomcat.embed.core;
   requires com.github.teruteru.foreign.gmp;
+  requires thymeleaf;
   exports com.github.teruteru128.sample;
   exports com.github.teruteru128.sample.dynamic;
   exports com.github.teruteru128.sample.forward;

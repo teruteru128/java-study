@@ -17,6 +17,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
 import org.bouncycastle.crypto.params.Argon2Parameters;
+import org.thymeleaf.TemplateEngine;
 
 public class RegisterServlet extends HttpServlet {
 
@@ -77,9 +78,11 @@ public class RegisterServlet extends HttpServlet {
     var emailParam = req.getParameter("email");
     var passwordParam = req.getParameter("password");
     var passwordConfirmationParam = req.getParameter("password_confirmation");
+    var templateEngine = (TemplateEngine) getServletContext().getAttribute(ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
     var writer = resp.getWriter();
     if (emailParam == null || passwordParam == null || !passwordParam.equals(
         passwordConfirmationParam)) {
+
       resp.setContentType("text/html");
       writer.println("<!DOCTYPE html>");
       writer.println("<html lang=\"ja\">");
