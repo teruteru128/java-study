@@ -76,9 +76,13 @@ public class RegisterServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    var parameter = new UserRegisterParameter();
     var emailParam = req.getParameter("email");
+    parameter.setEmail(req.getParameter("email"));
     var passwordParam = req.getParameter("password");
+    parameter.setPassword(req.getParameter("password"));
     var passwordConfirmationParam = req.getParameter("password_confirmation");
+    parameter.setPasswordConfirmation(req.getParameter("password_confirmation"));
     var templateEngine = (TemplateEngine) getServletContext().getAttribute(ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
     var writer = resp.getWriter();
     if (emailParam == null || passwordParam == null || !passwordParam.equals(
