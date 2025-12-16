@@ -1,4 +1,4 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.user;
 
 import java.io.Serial;
 import java.io.Serializable;

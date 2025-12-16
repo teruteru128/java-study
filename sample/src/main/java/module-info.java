@@ -17,4 +17,6 @@ module com.github.teruteru.sample {
   exports com.github.teruteru128.sample.forward;
   exports com.github.teruteru128.sample.primes;
   opens com.github.teruteru128.sample;
+  exports com.github.teruteru128.sample.user;
+  opens com.github.teruteru128.sample.user;
 }
