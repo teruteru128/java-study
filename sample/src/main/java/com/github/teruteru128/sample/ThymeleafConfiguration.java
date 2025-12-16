@@ -8,10 +8,12 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
+import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 public class ThymeleafConfiguration implements ServletContextListener {
 
   public static final String TEMPLATE_ENGINE_INSTANCE_KEY = "templateEngineInstance";
+  public static final String THYMELEAF_APPLICATION_INSTANCE_KEY = "thymeleafApplicationInstance";
   private static final Logger logger = Logger.getLogger(ThymeleafConfiguration.class.getName());
 
   @Nonnull
@@ -38,6 +40,10 @@ public class ThymeleafConfiguration implements ServletContextListener {
 
   @Override
   public void contextInitialized(ServletContextEvent sce) {
+    // ThymeleafApplicationをビルドし、ServletContextに保存
+    var application = JakartaServletWebApplication.buildApplication(sce.getServletContext());
+    sce.getServletContext().setAttribute(THYMELEAF_APPLICATION_INSTANCE_KEY, application);
+    // TemplateEngineをビルドし、ServletContextに保存
     var templateEngine = getTemplateEngine();
     sce.getServletContext().setAttribute(TEMPLATE_ENGINE_INSTANCE_KEY, templateEngine);
   }

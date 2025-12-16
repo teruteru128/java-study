@@ -40,8 +40,9 @@ public class TopPageServlet extends HttpServlet {
       throws ServletException, IOException {
     var templateEngine = (TemplateEngine) this.getServletContext()
         .getAttribute(ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
-    var webExchange = JakartaServletWebApplication.buildApplication(getServletContext())
-        .buildExchange(req, resp);
+    var application = (JakartaServletWebApplication) getServletContext().getAttribute(
+        ThymeleafConfiguration.THYMELEAF_APPLICATION_INSTANCE_KEY);
+    var webExchange = application.buildExchange(req, resp);
     var context = new WebContext(webExchange);
     var session = req.getSession();
     var list = new ArrayList<String>();
@@ -51,10 +52,13 @@ public class TopPageServlet extends HttpServlet {
     }
     list.add("session id: " + req.getSession().getId());
     var offset = ZoneOffset.ofHours(9);
-    list.add("getCreationTime: " + OffsetDateTime.ofInstant(Instant.ofEpochMilli(session.getCreationTime()), offset));
-    list.add("getLastAccessedTime: " + OffsetDateTime.ofInstant(Instant.ofEpochMilli(session.getLastAccessedTime()), offset));
+    list.add("getCreationTime: " + OffsetDateTime.ofInstant(
+        Instant.ofEpochMilli(session.getCreationTime()), offset));
+    list.add("getLastAccessedTime: " + OffsetDateTime.ofInstant(
+        Instant.ofEpochMilli(session.getLastAccessedTime()), offset));
     list.add("getMaxInactiveInterval: " + session.getMaxInactiveInterval());
     context.setVariable("list", list);
+    resp.setContentType("text/html");
     templateEngine.process("index", context, resp.getWriter());
   }
 }

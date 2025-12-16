@@ -3,6 +3,7 @@ package com.github.teruteru128.sample.clone;
 import com.github.teruteru128.math.CloneableBigInteger;
 import com.github.teruteru128.sample.ThymeleafConfiguration;
 import jakarta.annotation.Nonnull;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,12 +31,19 @@ public class CloneSample extends HttpServlet {
   }
 
   @Override
+  public void init(ServletConfig config) throws ServletException {
+    super.init(config);
+  }
+
+  @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     var servletContext = this.getServletContext();
     var templateEngine = (TemplateEngine) servletContext
         .getAttribute(ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
-    var webExchange = JakartaServletWebApplication.buildApplication(getServletContext())
+    var application = (JakartaServletWebApplication) getServletContext().getAttribute(
+        ThymeleafConfiguration.THYMELEAF_APPLICATION_INSTANCE_KEY);
+    var webExchange = application
         .buildExchange(req, resp);
     var context = new WebContext(webExchange);
     var textList = getTextList();
