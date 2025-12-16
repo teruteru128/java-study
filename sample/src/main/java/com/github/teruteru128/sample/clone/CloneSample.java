@@ -30,27 +30,6 @@ public class CloneSample extends HttpServlet {
     return 0;
   }
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
-
-  @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-    var servletContext = this.getServletContext();
-    var templateEngine = (TemplateEngine) servletContext
-        .getAttribute(ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
-    var application = (JakartaServletWebApplication) getServletContext().getAttribute(
-        ThymeleafConfiguration.THYMELEAF_APPLICATION_INSTANCE_KEY);
-    var webExchange = application
-        .buildExchange(req, resp);
-    var context = new WebContext(webExchange);
-    var textList = getTextList();
-    context.setVariable("list", textList);
-    templateEngine.process("clone", context, resp.getWriter());
-  }
-
   @Nonnull
   private static ArrayList<String> getTextList() {
     var signNumber = 0;
@@ -70,5 +49,25 @@ public class CloneSample extends HttpServlet {
     textList.add("originalZero.getClass() == cloneableZero.getClass(): " + (originalZero.getClass()
                                                                             == cloneableZero.getClass()));
     return textList;
+  }
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    super.init(config);
+  }
+
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    var servletContext = this.getServletContext();
+    var templateEngine = (TemplateEngine) servletContext.getAttribute(
+        ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
+    var application = (JakartaServletWebApplication) getServletContext().getAttribute(
+        ThymeleafConfiguration.THYMELEAF_APPLICATION_INSTANCE_KEY);
+    var webExchange = application.buildExchange(req, resp);
+    var context = new WebContext(webExchange);
+    var textList = getTextList();
+    context.setVariable("list", textList);
+    templateEngine.process("clone", context, resp.getWriter());
   }
 }
