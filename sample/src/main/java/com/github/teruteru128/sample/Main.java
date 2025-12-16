@@ -20,7 +20,6 @@ import com.github.teruteru128.sample.primes.PrimesViewerServlet;
 import com.github.teruteru128.sample.sql.SQLiteConnectSample;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletResponse;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.security.Security;
