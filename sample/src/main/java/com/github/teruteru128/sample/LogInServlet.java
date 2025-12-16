@@ -20,6 +20,9 @@ import org.bouncycastle.crypto.params.Argon2Parameters.Builder;
 
 public class LogInServlet extends HttpServlet {
 
+  public static final int DEFAULT_ITERATIONS = 1;
+  public static final int DEFAULT_PARALLELISM = 1;
+  public static final int DEFAULT_USING_MEMORY_AS_KB = 2097152;
   private volatile DataSource dataSource = null;
 
   @Override
@@ -86,8 +89,9 @@ public class LogInServlet extends HttpServlet {
       return;
     }
     var format = HexFormat.of();
-    var builder = new Builder(Argon2Parameters.ARGON2_id).withIterations(1)
-        .withMemoryAsKB(2097152).withParallelism(1).withSalt(format.parseHex(saltString));
+    var builder = new Builder(Argon2Parameters.ARGON2_id).withIterations(DEFAULT_ITERATIONS)
+        .withMemoryAsKB(DEFAULT_USING_MEMORY_AS_KB).withParallelism(DEFAULT_PARALLELISM)
+        .withSalt(format.parseHex(saltString));
     var generator = new Argon2BytesGenerator();
     generator.init(builder.build());
     var calcedHash = new byte[64];
