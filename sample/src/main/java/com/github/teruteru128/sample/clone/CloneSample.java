@@ -1,12 +1,18 @@
 package com.github.teruteru128.sample.clone;
 
 import com.github.teruteru128.math.CloneableBigInteger;
+import com.github.teruteru128.sample.ThymeleafConfiguration;
+import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
+import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 public class CloneSample extends HttpServlet {
 
@@ -26,48 +32,35 @@ public class CloneSample extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    resp.setContentType("text/html");
-    var writer = resp.getWriter();
-    writer.println("<!DOCTYPE html>");
-    writer.println("<html lang=\"ja\">");
-    writer.println("<head>");
-    writer.println("<title></title>");
-    writer.println("</head>");
-    writer.println("<body>");
+    var servletContext = this.getServletContext();
+    var templateEngine = (TemplateEngine) servletContext
+        .getAttribute(ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
+    var webExchange = JakartaServletWebApplication.buildApplication(getServletContext())
+        .buildExchange(req, resp);
+    var context = new WebContext(webExchange);
+    var textList = getTextList();
+    context.setVariable("list", textList);
+    templateEngine.process("clone", context, resp.getWriter());
+  }
+
+  @Nonnull
+  private static ArrayList<String> getTextList() {
     var signNumber = 0;
     var magnitude = new byte[0];
     var cloneableZero = new CloneableBigInteger(signNumber, magnitude);
     var clonedZero = cloneableZero.clone();
     var originalZero = BigInteger.ZERO;
-    writer.print("<p>originalZero: ");
-    writer.print(originalZero);
-    writer.println("</p>");
-    writer.print("<p>cloneableZero: ");
-    writer.print(cloneableZero);
-    writer.println("</p>");
-    writer.print("<p>clonedZero: ");
-    writer.print(clonedZero);
-    writer.println("</p>");
-    writer.print("<p>cloneableZero.equals(clonedZero): ");
-    writer.print(cloneableZero.equals(clonedZero));
-    writer.println("</p>");
-    writer.print("<p>originalZero.equals(clonedZero): ");
-    writer.print(originalZero.equals(clonedZero));
-    writer.println("</p>");
-    writer.print("<p>originalZero.equals(cloneableZero): ");
-    writer.print(originalZero.equals(cloneableZero));
-    writer.println("</p>");
-    writer.print("<p>originalZero.getClass(): ");
-    writer.print(originalZero.getClass());
-    writer.println("</p>");
-    writer.print("<p>cloneableZero.getClass(): ");
-    writer.print(cloneableZero.getClass());
-    writer.println("</p>");
-    writer.print("<p>originalZero.getClass() == cloneableZero.getClass(): ");
-    writer.print(originalZero.getClass() == cloneableZero.getClass());
-    writer.println("</p>");
-    writer.println("<a href=\"/\">トップページに戻る</a>");
-    writer.println("</body>");
-    writer.println("</html>");
+    var textList = new ArrayList<String>(3);
+    textList.add("originalZero: " + originalZero);
+    textList.add("cloneableZero: " + cloneableZero);
+    textList.add("clonedZero: " + clonedZero);
+    textList.add("cloneableZero.equals(clonedZero): " + cloneableZero.equals(clonedZero));
+    textList.add("originalZero.equals(clonedZero): " + originalZero.equals(clonedZero));
+    textList.add("originalZero.equals(cloneableZero): " + originalZero.equals(cloneableZero));
+    textList.add("originalZero.getClass(): " + originalZero.getClass());
+    textList.add("cloneableZero.getClass(): " + cloneableZero.getClass());
+    textList.add("originalZero.getClass() == cloneableZero.getClass(): " + (originalZero.getClass()
+                                                                            == cloneableZero.getClass()));
+    return textList;
   }
 }
