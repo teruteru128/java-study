@@ -5,15 +5,11 @@ import com.github.teruteru128.sample.user.PasswordCredentialsDao;
 import com.github.teruteru128.sample.user.PasswordHasher;
 import com.github.teruteru128.sample.user.UserDao;
 import com.github.teruteru128.sample.user.UserRegisterParameter;
-import jakarta.servlet.ServletException;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.HexFormat;
 import java.util.logging.Logger;
 import java.util.random.RandomGenerator;
 import javax.sql.DataSource;
-import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
-import org.bouncycastle.crypto.params.Argon2Parameters;
 
 public class RegisterService {
 

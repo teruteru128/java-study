@@ -101,61 +101,11 @@ public class RegisterServlet extends HttpServlet {
     var context = new WebContext(webExchange);
     try {
       registerService.register(parameter);
+      resp.setContentType("text/html");
+      templateEngine.process("user/register/success", context, resp.getWriter());
     } catch (UserAlreadyExistsException e) {
       resp.setContentType("text/html");
       templateEngine.process("user/register/failed", context, resp.getWriter());
-      return;
     }
-    var salt = new byte[16];
-    generator.nextBytes(salt);
-    var hash = new byte[64];
-    var generator = new Argon2BytesGenerator();
-    var builder = new Argon2Parameters.Builder(Argon2Parameters.ARGON2_id).withIterations(1)
-        .withMemoryAsKB(2097152).withParallelism(1).withSalt(salt);
-    generator.init(builder.build());
-    generator.generateBytes(parameter.getPassword().getBytes(StandardCharsets.UTF_8), hash);
-    try (var connection = dataSource.getConnection()) {
-      connection.setAutoCommit(false);
-      long user_id;
-      try {
-        try (var userPrepStmt = connection.prepareStatement(
-            "insert into user(username, email) values(?,?);", Statement.RETURN_GENERATED_KEYS)) {
-          // 今のところ未使用なので空欄に設定
-          userPrepStmt.setString(1, "");
-          userPrepStmt.setString(2, parameter.getEmail());
-          userPrepStmt.execute();
-          try (var generatedKeys = userPrepStmt.getGeneratedKeys()) {
-            if (generatedKeys.next()) {
-              user_id = generatedKeys.getLong(1);
-            } else {
-              // ID が生成されなかった場合は致命的なエラーとして扱う
-              throw new SQLException("Failed to retrieve generated user ID.");
-            }
-          }
-        }
-        try (var passCredPrepStmt = connection.prepareStatement(
-            "insert into PasswordCredentials(user_id, hash, salt) VALUES (?, ?, ?);")) {
-          passCredPrepStmt.setLong(1, user_id);
-          var format = HexFormat.of();
-          // argon2由来のhashとsalt
-          passCredPrepStmt.setString(2, format.formatHex(hash));
-          passCredPrepStmt.setString(3, format.formatHex(salt));
-          passCredPrepStmt.execute();
-        }
-        connection.commit();
-      } catch (SQLException e) { // 例外発生時はロールバックする
-        try {
-          connection.rollback();
-        } catch (SQLException rollbackEx) {
-          // ロールバック失敗時のログ出力など
-          log("Rollback failed: " + rollbackEx.getMessage());
-        }
-        throw new ServletException(e);
-      }
-    } catch (SQLException e) {
-      throw new ServletException(e);
-    }
-    resp.setContentType("text/html");
-    templateEngine.process("user/register/success", context, resp.getWriter());
   }
 }
