@@ -57,5 +57,5 @@ dependencies {
 
 tasks.withType(JavaCompile).configureEach {
     // モジュールシステムに関する「存在しないパッケージ」の警告を抑制する
-    options.compilerArgs << "-Xlint:module"
+    options.compilerArgs << "-Xlint:-module"
 }
