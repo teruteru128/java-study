@@ -10,6 +10,8 @@ import java.util.HexFormat;
 import java.util.logging.Logger;
 import java.util.random.RandomGenerator;
 import javax.sql.DataSource;
+import org.sqlite.SQLiteErrorCode;
+import org.sqlite.SQLiteException;
 
 public class RegisterService {
 
@@ -57,6 +59,19 @@ public class RegisterService {
         passwordCredentialsDao.insert(connection, user_id, format.formatHex(hash),
             format.formatHex(salt));
         connection.commit();
+      } catch (SQLiteException e) { // 例外発生時はロールバックする
+        var resultCode = e.getResultCode();
+        try {
+          connection.rollback();
+        } catch (SQLException rollbackEx) {
+          // ロールバック失敗時のログ出力など
+          logger.severe("Rollback failed: " + rollbackEx.getMessage());
+        }
+        if (resultCode == SQLiteErrorCode.SQLITE_CONSTRAINT_UNIQUE) {
+          throw new UserAlreadyExistsException("");
+        } else {
+          throw new RegisterFailException("inner", e);
+        }
       } catch (SQLException | RuntimeException e) { // 例外発生時はロールバックする
         try {
           connection.rollback();

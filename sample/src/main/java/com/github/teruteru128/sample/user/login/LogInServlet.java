@@ -1,6 +1,8 @@
-package com.github.teruteru128.sample.user;
+package com.github.teruteru128.sample.user.login;
 
 import com.github.teruteru128.sample.ThymeleafConfiguration;
+import com.github.teruteru128.sample.user.LogInStatus;
+import com.github.teruteru128.sample.user.User;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

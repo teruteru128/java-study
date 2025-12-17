@@ -11,17 +11,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HexFormat;
 import java.util.random.RandomGenerator;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
-import org.bouncycastle.crypto.params.Argon2Parameters;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
@@ -101,8 +95,7 @@ public class RegisterServlet extends HttpServlet {
     var context = new WebContext(webExchange);
     try {
       registerService.register(parameter);
-      resp.setContentType("text/html");
-      templateEngine.process("user/register/success", context, resp.getWriter());
+      resp.sendRedirect(req.getContextPath() + "user/register-success");
     } catch (UserAlreadyExistsException e) {
       resp.setContentType("text/html");
       templateEngine.process("user/register/failed", context, resp.getWriter());

@@ -2,12 +2,14 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>register page</title>
+  <title>ハッシュテスト</title>
 </head>
 <body>
-<h1>register page</h1>
-<p>登録しました</p>
+<ul>
+  <li>[[${pathInfo!=null?pathInfo:'null'}]]</li>
+  <li>[[${requestURI}]]</li>
+  <li>[[${servletPath}]]</li>
+</ul>
 <a href="/">トップページに戻る</a>
 </body>
 </html>

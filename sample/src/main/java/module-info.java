@@ -21,4 +21,5 @@ module com.github.teruteru.sample {
   opens com.github.teruteru128.sample;
   opens com.github.teruteru128.sample.user.login;
   opens com.github.teruteru128.sample.user.register;
+  exports com.github.teruteru128.sample.user.login;
 }

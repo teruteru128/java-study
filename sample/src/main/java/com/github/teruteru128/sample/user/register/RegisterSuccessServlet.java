@@ -1,5 +1,6 @@
-package com.github.teruteru128.sample;
+package com.github.teruteru128.sample.user.register;
 
+import com.github.teruteru128.sample.ThymeleafConfiguration;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,16 +10,11 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
-public class HashServlet extends HttpServlet {
+public class RegisterSuccessServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    var pathInfo = req.getPathInfo();
-    var requestURI = req.getRequestURI();
-    var servletPath = req.getServletPath();
-    resp.setContentType("text/html");
-    var writer =  resp.getWriter();
     var servletContext = getServletContext();
     var templateEngine = (TemplateEngine) servletContext.getAttribute(
         ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
@@ -26,9 +22,6 @@ public class HashServlet extends HttpServlet {
         ThymeleafConfiguration.THYMELEAF_APPLICATION_INSTANCE_KEY);
     var webExchange = application.buildExchange(req, resp);
     var context = new WebContext(webExchange);
-    context.setVariable("pathInfo", pathInfo);
-    context.setVariable("requestURI", requestURI);
-    context.setVariable("servletPath", servletPath);
-    templateEngine.process("hash", context, writer);
+    templateEngine.process("user/register/success", context, resp.getWriter());
   }
 }

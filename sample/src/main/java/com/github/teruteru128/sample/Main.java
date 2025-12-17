@@ -18,9 +18,10 @@ import com.github.teruteru128.sample.primes.PrimesCreateServlet;
 import com.github.teruteru128.sample.primes.PrimesListInitFilter;
 import com.github.teruteru128.sample.primes.PrimesViewerServlet;
 import com.github.teruteru128.sample.sql.SQLiteConnectSample;
-import com.github.teruteru128.sample.user.LogInServlet;
+import com.github.teruteru128.sample.user.login.LogInServlet;
 import com.github.teruteru128.sample.user.register.RegisterServlet;
 import com.github.teruteru128.sample.user.UserBeanFilter;
+import com.github.teruteru128.sample.user.register.RegisterSuccessServlet;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
@@ -186,6 +187,10 @@ public class Main {
     var registerServletName = "RegisterServlet";
     Tomcat.addServlet(context, registerServletName, new RegisterServlet());
     context.addServletMappingDecoded("/user/register", registerServletName);
+
+    var registerSuccessServletName = "RegisterSuccessServlet";
+    Tomcat.addServlet(context, registerSuccessServletName, new RegisterSuccessServlet());
+    context.addServletMappingDecoded("/user/register-success", registerSuccessServletName);
 
     var loginServletName = "LoginServlet";
     Tomcat.addServlet(context, loginServletName, new LogInServlet());
