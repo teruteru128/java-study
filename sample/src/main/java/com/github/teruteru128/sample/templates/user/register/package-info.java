@@ -1,1 +1,0 @@
-package com.github.teruteru128.sample.templates.user.register;
