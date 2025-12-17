@@ -1,6 +1,9 @@
 package com.github.teruteru128.sample.user.register;
 
 import com.github.teruteru128.sample.ThymeleafConfiguration;
+import com.github.teruteru128.sample.user.PasskeyCredentialsDao;
+import com.github.teruteru128.sample.user.PasswordCredentialsDao;
+import com.github.teruteru128.sample.user.UserDao;
 import com.github.teruteru128.sample.user.UserRegisterParameter;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -27,6 +30,7 @@ public class RegisterServlet extends HttpServlet {
 
   private final RandomGenerator generator = RandomGenerator.of("SecureRandom");
   private volatile DataSource dataSource = null;
+  private RegisterService registerService;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
@@ -35,6 +39,11 @@ public class RegisterServlet extends HttpServlet {
       var initialContext = new InitialContext();
       var envContext = (Context) initialContext.lookup("java:comp/env");
       dataSource = (DataSource) envContext.lookup("jdbc/SQLiteDataSource");
+      var userDao = new UserDao(dataSource);
+      var passwordCredentialsDao = new PasswordCredentialsDao(dataSource);
+      var passkeyCredentialDao = new PasskeyCredentialsDao(dataSource);
+      this.registerService = new RegisterService(userDao, passwordCredentialsDao, passkeyCredentialDao,
+          dataSource);
     } catch (NamingException e) {
       throw new ServletException(e);
     }
@@ -80,23 +89,19 @@ public class RegisterServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     var parameter = new UserRegisterParameter();
-    var emailParam = req.getParameter("email");
     parameter.setEmail(req.getParameter("email"));
-    var passwordParam = req.getParameter("password");
     parameter.setPassword(req.getParameter("password"));
-    var passwordConfirmationParam = req.getParameter("password_confirmation");
     parameter.setPasswordConfirmation(req.getParameter("password_confirmation"));
     var servletContext = getServletContext();
     var templateEngine = (TemplateEngine) servletContext.getAttribute(
         ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
     var application = (JakartaServletWebApplication) servletContext.getAttribute(
         ThymeleafConfiguration.THYMELEAF_APPLICATION_INSTANCE_KEY);
-    var webExchange =  application.buildExchange(req, resp);
+    var webExchange = application.buildExchange(req, resp);
     var context = new WebContext(webExchange);
-    if (emailParam == null || passwordParam == null || !passwordParam.equals(
-        passwordConfirmationParam)) {
-
-      context.setVariable("parameter", parameter);
+    try {
+      registerService.register(parameter);
+    } catch (UserAlreadyExistsException e) {
       resp.setContentType("text/html");
       templateEngine.process("user/register/failed", context, resp.getWriter());
       return;
@@ -108,7 +113,7 @@ public class RegisterServlet extends HttpServlet {
     var builder = new Argon2Parameters.Builder(Argon2Parameters.ARGON2_id).withIterations(1)
         .withMemoryAsKB(2097152).withParallelism(1).withSalt(salt);
     generator.init(builder.build());
-    generator.generateBytes(passwordParam.getBytes(StandardCharsets.UTF_8), hash);
+    generator.generateBytes(parameter.getPassword().getBytes(StandardCharsets.UTF_8), hash);
     try (var connection = dataSource.getConnection()) {
       connection.setAutoCommit(false);
       long user_id;
@@ -117,7 +122,7 @@ public class RegisterServlet extends HttpServlet {
             "insert into user(username, email) values(?,?);", Statement.RETURN_GENERATED_KEYS)) {
           // 今のところ未使用なので空欄に設定
           userPrepStmt.setString(1, "");
-          userPrepStmt.setString(2, emailParam);
+          userPrepStmt.setString(2, parameter.getEmail());
           userPrepStmt.execute();
           try (var generatedKeys = userPrepStmt.getGeneratedKeys()) {
             if (generatedKeys.next()) {
