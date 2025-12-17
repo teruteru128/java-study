@@ -97,7 +97,7 @@ public class RegisterServlet extends HttpServlet {
 
       context.setVariable("parameter", parameter);
       resp.setContentType("text/html");
-      templateEngine.process("register/failed", context, resp.getWriter());
+      templateEngine.process("user/register/failed", context, resp.getWriter());
       return;
     }
     var salt = new byte[16];
@@ -150,6 +150,6 @@ public class RegisterServlet extends HttpServlet {
       throw new ServletException(e);
     }
     resp.setContentType("text/html");
-    templateEngine.process("register/success", context, resp.getWriter());
+    templateEngine.process("user/register/success", context, resp.getWriter());
   }
 }
