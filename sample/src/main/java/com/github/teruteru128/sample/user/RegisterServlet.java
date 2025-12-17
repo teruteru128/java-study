@@ -19,6 +19,8 @@ import javax.sql.DataSource;
 import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
 import org.bouncycastle.crypto.params.Argon2Parameters;
 import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
+import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 public class RegisterServlet extends HttpServlet {
 
@@ -83,56 +85,19 @@ public class RegisterServlet extends HttpServlet {
     parameter.setPassword(req.getParameter("password"));
     var passwordConfirmationParam = req.getParameter("password_confirmation");
     parameter.setPasswordConfirmation(req.getParameter("password_confirmation"));
-    var templateEngine = (TemplateEngine) getServletContext().getAttribute(ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
-    var writer = resp.getWriter();
+    var servletContext = getServletContext();
+    var templateEngine = (TemplateEngine) servletContext.getAttribute(
+        ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
+    var application = (JakartaServletWebApplication) servletContext.getAttribute(
+        ThymeleafConfiguration.THYMELEAF_APPLICATION_INSTANCE_KEY);
+    var webExchange =  application.buildExchange(req, resp);
+    var context = new WebContext(webExchange);
     if (emailParam == null || passwordParam == null || !passwordParam.equals(
         passwordConfirmationParam)) {
 
+      context.setVariable("parameter", parameter);
       resp.setContentType("text/html");
-      writer.println("<!DOCTYPE html>");
-      writer.println("<html lang=\"ja\">");
-      writer.println("<head>");
-      writer.println("<title>register page</title>");
-      writer.println("</head>");
-      writer.println("<body>");
-      writer.println("<h1>register page</h1>");
-      writer.println("<form method=\"post\" action=\"/user/register\">");
-      writer.println("<div>");
-      writer.println("<label for=\"email\">メールアドレス</label>");
-      writer.print("<input type=\"email\" name=\"email\" id=\"email\"");
-      if (emailParam != null) {
-        writer.write(" value=\"");
-        writer.write(emailParam);
-        writer.write("\"");
-      }
-      writer.println(" autocomplete=\"email\" required>");
-      writer.println("</div>");
-      writer.println("<div>");
-      writer.println("<label for=\"password\">パスワード</label>");
-      writer.print("<input type=\"password\" name=\"password\"");
-      if (passwordParam != null) {
-        writer.write(" value=\"");
-        writer.write(passwordParam);
-        writer.write("\"");
-      }
-      writer.println(" autocomplete=\"new-password\" required>");
-      writer.println("</div>");
-      writer.println("<div>");
-      writer.println("<label for=\"password_confirmation\">確認用パスワード</label>");
-      writer.print("<input type=\"password\" name=\"password_confirmation\"");
-      if (passwordConfirmationParam != null) {
-        writer.write(" value=\"");
-        writer.write(passwordConfirmationParam);
-        writer.write("\"");
-      }
-      writer.println(" id=\"password_confirmation\" autocomplete=\"new-password\" required>");
-      writer.println("</div>");
-      writer.println("<button type=\"submit\">登録</button>");
-      writer.println("</div>");
-      writer.println("</form>");
-      writer.println("<a href=\"/\">トップページに戻る</a>");
-      writer.println("</body>");
-      writer.println("</html>");
+      templateEngine.process("register/failed", context, resp.getWriter());
       return;
     }
     var salt = new byte[16];
@@ -185,16 +150,6 @@ public class RegisterServlet extends HttpServlet {
       throw new ServletException(e);
     }
     resp.setContentType("text/html");
-    writer.println("<!DOCTYPE html>");
-    writer.println("<html lang=\"ja\">");
-    writer.println("<head>");
-    writer.println("<title>register page</title>");
-    writer.println("</head>");
-    writer.println("<body>");
-    writer.println("<h1>register page</h1>");
-    writer.println("<p>登録しました</p>");
-    writer.println("<a href=\"/\">トップページに戻る</a>");
-    writer.println("</body>");
-    writer.println("</html>");
+    templateEngine.process("register/success", context, resp.getWriter());
   }
 }

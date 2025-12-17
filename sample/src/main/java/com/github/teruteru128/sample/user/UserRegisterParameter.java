@@ -1,6 +1,12 @@
 package com.github.teruteru128.sample.user;
 
-public class UserRegisterParameter {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class UserRegisterParameter implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 1L;
 
   private String email;
   private String password;

@@ -29,7 +29,7 @@ public class ThymeleafConfiguration implements ServletContextListener {
   @Nonnull
   private static ITemplateResolver getTemplateResolver() {
     var templateResolver = new ClassLoaderTemplateResolver();
-    templateResolver.setPrefix("com/github/teruteru128/sample/");
+    templateResolver.setPrefix("com/github/teruteru128/sample/templates/");
     templateResolver.setSuffix(".html");
     templateResolver.setTemplateMode(TemplateMode.HTML);
     templateResolver.setCharacterEncoding("UTF-8");
