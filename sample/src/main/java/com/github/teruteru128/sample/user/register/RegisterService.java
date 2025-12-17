@@ -22,25 +22,26 @@ public class RegisterService {
   private final DataSource dataSource;
   private final PasswordHasher passwordHasher = new PasswordHasher();
 
-  public RegisterService(UserDao userDao, PasswordCredentialsDao passwordCredentialsDao, PasskeyCredentialsDao passkeyCredentialsDao,
-      DataSource dataSource) {
+  public RegisterService(UserDao userDao, PasswordCredentialsDao passwordCredentialsDao,
+      PasskeyCredentialsDao passkeyCredentialsDao, DataSource dataSource) {
     this.userDao = userDao;
     this.passwordCredentialsDao = passwordCredentialsDao;
     this.passkeyCredentialsDao = passkeyCredentialsDao;
     this.dataSource = dataSource;
   }
 
-  public void register(UserRegisterParameter parameter) throws UserAlreadyExistsException, PasswordTooShortException, PasswordConfirmationFailException {
+  public void register(UserRegisterParameter parameter)
+      throws UserAlreadyExistsException, PasswordTooShortException, PasswordConfirmationFailException {
     var password = parameter.getPassword();
     if (password == null || password.length() < 8) {
       throw new PasswordTooShortException("");
     }
-    if(!password.equals(parameter.getPasswordConfirmation())) {
+    if (!password.equals(parameter.getPasswordConfirmation())) {
       throw new PasswordConfirmationFailException("");
     }
     var email = parameter.getEmail();
     // 使用可能なメールアドレスかどうかは判定できないので空欄でないなら通すしか無い
-    if(email == null || email.isEmpty()) {
+    if (email == null || email.isEmpty()) {
       throw new IllegalArgumentException("");
     }
     // UserAlreadyExists はどうやって判別するんでっしゃろ
@@ -50,13 +51,13 @@ public class RegisterService {
     passwordHasher.hash(hash, password, salt);
     try (var connection = dataSource.getConnection()) {
       connection.setAutoCommit(false);
-      long user_id;
       try {
-        user_id = userDao.insert(connection, email);
+        var user_id = userDao.insert(connection, email);
         var format = HexFormat.of();
-        passwordCredentialsDao.insert(connection, user_id, format.formatHex(hash), format.formatHex(salt));
+        passwordCredentialsDao.insert(connection, user_id, format.formatHex(hash),
+            format.formatHex(salt));
         connection.commit();
-      } catch (SQLException e) { // 例外発生時はロールバックする
+      } catch (SQLException | RuntimeException e) { // 例外発生時はロールバックする
         try {
           connection.rollback();
         } catch (SQLException rollbackEx) {
@@ -64,6 +65,8 @@ public class RegisterService {
           logger.severe("Rollback failed: " + rollbackEx.getMessage());
         }
         throw new RegisterFailException("inner", e);
+      } finally {
+        connection.setAutoCommit(true);
       }
     } catch (SQLException e) {
       throw new RegisterFailException("outer", e);
