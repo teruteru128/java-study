@@ -1,4 +1,6 @@
-package com.github.teruteru128.sample.user;
+package com.github.teruteru128.sample.user.register;
+
+import com.github.teruteru128.sample.user.UserRegisterParameter;
 
 public class RegisterService {
 

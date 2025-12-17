@@ -17,5 +17,7 @@ module com.github.teruteru.sample {
   exports com.github.teruteru128.sample.forward;
   exports com.github.teruteru128.sample.primes;
   exports com.github.teruteru128.sample.user;
+  exports com.github.teruteru128.sample.user.register;
   opens com.github.teruteru128.sample to thymeleaf;
+  opens com.github.teruteru128.sample.user.register to thymeleaf;
 }

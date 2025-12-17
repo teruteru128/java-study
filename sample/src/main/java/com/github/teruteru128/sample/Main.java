@@ -19,7 +19,7 @@ import com.github.teruteru128.sample.primes.PrimesListInitFilter;
 import com.github.teruteru128.sample.primes.PrimesViewerServlet;
 import com.github.teruteru128.sample.sql.SQLiteConnectSample;
 import com.github.teruteru128.sample.user.LogInServlet;
-import com.github.teruteru128.sample.user.RegisterServlet;
+import com.github.teruteru128.sample.user.register.RegisterServlet;
 import com.github.teruteru128.sample.user.UserBeanFilter;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletResponse;
