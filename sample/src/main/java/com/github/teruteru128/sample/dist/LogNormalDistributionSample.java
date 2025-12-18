@@ -1,6 +1,7 @@
 package com.github.teruteru128.sample.dist;
 
 import com.github.teruteru128.sample.Sample;
+import com.github.teruteru128.sample.ThymeleafConfiguration;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +16,9 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import org.apache.commons.rng.simple.JDKRandomWrapper;
 import org.apache.commons.statistics.distribution.LogNormalDistribution;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
+import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 /**
  * 対数正規分布のサンプル
@@ -71,16 +75,14 @@ public class LogNormalDistributionSample extends HttpServlet implements Sample {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    var templateEngine = (TemplateEngine) this.getServletContext()
+        .getAttribute(ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
+    var application = (JakartaServletWebApplication) getServletContext().getAttribute(
+        ThymeleafConfiguration.THYMELEAF_APPLICATION_INSTANCE_KEY);
+    var webExchange = application.buildExchange(req, resp);
+    var context = new WebContext(webExchange);
     resp.setContentType("text/html");
     var writer = resp.getWriter();
-    writer.println("<!DOCTYPE html>");
-    writer.println("<html lang=\"ja\">");
-    writer.println("<head>");
-    writer.println("<title>LogNormalDistributionSample</title>");
-    writer.println("</head>");
-    writer.println("<body>");
-    writer.println("<a href=\"/\">トップページに戻る</a>");
-    writer.println("</body>");
-    writer.println("</html>");
+    templateEngine.process("dist/logNormal", context, writer);
   }
 }

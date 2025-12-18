@@ -7,10 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serial;
-import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.random.RandomGenerator;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -50,20 +46,6 @@ public class TopPageServlet extends HttpServlet {
         ThymeleafConfiguration.THYMELEAF_APPLICATION_INSTANCE_KEY);
     var webExchange = application.buildExchange(req, resp);
     var context = new WebContext(webExchange);
-    var session = req.getSession();
-    var list = new ArrayList<String>();
-    for (var e = session.getAttributeNames(); e.hasMoreElements(); ) {
-      var elem = e.nextElement();
-      list.add(elem + "[" + session.getAttribute(elem).getClass().getName() + "]");
-    }
-    list.add("session id: " + req.getSession().getId());
-    var offset = ZoneOffset.ofHours(9);
-    list.add("getCreationTime: " + OffsetDateTime.ofInstant(
-        Instant.ofEpochMilli(session.getCreationTime()), offset));
-    list.add("getLastAccessedTime: " + OffsetDateTime.ofInstant(
-        Instant.ofEpochMilli(session.getLastAccessedTime()), offset));
-    list.add("getMaxInactiveInterval: " + session.getMaxInactiveInterval());
-    context.setVariable("list", list);
     context.setVariable("omikuji", random.nextInt(100));
     resp.setContentType("text/html");
     templateEngine.process("index", context, resp.getWriter());
