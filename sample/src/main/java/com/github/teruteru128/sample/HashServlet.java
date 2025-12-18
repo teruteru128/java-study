@@ -26,9 +26,9 @@ public class HashServlet extends HttpServlet {
         ThymeleafConfiguration.THYMELEAF_APPLICATION_INSTANCE_KEY);
     var webExchange = application.buildExchange(req, resp);
     var context = new WebContext(webExchange);
-    context.setVariable("pathInfo", pathInfo);
-    context.setVariable("requestURI", requestURI);
-    context.setVariable("servletPath", servletPath);
+    context.setVariable("pathInfo", "PathInfo: " + pathInfo);
+    context.setVariable("requestURI", "RequestURI: " + requestURI);
+    context.setVariable("servletPath", "ServletPath:" + servletPath);
     templateEngine.process("hash", context, writer);
   }
 }

@@ -18,9 +18,9 @@ import com.github.teruteru128.sample.primes.PrimesCreateServlet;
 import com.github.teruteru128.sample.primes.PrimesListInitFilter;
 import com.github.teruteru128.sample.primes.PrimesViewerServlet;
 import com.github.teruteru128.sample.sql.SQLiteConnectSample;
+import com.github.teruteru128.sample.user.UserBeanFilter;
 import com.github.teruteru128.sample.user.login.LogInServlet;
 import com.github.teruteru128.sample.user.register.RegisterServlet;
-import com.github.teruteru128.sample.user.UserBeanFilter;
 import com.github.teruteru128.sample.user.register.RegisterSuccessServlet;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,6 +33,7 @@ import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.servlets.DefaultServlet;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.valves.AccessLogValve;
+import org.apache.catalina.valves.ErrorReportValve;
 import org.apache.catalina.webresources.StandardRoot;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
 import org.apache.tomcat.util.descriptor.web.ErrorPage;
@@ -230,9 +231,14 @@ public class Main {
 
     context.addMimeMapping("html", "text/html");
 
-    var valve = new AccessLogValve();
-    valve.setPattern("%t %a %A %v %r");
-    tomcat.getEngine().getPipeline().addValve(valve);
+    var valve1 = new AccessLogValve();
+    valve1.setPattern("%t %a %A %v %r");
+    var pipeline = tomcat.getEngine().getPipeline();
+    pipeline.addValve(valve1);
+    var valve2 = new ErrorReportValve();
+    valve2.setShowReport(false);
+    valve2.setShowServerInfo(false);
+    pipeline.addValve(valve2);
 
     try {
       tomcat.start();
