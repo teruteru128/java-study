@@ -17,8 +17,6 @@ import java.security.Security;
 import java.security.spec.ECGenParameterSpec;
 import java.util.HexFormat;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
-import org.bouncycastle.math.ec.ECFieldElement;
-import org.bouncycastle.math.ec.ECPoint;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
