@@ -1,6 +1,7 @@
 package com.github.teruteru128.sample.aes;
 
 import com.github.teruteru128.sample.Sample;
+import com.github.teruteru128.sample.ThymeleafConfiguration;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +17,9 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
+import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 public class AESSample extends HttpServlet implements Sample {
 
@@ -74,28 +78,25 @@ public class AESSample extends HttpServlet implements Sample {
     } catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
       throw new ServletException(e);
     }
+    var formattedMessage = format.formatHex(message);
+    var formattedKey = format.formatHex(key);
+    var formattedEncrypted = format.formatHex(encrypted);
+    var formattedDecrypted = format.formatHex(decrypted);
+
+    var servletContext = this.getServletContext();
+    var templateEngine = (TemplateEngine) servletContext
+        .getAttribute(ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
+    var application = (JakartaServletWebApplication) servletContext.getAttribute(
+        ThymeleafConfiguration.THYMELEAF_APPLICATION_INSTANCE_KEY);
+
+    var webExchange = application.buildExchange(req, resp);
+    var context = new WebContext(webExchange);
+    context.setVariable("formattedMessage", formattedMessage);
+    context.setVariable("formattedKey", formattedKey);
+    context.setVariable("formattedEncrypted", formattedEncrypted);
+    context.setVariable("formattedDecrypted", formattedDecrypted);
     resp.setContentType("text/html");
     var writer = resp.getWriter();
-    writer.println("<!DOCTYPE html>");
-    writer.println("<html lang=\"ja\">");
-    writer.println("<head>");
-    writer.println("<title>AESテスト</title>");
-    writer.println("</head>");
-    writer.println("<body>");
-    writer.print("<p>message: ");
-    writer.print(format.formatHex(message));
-    writer.println("</p>");
-    writer.print("<p>key: ");
-    writer.print(format.formatHex(key));
-    writer.println("</p>");
-    writer.print("<p>encrypted: ");
-    writer.print(format.formatHex(encrypted));
-    writer.println("</p>");
-    writer.print("<p>decrypted: ");
-    writer.print(format.formatHex(decrypted));
-    writer.println("</p>");
-    writer.println("<a href=\"/\">トップページに戻る</a>");
-    writer.println("</body>");
-    writer.println("</html>");
+    templateEngine.process("aes/sample", context, writer);
   }
 }
