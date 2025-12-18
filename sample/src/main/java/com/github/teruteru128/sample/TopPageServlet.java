@@ -6,15 +6,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Serial;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.random.RandomGenerator;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 public class TopPageServlet extends HttpServlet {
+
+  @Serial
+  private static final long serialVersionUID = 1L;
+  private final RandomGenerator random = RandomGenerator.of("SecureRandom");
 
   public TopPageServlet() {
   }
@@ -58,6 +64,7 @@ public class TopPageServlet extends HttpServlet {
         Instant.ofEpochMilli(session.getLastAccessedTime()), offset));
     list.add("getMaxInactiveInterval: " + session.getMaxInactiveInterval());
     context.setVariable("list", list);
+    context.setVariable("omikuji", random.nextInt(100));
     resp.setContentType("text/html");
     templateEngine.process("index", context, resp.getWriter());
   }

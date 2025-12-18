@@ -1,6 +1,7 @@
 package com.github.teruteru128.sample.ec;
 
 import com.github.teruteru128.sample.Sample;
+import com.github.teruteru128.sample.ThymeleafConfiguration;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +17,11 @@ import java.security.Security;
 import java.security.spec.ECGenParameterSpec;
 import java.util.HexFormat;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
+import org.bouncycastle.math.ec.ECFieldElement;
+import org.bouncycastle.math.ec.ECPoint;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
+import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 public class ECKeyGenerateSample extends HttpServlet implements Sample {
 
@@ -45,14 +51,6 @@ public class ECKeyGenerateSample extends HttpServlet implements Sample {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    resp.setContentType("text/html");
-    var writer = resp.getWriter();
-    writer.println("<!DOCTYPE html>");
-    writer.println("<html lang=\"ja\">");
-    writer.println("<head>");
-    writer.println("<title>ECテストページ</title>");
-    writer.println("</head>");
-    writer.println("<body>");
     KeyPairGenerator generator1;
     try {
       generator1 = KeyPairGenerator.getInstance("EC", BC_PROVIDER);
@@ -66,25 +64,29 @@ public class ECKeyGenerateSample extends HttpServlet implements Sample {
       throw new ServletException(e);
     }
     var pubKey = (ECPublicKey) generator1.generateKeyPair().getPublic();
-    writer.print("<p>Algorithm: ");
-    writer.print(pubKey.getAlgorithm());
-    writer.println("</p>");
-    writer.print("<p>Format: ");
-    writer.print(pubKey.getFormat());
-    writer.println("</p>");
+    var algorithm = pubKey.getAlgorithm();
     var q = pubKey.getQ();
-    writer.print("<p>Class: ");
-    writer.print(q.getXCoord().getClass());
-    writer.println("</p>");
-    writer.print("<p>Encoded1: ");
+    var aClass = q.getXCoord().getClass();
+    var format = pubKey.getFormat();
     var hexFormat = HexFormat.of();
-    writer.print(hexFormat.formatHex(pubKey.getQ().getEncoded(false)));
-    writer.println("</p>");
-    writer.print("<p>Encoded2: ");
-    writer.print(hexFormat.formatHex(pubKey.getEncoded()));
-    writer.println("</p>");
-    writer.println("<a href=\"/\">トップページに戻る</a>");
-    writer.println("</body>");
-    writer.println("</html>");
+    var s1 = hexFormat.formatHex(q.getEncoded(false));
+    var s2 = hexFormat.formatHex(pubKey.getEncoded());
+
+    var servletContext = this.getServletContext();
+    var templateEngine = (TemplateEngine) servletContext
+        .getAttribute(ThymeleafConfiguration.TEMPLATE_ENGINE_INSTANCE_KEY);
+    var application = (JakartaServletWebApplication) servletContext.getAttribute(
+        ThymeleafConfiguration.THYMELEAF_APPLICATION_INSTANCE_KEY);
+
+    var webExchange = application.buildExchange(req, resp);
+    var context = new WebContext(webExchange);
+    context.setVariable("algorithm", algorithm);
+    context.setVariable("format", format);
+    context.setVariable("aClass", aClass);
+    context.setVariable("s1", s1);
+    context.setVariable("s2", s2);
+    resp.setContentType("text/html");
+    var writer = resp.getWriter();
+    templateEngine.process("ec/keyGenerate", context, writer);
   }
 }

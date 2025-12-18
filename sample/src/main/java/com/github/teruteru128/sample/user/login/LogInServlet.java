@@ -55,7 +55,7 @@ public class LogInServlet extends HttpServlet {
     var context = new WebContext(webExchange);
     var user = (User) req.getSession().getAttribute("user");
     resp.setContentType("text/html");
-    templateEngine.process("loginform", context, resp.getWriter());
+    templateEngine.process("user/login/form", context, resp.getWriter());
   }
 
   @Override
