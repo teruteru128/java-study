@@ -93,11 +93,11 @@ public class RegisterServlet extends HttpServlet {
         ThymeleafConfiguration.THYMELEAF_APPLICATION_INSTANCE_KEY);
     var webExchange = application.buildExchange(req, resp);
     var context = new WebContext(webExchange);
+    resp.setContentType("text/html");
     try {
       registerService.register(parameter);
       resp.sendRedirect(req.getContextPath() + "user/register-success");
     } catch (UserAlreadyExistsException e) {
-      resp.setContentType("text/html");
       templateEngine.process("user/register/failed", context, resp.getWriter());
     }
   }

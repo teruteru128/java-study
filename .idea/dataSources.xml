@@ -8,5 +8,13 @@
       <jdbc-url>jdbc:sqlite:D:\Downloads\installer\sample\sample-1.1.0-SNAPSHOT\bin\sample.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="messages.dat" uuid="487787c7-dd88-43be-b117-f483b7482634">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <remarks>PyBitmessage DB</remarks>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\terut\AppData\Roaming\PyBitmessage\messages.dat</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

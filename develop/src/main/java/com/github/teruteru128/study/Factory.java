@@ -51,7 +51,6 @@ import static java.net.URI.create;
 import static java.net.URLEncoder.encode;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import tools.jackson.databind.JsonNode;
 import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.Message;
 import com.github.teruteru128.encode.Base58;
@@ -102,11 +101,14 @@ import java.security.SecureRandom;
 import java.security.Security;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -116,6 +118,7 @@ import java.util.HashMap;
 import java.util.HexFormat;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
@@ -159,6 +162,7 @@ import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.HelpCommand;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
+import tools.jackson.databind.JsonNode;
 
 // FIXME サブコマンドをここに並べるのではなく、サービスローダーを使ってサービスとして読み込ませられないか？
 
@@ -2254,6 +2258,34 @@ public class Factory implements Callable<Integer> {
       System.err.println(i);
     }
     Files.write(out, list, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int medalist() {
+    // 現在の日時を取得
+    var now = LocalDate.now();
+
+    // 同じ月の25日のLocalDateを生成
+    var specificDateTime = now.withDayOfMonth(25); // 月の25日に設定
+
+    var formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd(E)", Locale.JAPANESE);
+    List<LocalDate> weekendDates = new ArrayList<>();
+
+    // 過去100ヶ月分ループ
+    for (int i = 0; i < 100; i++) {
+      var target = specificDateTime.minusMonths(i);
+      DayOfWeek dow = target.getDayOfWeek();
+
+      // 土曜日(SATURDAY)または日曜日(SUNDAY)か判定
+      if (dow == DayOfWeek.SATURDAY || dow == DayOfWeek.SUNDAY) {
+        weekendDates.add(target);
+      }
+    }
+
+    // 結果の出力
+    weekendDates.forEach(x -> System.out.println(x.format(formatter)));
+    System.out.println("該当件数: " + weekendDates.size() + "件");
     return EXIT_CODE_OK;
   }
 
