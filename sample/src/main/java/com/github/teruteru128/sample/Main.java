@@ -20,6 +20,7 @@ import com.github.teruteru128.sample.primes.PrimesViewerServlet;
 import com.github.teruteru128.sample.sql.SQLiteConnectSample;
 import com.github.teruteru128.sample.user.UserBeanFilter;
 import com.github.teruteru128.sample.user.login.LogInServlet;
+import com.github.teruteru128.sample.user.login.LogInSuccessServlet;
 import com.github.teruteru128.sample.user.register.RegisterServlet;
 import com.github.teruteru128.sample.user.register.RegisterSuccessServlet;
 import jakarta.annotation.Nonnull;
@@ -196,6 +197,10 @@ public class Main {
     var loginServletName = "LoginServlet";
     Tomcat.addServlet(context, loginServletName, new LogInServlet());
     context.addServletMappingDecoded("/user/login", loginServletName);
+
+    var loginSuccessServletName = "LoginSuccessServlet";
+    Tomcat.addServlet(context, loginSuccessServletName, new LogInSuccessServlet());
+    context.addServletMappingDecoded("/user/login-success", loginSuccessServletName);
 
     var userBeanFilterName = "UserBeanFilter";
     var userBeanFilter = new UserBeanFilter();
