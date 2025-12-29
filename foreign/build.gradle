@@ -6,10 +6,10 @@ version = '1.4.5.1-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(24)
+        languageVersion = JavaLanguageVersion.of(25)
     }
-    sourceCompatibility = '24'
-    targetCompatibility = '24'
+    sourceCompatibility = '25'
+    targetCompatibility = '25'
 }
 
 compileJava {
