@@ -1,12 +1,12 @@
 package com.github.teruteru128.study;
 
-import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
-import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
+import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_get_str;
+import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_init_set_ui;
 import com.github.teruteru128.util.gmp.mpz.Functions;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
-import com.github.teruteru128.gmp.__mpz_struct;
-import com.github.teruteru128.gmp.gmp_h;
+import com.github.teruteru128.gmp.msys2.__mpz_struct;
+import com.github.teruteru128.gmp.msys2.gmp_h;
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;

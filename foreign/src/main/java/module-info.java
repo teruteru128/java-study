@@ -1,6 +1,6 @@
 module com.github.teruteru.foreign {
   requires com.github.teruteru.bcrypt;
-  requires com.github.teruteru.foreign.gmp;
+  requires com.github.teruteru.foreign.gmp.msys;
   requires com.github.teruteru.heapapi;
   requires com.github.teruteru.foreign.mpz_aprcl;
   requires com.github.teruteru.foreign.opencl;

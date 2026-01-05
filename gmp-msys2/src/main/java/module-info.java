@@ -1,3 +1,3 @@
-module com.github.teruteru.foreign.gmp {
-  exports com.github.teruteru128.gmp;
+module com.github.teruteru.foreign.gmp.msys {
+  exports com.github.teruteru128.gmp.msys2;
 }

@@ -1,10 +1,10 @@
 package com.github.teruteru128.foreign.prime.search;
 
-import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_str;
+import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_init_set_str;
 import static java.util.concurrent.ForkJoinPool.defaultForkJoinWorkerThreadFactory;
 
-import com.github.teruteru128.gmp.__mpz_struct;
-import com.github.teruteru128.gmp.gmp_h;
+import com.github.teruteru128.gmp.msys2.__mpz_struct;
+import com.github.teruteru128.gmp.msys2.gmp_h;
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.nio.file.Files;

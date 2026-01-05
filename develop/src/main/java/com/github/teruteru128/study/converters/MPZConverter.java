@@ -1,7 +1,7 @@
 package com.github.teruteru128.study.converters;
 
-import com.github.teruteru128.gmp.__mpz_struct;
-import com.github.teruteru128.gmp.gmp_h;
+import com.github.teruteru128.gmp.msys2.__mpz_struct;
+import com.github.teruteru128.gmp.msys2.gmp_h;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import picocli.CommandLine.ITypeConverter;

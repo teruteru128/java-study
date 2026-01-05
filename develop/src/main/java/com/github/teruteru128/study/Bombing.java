@@ -1,13 +1,13 @@
 package com.github.teruteru128.study;
 
-import static com.github.teruteru128.gmp.gmp_h.gmp_randinit_default;
-import static com.github.teruteru128.gmp.gmp_h.mpz_add;
-import static com.github.teruteru128.gmp.gmp_h.mpz_get_str;
-import static com.github.teruteru128.gmp.gmp_h.mpz_init;
-import static com.github.teruteru128.gmp.gmp_h.mpz_init_set_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_nextprime;
-import static com.github.teruteru128.gmp.gmp_h.mpz_pow_ui;
-import static com.github.teruteru128.gmp.gmp_h.mpz_urandomm;
+import static com.github.teruteru128.gmp.msys2.gmp_h.gmp_randinit_default;
+import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_add;
+import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_get_str;
+import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_init;
+import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_init_set_ui;
+import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_nextprime;
+import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_pow_ui;
+import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_urandomm;
 import static com.github.teruteru128.study.FactorDBSpamming.QUERY_ENDPOINT;
 import static com.github.teruteru128.study.FactorDatabase.FDB_USER_COOKIE;
 import static com.github.teruteru128.study.Factory.seedRandomState;
@@ -15,9 +15,9 @@ import static com.github.teruteru128.util.gmp.mpz.Functions.mpz_set_u64;
 import static com.github.teruteru128.study.FactorDBSpamming.OBJECT_MAPPER;
 
 import tools.jackson.databind.JsonNode;
-import com.github.teruteru128.gmp.__gmp_randstate_struct;
-import com.github.teruteru128.gmp.__mpz_struct;
-import com.github.teruteru128.gmp.gmp_h;
+import com.github.teruteru128.gmp.msys2.__gmp_randstate_struct;
+import com.github.teruteru128.gmp.msys2.__mpz_struct;
+import com.github.teruteru128.gmp.msys2.gmp_h;
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.net.URI;

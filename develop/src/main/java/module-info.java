@@ -34,7 +34,7 @@ module com.github.teruteru.study {
   //requires org.bukkit;
   requires org.apache.logging.log4j;
   requires info.picocli;
-  requires com.github.teruteru.foreign.gmp;
+  requires com.github.teruteru.foreign.gmp.msys;
   requires com.github.teruteru.foreign.opencl;
   requires com.github.teruteru.foreign.mpfr;
   requires com.github.teruteru.foreign;

@@ -1,7 +1,7 @@
 package com.github.teruteru128.util.gmp.mpz;
 
-import com.github.teruteru128.gmp.__mpz_struct;
-import com.github.teruteru128.gmp.gmp_h;
+import com.github.teruteru128.gmp.msys2.__mpz_struct;
+import com.github.teruteru128.gmp.msys2.gmp_h;
 import java.lang.foreign.MemorySegment;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
