@@ -12,5 +12,5 @@ java {
 }
 
 dependencies {
-    implementation project(":gmp")
+    implementation project(":gmp-msys2")
 }

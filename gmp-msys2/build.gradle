@@ -1,18 +1,10 @@
+
 plugins {
     id 'com.github.teruteru128.study.java-library-conventions'
 }
-
-version = 'unspecified'
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(25)
     }
-}
-
-dependencies {
-    implementation project(':gmp-msys2')
-}
-
-test {
 }

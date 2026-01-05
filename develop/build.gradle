@@ -37,7 +37,7 @@ dependencies {
     implementation project(':bitmessage')
     implementation project(':encode')
     implementation project(':foreign')
-    implementation project(':gmp')
+    implementation project(':gmp-msys2')
     implementation project(':mpfr')
     implementation project(':opencl')
     implementation project(':resources')

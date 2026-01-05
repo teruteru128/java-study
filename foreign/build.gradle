@@ -36,7 +36,7 @@ application {
 
 dependencies {
     implementation project(":bcrypt")
-    implementation project(":gmp")
+    implementation project(":gmp-msys2")
     implementation project(":heapapi")
     implementation project(":mpz_aprcl")
     implementation project(":opencl")

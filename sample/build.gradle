@@ -20,7 +20,7 @@ application {
 
 dependencies {
     implementation(project(':develop'))
-    implementation project(':gmp')
+    implementation project(':gmp-msys2')
     implementation(project(':math'))
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-rng-simple
