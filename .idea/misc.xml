@@ -14,5 +14,5 @@
     <resource url="http://www.thymeleaf.org" location="$PROJECT_DIR$" />
     <resource url="https://logging.apache.org/xml/ns" location="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_25" default="true" project-jdk-name="25" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_24" project-jdk-name="25" project-jdk-type="JavaSDK" />
 </project>

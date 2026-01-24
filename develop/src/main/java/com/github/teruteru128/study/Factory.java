@@ -76,7 +76,9 @@ import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -108,7 +110,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -2286,6 +2287,58 @@ public class Factory implements Callable<Integer> {
     // 結果の出力
     weekendDates.forEach(x -> System.out.println(x.format(formatter)));
     System.out.println("該当件数: " + weekendDates.size() + "件");
+    return EXIT_CODE_OK;
+  }
+
+  /**
+   * factordb のスコアを計算する
+   * @param in ファイル
+   * @return 成功したら0
+   * @throws IOException ファイルが見つからなかったら
+   */
+  @Command
+  public int calcScore(Path in) throws IOException {
+    try (var stream = Files.lines(in, UTF_8)) {
+      var divisor = BigDecimal.valueOf(1000);
+      var unlimited = MathContext.UNLIMITED;
+      System.out.println(stream.map(BigDecimal::new).map(l -> l.divide(divisor, unlimited).pow(4))
+          .reduce(BigDecimal.ZERO, BigDecimal::add));
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int smallSieve(Path in, Path out) throws IOException {
+    try (var oin = new ObjectInputStream(
+        new BufferedInputStream(Files.newInputStream(in, StandardOpenOption.READ),
+            1024 * 1024 * 1024)); var oout = new DataOutputStream(new BufferedOutputStream(
+        Files.newOutputStream(out, StandardOpenOption.WRITE, StandardOpenOption.CREATE),
+        1024 * 1024 * 1024))) {
+      var l1 = oin.readLong();
+      oout.writeLong(l1);
+      System.out.printf("%d%n", l1);
+      var num = ((l1 - 1) >> 6) + 1;
+      for (int i = 0; i < num; i++) {
+        oout.writeLong(oin.readLong());
+      }
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int parseObj(Path in, Path out) throws IOException, ClassNotFoundException {
+    try (var oin = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(in),
+        1024 * 1024 * 1024)); var oout = new BufferedOutputStream(
+        Files.newOutputStream(out, StandardOpenOption.CREATE, StandardOpenOption.WRITE), 0x7FFFFFFD)) {
+      var o = (BigInteger) oin.readObject();
+      System.out.println(o.bitLength());
+      //var mask = BigInteger.TEN.pow(1000);
+      //o = o.divide(BigInteger.TEN.pow(99998999));
+      //System.out.println(o);
+      //var remainder = o.remainder(mask);
+      //System.out.println(remainder);
+      oout.write(o.toByteArray());
+    }
     return EXIT_CODE_OK;
   }
 

@@ -25,7 +25,7 @@ application {
     mainClass = 'com.github.teruteru128.study.Main'
     applicationDefaultJvmArgs = [
             '-Xmx96G',
-            '--enable-native-access=com.github.teruteru.study,com.github.teruteru.foreign.gmp,com.github.teruteru.foreign.opencl,com.github.teruteru.foreign.mpfr,org.xerial.sqlitejdbc'
+            '--enable-native-access=com.github.teruteru.study,com.github.teruteru.foreign.gmp,com.github.teruteru.foreign.opencl,com.github.teruteru.foreign.mpfr,com.github.teruteru.foreign.gmp,org.xerial.sqlitejdbc'
     ]
 }
 
