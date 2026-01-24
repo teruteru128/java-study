@@ -22,7 +22,7 @@ dependencies {
     testImplementation 'org.slf4j:slf4j-nop:2.0.17'
 
     // https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind
-    implementation 'tools.jackson.core:jackson-databind:3.0.3'
+    implementation 'tools.jackson.core:jackson-databind:3.0.4'
 
     // https://picocli.info/
     // https://mvnrepository.com/artifact/info.picocli/picocli
