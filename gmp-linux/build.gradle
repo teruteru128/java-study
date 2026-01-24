@@ -2,3 +2,9 @@
 plugins {
     id 'com.github.teruteru128.study.java-library-conventions'
 }
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
