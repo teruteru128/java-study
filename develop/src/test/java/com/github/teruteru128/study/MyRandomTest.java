@@ -1,8 +1,8 @@
 package com.github.teruteru128.study;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.random.RandomGenerator;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -17,6 +17,12 @@ public class MyRandomTest {
 
     @Test
     void nextDouble() {
-        assertEquals(0.5, MyRandom.nextDouble(RandomGenerator.getDefault()), 0.5);
+        var random = new DeterministicRandom();
+        random.addLong(0);
+        random.addBoolean(true);
+        var value = MyRandom.nextDouble(random);
+        // 0以上1未満であることをチェック (0.0 <= value < 1.0)
+        assertTrue(value >= 0.0 && value < 1.0,
+            "値は0以上1未満であるべきです: " + value);
     }
 }

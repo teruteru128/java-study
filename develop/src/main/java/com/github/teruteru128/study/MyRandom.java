@@ -23,7 +23,8 @@ public class MyRandom {
       } while (expBits == -1);
     }
     var mantissa = bits & 0xfffffffffffffL;
-    if (mantissa == 0 && random.nextBoolean()) {
+    // mantissa == 0 && exp == 0 の場合結果が 1.0 になってしまうのを避ける
+    if (mantissa == 0 && exp < 0 && random.nextBoolean()) {
       exp++;
     }
     return Double.longBitsToDouble(((exp + 1022) << 52) | mantissa);
