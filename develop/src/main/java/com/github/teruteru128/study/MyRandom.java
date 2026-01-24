@@ -20,6 +20,11 @@ public class MyRandom {
       do {
         expBits = random.nextLong();
         exp -= Long.numberOfTrailingZeros(~expBits);
+        // doubleの最小指数(バイアス込みで0)を下回らないようにする
+        if (exp < -1022) {
+          exp = -1022;
+          break;
+        }
       } while (expBits == -1);
     }
     var mantissa = bits & 0xfffffffffffffL;
