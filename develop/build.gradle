@@ -80,7 +80,7 @@ dependencies {
     implementation 'tools.jackson.core:jackson-databind:3.0.3'
 
     // https://mvnrepository.com/artifact/tools.jackson.dataformat/jackson-dataformat-yaml
-    implementation 'tools.jackson.dataformat:jackson-dataformat-yaml:3.0.3'
+    implementation 'tools.jackson.dataformat:jackson-dataformat-yaml:3.0.4'
 
     // https://picocli.info/
     // https://mvnrepository.com/artifact/info.picocli/picocli
