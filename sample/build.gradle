@@ -40,13 +40,13 @@ dependencies {
     implementation 'info.picocli:picocli:4.7.7'
 
     // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
-    implementation 'org.apache.tomcat.embed:tomcat-embed-core:11.0.15'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-core:11.0.18'
 
     // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jdbc
-    implementation 'org.apache.tomcat:tomcat-jdbc:11.0.15'
+    implementation 'org.apache.tomcat:tomcat-jdbc:11.0.18'
 
     // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-dbcp
-    implementation 'org.apache.tomcat:tomcat-dbcp:11.0.15'
+    implementation 'org.apache.tomcat:tomcat-dbcp:11.0.18'
 
     // https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api
     compileOnly 'jakarta.servlet:jakarta.servlet-api:6.1.0'
