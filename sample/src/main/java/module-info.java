@@ -12,6 +12,7 @@ module com.github.teruteru.sample {
   requires org.apache.tomcat.embed.core;
   requires com.github.teruteru.foreign.gmp.msys;
   requires thymeleaf;
+  requires tools.jackson.databind;
   exports com.github.teruteru128.sample;
   exports com.github.teruteru128.sample.dynamic;
   exports com.github.teruteru128.sample.forward;

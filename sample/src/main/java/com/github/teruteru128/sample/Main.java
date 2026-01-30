@@ -24,6 +24,7 @@ import com.github.teruteru128.sample.user.login.LogInSuccessServlet;
 import com.github.teruteru128.sample.user.register.RegisterServlet;
 import com.github.teruteru128.sample.user.register.RegisterSuccessServlet;
 import jakarta.annotation.Nonnull;
+import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -41,6 +42,7 @@ import org.apache.tomcat.util.descriptor.web.ErrorPage;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import tools.jackson.databind.ObjectMapper;
 
 public class Main {
 
@@ -93,10 +95,21 @@ public class Main {
 
     var listener = new ThymeleafConfiguration();
     context.addApplicationLifecycleListener(listener);
+    context.addApplicationLifecycleListener(new JacksonConfiguration());
+
+    boolean isListings = false;
+    for (String arg : args) {
+      if (arg.equals("--enable-listings")) {
+        isListings = true;
+        break;
+      }
+    }
 
     var defaultServlet = "DefaultServlet";
     var wrapper = Tomcat.addServlet(context, defaultServlet, new DefaultServlet());
-    wrapper.addInitParameter("listings", "true");
+    if(isListings) {
+      wrapper.addInitParameter("listings", "true");
+    }
     context.addServletMappingDecoded("/", defaultServlet);
     context.addWelcomeFile("index.jsp");
 
