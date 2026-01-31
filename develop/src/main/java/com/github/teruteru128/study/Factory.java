@@ -109,7 +109,10 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -194,6 +197,9 @@ public class Factory implements Callable<Integer> {
       int[].class, ByteOrder.LITTLE_ENDIAN);
   private static final VarHandle LITTLE_ENDIAN_LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(
       long[].class, ByteOrder.LITTLE_ENDIAN);
+  // HTTP-date ヘッダー用のフォーマッタ (RFC 1123)
+  private static final DateTimeFormatter HTTP_DATE_FORMATTER =
+      DateTimeFormatter.RFC_1123_DATE_TIME.withLocale(Locale.US).withZone(ZoneId.of("GMT"));
 
   private Factory() {
   }
@@ -325,31 +331,14 @@ public class Factory implements Callable<Integer> {
         connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
         code = connection.getResponseCode();
         // see https://share.google/aimode/EhXggJ6d7Xl0tKvw4
-        if (code == 429) {
+        if (code == HttpStatusCode.HTTP_TOO_MANY_REQUESTS) {
           var retryAfterHeader = connection.getHeaderField("Retry-After");
           if (retryAfterHeader != null) {
-            try {
-              // 値が秒数の場合
-              var seconds = Long.parseLong(retryAfterHeader);
-              Thread.sleep(seconds * 1000);
-            } catch (NumberFormatException e) {
-              // 値がHTTP日付形式の場合
-              try {
-                DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
-                Instant retryAfterInstant = Instant.from(formatter.parse(retryAfterHeader));
-                long delay = Duration.between(Instant.now(), retryAfterInstant).toMillis();
-                if (delay > 0) {
-                  System.out.println(
-                      "Waiting until " + retryAfterHeader + " as per Retry-After header.");
-                  Thread.sleep(delay);
-                }
-              } catch (Exception dateException) {
-                // 日付形式も解析できない場合は、デフォルトのバックオフに移行する
-                handleExponentialBackoff(retryCount++);
-              }
-            }
-            // 再試行
+            var retryAfterValue = connection.getHeaderField("retry-after");
+            var retryAfter = Factory.parseRetryAfter(retryAfterValue);
+            Thread.sleep(retryAfter);
           } else {
+            logger.warn("TOO MANY REQUEST received but Retry-After header was not found.");
             // ヘッダーがない場合は、デフォルトのバックオフに移行する
             handleExponentialBackoff(retryCount++);
           }
@@ -525,6 +514,37 @@ public class Factory implements Callable<Integer> {
       return new BigInteger(tmp).multiply(sign);
     }
     return new BigInteger(pA).multiply(sign);
+  }
+
+  /**
+   * Retry-Afterヘッダーの値をパースし、次にいつリクエストできるかまでのDurationを返します。
+   * @param retryAfterValue ヘッダーの値 ("120" や "Wed, 21 Oct 2015 07:28:00 GMT")
+   * @return 再試行までの時間 (Duration)
+   */
+  public static Duration parseRetryAfter(String retryAfterValue) {
+    if (retryAfterValue == null || retryAfterValue.isEmpty()) {
+      return Duration.ZERO; // ヘッダーがない場合はすぐ再試行
+    }
+
+    try {
+      // 1. 秒数指定（delta-seconds）か試す
+      long seconds = Long.parseLong(retryAfterValue);
+      return Duration.ofSeconds(seconds);
+    } catch (NumberFormatException e) {
+      // 2. 秒数でなければ日付（http-date）としてパース
+      try {
+        ZonedDateTime retryTime = ZonedDateTime.parse(retryAfterValue, HTTP_DATE_FORMATTER);
+        Instant now = Instant.now();
+        Duration duration = Duration.between(now, retryTime);
+
+        // すでに過ぎている時間なら0秒を返す
+        return duration.isNegative() ? Duration.ZERO : duration;
+      } catch (DateTimeParseException ex) {
+        // パース失敗した場合はデフォルトの待ち時間を返す（例: 5秒）
+        System.err.println("Failed to parse Retry-After: " + retryAfterValue);
+        return Duration.ofSeconds(5);
+      }
+    }
   }
 
   @Command
@@ -1509,7 +1529,7 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int primesPost(int n) throws URISyntaxException, IOException {
+  public int primesPost(int n) throws URISyntaxException, IOException, InterruptedException {
     var auto = Arena.ofAuto();
     var max = newMpzUi(auto, 10);
     mpz_pow_ui(max, max, 4097);
@@ -1539,16 +1559,21 @@ public class Factory implements Callable<Integer> {
       var primesListIterator = primes.listIterator();
       while (primesListIterator.hasNext()) {
         var url = QUERY_ENDPOINT + primesListIterator.next();
-        var connection = (HttpsURLConnection) new URI(url).toURL().openConnection();
-        connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
-        var code = connection.getResponseCode();
-        if (code == HttpStatusCode.HTTP_TOO_MANY_REQUESTS) {
-          System.err.println("TOO MANY REQUEST");
-          break;
-        } else if (code != HttpsURLConnection.HTTP_OK) {
-          System.err.println("code " + code);
-          continue;
-        }
+        HttpsURLConnection connection;
+        int code;
+        do {
+          connection = (HttpsURLConnection) new URI(url).toURL().openConnection();
+          connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
+          code = connection.getResponseCode();
+          if (code == HttpStatusCode.HTTP_TOO_MANY_REQUESTS) {
+            System.err.println("TOO MANY REQUEST");
+            var retryAfterValue = connection.getHeaderField("retry-after");
+            var retryAfter = Factory.parseRetryAfter(retryAfterValue);
+            Thread.sleep(retryAfter);
+          } else if (code != HttpsURLConnection.HTTP_OK) {
+            System.err.println("code " + code);
+          }
+        }while(code != HttpsURLConnection.HTTP_OK);
         JsonNode root;
         try (var inputStream = connection.getInputStream()) {
           root = OBJECT_MAPPER.readTree(inputStream);
@@ -1556,8 +1581,8 @@ public class Factory implements Callable<Integer> {
         var id = root.get("id");
         var status = root.get("status");
         System.err.println(
-            "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] " + id.asText() + "(" + (
-                id.isTextual() ? "textual" : "long") + "): " + status.textValue());
+            "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] " + id.asString() + "(" + (
+                id.isString() ? "textual" : "long") + "): " + status.asString());
         primesListIterator.remove();
       }
     }
@@ -1589,7 +1614,9 @@ public class Factory implements Callable<Integer> {
               "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] " + i + ", " + responseCode
               + ": " + connection.getResponseMessage());
           if (responseCode == HttpStatusCode.HTTP_TOO_MANY_REQUESTS) {
-            lock.wait(1000 * 60 * 5);
+            var retryAfterValue = connection.getHeaderField("retry-after");
+            var retryAfter = Factory.parseRetryAfter(retryAfterValue);
+            lock.wait(retryAfter.toMillis());
           }
         }
       } while (responseCode != HttpsURLConnection.HTTP_OK);
@@ -1637,7 +1664,9 @@ public class Factory implements Callable<Integer> {
               connection.setRequestProperty("Cookie", FDB_USER_COOKIE);
               code = connection.getResponseCode();
               if (code == HttpStatusCode.HTTP_TOO_MANY_REQUESTS) {
-                Thread.sleep(1000 * 60 * 5);
+                var retryAfterValue = connection.getHeaderField("retry-after");
+                var retryAfter = Factory.parseRetryAfter(retryAfterValue);
+                Thread.sleep(retryAfter);
               }
             } catch (ConnectException e) {
               logger.error("例外発生", e);

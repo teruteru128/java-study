@@ -75,7 +75,9 @@ public class Bombing implements Callable<Integer> {
       code = urlConnection.getResponseCode();
       if (code == HttpStatusCode.HTTP_TOO_MANY_REQUESTS) {
         System.err.println("TOO MANY REQUEST");
-        Thread.sleep(1000 * 60 * 5);
+        var retryAfterValue = urlConnection.getHeaderField("retry-after");
+        var retryAfter = Factory.parseRetryAfter(retryAfterValue);
+        Thread.sleep(retryAfter);
       } else if (code != 200) {
         System.err.println("code " + code);
       }
