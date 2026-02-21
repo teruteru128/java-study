@@ -74,7 +74,7 @@ dependencies {
     implementation 'org.xerial:sqlite-jdbc:3.51.2.0'
 
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
-    implementation 'org.postgresql:postgresql:42.7.9'
+    implementation 'org.postgresql:postgresql:42.7.10'
 
     // https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind
     implementation 'tools.jackson.core:jackson-databind:3.0.4'
