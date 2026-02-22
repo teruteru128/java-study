@@ -976,6 +976,23 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
+  public int spam3(@Parameters Path fromAddressFile, @Option(names = {"--offset"}, defaultValue = "0") int offset) throws IOException, InterruptedException {
+    final var addresses = Files.readAllLines(fromAddressFile);
+    try(var client = HttpClient.newHttpClient()) {
+      for (int i = offset; i < addresses.size(); i++) {
+        var address = addresses.get(i);
+        var message = new Message("BM-2cW67GEKkHGonXKZLCzouLLxnLym3azS8r", address, "", "",
+            2419200);
+        post(client, message);
+        System.err.printf("posted to %s%n", address);
+        // 100秒スリープ
+        Thread.sleep(100000);
+      }
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
   public int sierpinski(@Option(names = "-k", defaultValue = "21181") int k, int nMin, int nMax) {
     var auto = Arena.ofAuto();
     var pSub1 = newMpzUi(auto, k);
@@ -1685,8 +1702,8 @@ public class Factory implements Callable<Integer> {
           }
           var id = root.get("id");
           var status = root.get("status");
-          logger.info("{} : {}, https://factordb.com/index.php?id={} : {}", p, result, id.asText(),
-              status.textValue());
+          logger.info("{} : {}, https://factordb.com/index.php?id={} : {}", p, result, id.asString(),
+              status.stringValue());
         }
         // b *= base
         mpz_mul_ui(b, b, base);
@@ -1766,7 +1783,7 @@ public class Factory implements Callable<Integer> {
             var optional = queryMPZ(p1.p());
             if (optional.isPresent()) {
               var root = optional.get();
-              var id = root.get("id").asText();
+              var id = root.get("id").asString();
               logger.info("{}: {}", id, p1.state());
               var joiner = new StringJoiner(", ");
               p1.factors().forEach(p -> {
@@ -1798,7 +1815,7 @@ public class Factory implements Callable<Integer> {
     var y = x.get(0);
     var auto = Arena.ofAuto();
     var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(n, auto.allocateFrom(y.asText()), 10);
+    mpz_init_set_str(n, auto.allocateFrom(y.asString()), 10);
     var p = newMpzUi(auto, 1);
     var q = newMpzUi(auto, 1);
     var diff = newMpzUi(auto, 1);
