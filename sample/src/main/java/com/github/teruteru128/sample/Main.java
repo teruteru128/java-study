@@ -26,7 +26,9 @@ import com.github.teruteru128.sample.user.register.RegisterSuccessServlet;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.Security;
 import java.util.logging.Logger;
@@ -65,7 +67,15 @@ public class Main {
 
     var contextPath = "";
     // 流石に current dir のままではsampleファイルとか見えちゃう
-    var docBase = Path.of("web").toAbsolutePath().toString();
+    var webPath = Path.of("web").toAbsolutePath();
+    if(Files.notExists(webPath)){
+        try{
+        Files.createDirectories(webPath);
+        }catch(IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+    var docBase = webPath.toString();
     var context = (StandardContext) tomcat.addContext(contextPath, docBase);
 
     // プロセスをキルする方式だとセッションを保存できない
