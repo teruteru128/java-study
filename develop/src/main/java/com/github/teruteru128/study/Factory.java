@@ -154,6 +154,7 @@ import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.DERBitString;
 import org.bouncycastle.asn1.DERSequence;
 import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
@@ -2262,9 +2263,12 @@ public class Factory implements Callable<Integer> {
    * IDが1100000000000000000未満のPRPを桁数順にfactordbから抽出します
    * @return
    * @throws IOException
+   * @param initialDigits
    */
   @Command
-  public int factorimp() throws IOException {
+  public int factorimp(@Option(names = {
+      "--initial-digits"}, paramLabel = "digit", defaultValue = "4001") int initialDigits)
+      throws IOException {
     var fdbuser = System.getenv("FDB_SESSION_ID");
     var cookies = new HashMap<String, String>();
     if (fdbuser != null && !fdbuser.isEmpty()) {
@@ -2273,27 +2277,27 @@ public class Factory implements Callable<Integer> {
       System.err.println("FBDUSER environment variable has not been set");
     }
     int maxRetries = 3; // 最大リトライ回数
-    for (int i = 4001; i <= 10004; i++) {
-      var url = "https://factordb.com/listtype.php?t=1&mindig=" + i + "&perpage=1&start=0";
+    for (int digits = initialDigits; digits <= 10004; digits++) {
+      var url = "https://factordb.com/listtype.php?t=1&mindig=" + digits + "&perpage=10&start=0";
       int retryCount = 0;
       while (retryCount < maxRetries) {
         try {
-          var id = Jsoup.connect(url).cookies(cookies).get()
-              .select("html body > table:nth-child(4) tbody tr:nth-child(4) td:first-child").text();
-          if (id.compareTo("1100000000000000000") < 0) {
-            System.out.printf("%d: %s%n", i, id);
+          var trs = Jsoup.connect(url).cookies(cookies).get()
+              .select("html body > table:nth-child(4) tbody tr");
+          for (int i = 0; i < 10; i++) {
+            var id = trs.get(3 + i).select("td:first-child").text();
+            if (id.compareTo("1100000000000000000") < 0) {
+              System.out.printf("%d: %s%n", digits, id);
+            } else {
+              break;
+            }
           }
-          if (i % 500 == 0) {
-            System.err.printf("%d done%n", i);
-          }
-          try {
-            Thread.sleep(750);
-          } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+          if (digits % 500 == 0) {
+            System.err.printf("%d done%n", digits);
           }
           break;
         } catch (IOException e) {
-          logger.error("error: in {}", i, e);
+          logger.error("error: in {}", digits, e);
           retryCount++;
         }
       }
