@@ -44,6 +44,7 @@ module com.github.teruteru.study {
   requires org.apache.commons.io;
   requires org.jetbrains.annotations;
   requires org.apache.commons.lang3;
+  requires org.jsoup;
 
   exports com.github.teruteru128.color;
   exports com.github.teruteru128.study;

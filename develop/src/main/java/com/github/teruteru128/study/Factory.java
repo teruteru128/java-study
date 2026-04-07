@@ -158,6 +158,8 @@ import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.DERBitString;
 import org.bouncycastle.asn1.DERSequence;
 import org.jetbrains.annotations.NotNull;
+import org.jsoup.*;
+import org.jsoup.nodes.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
@@ -198,8 +200,8 @@ public class Factory implements Callable<Integer> {
   private static final VarHandle LITTLE_ENDIAN_LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(
       long[].class, ByteOrder.LITTLE_ENDIAN);
   // HTTP-date ヘッダー用のフォーマッタ (RFC 1123)
-  private static final DateTimeFormatter HTTP_DATE_FORMATTER =
-      DateTimeFormatter.RFC_1123_DATE_TIME.withLocale(Locale.US).withZone(ZoneId.of("GMT"));
+  private static final DateTimeFormatter HTTP_DATE_FORMATTER = DateTimeFormatter.RFC_1123_DATE_TIME.withLocale(
+      Locale.US).withZone(ZoneId.of("GMT"));
 
   private Factory() {
   }
@@ -976,9 +978,11 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int spam3(@Parameters Path fromAddressFile, @Option(names = {"--offset"}, defaultValue = "0") int offset) throws IOException, InterruptedException {
+  public int spam3(@Parameters Path fromAddressFile,
+      @Option(names = {"--offset"}, defaultValue = "0") int offset)
+      throws IOException, InterruptedException {
     final var addresses = Files.readAllLines(fromAddressFile);
-    try(var client = HttpClient.newHttpClient()) {
+    try (var client = HttpClient.newHttpClient()) {
       for (int i = offset; i < addresses.size(); i++) {
         var address = addresses.get(i);
         var message = new Message("BM-2cW67GEKkHGonXKZLCzouLLxnLym3azS8r", address, "", "",
@@ -1590,7 +1594,7 @@ public class Factory implements Callable<Integer> {
           } else if (code != HttpsURLConnection.HTTP_OK) {
             System.err.println("code " + code);
           }
-        }while(code != HttpsURLConnection.HTTP_OK);
+        } while (code != HttpsURLConnection.HTTP_OK);
         JsonNode root;
         try (var inputStream = connection.getInputStream()) {
           root = OBJECT_MAPPER.readTree(inputStream);
@@ -1702,8 +1706,8 @@ public class Factory implements Callable<Integer> {
           }
           var id = root.get("id");
           var status = root.get("status");
-          logger.info("{} : {}, https://factordb.com/index.php?id={} : {}", p, result, id.asString(),
-              status.stringValue());
+          logger.info("{} : {}, https://factordb.com/index.php?id={} : {}", p, result,
+              id.asString(), status.stringValue());
         }
         // b *= base
         mpz_mul_ui(b, b, base);
@@ -2310,6 +2314,44 @@ public class Factory implements Callable<Integer> {
       //var remainder = o.remainder(mask);
       //System.out.println(remainder);
       oout.write(o.toByteArray());
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int factorimp() throws IOException {
+    var fdbuser = System.getenv("FDB_SESSION_ID");
+    var cookies = new HashMap<String, String>();
+    if (fdbuser != null && !fdbuser.isEmpty()) {
+      cookies.put("factordb", fdbuser);
+    } else {
+      System.err.println("FBDUSER environment variable has not been set");
+    }
+    int maxRetries = 3; // 最大リトライ回数
+    for (int i = 4001; i <= 10004; i++) {
+      var url = "https://factordb.com/listtype.php?t=1&mindig=" + i + "&perpage=1&start=0";
+      int retryCount = 0;
+      while (retryCount < maxRetries) {
+        try {
+          var id = Jsoup.connect(url).cookies(cookies).get()
+              .select("html body > table:nth-child(4) tbody tr:nth-child(4) td:first-child").text();
+          if (id.compareTo("1100000000000000000") < 0) {
+            System.out.printf("%d: %s%n", i, id);
+          }
+          if (i % 500 == 0) {
+            System.err.printf("%d done%n", i);
+          }
+          try {
+            Thread.sleep(750);
+          } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+          }
+          break;
+        } catch (IOException e) {
+          logger.error("error: in {}", i, e);
+          retryCount++;
+        }
+      }
     }
     return EXIT_CODE_OK;
   }

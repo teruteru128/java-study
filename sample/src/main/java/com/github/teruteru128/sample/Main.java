@@ -90,7 +90,7 @@ public class Main {
 
     context.setSessionTimeout(0);
     var root = new StandardRoot();
-    root.setCacheMaxSize(1024 * 1024);
+    //root.setCacheMaxSize(1024 * 1024);
     root.setAllowLinking(true);
     context.setResources(root);
 
@@ -141,121 +141,6 @@ public class Main {
     Tomcat.addServlet(context, errorsServiceServletName, new ErrorsServiceServlet());
     context.addServletMappingDecoded("/errors/404", errorsServiceServletName);
     context.addServletMappingDecoded("/errors/500", errorsServiceServletName);
-
-    var dynamicServletName = "DynamicServiceServlet";
-    Tomcat.addServlet(context, dynamicServletName, new DynamicServiceServlet());
-    context.addServletMappingDecoded("/api/hello", dynamicServletName);
-
-    var forwardStep1ServletName = "ForwardStep1Servlet";
-    Tomcat.addServlet(context, forwardStep1ServletName, new ForwardStep1Servlet());
-    context.addServletMappingDecoded("/api/forward1", forwardStep1ServletName);
-
-    var forwardStep2ServletName = "ForwardStep2Servlet";
-    Tomcat.addServlet(context, forwardStep2ServletName, new ForwardStep2Servlet());
-    context.addServletMappingDecoded("/api/forward2", forwardStep2ServletName);
-
-    var headerServletName = "HeaderServlet";
-    Tomcat.addServlet(context, headerServletName, new HeaderIncludeServlet());
-    context.addServletMappingDecoded("/api/header", headerServletName);
-
-    var footerServletName = "FooterServlet";
-    Tomcat.addServlet(context, footerServletName, new FooterIncludeServlet());
-    context.addServletMappingDecoded("/api/footer", footerServletName);
-
-    var SQLiteConnectSampleName = "SQLiteConnectSample";
-    Tomcat.addServlet(context, SQLiteConnectSampleName, new SQLiteConnectSample());
-    context.addServletMappingDecoded("/sample/sqlite", SQLiteConnectSampleName);
-
-    var ECKeyGenerateSampleName = "ECKeyGenerateSample";
-    Tomcat.addServlet(context, ECKeyGenerateSampleName, new ECKeyGenerateSample());
-    context.addServletMappingDecoded("/sample/ec", ECKeyGenerateSampleName);
-
-    var curve25519SampleName = "Curve25519Sample";
-    Tomcat.addServlet(context, curve25519SampleName, new Curve25519Sample());
-    context.addServletMappingDecoded("/sample/curve25519", curve25519SampleName);
-
-    var cloneSampleName = "CloneSample";
-    Tomcat.addServlet(context, cloneSampleName, new CloneSample());
-    context.addServletMappingDecoded("/sample/clone", cloneSampleName);
-
-    var hashServletName = "HashServlet";
-    Tomcat.addServlet(context, hashServletName, new HashServlet());
-    context.addServletMappingDecoded("/api/hash/*", hashServletName);
-
-    var primesListInitFilterName = "PrimesListInitFilter";
-    var primesListInitFilter = new PrimesListInitFilter();
-    var def = new FilterDef();
-    def.setFilter(primesListInitFilter);
-    def.setFilterName(primesListInitFilterName);
-    context.addFilterDef(def);
-    var map = new FilterMap();
-    map.setFilterName(primesListInitFilterName);
-    map.addURLPatternDecoded("*");
-    context.addFilterMap(map);
-
-    var primesCreateServletName = "PrimesCreateServlet";
-    Tomcat.addServlet(context, primesCreateServletName, new PrimesCreateServlet());
-    context.addServletMappingDecoded("/sample/primes/create", primesCreateServletName);
-
-    var primesViewerServletName = "PrimesViewerServlet";
-    Tomcat.addServlet(context, primesViewerServletName, new PrimesViewerServlet());
-    context.addServletMappingDecoded("/sample/primes/viewer", primesViewerServletName);
-
-    var primesCounterServletName = "PrimesCounterServlet";
-    Tomcat.addServlet(context, primesCounterServletName, new PrimesCounterServlet());
-    context.addServletMappingDecoded("/sample/primes/counter", primesCounterServletName);
-
-    var primesAllDeleteServletName = "PrimesAllDeleteServlet";
-    Tomcat.addServlet(context, primesAllDeleteServletName, new PrimesAllDeleteServlet());
-    context.addServletMappingDecoded("/sample/primes/delete/all", primesAllDeleteServletName);
-
-    var registerServletName = "RegisterServlet";
-    Tomcat.addServlet(context, registerServletName, new RegisterServlet());
-    context.addServletMappingDecoded("/user/register", registerServletName);
-
-    var registerSuccessServletName = "RegisterSuccessServlet";
-    Tomcat.addServlet(context, registerSuccessServletName, new RegisterSuccessServlet());
-    context.addServletMappingDecoded("/user/register-success", registerSuccessServletName);
-
-    var loginServletName = "LoginServlet";
-    Tomcat.addServlet(context, loginServletName, new LogInServlet());
-    context.addServletMappingDecoded("/user/login", loginServletName);
-
-    var loginSuccessServletName = "LoginSuccessServlet";
-    Tomcat.addServlet(context, loginSuccessServletName, new LogInSuccessServlet());
-    context.addServletMappingDecoded("/user/login-success", loginSuccessServletName);
-
-    var userBeanFilterName = "UserBeanFilter";
-    var userBeanFilter = new UserBeanFilter();
-    var def1 = new FilterDef();
-    def1.setFilter(userBeanFilter);
-    def1.setFilterName(userBeanFilterName);
-    context.addFilterDef(def1);
-    var map1 = new FilterMap();
-    map1.setFilterName(userBeanFilterName);
-    map1.addURLPatternDecoded("*");
-    context.addFilterMap(map1);
-
-    var doSName = "DoSServlet";
-    Tomcat.addServlet(context, doSName, new DoSServlet());
-    context.addServletMappingDecoded("/api/dos", doSName);
-
-    var pbkdf2ServletName = "Pbkdf2Servlet";
-    Tomcat.addServlet(context, pbkdf2ServletName, new PBKDF2Servlet());
-    context.addServletMappingDecoded("/sample/pbkdf2", pbkdf2ServletName);
-
-    var anyDistributionSampleServletName = "AnyDistributionSample";
-    Tomcat.addServlet(context, anyDistributionSampleServletName, new AnyDistributionSample());
-    context.addServletMappingDecoded("/sample/any", anyDistributionSampleServletName);
-
-    var logNormalDistributionSampleServletName = "logNormalDistributionSampleServlet";
-    tomcat.addServlet(contextPath, logNormalDistributionSampleServletName,
-        new LogNormalDistributionSample());
-    context.addServletMappingDecoded("/sample/logNormal", logNormalDistributionSampleServletName);
-
-    var aesSampleServletName = "AESSample";
-    Tomcat.addServlet(context, aesSampleServletName, new AESSample());
-    context.addServletMappingDecoded("/sample/aes", aesSampleServletName);
 
     context.addMimeMapping("html", "text/html");
 
