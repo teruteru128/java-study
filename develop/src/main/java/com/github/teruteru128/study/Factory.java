@@ -76,9 +76,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.MathContext;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -103,10 +101,8 @@ import java.security.SecureRandom;
 import java.security.Security;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -157,9 +153,7 @@ import org.bouncycastle.asn1.ASN1Integer;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.DERBitString;
 import org.bouncycastle.asn1.DERSequence;
-import org.jetbrains.annotations.NotNull;
-import org.jsoup.*;
-import org.jsoup.nodes.*;
+import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
@@ -302,7 +296,7 @@ public class Factory implements Callable<Integer> {
         .body();
   }
 
-  private static TreeSet<String> filterBySentAddressSet(List<@NotNull String> addresses)
+  private static TreeSet<String> filterBySentAddressSet(List<String> addresses)
       throws SQLException {
     var addressTreeSet = new TreeSet<>(addresses);
     var source = new SQLiteDataSource();
@@ -859,39 +853,13 @@ public class Factory implements Callable<Integer> {
       logger.warn("fromAddress is not set, fromAddress has been set to toAddress.");
       fromAddress = toAddress;
     }
-    var auto = Arena.ofAuto();
-    var subjectMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    //mpz_init_set_ui(subjectMax, 2);
-    //mpz_mul_2exp(subjectMax, subjectMax, 122);
-    // Largest prime number less than 2^122
-    mpz_init_set_str(subjectMax, auto.allocateFrom("5316911983139663491615228241121378301"), 10);
-    var subjectP = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(subjectP);
-    var messageMin = newMpzUi(auto, 10);
-    mpz_pow_ui(messageMin, messageMin, 71);
-    var messageMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(messageMax, auto.allocateFrom(
-        "999999999999999999999999999999999999999999999999999999999999999999999883"), 10);
-    var messageWindow = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(messageWindow);
-    mpz_sub(messageWindow, messageMax, messageMin);
-    var messageP = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(messageP);
-    var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
-    gmp_randinit_default(state);
-    seedRandomState(state);
+    Result result = getResult();
 
     try (var client = HttpClient.newHttpClient()) {
       for (var i = 0L; i < num; i++) {
-        mpz_urandomm(subjectP, state, subjectMax);
-        mpz_nextprime(subjectP, subjectP);
-        var string = mpzToString(auto, subjectP, 10);
-        //
-        mpz_urandomm(messageP, state, messageWindow);
-        mpz_add(messageP, messageP, messageMin);
-        mpz_nextprime(messageP, messageP);
-        var string1 = mpzToString(auto, messageP, 10);
-        var message = new Message(toAddress, fromAddress, string, string1, 5400);
+        var message = createPrimeSpamMessage(toAddress, fromAddress, result.subjectP(),
+            result.state(), result.subjectMax(), result.auto(), result.messageP(),
+            result.messageWindow(), result.messageMin());
         logger.info("sent");
         logger.debug("{}, {}, {}, {}", message.to(), message.from(), message.subject(),
             message.message());
@@ -904,17 +872,9 @@ public class Factory implements Callable<Integer> {
     return EXIT_CODE_OK;
   }
 
-  @Command
-  public int spam2(Path toAddressFile, String fromAddress, @Option(names = {"--num",
-          "-n"}, arity = "0..1", paramLabel = "num", defaultValue = "-1") long num,
-      @Option(names = "--filter-sent-addresses", defaultValue = "false") boolean filterSentAddresses)
-      throws IOException, InterruptedException, SQLException, ExecutionException {
+  private static Result getResult() {
     var auto = Arena.ofAuto();
     var subjectMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    //mpz_init_set_ui(subjectMax, 2);
-    //mpz_mul_2exp(subjectMax, subjectMax, 122);
-    // Largest prime number less than 2^122
-    // usable to uuid v4
     mpz_init_set_str(subjectMax, auto.allocateFrom("5316911983139663491615228241121378301"), 10);
     var subjectP = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
     mpz_init(subjectP);
@@ -931,6 +891,35 @@ public class Factory implements Callable<Integer> {
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
     seedRandomState(state);
+    return new Result(auto, subjectMax, subjectP, messageMin, messageWindow, messageP, state);
+  }
+
+  private record Result(Arena auto, MemorySegment subjectMax, MemorySegment subjectP,
+                        MemorySegment messageMin, MemorySegment messageWindow,
+                        MemorySegment messageP, MemorySegment state) {
+
+  }
+
+  private static Message createPrimeSpamMessage(String toAddress, String fromAddress,
+      MemorySegment subjectP, MemorySegment state, MemorySegment subjectMax, Arena auto,
+      MemorySegment messageP, MemorySegment messageWindow, MemorySegment messageMin) {
+    mpz_urandomm(subjectP, state, subjectMax);
+    mpz_nextprime(subjectP, subjectP);
+    var subjectString = mpzToString(auto, subjectP, 10);
+    mpz_urandomm(messageP, state, messageWindow);
+    mpz_add(messageP, messageP, messageMin);
+    mpz_nextprime(messageP, messageP);
+    var bodyString = mpzToString(auto, messageP, 10);
+    return new Message(toAddress, fromAddress, subjectString, bodyString, 5400);
+  }
+
+  @Command
+  public int spam2(Path toAddressFile, String fromAddress, @Option(names = {"--num",
+          "-n"}, arity = "0..1", paramLabel = "num", defaultValue = "-1") long num,
+      @Option(names = "--filter-sent-addresses", defaultValue = "false") boolean filterSentAddresses)
+      throws IOException, InterruptedException, SQLException, ExecutionException {
+    // usable to uuid v4
+    Result result = getResult();
     final var addresses = Files.readAllLines(toAddressFile);
     if (filterSentAddresses) {
       var beforeAddressesSize = addresses.size();
@@ -952,14 +941,9 @@ public class Factory implements Callable<Integer> {
             "要求するメッセージ数を満たすことができませんでした。" + size + "件のみ送信します");
       }
       for (var address : addresses) {
-        mpz_urandomm(subjectP, state, subjectMax);
-        mpz_nextprime(subjectP, subjectP);
-        var string = mpzToString(auto, subjectP, 10);
-        mpz_urandomm(messageP, state, messageWindow);
-        mpz_add(messageP, messageP, messageMin);
-        mpz_nextprime(messageP, messageP);
-        var string1 = mpzToString(auto, messageP, 10);
-        var message = new Message(address, fromAddress, string, string1, 5400);
+        var message = createPrimeSpamMessage(address, fromAddress, result.subjectP(),
+            result.state(), result.subjectMax(), result.auto(), result.messageP(),
+            result.messageWindow(), result.messageMin());
         messages.add(message);
         //post(client, message);
         i++;
@@ -983,7 +967,8 @@ public class Factory implements Callable<Integer> {
       throws IOException, InterruptedException {
     final var addresses = Files.readAllLines(fromAddressFile);
     try (var client = HttpClient.newHttpClient()) {
-      for (int i = offset; i < addresses.size(); i++) {
+      var size = addresses.size();
+      for (int i = offset; i < size; i++) {
         var address = addresses.get(i);
         var message = new Message("BM-2cW67GEKkHGonXKZLCzouLLxnLym3azS8r", address, "", "",
             2419200);
@@ -2238,51 +2223,6 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int medalist() {
-    // 現在の日時を取得
-    var now = LocalDate.now();
-
-    // 同じ月の25日のLocalDateを生成
-    var specificDateTime = now.withDayOfMonth(25); // 月の25日に設定
-
-    var formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd(E)", Locale.JAPANESE);
-    List<LocalDate> weekendDates = new ArrayList<>();
-
-    // 過去100ヶ月分ループ
-    for (int i = 0; i < 100; i++) {
-      var target = specificDateTime.minusMonths(i);
-      DayOfWeek dow = target.getDayOfWeek();
-
-      // 土曜日(SATURDAY)または日曜日(SUNDAY)か判定
-      if (dow == DayOfWeek.SATURDAY || dow == DayOfWeek.SUNDAY) {
-        weekendDates.add(target);
-      }
-    }
-
-    // 結果の出力
-    weekendDates.forEach(x -> System.out.println(x.format(formatter)));
-    System.out.println("該当件数: " + weekendDates.size() + "件");
-    return EXIT_CODE_OK;
-  }
-
-  /**
-   * factordb のスコアを計算する
-   * @param in ファイル
-   * @return 成功したら0
-   * @throws IOException ファイルが見つからなかったら
-   */
-  @Command
-  public int calcScore(Path in) throws IOException {
-    try (var stream = Files.lines(in, UTF_8)) {
-      var divisor = BigDecimal.valueOf(1000);
-      var unlimited = MathContext.UNLIMITED;
-      System.out.println(stream.map(BigDecimal::new).map(l -> l.divide(divisor, unlimited).pow(4))
-          .reduce(BigDecimal.ZERO, BigDecimal::add));
-    }
-    return EXIT_CODE_OK;
-  }
-
-  @Command
   public int smallSieve(Path in, Path out) throws IOException {
     try (var oin = new ObjectInputStream(
         new BufferedInputStream(Files.newInputStream(in, StandardOpenOption.READ),
@@ -2318,6 +2258,11 @@ public class Factory implements Callable<Integer> {
     return EXIT_CODE_OK;
   }
 
+  /**
+   * IDが1100000000000000000未満のPRPを桁数順にfactordbから抽出します
+   * @return
+   * @throws IOException
+   */
   @Command
   public int factorimp() throws IOException {
     var fdbuser = System.getenv("FDB_SESSION_ID");

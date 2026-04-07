@@ -42,7 +42,6 @@ module com.github.teruteru.study {
   requires tools.jackson.databind;
   requires java.desktop;
   requires org.apache.commons.io;
-  requires org.jetbrains.annotations;
   requires org.apache.commons.lang3;
   requires org.jsoup;
 
