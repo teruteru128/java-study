@@ -131,15 +131,11 @@ public class BrillhartLehmerSelfridge {
       return false;
     }
     var auto = Arena.ofAuto();
-    var nMinus1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(nMinus1);
-    mpz_sub_ui(nMinus1, n, 1);
-    var f = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(f, 1);
-    var work = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set(work, nMinus1);
-    var poweredQ = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(poweredQ);
+    var nMinus1 = GMPWrapper.newMpzSet(auto, n);
+    mpz_sub_ui(nMinus1, nMinus1, 1);
+    var f = GMPWrapper.newMpzUi(auto, 1);
+    var work = GMPWrapper.newMpzSet(auto, nMinus1);
+    var poweredQ = GMPWrapper.newMpz(auto);
 
     for (var q : nSub1FactorsSet) {
       if (mpz_divisible_p(work, q) != 0) {
@@ -162,16 +158,11 @@ public class BrillhartLehmerSelfridge {
     }
 
     int[] bases = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
-    var a = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(a);
-    var gcd = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(gcd);
-    var aToNMinus1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(aToNMinus1);
-    var nMinus1OverQ = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(nMinus1OverQ);
-    var aToNMinus1OverQ = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(aToNMinus1OverQ);
+    var a = GMPWrapper.newMpz(auto);
+    var gcd = GMPWrapper.newMpz(auto);
+    var aToNMinus1 = GMPWrapper.newMpz(auto);
+    var nMinus1OverQ = GMPWrapper.newMpz(auto);
+    var aToNMinus1OverQ = GMPWrapper.newMpz(auto);
     for (var base : bases) {
       mpz_set_ui(a, base);
 
