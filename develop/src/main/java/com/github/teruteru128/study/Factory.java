@@ -1,38 +1,37 @@
 package com.github.teruteru128.study;
 
 import static com.github.teruteru128.bitmessage.app.Spammer.requestBuilder;
-import static com.github.teruteru128.gmp.msys2.gmp_h.gmp_randinit_default;
-import static com.github.teruteru128.gmp.msys2.gmp_h.gmp_randseed;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mp_get_memory_functions;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_add;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_add_ui;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_cmp;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_cmp_ui;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_divisible_p;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_export;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_gcd;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_get_str;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_import;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_init;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_init_set;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_init_set_str;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_init_set_ui;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_mod;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_mul;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_mul_2exp;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_mul_ui;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_nextprime;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_pow_ui;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_powm;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_prevprime;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_probab_prime_p;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_set;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_set_ui;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_sizeinbase;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_sub;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_sub_ui;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_ui_pow_ui;
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_urandomm;
+import static com.github.teruteru128.gmp.linux.gmp_h.*;
+import static com.github.teruteru128.gmp.linux.gmp_h.gmp_randinit_default;
+import static com.github.teruteru128.gmp.linux.gmp_h.gmp_randseed;
+import static com.github.teruteru128.gmp.linux.gmp_h.mp_get_memory_functions;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_add;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_add_ui;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_cmp;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_cmp_ui;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_divisible_p;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_export;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_gcd;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_import;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_init;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_init_set;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_init_set_str;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_mod;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_mul;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_mul_2exp;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_mul_ui;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_nextprime;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_pow_ui;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_powm;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_prevprime;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_probab_prime_p;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_set;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_set_ui;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_sizeinbase;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_sub;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_sub_ui;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_ui_pow_ui;
+import static com.github.teruteru128.gmp.linux.gmp_h.mpz_urandomm;
 import static com.github.teruteru128.study.FactorDBSpamming.ID_ENDPOINT;
 import static com.github.teruteru128.study.FactorDBSpamming.OBJECT_MAPPER;
 import static com.github.teruteru128.study.FactorDBSpamming.QUERY_ENDPOINT;
@@ -54,10 +53,10 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.Message;
 import com.github.teruteru128.encode.Base58;
-import com.github.teruteru128.gmp.msys2.__gmp_get_memory_functions$x2;
-import com.github.teruteru128.gmp.msys2.__gmp_randstate_struct;
-import com.github.teruteru128.gmp.msys2.__mpz_struct;
-import com.github.teruteru128.gmp.msys2.gmp_h;
+import com.github.teruteru128.gmp.linux.__gmp_get_memory_functions$x2;
+import com.github.teruteru128.gmp.linux.__gmp_randstate_struct;
+import com.github.teruteru128.gmp.linux.__mpz_struct;
+import com.github.teruteru128.gmp.linux.gmp_h;
 import com.github.teruteru128.study.converters.MPZConverter;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -154,7 +153,6 @@ import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.DERBitString;
 import org.bouncycastle.asn1.DERSequence;
 import org.jsoup.Jsoup;
-import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
@@ -164,8 +162,6 @@ import picocli.CommandLine.HelpCommand;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import tools.jackson.databind.JsonNode;
-
-// FIXME サブコマンドをここに並べるのではなく、サービスローダーを使ってサービスとして読み込ませられないか？
 
 @Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
     ECIESSample.class, PrimeSearch.class, Updater.class, HelpCommand.class, SlimeSearch.class,
@@ -274,8 +270,7 @@ public class Factory implements Callable<Integer> {
 
   public static void seedRandomState(MemorySegment state) {
     var auto = Arena.ofAuto();
-    var seed = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(seed);
+    var seed = GMPWrapper.newMpz(auto);
     var elementCount = 2493;
     var seedNativeSegment = auto.allocate(JAVA_BYTE, elementCount);
     MemorySegment.copy(((SecureRandom) SECURE_RANDOM_GENERATOR).generateSeed(elementCount), 0,
@@ -381,42 +376,16 @@ public class Factory implements Callable<Integer> {
   private static Optional<JsonNode> queryMPZ(MemorySegment p)
       throws IOException, InterruptedException {
     var auto = Arena.ofAuto();
-    var string = mpzToString(auto, p, 10);
+    var string = GMPWrapper.mpzToString(auto, p, 10);
     var url = create(QUERY_ENDPOINT + encode(string, UTF_8)).toURL();
     var optional = queryToFactorDB(url);
     if (optional.isPresent()) {
       var root = optional.get();
       var id = root.get("id");
       var status = root.get("status");
-      logger.info("https://factordb.com/index.php?id={} : {}", id.asText(), status.textValue());
+      logger.info("https://factordb.com/index.php?id={} : {}", id.asString(), status.stringValue());
     }
     return optional;
-  }
-
-  private static MemorySegment newMpzStr(Arena auto, String str, int base) {
-    var b = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(b, auto.allocateFrom(str), base);
-    return b;
-  }
-
-  private static MemorySegment newMpzUi(Arena auto, int op) {
-    var b = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_ui(b, op);
-    return b;
-  }
-
-  private static MemorySegment newMpzUi(Arena auto, long op) {
-    var b = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(b);
-    mpz_set_u64(b, op);
-    return b;
-  }
-
-  public static String mpzToString(Arena auto, MemorySegment n2, int base) {
-    var length2 = mpz_sizeinbase(n2, base) + 2;
-    var buf2 = auto.allocate(length2);
-    mpz_get_str(buf2, base, n2);
-    return buf2.getString(0);
   }
 
   /**
@@ -799,22 +768,17 @@ public class Factory implements Callable<Integer> {
   @Command
   public int wieferich() {
     var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(n);
-    var base = newMpzUi(auto, 47);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(p);
-    var pSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(pSub1);
-    var pPow2 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(pPow2);
+    var n = GMPWrapper.newMpz(auto);
+    var base = GMPWrapper.newMpzUi(auto, 47);
+    var p = GMPWrapper.newMpz(auto);
+    var pSub1 = GMPWrapper.newMpz(auto);
+    var pPow2 = GMPWrapper.newMpz(auto);
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
     seedRandomState(state);
-    var min = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(min);
+    var min = GMPWrapper.newMpz(auto);
     mpz_set_u64(min, 200000000000000L);
-    var window = newMpzUi(auto, 10);
+    var window = GMPWrapper.newMpzUi(auto, 10);
     mpz_pow_ui(window, window, 32);
     mpz_sub(window, window, min);
     do {
@@ -827,11 +791,11 @@ public class Factory implements Callable<Integer> {
 
       mpz_powm(n, base, pSub1, pPow2);
       if (mpz_cmp_ui(n, 10) <= 0) {
-        var string = mpzToString(auto, p, 10);
+        var string = GMPWrapper.mpzToString(auto, p, 10);
         System.out.println("modが10以下: " + string);
       }
     } while (mpz_cmp_ui(n, 1) != 0);
-    var string = mpzToString(auto, p, 10);
+    var string = GMPWrapper.mpzToString(auto, p, 10);
     System.out.println("modが1と等しい: " + string);
 
     return EXIT_CODE_OK;
@@ -875,20 +839,14 @@ public class Factory implements Callable<Integer> {
 
   private static Result getResult() {
     var auto = Arena.ofAuto();
-    var subjectMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(subjectMax, auto.allocateFrom("5316911983139663491615228241121378301"), 10);
-    var subjectP = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(subjectP);
-    var messageMin = newMpzUi(auto, 10);
+    var subjectMax = GMPWrapper.newMpzStr(auto, "5316911983139663491615228241121378301", 10);
+    var subjectP = GMPWrapper.newMpz(auto);
+    var messageMin = GMPWrapper.newMpzUi(auto, 10);
     mpz_pow_ui(messageMin, messageMin, 71);
-    var messageMax = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(messageMax, auto.allocateFrom(
-        "999999999999999999999999999999999999999999999999999999999999999999999883"), 10);
-    var messageWindow = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(messageWindow);
+    var messageMax = GMPWrapper.newMpzStr(auto, "999999999999999999999999999999999999999999999999999999999999999999999883", 10);
+    var messageWindow = GMPWrapper.newMpz(auto);
     mpz_sub(messageWindow, messageMax, messageMin);
-    var messageP = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(messageP);
+    var messageP = GMPWrapper.newMpz(auto);
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
     seedRandomState(state);
@@ -906,11 +864,11 @@ public class Factory implements Callable<Integer> {
       MemorySegment messageP, MemorySegment messageWindow, MemorySegment messageMin) {
     mpz_urandomm(subjectP, state, subjectMax);
     mpz_nextprime(subjectP, subjectP);
-    var subjectString = mpzToString(auto, subjectP, 10);
+    var subjectString = GMPWrapper.mpzToString(auto, subjectP, 10);
     mpz_urandomm(messageP, state, messageWindow);
     mpz_add(messageP, messageP, messageMin);
     mpz_nextprime(messageP, messageP);
-    var bodyString = mpzToString(auto, messageP, 10);
+    var bodyString = GMPWrapper.mpzToString(auto, messageP, 10);
     return new Message(toAddress, fromAddress, subjectString, bodyString, 5400);
   }
 
@@ -985,9 +943,8 @@ public class Factory implements Callable<Integer> {
   @Command
   public int sierpinski(@Option(names = "-k", defaultValue = "21181") int k, int nMin, int nMax) {
     var auto = Arena.ofAuto();
-    var pSub1 = newMpzUi(auto, k);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(p);
+    var pSub1 = GMPWrapper.newMpzUi(auto, k);
+    var p = GMPWrapper.newMpz(auto);
     mpz_mul_2exp(pSub1, pSub1, nMin);
     var startP = valueOf(53);
     var maxSmallP = valueOf(100000000);
@@ -998,7 +955,7 @@ public class Factory implements Callable<Integer> {
       if (i == 100000028) {
         for (var smallP = startP.nextProbablePrime(); smallP.compareTo(maxSmallP) < 0;
             smallP = smallP.nextProbablePrime()) {
-          if (gmp_h.mpz_divisible_ui_p(p, smallP.intValue()) != 0) {
+          if (mpz_divisible_ui_p(p, smallP.intValue()) != 0) {
             System.err.println(i + " is divisible by " + smallP);
             continue out;
           }
@@ -1322,11 +1279,10 @@ public class Factory implements Callable<Integer> {
   public int sierpinski3(@Parameters(converter = MPZConverter.class) MemorySegment exp,
       @Parameters(converter = MPZConverter.class) MemorySegment mod) {
     var auto = Arena.ofAuto();
-    var rop = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(rop);
-    var base = newMpzUi(auto, 2);
+    var rop = GMPWrapper.newMpz(auto);
+    var base = GMPWrapper.newMpzUi(auto, 2);
     mpz_powm(rop, base, exp, mod);
-    var string = mpzToString(auto, rop, 10);
+    var string = GMPWrapper.mpzToString(auto, rop, 10);
     System.out.println(string);
     return EXIT_CODE_OK;
   }
@@ -1347,17 +1303,15 @@ public class Factory implements Callable<Integer> {
   @Command
   public int fac() {
     var auto = Arena.ofAuto();
-    var n = newMpzUi(auto, 1);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_set_ui(p, 10);
+    var n = GMPWrapper.newMpzUi(auto, 1);
+    var p = GMPWrapper.newMpzUi(auto, 10);
     mpz_pow_ui(p, p, 18);
     mpz_add_ui(p, p, 3);
-    var max = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_set_ui(max, 10);
+    var max = GMPWrapper.newMpzUi(auto, 10);
     mpz_pow_ui(max, max, 49999);
     while (mpz_cmp(n, max) < 0) {
       mpz_mul(n, n, p);
-      var string = mpzToString(auto, p, 10);
+      var string = GMPWrapper.mpzToString(auto, p, 10);
       System.out.println(string);
       mpz_nextprime(p, p);
     }
@@ -1371,20 +1325,22 @@ public class Factory implements Callable<Integer> {
     return EXIT_CODE_OK;
   }
 
+  /**
+   * シェルピンスキー数候補2つを使った素因数分解の試行
+   * @return
+   */
   @Command
   public int sie() {
     var auto = Arena.ofAuto();
-    var p = newMpzUi(auto, 1);
+    var p = GMPWrapper.newMpzUi(auto, 1);
     mpz_mul_2exp(p, p, 45029252);
     mpz_mul_ui(p, p, 21181);
     mpz_add_ui(p, p, 1);
-    var q = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(q);
-    var r = newMpzUi(auto, 2);
+    var q = GMPWrapper.newMpz(auto);
+    var r = GMPWrapper.newMpzUi(auto, 2);
     // powers = 1048576
-    var powers = newMpzUi(auto, 1);
-    var gcd = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(gcd);
+    var powers = GMPWrapper.newMpzUi(auto, 1);
+    var gcd = GMPWrapper.newMpz(auto);
     while (true) {
       mpz_gcd(gcd, p, r);
       if (mpz_cmp_ui(gcd, 1) != 0) {
@@ -1392,7 +1348,7 @@ public class Factory implements Callable<Integer> {
       }
       mpz_nextprime(r, r);
     }
-    var string = mpzToString(auto, gcd, 10);
+    var string = GMPWrapper.mpzToString(auto, gcd, 10);
     System.out.println(string);
     while (true) {
       // q =  21181
@@ -1408,9 +1364,24 @@ public class Factory implements Callable<Integer> {
       // powers *= 16777216
       mpz_mul_2exp(powers, powers, 1);
     }
-    var string1 = mpzToString(auto, gcd, 10);
+    var string1 = GMPWrapper.mpzToString(auto, gcd, 10);
     System.out.println(string1);
     return EXIT_CODE_OK;
+  }
+
+  @Command
+  public void sie2(@Option(names = "--min", defaultValue = "45000000") long min,
+      @Option(names = "--num", defaultValue = "10") int num) {
+    int count = 0;
+    long i = min;
+    var p = getLongPredicate();
+    while (count < num) {
+      if (p.test(i)) {
+        System.out.println(i);
+        count++;
+      }
+      i++;
+    }
   }
 
   @Command
@@ -1437,7 +1408,7 @@ public class Factory implements Callable<Integer> {
   public int sierpinski7(int start) {
     var any = IntStream.iterate(start, i -> i + 1).filter(getLongPredicate()::test).filter(i -> {
       var auto = Arena.ofAuto();
-      var p = newMpzUi(auto, 21181);
+      var p = GMPWrapper.newMpzUi(auto, 21181);
       mpz_mul_2exp(p, p, i);
       mpz_add_ui(p, p, 1);
       var st = System.nanoTime();
@@ -1474,19 +1445,19 @@ public class Factory implements Callable<Integer> {
     var op2 = 33219332;
     System.out.println(op2 + " を選択しました");
     var auto = Arena.ofAuto();
-    var n = newMpzUi(auto, 21181);
+    var n = GMPWrapper.newMpzUi(auto, 21181);
     mpz_mul_2exp(n, n, op2);
     mpz_add_ui(n, n, 1);
-    var p = newMpzUi(auto, 2);
+    var p = GMPWrapper.newMpzUi(auto, 2);
 
     for (int i = 0; i < 1000000; i++) {
       if (mpz_divisible_p(n, p) != 0) {
-        var string = mpzToString(auto, p, 10);
+        var string = GMPWrapper.mpzToString(auto, p, 10);
         System.out.println(string);
       }
       mpz_nextprime(p, p);
     }
-    var string = mpzToString(auto, p, 10);
+    var string = GMPWrapper.mpzToString(auto, p, 10);
     System.out.println(string + "未満までの検査を終了しました");
     return EXIT_CODE_OK;
   }
@@ -1494,15 +1465,13 @@ public class Factory implements Callable<Integer> {
   @Command
   public int proth(int i) {
     var auto = Arena.ofAuto();
-    var exp = newMpzUi(auto, 21181);
+    var exp = GMPWrapper.newMpzUi(auto, 21181);
     mpz_mul_2exp(exp, exp, i - 1);
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set(n, exp);
+    var n = GMPWrapper.newMpzSet(auto, exp);
     mpz_mul_2exp(n, n, 1);
     mpz_add_ui(n, n, 1);
-    var a = newMpzUi(auto, 2);
-    var mod = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(mod);
+    var a = GMPWrapper.newMpzUi(auto, 2);
+    var mod = GMPWrapper.newMpz(auto);
     mpz_powm(mod, a, exp, n);
     mpz_add_ui(mod, mod, 1);
     if (mpz_cmp(mod, n) == 0) {
@@ -1538,19 +1507,17 @@ public class Factory implements Callable<Integer> {
   @Command
   public int primesPost(int n) throws URISyntaxException, IOException, InterruptedException {
     var auto = Arena.ofAuto();
-    var max = newMpzUi(auto, 10);
+    var max = GMPWrapper.newMpzUi(auto, 10);
     mpz_pow_ui(max, max, 4097);
     mpz_sub_ui(max, max, 2603);
-    var min = newMpzUi(auto, 10);
+    var min = GMPWrapper.newMpzUi(auto, 10);
     mpz_pow_ui(min, min, 4096);
-    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(window);
+    var window = GMPWrapper.newMpz(auto);
     mpz_sub(window, max, min);
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
     seedRandomState(state);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(p);
+    var p = GMPWrapper.newMpz(auto);
     var primes = new LinkedList<String>();
     for (var i = 0; i < n; i++) {
       mpz_urandomm(p, state, window);
@@ -1561,7 +1528,7 @@ public class Factory implements Callable<Integer> {
       System.err.println(
           "[" + DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "] " + (finish - start) / 1e9
           + " sec");
-      var string = mpzToString(auto, p, 10);
+      var string = GMPWrapper.mpzToString(auto, p, 10);
       primes.add(string);
       var primesListIterator = primes.listIterator();
       while (primesListIterator.hasNext()) {
@@ -1645,12 +1612,10 @@ public class Factory implements Callable<Integer> {
       @Option(names = {"--base", "-b"}, defaultValue = "2", paramLabel = "base") int base)
       throws IOException, InterruptedException {
     var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(n);
-    var a = newMpzUi(auto, base);
+    var n = GMPWrapper.newMpz(auto);
+    var a = GMPWrapper.newMpzUi(auto, base);
     mpz_pow_ui(a, a, init);
-    var b = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(b);
+    var b = GMPWrapper.newMpz(auto);
     for (int i = init; i < max; i++) {
       // b = base
       mpz_set_ui(b, base);
@@ -1710,15 +1675,14 @@ public class Factory implements Callable<Integer> {
       @Option(names = "--min-digits", paramLabel = "Minimum number of digits", defaultValue = "299") int minimumNumberOfDigits,
       @Option(names = "--num", paramLabel = "num", defaultValue = "5") int num) {
     var auto = Arena.ofAuto();
-    var threshold = newMpzUi(auto, 10);
+    var threshold = GMPWrapper.newMpzUi(auto, 10);
     mpz_pow_ui(threshold, threshold, minimumNumberOfDigits - 1);
-    var smallPrimeMin = newMpzUi(auto, 10);
+    var smallPrimeMin = GMPWrapper.newMpzUi(auto, 10);
     mpz_pow_ui(smallPrimeMin, smallPrimeMin, 18);
-    var smallPrimeMax = newMpzUi(auto, 10);
+    var smallPrimeMax = GMPWrapper.newMpzUi(auto, 10);
     mpz_pow_ui(smallPrimeMax, smallPrimeMax, 19);
     mpz_sub_ui(smallPrimeMax, smallPrimeMax, 39);
-    var smallPrimeWindow = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set(smallPrimeWindow, smallPrimeMax);
+    var smallPrimeWindow = GMPWrapper.newMpzSet(auto, smallPrimeMax);
     mpz_sub(smallPrimeWindow, smallPrimeWindow, smallPrimeMin);
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
@@ -1734,9 +1698,8 @@ public class Factory implements Callable<Integer> {
     }
     var bls = new BrillhartLehmerSelfridge();
     Stream.generate(() -> {
-          var n = newMpzUi(auto, 2);
-          var smallPrime = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-          mpz_init(smallPrime);
+          var n = GMPWrapper.newMpzUi(auto, 2);
+          var smallPrime = GMPWrapper.newMpz(auto);
           var set = new TreeSet<MemorySegment>(gmp_h::mpz_cmp);
           var countP = auto.allocate(JAVA_LONG);
           MemorySegment p;
@@ -1750,8 +1713,7 @@ public class Factory implements Callable<Integer> {
             mpz_nextprime(smallPrime, smallPrime);
             // 発見した素数をnに掛け合わせる
             mpz_mul(n, n, smallPrime);
-            p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-            mpz_init_set(p, smallPrime);
+            p = GMPWrapper.newMpzSet(auto, smallPrime);
             var allocatedSmallPrime = mpz_export(NULL, countP, 0, JAVA_BYTE.byteSize(), 0, 0,
                 smallPrime);
             set.add(p);
@@ -1759,13 +1721,11 @@ public class Factory implements Callable<Integer> {
           }
           return new NAndFactors(n, set);
         }).parallel().<PrimeRecord>mapMulti((n, consumer) -> {
-          var nAdd1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-          mpz_init(nAdd1);
-          mpz_add_ui(nAdd1, n.n(), 1);
+          var nAdd1 = GMPWrapper.newMpzSet(auto, n.n());
+          mpz_add_ui(nAdd1, nAdd1, 1);
           consumer.accept(new PrimeRecord(nAdd1, State.N_ADD_1, n.factors()));
-          var nSub1 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-          mpz_init(nSub1);
-          mpz_sub_ui(nSub1, n.n(), 1);
+          var nSub1 =  GMPWrapper.newMpzSet(auto, n.n());
+          mpz_sub_ui(nSub1, nSub1, 1);
           consumer.accept(new PrimeRecord(nSub1, State.N_SUB_1, n.factors()));
         }).filter(p -> mpz_probab_prime_p(p.p(), 24) != 0 && bls.isPrime(p.p(), p.factors())).limit(num)
         .forEach(p1 -> {
@@ -1777,7 +1737,7 @@ public class Factory implements Callable<Integer> {
               logger.info("{}: {}", id, p1.state());
               var joiner = new StringJoiner(", ");
               p1.factors().forEach(p -> {
-                var string = mpzToString(auto, p, 10);
+                var string = GMPWrapper.mpzToString(auto, p, 10);
                 joiner.add(string);
               });
               logger.info("{}: {}", id, joiner);
@@ -1804,13 +1764,11 @@ public class Factory implements Callable<Integer> {
     var x = factors.get(0);
     var y = x.get(0);
     var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(n, auto.allocateFrom(y.asString()), 10);
-    var p = newMpzUi(auto, 1);
-    var q = newMpzUi(auto, 1);
-    var diff = newMpzUi(auto, 1);
-    var gcd = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(gcd);
+    var n = GMPWrapper.newMpzStr(auto, y.asString(), 10);
+    var p = GMPWrapper.newMpzUi(auto, 1);
+    var q = GMPWrapper.newMpzUi(auto, 1);
+    var diff = GMPWrapper.newMpzUi(auto, 1);
+    var gcd = GMPWrapper.newMpz(auto);
     do {
       mpz_mul_2exp(p, p, 1);
       mpz_add_ui(p, p, 1);
@@ -1825,7 +1783,7 @@ public class Factory implements Callable<Integer> {
       mpz_gcd(gcd, n, diff);
     } while (mpz_cmp_ui(gcd, 1) == 0);
     if (mpz_cmp(gcd, n) != 0) {
-      var string = mpzToString(auto, gcd, 10);
+      var string = GMPWrapper.mpzToString(auto, gcd, 10);
       System.out.println(string);
     } else {
       System.out.println("失敗！");
@@ -1870,21 +1828,18 @@ public class Factory implements Callable<Integer> {
   @Command
   public int createPrime(Path out, Path in, int step) throws IOException {
     var auto = Arena.ofAuto();
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(p, auto.allocateFrom(Files.readAllLines(in).getFirst()), 10);
+    var p = GMPWrapper.newMpzStr(auto, Files.readAllLines(in).getFirst(), 10);
     try {
       mpz_add_ui(p, p, Math.addExact(Math.multiplyExact(step, 2), 1));
     } catch (ArithmeticException e) {
       // step * 2 + 1がオーバーフローを起こすときにだけgmpを経由する
-      var diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-      mpz_init(diff);
-      mpz_set_u64(diff, step);
+      var diff = GMPWrapper.newMpzUi(auto, step);
       mpz_mul_2exp(diff, diff, 1);
       mpz_add_ui(diff, diff, 1);
       mpz_add(p, p, diff);
     }
     System.out.println(mpz_probab_prime_p(p, 24));
-    var string = mpzToString(auto, p, 10);
+    var string = GMPWrapper.mpzToString(auto, p, 10);
     Files.writeString(out, string, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
     return EXIT_CODE_OK;
   }
@@ -1926,37 +1881,35 @@ public class Factory implements Callable<Integer> {
 
   @Command
   public int blsMpz() {
-    BrillhartLehmerSelfridge bls = new BrillhartLehmerSelfridge();
+    var bls = new BrillhartLehmerSelfridge();
     var auto = Arena.ofAuto();
-    var n2 = newMpzUi(auto, 13);
-    Set<MemorySegment> factors2 = new TreeSet<>(gmp_h::mpz_cmp);
-    factors2.add(newMpzUi(auto, 2));
-    factors2.add(newMpzUi(auto, 2));
-    var string = mpzToString(auto, n2, 10);
+    var n2 = GMPWrapper.newMpzUi(auto, 13);
+    var factors2 = new TreeSet<>(gmp_h::mpz_cmp);
+    factors2.add(GMPWrapper.newMpzUi(auto, 2));
+    factors2.add(GMPWrapper.newMpzUi(auto, 2));
+    var string = GMPWrapper.mpzToString(auto, n2, 10);
     System.out.println("Is " + string + " prime? " + bls.isPrime(n2, factors2)); // true
-    var n3 = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(n3);
-    var d = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(d);
+    var n3 = GMPWrapper.newMpz(auto);
+    var d = GMPWrapper.newMpz(auto);
     mpz_ui_pow_ui(d, 3, 5279);
     mpz_set(n3, d);
     mpz_ui_pow_ui(d, 3, 1593);
     mpz_add(n3, n3, d);
     mpz_add_ui(n3, n3, 1);
-    Set<MemorySegment> factors3 = new TreeSet<>(gmp_h::mpz_cmp);
-    factors3.add(newMpzUi(auto, 2));
-    factors3.add(newMpzUi(auto, 3));
-    factors3.add(newMpzUi(auto, 5));
-    factors3.add(newMpzUi(auto, 389));
-    factors3.add(newMpzUi(auto, 5301533));
-    factors3.add(newMpzUi(auto, 63074833));
-    factors3.add(newMpzUi(auto, 25480398173L));
-    factors3.add(newMpzStr(auto, "474892892339377", 10));
-    factors3.add(newMpzStr(auto, "572015250148299277216508617", 10));
-    factors3.add(newMpzStr(auto, "1209361321548310091770485682269470852086753", 10));
-    factors3.add(newMpzStr(auto, "77449343291186907889503299808279247610860106861", 10));
+    var factors3 = new TreeSet<>(gmp_h::mpz_cmp);
+    factors3.add(GMPWrapper.newMpzUi(auto, 2));
+    factors3.add(GMPWrapper.newMpzUi(auto, 3));
+    factors3.add(GMPWrapper.newMpzUi(auto, 5));
+    factors3.add(GMPWrapper.newMpzUi(auto, 389));
+    factors3.add(GMPWrapper.newMpzUi(auto, 5301533));
+    factors3.add(GMPWrapper.newMpzUi(auto, 63074833));
+    factors3.add(GMPWrapper.newMpzUi(auto, 25480398173L));
+    factors3.add(GMPWrapper.newMpzStr(auto, "474892892339377", 10));
+    factors3.add(GMPWrapper.newMpzStr(auto, "572015250148299277216508617", 10));
+    factors3.add(GMPWrapper.newMpzStr(auto, "1209361321548310091770485682269470852086753", 10));
+    factors3.add(GMPWrapper.newMpzStr(auto, "77449343291186907889503299808279247610860106861", 10));
     System.out.println(
-        "Is " + mpzToString(auto, n3, 10) + " prime? " + bls.isPrime(n3, factors3)); // true
+        "Is " + GMPWrapper.mpzToString(auto, n3, 10) + " prime? " + bls.isPrime(n3, factors3)); // true
     return EXIT_CODE_OK;
   }
 
@@ -1985,7 +1938,7 @@ public class Factory implements Callable<Integer> {
             consumer.accept(new Pack(a.add(ONE), list2, State.N_ADD_1));
             consumer.accept(new Pack(a.subtract(ONE), list2, State.N_SUB_1));
           }).filter(pack -> {
-            var a = newMpzStr(auto, pack.p().toString(10), 10);
+            var a = GMPWrapper.newMpzStr(auto, pack.p().toString(10), 10);
             var i = mpz_probab_prime_p(a, 1);
             if (i == 0) {
               System.err.println("m9(^Д^)ﾌﾟｷﾞｬｰ");
@@ -2006,17 +1959,15 @@ public class Factory implements Callable<Integer> {
   @Command
   public int primeSpam(int startDigits, int finishDigits, int numPerDigits) {
     var auto = Arena.ofAuto();
-    var min = newMpzUi(auto, 10);
+    var min = GMPWrapper.newMpzUi(auto, 10);
     mpz_pow_ui(min, min, startDigits);
-    var max = newMpzUi(auto, 10);
+    var max = GMPWrapper.newMpzUi(auto, 10);
     mpz_pow_ui(max, max, startDigits + 1);
-    var window = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set(window, max);
+    var window = GMPWrapper.newMpzSet(auto, max);
     var state = __gmp_randstate_struct.allocate(auto).reinterpret(auto, gmp_h::gmp_randclear);
     gmp_randinit_default(state);
     seedRandomState(state);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(p);
+    var p = GMPWrapper.newMpz(auto);
     for (int currentDigits = startDigits; currentDigits <= finishDigits; currentDigits++) {
       for (int i = 0; i < numPerDigits; i++) {
         mpz_urandomm(p, state, window);
@@ -2201,12 +2152,10 @@ public class Factory implements Callable<Integer> {
   @Command
   public int largestPrimeInDigits(int initDigits, int maxDigits, Path out) throws IOException {
     var auto = Arena.ofAuto();
-    var n = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(n);
-    var p = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
+    var n = GMPWrapper.newMpz(auto);
+    var p = GMPWrapper.newMpz(auto);
     mpz_init(p);
-    var diff = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init(diff);
+    var diff = GMPWrapper.newMpz(auto);
     var list = new ArrayList<String>(maxDigits - initDigits);
     for (int i = initDigits; i < maxDigits; i++) {
       mpz_set_ui(n, 10);
