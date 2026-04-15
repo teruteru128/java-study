@@ -18,9 +18,14 @@ application {
     ]
 }
 
+run {
+    jvmArgs = ["-Xmx1G"]
+}
+
 dependencies {
     implementation(project(':develop'))
-    implementation project(':gmp-msys2')
+    implementation(project(':gmp-msys2'))
+    implementation(project(':gmp-linux'))
     implementation(project(':math'))
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-rng-simple
@@ -56,4 +61,7 @@ dependencies {
 
     // Source: https://mvnrepository.com/artifact/tools.jackson.jakarta.rs/jackson-jakarta-rs-json-provider
     implementation 'tools.jackson.jakarta.rs:jackson-jakarta-rs-json-provider:3.1.1'
+
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    implementation 'com.google.guava:guava:33.5.0-jre'
 }

@@ -1,37 +1,13 @@
 package com.github.teruteru128.sample;
 
-import com.github.teruteru128.sample.aes.AESSample;
-import com.github.teruteru128.sample.clone.CloneSample;
-import com.github.teruteru128.sample.curve25519.Curve25519Sample;
-import com.github.teruteru128.sample.dist.AnyDistributionSample;
-import com.github.teruteru128.sample.dist.LogNormalDistributionSample;
-import com.github.teruteru128.sample.dynamic.DynamicServiceServlet;
-import com.github.teruteru128.sample.ec.ECKeyGenerateSample;
-import com.github.teruteru128.sample.forward.FooterIncludeServlet;
-import com.github.teruteru128.sample.forward.ForwardStep1Servlet;
-import com.github.teruteru128.sample.forward.ForwardStep2Servlet;
-import com.github.teruteru128.sample.forward.HeaderIncludeServlet;
-import com.github.teruteru128.sample.kdf.PBKDF2Servlet;
-import com.github.teruteru128.sample.primes.PrimesAllDeleteServlet;
-import com.github.teruteru128.sample.primes.PrimesCounterServlet;
-import com.github.teruteru128.sample.primes.PrimesCreateServlet;
-import com.github.teruteru128.sample.primes.PrimesListInitFilter;
-import com.github.teruteru128.sample.primes.PrimesViewerServlet;
-import com.github.teruteru128.sample.sql.SQLiteConnectSample;
-import com.github.teruteru128.sample.user.UserBeanFilter;
-import com.github.teruteru128.sample.user.login.LogInServlet;
-import com.github.teruteru128.sample.user.login.LogInSuccessServlet;
-import com.github.teruteru128.sample.user.register.RegisterServlet;
-import com.github.teruteru128.sample.user.register.RegisterSuccessServlet;
 import jakarta.annotation.Nonnull;
-import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.Security;
-import java.util.logging.Logger;
+import java.util.Optional;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.servlets.DefaultServlet;
@@ -44,13 +20,15 @@ import org.apache.tomcat.util.descriptor.web.ErrorPage;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tools.jackson.databind.ObjectMapper;
 
 public class Main {
 
-  private static final Logger logger = Logger.getLogger(Main.class.getName());
+  private static final Logger logger = LoggerFactory.getLogger(Main.class.getName());
 
-  public static void main(String[] args) {
+  static void main(String[] args) throws IOException {
     var bc = Security.getProvider("BC");
     if (bc == null) {
       Security.insertProviderAt(new BouncyCastleProvider(), 1);
@@ -68,12 +46,12 @@ public class Main {
     var contextPath = "";
     // 流石に current dir のままではsampleファイルとか見えちゃう
     var webPath = Path.of("web").toAbsolutePath();
-    if(Files.notExists(webPath)){
-        try{
+    if (Files.notExists(webPath)) {
+      try {
         Files.createDirectories(webPath);
-        }catch(IOException e){
-            throw new RuntimeException(e);
-        }
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
     }
     var docBase = webPath.toString();
     var context = (StandardContext) tomcat.addContext(contextPath, docBase);
@@ -105,7 +83,8 @@ public class Main {
 
     var listener = new ThymeleafConfiguration();
     context.addApplicationLifecycleListener(listener);
-    context.addApplicationLifecycleListener(new JacksonConfiguration());
+    var listener1 = new JacksonConfiguration();
+    context.addApplicationLifecycleListener(listener1);
 
     boolean isListings = false;
     for (String arg : args) {
@@ -115,9 +94,21 @@ public class Main {
       }
     }
 
+    var configJsonSrc = "config.json";
+    var configJsonPath = Path.of(configJsonSrc).toAbsolutePath();
+    Optional<String> onionLocation = Optional.empty();
+    if (Files.exists(configJsonPath) && Files.isRegularFile(configJsonPath) && Files.isReadable(
+        configJsonPath)) {
+      var jsonRoot = listener1.mapper.readTree(configJsonPath);
+      onionLocation = Optional.of(jsonRoot.get("Onion-Location").asString());
+    }
+
     var defaultServlet = "DefaultServlet";
-    var wrapper = Tomcat.addServlet(context, defaultServlet, new DefaultServlet());
-    if(isListings) {
+    var wrapper = new Tomcat.ExistingStandardWrapper(new DefaultServlet());
+    wrapper.setName(defaultServlet);
+    context.addChild(wrapper);
+
+    if (isListings) {
       wrapper.addInitParameter("listings", "true");
     }
     context.addServletMappingDecoded("/", defaultServlet);
@@ -142,6 +133,15 @@ public class Main {
     context.addServletMappingDecoded("/errors/404", errorsServiceServletName);
     context.addServletMappingDecoded("/errors/500", errorsServiceServletName);
 
+    var def1 = new FilterDef();
+    def1.setFilter(onionLocation.map(TorFilter::new).orElseGet(TorFilter::new));
+    def1.setFilterName("TorFilter");
+    context.addFilterDef(def1);
+    var map1 = new FilterMap();
+    map1.setFilterName("TorFilter");
+    map1.addURLPatternDecoded("*");
+    context.addFilterMap(map1);
+
     context.addMimeMapping("html", "text/html");
 
     var valve1 = new AccessLogValve();
@@ -155,7 +155,7 @@ public class Main {
 
     try {
       tomcat.start();
-      System.out.println("Tomcat server started on http://localhost:" + port);
+      logger.info("Tomcat server started on http://localhost:{}", port);
       tomcat.getServer().await();
     } catch (LifecycleException e) {
       throw new RuntimeException(e);

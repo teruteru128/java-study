@@ -15,7 +15,7 @@
   </component>
   <component name="ProjectResources">
     <resource url="http://www.thymeleaf.org" location="$PROJECT_DIR$" />
-    <resource url="https://logging.apache.org/xml/ns" location="$PROJECT_DIR$" />
+    <resource url="https://logging.apache.org/xml/ns/log4j-config-2.xsd" location="$USER_HOME$/.cache/JetBrains/IntelliJIdea2026.1/extResources/45b236ba_log4j-config-2.xsd" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_25" default="true" project-jdk-name="25" project-jdk-type="JavaSDK" />
 </project>

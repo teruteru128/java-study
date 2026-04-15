@@ -19,8 +19,8 @@ module com.github.teruteru.study {
   requires org.slf4j;
 
   // guava
-  //requires com.google.errorprone.annotations;
-  //requires com.google.common;
+  requires com.google.errorprone.annotations;
+  requires com.google.common;
 
   //
   //requires jakarta.json;

@@ -37,6 +37,7 @@ dependencies {
     implementation project(':bitmessage')
     implementation project(':encode')
     implementation project(':foreign')
+    implementation project(':gmp-linux')
     implementation project(':gmp-msys2')
     implementation project(':mpfr')
     implementation project(':opencl')
@@ -100,6 +101,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.jsoup/jsoup
     implementation 'org.jsoup:jsoup:1.22.1'
+
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    implementation 'com.google.guava:guava:33.5.0-jre'
 }
 
 compileJava {
