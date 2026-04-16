@@ -14,8 +14,6 @@ import static com.github.teruteru128.gmp.linux.gmp_h.mpz_export;
 import static com.github.teruteru128.gmp.linux.gmp_h.mpz_gcd;
 import static com.github.teruteru128.gmp.linux.gmp_h.mpz_import;
 import static com.github.teruteru128.gmp.linux.gmp_h.mpz_init;
-import static com.github.teruteru128.gmp.linux.gmp_h.mpz_init_set;
-import static com.github.teruteru128.gmp.linux.gmp_h.mpz_init_set_str;
 import static com.github.teruteru128.gmp.linux.gmp_h.mpz_mod;
 import static com.github.teruteru128.gmp.linux.gmp_h.mpz_mul;
 import static com.github.teruteru128.gmp.linux.gmp_h.mpz_mul_2exp;
@@ -843,7 +841,8 @@ public class Factory implements Callable<Integer> {
     var subjectP = GMPWrapper.newMpz(auto);
     var messageMin = GMPWrapper.newMpzUi(auto, 10);
     mpz_pow_ui(messageMin, messageMin, 71);
-    var messageMax = GMPWrapper.newMpzStr(auto, "999999999999999999999999999999999999999999999999999999999999999999999883", 10);
+    var messageMax = GMPWrapper.newMpzStr(auto,
+        "999999999999999999999999999999999999999999999999999999999999999999999883", 10);
     var messageWindow = GMPWrapper.newMpz(auto);
     mpz_sub(messageWindow, messageMax, messageMin);
     var messageP = GMPWrapper.newMpz(auto);
@@ -1724,7 +1723,7 @@ public class Factory implements Callable<Integer> {
           var nAdd1 = GMPWrapper.newMpzSet(auto, n.n());
           mpz_add_ui(nAdd1, nAdd1, 1);
           consumer.accept(new PrimeRecord(nAdd1, State.N_ADD_1, n.factors()));
-          var nSub1 =  GMPWrapper.newMpzSet(auto, n.n());
+          var nSub1 = GMPWrapper.newMpzSet(auto, n.n());
           mpz_sub_ui(nSub1, nSub1, 1);
           consumer.accept(new PrimeRecord(nSub1, State.N_SUB_1, n.factors()));
         }).filter(p -> mpz_probab_prime_p(p.p(), 24) != 0 && bls.isPrime(p.p(), p.factors())).limit(num)
@@ -1908,8 +1907,8 @@ public class Factory implements Callable<Integer> {
     factors3.add(GMPWrapper.newMpzStr(auto, "572015250148299277216508617", 10));
     factors3.add(GMPWrapper.newMpzStr(auto, "1209361321548310091770485682269470852086753", 10));
     factors3.add(GMPWrapper.newMpzStr(auto, "77449343291186907889503299808279247610860106861", 10));
-    System.out.println(
-        "Is " + GMPWrapper.mpzToString(auto, n3, 10) + " prime? " + bls.isPrime(n3, factors3)); // true
+    System.out.println("Is " + GMPWrapper.mpzToString(auto, n3, 10) + " prime? " + bls.isPrime(n3,
+        factors3)); // true
     return EXIT_CODE_OK;
   }
 
@@ -2213,10 +2212,12 @@ public class Factory implements Callable<Integer> {
    * @return
    * @throws IOException
    * @param initialDigits
+   * @param maxDigits
    */
   @Command
   public int factorimp(@Option(names = {
-      "--initial-digits"}, paramLabel = "digit", defaultValue = "4001") int initialDigits)
+          "--initial-digits"}, paramLabel = "init digit", defaultValue = "4001") int initialDigits,
+      @Option(names = "--max-digits", paramLabel = "max digit", defaultValue = "10004") int maxDigits)
       throws IOException {
     var fdbuser = System.getenv("FDB_SESSION_ID");
     var cookies = new HashMap<String, String>();
@@ -2226,7 +2227,7 @@ public class Factory implements Callable<Integer> {
       System.err.println("FBDUSER environment variable has not been set");
     }
     int maxRetries = 3; // 最大リトライ回数
-    for (int digits = initialDigits; digits <= 10004; digits++) {
+    for (int digits = initialDigits; digits <= maxDigits; digits++) {
       var url = "https://factordb.com/listtype.php?t=1&mindig=" + digits + "&perpage=10&start=0";
       int retryCount = 0;
       while (retryCount < maxRetries) {
