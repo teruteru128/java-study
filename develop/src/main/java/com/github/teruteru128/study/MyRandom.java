@@ -4,6 +4,8 @@ import java.util.random.RandomGenerator;
 
 public class MyRandom {
 
+  private MyRandom() {}
+
   /**
    * FIXME 乱数系ユーティリティクラス的な？ものに移動する
    *

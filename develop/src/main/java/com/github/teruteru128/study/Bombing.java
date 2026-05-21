@@ -88,7 +88,7 @@ public class Bombing implements Callable<Integer> {
     }
     var id = root.get("id");
     var status = root.get("status");
-    logger.info("{}: {}", id.asText(), status.textValue());
+    logger.info("{}: {}", id.asString(), status.stringValue());
 
     return ExitCode.OK;
   }

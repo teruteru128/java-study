@@ -252,17 +252,20 @@ public class Factory implements Callable<Integer> {
                   || l % 31532 == 13652 || l % 33584 == 13388 || l % 36778 == 8732
                   || l % 57802 == 188 || l % 61376 == 1004 || l % 62654 == 4940 || l % 63330 == 5732
                   || l % 67828 == 59558 || l % 69996 == 11684 || l % 70588 == 13460
-                  || l % 90186 == 4052 || l % 95412 == 3380 || l % 191982 == 1820
-                  || l % 216396 == 6260 || l % 342466 == 68 || l % 431428 == 60668
-                  || l % 685460 == 500 || l % 756131 == 11732 || l % 888108 == 3404
-                  || l % 1801669 == 6260 || l % 2084050 == 11684 || l % 2859431 == 2132
-                  || l % 3236496 == 2060 || l % 3382146 == 5108 || l % 12549060 == 1844
-                  || l % 13757948 == 3812 || l % 14429248 == 3548 || l % 21716962 == 6164
-                  || l % 44564101 == 2324 || l % 49791324 == 2444 || l % 95330742 == 3140
-                  || l % 110000116 == 644 || l % 234121386 == 2612 || l % 938070812 == 2828
-                  || l % 1140196839 == 860 || l % 3234435810L == 3908 || l % 3303267723L == 3764
-                  || l % 9145782796L == 620 || l % 22213917791L == 3980 || l % 40961148944L == 3980
-                  || l % 182467288001L == 4028 || l % 17079842013412L == 2972
+                  || l % 90186 == 4052 || l % 95412 == 3380 || l /*% 125243*/ == 6284
+                  || l % 191982 == 1820 || l % 216396 == 6260 || l % 342466 == 68
+                  || l % 431428 == 60668 || l % 685460 == 500 || l % 756131 == 11732
+                  || l % 888108 == 3404 || l % 1801669 == 6260 || l % 2084050 == 11684
+                  || l % 2859431 == 2132 || l % 3236496 == 2060 || l % 3382146 == 5108
+                  || l % 12549060 == 1844 || l % 13757948 == 3812 || l % 14429248 == 3548
+                  || l % 21716962 == 6164 || l % 44564101 == 2324 || l % 49791324 == 2444
+                  || l % 95330742 == 3140 || l % 110000116 == 644 || l % 234121386 == 2612
+                  || l /*% 291756233 */ == 6044 || l /*% 444027292*/ == 4484
+                  || l % 938070812 == 2828 || l % 1140196839 == 860 || l /*% 1507626480*/ == 5372
+                  || l % 3234435810L == 3908 || l % 3303267723L == 3764 || l % 9145782796L == 620
+                  || l % 22213917791L == 3980 || l % 40961148944L == 3980
+                  || l % 182467288001L == 4028 || l /*% 222842479663 */ == 6452
+                  || l /*% 246864461022L*//*(未検証)*/ == 4292 || l % 17079842013412L == 2972
                   || l /*% 241601748305338693790*/ == 1772);
   }
 
@@ -1287,14 +1290,13 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int sierpinski4(@Option(names = {"--min"}, defaultValue = "0", paramLabel = "min") int min,
-      @Option(names = {"--max"}, paramLabel = "max") int max,
+  public int sierpinski4(
+      @Option(names = {"--min"}, defaultValue = "-1", paramLabel = "min") long min,
+      @Option(names = {"--limit"}, paramLabel = "limit", defaultValue = "-1") long limit,
       @Option(names = "--output-numbers", defaultValue = "false") boolean output) {
-    var array = LongStream.rangeClosed(min, max).filter(getLongPredicate()).toArray();
-    System.out.println("length: " + array.length);
-    System.out.printf("%f %%%n", (double) array.length * 100 / (max - min));
-    if (output) {
-      Arrays.stream(array).forEach(System.out::println);
+    var opt = LongStream.iterate(min, l -> l++).filter(getLongPredicate()).findFirst();
+    if (opt.isPresent() && output) {
+      System.out.println(opt.getAsLong());
     }
     return EXIT_CODE_OK;
   }
@@ -2251,6 +2253,35 @@ public class Factory implements Callable<Integer> {
           retryCount++;
         }
       }
+    }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int dousite() {
+    long i = 1;
+    long count = 0;
+    var func = getLongPredicate();
+    while (count < 25) {
+      if (func.test(i)) {
+        count++;
+        System.out.println(i);
+      }
+      i++;
+    }
+
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int penis() {
+    double min = Math.log10(8000);
+    double max = Math.log10(9000);
+    double diff = max - min;
+    double pow;
+    for(int i = 0; i < 15; i++) {
+      pow = Math.pow(10, MyRandom.nextDouble(SECURE_RANDOM_GENERATOR) * diff + min);
+      System.out.printf("  - %f ml, %f L(0x%016x)%n", pow, pow / 1000, Double.doubleToLongBits(pow));
     }
     return EXIT_CODE_OK;
   }
