@@ -2279,10 +2279,21 @@ public class Factory implements Callable<Integer> {
     double max = Math.log10(9000);
     double diff = max - min;
     double pow;
-    for(int i = 0; i < 15; i++) {
+    for (int i = 0; i < 15; i++) {
       pow = Math.pow(10, MyRandom.nextDouble(SECURE_RANDOM_GENERATOR) * diff + min);
-      System.out.printf("  - %f ml, %f L(0x%016x)%n", pow, pow / 1000, Double.doubleToLongBits(pow));
+      System.out.printf("  - %f ml, %f L(0x%016x)%n", pow, pow / 1000,
+          Double.doubleToLongBits(pow));
     }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int alice() {
+    var random = new Random();
+    random.setSeed(74803317123181L);
+    var f1 = random.nextFloat();
+    var f2 = random.nextFloat();
+    System.out.printf("%.16f, %.16f%n", f1, f2);
     return EXIT_CODE_OK;
   }
 
