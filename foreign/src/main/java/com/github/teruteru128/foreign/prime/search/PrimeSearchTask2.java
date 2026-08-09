@@ -44,7 +44,7 @@ public class PrimeSearchTask2 implements Callable<Result> {
     long start;
     long finish;
     start = System.nanoTime();
-    result = mpz_probab_prime_p(candidate, 25);
+    result = mpz_probab_prime_p(candidate, 24);
     finish = System.nanoTime();
     // {@code result != 0} で十分だと思うんだが
     // return result == 1 || result == 2 ? Optional.of(step) : Optional.empty();
