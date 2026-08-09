@@ -1,7 +1,8 @@
 package com.github.teruteru128.study;
 
-import java.io.ByteArrayInputStream;
-import java.io.ObjectInputStream;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
@@ -46,17 +47,28 @@ public class InsertPrimeNumberVerifyTask implements Callable<Integer> {
         var id = uuid.getMostSignificantBits();
         System.err.println("id: " + id);
         prep.setLong(1, id);
+        // large-sieveファイルの形式(src/large_sieve_io.cのwrite_large_sieveが書く形式):
+        // 先頭8byteがbig-endianのsearchLength(有効bit数)ヘッダー、続けて
+        // ceil(searchLength/64)個のbig-endian long(1bit=1候補、1なら合成数)。
+        // DataInputStream#readLongはbig-endianとして読むのでバイト順の変換は不要。
         BitSet p;
         {
+          long searchLength;
           long[] n;
-          try (var ois = new ObjectInputStream(
-              new ByteArrayInputStream(Files.readAllBytes(largeSievePath)))) {
-            ois.readInt();
-            n = (long[]) ois.readObject();
+          try (var din = new DataInputStream(
+              new BufferedInputStream(Files.newInputStream(largeSievePath)))) {
+            searchLength = din.readLong();
+            if (searchLength < 0 || searchLength > Integer.MAX_VALUE) {
+              throw new IOException("large sieve searchLength out of range: " + searchLength);
+            }
+            n = new long[(int) ((searchLength + 63L) / 64L)];
+            for (int i = 0; i < n.length; i++) {
+              n[i] = din.readLong();
+            }
           }
           var largeSieve = BitSet.valueOf(n);
-          p = new BitSet(largeSieve.length());
-          p.set(0, largeSieve.length());
+          p = new BitSet((int) searchLength);
+          p.set(0, (int) searchLength);
           p.andNot(largeSieve);
         }
         System.err.printf("candidates: %d%n", p.cardinality());
@@ -64,6 +76,10 @@ public class InsertPrimeNumberVerifyTask implements Callable<Integer> {
           p.clear(0, clearOff);
         }
         if (!dryRun) {
+          // autoCommitのままだとbatch内の各insertが個別にコミットされ、
+          // 候補数十万件規模だと極端に遅くなる(SQLiteのロック競合の原因にもなる)。
+          // 1トランザクションにまとめて最後に1回だけコミットする。
+          con.setAutoCommit(false);
           p.stream().forEach(s -> {
             try {
               prep.setInt(2, s);
@@ -73,6 +89,7 @@ public class InsertPrimeNumberVerifyTask implements Callable<Integer> {
             }
           });
           var sum = Arrays.stream(prep.executeBatch()).sum();
+          con.commit();
           System.err.println("inserted: " + sum);
         }
       }
