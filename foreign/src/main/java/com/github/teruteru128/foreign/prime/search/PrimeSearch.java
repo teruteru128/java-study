@@ -116,10 +116,9 @@ public class PrimeSearch implements Callable<Integer> {
       var futures = new ArrayList<Future<Result>>();
       list.forEach(task -> futures.add(service.submit(task)));
       try (var connection = source.getConnection()) {
-        try (var ps0 = connection.prepareStatement(
-            "update candidates set composite = composite + 1 where id = ? and step = ?;"); var ps1 = connection.prepareStatement(
-            "update candidates set probably_prime = probably_prime + 1 where id = ? and step = ?;"); var ps2 = connection.prepareStatement(
-            "update candidates set definitely_prime = definitely_prime + 1 where id = ? and step = ?;")) {
+        try (var ps = connection.prepareStatement(
+            "update candidates set composite = composite + ?, probably_prime = probably_prime + ?, "
+                + "definitely_prime = definitely_prime + ? where id = ? and step = ?;")) {
           for (int j = size; j > 0; j--) {
             try {
               var foundStep = service.take().get();
@@ -128,14 +127,14 @@ public class PrimeSearch implements Callable<Integer> {
               var start = foundStep.start();
               var finish = foundStep.finish();
               logger.info("step {}: {}({} hours)", step, result, (finish - start) / 3.6e12);
-              var ps = switch (result) {
-                case 0 -> ps0;
-                case 1 -> ps1;
-                case 2 -> ps2;
-                default -> throw new RuntimeException("unknown result code: " + result);
-              };
-              ps.setLong(1, id);
-              ps.setInt(2, step);
+              if (result < 0 || result > 2) {
+                throw new RuntimeException("unknown result code: " + result);
+              }
+              ps.setInt(1, result == 0 ? 1 : 0);
+              ps.setInt(2, result == 1 ? 1 : 0);
+              ps.setInt(3, result == 2 ? 1 : 0);
+              ps.setLong(4, id);
+              ps.setInt(5, step);
               ps.execute();
               if (result != 0) {
                 pool.shutdown();
