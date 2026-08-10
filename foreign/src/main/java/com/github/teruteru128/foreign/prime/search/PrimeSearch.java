@@ -84,8 +84,15 @@ public class PrimeSearch implements Callable<Integer> {
       }
     }
 
+    var hexText = Files.readAllLines(evenNumberPath).getFirst();
+    // 16進数としてa-fを一切含まない場合、10進数のファイルを誤って16進として
+    // 読み込んだ可能性が高い(桁数が多いほど偶然a-fを含まない確率は天文学的に低い)
+    if (hexText.chars().noneMatch(c -> (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'))) {
+      logger.warn("{} にa-fが1つも含まれていません。"
+          + "10進数のファイルを誤って16進として読み込んでいませんか？", evenNumberPath);
+    }
     var even = Gmp.allocateUninitialized(auto);
-    var parseResult = Gmp.initSetStr(even, auto.allocateFrom(Files.readAllLines(evenNumberPath).getFirst()), 16);
+    var parseResult = Gmp.initSetStr(even, auto.allocateFrom(hexText), 16);
     if (parseResult != 0) {
       logger.error("偶数ファイルの16進数パースに失敗しました: {}", evenNumberPath);
       return ExitCode.SOFTWARE;
