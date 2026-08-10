@@ -1,10 +1,8 @@
 package com.github.teruteru128.foreign.prime.search;
 
-import static com.github.teruteru128.gmp.msys2.gmp_h.mpz_init_set_str;
 import static java.util.concurrent.ForkJoinPool.defaultForkJoinWorkerThreadFactory;
 
-import com.github.teruteru128.gmp.msys2.__mpz_struct;
-import com.github.teruteru128.gmp.msys2.gmp_h;
+import com.github.teruteru128.foreign.gmp.Gmp;
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.nio.file.Files;
@@ -67,10 +65,31 @@ public class PrimeSearch implements Callable<Integer> {
     }
     var uuid = UUID.fromString(matcher.group());
     var id = uuid.getMostSignificantBits();
-    var even = __mpz_struct.allocate(auto).reinterpret(auto, gmp_h::mpz_clear);
-    mpz_init_set_str(even, auto.allocateFrom(Files.readAllLines(evenNumberPath).getFirst()), 10);
     var source = new SQLiteDataSource();
     source.setUrl(dbURL);
+
+    // 素数が見つかった時、その場でキャンセルされた候補はcomposite/probably_prime/
+    // definitely_primeがすべて0のまま未テスト扱いで残る。再起動などで再度この
+    // idに対して呼ばれたとき、既に見つかっている素数を無視して延々と探索を
+    // 再開しないよう、先にチェックして見つかっていればここで抜ける。
+    try (var connection = source.getConnection(); var statement = connection.prepareStatement(
+        "SELECT step from candidates where id = ? and (probably_prime != 0 or definitely_prime != 0) limit 1;")) {
+      statement.setLong(1, id);
+      try (var set = statement.executeQuery()) {
+        if (set.next()) {
+          logger.info("id {} は既にstep {} で素数が見つかっています。探索をスキップします。", id,
+              set.getInt("step"));
+          return ExitCode.OK;
+        }
+      }
+    }
+
+    var even = Gmp.allocateUninitialized(auto);
+    var parseResult = Gmp.initSetStr(even, auto.allocateFrom(Files.readAllLines(evenNumberPath).getFirst()), 16);
+    if (parseResult != 0) {
+      logger.error("偶数ファイルの16進数パースに失敗しました: {}", evenNumberPath);
+      return ExitCode.SOFTWARE;
+    }
     var inputList = new ArrayList<Integer>();
     try (var connection = source.getConnection(); var statement = connection.prepareStatement(
         "SELECT step from candidates where composite == 0 and probably_prime == 0 and definitely_prime == 0 and id = ?;")) {
