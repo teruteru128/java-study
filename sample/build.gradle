@@ -32,7 +32,7 @@ dependencies {
     implementation 'org.apache.commons:commons-rng-simple:1.7'
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-statistics-distribution
-    implementation 'org.apache.commons:commons-statistics-distribution:1.2'
+    implementation 'org.apache.commons:commons-statistics-distribution:1.3'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk18on
     implementation 'org.bouncycastle:bcprov-jdk18on:1.85.2'
