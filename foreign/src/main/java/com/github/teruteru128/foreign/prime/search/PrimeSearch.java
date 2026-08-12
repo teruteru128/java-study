@@ -5,6 +5,8 @@ import static java.util.concurrent.ForkJoinPool.defaultForkJoinWorkerThreadFacto
 import com.github.teruteru128.foreign.gmp.Gmp;
 import java.io.IOException;
 import java.lang.foreign.Arena;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
@@ -115,6 +117,12 @@ public class PrimeSearch implements Callable<Integer> {
     }
     var found = false;
     logger.debug("threads: {}", threads);
+    String hostname;
+    try {
+      hostname = InetAddress.getLocalHost().getHostName();
+    } catch (UnknownHostException e) {
+      hostname = "unknown";
+    }
     var list = inputList.stream().map(step -> new PrimeSearchTask2(even, step))
         .collect(Collectors.toCollection(() -> new ArrayList<>(size)));
     try (final var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory, null,
@@ -125,7 +133,8 @@ public class PrimeSearch implements Callable<Integer> {
       try (var connection = source.getConnection()) {
         try (var ps = connection.prepareStatement(
             "update candidates set composite = composite + ?, probably_prime = probably_prime + ?, "
-                + "definitely_prime = definitely_prime + ? where id = ? and step = ?;")) {
+                + "definitely_prime = definitely_prime + ?, timeresult = CURRENT_TIMESTAMP, "
+                + "resultclient = ? where id = ? and step = ?;")) {
           for (int j = size; j > 0; j--) {
             try {
               var foundStep = service.take().get();
@@ -140,8 +149,9 @@ public class PrimeSearch implements Callable<Integer> {
               ps.setInt(1, result == 0 ? 1 : 0);
               ps.setInt(2, result == 1 ? 1 : 0);
               ps.setInt(3, result == 2 ? 1 : 0);
-              ps.setLong(4, id);
-              ps.setInt(5, step);
+              ps.setString(4, hostname);
+              ps.setLong(5, id);
+              ps.setInt(6, step);
               ps.execute();
               if (result != 0) {
                 pool.shutdown();

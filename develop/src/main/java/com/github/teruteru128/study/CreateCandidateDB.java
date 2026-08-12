@@ -30,7 +30,9 @@ public class CreateCandidateDB implements Callable<Integer> {
     try (var con = source.getConnection()) {
       try (var st = con.createStatement()) {
         st.execute(
-            "create table if not exists candidates(id long, step int, composite int, probably_prime int, definitely_prime int, primary key(id, step));");
+            "create table if not exists candidates(id long, step int, composite int, probably_prime int, "
+                + "definitely_prime int, timecreated TEXT, timeassigned TEXT, "
+                + "assignedclient TEXT, timeresult TEXT, resultclient TEXT, primary key(id, step));");
       }
 
     }

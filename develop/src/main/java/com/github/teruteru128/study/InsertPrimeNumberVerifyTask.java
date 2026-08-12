@@ -38,7 +38,8 @@ public class InsertPrimeNumberVerifyTask implements Callable<Integer> {
     source.setUrl(Objects.requireNonNull(dbUrl));
     try (var con = source.getConnection()) {
       try (var prep = con.prepareStatement(
-          "insert into candidates(id, step, composite, probably_prime, definitely_prime) values(?, ?, 0, 0, 0);")) {
+          "insert into candidates(id, step, composite, probably_prime, definitely_prime, timecreated) "
+              + "values(?, ?, 0, 0, 0, CURRENT_TIMESTAMP);")) {
         var matcher = UUID_PATTERN.matcher(largeSievePath.getFileName().toString());
         if (!matcher.find()) {
           return ExitCode.SOFTWARE;
