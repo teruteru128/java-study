@@ -1,10 +1,11 @@
-package com.github.teruteru128.study;
+package com.github.teruteru128.primesearch.db;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.BitSet;
@@ -12,7 +13,6 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.regex.Pattern;
-import org.sqlite.SQLiteDataSource;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Option;
@@ -32,11 +32,9 @@ public class InsertPrimeNumberVerifyTask implements Callable<Integer> {
 
   @Override
   public Integer call() throws Exception {
-    var source = new SQLiteDataSource();
-    var dbUrl = System.getenv("DB_URL");
+    var dbUrl = Objects.requireNonNull(System.getenv("DB_URL"));
     System.err.println("insert to " + dbUrl);
-    source.setUrl(Objects.requireNonNull(dbUrl));
-    try (var con = source.getConnection()) {
+    try (var con = DriverManager.getConnection(dbUrl)) {
       try (var prep = con.prepareStatement(
           "insert into candidates(id, step, composite, probably_prime, definitely_prime, timecreated) "
               + "values(?, ?, 0, 0, 0, CURRENT_TIMESTAMP);")) {

@@ -25,7 +25,6 @@ import static com.github.teruteru128.mpz_aprcl.mpz_aprcl_h.mpz_aprtcle;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
-import com.github.teruteru128.foreign.prime.search.PrimeSearch;
 import com.github.teruteru128.gmp.msys2.__mpz_struct;
 import com.github.teruteru128.gmp.msys2.gmp_h;
 import java.io.IOException;
@@ -48,7 +47,7 @@ import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-@Command(name = "foreign", subcommands = {CL.class, PrimeSearch.class, E.class,
+@Command(name = "foreign", subcommands = {CL.class, E.class,
     CommandLine.HelpCommand.class})
 public class Main implements Callable<Integer> {
 

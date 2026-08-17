@@ -64,6 +64,7 @@ import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.EOFException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.PrintStream;
@@ -163,8 +164,8 @@ import tools.jackson.databind.JsonNode;
 
 @Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
     ECIESSample.class, PrimeSearch.class, Updater.class, HelpCommand.class, SlimeSearch.class,
-    OwnerCheck.class, CalcBustSize.class, Deterministic.class, CreateCandidateDB.class,
-    SmallSievePrimeCounter.class, NewColorGenerator.class, InsertPrimeNumberVerifyTask.class,
+    OwnerCheck.class, CalcBustSize.class, Deterministic.class,
+    SmallSievePrimeCounter.class, NewColorGenerator.class,
     WindowsPathChecker.class, CreateSmallSieve.class}, mixinStandardHelpOptions = true)
 public class Factory implements Callable<Integer> {
 
@@ -2294,6 +2295,36 @@ public class Factory implements Callable<Integer> {
     var f1 = random.nextFloat();
     var f2 = random.nextFloat();
     System.out.printf("%.16f, %.16f%n", f1, f2);
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int sampleStream(String in) throws IOException, ClassNotFoundException {
+    try(var stream = new ObjectInputStream(Base64.getMimeDecoder().wrap(new BufferedInputStream(Files.newInputStream(Path.of(in)))))){
+      while(true){
+        try {
+          var o = stream.readObject();
+          System.out.println(o.getClass());
+          if(o instanceof BigInteger i) {
+            System.out.println(i.bitLength());
+          }else if(o instanceof List<?> l) {
+            System.err.println("リスト");
+            for(var element: l) {
+              System.err.printf("  %s%n", element.getClass());
+              if(element instanceof BigInteger num) {
+                System.err.println(num.bitLength());
+              }
+            }
+          }
+        } catch(NullPointerException e){
+          System.err.println("ぬるぽ");
+          break;
+        } catch(EOFException e){
+          System.err.println("終端");
+          break;
+        }
+      }
+    }
     return EXIT_CODE_OK;
   }
 

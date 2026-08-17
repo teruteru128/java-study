@@ -20,7 +20,12 @@ public class gmp_h extends gmp_h$shared {
 
     static final Arena LIBRARY_ARENA = Arena.ofAuto();
 
-    static final SymbolLookup SYMBOL_LOOKUP = SymbolLookup.libraryLookup("/usr/lib/x86_64-linux-gnu/libgmp.so.10", LIBRARY_ARENA)
+    // 絶対パスをハードコードすると、distroごとに異なるmultiarchディレクトリ
+    // (/usr/lib/x86_64-linux-gnu/等)に依存してしまう。バージョン付きsoname
+    // (libgmp.so.10)を絶対パス無しで渡すと、標準のダイナミックリンカ検索
+    // (ldconfigキャッシュ経由)で解決されるため、libgmp10(ランタイム)パッケージ
+    // さえ入っていればlibgmp-dev(*.soシンボリックリンク)無しでも動作する。
+    static final SymbolLookup SYMBOL_LOOKUP = SymbolLookup.libraryLookup("libgmp.so.10", LIBRARY_ARENA)
             .or(SymbolLookup.loaderLookup())
             .or(Linker.nativeLinker().defaultLookup());
 

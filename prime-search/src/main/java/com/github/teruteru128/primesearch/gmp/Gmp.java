@@ -1,4 +1,4 @@
-package com.github.teruteru128.foreign.gmp;
+package com.github.teruteru128.primesearch.gmp;
 
 import com.github.teruteru128.gmp.linux.__mpz_struct;
 import com.github.teruteru128.gmp.linux.gmp_h;

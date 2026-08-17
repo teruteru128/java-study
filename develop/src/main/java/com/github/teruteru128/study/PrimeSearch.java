@@ -1,6 +1,5 @@
 package com.github.teruteru128.study;
 
-import com.github.teruteru128.foreign.prime.search.PrimeSearch.LargeSieve;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -218,6 +217,10 @@ public class PrimeSearch implements Callable<Void> {
   }
 
   record Result(MemorySegment mpzBase, int bitLength) {
+
+  }
+
+  record LargeSieve(int searchLength, BitSet sieve) {
 
   }
 

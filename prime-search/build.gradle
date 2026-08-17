@@ -1,0 +1,34 @@
+
+plugins {
+    id 'com.github.teruteru128.study.java-application-conventions'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+application {
+    mainModule = 'com.github.teruteru.primesearch'
+    mainClass = 'com.github.teruteru128.primesearch.Main'
+    applicationDefaultJvmArgs = [
+            '--enable-native-access=com.github.teruteru.primesearch,com.github.teruteru.foreign.gmp.linux,org.xerial.sqlitejdbc',
+    ]
+}
+
+dependencies {
+    implementation project(":gmp-linux")
+    // https://picocli.info/
+    implementation 'info.picocli:picocli:4.7.7'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation 'org.slf4j:slf4j-api:2.0.18'
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
+    implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.26.1'
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation 'org.apache.logging.log4j:log4j-core:2.26.1'
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    implementation 'org.xerial:sqlite-jdbc:3.53.2.1'
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation 'org.postgresql:postgresql:42.7.13'
+}
