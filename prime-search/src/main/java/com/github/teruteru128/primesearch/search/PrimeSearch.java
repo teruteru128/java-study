@@ -102,7 +102,7 @@ public class PrimeSearch implements Callable<Integer> {
     }
     var inputList = new ArrayList<Integer>();
     try (var connection = DriverManager.getConnection(dbURL); var statement = connection.prepareStatement(
-        "SELECT step from candidates where composite = 0 and probably_prime = 0 and definitely_prime = 0 and id = ?;")) {
+        "SELECT step from candidates where composite = 0 and probably_prime = 0 and definitely_prime = 0 and id = ? order by step;")) {
       statement.setLong(1, id);
       try (var set = statement.executeQuery()) {
         while (set.next()) {
