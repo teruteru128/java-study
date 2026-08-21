@@ -133,44 +133,54 @@ public class PrimeSearch implements Callable<Integer> {
       final var service = new ExecutorCompletionService<Result>(pool);
       var futures = new ArrayList<Future<Result>>();
       list.forEach(task -> futures.add(service.submit(task)));
-      try (var connection = DriverManager.getConnection(dbURL)) {
-        try (var ps = connection.prepareStatement(
-            "update candidates set composite = composite + ?, probably_prime = probably_prime + ?, "
-                + "definitely_prime = definitely_prime + ?, timeresult = CURRENT_TIMESTAMP, "
-                + "resultclient = ? where id = ? and step = ?;")) {
-          for (int j = size; j > 0; j--) {
-            try {
-              var foundStep = service.take().get();
-              var step = foundStep.step();
-              var result = foundStep.result();
-              if (result == Result.SKIP) {
-                logger.debug("step {}: skip(既に他クライアントが処理中)", step);
-                continue;
-              }
-              var start = foundStep.start();
-              var finish = foundStep.finish();
-              logger.info("step {}: {}({} hours)", step, result, (finish - start) / 3.6e12);
-              if (result < 0 || result > 2) {
-                throw new RuntimeException("unknown result code: " + result);
-              }
-              ps.setInt(1, result == 0 ? 1 : 0);
-              ps.setInt(2, result == 1 ? 1 : 0);
-              ps.setInt(3, result == 2 ? 1 : 0);
-              ps.setString(4, hostnameFinal);
-              ps.setLong(5, id);
-              ps.setInt(6, step);
-              ps.execute();
-              if (result != 0) {
-                pool.shutdown();
-                found = true;
-                logger.info("find prime: step {}", foundStep.step());
-                futures.stream().filter(f -> !f.isDone()).forEach(f -> f.cancel(true));
-                System.err.println('\007');
-                break;
-              }
-            } catch (ExecutionException ignored) {
-            }
+      var updateSql =
+          "update candidates set composite = composite + ?, probably_prime = probably_prime + ?, "
+              + "definitely_prime = definitely_prime + ?, timeresult = CURRENT_TIMESTAMP, "
+              + "resultclient = ? where id = ? and step = ?;";
+      for (int j = size; j > 0; j--) {
+        try {
+          var foundStep = service.take().get();
+          var step = foundStep.step();
+          var result = foundStep.result();
+          if (result == Result.SKIP) {
+            logger.debug("step {}: skip(既に他クライアントが処理中)", step);
+            continue;
           }
+          var start = foundStep.start();
+          var finish = foundStep.finish();
+          logger.info("step {}: {}({} hours)", step, result, (finish - start) / 3.6e12);
+          if (result < 0 || result > 2) {
+            logger.error("step {}: 未知のresultコード({})。この候補の結果は破棄します。", step, result);
+            continue;
+          }
+          // ここでのDB書き込み失敗(SQLException)は、このループ全体を道連れにして
+          // 以降の完了候補すべてを未書き込みのまま握りつぶしてしまう事故が過去にあった
+          // (2026-08-21、synchronize_seqscans調査の続きで発覚)。1件の失敗が全体に
+          // 波及しないよう、書き込みはここでcatchしログを残して次の候補へ進む。
+          // この候補は次回起動時にDBがcomposite=0のままなので再判定される。
+          try (var connection = DriverManager.getConnection(dbURL);
+              var ps = connection.prepareStatement(updateSql)) {
+            ps.setInt(1, result == 0 ? 1 : 0);
+            ps.setInt(2, result == 1 ? 1 : 0);
+            ps.setInt(3, result == 2 ? 1 : 0);
+            ps.setString(4, hostnameFinal);
+            ps.setLong(5, id);
+            ps.setInt(6, step);
+            ps.execute();
+          } catch (SQLException e) {
+            logger.error("step {} の結果(result={})のDB書き込みに失敗しました。この候補は次回起動時に再判定されます。",
+                step, result, e);
+            continue;
+          }
+          if (result != 0) {
+            pool.shutdown();
+            found = true;
+            logger.info("find prime: step {}", foundStep.step());
+            futures.stream().filter(f -> !f.isDone()).forEach(f -> f.cancel(true));
+            System.err.println('\007');
+            break;
+          }
+        } catch (ExecutionException ignored) {
         }
       }
     }
