@@ -63,5 +63,5 @@ dependencies {
     implementation 'tools.jackson.jakarta.rs:jackson-jakarta-rs-json-provider:3.2.2'
 
     // https://mvnrepository.com/artifact/com.google.guava/guava
-    implementation 'com.google.guava:guava:33.6.0-jre'
+    implementation 'com.google.guava:guava:33.7.1-jre'
 }
