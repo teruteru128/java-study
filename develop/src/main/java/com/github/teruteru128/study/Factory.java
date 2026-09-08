@@ -50,6 +50,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.Message;
+import com.github.teruteru128.bitmessage.spec.AddressFactory;
 import com.github.teruteru128.encode.Base58;
 import com.github.teruteru128.gmp.linux.__gmp_get_memory_functions$x2;
 import com.github.teruteru128.gmp.linux.__gmp_randstate_struct;
@@ -151,6 +152,13 @@ import org.bouncycastle.asn1.ASN1Integer;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.DERBitString;
 import org.bouncycastle.asn1.DERSequence;
+import org.bouncycastle.crypto.ec.CustomNamedCurves;
+import org.bouncycastle.crypto.generators.ECKeyPairGenerator;
+import org.bouncycastle.crypto.params.ECDomainParameters;
+import org.bouncycastle.crypto.params.ECKeyGenerationParameters;
+import org.bouncycastle.crypto.params.ECPrivateKeyParameters;
+import org.bouncycastle.crypto.params.ECPublicKeyParameters;
+import org.bouncycastle.math.ec.ECPoint;
 import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -164,9 +172,9 @@ import tools.jackson.databind.JsonNode;
 
 @Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
     ECIESSample.class, PrimeSearch.class, Updater.class, HelpCommand.class, SlimeSearch.class,
-    OwnerCheck.class, CalcBustSize.class, Deterministic.class,
-    SmallSievePrimeCounter.class, NewColorGenerator.class,
-    WindowsPathChecker.class, CreateSmallSieve.class}, mixinStandardHelpOptions = true)
+    OwnerCheck.class, CalcBustSize.class, Deterministic.class, SmallSievePrimeCounter.class,
+    NewColorGenerator.class, WindowsPathChecker.class,
+    CreateSmallSieve.class}, mixinStandardHelpOptions = true)
 public class Factory implements Callable<Integer> {
 
   public static final int ARRAY_ELEMENTS_MAX = 2147483645;
@@ -924,7 +932,7 @@ public class Factory implements Callable<Integer> {
   }
 
   @Command
-  public int spam3(@Parameters Path fromAddressFile,
+  public int spam4(@Parameters Path fromAddressFile,
       @Option(names = {"--offset"}, defaultValue = "0") int offset)
       throws IOException, InterruptedException {
     final var addresses = Files.readAllLines(fromAddressFile);
@@ -2300,31 +2308,129 @@ public class Factory implements Callable<Integer> {
 
   @Command
   public int sampleStream(String in) throws IOException, ClassNotFoundException {
-    try(var stream = new ObjectInputStream(Base64.getMimeDecoder().wrap(new BufferedInputStream(Files.newInputStream(Path.of(in)))))){
-      while(true){
+    try (var stream = new ObjectInputStream(
+        Base64.getMimeDecoder().wrap(new BufferedInputStream(Files.newInputStream(Path.of(in)))))) {
+      while (true) {
         try {
           var o = stream.readObject();
           System.out.println(o.getClass());
-          if(o instanceof BigInteger i) {
+          if (o instanceof BigInteger i) {
             System.out.println(i.bitLength());
-          }else if(o instanceof List<?> l) {
+          } else if (o instanceof List<?> l) {
             System.err.println("リスト");
-            for(var element: l) {
+            for (var element : l) {
               System.err.printf("  %s%n", element.getClass());
-              if(element instanceof BigInteger num) {
+              if (element instanceof BigInteger num) {
                 System.err.println(num.bitLength());
               }
             }
           }
-        } catch(NullPointerException e){
+        } catch (NullPointerException e) {
           System.err.println("ぬるぽ");
           break;
-        } catch(EOFException e){
+        } catch (EOFException e) {
           System.err.println("終端");
           break;
         }
       }
     }
+    return EXIT_CODE_OK;
+  }
+
+  @Command
+  public int generateFakeAddress(@Option(names = "--num", defaultValue = "1") int num) {
+    byte[] addressdata = new byte[19];
+    byte[] ripe = new byte[20];
+    for (int i = 0; i < num; i++) {
+      SECURE_RANDOM_GENERATOR.nextBytes(addressdata);
+      int j = 0;
+      for (; j < 19; j++) {
+        if (addressdata[j] != 0) {
+          break;
+        }
+      }
+      System.arraycopy(addressdata, 0, ripe, 1 + j, 19 - j);
+      var add = AddressFactory.encodeAddress(ripe);
+      System.out.println(add);
+    }
+    return EXIT_CODE_OK;
+  }
+
+  /**
+   * bitmessageに読み込ませるためのフェイクのアドレスと公開鍵のセットを生成する
+   * */
+  @Command
+  public int generateFakeAddressPublicKey(@Option(names = "--num", defaultValue = "1") int num)
+      throws NoSuchAlgorithmException, NoSuchProviderException, DigestException {
+    // 楕円曲線パラメータ
+    var curve = CustomNamedCurves.getByName("secp256k1");
+    var ecParams = new ECDomainParameters(curve.getCurve(), curve.getG(), curve.getN(),
+        curve.getH());
+    // 法N
+    var n = curve.getN();
+    // ジェネレーターG
+    var G = curve.getG();
+    // 鍵ペアジェネレータ
+    var generator = new ECKeyPairGenerator();
+    // 鍵ペアジェネレータパラメータ
+    var genParams = new ECKeyGenerationParameters(ecParams, (SecureRandom) SECURE_RANDOM_GENERATOR);
+    generator.init(genParams);
+    // 署名鍵ペアの初期値を生成
+    var signKeyPair = generator.generateKeyPair();
+    // 暗号鍵ペアの初期値を生成
+    var encKeyPair = generator.generateKeyPair();
+
+    ECPrivateKeyParameters signPrivParams;
+    signPrivParams = (ECPrivateKeyParameters) signKeyPair.getPrivate();
+    ECPublicKeyParameters signPubParams;
+    signPubParams = (ECPublicKeyParameters) signKeyPair.getPublic();
+    BigInteger signCurrentPrivateKey;
+    signCurrentPrivateKey = signPrivParams.getD();
+    ECPoint signCurrentPublicKey;
+    signCurrentPublicKey = signPubParams.getQ();
+    ECPrivateKeyParameters encPrivParams;
+    encPrivParams = (ECPrivateKeyParameters) encKeyPair.getPrivate();
+    ECPublicKeyParameters encPubParams;
+    encPubParams = (ECPublicKeyParameters) encKeyPair.getPublic();
+    BigInteger encCurrentPrivateKey;
+    encCurrentPrivateKey = encPrivParams.getD();
+    ECPoint encCurrentPublicKeyPoint;
+    encCurrentPublicKeyPoint = encPubParams.getQ();
+    var sha512 = MessageDigest.getInstance("SHA512", "BC");
+    var ripemd160 = MessageDigest.getInstance("ripemd160", "BC");
+    var hash = new byte[64];
+    var ripe = new byte[20];
+    int i = 0;
+    HexFormat hexFormat = HexFormat.of();
+    do {
+      var signCurrentPublicBytes = signCurrentPublicKey.getEncoded(false);
+      while (true) {
+        var encCurrentPublicBytes = encCurrentPublicKeyPoint.getEncoded(false);
+
+        sha512.update(signCurrentPublicBytes);
+        sha512.update(encCurrentPublicBytes);
+        sha512.digest(hash, 0, 64);
+        ripemd160.update(hash, 0, 64);
+        ripemd160.digest(ripe, 0, 20);
+        if(ripe[0] == 0) {
+          var address = AddressFactory.encodeAddress(ripe);
+          System.out.printf("%s %s %s%n", address, hexFormat.formatHex(signCurrentPublicBytes), hexFormat.formatHex(encCurrentPublicBytes));
+          i++;
+          break;
+        }
+        encCurrentPrivateKey = encCurrentPrivateKey.add(BigInteger.ONE).mod(n);
+        if(encCurrentPrivateKey.equals(BigInteger.ZERO)){
+          encCurrentPrivateKey = BigInteger.ONE;
+        }
+        encCurrentPublicKeyPoint = encCurrentPublicKeyPoint.add(G).normalize();
+      }
+      signCurrentPrivateKey = signCurrentPrivateKey.add(BigInteger.ONE).mod(n);
+      if(signCurrentPrivateKey.equals(BigInteger.ZERO)){
+        signCurrentPrivateKey = BigInteger.ONE;
+      }
+      signCurrentPublicKey = signCurrentPublicKey.add(G).normalize();
+    } while (i < num);
+
     return EXIT_CODE_OK;
   }
 
