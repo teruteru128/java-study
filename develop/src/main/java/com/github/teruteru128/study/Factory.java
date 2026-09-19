@@ -50,6 +50,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.Message;
+import com.github.teruteru128.bitmessage.spec.AddressEncoder;
 import com.github.teruteru128.bitmessage.spec.AddressFactory;
 import com.github.teruteru128.encode.Base58;
 import com.github.teruteru128.gmp.linux.__gmp_get_memory_functions$x2;
@@ -67,6 +68,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.EOFException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.ObjectInputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -1073,7 +1075,8 @@ public class Factory implements Callable<Integer> {
     long selectedEncKeyOffset;
     var provider = Security.getProvider("BC");
     Objects.requireNonNull(provider);
-    var sha512 = MessageDigest.getInstance("SHA-512", provider);
+    // SHA-512はSUNプロバイダの方がBCより速い(AVX2イントリンシックが効く)。RIPEMD160はBCにしかない
+    var sha512 = MessageDigest.getInstance("SHA-512");
     var ripemd160 = MessageDigest.getInstance("Ripemd160", provider);
     long signIndex;
     long encIndex;
@@ -1138,6 +1141,16 @@ public class Factory implements Callable<Integer> {
     return EXIT_CODE_OK;
   }
 
+  /**
+   * 署名用公開鍵を1つ固定し、ディレクトリ内の{@code publicKeys*.bin}に詰まっている暗号化用公開鍵を
+   * 総当たりして、ripe(={@code RIPEMD160(SHA512(署名用公開鍵 || 暗号化用公開鍵))})の先頭6バイトが
+   * すべてゼロになる組み合わせを探す。見つかったらファイル名と鍵番号を出力して終わる。
+   *
+   * @param key           署名用の鍵。既定では秘密鍵(WIF)で、{@code --public}指定時は公開鍵の16進表現
+   * @param keyIsPublic   {@code key}を公開鍵として解釈する
+   * @param dir           {@code publicKeys*.bin}が置かれているディレクトリ
+   * @param noFollowLinks ディレクトリ走査でシンボリックリンクをたどらない
+   */
   @Command
   public int sex(String key, @Option(names = {"--public"}) boolean keyIsPublic, Path dir,
       @Option(names = {"--no-follow-links"}) boolean noFollowLinks)
@@ -1152,8 +1165,11 @@ public class Factory implements Callable<Integer> {
           new BigInteger(1, signaturePrivateKey, 1, 32)).getEncoded(false);
     }
     var bc = Security.getProvider("BC");
-    var sha512_original = MessageDigest.getInstance("SHA-512", bc);
+    // SHA-512はSUNプロバイダの方がBCより速い(AVX2イントリンシックが効く)
+    var sha512_original = MessageDigest.getInstance("SHA-512");
     sha512_original.update(signaturePublicKey, 0, 65);
+    // 鍵1個ごとにgetInstanceするとプロバイダ検索のぶん無駄になるので、プロトタイプを作ってcloneする
+    var ripemd160_original = MessageDigest.getInstance("RIPEMD160", bc);
     Path[] pathArray;
     try (var stream = Files.list(dir)) {
       var pattern = Pattern.compile("publicKeys\\d+\\.bin");
@@ -1174,28 +1190,16 @@ public class Factory implements Callable<Integer> {
       int length = k.length;
       var result = IntStream.iterate(0, p -> p < length, p -> p + 65).parallel().filter(offset -> {
         var hash = new byte[64];
-        MessageDigest sha512;
         try {
-          sha512 = (MessageDigest) sha512_original.clone();
-        } catch (CloneNotSupportedException e) {
-          throw new RuntimeException(e);
-        }
-        sha512.update(k, offset, 65);
-        try {
+          // 並列ストリームなのでMessageDigestは共有できない。プロトタイプをcloneして使う
+          // (sha512_originalは署名用公開鍵で前詰め済みなので、その状態ごとコピーされる)
+          var sha512 = (MessageDigest) sha512_original.clone();
+          sha512.update(k, offset, 65);
           sha512.digest(hash, 0, 64);
-        } catch (DigestException e) {
-          throw new RuntimeException(e);
-        }
-        MessageDigest ripemd160;
-        try {
-          ripemd160 = MessageDigest.getInstance("RIPEMD160", bc);
-        } catch (NoSuchAlgorithmException e) {
-          throw new RuntimeException(e);
-        }
-        ripemd160.update(hash, 0, 64);
-        try {
+          var ripemd160 = (MessageDigest) ripemd160_original.clone();
+          ripemd160.update(hash, 0, 64);
           ripemd160.digest(hash, 0, 20);
-        } catch (DigestException e) {
+        } catch (CloneNotSupportedException | DigestException e) {
           throw new RuntimeException(e);
         }
         if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0 && hash[4] == 0
@@ -2339,20 +2343,17 @@ public class Factory implements Callable<Integer> {
 
   @Command
   public int generateFakeAddress(@Option(names = "--num", defaultValue = "1") int num) {
-    byte[] addressdata = new byte[19];
-    byte[] ripe = new byte[20];
+    // byte[19]は「先頭1バイトが暗黙のゼロである20バイトripe」として扱われるので、
+    // byte[20]へ詰め直す必要はない
+    var ripe = new byte[19];
+    var encoder = new AddressEncoder();
+    var out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
     for (int i = 0; i < num; i++) {
-      SECURE_RANDOM_GENERATOR.nextBytes(addressdata);
-      int j = 0;
-      for (; j < 19; j++) {
-        if (addressdata[j] != 0) {
-          break;
-        }
-      }
-      System.arraycopy(addressdata, 0, ripe, 1 + j, 19 - j);
-      var add = AddressFactory.encodeAddress(ripe);
-      System.out.println(add);
+      SECURE_RANDOM_GENERATOR.nextBytes(ripe);
+      encoder.encode(out, 4, 1, ripe, 0, ripe.length);
+      out.println();
     }
+    out.flush();
     return EXIT_CODE_OK;
   }
 
@@ -2396,7 +2397,8 @@ public class Factory implements Callable<Integer> {
     encCurrentPrivateKey = encPrivParams.getD();
     ECPoint encCurrentPublicKeyPoint;
     encCurrentPublicKeyPoint = encPubParams.getQ();
-    var sha512 = MessageDigest.getInstance("SHA512", "BC");
+    // SHA-512はSUNプロバイダの方がBCより速い(AVX2イントリンシックが効く)。RIPEMD160はBCにしかない
+    var sha512 = MessageDigest.getInstance("SHA-512");
     var ripemd160 = MessageDigest.getInstance("ripemd160", "BC");
     var hash = new byte[64];
     var ripe = new byte[20];
@@ -2446,22 +2448,43 @@ public class Factory implements Callable<Integer> {
 
     private static final Provider provider = Security.getProvider("BC");
 
+    /**
+     * 並列ストリームから呼ばれるのでMessageDigestはスレッドごとに持つ。{@code digest()}が状態を
+     * リセットするため、1スレッド内では1インスタンスを使い回せる。testのたびにgetInstanceすると
+     * プロバイダ検索のぶん無駄になる。SHA-512はSUNプロバイダの方がBCより速い(AVX2イントリンシックが
+     * 効く)。RIPEMD160はBCにしかない。
+     */
+    private static final ThreadLocal<MessageDigest> SHA_512 = ThreadLocal.withInitial(() -> {
+      try {
+        return MessageDigest.getInstance("SHA-512");
+      } catch (NoSuchAlgorithmException e) {
+        throw new RuntimeException(e);
+      }
+    });
+    private static final ThreadLocal<MessageDigest> RIPEMD_160 = ThreadLocal.withInitial(() -> {
+      try {
+        return MessageDigest.getInstance("RIPEMD160", provider);
+      } catch (NoSuchAlgorithmException e) {
+        throw new RuntimeException(e);
+      }
+    });
+
     @Override
     public boolean test(A a) {
+      var hash = new byte[64];
+      var sha512 = SHA_512.get();
+      var ripemd160 = RIPEMD_160.get();
       try {
-        var hash = new byte[64];
-        var sha512 = MessageDigest.getInstance("SHA-512", provider);
-        var ripemd160 = MessageDigest.getInstance("RIPEMD160", provider);
         sha512.update(buf, a.sign(), 65);
         sha512.update(buf, a.enc(), 65);
         sha512.digest(hash, 0, 64);
         ripemd160.update(hash, 0, 64);
         ripemd160.digest(hash, 0, 20);
-        return hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0 && hash[4] == 0
-               && hash[5] == 0;
-      } catch (NoSuchAlgorithmException | DigestException e) {
+      } catch (DigestException e) {
         throw new RuntimeException(e);
       }
+      return hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0 && hash[4] == 0
+             && hash[5] == 0;
     }
   }
 

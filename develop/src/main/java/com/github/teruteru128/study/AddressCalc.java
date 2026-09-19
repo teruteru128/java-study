@@ -14,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -60,7 +59,7 @@ public class AddressCalc implements Callable<Void> {
   @Command(name = "addressSearch2")
   private static void addressSearch2(String[] args) throws IOException {
     new AddressCalc(args, hash -> hash[0] == 0 && pattern.matcher(
-        AddressFactory.encodeAddress(Arrays.copyOf(hash, 20))).matches()).call();
+        AddressFactory.encodeAddress(hash, 0, 20)).matches()).call();
   }
 
   @Override
