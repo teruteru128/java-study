@@ -1,0 +1,25 @@
+
+plugins {
+    id 'com.github.teruteru128.study.java-library-conventions'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+dependencies {
+    // 正しさの突き合わせ相手。テストでしか使わない
+    testImplementation 'org.bouncycastle:bcprov-jdk18on:1.85.2'
+}
+
+tasks.named('test') {
+    jvmArgs '--enable-native-access=ALL-UNNAMED'
+    // ネイティブライブラリはstudyリポジトリ本体のCMakeビルド成果物。
+    // 無ければテストはスキップされる(Rmd160.isAvailable()がfalseになる)
+    def nativeLib = rootDir.parentFile.toPath().resolve('build-Release/src/librmd160avx512.so')
+    if (nativeLib.toFile().exists()) {
+        systemProperty 'com.github.teruteru.rmd160.library', nativeLib.toString()
+    }
+}

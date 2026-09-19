@@ -2,6 +2,8 @@ package com.github.teruteru128.study;
 
 import static java.lang.Math.max;
 
+import static com.github.teruteru128.foreign.ripemd.Rmd160.LANES;
+
 import com.github.teruteru128.bitmessage.Const;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -41,25 +43,34 @@ public class AddressCalc4 implements Callable<Void> {
     final var keyNumber = indexOfKey & 0xffffff;
     var signKey = new byte[65];
     AddressCalc.loadPublicKey(signKey, Path.of(String.format(fileTemplate, fileNumber)), keyNumber);
-    var hash = new byte[Const.SHA512_DIGEST_LENGTH];
+    // ripeを16件まとめて受け取るバッファ
+    var ripes = new byte[LANES * Const.RIPEMD160_DIGEST_LENGTH];
     byte[] keys;
     int j;
     int offset;
     int max = 0;
     int score;
+    int lane;
     long start;
-    // ダイジェストはOpenSSLに任せる(BouncyCastleの純Javaより約2.3倍速い)
+    // ダイジェストはOpenSSLとAVX-512に任せる。RIPEMD-160を16レーン同時に回すので、
+    // 使えない環境では自動的に1件ずつの経路へ落ちる
     try (var calculator = new RipeCalculator()) {
+      System.err.printf("RIPEMD-160の16レーン実装: %s%n",
+          RipeCalculator.isBatchAccelerated() ? "有効" : "無効(1件ずつ計算します)");
       calculator.setSignKey(signKey, 0);
       for (int i = 0; i < 256; i++) {
         keys = Files.readAllBytes(Path.of(String.format(fileTemplate, i)));
         start = System.nanoTime();
-        for (j = 0, offset = 0; j < 16777216; j++, offset += 65) {
-          calculator.calcRipe(keys, offset, hash);
-          score = Long.numberOfLeadingZeros((long) LONG_HANDLE.get(hash, 0));
-          max = max(max, score);
-          if (score >= 45) {
-            System.out.printf("%d, %d, %d, %d(%d)%n", fileNumber, keyNumber, i, j, score);
+        // 16777216は16で割り切れるので端数は出ない
+        for (j = 0, offset = 0; j < 16777216; j += LANES, offset += 65 * LANES) {
+          calculator.calcRipeBatch(keys, offset, ripes);
+          for (lane = 0; lane < LANES; lane++) {
+            score = Long.numberOfLeadingZeros(
+                (long) LONG_HANDLE.get(ripes, lane * Const.RIPEMD160_DIGEST_LENGTH));
+            max = max(max, score);
+            if (score >= 45) {
+              System.out.printf("%d, %d, %d, %d(%d)%n", fileNumber, keyNumber, i, j + lane, score);
+            }
           }
         }
         System.err.printf("finish %d: %fs%n", i, (System.nanoTime() - start) / 1e9);
