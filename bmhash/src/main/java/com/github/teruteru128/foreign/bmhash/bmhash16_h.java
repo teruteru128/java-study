@@ -259,5 +259,66 @@ public class bmhash16_h extends bmhash16_h$shared {
            throw new AssertionError("should not reach here", ex$);
         }
     }
+
+    private static class sha512_16way_prefixed {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            bmhash16_h.C_POINTER,
+            bmhash16_h.C_POINTER,
+            bmhash16_h.C_POINTER
+        );
+
+        public static final MemorySegment ADDR = SYMBOL_LOOKUP.findOrThrow("sha512_16way_prefixed");
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(ADDR, DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void sha512_16way_prefixed(const unsigned char *prefix, const unsigned char *suffixes, unsigned char *out)
+     * }
+     */
+    public static FunctionDescriptor sha512_16way_prefixed$descriptor() {
+        return sha512_16way_prefixed.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void sha512_16way_prefixed(const unsigned char *prefix, const unsigned char *suffixes, unsigned char *out)
+     * }
+     */
+    public static MethodHandle sha512_16way_prefixed$handle() {
+        return sha512_16way_prefixed.HANDLE;
+    }
+
+    /**
+     * Address for:
+     * {@snippet lang=c :
+     * void sha512_16way_prefixed(const unsigned char *prefix, const unsigned char *suffixes, unsigned char *out)
+     * }
+     */
+    public static MemorySegment sha512_16way_prefixed$address() {
+        return sha512_16way_prefixed.ADDR;
+    }
+
+    /**
+     * {@snippet lang=c :
+     * void sha512_16way_prefixed(const unsigned char *prefix, const unsigned char *suffixes, unsigned char *out)
+     * }
+     */
+    public static void sha512_16way_prefixed(MemorySegment prefix, MemorySegment suffixes, MemorySegment out) {
+        var mh$ = sha512_16way_prefixed.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("sha512_16way_prefixed", prefix, suffixes, out);
+            }
+            mh$.invokeExact(prefix, suffixes, out);
+        } catch (Error | RuntimeException ex) {
+           throw ex;
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
 }
 

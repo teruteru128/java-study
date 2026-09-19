@@ -34,6 +34,8 @@ public final class BmHash16 {
   public static final int SHA512_DIGEST_LENGTH = 64;
   /** RIPEMD-160の出力1件のバイト数。 */
   public static final int RIPEMD160_DIGEST_LENGTH = 20;
+  /** 公開鍵1本のバイト数。 */
+  public static final int PUBLIC_KEY_LENGTH = 65;
 
   private static final boolean AVAILABLE;
   private static final String UNAVAILABLE_REASON;
@@ -94,6 +96,24 @@ public final class BmHash16 {
   public static void sha512(MemorySegment in, MemorySegment out) {
     requireAvailable();
     bmhash16_h.sha512_16way(in, out);
+  }
+
+  /**
+   * 全レーン共通の前半{@value #PUBLIC_KEY_LENGTH}バイトと、レーンごとに違う後半
+   * {@value #PUBLIC_KEY_LENGTH}バイトからSHA-512を計算する。
+   * <p>
+   * 呼び出し側が{@value #SHA512_INPUT_LENGTH}バイト×{@value #LANES}を組み立て直さずに済む。
+   * 署名用公開鍵を固定して暗号化用公開鍵だけを変える探索では、こちらを使うとコピーが
+   * ほぼ無くなる。
+   *
+   * @param prefix   {@value #PUBLIC_KEY_LENGTH}バイト以上のネイティブメモリ。全レーン共通
+   * @param suffixes {@value #PUBLIC_KEY_LENGTH} * {@value #LANES} バイト以上のネイティブメモリ
+   * @param out      {@value #LANES} * {@value #SHA512_DIGEST_LENGTH} バイト以上のネイティブメモリ
+   */
+  public static void sha512Prefixed(MemorySegment prefix, MemorySegment suffixes,
+      MemorySegment out) {
+    requireAvailable();
+    bmhash16_h.sha512_16way_prefixed(prefix, suffixes, out);
   }
 
   /**

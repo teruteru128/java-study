@@ -36,8 +36,8 @@ public final class RipeCalculator implements AutoCloseable {
   /** 署名用公開鍵と暗号化用公開鍵を連結して置くバッファ */
   private final MemorySegment input;
   private final MemorySegment digest;
-  /** バッチ用。16件ぶんの署名鍵+暗号化鍵(130バイト×16) */
-  private final MemorySegment inputs16;
+  /** バッチ用。16件ぶんの暗号化用公開鍵(65バイト×16)。ヒープから渡された場合の受け皿 */
+  private final MemorySegment suffixes16;
   /** バッチ用。16件ぶんのSHA-512の出力 */
   private final MemorySegment digests16;
   /** バッチ用。16件ぶんのripe */
@@ -58,7 +58,7 @@ public final class RipeCalculator implements AutoCloseable {
       }
       input = arena.allocate(PUBLIC_KEY_LENGTH * 2L);
       digest = arena.allocate(SHA512_DIGEST_LENGTH);
-      inputs16 = arena.allocate((long) BmHash16.LANES * BmHash16.SHA512_INPUT_LENGTH);
+      suffixes16 = arena.allocate((long) BmHash16.LANES * PUBLIC_KEY_LENGTH);
       digests16 = arena.allocate((long) BmHash16.LANES * BmHash16.SHA512_DIGEST_LENGTH);
       ripes16 = arena.allocate((long) BmHash16.LANES * BmHash16.RIPEMD160_DIGEST_LENGTH);
     } catch (RuntimeException e) {
@@ -131,22 +131,49 @@ public final class RipeCalculator implements AutoCloseable {
    */
   public void calcRipeBatch(byte[] keys, int offset, byte[] ripes) {
     if (!BmHash16.isAvailable()) {
-      for (var lane = 0; lane < BmHash16.LANES; lane++) {
-        calcRipe(keys, offset + lane * PUBLIC_KEY_LENGTH, ripes, lane * BmHash16.RIPEMD160_DIGEST_LENGTH);
-      }
+      fallbackBatch(keys, offset, ripes);
       return;
     }
-    // SHA-512もRIPEMD-160も16レーンでまとめて回す。署名鍵は全レーン共通なので、
-    // setSignKeyで設定済みのものを各レーンの先頭65バイトへ複製する
-    for (var lane = 0; lane < BmHash16.LANES; lane++) {
-      var base = (long) lane * BmHash16.SHA512_INPUT_LENGTH;
-      MemorySegment.copy(input, 0, inputs16, base, PUBLIC_KEY_LENGTH);
-      MemorySegment.copy(keys, offset + lane * PUBLIC_KEY_LENGTH, inputs16, JAVA_BYTE,
-          base + PUBLIC_KEY_LENGTH, PUBLIC_KEY_LENGTH);
+    // 暗号化用公開鍵は元から連続して並んでいるので、まとめて1回で写せる
+    MemorySegment.copy(keys, offset, suffixes16, JAVA_BYTE, 0,
+        BmHash16.LANES * PUBLIC_KEY_LENGTH);
+    hashBatch(suffixes16, ripes);
+  }
+
+  /**
+   * {@link #calcRipeBatch(byte[], int, byte[])}の、鍵が既にネイティブメモリにある版。
+   * <p>
+   * 公開鍵ファイルをmmapしている場合はこちらを使うと入力側のコピーが完全に無くなる。
+   *
+   * @param keys   暗号化用公開鍵が{@value com.github.teruteru128.bitmessage.Const#PUBLIC_KEY_LENGTH}
+   *               バイト刻みで連続して並んだネイティブメモリ
+   * @param offset 先頭の鍵の開始位置
+   * @param ripes  結果の書き込み先
+   */
+  public void calcRipeBatch(MemorySegment keys, long offset, byte[] ripes) {
+    if (!BmHash16.isAvailable()) {
+      // フォールバック経路はヒープ前提なので、いったん写してから回す
+      var tmp = new byte[BmHash16.LANES * PUBLIC_KEY_LENGTH];
+      MemorySegment.copy(keys, JAVA_BYTE, offset, tmp, 0, tmp.length);
+      fallbackBatch(tmp, 0, ripes);
+      return;
     }
-    BmHash16.sha512(inputs16, digests16);
+    hashBatch(keys.asSlice(offset, (long) BmHash16.LANES * PUBLIC_KEY_LENGTH), ripes);
+  }
+
+  /** 署名鍵は{@link #setSignKey}で置いたものを使い、16件ぶんのripeを求める */
+  private void hashBatch(MemorySegment suffixes, byte[] ripes) {
+    BmHash16.sha512Prefixed(input, suffixes, digests16);
     BmHash16.ripemd160(digests16, ripes16);
-    MemorySegment.copy(ripes16, JAVA_BYTE, 0, ripes, 0, BmHash16.LANES * BmHash16.RIPEMD160_DIGEST_LENGTH);
+    MemorySegment.copy(ripes16, JAVA_BYTE, 0, ripes, 0,
+        BmHash16.LANES * BmHash16.RIPEMD160_DIGEST_LENGTH);
+  }
+
+  private void fallbackBatch(byte[] keys, int offset, byte[] ripes) {
+    for (var lane = 0; lane < BmHash16.LANES; lane++) {
+      calcRipe(keys, offset + lane * PUBLIC_KEY_LENGTH, ripes,
+          lane * BmHash16.RIPEMD160_DIGEST_LENGTH);
+    }
   }
 
   /**

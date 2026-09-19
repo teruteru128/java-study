@@ -6,11 +6,15 @@ import static com.github.teruteru128.foreign.bmhash.BmHash16.LANES;
 
 import com.github.teruteru128.bitmessage.Const;
 import java.io.IOException;
+import java.lang.foreign.Arena;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
 import java.nio.ByteOrder;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileChannel.MapMode;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 import picocli.CommandLine.Command;
@@ -45,31 +49,37 @@ public class AddressCalc4 implements Callable<Void> {
     AddressCalc.loadPublicKey(signKey, Path.of(String.format(fileTemplate, fileNumber)), keyNumber);
     // ripeを16件まとめて受け取るバッファ
     var ripes = new byte[LANES * Const.RIPEMD160_DIGEST_LENGTH];
-    byte[] keys;
     int j;
-    int offset;
+    long offset;
     int max = 0;
     int score;
     int lane;
     long start;
-    // ダイジェストはOpenSSLとAVX-512に任せる。RIPEMD-160を16レーン同時に回すので、
-    // 使えない環境では自動的に1件ずつの経路へ落ちる
+    // ダイジェストはAVX-512の16レーン実装に任せる。使えない環境では自動的に
+    // 1件ずつのOpenSSL経路へ落ちる
     try (var calculator = new RipeCalculator()) {
-      System.err.printf("RIPEMD-160の16レーン実装: %s%n",
+      System.err.printf("16レーン実装: %s%n",
           RipeCalculator.isBatchAccelerated() ? "有効" : "無効(1件ずつ計算します)");
       calculator.setSignKey(signKey, 0);
       for (int i = 0; i < 256; i++) {
-        keys = Files.readAllBytes(Path.of(String.format(fileTemplate, i)));
-        start = System.nanoTime();
-        // 16777216は16で割り切れるので端数は出ない
-        for (j = 0, offset = 0; j < 16777216; j += LANES, offset += 65 * LANES) {
-          calculator.calcRipeBatch(keys, offset, ripes);
-          for (lane = 0; lane < LANES; lane++) {
-            score = Long.numberOfLeadingZeros(
-                (long) LONG_HANDLE.get(ripes, lane * Const.RIPEMD160_DIGEST_LENGTH));
-            max = max(max, score);
-            if (score >= 45) {
-              System.out.printf("%d, %d, %d, %d(%d)%n", fileNumber, keyNumber, i, j + lane, score);
+        var file = Path.of(String.format(fileTemplate, i));
+        // 1ファイル1.04GBをヒープに読むとGCを無駄に働かせるうえ、ネイティブへ写す手間も
+        // 増える。mmapしてMemorySegmentのまま渡せば入力側のコピーが完全に無くなる
+        try (var arena = Arena.ofConfined();
+            var channel = FileChannel.open(file, StandardOpenOption.READ)) {
+          var keys = channel.map(MapMode.READ_ONLY, 0, Files.size(file), arena);
+          start = System.nanoTime();
+          // 16777216は16で割り切れるので端数は出ない
+          for (j = 0, offset = 0; j < 16777216; j += LANES, offset += 65L * LANES) {
+            calculator.calcRipeBatch(keys, offset, ripes);
+            for (lane = 0; lane < LANES; lane++) {
+              score = Long.numberOfLeadingZeros(
+                  (long) LONG_HANDLE.get(ripes, lane * Const.RIPEMD160_DIGEST_LENGTH));
+              max = max(max, score);
+              if (score >= 45) {
+                System.out.printf("%d, %d, %d, %d(%d)%n", fileNumber, keyNumber, i, j + lane,
+                    score);
+              }
             }
           }
         }
