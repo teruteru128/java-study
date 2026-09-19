@@ -172,7 +172,8 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import tools.jackson.databind.JsonNode;
 
-@Command(subcommands = {AddressCalc4.class, AddressCalc5.class, CreateLargeSieveTask.class,
+@Command(subcommands = {AddressCalc.class, AddressCalc4.class, AddressCalc5.class,
+    CreateLargeSieveTask.class,
     ECIESSample.class, PrimeSearch.class, Updater.class, HelpCommand.class, SlimeSearch.class,
     OwnerCheck.class, CalcBustSize.class, Deterministic.class, SmallSievePrimeCounter.class,
     NewColorGenerator.class, WindowsPathChecker.class,

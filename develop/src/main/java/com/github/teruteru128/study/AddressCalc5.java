@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.security.DigestException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.random.RandomGenerator;
@@ -16,19 +13,27 @@ import java.util.stream.IntStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.Parameters;
 
 @Command(name = "addressSearch5")
 public class AddressCalc5 implements Callable<Void> {
 
-  private final String pathSource;
+  @Parameters(index = "0", description = "公開鍵ファイルのパスを1行に1つ書いたファイル")
+  private String pathSource;
   private final Logger logger = LoggerFactory.getLogger(getClass());
+
+  /**
+   * picocliから生成されるためのコンストラクタ。
+   */
+  public AddressCalc5() {
+  }
 
   public AddressCalc5(String dirPath) {
     this.pathSource = dirPath;
   }
 
   @Override
-  public Void call() throws IOException, NoSuchAlgorithmException, DigestException {
+  public Void call() throws IOException {
     // ポジション選択
     long indexOfKey;
     int signFileNumber;
@@ -42,36 +47,34 @@ public class AddressCalc5 implements Callable<Void> {
     }
     var signKeyBuf = new byte[65 * 1024];
     var encKeyBuf = new byte[65 * 1024];
-    var sha512 = MessageDigest.getInstance("SHA-512");
-    var ripemd160 = MessageDigest.getInstance("RIPEMD160");
     var buffer = ByteBuffer.allocate(64);
     var hash = buffer.array();
     var random = RandomGenerator.getDefault();
-    while (true) {
-      // 0b1/signFileNumber/signKeyNumber/encFileNumber/encKeyNumber/L
-      // 0b1_00000000_00000000000000_00000000_00000000000000L
-      indexOfKey = random.nextLong(0b1_00000000_00000000000000_00000000_00000000000000L);
-      signFileNumber = (int) (indexOfKey >> 36 & 0xff);
-      signKeyNumber = (int) (indexOfKey >> 22 & 0x3fff) << 10;
-      encFileNumber = (int) (indexOfKey >> 14 & 0xff);
-      encKeyNumber = (int) (indexOfKey & 0x3fff) << 10;
-      loadPublicKey(signKeyBuf, pathList.get(signFileNumber), signKeyNumber);
-      loadPublicKey(encKeyBuf, pathList.get(encFileNumber), encKeyNumber);
-      for (int i = 0; i < 66560; i += 65) {
-        for (int j = 0; j < 66560; j += 65) {
-          sha512.update(signKeyBuf, i, 65);
-          sha512.update(encKeyBuf, j, 65);
-          sha512.digest(hash, 0, 64);
-          ripemd160.update(hash, 0, 64);
-          ripemd160.digest(hash, 0, 20);
-          if (IntStream.of(0, 1, 2, 3, 4, 5).anyMatch(v -> hash[v] != 0)) {
-            continue;
-          }
-          logger.info("Found! {}, {}, {}, {}({})", signFileNumber, signKeyNumber + (i / 65),
-              encFileNumber, encKeyNumber + (j / 65), Long.numberOfLeadingZeros(buffer.getLong(0)));
+    // ダイジェストはOpenSSLに任せる(BouncyCastleの純Javaより約2.3倍速い)
+    try (var calculator = new RipeCalculator()) {
+      while (true) {
+        // 0b1/signFileNumber/signKeyNumber/encFileNumber/encKeyNumber/L
+        // 0b1_00000000_00000000000000_00000000_00000000000000L
+        indexOfKey = random.nextLong(0b1_00000000_00000000000000_00000000_00000000000000L);
+        signFileNumber = (int) (indexOfKey >> 36 & 0xff);
+        signKeyNumber = (int) (indexOfKey >> 22 & 0x3fff) << 10;
+        encFileNumber = (int) (indexOfKey >> 14 & 0xff);
+        encKeyNumber = (int) (indexOfKey & 0x3fff) << 10;
+        loadPublicKey(signKeyBuf, pathList.get(signFileNumber), signKeyNumber);
+        loadPublicKey(encKeyBuf, pathList.get(encFileNumber), encKeyNumber);
+        for (int i = 0; i < 66560; i += 65) {
+          calculator.setSignKey(signKeyBuf, i);
+          for (int j = 0; j < 66560; j += 65) {
+            calculator.calcRipe(encKeyBuf, j, hash);
+            if (IntStream.of(0, 1, 2, 3, 4, 5).anyMatch(v -> hash[v] != 0)) {
+              continue;
+            }
+            logger.info("Found! {}, {}, {}, {}({})", signFileNumber, signKeyNumber + (i / 65),
+                encFileNumber, encKeyNumber + (j / 65), Long.numberOfLeadingZeros(buffer.getLong(0)));
 
-          if (IntStream.range(6, 20).anyMatch(k -> hash[k] != 0)) {
-            return null;
+            if (IntStream.range(6, 20).anyMatch(k -> hash[k] != 0)) {
+              return null;
+            }
           }
         }
       }
