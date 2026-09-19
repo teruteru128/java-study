@@ -2447,45 +2447,26 @@ public class Factory implements Callable<Integer> {
 
   private record APredicate(byte[] buf) implements Predicate<A> {
 
-    private static final Provider provider = Security.getProvider("BC");
-
     /**
-     * 並列ストリームから呼ばれるのでMessageDigestはスレッドごとに持つ。{@code digest()}が状態を
-     * リセットするため、1スレッド内では1インスタンスを使い回せる。testのたびにgetInstanceすると
-     * プロバイダ検索のぶん無駄になる。SHA-512はSUNプロバイダの方がBCより速い(AVX2イントリンシックが
-     * 効く)。RIPEMD160はBCにしかない。
+     * 並列ストリームから呼ばれるので{@link RipeCalculator}はスレッドごとに持つ(スレッドセーフでは
+     * ないため)。recordはインスタンスフィールドを持てないのでThreadLocalにしている。
+     * <p>
+     * ここでcloseする機会は無いので、ForkJoinPoolのスレッドが生きている間はネイティブ資源を
+     * 抱えたままになる。1スレッドあたり数百バイトなので許容している。
      */
-    private static final ThreadLocal<MessageDigest> SHA_512 = ThreadLocal.withInitial(() -> {
-      try {
-        return MessageDigest.getInstance("SHA-512");
-      } catch (NoSuchAlgorithmException e) {
-        throw new RuntimeException(e);
-      }
-    });
-    private static final ThreadLocal<MessageDigest> RIPEMD_160 = ThreadLocal.withInitial(() -> {
-      try {
-        return MessageDigest.getInstance("RIPEMD160", provider);
-      } catch (NoSuchAlgorithmException e) {
-        throw new RuntimeException(e);
-      }
-    });
+    private static final ThreadLocal<RipeCalculator> CALCULATOR =
+        ThreadLocal.withInitial(RipeCalculator::new);
 
     @Override
     public boolean test(A a) {
-      var hash = new byte[64];
-      var sha512 = SHA_512.get();
-      var ripemd160 = RIPEMD_160.get();
-      try {
-        sha512.update(buf, a.sign(), 65);
-        sha512.update(buf, a.enc(), 65);
-        sha512.digest(hash, 0, 64);
-        ripemd160.update(hash, 0, 64);
-        ripemd160.digest(hash, 0, 20);
-      } catch (DigestException e) {
-        throw new RuntimeException(e);
-      }
-      return hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0 && hash[4] == 0
-             && hash[5] == 0;
+      var ripe = new byte[Const.RIPEMD160_DIGEST_LENGTH];
+      var calculator = CALCULATOR.get();
+      // signはflatMapの外側なので連続して同じ値が来るが、parallel()で順序が保証されないため
+      // 毎回設定する。65バイトのコピーなので大した費用ではない
+      calculator.setSignKey(buf, a.sign());
+      calculator.calcRipe(buf, a.enc(), ripe);
+      return ripe[0] == 0 && ripe[1] == 0 && ripe[2] == 0 && ripe[3] == 0 && ripe[4] == 0
+             && ripe[5] == 0;
     }
   }
 
