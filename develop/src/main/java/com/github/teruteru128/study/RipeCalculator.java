@@ -13,7 +13,7 @@ import static com.github.teruteru128.foreign.openssl.evp_h.EVP_MD_free;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 
-import com.github.teruteru128.foreign.ripemd.Rmd160;
+import com.github.teruteru128.foreign.bmhash.BmHash16;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 
@@ -36,6 +36,8 @@ public final class RipeCalculator implements AutoCloseable {
   /** 署名用公開鍵と暗号化用公開鍵を連結して置くバッファ */
   private final MemorySegment input;
   private final MemorySegment digest;
+  /** バッチ用。16件ぶんの署名鍵+暗号化鍵(130バイト×16) */
+  private final MemorySegment inputs16;
   /** バッチ用。16件ぶんのSHA-512の出力 */
   private final MemorySegment digests16;
   /** バッチ用。16件ぶんのripe */
@@ -56,8 +58,9 @@ public final class RipeCalculator implements AutoCloseable {
       }
       input = arena.allocate(PUBLIC_KEY_LENGTH * 2L);
       digest = arena.allocate(SHA512_DIGEST_LENGTH);
-      digests16 = arena.allocate((long) Rmd160.LANES * Rmd160.MESSAGE_LENGTH);
-      ripes16 = arena.allocate((long) Rmd160.LANES * Rmd160.DIGEST_LENGTH);
+      inputs16 = arena.allocate((long) BmHash16.LANES * BmHash16.SHA512_INPUT_LENGTH);
+      digests16 = arena.allocate((long) BmHash16.LANES * BmHash16.SHA512_DIGEST_LENGTH);
+      ripes16 = arena.allocate((long) BmHash16.LANES * BmHash16.RIPEMD160_DIGEST_LENGTH);
     } catch (RuntimeException e) {
       arena.close();
       throw e;
@@ -105,15 +108,15 @@ public final class RipeCalculator implements AutoCloseable {
   }
 
   /**
-   * まとめて{@value com.github.teruteru128.foreign.ripemd.Rmd160#LANES}件のripeを計算できるか。
+   * まとめて{@value com.github.teruteru128.foreign.bmhash.BmHash16#LANES}件のripeを計算できるか。
    * falseなら{@link #calcRipeBatch}は1件ずつの経路へ自動的に落ちるので、呼び分けは不要。
    */
   public static boolean isBatchAccelerated() {
-    return Rmd160.isAvailable();
+    return BmHash16.isAvailable();
   }
 
   /**
-   * 連続して並んだ暗号化用公開鍵{@value com.github.teruteru128.foreign.ripemd.Rmd160#LANES}件から
+   * 連続して並んだ暗号化用公開鍵{@value com.github.teruteru128.foreign.bmhash.BmHash16#LANES}件から
    * ripeをまとめて計算する。署名用公開鍵は{@link #setSignKey}で設定したものを使う。
    * <p>
    * RIPEMD-160をAVX-512で16レーン同時に回すので、1件ずつ計算するより速い。SHA-512は
@@ -123,30 +126,27 @@ public final class RipeCalculator implements AutoCloseable {
    * @param keys   暗号化用公開鍵が{@value com.github.teruteru128.bitmessage.Const#PUBLIC_KEY_LENGTH}
    *               バイト刻みで連続して並んだ配列
    * @param offset 先頭の鍵の開始位置
-   * @param ripes  結果の書き込み先。{@value com.github.teruteru128.foreign.ripemd.Rmd160#LANES} *
-   *               {@value com.github.teruteru128.foreign.ripemd.Rmd160#DIGEST_LENGTH}バイト必要
+   * @param ripes  結果の書き込み先。{@value com.github.teruteru128.foreign.bmhash.BmHash16#LANES} *
+   *               {@value com.github.teruteru128.foreign.bmhash.BmHash16#RIPEMD160_DIGEST_LENGTH}バイト必要
    */
   public void calcRipeBatch(byte[] keys, int offset, byte[] ripes) {
-    if (!Rmd160.isAvailable()) {
-      for (var lane = 0; lane < Rmd160.LANES; lane++) {
-        calcRipe(keys, offset + lane * PUBLIC_KEY_LENGTH, ripes, lane * Rmd160.DIGEST_LENGTH);
+    if (!BmHash16.isAvailable()) {
+      for (var lane = 0; lane < BmHash16.LANES; lane++) {
+        calcRipe(keys, offset + lane * PUBLIC_KEY_LENGTH, ripes, lane * BmHash16.RIPEMD160_DIGEST_LENGTH);
       }
       return;
     }
-    // 16件ぶんのSHA-512を先に計算して並べる
-    for (var lane = 0; lane < Rmd160.LANES; lane++) {
-      MemorySegment.copy(keys, offset + lane * PUBLIC_KEY_LENGTH, input, JAVA_BYTE,
-          PUBLIC_KEY_LENGTH, PUBLIC_KEY_LENGTH);
-      var rc = EVP_DigestInit_ex(ctx, sha512md, NULL);
-      rc &= EVP_DigestUpdate(ctx, input, PUBLIC_KEY_LENGTH * 2L);
-      rc &= EVP_DigestFinal_ex(ctx,
-          digests16.asSlice((long) lane * Rmd160.MESSAGE_LENGTH, Rmd160.MESSAGE_LENGTH), NULL);
-      if (rc != 1) {
-        throw new IllegalStateException("OpenSSLのダイジェスト計算に失敗しました");
-      }
+    // SHA-512もRIPEMD-160も16レーンでまとめて回す。署名鍵は全レーン共通なので、
+    // setSignKeyで設定済みのものを各レーンの先頭65バイトへ複製する
+    for (var lane = 0; lane < BmHash16.LANES; lane++) {
+      var base = (long) lane * BmHash16.SHA512_INPUT_LENGTH;
+      MemorySegment.copy(input, 0, inputs16, base, PUBLIC_KEY_LENGTH);
+      MemorySegment.copy(keys, offset + lane * PUBLIC_KEY_LENGTH, inputs16, JAVA_BYTE,
+          base + PUBLIC_KEY_LENGTH, PUBLIC_KEY_LENGTH);
     }
-    Rmd160.hash16(digests16, ripes16);
-    MemorySegment.copy(ripes16, JAVA_BYTE, 0, ripes, 0, Rmd160.LANES * Rmd160.DIGEST_LENGTH);
+    BmHash16.sha512(inputs16, digests16);
+    BmHash16.ripemd160(digests16, ripes16);
+    MemorySegment.copy(ripes16, JAVA_BYTE, 0, ripes, 0, BmHash16.LANES * BmHash16.RIPEMD160_DIGEST_LENGTH);
   }
 
   /**

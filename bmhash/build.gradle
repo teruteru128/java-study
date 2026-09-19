@@ -18,8 +18,8 @@ tasks.named('test') {
     jvmArgs '--enable-native-access=ALL-UNNAMED'
     // ネイティブライブラリはstudyリポジトリ本体のCMakeビルド成果物。
     // 無ければテストはスキップされる(Rmd160.isAvailable()がfalseになる)
-    def nativeLib = rootDir.parentFile.toPath().resolve('build-Release/src/librmd160avx512.so')
+    def nativeLib = rootDir.parentFile.toPath().resolve('build-Release/src/libbmhash16.so')
     if (nativeLib.toFile().exists()) {
-        systemProperty 'com.github.teruteru.rmd160.library', nativeLib.toString()
+        systemProperty 'com.github.teruteru.bmhash16.library', nativeLib.toString()
     }
 }

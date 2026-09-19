@@ -2,7 +2,7 @@ package com.github.teruteru128.study;
 
 import static java.lang.Math.max;
 
-import static com.github.teruteru128.foreign.ripemd.Rmd160.LANES;
+import static com.github.teruteru128.foreign.bmhash.BmHash16.LANES;
 
 import com.github.teruteru128.bitmessage.Const;
 import java.io.IOException;

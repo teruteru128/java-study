@@ -39,7 +39,7 @@ module com.github.teruteru.study {
   requires com.github.teruteru.foreign.opencl;
   requires com.github.teruteru.foreign.mpfr;
   requires com.github.teruteru.foreign.openssl;
-  requires com.github.teruteru.foreign.ripemd;
+  requires com.github.teruteru.foreign.bmhash;
   requires com.github.teruteru.foreign;
   requires tools.jackson.dataformat.yaml;
   requires tools.jackson.databind;

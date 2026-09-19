@@ -3,7 +3,7 @@ package com.github.teruteru128.study;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import com.github.teruteru128.bitmessage.Const;
-import com.github.teruteru128.foreign.ripemd.Rmd160;
+import com.github.teruteru128.foreign.bmhash.BmHash16;
 import java.security.MessageDigest;
 import java.security.Security;
 import java.util.Arrays;
@@ -69,20 +69,20 @@ class RipeCalculatorTest {
   @Test
   void batchMatchesReference() throws Exception {
     System.out.println("16レーン実装: " + (RipeCalculator.isBatchAccelerated() ? "有効"
-        : "無効(" + Rmd160.unavailableReason() + ")"));
+        : "無効(" + BmHash16.unavailableReason() + ")"));
     var random = new Random(~20260920L);
     var signKey = new byte[Const.PUBLIC_KEY_LENGTH];
-    var encKeys = new byte[Const.PUBLIC_KEY_LENGTH * Rmd160.LANES * 8];
-    var ripes = new byte[Rmd160.LANES * Const.RIPEMD160_DIGEST_LENGTH];
+    var encKeys = new byte[Const.PUBLIC_KEY_LENGTH * BmHash16.LANES * 8];
+    var ripes = new byte[BmHash16.LANES * Const.RIPEMD160_DIGEST_LENGTH];
     try (var calculator = new RipeCalculator()) {
       for (var round = 0; round < 50; round++) {
         random.nextBytes(signKey);
         random.nextBytes(encKeys);
         calculator.setSignKey(signKey, 0);
         for (var batch = 0; batch < 8; batch++) {
-          var base = batch * Rmd160.LANES * Const.PUBLIC_KEY_LENGTH;
+          var base = batch * BmHash16.LANES * Const.PUBLIC_KEY_LENGTH;
           calculator.calcRipeBatch(encKeys, base, ripes);
-          for (var lane = 0; lane < Rmd160.LANES; lane++) {
+          for (var lane = 0; lane < BmHash16.LANES; lane++) {
             var expected = reference(signKey, encKeys, base + lane * Const.PUBLIC_KEY_LENGTH);
             var actual = Arrays.copyOfRange(ripes, lane * Const.RIPEMD160_DIGEST_LENGTH,
                 (lane + 1) * Const.RIPEMD160_DIGEST_LENGTH);

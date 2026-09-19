@@ -25,7 +25,7 @@ application {
     mainClass = 'com.github.teruteru128.study.Main'
     applicationDefaultJvmArgs = [
             '-Xmx96G',
-            '--enable-native-access=com.github.teruteru.study,com.github.teruteru.foreign.opencl,com.github.teruteru.foreign.mpfr,com.github.teruteru.foreign.gmp.linux,com.github.teruteru.foreign.gmp.msys,com.github.teruteru.foreign.openssl,com.github.teruteru.foreign.ripemd,org.xerial.sqlitejdbc'
+            '--enable-native-access=com.github.teruteru.study,com.github.teruteru.foreign.opencl,com.github.teruteru.foreign.mpfr,com.github.teruteru.foreign.gmp.linux,com.github.teruteru.foreign.gmp.msys,com.github.teruteru.foreign.openssl,com.github.teruteru.foreign.bmhash,org.xerial.sqlitejdbc'
     ]
 }
 
@@ -36,9 +36,9 @@ run {
 tasks.named('test') {
     // RIPEMD-160の16レーン実装(studyリポジトリ本体のCMakeビルド成果物)。
     // 無ければ1件ずつの経路へ落ちるだけでテストは通る
-    def nativeLib = rootDir.parentFile.toPath().resolve('build-Release/src/librmd160avx512.so')
+    def nativeLib = rootDir.parentFile.toPath().resolve('build-Release/src/libbmhash16.so')
     if (nativeLib.toFile().exists()) {
-        systemProperty 'com.github.teruteru.rmd160.library', nativeLib.toString()
+        systemProperty 'com.github.teruteru.bmhash16.library', nativeLib.toString()
     }
 }
 
@@ -52,7 +52,7 @@ dependencies {
     implementation project(':opencl')
     implementation project(':openssl')
     implementation project(':resources')
-    implementation project(':ripemd')
+    implementation project(':bmhash')
     implementation project(':time')
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-rng-simple
