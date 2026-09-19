@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 /**
@@ -54,10 +55,23 @@ public class AddressCalc implements Callable<Void> {
   private static final Predicate<byte[]> DEFAULT_PREDICATE =
       ripe -> ripe[0] == 0 && pattern.matcher(AddressFactory.encodeAddress(ripe, 0, 20)).matches();
 
+  /**
+   * 既定の並列数。このワークロード(SHA-512とRIPEMD-160)は実行ポートを埋めきるので、
+   * SMTの論理コアまで使っても速くならない。実測では8スレッド(物理コア数)で
+   * 5,657,558件/秒・効率91.5%、16スレッドにしても5,677,596件/秒で頭打ちだった。
+   * そのため論理コア数の半分、つまりおおよその物理コア数を既定とする。
+   */
+  private static final int DEFAULT_THREADS = Math.max(1,
+      Runtime.getRuntime().availableProcessors() / 2);
+
   @Parameters(index = "0", description = "公開鍵ファイル1")
   private Path file0;
   @Parameters(index = "1", description = "公開鍵ファイル2")
   private Path file1;
+  @Option(names = {"-t", "--threads"}, description = {
+      "並列数 (既定: ${DEFAULT-VALUE} = このマシンのおおよその物理コア数)。",
+      "物理コア数を超えても速くならないので、他の探索と併走させるときに絞る用途で使う。"})
+  private int threads = DEFAULT_THREADS;
 
   private final Predicate<byte[]> predicate;
 
@@ -69,9 +83,14 @@ public class AddressCalc implements Callable<Void> {
   }
 
   public AddressCalc(Path file0, Path file1, Predicate<byte[]> predicate) {
+    this(file0, file1, predicate, DEFAULT_THREADS);
+  }
+
+  public AddressCalc(Path file0, Path file1, Predicate<byte[]> predicate, int threads) {
     this.file0 = file0;
     this.file1 = file1;
     this.predicate = predicate;
+    this.threads = threads;
   }
 
   public static void loadPublicKey(byte[] keys, Path file, int index) throws IOException {
@@ -83,10 +102,13 @@ public class AddressCalc implements Callable<Void> {
 
   @Override
   public Void call() throws IOException {
+    if (threads < 1) {
+      throw new IllegalArgumentException("並列数が1未満です: " + threads);
+    }
     var keys = new byte[][]{Files.readAllBytes(file0), Files.readAllBytes(file1)};
-    var nThreads = 8;
-    try (var service = Executors.newFixedThreadPool(nThreads)) {
-      var tasks = getCallables(keys, nThreads, predicate);
+    logger.info("{}スレッドで探索します", threads);
+    try (var service = Executors.newFixedThreadPool(threads)) {
+      var tasks = getCallables(keys, threads, predicate);
       service.invokeAny(tasks);
       while (!service.awaitTermination(6, TimeUnit.HOURS)) {
         System.err.println("an hour!");
