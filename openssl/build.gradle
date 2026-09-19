@@ -9,6 +9,11 @@ java {
     }
 }
 
+dependencies {
+    // RIPEMD-160の突き合わせ相手。テストでしか使わない
+    testImplementation 'org.bouncycastle:bcprov-jdk18on:1.85.2'
+}
+
 tasks.named('test') {
     // FFMでlibcryptoを叩くため。テストはクラスパス実行なのでALL-UNNAMED
     jvmArgs '--enable-native-access=ALL-UNNAMED'
