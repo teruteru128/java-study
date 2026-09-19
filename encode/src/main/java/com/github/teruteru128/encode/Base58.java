@@ -28,15 +28,18 @@ public class Base58 {
     }
   }
 
+  /**
+   * 58^5。{@code 2^31}未満なので、{@code (remainder << 32) | limb}が符号付きlongに収まる。
+   * おかげで128bit除算もunsigned演算も要らずに、1リムあたりlong除算1回で処理できる。
+   */
+  private static final int BASE_58_POW_5 = 656356768;
+  private static final int DIGITS_PER_STEP = 5;
+  private static final int LIMB_BYTES = 4;
+
   public static <A extends Appendable> A encode(A out, byte[] input) {
     if (input.length == 0) {
       return out;
     }
-
-    //
-    // Make a copy of the input since we are going to modify it.
-    //
-    input = Arrays.copyOf(input, input.length);
 
     //
     // Count leading zeroes
@@ -47,38 +50,62 @@ public class Base58 {
     }
 
     //
-    // The actual encoding
+    // 有効部を32bitリムのビッグエンディアン配列に詰め直す。
+    // inputを破壊しないので防御的コピーは要らない。
     //
-    byte[] temp = new byte[input.length * 2];
-    int j = temp.length;
-
-    int startAt = zeroCount;
-    while (startAt < input.length) {
-      byte mod = divmod58(input, startAt);
-      if (input[startAt] == 0) {
-        ++startAt;
+    int significant = input.length - zeroCount;
+    int limbCount = (significant + LIMB_BYTES - 1) / LIMB_BYTES;
+    int[] limbs = new int[limbCount];
+    int cursor = zeroCount;
+    // 最上位リムだけは端数になるので先に詰める
+    int headBytes = significant - (limbCount - 1) * LIMB_BYTES;
+    for (int i = 0; i < limbCount; i++) {
+      int limb = 0;
+      for (int k = i == 0 ? headBytes : LIMB_BYTES; k > 0; k--) {
+        limb = (limb << 8) | (input[cursor++] & 0xFF);
       }
+      limbs[i] = limb;
+    }
 
-      temp[--j] = (byte) ALPHABET[mod];
+    //
+    // 58^5で割って5桁ずつ取り出す。1バイトずつ58で割る場合に比べて除算の回数が桁違いに少ない
+    //
+    char[] digits = new char[significant * 2 + DIGITS_PER_STEP];
+    int j = digits.length;
+    int first = 0;
+    while (first < limbCount) {
+      long remainder = 0;
+      for (int i = first; i < limbCount; i++) {
+        // remainder < 58^5 なので cur < 58^5 * 2^32 < 2^62、商は必ず32bitに収まる
+        long cur = (remainder << 32) | (limbs[i] & 0xFFFFFFFFL);
+        limbs[i] = (int) (cur / BASE_58_POW_5);
+        remainder = cur % BASE_58_POW_5;
+      }
+      while (first < limbCount && limbs[first] == 0) {
+        ++first;
+      }
+      for (int k = 0; k < DIGITS_PER_STEP; k++) {
+        digits[--j] = ALPHABET[(int) (remainder % BASE_58)];
+        remainder /= BASE_58;
+      }
     }
 
     //
     // Strip extra '1' if any
     //
-    while (j < temp.length && temp[j] == ALPHABET[0]) {
+    while (j < digits.length && digits[j] == ALPHABET[0]) {
       ++j;
     }
 
-    //
-    // Add as many leading '1' as there were leading zeros.
-    //
-    while (--zeroCount >= 0) {
-      temp[--j] = (byte) ALPHABET[0];
-    }
-
     try {
-    for (int i = j; i < temp.length; i++) {
-        out.append((char) temp[i]);
+      //
+      // Add as many leading '1' as there were leading zeros.
+      //
+      for (int i = 0; i < zeroCount; i++) {
+        out.append(ALPHABET[0]);
+      }
+      for (int i = j; i < digits.length; i++) {
+        out.append(digits[i]);
       }
     } catch (IOException e) {
       throw new UncheckedIOException(e.getMessage(), e);
@@ -146,20 +173,6 @@ public class Base58 {
     }
 
     return Arrays.copyOfRange(temp, j - zeroCount, temp.length);
-  }
-
-  private static byte divmod58(byte[] number, int startAt) {
-    int remainder = 0;
-    for (int i = startAt; i < number.length; i++) {
-      int digit256 = number[i] & 0xFF;
-      int temp = (remainder << 8) + digit256;
-
-      number[i] = (byte) (temp / BASE_58);
-
-      remainder = temp % BASE_58;
-    }
-
-    return (byte) remainder;
   }
 
   private static byte divmod256(byte[] number58, int startAt) {
