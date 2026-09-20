@@ -134,6 +134,7 @@ import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.Semaphore;
 import java.util.function.DoubleConsumer;
@@ -206,6 +207,8 @@ public class Factory implements Callable<Integer> {
       ThreadLocal.withInitial(RipeCalculator::new);
   private static final ThreadLocal<byte[]> SEARCH_RIPES =
       ThreadLocal.withInitial(() -> new byte[LANES * RIPEMD160_DIGEST_LENGTH]);
+  /** 署名鍵を何本終えるごとに進捗を出すか。8スレッドなら30秒に1回程度になる */
+  private static final int SEARCH_LOG_INTERVAL = 64;
   private static final VarHandle LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(long[].class,
       ByteOrder.BIG_ENDIAN);
   // byte配列をintとしてリトルエンディアンで読み込むためのVarHandleを取得
@@ -1511,6 +1514,24 @@ public class Factory implements Callable<Integer> {
     return EXIT_CODE_OK;
   }
 
+  /** 秒数を日・時・分に整形する。数か月単位になるので日まで出す */
+  private static String formatDuration(double seconds) {
+    if (!Double.isFinite(seconds) || seconds < 0) {
+      return "不明";
+    }
+    var total = (long) seconds;
+    var days = total / 86400;
+    var hours = total % 86400 / 3600;
+    var minutes = total % 3600 / 60;
+    if (days > 0) {
+      return String.format("%d日%02d時間%02d分", days, hours, minutes);
+    }
+    if (hours > 0) {
+      return String.format("%d時間%02d分", hours, minutes);
+    }
+    return String.format("%d分%02d秒", minutes, total % 60);
+  }
+
   @Command
   public int addressSearch(Path in) throws IOException {
     var size = Files.size(in);
@@ -1532,6 +1553,11 @@ public class Factory implements Callable<Integer> {
         var channel = FileChannel.open(in, StandardOpenOption.READ)) {
       var keys = channel.map(MapMode.READ_ONLY, 0, size, arena);
       var found = new AtomicReference<long[]>();
+      // 全体で num^2 組。数か月かかる規模なので進捗を出す
+      final var totalPairs = (double) num * num;
+      final var doneSignKeys = new AtomicLong();
+      final var startNanos = System.nanoTime();
+      logger.info("総当たり {} x {} = {} 組", num, num, String.format("%.3e", totalPairs));
       IntStream.range(0, num).parallel().anyMatch(i -> {
         var calculator = SEARCH_CALCULATOR.get();
         var ripes = SEARCH_RIPES.get();
@@ -1546,6 +1572,16 @@ public class Factory implements Callable<Integer> {
               return true;
             }
           }
+        }
+        var completed = doneSignKeys.incrementAndGet();
+        if (completed % SEARCH_LOG_INTERVAL == 0) {
+          var elapsed = (System.nanoTime() - startNanos) / 1e9;
+          var pairs = completed * (double) num;
+          var rate = pairs / elapsed;
+          logger.info("署名鍵 {}/{} 完了 ({}), {} 組/秒, 経過 {}, 残り推定 {}",
+              completed, num, String.format("%.4f%%", pairs / totalPairs * 100),
+              String.format("%.3e", rate), formatDuration(elapsed),
+              formatDuration((totalPairs - pairs) / rate));
         }
         return false;
       });
