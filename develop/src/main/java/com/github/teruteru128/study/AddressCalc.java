@@ -4,13 +4,20 @@ import static com.github.teruteru128.bitmessage.Const.PUBLIC_KEY_LENGTH;
 
 import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.spec.AddressFactory;
+import static com.github.teruteru128.foreign.bmhash.BmHash16.LANES;
+
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.lang.foreign.Arena;
+import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
 import java.nio.ByteOrder;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileChannel.MapMode;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -105,24 +112,37 @@ public class AddressCalc implements Callable<Void> {
     if (threads < 1) {
       throw new IllegalArgumentException("並列数が1未満です: " + threads);
     }
-    var keys = new byte[][]{Files.readAllBytes(file0), Files.readAllBytes(file1)};
     logger.info("{}スレッドで探索します", threads);
-    try (var service = Executors.newFixedThreadPool(threads)) {
-      var tasks = getCallables(keys, threads, predicate);
-      service.invokeAny(tasks);
-      while (!service.awaitTermination(6, TimeUnit.HOURS)) {
-        System.err.println("an hour!");
+    logger.info("16レーン実装: {}",
+        RipeCalculator.isBatchAccelerated() ? "有効" : "無効(1件ずつ計算します)");
+    // 2ファイルで約2.1GB。ヒープに読むとGCを無駄に働かせるのでmmapする。
+    // 全スレッドから読むのでofConfinedではなくofShared
+    try (var arena = Arena.ofShared()) {
+      var keys = new MemorySegment[]{map(arena, file0), map(arena, file1)};
+      try (var service = Executors.newFixedThreadPool(threads)) {
+        var tasks = getCallables(keys, threads, predicate);
+        service.invokeAny(tasks);
+        while (!service.awaitTermination(6, TimeUnit.HOURS)) {
+          System.err.println("an hour!");
+        }
+      } catch (ExecutionException e) {
+        throw new RuntimeException(e);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new RuntimeException(e);
       }
-    } catch (ExecutionException e) {
-      throw new RuntimeException(e);
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
-      throw new RuntimeException(e);
     }
     return null;
   }
 
-  private ArrayList<Callable<Void>> getCallables(final byte[][] keysArray, final int threads,
+  private static MemorySegment map(Arena arena, Path file) throws IOException {
+    // マッピングはchannelを閉じても生き続ける
+    try (var channel = FileChannel.open(file, StandardOpenOption.READ)) {
+      return channel.map(MapMode.READ_ONLY, 0, Files.size(file), arena);
+    }
+  }
+
+  private ArrayList<Callable<Void>> getCallables(final MemorySegment[] keysArray, final int threads,
       Predicate<byte[]> p) {
     logger.info("start");
     final var tasks = new ArrayList<Callable<Void>>();
@@ -130,11 +150,14 @@ public class AddressCalc implements Callable<Void> {
       tasks.add(() -> {
         Void result = null;
         var finished = false;
+        // 述語へ渡す1件ぶんのバッファと、16件まとめて受け取るバッファ
         final var ripe = new byte[Const.SHA512_DIGEST_LENGTH];
-        // ダイジェストはOpenSSLに任せる。スレッドごとに1つ持つ(共有不可)
+        final var ripes = new byte[LANES * Const.RIPEMD160_DIGEST_LENGTH];
+        // ダイジェストはAVX-512の16レーン実装に任せる。スレッドごとに1つ持つ(共有不可)
         try (var calculator = new RipeCalculator()) {
           int signOffset;
           int encryptOffset;
+          int lane;
           int blocki;
           var index = ThreadLocalRandom.current().nextInt(BOUND);
           long start;
@@ -146,18 +169,26 @@ public class AddressCalc implements Callable<Void> {
             // 署名鍵はindexが変わらない限り同じなので、内側ループの外で設定する
             calculator.setSignKey(keysArray[blocki], signOffset);
             for (blockj = 0; blockj < 2; blockj++) {
+              // 16777216は16で割り切れるので端数は出ない
               for (encryptOffset = 0; encryptOffset < PUBLIC_KEY_SIZE_PER_FILE;
-                  encryptOffset += PUBLIC_KEY_LENGTH) {
-                calculator.calcRipe(keysArray[blockj], encryptOffset, ripe);
-                if (p.test(ripe)) {
-                  var number = Long.numberOfLeadingZeros((long) LONG_HANDLE.get(ripe, 0));
-                  logger.info("i found!:{}, {}({})", index,
-                      (blockj << 24) | (encryptOffset / 65), number);
-                  if (number == 64) {
-                    logger.info("シャットダウン要件を達成しました。シャットダウンします");
-                    finished = true;
-                    break;
+                  encryptOffset += PUBLIC_KEY_LENGTH * LANES) {
+                calculator.calcRipeBatch(keysArray[blockj], encryptOffset, ripes);
+                for (lane = 0; lane < LANES; lane++) {
+                  System.arraycopy(ripes, lane * Const.RIPEMD160_DIGEST_LENGTH, ripe, 0,
+                      Const.RIPEMD160_DIGEST_LENGTH);
+                  if (p.test(ripe)) {
+                    var number = Long.numberOfLeadingZeros((long) LONG_HANDLE.get(ripe, 0));
+                    logger.info("i found!:{}, {}({})", index,
+                        (blockj << 24) | (encryptOffset / 65 + lane), number);
+                    if (number == 64) {
+                      logger.info("シャットダウン要件を達成しました。シャットダウンします");
+                      finished = true;
+                      break;
+                    }
                   }
+                }
+                if (finished) {
+                  break;
                 }
               }
               if (finished) {

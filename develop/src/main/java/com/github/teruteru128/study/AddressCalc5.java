@@ -1,5 +1,6 @@
 package com.github.teruteru128.study;
 
+import static com.github.teruteru128.foreign.bmhash.BmHash16.LANES;
 import static com.github.teruteru128.study.AddressCalc.loadPublicKey;
 
 import java.io.IOException;
@@ -49,9 +50,13 @@ public class AddressCalc5 implements Callable<Void> {
     var encKeyBuf = new byte[65 * 1024];
     var buffer = ByteBuffer.allocate(64);
     var hash = buffer.array();
+    // 16件まとめて受け取るバッファ。1024は16で割り切れるので端数は出ない
+    var ripes = new byte[LANES * 20];
     var random = RandomGenerator.getDefault();
-    // ダイジェストはOpenSSLに任せる(BouncyCastleの純Javaより約2.3倍速い)
+    // ダイジェストはAVX-512の16レーン実装に任せる。使えない環境では1件ずつの経路へ落ちる
     try (var calculator = new RipeCalculator()) {
+      logger.info("16レーン実装: {}",
+          RipeCalculator.isBatchAccelerated() ? "有効" : "無効(1件ずつ計算します)");
       while (true) {
         // 0b1/signFileNumber/signKeyNumber/encFileNumber/encKeyNumber/L
         // 0b1_00000000_00000000000000_00000000_00000000000000L
@@ -64,16 +69,20 @@ public class AddressCalc5 implements Callable<Void> {
         loadPublicKey(encKeyBuf, pathList.get(encFileNumber), encKeyNumber);
         for (int i = 0; i < 66560; i += 65) {
           calculator.setSignKey(signKeyBuf, i);
-          for (int j = 0; j < 66560; j += 65) {
-            calculator.calcRipe(encKeyBuf, j, hash);
-            if (IntStream.of(0, 1, 2, 3, 4, 5).anyMatch(v -> hash[v] != 0)) {
-              continue;
-            }
-            logger.info("Found! {}, {}, {}, {}({})", signFileNumber, signKeyNumber + (i / 65),
-                encFileNumber, encKeyNumber + (j / 65), Long.numberOfLeadingZeros(buffer.getLong(0)));
+          for (int j = 0; j < 66560; j += 65 * LANES) {
+            calculator.calcRipeBatch(encKeyBuf, j, ripes);
+            for (int lane = 0; lane < LANES; lane++) {
+              System.arraycopy(ripes, lane * 20, hash, 0, 20);
+              if (IntStream.of(0, 1, 2, 3, 4, 5).anyMatch(v -> hash[v] != 0)) {
+                continue;
+              }
+              logger.info("Found! {}, {}, {}, {}({})", signFileNumber, signKeyNumber + (i / 65),
+                  encFileNumber, encKeyNumber + (j / 65) + lane,
+                  Long.numberOfLeadingZeros(buffer.getLong(0)));
 
-            if (IntStream.range(6, 20).anyMatch(k -> hash[k] != 0)) {
-              return null;
+              if (IntStream.range(6, 20).anyMatch(k -> hash[k] != 0)) {
+                return null;
+              }
             }
           }
         }

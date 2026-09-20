@@ -78,6 +78,16 @@ public final class RipeCalculator implements AutoCloseable {
   }
 
   /**
+   * {@link #setSignKey(byte[], int)}の、鍵が既にネイティブメモリにある版。
+   *
+   * @param key    署名用公開鍵を含むネイティブメモリ
+   * @param offset 鍵の開始位置
+   */
+  public void setSignKey(MemorySegment key, long offset) {
+    MemorySegment.copy(key, offset, input, 0, PUBLIC_KEY_LENGTH);
+  }
+
+  /**
    * 暗号化用公開鍵を与えてripeを計算する。
    *
    * @param key    暗号化用公開鍵を含む配列
