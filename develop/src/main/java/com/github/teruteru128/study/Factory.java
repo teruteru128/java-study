@@ -48,6 +48,9 @@ import static java.net.URI.create;
 import static java.net.URLEncoder.encode;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import static com.github.teruteru128.bitmessage.Const.PUBLIC_KEY_LENGTH;
+import static com.github.teruteru128.bitmessage.Const.RIPEMD160_DIGEST_LENGTH;
+import static com.github.teruteru128.foreign.bmhash.BmHash16.LANES;
 import com.github.teruteru128.bitmessage.Const;
 import com.github.teruteru128.bitmessage.Message;
 import com.github.teruteru128.bitmessage.spec.AddressEncoder;
@@ -88,6 +91,7 @@ import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
+import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -130,6 +134,7 @@ import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.Semaphore;
 import java.util.function.DoubleConsumer;
 import java.util.function.Function;
@@ -192,6 +197,15 @@ public class Factory implements Callable<Integer> {
   private static final String ERROR_BUFFER_TOO_LARGE = "Error: Requested elements (%d) cause buffer size overflow";
   private static final String ERROR_INCOMPLETE_READ = "Error: Failed to read requested bytes from file";
   private static final Semaphore SEMAPHORE = new Semaphore(4, true);
+  /**
+   * addressSearchは並列ストリームから呼ばれるので、{@link RipeCalculator}はスレッドごとに持つ
+   * (スレッドセーフではないため)。closeする機会は無いのでForkJoinPoolのスレッドが生きている間は
+   * ネイティブ資源を抱えたままになるが、1スレッドあたり数百バイトなので許容している。
+   */
+  private static final ThreadLocal<RipeCalculator> SEARCH_CALCULATOR =
+      ThreadLocal.withInitial(RipeCalculator::new);
+  private static final ThreadLocal<byte[]> SEARCH_RIPES =
+      ThreadLocal.withInitial(() -> new byte[LANES * RIPEMD160_DIGEST_LENGTH]);
   private static final VarHandle LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(long[].class,
       ByteOrder.BIG_ENDIAN);
   // byte配列をintとしてリトルエンディアンで読み込むためのVarHandleを取得
@@ -1500,21 +1514,48 @@ public class Factory implements Callable<Integer> {
   @Command
   public int addressSearch(Path in) throws IOException {
     var size = Files.size(in);
-    if (size % 65 != 0) {
-      throw new IllegalArgumentException("A");
+    if (size % PUBLIC_KEY_LENGTH != 0) {
+      throw new IllegalArgumentException(
+          "ファイルサイズが" + PUBLIC_KEY_LENGTH + "の倍数ではありません: " + size);
     }
-    var buf = Files.readAllBytes(in);
-    var num = size / 65;
+    var num = (int) (size / PUBLIC_KEY_LENGTH);
+    if (num % LANES != 0) {
+      throw new IllegalArgumentException(
+          "鍵の本数が" + LANES + "の倍数ではありません: " + num);
+    }
     System.err.println(num + " keys");
-    var result = IntStream.iterate(0, i -> i < 1090519040, i -> i + 65).boxed().flatMap(
-            i -> IntStream.iterate(0, j -> j < 1090519040, j -> j + 65).mapToObj(j -> new A(i, j)))
-        .filter(new APredicate(buf)).parallel().findAny();
-    if (result.isPresent()) {
-      var a = result.get();
-      System.out.println(
-          "[" + OffsetDateTime.now() + "] offsetS = " + a.sign() + ", offsetE = " + a.enc());
-    } else {
-      System.out.println("[" + OffsetDateTime.now() + "] Not found");
+    logger.info("16レーン実装: {}",
+        RipeCalculator.isBatchAccelerated() ? "有効" : "無効(1件ずつ計算します)");
+    // 1ファイルを自分自身と総当たりする(A×A)。署名鍵ごとに並列化し、
+    // 暗号化鍵は16件ずつまとめて回す
+    try (var arena = Arena.ofShared();
+        var channel = FileChannel.open(in, StandardOpenOption.READ)) {
+      var keys = channel.map(MapMode.READ_ONLY, 0, size, arena);
+      var found = new AtomicReference<long[]>();
+      IntStream.range(0, num).parallel().anyMatch(i -> {
+        var calculator = SEARCH_CALCULATOR.get();
+        var ripes = SEARCH_RIPES.get();
+        calculator.setSignKey(keys, (long) i * PUBLIC_KEY_LENGTH);
+        for (var j = 0; j < num; j += LANES) {
+          calculator.calcRipeBatch(keys, (long) j * PUBLIC_KEY_LENGTH, ripes);
+          for (var lane = 0; lane < LANES; lane++) {
+            var base = lane * RIPEMD160_DIGEST_LENGTH;
+            if (ripes[base] == 0 && ripes[base + 1] == 0 && ripes[base + 2] == 0
+                && ripes[base + 3] == 0 && ripes[base + 4] == 0 && ripes[base + 5] == 0) {
+              found.compareAndSet(null, new long[]{i, j + lane});
+              return true;
+            }
+          }
+        }
+        return false;
+      });
+      var hit = found.get();
+      if (hit != null) {
+        System.out.println("[" + OffsetDateTime.now() + "] offsetS = " + hit[0] * PUBLIC_KEY_LENGTH
+                           + ", offsetE = " + hit[1] * PUBLIC_KEY_LENGTH);
+      } else {
+        System.out.println("[" + OffsetDateTime.now() + "] Not found");
+      }
     }
     return EXIT_CODE_OK;
   }
@@ -2439,32 +2480,5 @@ public class Factory implements Callable<Integer> {
     N_ADD_1, N_SUB_1
   }
 
-  private record APredicate(byte[] buf) implements Predicate<A> {
 
-    /**
-     * 並列ストリームから呼ばれるので{@link RipeCalculator}はスレッドごとに持つ(スレッドセーフでは
-     * ないため)。recordはインスタンスフィールドを持てないのでThreadLocalにしている。
-     * <p>
-     * ここでcloseする機会は無いので、ForkJoinPoolのスレッドが生きている間はネイティブ資源を
-     * 抱えたままになる。1スレッドあたり数百バイトなので許容している。
-     */
-    private static final ThreadLocal<RipeCalculator> CALCULATOR =
-        ThreadLocal.withInitial(RipeCalculator::new);
-
-    @Override
-    public boolean test(A a) {
-      var ripe = new byte[Const.RIPEMD160_DIGEST_LENGTH];
-      var calculator = CALCULATOR.get();
-      // signはflatMapの外側なので連続して同じ値が来るが、parallel()で順序が保証されないため
-      // 毎回設定する。65バイトのコピーなので大した費用ではない
-      calculator.setSignKey(buf, a.sign());
-      calculator.calcRipe(buf, a.enc(), ripe);
-      return ripe[0] == 0 && ripe[1] == 0 && ripe[2] == 0 && ripe[3] == 0 && ripe[4] == 0
-             && ripe[5] == 0;
-    }
-  }
-
-  private record A(int sign, int enc) {
-
-  }
 }
