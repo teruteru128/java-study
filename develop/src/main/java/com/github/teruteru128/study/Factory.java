@@ -96,6 +96,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.security.DigestException;
 import java.security.MessageDigest;
@@ -120,6 +121,7 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.BitSet;
 import java.util.HexFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -209,6 +211,13 @@ public class Factory implements Callable<Integer> {
       ThreadLocal.withInitial(() -> new byte[LANES * RIPEMD160_DIGEST_LENGTH]);
   /** 署名鍵を何本終えるごとに進捗を出すか。8スレッドなら30秒に1回程度になる */
   private static final int SEARCH_LOG_INTERVAL = 64;
+  /**
+   * addressSearchで記録に残すripe先頭ゼロの下限(bit)。
+   * 2^48組の全走査1回あたり、45bitで約8本、46bitで4本、47bitで2本、48bitで1本出る期待値。
+   * 以前は48bit(6バイト)ちょうどだけを見て最初の1本で打ち切っていたため、
+   * それ未満の当たりを毎周14本ほど捨てていた。
+   */
+  private static final int SEARCH_MIN_ZERO_BITS = 45;
   private static final VarHandle LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(long[].class,
       ByteOrder.BIG_ENDIAN);
   // byte配列をintとしてリトルエンディアンで読み込むためのVarHandleを取得
@@ -1532,6 +1541,87 @@ public class Factory implements Callable<Integer> {
     return String.format("%d分%02d秒", minutes, total % 60);
   }
 
+  /** 完了済み署名鍵のビットマップ。何本終えるごとに保存するか。 */
+  private static final int SEARCH_PROGRESS_INTERVAL = 64;
+
+  /**
+   * 完了済み署名鍵のビットマップを読み込む。無ければ空を返す。
+   * 2^24本でも2MBなので、そのまま持って構わない。
+   */
+  private static BitSet loadProgress(Path file, int num) {
+    if (!Files.isRegularFile(file)) {
+      return new BitSet(num);
+    }
+    try {
+      var set = BitSet.valueOf(Files.readAllBytes(file));
+      logger.info("進捗を読み込みました: {} / {} 本完了済み ({})", set.cardinality(), num, file);
+      return set;
+    } catch (IOException e) {
+      // 壊れていても探索自体は最初から回せる。黙って捨てるほうが危険なので警告する
+      logger.warn("進捗ファイルを読めませんでした。最初から走査します: {}", file, e);
+      return new BitSet(num);
+    }
+  }
+
+  /**
+   * 署名鍵1本の完了を記録し、一定間隔でファイルへ保存する。
+   * 並列ストリームの複数スレッドから呼ばれるので同期する(1本あたり1回しか呼ばれず、
+   * 1本の処理に秒単位かかるため競合は問題にならない)。
+   * 書き込みはテンポラリ経由のアトミックな置き換えにして、保存中の電断で壊れないようにする。
+   */
+  private static synchronized void markSignKeyDone(Path file, BitSet done, int index) {
+    done.set(index);
+    if (done.cardinality() % SEARCH_PROGRESS_INTERVAL == 0) {
+      saveProgress(file, done);
+    }
+  }
+
+  /**
+   * 完了済みビットマップをファイルへ保存する。
+   * テンポラリ経由のアトミックな置き換えにして、保存中の電断で壊れないようにする。
+   */
+  private static synchronized void saveProgress(Path file, BitSet done) {
+    var tmp = file.resolveSibling(file.getFileName() + ".tmp");
+    try {
+      Files.write(tmp, done.toByteArray());
+      Files.move(tmp, file, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+    } catch (IOException e) {
+      // 保存に失敗しても探索は続ける。最悪、再開時に少し戻るだけ
+      logger.error("進捗の保存に失敗しました: {}", file, e);
+    }
+  }
+
+  /** ripeの先頭に並ぶゼロビット数を数える。 */
+  private static int leadingZeroBits(byte[] ripe, int offset) {
+    var bits = 0;
+    for (var k = 0; k < RIPEMD160_DIGEST_LENGTH; k++) {
+      var b = ripe[offset + k] & 0xff;
+      if (b != 0) {
+        return bits + Integer.numberOfLeadingZeros(b) - 24;
+      }
+      bits += 8;
+    }
+    return bits;
+  }
+
+  /**
+   * ヒットを追記する。並列ストリームの複数スレッドから呼ばれるので同期する。
+   * ヒットは数か月に十数回しか起きないので、競合による速度低下は問題にならない。
+   */
+  private static synchronized void recordHit(Path hitFile, int signIndex, int encIndex,
+      int zeroBits, byte[] ripes, int base) {
+    var line = String.format("%s\t%dbit\toffsetS=%d\toffsetE=%d\tripe=%s%n",
+        OffsetDateTime.now(), zeroBits, (long) signIndex * PUBLIC_KEY_LENGTH,
+        (long) encIndex * PUBLIC_KEY_LENGTH,
+        HexFormat.of().formatHex(ripes, base, base + RIPEMD160_DIGEST_LENGTH));
+    try {
+      Files.writeString(hitFile, line, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+    } catch (IOException e) {
+      // 記録に失敗しても探索は続ける。ログには必ず残っている
+      logger.error("ヒットの記録に失敗しました: {}", line.strip(), e);
+    }
+  }
+
   @Command
   public int addressSearch(Path in) throws IOException {
     var size = Files.size(in);
@@ -1552,13 +1642,27 @@ public class Factory implements Callable<Integer> {
     try (var arena = Arena.ofShared();
         var channel = FileChannel.open(in, StandardOpenOption.READ)) {
       var keys = channel.map(MapMode.READ_ONLY, 0, size, arena);
-      var found = new AtomicReference<long[]>();
+      final var hitFile = Path.of("addressSearch-hits-" + in.getFileName() + ".txt");
+      final var progressFile = Path.of("addressSearch-progress-" + in.getFileName() + ".bin");
+      final var hitCount = new AtomicLong();
       // 全体で num^2 組。数か月かかる規模なので進捗を出す
       final var totalPairs = (double) num * num;
-      final var doneSignKeys = new AtomicLong();
+      final var done = loadProgress(progressFile, num);
+      final var resumedSignKeys = done.cardinality();
+      final var doneSignKeys = new AtomicLong(resumedSignKeys);
+      // 速度と残り時間は「今回の実行で進んだぶん」から出す。再開時に過去の経過時間を
+      // 混ぜると見積もりが狂うため
+      final var doneThisRun = new AtomicLong();
       final var startNanos = System.nanoTime();
       logger.info("総当たり {} x {} = {} 組", num, num, String.format("%.3e", totalPairs));
-      IntStream.range(0, num).parallel().anyMatch(i -> {
+      logger.info("先頭ゼロ{}bit以上を {} に記録します", SEARCH_MIN_ZERO_BITS, hitFile.toAbsolutePath());
+      logger.info("進捗の保存先: {} (署名鍵{}本ごと)", progressFile.toAbsolutePath(),
+          SEARCH_PROGRESS_INTERVAL);
+      if (resumedSignKeys >= num) {
+        logger.info("この鍵ファイルは走査済みです。やり直すには {} を消してください", progressFile);
+        return EXIT_CODE_OK;
+      }
+      IntStream.range(0, num).parallel().filter(i -> !done.get(i)).forEach(i -> {
         var calculator = SEARCH_CALCULATOR.get();
         var ripes = SEARCH_RIPES.get();
         calculator.setSignKey(keys, (long) i * PUBLIC_KEY_LENGTH);
@@ -1566,32 +1670,38 @@ public class Factory implements Callable<Integer> {
           calculator.calcRipeBatch(keys, (long) j * PUBLIC_KEY_LENGTH, ripes);
           for (var lane = 0; lane < LANES; lane++) {
             var base = lane * RIPEMD160_DIGEST_LENGTH;
+            // まず先頭40bitで粗く絞る。ここを通るのは2^40組に1回程度なので、
+            // 正確なビット数の計算が走査全体の速度に影響することはない
             if (ripes[base] == 0 && ripes[base + 1] == 0 && ripes[base + 2] == 0
-                && ripes[base + 3] == 0 && ripes[base + 4] == 0 && ripes[base + 5] == 0) {
-              found.compareAndSet(null, new long[]{i, j + lane});
-              return true;
+                && ripes[base + 3] == 0 && ripes[base + 4] == 0) {
+              var zeroBits = leadingZeroBits(ripes, base);
+              if (zeroBits >= SEARCH_MIN_ZERO_BITS) {
+                hitCount.incrementAndGet();
+                logger.info("★ 先頭ゼロ{}bit: offsetS = {}, offsetE = {}", zeroBits,
+                    (long) i * PUBLIC_KEY_LENGTH, (long) (j + lane) * PUBLIC_KEY_LENGTH);
+                recordHit(hitFile, i, j + lane, zeroBits, ripes, base);
+              }
             }
           }
         }
+        markSignKeyDone(progressFile, done, i);
         var completed = doneSignKeys.incrementAndGet();
+        var thisRun = doneThisRun.incrementAndGet();
         if (completed % SEARCH_LOG_INTERVAL == 0) {
           var elapsed = (System.nanoTime() - startNanos) / 1e9;
-          var pairs = completed * (double) num;
-          var rate = pairs / elapsed;
+          var rate = thisRun * (double) num / elapsed;
+          var donePairs = completed * (double) num;
           logger.info("署名鍵 {}/{} 完了 ({}), {} 組/秒, 経過 {}, 残り推定 {}",
-              completed, num, String.format("%.4f%%", pairs / totalPairs * 100),
+              completed, num, String.format("%.4f%%", donePairs / totalPairs * 100),
               String.format("%.3e", rate), formatDuration(elapsed),
-              formatDuration((totalPairs - pairs) / rate));
+              formatDuration((totalPairs - donePairs) / rate));
         }
-        return false;
       });
-      var hit = found.get();
-      if (hit != null) {
-        System.out.println("[" + OffsetDateTime.now() + "] offsetS = " + hit[0] * PUBLIC_KEY_LENGTH
-                           + ", offsetE = " + hit[1] * PUBLIC_KEY_LENGTH);
-      } else {
-        System.out.println("[" + OffsetDateTime.now() + "] Not found");
-      }
+      // 最後の端数ぶんを保存する(保存間隔の倍数で終わるとは限らない)
+      saveProgress(progressFile, done);
+      // 打ち切らず最後まで走らせるので、1回の全走査で出る当たりを取りこぼさない
+      System.out.println("[" + OffsetDateTime.now() + "] 走査完了。先頭ゼロ"
+                         + SEARCH_MIN_ZERO_BITS + "bit以上のヒット " + hitCount.get() + " 件");
     }
     return EXIT_CODE_OK;
   }
