@@ -11,7 +11,7 @@ java {
 
 dependencies {
     // RIPEMD-160の突き合わせ相手。テストでしか使わない
-    testImplementation 'org.bouncycastle:bcprov-jdk18on:1.85.2'
+    testImplementation 'org.bouncycastle:bcprov-jdk18on:1.86'
 }
 
 tasks.named('test') {
