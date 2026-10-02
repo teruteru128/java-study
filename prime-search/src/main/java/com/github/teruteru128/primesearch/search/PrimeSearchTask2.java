@@ -1,6 +1,7 @@
 package com.github.teruteru128.primesearch.search;
 
 import com.github.teruteru128.primesearch.gmp.Gmp;
+import com.github.teruteru128.primesearch.gmp.Mr2fs;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.sql.DriverManager;
@@ -50,7 +51,14 @@ public class PrimeSearchTask2 implements Callable<Result> {
     long finish;
     int result;
     start = System.nanoTime();
-    result = Gmp.probabPrimeP(candidate, 24);
+    // 高速経路(FLINT fft_small)で底2の判定をして、合成数ならそこで確定する。通った候補
+    // (約1/3万)と、高速経路が使えない場合(-1)は、従来どおりGMPのBPSWで判定する。
+    // 素数の確認は常にGMPが行うので、結果の意味は従来と変わらない。
+    if (Mr2fs.strongBase2(candidate) == 0) {
+      result = Result.COMPOSITE;
+    } else {
+      result = Gmp.probabPrimeP(candidate, 24);
+    }
     finish = System.nanoTime();
     return new Result(step, result, start, finish);
   }

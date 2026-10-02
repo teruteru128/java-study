@@ -3,6 +3,7 @@ package com.github.teruteru128.primesearch.search;
 import static java.util.concurrent.ForkJoinPool.defaultForkJoinWorkerThreadFactory;
 
 import com.github.teruteru128.primesearch.gmp.Gmp;
+import com.github.teruteru128.primesearch.gmp.Mr2fs;
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.net.InetAddress;
@@ -111,6 +112,11 @@ public class PrimeSearch implements Callable<Integer> {
       }
     }
     logger.info("start");
+    if (Mr2fs.isAvailable()) {
+      logger.info("mr2fs高速経路: 有効");
+    } else {
+      logger.warn("mr2fs高速経路: 無効(GMPのみで判定します): {}", Mr2fs.unavailableReason());
+    }
     var size = inputList.size();
     logger.debug("Number of prime number candidates: {}", size);
     if (doShuffle) {
