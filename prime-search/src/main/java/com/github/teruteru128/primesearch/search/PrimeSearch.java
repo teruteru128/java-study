@@ -171,15 +171,20 @@ public class PrimeSearch implements Callable<Integer> {
           // (2026-08-21、synchronize_seqscans調査の続きで発覚)。1件の失敗が全体に
           // 波及しないよう、書き込みはここでcatchしログを残して次の候補へ進む。
           // この候補は次回起動時にDBがcomposite=0のままなので再判定される。
-          try (var connection = DriverManager.getConnection(dbURL);
-              var ps = connection.prepareStatement(updateSql)) {
-            ps.setInt(1, result == 0 ? 1 : 0);
-            ps.setInt(2, result == 1 ? 1 : 0);
-            ps.setInt(3, result == 2 ? 1 : 0);
-            ps.setString(4, hostnameFinal);
-            ps.setLong(5, id);
-            ps.setInt(6, step);
-            ps.execute();
+          // ただし接続できないだけなら、結果を捨てずにつながるまで待つ(DbRetry)。
+          try {
+            DbRetry.run("step " + step + " の結果の書き込み", () -> {
+              try (var connection = DriverManager.getConnection(dbURL);
+                  var ps = connection.prepareStatement(updateSql)) {
+                ps.setInt(1, result == 0 ? 1 : 0);
+                ps.setInt(2, result == 1 ? 1 : 0);
+                ps.setInt(3, result == 2 ? 1 : 0);
+                ps.setString(4, hostnameFinal);
+                ps.setLong(5, id);
+                ps.setInt(6, step);
+                return ps.execute();
+              }
+            });
           } catch (SQLException e) {
             logger.error("step {} の結果(result={})のDB書き込みに失敗しました。この候補は次回起動時に再判定されます。",
                 step, result, e);
@@ -193,7 +198,10 @@ public class PrimeSearch implements Callable<Integer> {
             System.err.println('\007');
             break;
           }
-        } catch (ExecutionException ignored) {
+        } catch (ExecutionException e) {
+          // 以前はここで黙って捨てており、DBの回線断で全候補が一瞬で消化済み扱いになった
+          logger.error("候補の処理が例外で終わりました。この候補は次回起動時に再判定されます。",
+              e.getCause());
         }
       }
     }

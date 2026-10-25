@@ -21,7 +21,8 @@
     </RollingFile>
   </Appenders>
   <Loggers>
-    <Root level="INFO">
+    <!-- 既定はDEBUG。-Dcom.github.teruteru.primesearch.loglevel=INFO などで再ビルドせずに変えられる -->
+    <Root level="${sys:com.github.teruteru.primesearch.loglevel:-DEBUG}">
       <AppenderRef ref="stdout"/>
       <AppenderRef ref="file"/>
     </Root>

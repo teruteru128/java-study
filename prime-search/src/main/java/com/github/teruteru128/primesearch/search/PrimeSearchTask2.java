@@ -75,7 +75,11 @@ public class PrimeSearchTask2 implements Callable<Result> {
    * 再取得できる(前者は他クライアントのプリエンプト等からの回復、後者はsystemd
    * 再起動時に自分のclaimを即座に再取得するため)。
    */
-  private boolean claim() throws SQLException {
+  private boolean claim() throws SQLException, InterruptedException {
+    return DbRetry.run("step " + step + " のclaim", this::tryClaim);
+  }
+
+  private boolean tryClaim() throws SQLException {
     // timeassignedの書き込み・比較は必ずsetTimestamp経由のバインド値同士で行う。
     // SQLite側でCURRENT_TIMESTAMP(TEXTとして格納される)とsetTimestampの
     // バインド値(ドライバ内部表現、TEXTとは異なるストレージクラス)を混在させると、
