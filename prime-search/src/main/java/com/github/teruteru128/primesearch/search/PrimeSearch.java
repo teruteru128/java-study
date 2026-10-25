@@ -14,11 +14,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.OptionalInt;
 import java.util.UUID;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -58,6 +63,21 @@ public class PrimeSearch implements Callable<Integer> {
       description = "claimしてからこの時間(時間単位)結果が書き込まれない候補は、他クライアントが再claimできるようになる")
   private int staleHours = 24;
 
+  @Option(names = {"--prime-check-minutes"}, paramLabel = "minutes",
+      description = "この間隔(分)で、他のクライアントが素数を見つけていないかDBを確かめる。見つかっていれば終了する")
+  private int primeCheckMinutes = 10;
+
+  /** この偶数で素数(probably/definitely)が見つかっていれば、そのstep。 */
+  private static OptionalInt findPrimeStep(long id) throws SQLException {
+    try (var connection = DriverManager.getConnection(dbURL); var statement = connection.prepareStatement(
+        "SELECT step from candidates where id = ? and (probably_prime != 0 or definitely_prime != 0) limit 1;")) {
+      statement.setLong(1, id);
+      try (var set = statement.executeQuery()) {
+        return set.next() ? OptionalInt.of(set.getInt("step")) : OptionalInt.empty();
+      }
+    }
+  }
+
   @Override
   public Integer call()
       throws IOException, ClassNotFoundException, InterruptedException, ExecutionException, SQLException {
@@ -74,16 +94,11 @@ public class PrimeSearch implements Callable<Integer> {
     // definitely_primeがすべて0のまま未テスト扱いで残る。再起動などで再度この
     // idに対して呼ばれたとき、既に見つかっている素数を無視して延々と探索を
     // 再開しないよう、先にチェックして見つかっていればここで抜ける。
-    try (var connection = DriverManager.getConnection(dbURL); var statement = connection.prepareStatement(
-        "SELECT step from candidates where id = ? and (probably_prime != 0 or definitely_prime != 0) limit 1;")) {
-      statement.setLong(1, id);
-      try (var set = statement.executeQuery()) {
-        if (set.next()) {
-          logger.info("id {} は既にstep {} で素数が見つかっています。探索をスキップします。", id,
-              set.getInt("step"));
-          return ExitCode.OK;
-        }
-      }
+    var alreadyFound = findPrimeStep(id);
+    if (alreadyFound.isPresent()) {
+      logger.info("id {} は既にstep {} で素数が見つかっています。探索をスキップします。", id,
+          alreadyFound.getAsInt());
+      return ExitCode.OK;
     }
 
     var hexText = Files.readAllLines(evenNumberPath).getFirst();
@@ -138,15 +153,38 @@ public class PrimeSearch implements Callable<Integer> {
     var list = inputList.stream()
         .map(step -> new PrimeSearchTask2(even, step, dbURL, id, hostnameFinal, staleHours))
         .collect(Collectors.toCollection(() -> new ArrayList<>(size)));
-    try (final var pool = WorkerPool.create(threads)) {
+    // 他のクライアントが素数を見つけたステップ。見張り役のスレッドが書き込む
+    var foundElsewhere = new AtomicReference<Integer>();
+    try (final var pool = WorkerPool.create(threads);
+        final var watcher = Executors.newSingleThreadScheduledExecutor()) {
       final var service = new ExecutorCompletionService<Result>(pool);
       var futures = new ArrayList<Future<Result>>();
       list.forEach(task -> futures.add(service.submit(task)));
+      // 両台で同じ偶数を共有しているので、片方が素数を見つけても、もう片方は起動時にしか
+      // 確かめておらず、手で止めるまで計算を続けていた。一定間隔でDBを見て、見つかって
+      // いれば判定中の候補をキャンセルして(PFGWも止まる)終了する
+      watcher.scheduleWithFixedDelay(() -> {
+        try {
+          var step = findPrimeStep(id);
+          if (step.isPresent() && foundElsewhere.compareAndSet(null, step.getAsInt())) {
+            logger.info("step {} で素数が見つかっています。判定中の候補を止めて終了します。",
+                step.getAsInt());
+            pool.shutdown();
+            futures.forEach(f -> f.cancel(true));
+          }
+        } catch (SQLException e) {
+          logger.warn("素数が見つかったかの確認に失敗しました。{}分後にもう一度確かめます。",
+              primeCheckMinutes, e);
+        }
+      }, primeCheckMinutes, primeCheckMinutes, TimeUnit.MINUTES);
       var updateSql =
           "update candidates set composite = composite + ?, probably_prime = probably_prime + ?, "
               + "definitely_prime = definitely_prime + ?, timeresult = CURRENT_TIMESTAMP, "
               + "resultclient = ? where id = ? and step = ?;";
       for (int j = size; j > 0; j--) {
+        if (foundElsewhere.get() != null) {
+          break;
+        }
         try {
           var foundStep = service.take().get();
           var step = foundStep.step();
@@ -194,6 +232,8 @@ public class PrimeSearch implements Callable<Integer> {
             System.err.println('\007');
             break;
           }
+        } catch (CancellationException e) {
+          // 他のクライアントが素数を見つけ、見張り役がキャンセルした。ループの頭で抜ける
         } catch (ExecutionException e) {
           // 以前はここで黙って捨てており、DBの回線断で全候補が一瞬で消化済み扱いになった
           logger.error("候補の処理が例外で終わりました。この候補は次回起動時に再判定されます。",
@@ -203,6 +243,9 @@ public class PrimeSearch implements Callable<Integer> {
     }
     if (found) {
       logger.info("find prime");
+      return ExitCode.OK;
+    } else if (foundElsewhere.get() != null) {
+      logger.info("他のクライアントがstep {} で素数を見つけたので終了しました", foundElsewhere.get());
       return ExitCode.OK;
     } else {
       logger.error("prime not found");
