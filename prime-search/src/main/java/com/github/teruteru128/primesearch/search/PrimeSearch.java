@@ -1,7 +1,5 @@
 package com.github.teruteru128.primesearch.search;
 
-import static java.util.concurrent.ForkJoinPool.defaultForkJoinWorkerThreadFactory;
-
 import com.github.teruteru128.primesearch.gmp.Gmp;
 import com.github.teruteru128.primesearch.gmp.Mr2fs;
 import com.github.teruteru128.primesearch.gmp.Pfgw;
@@ -20,7 +18,6 @@ import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
@@ -141,8 +138,7 @@ public class PrimeSearch implements Callable<Integer> {
     var list = inputList.stream()
         .map(step -> new PrimeSearchTask2(even, step, dbURL, id, hostnameFinal, staleHours))
         .collect(Collectors.toCollection(() -> new ArrayList<>(size)));
-    try (final var pool = new ForkJoinPool(threads, defaultForkJoinWorkerThreadFactory, null,
-        true)) {
+    try (final var pool = WorkerPool.create(threads)) {
       final var service = new ExecutorCompletionService<Result>(pool);
       var futures = new ArrayList<Future<Result>>();
       list.forEach(task -> futures.add(service.submit(task)));
