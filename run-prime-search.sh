@@ -23,6 +23,16 @@ MR2FS_LIB="$BASE_DIR/build-Release/src/libmr2fs.so.1.0.0"
 if [ -r "$MR2FS_LIB" ]; then
   export JAVA_OPTS="${JAVA_OPTS:-} -Dcom.github.teruteru.mr2fs.library=$MR2FS_LIB"
 fi
+# PFGW(gwnum、底3のFermat、Gerbiczの誤り検出付き)。1本ならmr2fsの約2.5倍速い
+# (1ステップ2.05ms対5.12ms、2026-10-25)。8本同時の速さは未測定。
+# 候補ごとに外部プロセスとして起動し、無ければmr2fs→GMPの順に自動で落ちる。起動ログの
+# 「pfgw高速経路: 有効」を確認すること。作業ディレクトリには候補ごとに10進の候補と再開用の
+# *.gecが置かれ(1件1MB程度)、判定が終われば消える。
+PFGW_EXE=/home/teruteru/Documents/Projects/openpfgw-code/pfgw64
+PFGW_WORK="${XDG_STATE_HOME:-$HOME/.local/state}/prime-search/pfgw"
+if [ -x "$PFGW_EXE" ]; then
+  export JAVA_OPTS="${JAVA_OPTS:-} -Dcom.github.teruteru.pfgw.executable=$PFGW_EXE -Dcom.github.teruteru.pfgw.workdir=$PFGW_WORK"
+fi
 
 case "$1" in
   037c1901)

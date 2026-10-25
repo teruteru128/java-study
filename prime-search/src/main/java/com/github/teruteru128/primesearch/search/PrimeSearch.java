@@ -4,6 +4,7 @@ import static java.util.concurrent.ForkJoinPool.defaultForkJoinWorkerThreadFacto
 
 import com.github.teruteru128.primesearch.gmp.Gmp;
 import com.github.teruteru128.primesearch.gmp.Mr2fs;
+import com.github.teruteru128.primesearch.gmp.Pfgw;
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.net.InetAddress;
@@ -112,6 +113,12 @@ public class PrimeSearch implements Callable<Integer> {
       }
     }
     logger.info("start");
+    if (Pfgw.isAvailable()) {
+      logger.info("pfgw高速経路: 有効({}、{}スレッド/候補、作業ディレクトリ{})", Pfgw.executable(),
+          Pfgw.threads(), Pfgw.workDir());
+    } else {
+      logger.warn("pfgw高速経路: 無効(mr2fsかGMPで判定します): {}", Pfgw.unavailableReason());
+    }
     if (Mr2fs.isAvailable()) {
       logger.info("mr2fs高速経路: 有効");
     } else {

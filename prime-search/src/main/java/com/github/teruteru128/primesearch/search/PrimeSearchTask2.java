@@ -2,6 +2,7 @@ package com.github.teruteru128.primesearch.search;
 
 import com.github.teruteru128.primesearch.gmp.Gmp;
 import com.github.teruteru128.primesearch.gmp.Mr2fs;
+import com.github.teruteru128.primesearch.gmp.Pfgw;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.sql.DriverManager;
@@ -39,7 +40,7 @@ public class PrimeSearchTask2 implements Callable<Result> {
   }
 
   @Override
-  public Result call() throws SQLException {
+  public Result call() throws SQLException, InterruptedException {
     if (!claim()) {
       return new Result(step, Result.SKIP, 0, 0);
     }
@@ -51,10 +52,15 @@ public class PrimeSearchTask2 implements Callable<Result> {
     long finish;
     int result;
     start = System.nanoTime();
-    // 高速経路(FLINT fft_small)で底2の判定をして、合成数ならそこで確定する。通った候補
-    // (約1/3万)と、高速経路が使えない場合(-1)は、従来どおりGMPのBPSWで判定する。
+    // 高速経路で判定して、合成数ならそこで確定する。まずPFGW(gwnum、底3のFermat)、
+    // それが使えない場合(-1)はFLINT fft_small(底2のMiller-Rabin)。通った候補(約1/3万)と、
+    // どちらも使えない場合は、従来どおりGMPのBPSWで判定する。
     // 素数の確認は常にGMPが行うので、結果の意味は従来と変わらない。
-    if (Mr2fs.strongBase2(candidate) == 0) {
+    var fast = Pfgw.fermat(candidate, Long.toUnsignedString(id) + "-" + step);
+    if (fast == -1) {
+      fast = Mr2fs.strongBase2(candidate);
+    }
+    if (fast == 0) {
       result = Result.COMPOSITE;
     } else {
       result = Gmp.probabPrimeP(candidate, 24);
