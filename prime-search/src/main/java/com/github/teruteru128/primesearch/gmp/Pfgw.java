@@ -139,6 +139,9 @@ public final class Pfgw {
       command.add(EXECUTABLE.toString());
       // 篩済みなので試し割りはしない
       command.add("-f0");
+      // 付けないとPFGWは自分でnice 19(idle優先度)に下がる。本命の計算なので、
+      // nice 19のesieveなどより優先させる
+      command.add("-N");
       // 再開用ファイルは進捗表示のたびに(CPU時間20分経っていれば)保存されるので、
       // -u0で表示を止めてはいけない。100000回は約3分ごと
       command.add("-u100000");

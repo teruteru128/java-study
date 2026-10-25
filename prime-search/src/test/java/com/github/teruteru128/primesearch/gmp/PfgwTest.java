@@ -10,6 +10,7 @@ import com.github.teruteru128.gmp.linux.gmp_h;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Test;
@@ -71,7 +72,15 @@ class PfgwTest {
     thread.start();
     // PFGWが63万桁を読み込んでFFTの準備を終え、計算に入るまで待つ
     TimeUnit.SECONDS.sleep(10);
-    assertTrue(ProcessHandle.current().children().findAny().isPresent(), "PFGWが動いている");
+    var pfgw = ProcessHandle.current().children().findAny();
+    assertTrue(pfgw.isPresent(), "PFGWが動いている");
+    // -Nを付けないと、PFGWは自分でnice 19に下がる。JVMと同じ優先度で走っていること
+    var nice = Files.readString(Path.of("/proc", Long.toString(pfgw.get().pid()), "stat")).split(" ")[18];
+    var ownNice = Files.readString(Path.of("/proc/self/stat")).split(" ")[18];
+    // テスト自体をnice 19で走らせたときは、-Nの有無で差が出ないので比べない
+    if (!ownNice.equals("19")) {
+      assertEquals(ownNice, nice, "PFGWのnice値");
+    }
     thread.interrupt();
     thread.join(TimeUnit.SECONDS.toMillis(30));
     assertFalse(thread.isAlive());
