@@ -59,7 +59,7 @@ public class AddressCalc4 implements Callable<Void> {
     // 1件ずつのOpenSSL経路へ落ちる
     try (var calculator = new RipeCalculator()) {
       System.err.printf("16レーン実装: %s%n",
-          RipeCalculator.isBatchAccelerated() ? "有効" : "無効(1件ずつ計算します)");
+          RipeCalculator.batchImplementation());
       calculator.setSignKey(signKey, 0);
       for (int i = 0; i < 256; i++) {
         var file = Path.of(String.format(fileTemplate, i));

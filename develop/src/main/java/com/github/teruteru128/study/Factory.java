@@ -1636,7 +1636,7 @@ public class Factory implements Callable<Integer> {
     }
     System.err.println(num + " keys");
     logger.info("16レーン実装: {}",
-        RipeCalculator.isBatchAccelerated() ? "有効" : "無効(1件ずつ計算します)");
+        RipeCalculator.batchImplementation());
     // 1ファイルを自分自身と総当たりする(A×A)。署名鍵ごとに並列化し、
     // 暗号化鍵は16件ずつまとめて回す
     try (var arena = Arena.ofShared();

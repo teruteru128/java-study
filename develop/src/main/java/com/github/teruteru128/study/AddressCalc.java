@@ -114,7 +114,7 @@ public class AddressCalc implements Callable<Void> {
     }
     logger.info("{}スレッドで探索します", threads);
     logger.info("16レーン実装: {}",
-        RipeCalculator.isBatchAccelerated() ? "有効" : "無効(1件ずつ計算します)");
+        RipeCalculator.batchImplementation());
     // 2ファイルで約2.1GB。ヒープに読むとGCを無駄に働かせるのでmmapする。
     // 全スレッドから読むのでofConfinedではなくofShared
     try (var arena = Arena.ofShared()) {

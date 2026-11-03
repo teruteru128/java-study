@@ -320,5 +320,184 @@ public class bmhash16_h extends bmhash16_h$shared {
            throw new AssertionError("should not reach here", ex$);
         }
     }
+
+    private static class ripe16_available {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            bmhash16_h.C_INT    );
+
+        public static final MemorySegment ADDR = SYMBOL_LOOKUP.findOrThrow("ripe16_available");
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(ADDR, DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int ripe16_available()
+     * }
+     */
+    public static FunctionDescriptor ripe16_available$descriptor() {
+        return ripe16_available.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int ripe16_available()
+     * }
+     */
+    public static MethodHandle ripe16_available$handle() {
+        return ripe16_available.HANDLE;
+    }
+
+    /**
+     * Address for:
+     * {@snippet lang=c :
+     * int ripe16_available()
+     * }
+     */
+    public static MemorySegment ripe16_available$address() {
+        return ripe16_available.ADDR;
+    }
+
+    /**
+     * {@snippet lang=c :
+     * int ripe16_available()
+     * }
+     */
+    public static int ripe16_available() {
+        var mh$ = ripe16_available.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("ripe16_available");
+            }
+            return (int)mh$.invokeExact();
+        } catch (Error | RuntimeException ex) {
+           throw ex;
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class ripe16_set_sign_key {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            bmhash16_h.C_POINTER,
+            bmhash16_h.C_POINTER
+        );
+
+        public static final MemorySegment ADDR = SYMBOL_LOOKUP.findOrThrow("ripe16_set_sign_key");
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(ADDR, DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void ripe16_set_sign_key(ripe16_sign_ctx *ctx, const unsigned char *sign_key)
+     * }
+     */
+    public static FunctionDescriptor ripe16_set_sign_key$descriptor() {
+        return ripe16_set_sign_key.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void ripe16_set_sign_key(ripe16_sign_ctx *ctx, const unsigned char *sign_key)
+     * }
+     */
+    public static MethodHandle ripe16_set_sign_key$handle() {
+        return ripe16_set_sign_key.HANDLE;
+    }
+
+    /**
+     * Address for:
+     * {@snippet lang=c :
+     * void ripe16_set_sign_key(ripe16_sign_ctx *ctx, const unsigned char *sign_key)
+     * }
+     */
+    public static MemorySegment ripe16_set_sign_key$address() {
+        return ripe16_set_sign_key.ADDR;
+    }
+
+    /**
+     * {@snippet lang=c :
+     * void ripe16_set_sign_key(ripe16_sign_ctx *ctx, const unsigned char *sign_key)
+     * }
+     */
+    public static void ripe16_set_sign_key(MemorySegment ctx, MemorySegment sign_key) {
+        var mh$ = ripe16_set_sign_key.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("ripe16_set_sign_key", ctx, sign_key);
+            }
+            mh$.invokeExact(ctx, sign_key);
+        } catch (Error | RuntimeException ex) {
+           throw ex;
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class ripe16 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            bmhash16_h.C_POINTER,
+            bmhash16_h.C_POINTER,
+            bmhash16_h.C_POINTER
+        );
+
+        public static final MemorySegment ADDR = SYMBOL_LOOKUP.findOrThrow("ripe16");
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(ADDR, DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void ripe16(const ripe16_sign_ctx *ctx, const unsigned char *enc_keys, unsigned char *out)
+     * }
+     */
+    public static FunctionDescriptor ripe16$descriptor() {
+        return ripe16.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void ripe16(const ripe16_sign_ctx *ctx, const unsigned char *enc_keys, unsigned char *out)
+     * }
+     */
+    public static MethodHandle ripe16$handle() {
+        return ripe16.HANDLE;
+    }
+
+    /**
+     * Address for:
+     * {@snippet lang=c :
+     * void ripe16(const ripe16_sign_ctx *ctx, const unsigned char *enc_keys, unsigned char *out)
+     * }
+     */
+    public static MemorySegment ripe16$address() {
+        return ripe16.ADDR;
+    }
+
+    /**
+     * {@snippet lang=c :
+     * void ripe16(const ripe16_sign_ctx *ctx, const unsigned char *enc_keys, unsigned char *out)
+     * }
+     */
+    public static void ripe16(MemorySegment ctx, MemorySegment enc_keys, MemorySegment out) {
+        var mh$ = ripe16.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("ripe16", ctx, enc_keys, out);
+            }
+            mh$.invokeExact(ctx, enc_keys, out);
+        } catch (Error | RuntimeException ex) {
+           throw ex;
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
 }
 

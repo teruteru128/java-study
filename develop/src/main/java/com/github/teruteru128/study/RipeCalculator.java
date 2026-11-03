@@ -42,6 +42,11 @@ public final class RipeCalculator implements AutoCloseable {
   private final MemorySegment digests16;
   /** バッチ用。16件ぶんのripe */
   private final MemorySegment ripes16;
+  /**
+   * 一体版({@link BmHash16#ripe})用の、署名用公開鍵ごとの事前計算。一体版が使えないときはnull。
+   * {@link #input}の前半(署名用公開鍵)と常に対応させておくこと
+   */
+  private final MemorySegment signContext;
 
   public RipeCalculator() {
     try {
@@ -61,6 +66,13 @@ public final class RipeCalculator implements AutoCloseable {
       suffixes16 = arena.allocate((long) BmHash16.LANES * PUBLIC_KEY_LENGTH);
       digests16 = arena.allocate((long) BmHash16.LANES * BmHash16.SHA512_DIGEST_LENGTH);
       ripes16 = arena.allocate((long) BmHash16.LANES * BmHash16.RIPEMD160_DIGEST_LENGTH);
+      if (BmHash16.isRipeAvailable()) {
+        signContext = BmHash16.allocateSignContext(arena);
+        // setSignKeyを呼ぶ前でも、従来の経路と同じ結果(署名用公開鍵が全部0)になるようにしておく
+        BmHash16.setSignKey(signContext, input);
+      } else {
+        signContext = null;
+      }
     } catch (RuntimeException e) {
       arena.close();
       throw e;
@@ -75,6 +87,7 @@ public final class RipeCalculator implements AutoCloseable {
    */
   public void setSignKey(byte[] key, int offset) {
     MemorySegment.copy(key, offset, input, JAVA_BYTE, 0, PUBLIC_KEY_LENGTH);
+    updateSignContext();
   }
 
   /**
@@ -85,6 +98,13 @@ public final class RipeCalculator implements AutoCloseable {
    */
   public void setSignKey(MemorySegment key, long offset) {
     MemorySegment.copy(key, offset, input, 0, PUBLIC_KEY_LENGTH);
+    updateSignContext();
+  }
+
+  private void updateSignContext() {
+    if (signContext != null) {
+      BmHash16.setSignKey(signContext, input);
+    }
   }
 
   /**
@@ -123,6 +143,14 @@ public final class RipeCalculator implements AutoCloseable {
    */
   public static boolean isBatchAccelerated() {
     return BmHash16.isAvailable();
+  }
+
+  /** バッチの経路の説明。起動ログ用 */
+  public static String batchImplementation() {
+    if (!BmHash16.isAvailable()) {
+      return "無効(1件ずつ計算します)";
+    }
+    return BmHash16.isRipeAvailable() ? "有効(SHA-512とRIPEMD-160の一体版)" : "有効(2段)";
   }
 
   /**
@@ -173,8 +201,13 @@ public final class RipeCalculator implements AutoCloseable {
 
   /** 署名鍵は{@link #setSignKey}で置いたものを使い、16件ぶんのripeを求める */
   private void hashBatch(MemorySegment suffixes, byte[] ripes) {
-    BmHash16.sha512Prefixed(input, suffixes, digests16);
-    BmHash16.ripemd160(digests16, ripes16);
+    if (signContext != null) {
+      // SHA-512とRIPEMD-160を一体で計算する。従来の2段より約1.4倍速い
+      BmHash16.ripe(signContext, suffixes, ripes16);
+    } else {
+      BmHash16.sha512Prefixed(input, suffixes, digests16);
+      BmHash16.ripemd160(digests16, ripes16);
+    }
     MemorySegment.copy(ripes16, JAVA_BYTE, 0, ripes, 0,
         BmHash16.LANES * BmHash16.RIPEMD160_DIGEST_LENGTH);
   }

@@ -56,7 +56,7 @@ public class AddressCalc5 implements Callable<Void> {
     // ダイジェストはAVX-512の16レーン実装に任せる。使えない環境では1件ずつの経路へ落ちる
     try (var calculator = new RipeCalculator()) {
       logger.info("16レーン実装: {}",
-          RipeCalculator.isBatchAccelerated() ? "有効" : "無効(1件ずつ計算します)");
+          RipeCalculator.batchImplementation());
       while (true) {
         // 0b1/signFileNumber/signKeyNumber/encFileNumber/encKeyNumber/L
         // 0b1_00000000_00000000000000_00000000_00000000000000L
