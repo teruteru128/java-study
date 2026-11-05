@@ -15,7 +15,9 @@ module com.github.teruteru.study {
   requires org.apache.commons.statistics.descriptive;
   requires org.apache.commons.statistics.distribution;
   //requires org.apache.commons.codec;
+  requires java.sql;
   requires org.xerial.sqlitejdbc;
+  requires org.postgresql.jdbc;
   requires org.slf4j;
 
   // guava

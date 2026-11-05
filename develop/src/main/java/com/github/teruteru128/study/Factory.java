@@ -213,11 +213,14 @@ public class Factory implements Callable<Integer> {
   private static final int SEARCH_LOG_INTERVAL = 64;
   /**
    * addressSearchで記録に残すripe先頭ゼロの下限(bit)。
-   * 2^48組の全走査1回あたり、45bitで約8本、46bitで4本、47bitで2本、48bitで1本出る期待値。
-   * 以前は48bit(6バイト)ちょうどだけを見て最初の1本で打ち切っていたため、
-   * それ未満の当たりを毎周14本ほど捨てていた。
+   * 2^48組の全走査1回あたり、45bit以上で約8本、46bit以上で4本、47bit以上で2本、48bit以上で1本出る期待値。
+   * 以前は48bit以上(先頭6バイトがゼロ)だけを見て最初の1本で打ち切っていたため、
+   * 45〜47bitの当たりを毎周7本ほど捨てていた。
    */
   private static final int SEARCH_MIN_ZERO_BITS = 45;
+  /** searchSignKeyが正確なビット数を数える前の粗い絞り込み(bit)。記録の下限はこれ以上にする */
+  static final int SEARCH_GATE_ZERO_BITS = 16;
+  static final int SEARCH_RIPE_LENGTH = RIPEMD160_DIGEST_LENGTH;
   private static final VarHandle LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(long[].class,
       ByteOrder.BIG_ENDIAN);
   // byte配列をintとしてリトルエンディアンで読み込むためのVarHandleを取得
@@ -1524,7 +1527,7 @@ public class Factory implements Callable<Integer> {
   }
 
   /** 秒数を日・時・分に整形する。数か月単位になるので日まで出す */
-  private static String formatDuration(double seconds) {
+  static String formatDuration(double seconds) {
     if (!Double.isFinite(seconds) || seconds < 0) {
       return "不明";
     }
@@ -1608,7 +1611,7 @@ public class Factory implements Callable<Integer> {
    * ヒットを追記する。並列ストリームの複数スレッドから呼ばれるので同期する。
    * ヒットは数か月に十数回しか起きないので、競合による速度低下は問題にならない。
    */
-  private static synchronized void recordHit(Path hitFile, int signIndex, int encIndex,
+  static synchronized void recordHit(Path hitFile, int signIndex, int encIndex,
       int zeroBits, byte[] ripes, int base) {
     var line = String.format("%s\t%dbit\toffsetS=%d\toffsetE=%d\tripe=%s%n",
         OffsetDateTime.now(), zeroBits, (long) signIndex * PUBLIC_KEY_LENGTH,
@@ -1620,6 +1623,68 @@ public class Factory implements Callable<Integer> {
       // 記録に失敗しても探索は続ける。ログには必ず残っている
       logger.error("ヒットの記録に失敗しました: {}", line.strip(), e);
     }
+  }
+
+  /** {@link #searchSignKey}が見つけた当たりを受け取る。複数のスレッドから呼ばれる。 */
+  @FunctionalInterface
+  interface SearchHitConsumer {
+
+    void accept(int encIndex, int zeroBits, byte[] ripes, int base);
+  }
+
+  /**
+   * 署名鍵1本を、全暗号化鍵と総当たりする。呼び出し元のスレッドで計算する。
+   * 先頭ゼロがminZeroBits以上(SEARCH_GATE_ZERO_BITS以上であること)なら当たりとして渡す。
+   */
+  static void searchSignKey(MemorySegment keys, int num, int signIndex, int minZeroBits,
+      SearchHitConsumer consumer) {
+    var calculator = SEARCH_CALCULATOR.get();
+    var ripes = SEARCH_RIPES.get();
+    calculator.setSignKey(keys, (long) signIndex * PUBLIC_KEY_LENGTH);
+    for (var j = 0; j < num; j += LANES) {
+      calculator.calcRipeBatch(keys, (long) j * PUBLIC_KEY_LENGTH, ripes);
+      for (var lane = 0; lane < LANES; lane++) {
+        var base = lane * RIPEMD160_DIGEST_LENGTH;
+        // まず先頭16bitで粗く絞る。ここを通るのは2^16組に1回なので、
+        // 正確なビット数の計算が走査全体の速度に影響することはない
+        if (ripes[base] == 0 && ripes[base + 1] == 0) {
+          var zeroBits = leadingZeroBits(ripes, base);
+          if (zeroBits >= minZeroBits) {
+            consumer.accept(j + lane, zeroBits, ripes, base);
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * 1つの鍵ファイルのA×Aを、複数台で分担するために登録する(1回だけ)。接続先は環境変数DB_URL。
+   * addressSearchの進捗ファイルを渡すと、完了済みのぶんはやり直さない。
+   */
+  @Command
+  public int addressSearchInit(@Parameters(arity = "1", paramLabel = "keyFile") Path in,
+      @Option(names = "--import-progress", paramLabel = "file",
+          description = "addressSearchの進捗ファイル。そのサービスを止めてから渡すこと") Path progressFile,
+      @Option(names = "--unit-size", defaultValue = "4096",
+          description = "1区間の署名鍵の本数。16スレッドで1本約0.22秒") int unitSize)
+      throws IOException, SQLException {
+    return AddressSearchCluster.init(in, progressFile, unitSize);
+  }
+
+  /**
+   * addressSearchInitで登録した鍵ファイルのA×Aを、DBから区間をclaimしながら走査する。
+   * 全区間が完了すると終了コード0で終わる。
+   */
+  @Command
+  public int addressSearchWorker(@Parameters(arity = "1", paramLabel = "keyFile") Path in,
+      @Option(names = "--min-zero-bits", defaultValue = "45",
+          description = "記録するripe先頭ゼロの下限(bit)") int minZeroBits,
+      @Option(names = "--worker", description = "DBに記録する名前。既定はホスト名。同時に動かすワーカーごとに変えること")
+      String worker,
+      @Option(names = "--stale-hours", defaultValue = "2",
+          description = "他のワーカーのclaimをこの時間で期限切れとして取り直す") double staleHours)
+      throws IOException, SQLException, InterruptedException {
+    return AddressSearchCluster.work(in, minZeroBits, worker, staleHours);
   }
 
   @Command
@@ -1663,27 +1728,12 @@ public class Factory implements Callable<Integer> {
         return EXIT_CODE_OK;
       }
       IntStream.range(0, num).parallel().filter(i -> !done.get(i)).forEach(i -> {
-        var calculator = SEARCH_CALCULATOR.get();
-        var ripes = SEARCH_RIPES.get();
-        calculator.setSignKey(keys, (long) i * PUBLIC_KEY_LENGTH);
-        for (var j = 0; j < num; j += LANES) {
-          calculator.calcRipeBatch(keys, (long) j * PUBLIC_KEY_LENGTH, ripes);
-          for (var lane = 0; lane < LANES; lane++) {
-            var base = lane * RIPEMD160_DIGEST_LENGTH;
-            // まず先頭40bitで粗く絞る。ここを通るのは2^40組に1回程度なので、
-            // 正確なビット数の計算が走査全体の速度に影響することはない
-            if (ripes[base] == 0 && ripes[base + 1] == 0 && ripes[base + 2] == 0
-                && ripes[base + 3] == 0 && ripes[base + 4] == 0) {
-              var zeroBits = leadingZeroBits(ripes, base);
-              if (zeroBits >= SEARCH_MIN_ZERO_BITS) {
-                hitCount.incrementAndGet();
-                logger.info("★ 先頭ゼロ{}bit: offsetS = {}, offsetE = {}", zeroBits,
-                    (long) i * PUBLIC_KEY_LENGTH, (long) (j + lane) * PUBLIC_KEY_LENGTH);
-                recordHit(hitFile, i, j + lane, zeroBits, ripes, base);
-              }
-            }
-          }
-        }
+        searchSignKey(keys, num, i, SEARCH_MIN_ZERO_BITS, (encIndex, zeroBits, ripes, base) -> {
+          hitCount.incrementAndGet();
+          logger.info("★ 先頭ゼロ{}bit: offsetS = {}, offsetE = {}", zeroBits,
+              (long) i * PUBLIC_KEY_LENGTH, (long) encIndex * PUBLIC_KEY_LENGTH);
+          recordHit(hitFile, i, encIndex, zeroBits, ripes, base);
+        });
         markSignKeyDone(progressFile, done, i);
         var completed = doneSignKeys.incrementAndGet();
         var thisRun = doneThisRun.incrementAndGet();
