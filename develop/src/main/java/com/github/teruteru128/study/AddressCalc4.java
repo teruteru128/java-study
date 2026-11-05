@@ -27,7 +27,7 @@ public class AddressCalc4 implements Callable<Void> {
   private static final VarHandle LONG_HANDLE = MethodHandles.byteArrayViewVarHandle(long[].class,
       ByteOrder.BIG_ENDIAN);
 
-  @Parameters(index = "0", description = "公開鍵ファイル名のテンプレート(例: /path/to/publicKeys%d.bin)")
+  @Parameters(index = "0", description = "公開鍵ファイル名のテンプレート(例: /path/to/publicKeys%%d.bin)")
   public String fileTemplate;
 
   /**
