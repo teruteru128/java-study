@@ -2551,7 +2551,7 @@ public class Factory implements Callable<Integer> {
   @Command
   public int sampleStream(String in) throws IOException, ClassNotFoundException {
     try (var stream = new ObjectInputStream(
-        Base64.getMimeDecoder().wrap(new BufferedInputStream(Files.newInputStream(Path.of(in)))))) {
+        new BufferedInputStream(Files.newInputStream(Path.of(in))))) {
       while (true) {
         try {
           var o = stream.readObject();
