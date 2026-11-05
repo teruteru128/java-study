@@ -8,5 +8,8 @@
 #
 # https://help.github.com/articles/dealing-with-line-endings/
 #
-# These are explicitly windows files and should use crlf
-*.bat           text eol=crlf
+# These are explicitly windows files and should use crlf.
+# Keep the CRLF bytes as they are, in the repository too: Dependabot's gradle-wrapper
+# updates commit gradlew.bat with CRLF, and "text eol=crlf" made that show as a whole-file diff.
+# A new .bat created on Linux has to be saved with CRLF by hand.
+*.bat           -text
